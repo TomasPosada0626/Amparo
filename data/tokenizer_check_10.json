@@ -1,0 +1,12 @@
+[
+  {"id": 1, "category": "Salud / EPS", "query": "Me negaron un medicamento y tengo dolor severo. Que puedo hacer?"},
+  {"id": 41, "category": "Despido", "query": "Me despidieron sin justa causa, tengo derecho a algo?"},
+  {"id": 51, "category": "Arriendo", "query": "Me mude y el propietario no me devuelve el deposito."},
+  {"id": 61, "category": "Reporte en centrales de riesgo", "query": "Ya pague la deuda pero sigo reportado en Datacredito."},
+  {"id": 71, "category": "Accidentes de transito", "query": "Me atropello un carro cuando iba caminando."},
+  {"id": 81, "category": "Relaciones laborales", "query": "Mi jefe me acosa laboralmente, que hago?"},
+  {"id": 91, "category": "Garantias de consumo", "query": "Se me dano una nevera nueva y no me la reciben en garantia."},
+  {"id": 101, "category": "Embargos", "query": "Me embargaron todo el salario, es legal eso?"},
+  {"id": 111, "category": "Comparendos de transito", "query": "Me llego un comparendo por foto-multa y dudo que la velocidad sea correcta."},
+  {"id": 921, "category": "Pensiones y seguridad social", "query": "Me niegan la pension de vejez porque me faltan semanas."}
+]

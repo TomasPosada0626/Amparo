@@ -1,0 +1,19 @@
+# Datos privados (no deben subirse al repo)
+private/
+
+# Salidas generadas (pueden contener contenido derivado del dataset privado)
+artifacts/
+
+# Entornos Python
+.venv/
+__pycache__/
+*.pyc
+.env
+
+# Cachés y artefactos locales
+.ipynb_checkpoints/
+*.egg-info/
+
+# SO
+.DS_Store
+Thumbs.db
