@@ -1,6 +1,10 @@
 # Datos privados (no deben subirse al repo)
 private/
 
+# Borradores de la wiki (M2-M5): se editan localmente y solo se suben
+# a la wiki de GitHub cuando cada milestone este listo para entrega.
+wiki-drafts/
+
 # Salidas generadas (pueden contener contenido derivado del dataset privado)
 artifacts/
 
