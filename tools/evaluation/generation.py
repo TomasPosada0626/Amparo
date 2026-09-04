@@ -120,13 +120,19 @@ def generate_batch(
     label: str,
     max_new_tokens: int = config.MAX_NEW_TOKENS_GENERATION,
     on_result: Optional[Callable[[GenerationResult], None]] = None,
+    progress_every: int = 10,
 ) -> list[GenerationResult]:
     """Genera una respuesta por cada registro de records (formato del
     dataset: {id, category, messages:[system,user,assistant]}). on_result,
     si se pasa, se llama tras cada ejemplo -- util para ir persistiendo a
-    Drive de forma incremental y no perder todo si Colab se desconecta."""
+    Drive de forma incremental y no perder todo si Colab se desconecta.
+    Imprime progreso cada progress_every ejemplos (0 para desactivar) --
+    sin esto, un lote de 200 respuestas no muestra nada en pantalla durante
+    varios minutos y parece trabado aunque este avanzando."""
+    total = len(records)
     results: list[GenerationResult] = []
-    for record in records:
+    start_batch = time.perf_counter()
+    for i, record in enumerate(records, start=1):
         query = record["messages"][1]["content"]
         expected = record["messages"][2]["content"]
         start = time.perf_counter()
@@ -146,4 +152,12 @@ def generate_batch(
         results.append(result)
         if on_result is not None:
             on_result(result)
+        if progress_every and (i % progress_every == 0 or i == total):
+            elapsed = time.perf_counter() - start_batch
+            avg = elapsed / i
+            eta_min = avg * (total - i) / 60
+            print(
+                f"[{label}] {i}/{total} ({100 * i / total:.0f}%) -- "
+                f"{avg:.1f}s/ejemplo, ETA ~{eta_min:.1f} min"
+            )
     return results
