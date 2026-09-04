@@ -63,20 +63,25 @@ def run_position_bias_probe(
     pairs: list[tuple[int, str, str, str]],
     sample_size: int = config.POSITION_BIAS_SAMPLE_SIZE,
     seed: int = config.RANDOM_SEED,
+    progress_every: int = 5,
 ) -> PositionBiasReport:
     """pairs: lista de (id, query, respuesta_baseline, respuesta_fine_tuned).
     Para cada par muestreado, el juez decide dos veces -- orden normal
     (A=baseline, B=fine_tuned) y orden invertido (A=fine_tuned, B=baseline).
     flip_rate_pct = % de pares comparables (sin empate/sin parseo en ninguna
     de las dos pasadas) donde el veredicto cambia solo por el orden."""
+    import time
+
     rng = Random(seed)
     sample = pairs if len(pairs) <= sample_size else rng.sample(pairs, sample_size)
 
     n_flipped = 0
     n_tied_or_unparsed = 0
     details: list[dict] = []
+    total = len(sample)
+    start_probe = time.perf_counter()
 
-    for record_id, query, baseline_resp, finetuned_resp in sample:
+    for i, (record_id, query, baseline_resp, finetuned_resp) in enumerate(sample, start=1):
         raw_normal = generation.run_chat_generation(
             model,
             tokenizer,
@@ -115,6 +120,15 @@ def run_position_bias_probe(
             "verdict_normal": winner_normal,
             "verdict_swapped": winner_swapped,
         })
+
+        if progress_every and (i % progress_every == 0 or i == total):
+            elapsed = time.perf_counter() - start_probe
+            avg = elapsed / i
+            eta_min = avg * (total - i) / 60
+            print(
+                f"[position_bias] {i}/{total} ({100 * i / total:.0f}%) -- "
+                f"{avg:.1f}s/par, ETA ~{eta_min:.1f} min"
+            )
 
     n_pairs = len(sample)
     comparable = n_pairs - n_tied_or_unparsed

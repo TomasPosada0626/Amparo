@@ -143,9 +143,26 @@ def score_response(
 
 
 def score_batch(
-    model, tokenizer, rows: Sequence["generation.GenerationResult"]
+    model,
+    tokenizer,
+    rows: Sequence["generation.GenerationResult"],
+    progress_every: int = 20,
 ) -> list[JudgeScore]:
-    return [
-        score_response(model, tokenizer, row.query, row.expected, row.generated)
-        for row in rows
-    ]
+    import time
+
+    total = len(rows)
+    scores: list[JudgeScore] = []
+    start_batch = time.perf_counter()
+    for i, row in enumerate(rows, start=1):
+        scores.append(
+            score_response(model, tokenizer, row.query, row.expected, row.generated)
+        )
+        if progress_every and (i % progress_every == 0 or i == total):
+            elapsed = time.perf_counter() - start_batch
+            avg = elapsed / i
+            eta_min = avg * (total - i) / 60
+            print(
+                f"[judge] {i}/{total} ({100 * i / total:.0f}%) -- "
+                f"{avg:.1f}s/ejemplo, ETA ~{eta_min:.1f} min"
+            )
+    return scores
