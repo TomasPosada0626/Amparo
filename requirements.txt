@@ -2,3 +2,15 @@ openai>=1.0.0
 python-docx>=1.1.0
 pypdf>=4.0.0
 python-dotenv>=1.0.0
+
+# tools/evaluation (M2 -- harness de evaluacion). Deliberadamente sin
+# torch/transformers/peft/bitsandbytes/accelerate: esas se instalan solo
+# dentro del notebook de Colab (igual que en M1) para no arriesgar
+# reemplazar el build de PyTorch con CUDA que Colab ya trae preinstalado.
+# bert-score tambien queda fuera por el mismo motivo: depende de torch de
+# forma transitiva, asi que se instala junto al resto del stack pesado en
+# colab/evaluacion.ipynb, no aqui.
+sacrebleu>=2.4.0
+rouge-score>=0.1.2
+numpy>=1.26
+pytest>=8.0.0

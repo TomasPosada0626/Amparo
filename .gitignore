@@ -17,6 +17,7 @@ __pycache__/
 # Cachés y artefactos locales
 .ipynb_checkpoints/
 *.egg-info/
+.pytest_cache/
 
 # SO
 .DS_Store
