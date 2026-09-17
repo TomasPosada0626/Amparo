@@ -11,9 +11,10 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from dataclasses import dataclass, field
 from random import Random
-from typing import Optional
+from typing import Callable, Optional
 
 import numpy as np
 
@@ -36,7 +37,7 @@ def build_pairwise_prompt(query: str, response_a: str, response_b: str) -> str:
     )
 
 
-def _parse_pairwise_verdict(raw: str) -> Optional[str]:
+def parse_pairwise_verdict(raw: str) -> Optional[str]:
     match = re.search(r"\{.*\}", raw, re.DOTALL)
     if not match:
         return None
@@ -56,22 +57,43 @@ class PositionBiasReport:
     flip_rate_pct: float
     details: list[dict] = field(default_factory=list)
 
+    def winner_counts(self) -> dict[str, int]:
+        """Cuenta cuantas veces gano cada opcion en cada orden -- IMPORTANTE:
+        flip_rate_pct=0 NO significa "sin sesgo". Si el mismo lado gana
+        siempre en las dos pasadas (ej. 'baseline' 30/30), el flip rate
+        tambien da 0%, pero eso es evidencia de preferencia sistematica, no
+        de neutralidad. Revisar siempre este conteo, no solo flip_rate_pct."""
+        counts: dict[str, int] = {}
+        for d in self.details:
+            for key in ("verdict_normal", "verdict_swapped"):
+                w = d.get(key)
+                if w:
+                    counts[w] = counts.get(w, 0) + 1
+        return counts
 
-def run_position_bias_probe(
-    model,
-    tokenizer,
+
+GenerateFn = Callable[[str, str, int], str]
+"""Firma comun para el backend de generacion del sondeo de position bias:
+(system_prompt, user_content, max_new_tokens) -> texto crudo del modelo."""
+
+
+def _run_position_bias_probe_core(
+    generate_fn: GenerateFn,
     pairs: list[tuple[int, str, str, str]],
-    sample_size: int = config.POSITION_BIAS_SAMPLE_SIZE,
-    seed: int = config.RANDOM_SEED,
-    progress_every: int = 5,
+    sample_size: int,
+    seed: int,
+    progress_every: int,
+    max_tokens: int,
+    log_prefix: str,
 ) -> PositionBiasReport:
-    """pairs: lista de (id, query, respuesta_baseline, respuesta_fine_tuned).
-    Para cada par muestreado, el juez decide dos veces -- orden normal
-    (A=baseline, B=fine_tuned) y orden invertido (A=fine_tuned, B=baseline).
-    flip_rate_pct = % de pares comparables (sin empate/sin parseo en ninguna
-    de las dos pasadas) donde el veredicto cambia solo por el orden."""
-    import time
-
+    """Nucleo compartido del sondeo de position bias: agnostico de si el
+    modelo corre local (GPU) o via una API externa -- solo depende de
+    generate_fn. pairs: lista de (id, query, respuesta_baseline,
+    respuesta_fine_tuned). Para cada par muestreado, el juez decide dos
+    veces -- orden normal (A=baseline, B=fine_tuned) y orden invertido
+    (A=fine_tuned, B=baseline). flip_rate_pct = % de pares comparables (sin
+    empate/sin parseo en ninguna de las dos pasadas) donde el veredicto
+    cambia solo por el orden."""
     rng = Random(seed)
     sample = pairs if len(pairs) <= sample_size else rng.sample(pairs, sample_size)
 
@@ -82,23 +104,19 @@ def run_position_bias_probe(
     start_probe = time.perf_counter()
 
     for i, (record_id, query, baseline_resp, finetuned_resp) in enumerate(sample, start=1):
-        raw_normal = generation.run_chat_generation(
-            model,
-            tokenizer,
+        raw_normal = generate_fn(
             PAIRWISE_JUDGE_SYSTEM_PROMPT,
             build_pairwise_prompt(query, baseline_resp, finetuned_resp),
-            config.MAX_NEW_TOKENS_PAIRWISE_JUDGE,
+            max_tokens,
         )
-        verdict_normal = _parse_pairwise_verdict(raw_normal)
+        verdict_normal = parse_pairwise_verdict(raw_normal)
 
-        raw_swapped = generation.run_chat_generation(
-            model,
-            tokenizer,
+        raw_swapped = generate_fn(
             PAIRWISE_JUDGE_SYSTEM_PROMPT,
             build_pairwise_prompt(query, finetuned_resp, baseline_resp),
-            config.MAX_NEW_TOKENS_PAIRWISE_JUDGE,
+            max_tokens,
         )
-        verdict_swapped = _parse_pairwise_verdict(raw_swapped)
+        verdict_swapped = parse_pairwise_verdict(raw_swapped)
 
         winner_normal = {"a": "baseline", "b": "fine_tuned"}.get(
             verdict_normal, verdict_normal
@@ -126,7 +144,7 @@ def run_position_bias_probe(
             avg = elapsed / i
             eta_min = avg * (total - i) / 60
             print(
-                f"[position_bias] {i}/{total} ({100 * i / total:.0f}%) -- "
+                f"[{log_prefix}] {i}/{total} ({100 * i / total:.0f}%) -- "
                 f"{avg:.1f}s/par, ETA ~{eta_min:.1f} min"
             )
 
@@ -140,6 +158,34 @@ def run_position_bias_probe(
         n_tied_or_unparsed=n_tied_or_unparsed,
         flip_rate_pct=flip_rate_pct,
         details=details,
+    )
+
+
+def run_position_bias_probe(
+    model,
+    tokenizer,
+    pairs: list[tuple[int, str, str, str]],
+    sample_size: int = config.POSITION_BIAS_SAMPLE_SIZE,
+    seed: int = config.RANDOM_SEED,
+    progress_every: int = 5,
+) -> PositionBiasReport:
+    """Sondeo de position bias con el modelo local (mismo backend que
+    generation.py/judge.py). Ver _run_position_bias_probe_core para el
+    detalle del metodo."""
+
+    def generate_fn(system_prompt: str, user_content: str, max_tokens: int) -> str:
+        return generation.run_chat_generation(
+            model, tokenizer, system_prompt, user_content, max_tokens
+        )
+
+    return _run_position_bias_probe_core(
+        generate_fn,
+        pairs,
+        sample_size,
+        seed,
+        progress_every,
+        config.MAX_NEW_TOKENS_PAIRWISE_JUDGE,
+        log_prefix="position_bias",
     )
 
 
