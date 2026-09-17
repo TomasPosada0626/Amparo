@@ -13,12 +13,14 @@ import json
 import re
 import time
 from dataclasses import dataclass, field
+from pathlib import Path
 from random import Random
 from typing import Callable, Optional
 
 import numpy as np
 
 from tools.evaluation import config, generation
+from tools.evaluation.checkpoint import append_checkpoint, load_checkpoint
 
 PAIRWISE_JUDGE_SYSTEM_PROMPT = (
     "Eres un evaluador experto en derecho colombiano. Se te daran dos "
@@ -85,6 +87,7 @@ def _run_position_bias_probe_core(
     progress_every: int,
     max_tokens: int,
     log_prefix: str,
+    checkpoint_path: Optional[Path] = None,
 ) -> PositionBiasReport:
     """Nucleo compartido del sondeo de position bias: agnostico de si el
     modelo corre local (GPU) o via una API externa -- solo depende de
@@ -93,9 +96,18 @@ def _run_position_bias_probe_core(
     veces -- orden normal (A=baseline, B=fine_tuned) y orden invertido
     (A=fine_tuned, B=baseline). flip_rate_pct = % de pares comparables (sin
     empate/sin parseo en ninguna de las dos pasadas) donde el veredicto
-    cambia solo por el orden."""
+    cambia solo por el orden.
+
+    checkpoint_path (opcional): JSONL donde se guarda cada par resuelto a
+    medida que se procesa. Si el archivo ya existe (de una corrida
+    interrumpida), los pares cuyo id ya este ahi se saltan en vez de
+    volver a gastar cupo/tiempo resolviendolos."""
     rng = Random(seed)
     sample = pairs if len(pairs) <= sample_size else rng.sample(pairs, sample_size)
+
+    done = load_checkpoint(checkpoint_path)
+    if done:
+        print(f"[{log_prefix}] checkpoint: {len(done)} pares ya resueltos, se saltan.")
 
     n_flipped = 0
     n_tied_or_unparsed = 0
@@ -104,26 +116,37 @@ def _run_position_bias_probe_core(
     start_probe = time.perf_counter()
 
     for i, (record_id, query, baseline_resp, finetuned_resp) in enumerate(sample, start=1):
-        raw_normal = generate_fn(
-            PAIRWISE_JUDGE_SYSTEM_PROMPT,
-            build_pairwise_prompt(query, baseline_resp, finetuned_resp),
-            max_tokens,
-        )
-        verdict_normal = parse_pairwise_verdict(raw_normal)
+        if record_id in done:
+            entry = done[record_id]
+            winner_normal = entry["verdict_normal"]
+            winner_swapped = entry["verdict_swapped"]
+        else:
+            raw_normal = generate_fn(
+                PAIRWISE_JUDGE_SYSTEM_PROMPT,
+                build_pairwise_prompt(query, baseline_resp, finetuned_resp),
+                max_tokens,
+            )
+            verdict_normal = parse_pairwise_verdict(raw_normal)
 
-        raw_swapped = generate_fn(
-            PAIRWISE_JUDGE_SYSTEM_PROMPT,
-            build_pairwise_prompt(query, finetuned_resp, baseline_resp),
-            max_tokens,
-        )
-        verdict_swapped = parse_pairwise_verdict(raw_swapped)
+            raw_swapped = generate_fn(
+                PAIRWISE_JUDGE_SYSTEM_PROMPT,
+                build_pairwise_prompt(query, finetuned_resp, baseline_resp),
+                max_tokens,
+            )
+            verdict_swapped = parse_pairwise_verdict(raw_swapped)
 
-        winner_normal = {"a": "baseline", "b": "fine_tuned"}.get(
-            verdict_normal, verdict_normal
-        )
-        winner_swapped = {"a": "fine_tuned", "b": "baseline"}.get(
-            verdict_swapped, verdict_swapped
-        )
+            winner_normal = {"a": "baseline", "b": "fine_tuned"}.get(
+                verdict_normal, verdict_normal
+            )
+            winner_swapped = {"a": "fine_tuned", "b": "baseline"}.get(
+                verdict_swapped, verdict_swapped
+            )
+            entry = {
+                "id": record_id,
+                "verdict_normal": winner_normal,
+                "verdict_swapped": winner_swapped,
+            }
+            append_checkpoint(checkpoint_path, entry)
 
         if (
             winner_normal in (None, "empate")
@@ -133,11 +156,7 @@ def _run_position_bias_probe_core(
         elif winner_normal != winner_swapped:
             n_flipped += 1
 
-        details.append({
-            "id": record_id,
-            "verdict_normal": winner_normal,
-            "verdict_swapped": winner_swapped,
-        })
+        details.append(entry)
 
         if progress_every and (i % progress_every == 0 or i == total):
             elapsed = time.perf_counter() - start_probe
@@ -168,10 +187,11 @@ def run_position_bias_probe(
     sample_size: int = config.POSITION_BIAS_SAMPLE_SIZE,
     seed: int = config.RANDOM_SEED,
     progress_every: int = 5,
+    checkpoint_path: Optional[Path] = None,
 ) -> PositionBiasReport:
     """Sondeo de position bias con el modelo local (mismo backend que
     generation.py/judge.py). Ver _run_position_bias_probe_core para el
-    detalle del metodo."""
+    detalle del metodo y de checkpoint_path."""
 
     def generate_fn(system_prompt: str, user_content: str, max_tokens: int) -> str:
         return generation.run_chat_generation(
@@ -186,6 +206,7 @@ def run_position_bias_probe(
         progress_every,
         config.MAX_NEW_TOKENS_PAIRWISE_JUDGE,
         log_prefix="position_bias",
+        checkpoint_path=checkpoint_path,
     )
 
 

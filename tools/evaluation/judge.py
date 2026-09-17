@@ -12,9 +12,11 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional, Sequence
 
 from tools.evaluation import config, generation
+from tools.evaluation.checkpoint import append_checkpoint, load_checkpoint
 
 JUDGE_SYSTEM_PROMPT = (
     "Eres un evaluador experto en derecho colombiano. Tu tarea es calificar, "
@@ -147,16 +149,30 @@ def score_batch(
     tokenizer,
     rows: Sequence["generation.GenerationResult"],
     progress_every: int = 20,
+    checkpoint_path: Optional[Path] = None,
 ) -> list[JudgeScore]:
+    """checkpoint_path (opcional): JSONL donde se guarda cada resultado a
+    medida que se calcula. Si el archivo ya existe (de una corrida
+    interrumpida), las filas cuyo id ya este ahi se saltan en vez de
+    volver a calificarlas."""
     import time
+
+    done = load_checkpoint(checkpoint_path)
+    if done:
+        print(f"[judge] checkpoint: {len(done)} filas ya resueltas, se saltan.")
 
     total = len(rows)
     scores: list[JudgeScore] = []
     start_batch = time.perf_counter()
     for i, row in enumerate(rows, start=1):
-        scores.append(
-            score_response(model, tokenizer, row.query, row.expected, row.generated)
-        )
+        if row.id in done:
+            entry = dict(done[row.id])
+            entry.pop("id")
+            score = JudgeScore(**entry)
+        else:
+            score = score_response(model, tokenizer, row.query, row.expected, row.generated)
+            append_checkpoint(checkpoint_path, {"id": row.id, **score.__dict__})
+        scores.append(score)
         if progress_every and (i % progress_every == 0 or i == total):
             elapsed = time.perf_counter() - start_batch
             avg = elapsed / i

@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import os
 import time
+from pathlib import Path
 from typing import Optional, Sequence
 
 from dotenv import load_dotenv
@@ -28,12 +29,13 @@ from tools.evaluation.bias import (
     PositionBiasReport,
     _run_position_bias_probe_core,
 )
+from tools.evaluation.checkpoint import append_checkpoint, load_checkpoint
 from tools.evaluation.judge import JUDGE_SYSTEM_PROMPT, JudgeScore, build_judge_prompt, parse_judge_output
 
 load_dotenv(config.PROJECT_ROOT / ".env")
 
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
-GROQ_JUDGE_MODEL = os.environ.get("GROQ_JUDGE_MODEL", "llama-3.3-70b-versatile").strip()
+GROQ_JUDGE_MODEL = os.environ.get("GROQ_JUDGE_MODEL", "openai/gpt-oss-120b").strip()
 
 _client: Optional[OpenAI] = None
 
@@ -95,14 +97,34 @@ def score_response(
     return parse_judge_output(raw)
 
 
-def score_batch(rows: Sequence, progress_every: int = 5) -> list[JudgeScore]:
-    """rows: cualquier secuencia de objetos con .query/.expected/.generated
-    (generation.GenerationResult o eval_set.EvalExample)."""
+def score_batch(
+    rows: Sequence,
+    progress_every: int = 5,
+    checkpoint_path: Optional[Path] = None,
+) -> list[JudgeScore]:
+    """rows: cualquier secuencia de objetos con .id/.query/.expected/.generated
+    (generation.GenerationResult o LoadedResult de run_external_judge_local.py).
+
+    checkpoint_path (opcional): JSONL donde se guarda cada resultado a
+    medida que se calcula. Si el archivo ya existe (de una corrida
+    interrumpida por un rate limit, por ejemplo), las filas cuyo id ya
+    este ahi se saltan en vez de volver a gastar cupo calificandolas."""
+    done = load_checkpoint(checkpoint_path)
+    if done:
+        print(f"[external_judge] checkpoint: {len(done)} filas ya resueltas, se saltan.")
+
     total = len(rows)
     scores: list[JudgeScore] = []
     start_batch = time.perf_counter()
     for i, row in enumerate(rows, start=1):
-        scores.append(score_response(row.query, row.expected, row.generated))
+        if row.id in done:
+            entry = dict(done[row.id])
+            entry.pop("id")
+            score = JudgeScore(**entry)
+        else:
+            score = score_response(row.query, row.expected, row.generated)
+            append_checkpoint(checkpoint_path, {"id": row.id, **score.__dict__})
+        scores.append(score)
         if progress_every and (i % progress_every == 0 or i == total):
             elapsed = time.perf_counter() - start_batch
             avg = elapsed / i
@@ -119,12 +141,17 @@ def run_position_bias_probe(
     sample_size: int = config.POSITION_BIAS_SAMPLE_SIZE,
     seed: int = config.RANDOM_SEED,
     progress_every: int = 5,
+    checkpoint_path: Optional[Path] = None,
 ) -> PositionBiasReport:
     """Mismo metodo que bias.run_position_bias_probe (nucleo compartido,
     ver bias._run_position_bias_probe_core) pero con Groq como backend en
     vez de un modelo local -- para contrastar si el patron de preferencia
     observado con el juez Qwen (misma familia) se sostiene con un juez de
-    familia distinta."""
+    familia distinta.
+
+    checkpoint_path (opcional): ver _run_position_bias_probe_core -- evita
+    repetir pares ya resueltos si una corrida anterior se corto (p. ej. por
+    rate limit de Groq)."""
 
     def generate_fn(system_prompt: str, user_content: str, max_tokens: int) -> str:
         return call_groq(system_prompt, user_content, max_tokens)
@@ -137,4 +164,5 @@ def run_position_bias_probe(
         progress_every,
         max_tokens=100,
         log_prefix="external_judge position_bias",
+        checkpoint_path=checkpoint_path,
     )
