@@ -37,6 +37,21 @@ load_dotenv(config.PROJECT_ROOT / ".env")
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
 GROQ_JUDGE_MODEL = os.environ.get("GROQ_JUDGE_MODEL", "openai/gpt-oss-120b").strip()
 
+# openai/gpt-oss-120b es un modelo de RAZONAMIENTO: antes de escribir la
+# respuesta final gasta una parte del presupuesto de tokens "pensando". Con
+# los mismos max_tokens que usa el juez local (100-200) se quedaba sin
+# tokens ANTES de llegar a escribir el JSON -- confirmado en una corrida
+# real: 100% de las respuestas (position bias y eval set) volvieron
+# composite=None, sin ningun error de API de por medio (la llamada
+# "tenia exito", solo que el contenido nunca llegaba a la parte util).
+# reasoning_effort="low" reduce cuanto "piensa"; los limites de abajo dan
+# margen de sobra incluso con reasoning_effort="low". Si mas adelante se
+# usa un modelo que NO sea de razonamiento, reasoning_effort se ignora sin
+# problema (Groq lo acepta como no-op para modelos que no lo soportan).
+GROQ_REASONING_EFFORT = os.environ.get("GROQ_REASONING_EFFORT", "low").strip() or None
+GROQ_MAX_TOKENS_JUDGE = int(os.environ.get("GROQ_MAX_TOKENS_JUDGE", "600"))
+GROQ_MAX_TOKENS_PAIRWISE = int(os.environ.get("GROQ_MAX_TOKENS_PAIRWISE", "400"))
+
 _client: Optional[OpenAI] = None
 
 
@@ -67,16 +82,19 @@ def call_groq(
     llamada) en vez de tragarselo y devolver "" 200+ veces seguidas sin que
     el usuario se entere de por que todo el lote fallo."""
     client = _get_client()
+    kwargs = dict(
+        model=GROQ_JUDGE_MODEL,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_content},
+        ],
+        max_tokens=max_tokens,
+        timeout=timeout_s,
+    )
+    if GROQ_REASONING_EFFORT:
+        kwargs["reasoning_effort"] = GROQ_REASONING_EFFORT
     try:
-        response = client.chat.completions.create(
-            model=GROQ_JUDGE_MODEL,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_content},
-            ],
-            max_tokens=max_tokens,
-            timeout=timeout_s,
-        )
+        response = client.chat.completions.create(**kwargs)
         return (response.choices[0].message.content or "").strip()
     except (APIConnectionError, APITimeoutError, APIError) as exc:
         print(f"[external_judge] error de API Groq: {exc}")
@@ -90,7 +108,7 @@ def score_response(
     query: str,
     reference: str,
     candidate: str,
-    max_tokens: int = config.MAX_NEW_TOKENS_JUDGE,
+    max_tokens: int = GROQ_MAX_TOKENS_JUDGE,
 ) -> JudgeScore:
     prompt = build_judge_prompt(query, reference, candidate)
     raw = call_groq(JUDGE_SYSTEM_PROMPT, prompt, max_tokens)
@@ -162,7 +180,7 @@ def run_position_bias_probe(
         sample_size,
         seed,
         progress_every,
-        max_tokens=100,
+        max_tokens=GROQ_MAX_TOKENS_PAIRWISE,
         log_prefix="external_judge position_bias",
         checkpoint_path=checkpoint_path,
     )

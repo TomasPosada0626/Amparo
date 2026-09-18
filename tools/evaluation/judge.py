@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, Sequence
@@ -86,19 +87,35 @@ def _extract_json_block(raw: str) -> Optional[dict]:
     return None
 
 
+def _normalize_key(s: str) -> str:
+    """NFKD + quitar diacriticos + minusculas -- para que 'concisión' (el
+    modelo a veces usa ortografia correcta con tilde) coincida con la
+    clave pedida en el prompt, 'concision' (sin tilde). Confirmado en una
+    corrida real contra Groq (openai/gpt-oss-120b): el JSON llegaba
+    completo y valido, pero con esa unica clave tildada, y por eso se
+    perdia el 100% de las filas antes de este fix."""
+    s = unicodedata.normalize("NFKD", s)
+    s = "".join(ch for ch in s if not unicodedata.combining(ch))
+    return s.lower().strip()
+
+
 def parse_judge_output(raw: str) -> JudgeScore:
     """Parseo en 3 niveles de fallback: (1) bloque ```json fenced -> json.loads
     directo, (2) primer {...} encontrado por regex -> json.loads, (3) regex
     por campo individual. Si ninguno produce los 4 campos validos (enteros
     1-5), parse_ok=False y composite=None -- la fila se excluye de los
-    promedios pero se cuenta aparte (ver scorecard.py)."""
-    data = _extract_json_block(raw) or {}
+    promedios pero se cuenta aparte (ver scorecard.py). Las claves del JSON
+    (y el texto crudo, para el fallback por regex) se normalizan sin
+    acentos antes de buscarlas."""
+    raw_data = _extract_json_block(raw) or {}
+    data = {_normalize_key(k): v for k, v in raw_data.items()}
+    normalized_raw = _normalize_key(raw)
 
     values: dict[str, Optional[int]] = {}
     for name in CRITERIA:
         v = data.get(name)
         if v is None:
-            m = _FIELD_RE[name].search(raw)
+            m = _FIELD_RE[name].search(normalized_raw)
             v = m.group(1) if m else None
         try:
             v = int(v)
