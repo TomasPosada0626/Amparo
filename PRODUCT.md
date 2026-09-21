@@ -12,7 +12,7 @@ Definido en la wiki del proyecto (sección "Tecnologías" de Home): Python como 
 
 ## Users
 
-Público general en Colombia que enfrenta problemas legales concretos de la vida cotidiana (salud/EPS, despido, arriendo, reporte en centrales de riesgo, accidentes de tránsito, relaciones laborales, garantías de consumo, embargos, comparendos de tránsito), no abogados ni estudiantes de derecho. Suelen consultar en momentos de urgencia o vulnerabilidad (riesgo de salud, pérdida de empleo, desalojo).
+Público general en Colombia que enfrenta problemas legales de cualquier ámbito del derecho colombiano, no abogados ni estudiantes de derecho. El agente está pensado para cubrir la totalidad de los ámbitos legales existentes en Colombia, no solo un subconjunto; los casos más frecuentes en el día a día del público objetivo son de la vida cotidiana (salud/EPS, despido, arriendo, reporte en centrales de riesgo, accidentes de tránsito, relaciones laborales, garantías de consumo, embargos, comparendos de tránsito), pero esa lista es una muestra de los casos más comunes, no el límite del alcance. Suelen consultar en momentos de urgencia o vulnerabilidad (riesgo de salud, pérdida de empleo, desalojo).
 
 ## Product Purpose
 

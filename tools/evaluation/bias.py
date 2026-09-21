@@ -1,0 +1,277 @@
+"""Mitigacion y medicion de sesgos del LLM-as-judge (wiki-drafts/M2.md,
+seccion 5): position bias, length bias y self-preference bias.
+
+Las funciones de sondeo (run_position_bias_probe) requieren GPU/modelo
+cargado, igual que generation.py/judge.py. Las funciones de analisis
+estadistico (length_bias_correlation, self_preference_gap,
+judge_vs_similarity_correlation) son puro Python/numpy y si son testeables
+sin GPU.
+"""
+from __future__ import annotations
+
+import json
+import re
+import time
+from dataclasses import dataclass, field
+from pathlib import Path
+from random import Random
+from typing import Callable, Optional
+
+import numpy as np
+
+from tools.evaluation import config, generation
+from tools.evaluation.checkpoint import append_checkpoint, load_checkpoint
+
+PAIRWISE_JUDGE_SYSTEM_PROMPT = (
+    "Eres un evaluador experto en derecho colombiano. Se te daran dos "
+    "respuestas (A y B) a la misma consulta legal. Decide cual es mejor, o "
+    "si estan empatadas. Responde EXCLUSIVAMENTE con un JSON valido: "
+    '{"veredicto": "A"|"B"|"empate", "confianza": <entero 1-5>}'
+)
+
+
+def build_pairwise_prompt(query: str, response_a: str, response_b: str) -> str:
+    return (
+        f'Consulta del usuario:\n"{query}"\n\n'
+        f'Respuesta A:\n"{response_a}"\n\n'
+        f'Respuesta B:\n"{response_b}"\n\n'
+        "¿Cual respuesta es mejor? Responde solo con el JSON."
+    )
+
+
+def parse_pairwise_verdict(raw: str) -> Optional[str]:
+    match = re.search(r"\{.*\}", raw, re.DOTALL)
+    if not match:
+        return None
+    try:
+        data = json.loads(match.group(0))
+    except (json.JSONDecodeError, ValueError):
+        return None
+    veredicto = str(data.get("veredicto", "")).strip().lower()
+    return veredicto if veredicto in ("a", "b", "empate") else None
+
+
+@dataclass
+class PositionBiasReport:
+    n_pairs: int
+    n_flipped: int
+    n_tied_or_unparsed: int
+    flip_rate_pct: float
+    details: list[dict] = field(default_factory=list)
+
+    def winner_counts(self) -> dict[str, int]:
+        """Cuenta cuantas veces gano cada opcion en cada orden -- IMPORTANTE:
+        flip_rate_pct=0 NO significa "sin sesgo". Si el mismo lado gana
+        siempre en las dos pasadas (ej. 'baseline' 30/30), el flip rate
+        tambien da 0%, pero eso es evidencia de preferencia sistematica, no
+        de neutralidad. Revisar siempre este conteo, no solo flip_rate_pct."""
+        counts: dict[str, int] = {}
+        for d in self.details:
+            for key in ("verdict_normal", "verdict_swapped"):
+                w = d.get(key)
+                if w:
+                    counts[w] = counts.get(w, 0) + 1
+        return counts
+
+
+GenerateFn = Callable[[str, str, int], str]
+"""Firma comun para el backend de generacion del sondeo de position bias:
+(system_prompt, user_content, max_new_tokens) -> texto crudo del modelo."""
+
+
+def _run_position_bias_probe_core(
+    generate_fn: GenerateFn,
+    pairs: list[tuple[int, str, str, str]],
+    sample_size: int,
+    seed: int,
+    progress_every: int,
+    max_tokens: int,
+    log_prefix: str,
+    checkpoint_path: Optional[Path] = None,
+) -> PositionBiasReport:
+    """Nucleo compartido del sondeo de position bias: agnostico de si el
+    modelo corre local (GPU) o via una API externa -- solo depende de
+    generate_fn. pairs: lista de (id, query, respuesta_baseline,
+    respuesta_fine_tuned). Para cada par muestreado, el juez decide dos
+    veces -- orden normal (A=baseline, B=fine_tuned) y orden invertido
+    (A=fine_tuned, B=baseline). flip_rate_pct = % de pares comparables (sin
+    empate/sin parseo en ninguna de las dos pasadas) donde el veredicto
+    cambia solo por el orden.
+
+    checkpoint_path (opcional): JSONL donde se guarda cada par resuelto a
+    medida que se procesa. Si el archivo ya existe (de una corrida
+    interrumpida), los pares cuyo id ya este ahi se saltan en vez de
+    volver a gastar cupo/tiempo resolviendolos."""
+    rng = Random(seed)
+    sample = pairs if len(pairs) <= sample_size else rng.sample(pairs, sample_size)
+
+    done = load_checkpoint(checkpoint_path)
+    if done:
+        print(f"[{log_prefix}] checkpoint: {len(done)} pares ya resueltos, se saltan.")
+
+    n_flipped = 0
+    n_tied_or_unparsed = 0
+    details: list[dict] = []
+    total = len(sample)
+    start_probe = time.perf_counter()
+
+    for i, (record_id, query, baseline_resp, finetuned_resp) in enumerate(sample, start=1):
+        if record_id in done:
+            entry = done[record_id]
+            winner_normal = entry["verdict_normal"]
+            winner_swapped = entry["verdict_swapped"]
+        else:
+            raw_normal = generate_fn(
+                PAIRWISE_JUDGE_SYSTEM_PROMPT,
+                build_pairwise_prompt(query, baseline_resp, finetuned_resp),
+                max_tokens,
+            )
+            verdict_normal = parse_pairwise_verdict(raw_normal)
+
+            raw_swapped = generate_fn(
+                PAIRWISE_JUDGE_SYSTEM_PROMPT,
+                build_pairwise_prompt(query, finetuned_resp, baseline_resp),
+                max_tokens,
+            )
+            verdict_swapped = parse_pairwise_verdict(raw_swapped)
+
+            winner_normal = {"a": "baseline", "b": "fine_tuned"}.get(
+                verdict_normal, verdict_normal
+            )
+            winner_swapped = {"a": "fine_tuned", "b": "baseline"}.get(
+                verdict_swapped, verdict_swapped
+            )
+            entry = {
+                "id": record_id,
+                "verdict_normal": winner_normal,
+                "verdict_swapped": winner_swapped,
+            }
+            append_checkpoint(checkpoint_path, entry)
+
+        if (
+            winner_normal in (None, "empate")
+            or winner_swapped in (None, "empate")
+        ):
+            n_tied_or_unparsed += 1
+        elif winner_normal != winner_swapped:
+            n_flipped += 1
+
+        details.append(entry)
+
+        if progress_every and (i % progress_every == 0 or i == total):
+            elapsed = time.perf_counter() - start_probe
+            avg = elapsed / i
+            eta_min = avg * (total - i) / 60
+            print(
+                f"[{log_prefix}] {i}/{total} ({100 * i / total:.0f}%) -- "
+                f"{avg:.1f}s/par, ETA ~{eta_min:.1f} min"
+            )
+
+    n_pairs = len(sample)
+    comparable = n_pairs - n_tied_or_unparsed
+    flip_rate_pct = round(100.0 * n_flipped / comparable, 1) if comparable else 0.0
+
+    return PositionBiasReport(
+        n_pairs=n_pairs,
+        n_flipped=n_flipped,
+        n_tied_or_unparsed=n_tied_or_unparsed,
+        flip_rate_pct=flip_rate_pct,
+        details=details,
+    )
+
+
+def run_position_bias_probe(
+    model,
+    tokenizer,
+    pairs: list[tuple[int, str, str, str]],
+    sample_size: int = config.POSITION_BIAS_SAMPLE_SIZE,
+    seed: int = config.RANDOM_SEED,
+    progress_every: int = 5,
+    checkpoint_path: Optional[Path] = None,
+) -> PositionBiasReport:
+    """Sondeo de position bias con el modelo local (mismo backend que
+    generation.py/judge.py). Ver _run_position_bias_probe_core para el
+    detalle del metodo y de checkpoint_path."""
+
+    def generate_fn(system_prompt: str, user_content: str, max_tokens: int) -> str:
+        return generation.run_chat_generation(
+            model, tokenizer, system_prompt, user_content, max_tokens
+        )
+
+    return _run_position_bias_probe_core(
+        generate_fn,
+        pairs,
+        sample_size,
+        seed,
+        progress_every,
+        config.MAX_NEW_TOKENS_PAIRWISE_JUDGE,
+        log_prefix="position_bias",
+        checkpoint_path=checkpoint_path,
+    )
+
+
+def length_bias_correlation(scores: list[float], lengths: list[int]) -> dict:
+    """Correlacion de Pearson entre el score del juez y la longitud (en
+    caracteres) de la respuesta -- un |r| alto sugiere que el juez premia
+    verbosidad en vez de calidad."""
+    if len(scores) < 2 or len(scores) != len(lengths):
+        return {"pearson_r": None, "n": len(scores)}
+    r = float(np.corrcoef(scores, lengths)[0, 1])
+    return {"pearson_r": round(r, 3) if not np.isnan(r) else None, "n": len(scores)}
+
+
+def normalize_judge_score(composite_1_5: float) -> float:
+    return (composite_1_5 - 1) / 4
+
+
+def normalize_similarity(similarity_pct: float) -> float:
+    return similarity_pct / 100
+
+
+@dataclass
+class SelfPreferenceReport:
+    judge_gap: float
+    similarity_gap: float
+    divergence: float
+    flagged: bool
+
+
+def self_preference_gap(
+    judge_baseline: list[float],
+    judge_finetuned: list[float],
+    sim_baseline: list[float],
+    sim_finetuned: list[float],
+) -> SelfPreferenceReport:
+    """Compara la mejora fine-tuned-vs-baseline que ve el juez (misma familia
+    de modelo que el fine-tuned) contra la que ve la heuristica lexica
+    independiente similarity_pct. Una divergencia grande entre ambas senales
+    es evidencia de que el juez podria estar favoreciendo/penalizando por
+    compartir familia de modelo, no por calidad real."""
+    judge_gap = float(
+        np.mean([normalize_judge_score(s) for s in judge_finetuned])
+        - np.mean([normalize_judge_score(s) for s in judge_baseline])
+    )
+    similarity_gap = float(
+        np.mean([normalize_similarity(s) for s in sim_finetuned])
+        - np.mean([normalize_similarity(s) for s in sim_baseline])
+    )
+    divergence = judge_gap - similarity_gap
+    flagged = abs(divergence) > config.SELF_PREF_DIVERGENCE_THRESHOLD
+    return SelfPreferenceReport(
+        judge_gap=round(judge_gap, 3),
+        similarity_gap=round(similarity_gap, 3),
+        divergence=round(divergence, 3),
+        flagged=flagged,
+    )
+
+
+def judge_vs_similarity_correlation(
+    judge_scores: list[float], similarity_scores: list[float]
+) -> dict:
+    if len(judge_scores) < 2 or len(judge_scores) != len(similarity_scores):
+        return {"pearson_r": None, "n": len(judge_scores)}
+    r = float(np.corrcoef(judge_scores, similarity_scores)[0, 1])
+    return {
+        "pearson_r": round(r, 3) if not np.isnan(r) else None,
+        "n": len(judge_scores),
+    }
