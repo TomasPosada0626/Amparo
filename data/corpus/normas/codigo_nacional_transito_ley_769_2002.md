@@ -1,0 +1,2316 @@
+---
+title: "por la cual se expide el Código Nacional de Tránsito Terrestre y se dictan otras disposiciones"
+identifier: "LEY-769-2002"
+country: "co"
+rank: "ley"
+publication_date: "2002-09-13"
+last_updated: "2025-07-15"
+status: "in_force"
+source: "https://www.suin-juriscol.gov.co/viewDocument.asp?id=1826223"
+department: "CONGRESO DE COLOMBIA"
+document_status_raw: "Vigente"
+gazette_reference: "DIARIO OFICIAL. AÑO CXXXVIII. N. 44893. 7, AGOSTO, 2002. PÁG. 33."
+gazette_number: "44932"
+gazette_page: "1"
+gazette_pdf_page: "1"
+subtype: "LEY ORDINARIA"
+sector: "Transporte"
+code_name: "CODIGO NACIONAL DEL TRANSITO TERRESTRE"
+entry_into_force: "2002-12-13"
+is_code: "true"
+modification_count: "125"
+modification_summary: "Modificado [Artículo 1 LEY 1383 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1678441#ver_1678444) · Modificado [Artículo 2 LEY 1383 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1678441#ver_1678445) · Modificado parcialmente (inciso 1 ) [Artículo 8 LEY 1310 de 2009](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1677210#ver_1677220) · Modificado [Artículo 3 LEY 1383 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1678441#ver_1678446) · Modificado [Artículo 58 LEY 2197 de 2022](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30043812#ver_30267237) · Adicionado parcialmente (Parágrafo 5 ) [Artículo 5 LEY 1843 de 2017](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30032605#ver_30121965) · Modificado [Artículo 2 LEY 2283 de 2023](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30045202#ver_30296430) · Modificado [Artículo 3 LEY 2283 de 2023](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30045202#ver_30296431) · Modificado [Artículo 1 LEY 1397 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1678789#ver_1678792) · Modificado [Artículo 6 LEY 2251 de 2022](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30044456#ver_30284351) · Reglamentado (inciso 2 ) [DECRETO 289 de 2009](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1067096#ver_1067097) · Modificado [Artículo 4 LEY 1383 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1678441#ver_1678447) · Modificado parcialmente (parágrafo 1 ) [Artículo 244 LEY 1450 de 2011](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1680917#ver_1681172) · Derogado parcialmente (parágrafos 1 y 2 ) [Artículo 267 LEY 1753 de 2015](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30019885#ver_30048012) · Modificado [Artículo 195 DECRETO 19 de 2012](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1004430#ver_1004646) · Modificado [Artículo 2 LEY 1397 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1678789#ver_1678793) · Modificado [Artículo 7 LEY 2251 de 2022](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30044456#ver_30284352) · Modificado [Artículo 196 DECRETO 19 de 2012](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1004430#ver_1004647) · Modificado [Artículo 5 LEY 1383 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1678441#ver_1678448) · Derogado parcialmente (parágrafo 3 ) [Artículo 276 LEY 1450 de 2011](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1680917#ver_1681205) · Modificado [Artículo 3 LEY 1397 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1678789#ver_1678794) · Nota (Suspéndase por el término de hasta dos (2) años contados a partir de 31 diciembre de 2021, el vencimiento de las licencias de conducción a que se refiere el artículo 22 de la Ley 769 de 2002 modificado por el artículo 197 del Decreto Ley 019 de 2012, que venzan entre el 1 y el 31 de enero de 2022. ) [Artículo 11 LEY 2161 de 2021](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30043511#ver_30262338) · Modificado [Artículo 197 DECRETO 19 de 2012](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1004430#ver_1004648) · Modificado [Artículo 6 LEY 1383 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1678441#ver_1678449) · Modificado [Artículo 198 DECRETO 19 de 2012](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1004430#ver_1004649) · Modificado [Artículo 7 LEY 1383 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1678441#ver_1678450) · Modificado parcialmente (parágrafo ) [Artículo 3 LEY 1696 de 2013](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1686534#ver_1686539) · Modificado parcialmente (parágrafo 1 ) [Artículo 1 LEY 903 de 2004](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1670201#ver_1670204) · Modificado [Artículo 8 LEY 1383 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1678441#ver_1678451) · Reglamentado (inciso 1 ) [DECRETO 289 de 2009](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1067096#ver_1067097) · Modificado parcialmente (Parágrafo ) [Artículo 1 LEY 1281 de 2009](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1676795#ver_1676798) · Modificado parcialmente (parágrafo ) [Artículo 2 LEY 903 de 2004](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1670201#ver_1670205) · Adicionado (inciso 2 ) [Artículo 199 DECRETO 19 de 2012](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1004430#ver_1004650) · Reglamentado (parágrafo 1° ) [DECRETO 1574 de 2022](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30044531#ver_30285825) · Adicionado (los parágrafos 1, 2 y 3 ) [Artículo 2 LEY 2161 de 2021](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30043511#ver_30262328) · Reglamentado (Con carácter transitorio el parágrafo 1° ) [DECRETO 2497 de 2022](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30045101#ver_30294854)"
+---
+# por la cual se expide el Código Nacional de Tránsito Terrestre y se dictan otras disposiciones
+
+## **TITULO I**
+
+**DISPOSICIONES GENERALES**
+
+### **CAPÍTULO I**
+
+**Principios**
+
+##### **Artículo 1°**. *Ámbito de aplicación y principios.* Las normas del presente Código rigen en todo el territorio nacional y regulan la circulación de los peatones, usuarios, pasajeros, conductores, motociclistas, ciclistas, agentes de tránsito, y vehículos por las vías públicas o privadas que están abiertas al público, o en las vías privadas, que internamente circulen vehículos; así como la actuación y procedimientos de las autoridades de tránsito.
+
+En desarrollo de lo dispuesto por el artículo 24 de la Constitución Política, todo colombiano tiene derecho a circular libremente por el territorio nacional, pero está sujeto a la intervención y reglamentación de las autoridades para garantía de la seguridad y comodidad de los habitantes, especialmente de los peatones y de los discapacitados físicos y mentales, para la preservación de un ambiente sano y la protección del uso común del espacio público.
+
+Le corresponde al Ministerio de Transporte como autoridad suprema de tránsito definir, orientar, vigilar e inspeccionar la ejecución de la política nacional en materia de tránsito.
+
+Las autoridades de tránsito promoverán la difusión y el conocimiento de las disposiciones contenidas en este código.
+
+Los principios rectores de este código son: seguridad de los usuarios, la movilidad, la calidad, la oportunidad, el cubrimiento, la libertad de acceso, la plena identificación, libre circulación, educación y descentralización.
+
+##### **Artículo 2°.***Definiciones*. Para la aplicación e interpretación de este código, se tendrán en cuenta las siguientes definiciones:
+
+**Acera o andén:** Franja longitudinal de la vía urbana, destinada exclusivamente a la circulación de peatones, ubicada a los costados de ésta.
+
+**Accesibilidad:** Condición esencial de los servicios públicos que permite en cualquier espacio o ambiente exterior o interior el fácil disfrute de dicho servicio por parte de toda la población.
+
+**Accidente de tránsito:** Evento generalmente involuntario, generado al menos por un vehículo en movimiento, que causa daños a personas y bienes involucrados en él e igualmente afecta la normal circulación de los vehículos que se movilizan por la vía o vías comprendidas en el lugar o dentro de la zona de influencia del hecho.
+
+**Acompañante:** Persona que viaja con el conductor de un vehículo automotor.
+
+**Adelantamiento:** Maniobra mediante la cual un vehículo se pone delante de otro vehículo que lo antecede en el mismo carril de una calzada.
+
+**Agente de tránsito:** Todo funcionario o persona civil identificada que está investida de autoridad para regular la circulación vehicular y peatonal y vigilar, controlar e intervenir en el cumplimiento de las normas de tránsito y transporte en cada uno de los entes territoriales.
+
+**Alcoholemia:** Cantidad de alcohol que tiene una persona en determinado momento en su sangre.
+
+**Alcoholometría:** Examen o prueba de laboratorio, o por medio técnico que determina el nivel de alcohol etílico en la sangre.
+
+**Alcoholuria:** Examen o prueba de laboratorio, o por otro medio técnico que determina el nivel de alcohol etílico en la orina.
+
+**Alcohosensor:** Sistema para determinar alcohol en aire exhalado.
+
+**Año del modelo:** Año que asigna el fabricante o ensamblador al modelo del vehículo, de acuerdo con la declaración de despacho para consumo.
+
+**Aprendiz:** Persona que recibe de un instructor, técnicas de conducción de vehículos automotores y motocicletas.
+
+**Automóvil antiguo:** Automotor que haya cumplido 35 años y que conserve sus especificaciones y características originales de fábrica, presentación y funcionamiento.
+
+**Automóvil clásico:** Automotor que haya cumplido 50 años y que además de conservar sus especificaciones y características originales de fábrica, presentación y funcionamiento, corresponda a marcas, series y modelos catalogados internacionalmente como tales.
+
+**Autopista:** Vía de calzadas separadas, cada una con dos (2) o más carriles, control total de acceso y salida, con intersecciones en desnivel o mediante entradas y salidas directas a otras carreteras y con control de velocidades mínimas y máximas por carril.
+
+**Bahía de estacionamiento:** Parte complementaria de la estructura de la vía utilizada como zona de transición entre la calzada y el andén, destinada al estacionamiento de vehículos.
+
+**Barrera para control vehicular:** Dispositivo dotado de punzones pinchallantas para uso en retenes y puesto de control de las fuerzas militares, la Policía Nacional, las autoridades de tránsito y transporte.
+
+**Berma:** Parte de la estructura de la vía, destinada al soporte lateral de la calzada para el tránsito de peatones, semovientes y ocasionalmente al estacionamiento de vehículos y tránsito de vehículos de emergencia.
+
+**Bicicleta:** Vehículo no motorizado de dos (2) o más ruedas en línea, el cual se desplaza por el esfuerzo de su conductor accionando por medio de pedales.
+
+**Bocacalle:** Embocadura de una calle en una intersección.
+
+**Bus:** Vehículo automotor destinado al transporte colectivo de personas y sus equipajes, debidamente registrado conforme a las normas y características especiales vigentes.
+
+**Buseta:** Vehículo destinado al transporte de personas con capacidad de 20 a 30 pasajeros y distancia entre ejes inferiores a 4 metros.
+
+**Cabina:** Recinto separado de la carrocería de un vehículo destinado al conductor.
+
+**Calzada:** Zona de la vía destinada a la circulación de vehículos.
+
+**Carreteable:** Vía sin pavimentar destinada a la circulación de vehículos.
+
+**Camión:** Vehículo automotor que por su tamaño y destinación se usa para transportar carga.
+
+**Camioneta picó:** Vehículo automotor destinado al transporte de personas en la cabina y de carga en el platón.
+
+**Camión tractor:** Vehículo automotor destinado a arrastrar uno o varios semirremolques o remolques, equipado con acople adecuado para tal fin.
+
+**Capacidad de pasajeros:** Es el número de personas autorizado para ser transportados en un vehículo.
+
+**Capacidad** **de carga:** Es el máximo tonelaje autorizado en un vehículo, de tal forma que el peso bruto vehicular no exceda los límites establecidos.
+
+**Carretera:** vía cuya finalidad es permitir la circulación de vehículos, con niveles adecuados de seguridad y comodidad.
+
+**Carril:** Parte de la calzada destinada al tránsito de una sola fila de vehículos.
+
+**Carrocería:** Estructura del vehículo instalada sobre un chasis, destinada al transporte de personas o de carga.
+
+**Casco:** Pieza que cubre la cabeza, especialmente diseñada para proteger contra golpes, sin impedir la visión periférica adecuada que cumpla con las especificaciones de las normas Icontec 4533 "Cascos Protectores para Usuarios de Vehículos", o la norma que la modifique o sustituya.
+
+**Centro de diagnóstico automotor:** Ente estatal o privado destinado al examen técnico-mecánico de vehículos automotores y a la revisión del control ecológico conforme a las normas ambientales.
+
+**Centro de enseñanza para conductores:** Establecimiento docente de naturaleza pública, privada o mixtos que tenga como actividad permanente la capacitación de personas que aspiran a conducir vehículos automotores y motocicletas.
+
+**Centro de enseñanza para formación de instructores:** Establecimiento docente de naturaleza pública, privada o mixta, que tenga como actividad permanente la formación de instructores en técnicas de conducción de vehículos automotores y motocicletas.
+
+**Centro integral de atención:** Establecimiento donde se prestará el servicio de escuela y c asa cárcel para la rehabilitación de los infractores a las normas del Código de Tránsito. Podrá ser operado por el Estado o por entes privados que a través del cobro de las tarifas por los servicios allí prestados, garantizarán su autosostenibilidad.
+
+**Chasis:** Conjunto de elementos que proporcionan soporte a todas las partes del vehículo mediante un bastidor.
+
+**Chatarrización:** Desintegración total de un vehículo automotor.
+
+**Choque o colisión:** Encuentro violento entre dos (2) o más vehículos, o entre un vehículo y un objeto fijo.
+
+**Ciclista:** Conductor de bicicleta o triciclo.
+
+**Ciclovía:** Vía o sección de calzada destinada ocasionalmente para el tránsito de bicicletas, triciclos y peatones.
+
+**Ciclorruta:** Vía o sección de la calzada destinada al tránsito de bicicletas en forma exclusiva.
+
+**Cilindrada:** Capacidad volumétrica total de los cilindros de un motor.
+
+**Cinturón de seguridad:** Conjunto de tiras, provisto de hebilla de cierre, dispositivos de ajuste y de unión, cuyo fin es sujetar a los ocupantes al asiento del vehículo, para prevenir que se golpeen cuando suceda una aceleración, desaceleración súbita o volcamiento.
+
+**Clase de vehículo:** Denominación dada a un automotor de conformidad con su destinación, configuración y especificaciones técnicas.
+
+**Columna motorizada:** Son todos los vehículos autopropulsados o tractados que hacen parte de un mismo grupo de desplazamiento militar, bajo el mando de un comandante que los dirige o coordina.
+
+**Combinación de vehículos:** Conjunto acoplado de dos (2) o más unidades vehiculares.
+
+**Comparendo:** Orden formal de notificación para que el presunto contraventor o implicado se presente ante la autoridad de tránsito por la comisión de una infracción.
+
+**Conductor:** Es la persona habilitada y capacitada técnica y teóricamente para operar un vehículo.
+
+**Conjunto óptico:** Grupo de luces de servicio, delimitadoras, direccionales, pilotos de freno y reverso.
+
+**Croquis:** Plano descriptivo de los pormenores de un accidente de tránsito donde resulten daños a personas, vehículos, inmuebles, muebles o animales, levantado en el sitio de los hechos por el agente, la policía de tránsito o por la autoridad competente.
+
+**Cruce e intersección:** Punto en el cual dos (2) o más vías se encuentran.
+
+**Cuatrimoto:** Vehículo automotor de cuatro (4) ruedas con componentes mecánicos de motocicleta, p ara transporte de personas o mercancías con capacidad de carga de hasta setecientos setenta (770) kilogramos.
+
+**Cuneta:** Zanja o conducto construido al borde de una vía para recoger y evacuar las aguas superficiales.
+
+**Discapacitado:** Persona que tiene disminuida alguna de sus capacidades físicas o mentales.
+
+**Embriaguez:** Estado de alteración transitoria de las condiciones físicas y mentales, causada por intoxicación aguda que no permite una adecuada realización de actividades de riesgo.
+
+**Equipo de prevención y seguridad:** Conjunto de elementos necesarios para la atención inicial de emergencia que debe poseer un vehículo.
+
+**Espaciamiento:** Distancia entre dos (2) vehículos consecutivos que se mide del extremo trasero de un vehículo al delantero del otro.
+
+**Estacionamiento:** Sitio de parqueo autorizado por la autoridad de tránsito.
+
+**Glorieta:** Intersección donde no hay cruces directos sino maniobras de entrecruzamientos y movimientos alrededor de una isleta o plazoleta central.
+
+**Grúa:** Automotor especialmente diseñado con sistema de enganche para levantar y remolcar otro vehículo.
+
+**Homologación:** Es la confrontación de las especificaciones técnico-mecánicas, ambientales, de pesos, dimensiones, comodidad y seguridad con las normas legales vigentes para su respectiva aprobación.
+
+**Infracción:** Transgresión o violación de una norma de tránsito. Habrá dos tipos de infracciones: simple y compleja. Será simple cuando se trate de violación a la mera norma. Será compleja si se produce un daño material.
+
+**Instructor:** Persona que imparte enseñanza teórica o práctica para la conducción de vehículos.
+
+**Inmovilización:** Suspensión temporal de la circulación de un vehículo.
+
+**Licencia de conducción:** Documento público de carácter personal e intransferible expedido por autoridad competente, el cual autoriza a una persona para la conducción de vehículos con validez en todo el territorio nacional.
+
+**Licencia de tránsito:** Es el documento público que identifica un vehículo automotor, acredita su propiedad e identifica a su propietario y autoriza a dicho vehículo para circular por las vías públicas y por las privadas abiertas al público.
+
+**Línea de vehículo:** Referencia que le da el fabricante a una clase de vehículo de acuerdo con las características específicas técnico-mecánicas.
+
+**Luces de emergencia:** Dispositivos de alumbrado que utilizan los vehículos en actos propios de su servicio, o vehículos para atención de emergencia.
+
+**Luces de estacionamiento:** Luces del vehículo que corresponden a las señales direccionales, pero en un modo de operación tal que prenden y apagan en forma simultánea.
+
+**Luces exploradoras o antiniebla:** Dispositivos de alumbrado especial que facilitan la visibilidad en zonas de niebla densa o en condiciones adversas de visibilidad.
+
+**Maquinaria rodante de construcción o minería:** Vehículo automotor destinado exclusivamente a obras industriales, incluidas las de minería, construcción y conservación de obras, que por sus características técnicas y físicas no pueden transitar por las vías de uso público o privadas abiertas al público.
+
+**Marcas viales:** Señales escritas adheridas o grabadas en la vía o con elementos adyacentes a ella, para indicar, advertir o guiar el tránsito.
+
+**Matrícula:** Procedimiento destinado a registro inicial de un vehículo automotor ante un organismo de tránsito en ella se consignan las características, tanto internas como externas del vehículo, así como los datos e identificación del propietario.
+
+**Microbús:** Vehículo destinado al transporte de personas con capacidad de 10 a 19 pasajeros.
+
+**Modelo del vehículo:** Referencia o código que asigna la fábrica o ensambladora a una determinada serie de vehículos.
+
+**Motocarro:** Vehículo automotor de tres ruedas con estabilidad propia con componentes mecánicos de motocicleta, para el transporte de personas o mercancías con capacidad útil hasta 770 kilogramos.
+
+**Motocicleta:** Vehículo automotor de dos ruedas en línea, con capacidad para el conductor y un acompañante.
+
+**Mototriciclo:** Vehículo automotor de tres ruedas con estabilidad propia y capacidad para el conductor y un acompañante del tipo SideCar y recreativo.
+
+**Multa:** Sanción pecuniaria. Para efectos del presente código y salvo disposición en contrario, la multa debe entenderse en salarios mínimos diarios legales vigentes.
+
+**Nivel de emisión de gases contaminantes:** Cantidad descargada de gases contaminantes por parte de un vehículo automotor. Es establecida por la autoridad ambiental competente.
+
+**Norma de emisión de ruido:** Valor máximo permisible de intensidad sonora que puede emitir un vehículo automotor. Es establecido por las autoridades ambientales.
+
+**Número de serie:** Número de identificación que cada fabricante le asigna a un vehículo.
+
+**Organismos de tránsito:** Son unidades administrativas municipales distritales o departamentales que tienen por reglamento la función de organizar y dirigir lo relacionado con el tránsito y transporte en su respectiva jurisdicción.
+
+**Pasajero:** Persona distinta del conductor que se transporta en un vehículo público.
+
+**Paso a nivel:** Intersección a un mismo nivel de una calle o carretera con una vía férrea.
+
+**Paso peatonal a desnivel:** Puente o túnel diseñado especialmente para que los peatones atraviesen una vía.
+
+**Paso peatonal a nivel:** Zona de la calzada delimitada por dispositivos y marcas especiales con destino al cruce de peatones.
+
+**Parqueadero:** Lugar público o privado destinado al estacionamiento de vehículos.
+
+**Parada momentánea:** Detención de un vehículo, sin apagar el motor, para recoger o dejar personas o cosas, sin interrumpir el normal funcionamiento del tránsito.
+
+**Peatón:** Persona que transita a pie o por una vía.
+
+**Pequeños remolques:** Vehículo no motorizado con capacidad hasta de una tonelada, halado por un automotor y dotado de su sistema de luces reflectivas y frenos.
+
+**Peso bruto vehicular:** Peso de un vehículo provisto de combustible, equipo auxiliar habitual y el máximo de carga.
+
+**Placa:** Documento público con validez en todo el territorio nacional, el cual identifica externa y privativamente un vehículo.
+
+**Prelación:** Prioridad o preferencia que tiene una vía o vehículo con respecto a otras vías u otros vehículos.
+
+**Rebasamiento:** Maniobra mediante la cual un vehículo sobrepasa a otro que lo antecedía en el mismo carril de una calzada.
+
+**Registro nacional automotor:** Es el conjunto de datos necesarios para determinar la propiedad, características y situación jurídica de los vehículos automotores terrestres. En él se inscribirá todo acto, o contrato providencia judicial, administrativa o arbitral, adjudicación, modificación, limitación, gravamen, medida cautelar, traslación o extinción del dominio u otro derecho real, principal o accesorio sobre vehículos automotores terrestres para que surtan efectos ante las autoridades y ante terceros.
+
+**Registro terrestre automotor:** Es el conjunto de datos necesarios para determinar la propiedad, características y situación jurídica de los vehículos automotores terrestres. En él se inscribirá todo acto, o contrato providencia judicial, administrativa o arbitral, adjudicación, modificación, limitación, gravamen, medida cautelar, traslación o extinción del dominio u otro derecho real, principal o accesorio sobre vehículos automotores terrestres para que surtan efectos ante las autoridades y ante terceros.
+
+**Remolque:** Vehículo no motorizado, halado por una unidad tractora a la cual no le transmite peso. Dotado con su sistema de frenos y luces reflectivas.
+
+**Retén:** Puesto de control instalado técnicamente por una de las autoridades legítimamente constituidas de la Nación.
+
+**Retención:** Inmovilización de un vehículo por orden de autoridad competente.
+
+**Sardinel:** Elemento de concreto, asfalto u otros materiales para delimitar la calzada de una vía.
+
+**Semáforo:** Dispositivo electromagnético o electrónico para regular el tránsito de vehículos, peatones mediante el uso de señales luminosas.
+
+**Semirremolques:** Vehículo sin motor, a ser halado por un automotor sobre el cual se apoya y le transmite parte de su peso. Dotado con un sistema de frenos y luces reflectivas.
+
+**Señal de tránsito:** Dispositivo físico o marca especial. Preventiva y reglamentaria e informativa, que indica la forma correcta como deben transitar los usuarios de las vías.
+
+**Señales luminosas de peligro:** Señales visibles en la noche que emiten su propia luz, en colores visibles como el rojo, amarillo o blanco.
+
+**Separador:** Espacio estrecho y saliente que independiza dos calzadas de una vía.
+
+**Sobrecarga:** Exceso de carga sobre la capacidad autorizada para un vehículo automotor.
+
+**Sobrecupo:** Exceso de pasajeros sobre la capacidad autorizada para un vehículo automotor.
+
+**STTMP:** Sistema de Transporte Terrestre Masivo de Pasajeros. Es el conjunto de infraestructura, equipos, sistemas, señales, paraderos, vehículos, estaciones e infraestructura vial destinadas y utilizadas para la eficiente y continua prestación del servicio público de transporte de pasajeros en un área específica.
+
+**Taxi:** Vehículo automotor destinado al servicio público individual de pasajeros.
+
+**Taxímetro:** Dispositivo instalado en un taxi para liquidar el costo del servicio público a una tarifa oficialmente autorizada.
+
+**Tipo de carrocería:** Conjunto de características que definen la carrocería de un vehículo.
+
+**Tráfico:** Volumen de vehículos, peatones, o productos que pasan por un punto específico durante un periodo determinado.
+
+**Transformación de vehículo:** Procedimiento físico y mecánico mediante el cual un vehículo automotor puede ser modificado con el fin de cumplir una función diferente o mejorar su funcionamiento, higiene o seguridad.
+
+**Tránsito:** Es la movilización de personas, animales o vehículos por una vía pública o privada abierta al público.
+
+**Transporte:** Es el traslado de personas, animales o cosas de un punto a otro a través de un medio físico.
+
+**Triciclo:** Vehículo no motorizado de tres (3) ruedas, accionado con el esfuerzo del conductor por medio de pedales,
+
+**Unidad tractora:** Vehículo automotor destinado a arrastrar un remolque, un semirremolque, o una combinación de ellos.
+
+**Vehículo:** Todo aparato montado sobre ruedas que permite el transporte de personas, animales o cosas de un punto a otro por vía terrestre pública o privada abierta al público.
+
+**Vehículo agrícola:** Vehículo automotor provisto de una configuración especial, destinado exclusivamente a labores agrícolas.
+
+**Vehículo de emergencia:** Vehículo automotor debidamente identificado e iluminado, autorizado para transitar a velocidades mayores que las reglamentadas con objeto de movilizar personas afectadas en salud, prevenir o atender desastres o calamidades, o actividades policiales, debidamente registrado como tal con las normas y características que exige la actividad para la cual se matricule.
+
+**Vehículo de servicio particular:** Vehículo automotor destinado a satisfacer las necesidades privadas de movilización de personas, animales o cosas.
+
+**Vehículo de servicio público:** Vehículo automotor homologado, destinado al transporte de pasajeros, carga o ambos por las vías de uso público mediante el cobro de una tarifa, porte, flete o pasaje.
+
+**Vehículo de servicio oficial:** Vehículo automotor destinado al servicio de entidades públicas.
+
+**Vehículo de servicio diplomático o consular:** Vehículo automotor destinado al servicio de funcionarios diplomáticos o consulares.
+
+**Vehículo de tracción animal:** Vehículo no motorizado halado o movido por un animal.
+
+**Vehículo de transporte masivo:** Vehículo automotor para transporte público masivo de pasajeros, cuya circulación se hace por carriles exclusivos e infraestructura especial para acceso de pasajeros.
+
+**Vehículo escolar:** Vehículo automotor destinado al transporte de estudiantes, debidamente registrado como tal y con las normas y características especiales que le exigen las normas de transporte público.
+
+**Vía:** Zona de uso público o privado, abierta al público, destinada al tránsito de vehículos, personas y animales.
+
+**Vía arteria:** Vía de un sistema vial urbano con prelación de circulación de tránsito sobre las demás vías, con excepción de la vía férrea y la autopista.
+
+**Vía de metro o metrovía:** Es aquella de exclusiva destinación para las líneas de metro, independientemente de su configuración y que hacen parte integral de su infraestructura de operación.
+
+**Vía férrea:** Diseñada para el tránsito de vehículos sobre rieles, con prelación sobre las demás vías, excepto para las ciudades donde existe metro, en cuyos casos será éste el que tenga la prelación.
+
+**Vía peatonal:** Zonas destinadas para el tránsito exclusivo de peatones.
+
+**Vía principal:** Vía de un sistema con prelación de tránsito sobre las vías ordinarias.
+
+**Vía ordinaria:** La que tiene tránsito subordinado a las vías principales.
+
+**Vía troncal:** Vía de dos (2) calzadas con ocho o más carriles y con destinación exclusiva de las calzadas interiores para el tránsito de servicio público masivo.
+
+**Zona escolar:** Parte de la vía situada frente a un establecimiento de enseñanza y que se extiende cincuenta (50) metros al frente y a los lados del límite del establecimiento.
+
+**Zona de estacionamiento restringido:** Parte de la vía delimitada por autoridad competente en zonas adyacentes a instalaciones militares o de policía, teatros, bancos, hospitales, entidades oficiales y de socorro, iglesias, establecimientos industriales y comerciales, en la cual solo pueden estacionar los vehículos autorizados.
+
+### CAPÍTULO II
+
+**Autoridades.**
+
+##### **Artículo 3°**. *Autoridades de tránsito.* Para los efectos de la presente ley entiéndase que son autoridades de tránsito, en su orden, las siguientes:
+
+El Ministro de Transporte.
+
+Los Gobernadores y los Alcaldes.
+
+Los organismos de tránsito de carácter departamental, municipal o Distrital.
+
+La Policía Nacional a través de la Dirección de Tránsito y Transporte.
+
+Los Inspectores de Policía, los Inspectores de Tránsito, Corregidores o quien haga sus veces en cada ente territorial.
+
+La Superintendencia General de Puertos y Transporte.
+
+Las Fuerzas Militares para cumplir exclusivamente lo dispuesto en el parágrafo 5° de este artículo.
+
+Los Agentes de Tránsito y Transporte.
+
+**Parágrafo 1°.** Las entidades públicas o privadas a las que mediante delegación o convenio les sean asignadas determinadas funciones de tránsito, constituirán organismos de apoyo a las autoridades de tránsito.
+
+**Parágrafo 2°.** El Gobierno Nacional podrá delegar en los organismos de tránsito las funciones que por ley le corresponden al Ministerio de Transporte.
+
+**Parágrafo 3°.** Las Autoridades, los organismos de tránsito, las entidades públicas o privadas que constituyan organismos de apoyo serán vigiladas y controladas por la Superintendencia de Puertos y Transporte.
+
+**Parágrafo 4°.** La facultad de Autoridad de Tránsito otorgada a los cuerpos especializados de la Policía Nacional se ejercerá como una competencia a prevención.
+
+**Parágrafo 5°.** Las Fuerzas Militares podrán ejecutar la labor de regulación del tránsito, en aquellas áreas donde no haya presencia de Autoridad de Tránsito.
+
+##### **Artículo 4°.** *Acreditación de formación-Programas de Seguridad.* Los Directores de los Organismos de Tránsito o Secretarías de Tránsito de las entidades territoriales deberán acreditar formación profesional relacionada y experiencia en el ramo de dos (2) años o en su defecto estudios de diplomado o posgrado en la materia.
+
+**Parágrafo 1°.** El Ministerio de Transporte deberá elaborar un plan nacional de seguridad vial para disminuir la accidentalidad en el país que sirva además como base para los planes departamentales, metropolitanos, distritales y municipales, de control de piratería e ilegalidad.
+
+**Parágrafo 2°.** Los cuerpos especializados de Policía de Tránsito urbano y Policía de Carreteras de la Policía Nacional y los cuerpos especializados de agentes de policía de tránsito dependientes de los organismos de tránsito departamental, metropolitano, distrital y municipal, deberán acreditar formación técnica o tecnológica en la materia.
+
+##### **Artículo 5°.***Demarcación y señalización vial.* El Ministerio de Transporte reglamentará en un término no mayor de 60 días posteriores a la sanción de esta ley, las características técnicas de la demarcación y señalización de toda la infraestructura vial y su aplicación y cumplimiento será responsabilidad de cada uno de los organismos de tránsito en su respectiva jurisdicción.
+
+**Parágrafo 1°.** El Ministerio de Transporte respetará y acogerá los convenios internacionales que se hayan suscrito o se suscriban en relación con la reglamentación de la ubicación, instalación, demarcación y señalización vial.
+
+**Parágrafo 2°.** La información vial y la señalización urbana, deberá hacerse con material antivandálico, vitrificado, que garantice una vida útil mínima de 10 años y, cuando así se aconseje, material retrorreflectante.
+
+##### **Artículo 6°.***Organismos de tránsito*. Serán organismos de tránsito en su respectiva jurisdicción:
+
+- a) Los departamentos administrativos, institutos distritales y/o municipales de tránsito;
+
+- b) Los designados por la autoridad local única y exclusivamente en los municipios donde no hay autoridad de tránsito;
+
+- c) Las secretarías municipales de tránsito dentro del área urbana de su respectivo municipio y los corregimientos;
+
+- d) Las secretarías distritales de tránsito dentro del área urbana de los distritos especiales;
+
+- e) Las secretarías departamentales de tránsito o el organismo designado por la autoridad, única y exclusivamente en los municipios donde no haya autoridad de tránsito.
+
+**Parágrafo 1°.** En el ámbito nacional será competente el Ministerio de Transporte y los organismos de tránsito en su respectiva jurisdicción para cumplir las funciones que les sean asignadas en este código.
+
+**Parágrafo 2°.** Le corresponde a la Policía Nacional en su cuerpo especializado de carreteras el control de las normas de tránsito y la aplicación de este código en todas las carreteras nacionales por fuera del perímetro urbano de los municipios y distritos.
+
+**Parágrafo 3°.** Los gobernadores y los alcaldes, las Asambleas Departamentales y los Concejos Municipales, no podrán, en ningún caso, dictar normas de tránsito de carácter permanente, que impliquen adiciones o modificaciones al código de tránsito.
+
+Los Alcaldes dentro de su respectiva jurisdicción deberán expedir las normas y tomarán las medidas necesarias para el mejor ordenamiento del tránsito de personas, animales y vehículos por las vías públicas con sujeción a las disposiciones del presente código.
+
+No obstante los alcaldes de municipios vecinos o colindantes podrán suscribir convenios interadministrativos para ejercer en forma conjunta, total o parcialmente, las funciones de tránsito que le correspondan a cada uno de ellos, dentro de las respectivas jurisdicciones que los compongan.
+
+##### ****Artículo 7°.CUMPLIMIENTO RÉGIMEN NORMATIVO.**** Las autoridades de tránsito velarán por la seguridad de las personas y las cosas en la vía pública y privadas abiertas al público. Sus funciones serán de carácter regulatorio y sancionatorio y sus acciones deben ser orientadas a la prevención y la asistencia técnica y humana a los usuarios de las vías.
+
+Las autoridades de tránsito podrán delegar en entidades privadas el aporte de pruebas de infracciones de tránsito, el recaudo de las multas correspondientes, la tramitación de especies venales y todos los trámites previstos en las normas legales y reglamentarias, salvo la valoración de dichas pruebas.
+
+Cada organismo de tránsito contará con un cuerpo de agentes de tránsito que podrá ser contratado, como personal de planta o excepcionalmente por prestación de servicios para determinadas épocas o situaciones que determinen la necesidad de dicho servicio.
+
+Actuarán en su respectiva jurisdicción, salvo que por una necesidad del servicio, un municipio o departamento a través de su autoridad de tránsito, deba apoyar a otra entidad territorial.
+
+El Ministerio de Transporte tendrá a su cargo un cuerpo especializado de agentes de tránsito de la Policía Nacional que velará por el cumplimiento del régimen normativo de tránsito en todas las carreteras nacionales por fuera del perímetro urbano de distritos y municipios.
+
+Cualquier autoridad de tránsito, entiéndase agentes o inspectores, están facultados para abocar el conocimiento de una infracción o de un accidente mientras la autoridad competente asume la investigación, aun en las carreteras nacionales de su jurisdicción y en especial cuando la Policía Nacional, no tiene personal dispuesto en dicha jurisdicción.
+
+**Parágrafo 1°.** La Policía Nacional con los servicios especializados de Policía de Carreteras y Policía Urbana de Tránsito, contribuirá con la misión de brindar seguridad y tranquilidad a los usuarios de la Red Vial Nacional.
+
+**Parágrafo 2°.** La Policía Nacional reglamentará el funcionamiento de la Seccional de Formación y Especialización en Seguridad Vial, de sus cuerpos especializados de policía urbana de tránsito y policía de carreteras, como instituto docente con la facultad de expedir títulos de idoneidad en esta área, en concordancia con la Ley 115 de 1994.
+
+**Parágrafo 3°.** El Ministerio de Transporte, a través de la Agencia Nacional de Seguridad Vial, podrá asistir técnicamente a las Instituciones de Educación Superior, que promocionen dentro de sus ofertas académicas. La Formación y Especialización en Seguridad Vial que las autoridades territoriales requieren para sus autoridades de tránsito.
+
+**Parágrafo 4°.** Los organismos de tránsito podrán celebrar contratos y/o convenios con los cuerpos especializados de policía urbana de tránsito mediante contrato especial pagado por los distritos, municipios y departamentos y celebrado con la Dirección General de la Policía. Estos contratos podrán ser temporales o permanentes, con la facultad para la policía de cambiar a sus integrantes por las causales establecidas en el reglamento interno de la institución policial.
+
+**Parágrafo 5°.** La contratación con privados para la implementación de ayudas tecnológicas por parte de las autoridades de tránsito deberá realizarse conforme las reglas que para tal efecto dicten las normas de contratación estatal. La remuneración a la inversión privada para la instalación y puesta en operación de sistemas automáticos, semiautomáticos y otros medios tecnológicos para la detección de infracciones no podrá superar en ningún caso el 10% del recaudo.
+
+### CAPITULO III
+
+**Registros de información**
+
+##### **Artículo 8º.***Registro Unico Nacional de Tránsito, RUNT*. El Ministerio de Transporte pondrá en funcionamiento directamente o a través de entidades públicas o particulares el Registro Unico Nacional de Tránsito, RUNT, en coordinación total, permanente y obligatoria con todos los organismos de tránsito del país.
+
+El RUNT incorporará por lo menos los siguientes registros de información:
+
+- 1. Registro Nacional de Automotores.
+
+- 2. Registro Nacional de Conductores.
+
+- 3. Registro Nacional de Empresas de Transporte Público y Privado.
+
+- 4. Registro Nacional de Licencias de Tránsito.
+
+- 5. Registro Nacional de Infracciones de Tránsito.
+
+- 6. Registro Nacional de Centros de Enseñanza Automovilística.
+
+- 7. Registro Nacional de Seguros.
+
+- 8. Registro Nacional de personas naturales o jurídicas, públicas o privadas que prestan servicios al sector público.
+
+- 9. Registro Nacional de Remolques y Semirremolques.
+
+- 10. Registro Nacional de Accidentes de Tránsito.
+
+**Parágrafo 1°.** El Ministerio de Transporte tendrá un plazo de dos (2) años prorrogables por un a sola vezpor un término de un (1) año, contados a partir de la fecha de promulgación de este código para poner en funcionamiento el RUNT para lo cual podrá intervenir directamente o por quien reciba la autorización en cualquier organismo de tránsito con el fin de obtener la información correspondiente.
+
+**Parágrafo 2°.** En todos los organismos de tránsito y transporte existirá una dependencia del RUNT.
+
+**Parágrafo 3°.** Los concesionarios, si los hay, deberán reconocer, previa valoración, los recursos invertidos en las bases de datos traídos a valor presente, siempre y cuando les sean útiles para operar la concesión.
+
+**Parágrafo 4°.** Las concesiones establecidas en el presente artículo se deberán otorgar siempre bajo el sistema de licitación pública, sin importar su cuantía.
+
+**Parágrafo 5°.** La autoridad competente en cada municipio o Distrito deberá implementar una estrategia de actualización de los registros, para lo cual podrá optar entre otros por el sistema de autodeclaración.
+
+El propietario que no efectúe la declaración será sancionado con multa de 2 salarios mínimos legales mensuales, además de la imposibilidad de adelantar trámites en materia de Tránsito y Transporte ante cualquier organismo de tránsito del país.
+
+Los Organismos de Tránsito diseñarán el formato de autodeclaración con las instrucciones de diligenciamiento pertinentes, que será suministrado al interesado sin costo alguno.
+
+##### **Artículo 9°.***Características de la información de los registros*. Toda la información contenida en el RUNT será de carácter público.
+
+Sus características, el montaje, la operación y actualización de la misma serán determinadas por el Ministerio de Transporte y su sostenibilidad deberá estar garantizada únicamente con el cobro de tarifas que serán fijadas por el Ministerio para el Ingreso de datos y la expedición de certificados de información.
+
+El Ministerio de Transporte tendrá un plazo máximo de dos (2) años prorrogables por una sola vez por un término de un (1) año contados a partir de la fecha de sanción de esta ley para poner en funcionamiento al público el RUNT.
+
+##### **Artículo 10.***Sistema integrado de información sobre las multas y sanciones por infracciones de tránsito.* Con el propósito de contribuir al mejoramiento de los ingresos de los municipios, se autoriza a la Federación Colombiana de Municipios para implementar y mantener actualizado a nivel nacional, un sistema integrado de información sobre las multas y sanciones por infracciones de tránsito (SIMIT), por lo cual percibirá el 10% por la administración del sistema cuando se cancele el valor adeudado. En ningún caso podrá ser inferior a medio salario mínimo diario legal vigente.
+
+**Parágrafo.** En todas las dependencias de los organismos de tránsito y transportes de las entidades territoriales existirá una sede del SIMIT o en aquellas donde la Federación lo considere necesario, con el fin de obtener la información para el consolidado nacional y para garantizar que no se efectúe ningún trámite de los que son competencia de los organismos de tránsito en donde se encuentre involucrado el infractor en cualquier calidad, si éste no se encuentra a paz y salvo.
+
+##### **Artículo 11.***Características de la información de los registros*. Toda la información contenida en el sistema integrado de información SIMIT, será de carácter público.
+
+Las características, el montaje la operación y actualización de la información del sistema, serán determinadas por la Federación Colombiana de Municipios, la cual dispondrá de un plazo máximo de dos (2) años prorrogables por una sola vez, por un término de un (1) año, contados a partir de la fecha de sanción de la presente ley para poner en funcionamiento el sistema integrado de información SIMIT.
+
+Una vez implementado el sistema integrado de información sobre las multas y sanciones por infracciones de tránsito (SIMIT), la Federación Colombiana de Municipios entregará la información al Ministerio de Transporte para que sea incorporada al Registro Unico Nacional de Tránsito, RUNT.
+
+## TITULO II
+
+**REGIMEN NACIONAL DE TRANSITO**
+
+### CAPITULO I
+
+**Centros de Enseñanza Automovilística**
+
+##### **Artículo 12.** Naturaleza. Todo Centro de Enseñanza Automovilística, es un establecimiento docente de naturaleza pública, privada o mixta, que tenga como actividad permanente la instrucción de personas que aspiren a obtener el certificado de capacitación en conducción, o instructores en conducción. Estarán facultados para formar en programas educativos relacionados con primeros auxilios - soporte· vital, control de incendios, manejo defensivo y capacitaciones especializadas para manejo de sustancias, pasajeros y carga, sin que la acreditación de estos cursos sea un requisito para obtener y/o renovar la licencia de conducción u obtener el certificado de capacitación en conducción, o instructores en conducción. **Parágrafo 1°.** Con el fin de garantizar la continuidad en la prestación del servicio y en atención a que la mayoría de Centros de Enseñanza Automovilística se constituyeron como persona natural, se determina que quienes cuenten con Registro en el RUNT al momento de la promulgación de la presente ley, y quienes de manera voluntaria decidan adelantar la transición a persona jurídica, contarán con un plazo de seis (6) meses, contados a partir de la reglamentación de la presente ley. Durante este término se autoriza a quienes se acojan a lo estipulado en la presente ley, y realicen cambios de propietario y/o de nombre o de razón social, puedan continuar prestando el servicio con el nombre o razón social anterior, mientras acreditan requisitos y obtienen por parte de los Ministerios o entidades correspondientes el reconocimiento del cambio. El reconocimiento del registro adquirido por la persona natural, se mantendrá para la nueva persona jurídica, siempre y cuando se acredite que el beneficiario original hace parte de la misma. El Ministerio de Transporte, en un plazo máximo de seis (6) meses contados a partir de la publicación de la presente ley, expedirá la reglamentación sobre lo establecido en el presente artículo.
+
+##### **Artículo 13.***Formación instructores en conducción*. Para la formación de instructores en conducción, se requerirá autorización especial y se deberán cumplir los requisitos complementarios exigidos a los Centros de Enseñanza Automovilística que para tal efecto reglamente el Gobierno Nacional, a través del Ministerio de Educación en coordinación con el Ministerio de Transporte.
+
+##### **Artículo 14.** Capacitación. La capacitación requerida para que las personas puedan conducir por las vías públicas en vehículos que requieren licencia de conducción, deberá ser impartida única y exclusivamente por los Centros de Enseñanza Automovilística Registrados en el RUNT de acuerdo con la reglamentación que para el efecto expida el Ministerio de Transporte, previo estudio técnico adelantado por este. La capacitación de aspirantes a obtener o recategorizar licencia de conducción se dividirá en dos áreas: 1. Capacitación Teórica. Podrá ser impartida en dos modalidades y el aspirante- a obtener o recategorizar la licencia de conducción podrá determinar libremente con cuál modalidad se capacita, así:
+
+- a) Capacitación magistral presencial. Se deberá impartir en las insta­laciones del Centro de Enseñanza Automovilística. b) Capacitación en la modalidad virtual. Los aspirantes a conducir o recategorizar la licencia de conducción podrán optar por adquirir los conocimientos teóricos de la conducción en la modalidad virtual, en la forma en que determine el Ministerio de Transporte, a través del sistema del Registro Único Nacional de Tránsito (RUNT), que permita identificar plenamente al usuario, garantizar su asistencia y permanencia durante la capacitación y dictar el programa teórico completo que determine el reglamento. En todo caso, la evaluación de la capacitación teórica y práctica, siempre se realizará de forma presencial. 2. Capacitación Práctica. Se dividirá en dos áreas:
+
+- a) Talleres prácticos de formación. Se deberán impartir en las instala­ciones del mismo Centro de Enseñanza Automovilística que dictará la parte práctica de conducción en las áreas destinadas para este fin y de acuerdo a la intensidad horaria que determine el reglamento. b) Práctica de Conducción. Se realizará en las vías nacionales, con los vehículos del organismo de apoyo debidamente adaptados y autori­zados que cuenten con tarjeta de servicio e instructores de automo­vilismo registrados en el RUNT. **Parágrafo 1°.** Los Centros de enseñanza deberán adaptar los contenidos e instalaciones para personas en condición de discapacidad, a fin de que estas puedan recibir las capacitaciones teóricas y prácticas para la obtención o recategorización de la licencia de conducción. **Parágrafo 2º**. El Ministerio de Transporte en coordinación con la Agencia Nacional de Seguridad Vial podrá definir, previo estudio técnico adelantado por estos, la malla curricular o pensum de formación de conductores con enfoque a resguardar la vida de los usuarios de la vía. **Parágrafo 3°.** La vigilancia y supervisión de los Centros de Enseñanza Automovilística, corresponderá a la Superintendencia de Transporte. **Parágrafo 4º.** Las multas que se impongan a los centros de enseñanza automovilística serán de propiedad de los municipios donde se encuentre la sede de la escuela.
+
+##### **Artículo 15. Constitución y funcionamiento.** El Ministerio de Transporte reglamentará la constitución y funcionamiento de los Centros de Enseñanza Automovilística de conformidad con lo establecido en la ley.
+
+##### **Artículo 16.***Capacitación vehículos de servicio público*. Los Centros de Enseñanza Automovilística ofrecerán dentro de sus programas una especial capacitación para conducir vehículo de servicio público.
+
+El Ministerio de Transporte reglamentará lo relativo a la clasificación de los Centros de Enseñanza, de acuerdo con las categorías existentes.
+
+### CAPITULO II
+
+**Licencia de conducción**
+
+##### **Artículo 17. Otorgamiento.** La Licencia de conducción será otorga­da por primera vez a quien cumpla con todos los requisitos descritos en el artículo 19 de este código, por la entidad pública o privada autorizada para el efecto por el organismo de tránsito en su respectiva jurisdicción.
+
+El formato de la licencia de conducción será único nacional, de con­formidad con la ficha técnica que establezca el Ministerio de Transpor­te, incorporando como mínimo el nombre completo del conductor, foto­grafía, número del documento de identificación, huella y tipo de sangre, fecha de nacimiento, categorías autorizadas, restricciones, fechas de ex­pedición y de vencimiento y organismo de tránsito que la expidió.
+
+Dentro de las características técnicas que deben contener las licen­cias de conducción se incluirán, entre otros, un código de barras bidi­mensional electrónico, magnético u óptico con datos del registro y un holograma de seguridad.
+
+Además de la entrega de su licencia física, el conductor al que se le otorgue, renueve o recategorice su licencia, podrá solicitar la expedición adicional de la licencia de conducción digital, que contendrá todos los datos registrados por el conductor, entre ellos su dirección de domicilio y notificaciones. La licencia digital tendrá los mismos efectos legales que la licencia física y deberá ser aceptada por los cuerpos de control, y podrá ser presentada desde cualquier dispositivo tecnológico portátil.
+
+La licencia de conducción digital deberá guardar el registro de las sanciones y demás anotaciones asociadas a la licencia, permitiéndole la identificación, autenticación y consulta al conductor y a las autoridades en el marco de sus competencias, sin costo alguno. El Ministerio de Transporte garantizará la interoperabilidad, firma digital y consulta con todos los sistemas de información que lo requieran.
+
+**Parágrafo.** Las autoridades de tránsito, organismos de tránsito y agentes de tránsito deberán dar por cumplida la obligación de portar los documentos como: documento de identidad, licencia de conduc­ción, licencia de tránsito, seguro Obligatorio de Accidentes de Tránsito (SOAT) y certificado de revisión técnico mecánica y de gases, mediante la consulta en los Sistemas de Información establecidos por la autoridad de tránsito competente, sin que sea exigible su presentación en físico.
+
+##### **Artículo 18. Facultad del titular.** La licencia de conducción habilitará a su titular para conducir vehículos automotores de acuerdo con las categorías que para cada modalidad establezca la reglamentación que adopte el Ministerio de Transporte, estipulando claramente si se trata de un conductor de servicio público o particular.
+
+##### **Artículo 19. Requisitos**. Podrá obtener una licencia de conducción para vehículos automotores quien acredite el cumplimiento de los si­guientes requisitos:
+
+Para vehículos particulares:
+
+- a) Saber leer y escribir.
+
+- b) Tener dieciséis (16) años cumplidos.
+
+- c) Aprobar exámenes teórico y práctico de conducción, practica­dos por Instituciones de Educación Superior de Naturaleza Pú­blica reconocidas por el Ministerio de Educación Nacional, que garanticen cobertura nacional para la realización de las pruebas, en el marco de la autonomía de las mismas y de conformidad con la reglamentación que expida el Ministerio de Transporte, cuyo resultado será registrado en el sistema RUNT.
+
+En las entidades territoriales donde las Instituciones de Educación Superior mencionadas en el inciso anterior, no puedan garantizar la co­bertura en la prestación de dicho servicio, se facultará a las autorida­des públicas y entidades privadas que estén registradas en el sistema RUNT, para practicar ¡los exámenes de que trata este literal, de confor­midad con la reglamentación que expida el Ministerio de Transporte.
+
+En todo caso las entidades competentes suscribirán contratos donde se establezcan claramente las condiciones para realizar los exámenes.
+
+- d) Obtener un certificado de capacitación en conducción otorgado por un centro de enseñanza automovilística registrado ante el RUNT.
+
+- e) Presentar certificado en el que conste una condición idónea, la aptitud física, mental y de coordinación motriz para conducir, expedido por una Institución Prestadora de Salud o por un Cen­tro de Reconocimiento de conductores registrado ante el RUNT.
+
+Para vehículos de servicio público:
+
+Se exigirán los requisitos anteriormente señalados. Adicionalmente, tener por lo menos dieciocho (18) años cumplidos y, aprobar el examen teórico y práctico de conducción para vehículos de servicio público, de conformidad con la reglamentación que expida el Ministerio de Trans­porte. Las condiciones para la prestación de este servicio serán las mis­mas previstas en el literal c) del inciso anterior.
+
+Los conductores de servicio público deben recibir capacitación y obtener la certificación en los temas que determine el Ministerio de Transporte.
+
+**Parágrafo**. Para obtener la licencia de conducción por primera vez, o la recategorización, o la renovación de la misma, se debe demostrar ante las autoridades de tránsito la aptitud física, mental y de coordina­ción motriz, valiéndose para su valoración de los medios tecnológicos sistematizados y digitalizados requeridos y los instrumentos médicos pertinentes que permitan medir y evaluar dentro de los rangos estable­cidos por el Ministerio de Transporte , según los parámetros y lími­tes internacionales entre otros: las capacidades de visión y orientación auditiva, la agudeza visual y campimetría, los tiempos de reacción y recuperación al encandilamiento, la capacidad de coordinación entre la aceleración y el frenado, la coordinación integral motriz de la persona, la discriminación de colores y la franja horizontal y vertical.
+
+##### **Artículo 20.** El Ministerio de Transporte definirá mediante resolución las categorías de licencias de conducción y recategorizaciones, lo mismo que las restricciones especiales que deben tenerse en cuenta para la expedición de las licencias según cada categoría.
+
+##### **Artículo 21.***Limitados físicos*. Quien padezca una limitación física parcial podrá obtener la licencia de conducción si, además del cumplimiento de los requisitos que en este Código se señalan, demuestra durante el examen indicado en el parágrafo único del artículo 18, que se encuentra habilitado y adiestrado para conducir con dicha limitación.
+
+Cuando se requiera el empleo de instrumentos ortopédicos y el vehículo esté provisto de mecanismos u otros medios auxiliares que previa demostración y constatación le capaciten para el ejercicio de la conducción, bajo su propia responsabilidad, también podrá obtener la licencia para manejar vehículos de servicio público, pero únicamente de servicio individual.
+
+**Parágrafo.** Para el caso de limitaciones físicas progresivas, la vigencia de la licencia de conducción será determinada mediante la práctica de un examen médico especial.
+
+##### **Artículo 22. Vigencia de la Licencia de Conducción.** Las licencias de conducción para vehículos de servicio particular tendrán una vigencia de diez (10) años para conductores menores de sesenta (60) años de edad, de cinco (5) años para personas entre sesenta (60) años y ochenta (80) años, y de un (1) año para mayores de ochenta (80) años de edad.
+
+Las licencias de conducción para vehículos de servicio público tendrán una vigencia de tres (3) años para conductores menores de sesenta (60) años de edad y de un (1) año para mayores de sesenta (60) años de edad.
+
+Las licencias de conducción se renovarán presentando un nuevo examen de aptitud física, mental y de coordinación motriz, y previa validación en el sistema RUNT que la persona se encuentra al día por concepto de pago de multas por infracciones a las normas de tránsito, debidamente ejecutoriadas.
+
+Nota: La Corte Constitucional mediante sentencia C-261 de 2022, declaró la inexequibilidad del artículo 11 de la Ley 2161 de 2021, «por la cual se establecen medidas para promover la adquisición, renovación y no evasión del seguro obligatorio de accidentes de tránsito (SOAT), se modifica la Ley 769 de 2002 y se dictan otras disposiciones y difirió hasta el 20 de junio de 2023 los efectos de la decisión .
+
+##### **Artículo 23. Renovación de Licencias.** La renovación se solicitará ante cualquier organismo de tránsito o entidad pública o privada autorizada para ello y su trámite no podrá durar más de 24 horas una vez aceptada la documentación.
+
+No se renovará o recategorizará la licencia de conducción mientras subsista una sanción contra su tenencia o si el titular de la misma no se encuentre a paz y salvo por concepto de multas por infracciones de tránsito, debidamente ejecutoriadas.
+
+Para los trámites de tránsito que lo requieran, se entenderá que la persona se encuentra a paz y salvo cuando ésta no posea infracciones de tránsito o cuando se haya cumplido alguna de las siguientes condiciones:
+
+- 1. Cuando haya cumplido con la sanción impuesta;
+
+- 2. cuando hayan transcurrido tres (3) años desde la ocurrencia del hecho que generó la imposición de la sanción, sin que la autoridad de tránsito haya notificado el mandamiento de pago;
+
+- 3. cuando habiendo realizado convenio o acuerdo para el pago de multas por infracciones a las normas de tránsito, la persona se encuentra al día en los pagos pactados en el convenio para la fecha de solicitud del trámite respectivo.
+
+##### **Artículo 24.***Recategorización.* El titular de una licencia de conducción podrá solicitar ante un organismo de tránsito o la entidad pública o privada por él autorizada, la recategorización de su licencia, para lo cual debe presentar y aprobar un nuevo examen teórico-práctico para la categoría solicitada y presentar un certificado de aptitud en conducción otorgado por el centro respectivo, y su trámite no podrá durar más de 72 horas una vez aceptada la documentación.
+
+##### **Artículo 25.***Licencias extranjeras*. Las licencias de conducción, expedidas en otro país, que se encuentren vigentes y que sean utilizadas por turistas o personas en tránsito en el territorio nacional, serán válidas y admitidas para conducir en Colombia durante la permanencia autorizada a su titular, conforme a las disposiciones internacionales sobre la materia.
+
+##### **Artículo 26.***Causales de suspensión o cancelación.* La licencia de conducción se suspenderá:
+
+- 1. Por disposición de las autoridades de tránsito, basada en la imposibilidad transitoria, física o mental para conducir, soportado en un certificado médico o en el examen de aptitud física, mental o de coordinación expedido por un Centro de Reconocimiento de Conductores legalmente habilitado.
+
+- 2. Por decisión judicial.
+
+- 3. Por encontrarse en estado de embriaguez o bajo el efecto de drogas alucinógenas determinado por la autoridad competente de conformidad con lo consagrado en el artículo 152 de este Código.
+
+- 4. Por prestar servicio público de transporte con vehículos particulares, salvo cuando el orden público lo justifique, previa decisión en tal sentido de la autoridad respectiva.
+
+La licencia de conducción se cancelará:
+
+- 1. Por disposición de las autoridades de tránsito basada en la imposibilidad permanente física o mental para conducir, soportada en un certificado médico o en el examen de aptitud física, mental y de coordinación motriz expedido por un Centro de Reconocimiento de Conductores legalmente habilitado.
+
+- 2. Por decisión judicial.
+
+- 3. Por muerte del titular. La Registraduría Nacional del Estado Civil está obligada a reportar a los sistemas creados por los artículos 8° y 10 del presente ordenamiento, el fallecimiento del titular.
+
+- 4. Reincidencia al encontrarse conduciendo en cualquier grado de estado de embriaguez o bajo el efecto de drogas alucinógenas determinado por autoridad competente, en concordancia con el artículo 152 de este Código.
+
+- 5. Por reincidencia en la prestación del servicio público de transporte con vehículos particulares sin justa causa.
+
+- 6. Por hacer uso de la licencia de conducción estando suspendida.
+
+- 7. Por obtener por medios fraudulentos la expedición de una licencia de conducción, sin perjuicio de las acciones penales que correspondan.
+
+**Parágrafo**.La suspensión o cancelación de la Licencia de Conducción implica la entrega obligatoria del documento a la autoridad de tránsito competente para imponer la sanción por el periodo de la suspensión o a partir de la cancelación de ella.
+
+La resolución de la autoridad de tránsito que establezca la responsabilidad e imponga la suspensión o cancelación de la licencia de conducción, deberá contener la prohibición expresa al infractor de conducir vehículos automotores durante el tiempo que se le suspenda o cancele la licencia.
+
+La notificación de la suspensión o cancelación de la licencia de conducción, se realizará de conformidad con las disposiciones aplicables del Código de Procedimiento Administrativo y de lo Contencioso Administrativo.
+
+Una vez se encuentre en firme la resolución de la autoridad de tránsito mediante la cual cancela la licencia de conducción, por las causales previstas en los numerales 6° y 7° de este artículo, se compulsarán copias de la actuación administrativa a la Fiscalía General de la Nación, para lo de su competencia.
+
+Transcurridos veinticinco (25) años desde la cancelación, el conductor podrá volver a solicitar una nueva licencia de conducción.
+
+### CAPÍTULO III
+
+**Vehículos.**
+
+##### **Artículo 27.***Condiciones de cambio de servicio.* Todos los vehículos que circulen por el territorio nacional deben someterse a las normas que sobre tránsito terrestre determine este Código. Estos deben cumplir con los requisitos generales y las condiciones mecánicas y técnicas que propendan a la seguridad, la higiene y comodidad dentro de los reglamentos correspondientes sobre peso y dimensiones.
+
+**Parágrafo 1°.** El Ministerio de Transporte determinará un período no mayor de seis (6) meses, en el cual se permitirá el cambio de servicio particular a público de los vehículos tipo volqueta, camperos y vehículos de carga de dos (2) ejes hasta de cuatro (4) toneladas.
+
+El Ministerio de Transporte reglamentará en un término de sesenta (60) días, a partir de la promulgación de la presente ley, el cambio de servicio de particular a público, teniendo en cuenta las siguientes consideraciones:
+
+- 1. Por ser zonas rurales o suburbanas de difícil acceso para el servicio de carga y pasajeros por parte de empresas habilitadas por el Ministerio de Transporte.
+
+- 2. Por tratarse de un servicio que es debidamente atendido por empresas habilitadas para ese tipo de transporte.
+
+- 3. En el caso de transporte, que por sus características requieran un tipo especial de vehículos.
+
+En ningún caso se podrá cambiar de clase un vehículo automotor.
+
+**Parágrafo 2°.** El Ministerio de Transporte, definirá en un plazo no mayor de 60 días contados a partir de la fecha de sanción de la presente ley, mediante resolución todo lo relativo a la reglamentación de los vehículos antiguos y los vehículos clásicos en lo cual queda facultado para conceptuar sobre las placas, seguros e impuestos y se faculta al organismo de tránsito pertinente para determinar las restricciones de circulación.
+
+Adiciónase un parágrafo nuevo al artículo 27 de la Ley 769 de 2002.
+
+**Parágrafo nuevo.** En los términos establecidos en el presente artículo, el Ministerio de Transporte reglamentará el cambio de servicio público tipo taxi a servicio particular.
+
+##### **Artículo 28.***Condiciones tecnomecánicas, de emisiones contaminantes y de operación.* Para que un vehículo pueda transitar por el Territorio Nacional, debe garantizar como mínimo un perfecto funcionamiento de frenos, del sistema de dirección, del sistema de suspensión, del sistema de señales visuales y audibles permitidas y del sistema de escape de gases; y demostrar un estado adecuado de llantas, del conjunto de vidrios de seguridad y de los espejos y cumplir con las normas de emisiones contaminantes que establezcan las autoridades ambientales.
+
+**Parágrafo 1°.** Las autoridades de tránsito ejercerán en los vehículos de servicio público de transporte, un control y verificación del correcto funcionamiento y calibración de los dispositivos utilizados para el cobro en la prestación de un servicio público.
+
+**Parágrafo 2°**. La Superintendencia de Puertos y Transporte, contratará los servicios de un centro de llamadas, el cual estará bajo su vigilancia, inspección y control, mediante el cual cualquier persona podrá reportar la comisión de infracciones de tránsito, o la violación al régimen de sanciones por parte de las empresas de servicio público de transporte terrestre automotor. Las llamadas no tendrán costo alguno. Los costos de dicho servicio serán sufragados por las empresas de servicio público de transporte automotor en proporción al número de vehículos vinculados.
+
+Con dicho propósito, los vehículos de servicio público y oficial, de manera obligatoria deberán llevar un aviso visible tanto en el interior como en el exterior en el que se señale el número telefónico correspondiente al centro de llamadas antes indicado.
+
+Los vehículos de servicio público deberán llevar además marcado en los costados y en el techo el número de la placa según normas que profiera el Ministerio de Transporte.
+
+Las obligaciones previstas en este artículo y la contratación de los servicios del centro de llamadas deberán implementarse en un término no mayor de un (1) año contado a partir de la fecha de promulgación de la presente ley.
+
+##### **Artículo 29.***Dimensiones y pesos.* Los vehículos deberán someterse a las dimensiones y pesos, incluida carrocería y accesorios, que para tal efecto determine el Ministerio de Transporte, para lo cual debe tener en cuenta la normatividad técnica nacional e internacional.
+
+##### **Artículo 30.***Equipos de prevención y seguridad*. Ningún vehículo podrá transitar por las vías del territorio nacional sin portar el siguiente equipo de carretera como mínimo:
+
+- 1. Un gato con capacidad para elevar el vehículo.
+
+- 2. Una cruceta.
+
+- 3. Dos señales de carretera en forma de triángulo en material reflectivo y provistas de soportes para ser colocadas en forma vertical o lámparas de señal de luz amarilla intermitentes o de destello.
+
+- 4. Un botiquín de primeros auxilios.
+
+- 5. Un extintor.
+
+- 6. Dos tacos para bloquear el vehículo.
+
+- 7. Caja de herramienta básica que como mínimo deberá contener: Alicate, destornilladores, llave de expansión y llaves fijas.
+
+- 8. Llanta de repuesto.
+
+- 9. Linterna.
+
+**Parágrafo.** Ningún vehículo podrá circular por las vías urbanas, portando defensas rígidas diferentes de las instaladas originalmente por el fabricante.
+
+##### **Artículo 31.***Salida de emergencia.* Todo vehículo dedicado al transporte colectivo de pasajeros debe tener como mínimo una salida de emergencia en cada uno de sus costados adicionalmente a las puertas de ascenso de pasajeros. El Ministerio de Transporte definirá las características técnicas correspondientes.
+
+##### **Artículo 32.***Condiciones de la carga*. La carga de un vehículo debe estar debidamente empacada, rotulada, embalada y cubierta conforme a la normatividad técnica nacional cuando esta aplique, de acuerdo con las exigencias propias de su naturaleza, de manera que cumpla con las medidas de seguridad vial y la normatividad ambiental. Los contenedores deberán llevar dispositivos especiales de sujeción, según lo estipulado por el Ministerio de Transporte.
+
+##### **Artículo 33.***Permiso para carga*. El Ministerio de Transporte definirá lo referente a permisos para transportar cargas indivisibles, extrapesadas y extradimensionadas, así como las especificaciones de los vehículos que realizan esta clase de transporte.
+
+### CAPITULO IV
+
+**Licencia de tránsito**
+
+##### **Artículo 34.***Porte*. En ningún caso podrá circular un vehículo automotor sin portar la licencia de tránsito correspondiente.
+
+##### **Artículo 35.***Expedición.* La licencia de tránsito será expedida por cualquier organismo de tránsito o por quien él designe, previa entrega de los siguientes documentos:
+
+Factura de compra si el vehículo es de fabricación nacional.
+
+Factura de compra en el país de origen y licencia de importación.
+
+Recibo de pago de impuestos.
+
+Certificado de inscripción ante el RUNT.
+
+##### **Artículo 36.***Elaboración.* El formato de la licencia de tránsito será único nacional, y será definido por el Ministerio de Transporte antes de los 60 días posteriores a la sanción de esta ley y en el mismo se incluirá al menos la información determinada en el artículo 38 de este código.
+
+Dentro de las características técnicas que deben contener las licencias de tránsito, se incluirán un código de barras bidimensional y un holograma de seguridad.
+
+##### **Artículo 37.***Registro inicial.* El registro inicial de un vehículo se podrá hacer en cualquier organismo de tránsito y sus características técnicas y de capacidad deben estar homologadas por el Ministerio de Transporte para su operación en las vías del territorio nacional.
+
+**Parágrafo.** Solamente se podrá hacer el registro inicial de vehículos nuevos, entendiéndose por estos los comercializados durante el año modelo asignado por el fabricante y los dos meses primeros del año siguiente. No se podrá hacer registro de saldos de vehículos, excepto si son de fabricación nacional y sin importación.
+
+De ninguna manera se podrá hacer un registro inicial de un vehículo usado, excepto cuando se trate de vehículos de bomberos, siempre que estos sean donados a Cuerpos de Bomberos Oficiales o Voluntarios, por entidades extranjeras públicas o privadas y que no tengan una vida de servicio superior a veinte (20) años y que la autoridad competente emita concepto favorable sobre la revisión técnico-mecánica. El Ministerio de Transporte reglamentará en un término no mayor a 90 días posteriores a la sanción de esta ley, los criterios y demás aspectos necesarios para la aplicabilidad de esta ley.
+
+##### **Artículo 38.***Contenido*. La licencia de tránsito contendrá, como mínimo, los siguientes datos:
+
+Características de identificación del vehículo, tales como: marca, línea, modelo, cilindrada, potencia, número de puertas, color, número de serie, número de chasis, número de motor, tipo de motor y de carrocería.
+
+Número máximo de pasajeros o toneladas:
+
+Destinación y clase de servicio:
+
+Nombre del propietario, número del documento de identificación, huella, domicilio y dirección.
+
+Limitaciones a la propiedad.
+
+Número de placa asignada.
+
+Fecha de expedición.
+
+Organismo de tránsito que la expidió.
+
+Número de serie asignada a la licencia.
+
+Número de identificación vehicular (VIN).
+
+**Parágrafo.** Las nuevas licencias deberán permitir al organismo de tránsito confrontar la identidad del respectivo titular de conformidad con las normas de la ley vigente sobre la materia.
+
+El Ministerio de Transporte determinará las especificaciones y características que deberá tener el Número de Identificación Vehicular VIN.
+
+##### **Artículo 39.** Todo vehículo será matriculado ante un organismo de tránsito ante el cual cancelará los derechos de matrícula y pagará en lo sucesivo los impuestos del vehículo.
+
+Para la realización de este trámite las respectivas autoridades de tránsito no podrán solicitar la presentación de documentos de competencias de otras autoridades públicas o de particulares que ejerzan función administrativa.
+
+Corresponderá al Ministerio de Transporte realizar las adecuaciones necesarias al RUNT antes del 31 de julio del año 2012 para dar cumplimiento a este mandato.
+
+Las entidades involucradas, tales como la DIAN, el Ministerio de Relaciones Exteriores, entidades transportadoras, deberán prestar el apoyo y fortalecer su infraestructura tecnológica para permitir el intercambio de la información requerida.
+
+El propietario de un vehículo podrá solicitar el traslado de los documentos de un organismo de tránsito a otro sin costo alguno, lo cual debe tramitarse en un término no superior a diez (10) días y será ante el nuevo organismo de tránsito donde se pagarán en adelante los impuestos del vehículo.
+
+**Parágrafo.** El domicilio del organismo de tránsito ante el cual se encuentren registrados los papeles de un vehículo será el domicilio fiscal del vehículo.
+
+##### **Artículo 40.***Cancelación*. La licencia de tránsito de un vehículo se cancelará a solicitud de su titular por destrucción total del vehículo, pérdida definitiva, exportación o reexportación, hurto o desaparición documentada sin que se conozca el paradero final del vehículo, previa comprobación del hecho por parte de la autoridad competente
+
+En cualquier caso, el organismo de tránsito reportará la novedad al Registro Nacional Automotor mediante decisión debidamente ejecutoria da.
+
+**Parágrafo.** En caso de destrucción, debe informarse al Ministerio de Transporte de este hecho para proceder a darlo de baja del registro automotor. En ningún caso podrá matricularse un vehículo nuevamente con esta serie y número.
+
+##### **Artículo 41.***Vehículos extranjeros*. Los vehículos registrados legalmente en otros países, que se encuentren en el territorio nacional, podrán transitar durante el tiempo autorizado por el Ministerio de Relaciones Exteriores y por la Dirección de Impuestos y Aduanas Nacionales, teniendo en cuenta los convenios internacionales y la Ley de fronteras sobre la materia.
+
+El Gobierno Nacional reglamentará el servicio público de transporte en la zona de frontera.
+
+### CAPITULO V
+
+**Seguros y responsabilidad**
+
+##### **Artículo 42.***Seguros obligatorios*. Para poder transitar en el territorio nacional todos los vehículos deben estar amparados por un seguro obligatorio vigente. El Seguro Obligatorio de Accidentes de Tránsito, SOAT, se regirá por las normas actualmente vigentes o aquellas que la modifiquen o sustituyan.
+
+**Parágrafo 1°** Los propietarios de los vehículos que registren un buen comportamiento vial por no reportar siniestro que afecten la póliza del Seguro Obligatorio de Accidentes de Tránsito (SOAT), y haber renovado su póliza de manera oportuna, definida como la renovación de la póliza antes de su vencimiento, tendrán derecho a la disminución en el valor del Seguro Obligatorio de Accidentes de Tránsito (SOAT) así:
+
+Si en los dos años inmediatamente anteriores al vencimiento de la póliza, registra un buen comportamiento vial; tendrán derecho él un descuento, por única vez, del diez por ciento (10%) sobre el valor de la prima emitida del Seguro Obligatorio de Accidentes de Tránsito (SOAT). Esta medida será aplicable para aquellos propietarios de vehículos que hayan tenido un buen comportamiento durante los años 2020 y 2021, con lo cual se aplicará el descuento a la prima que aplique durante 2022, y de ninguna manera afectará el valor de la contribución a la ADRES, que se calculará sobre el valor de la prima fijado por la Superintendencia Financiera de Colombia.
+
+El descuento por única vez a que se refiere el presente parágrafo se otorgará a la combinación entre el vehículo y el tomador del seguro. En ningún caso, el tomador del seguro podrá hacerse acreedor del beneficio más de una vez por el mismo vehículo.
+
+**Parágrafo 2°.** El Gobierno Nacional, en un plazo de tres meses contados a partir de la vigencia de la presente Ley, definirá el procedimiento para la verificación de las condiciones exigidas para acceder al descuento. En ·caso de cambio de propietario de vehículo deberá proceder el cambio de tomador, de manera tal que los beneficios no sean conmutables entre el antiguo y el nuevo propietario.
+
+**Parágrafo 3°.**A partir del 2022, las compañías aseguradoras reconocerán un máximo del 5% de las primas mensuales emitidas por cargos de intermediación por venta del SOAT.
+
+**Nota:** La sentencia C-395 de 2022. Declaró inexequible la expresión “del diez por ciento (10%)” contenida en el parágrafo 1° y todo el parágrafo 3°, adición que fue introducida por el artículo 2 de la ley 2161 del 2021, al artículo 42 de la Ley 769 de 2002.
+
+##### **ARTÍCULO 42A**. ASEGURAMIENTO COMPLEMENTARIO Y VOLUNTARIO AL SEGURO OBLIGATORIO. La compañía aseguradora que ofrezca el Seguro Obligatorio de Accidentes de Tránsito, SOAT, previsto en el artículo 42 de la Ley 769 de 2002 deberá además ofrecer una póliza complementaria cuya suscripción será voluntaria por parte del tomador, siempre y cuando la compañía aseguradora contemple dicho servicio dentro de su portafolio.
+
+Este aseguramiento voluntario adicional tendrá por objeto la cobertura de responsabilidad civil por daños materiales a terceros, cubriendo la reparación o parte de ella de los bienes asegurables, en caso de presentarse un choque simple. Las compañías aseguradoras determinarán con libertad de oferta los montos asegurables, cumpliendo las disposiciones técnicas del Estatuto Orgánico del Sistema Financiero.
+
+### CAPITULO VI
+
+**Placas**
+
+##### **Artículo 43.***Diseño y elaboración.* Corresponde al Ministerio de Transporte diseñar y establecer las características y ficha técnica de la placa única nacional para los vehículos automotores, asignar sus series, rangos y códigos, y a las autoridades de tránsito competentes o a quien el Ministerio de transporte autorice, su elaboración y entrega. Así mismo, el Ministerio de Transporte reglamentará lo referente a la placa que deberán tener los vehículos que ingresen en el país por programas especiales o por importación temporal.
+
+##### **Artículo 44.***Clasificación*. Las placas se clasifican, en razón del servicio del vehículo, así: De servicio oficial, público, particular, diplomático, consular y de misiones especiales.
+
+Las placas de servicio diplomático, consular y de misiones especiales serán suministradas por el Ministerio de Transporte o por la entidad que delegue para tal fin, a través del Ministerio de Relaciones Exteriores.
+
+##### **Artículo 45. Ubicación.** Los vehículos automotores llevarán dos (2) placas iguales: una en el extremo delantero y otra en el extremo trasero. Los remolques, semirremolques y similares de transporte de carga tendrán una placa conforme a las características que determine el Ministerio de Transporte. Las motocicletas, motociclos y mototriciclos llevarán una sola placa reflectiva en el extremo trasero con base en las mismas características y seriado de las placas de los demás vehículos.
+
+Ningún vehículo automotor matriculado en Colombia podrá llevar, en el lugar destinado a las placas, distintivos similares a éstas o que la imiten, ni que correspondan a placas de otros países, so pena de incurrir en la sanción prevista en este Código para quien transite sin placas; éstas deben de estar libres de obstáculos que dificulten su plena identificación.
+
+**Parágrafo.** En caso de hurto o pérdida de la placa, se expedirá el duplicado con el mismo número.
+
+### CAPITULO VII
+
+**Registro Nacional Automotor**
+
+##### **Artículo 46.***Inscripción en el registro.* Todo vehículo automotor, registrado y autorizado para, circular por el territorio nacional, incluyendo la maquinaria capaz de desplazarse, deberá ser inscrito por parte de la autoridad competente en el Registro Nacional Automotor que llevará el Ministerio de Transporte. También deberán inscribirse los remolques y semi-remolques. Todo vehículo automotor registrado y autorizado deberá presentar el certificado vigente de la revisión técnico - mecánica, que cumpla con los términos previstos en este código.
+
+##### **Artículo 47.***Tradición del dominio*. La tradición del dominio de los vehículos automotores requerirá, además de su entrega material, su inscripción en el organismo de tránsito correspondiente, quien lo reportará en el Registro Nacional Automotor en un término no superior a quince (15) días. La inscripción ante el organismo de tránsito deberá hacerse dentro de los sesenta (60) días hábiles siguientes a la adquisición del vehículo.
+
+Si el derecho de dominio sobre el vehículo hubiere sido afectado por una medida preventiva decretada entre su enajenación y la inscripción de la misma en el organismo de tránsito correspondiente, el comprador o el tercero de buena fe podrá solicitar su levantamiento a la autoridad que la hubiere ordenado, acreditando la realización de la transacción con anterioridad a la fecha de la medida cautelar.
+
+##### **Artículo 48.***Información al registro nacional.* Las autoridades judiciales deberán informar al organismo de tránsito donde se encuentre matriculado un vehículo, de las decisiones adoptadas en relación con él, para su inscripción en el Registro Nacional Automotor, dentro de los quince (15) días hábiles siguientes a su ejecutoria. Así mismo las Autoridades Judiciales deberán verificar la propiedad del vehículo antes de tomar decisiones en relación con él.
+
+##### **Artículo 49.***Autorización previa para cambio de características*. Cualquier modificación o cambio en las características que identifican un vehículo automotor, estará sujeto a laautorización previa por parte de la autoridad de tránsito competente y deberá inscribirse en el Registro Nacional Automotor. En ningún caso se podrán cambiar, modificar, ni adulterar los números de identificación del motor, chasis o serie de un vehículo, ni retocar o alterar las placas del vehículo, so pena de incurrir en la sanción prevista en este Código para quien transite sin placas.
+
+**Parágrafo.** Se podrá modificar el número de motor sólo cuando haya cambio de éste, previo cumplimiento de los requisitos determinados por los organismos de tránsito y aduana.
+
+### CAPITULO VIII
+
+**Revisión técnico-mecánica**
+
+##### **Artículo 50**. *Condiciones mecánicas, ambientales y de seguridad*. Por razones de seguridad vial y de protección al ambiente, el propietario o tenedor del vehículo de placas nacionales o extranjeras, que transite por el territorio nacional, tendrá la obligación de mantenerlo en óptimas condiciones mecánicas, ambientales y de seguridad.
+
+##### **Artículo 51. Revisión periódica de los vehículos.** Salvo lo dispuesto en el artículo siguiente, todos los vehículos automotores, deben someterse anualmente a revisión técnico-mecánica y de emisiones contaminantes.
+
+La revisión estará destinada a verificar:
+
+f. El adecuado estado de la carrocería.
+
+g. Niveles de emisión de gases y elementos contaminantes acordes con la legislación vigente sobre la materia.
+
+h. El buen funcionamiento del sistema mecánico.
+
+- i. Funcionamiento adecuado del sistema eléctrico y del conjunto óptico.
+
+j. Eficiencia del sistema de combustión interno.
+
+k. Elementos de seguridad.
+
+- l. Buen estado del sistema de frenos constatando, especialmente, en el caso en que este opere con aire, que no emita señales acústicas por encima de los niveles permitidos.
+
+- m. Las llantas del vehículo.
+
+n. Del funcionamiento de los sistemas y elementos de emergencia.
+
+o. Del buen funcionamiento de los dispositivos utilizados para el cobro en la prestación del servicio público.
+
+##### **Artículo 52. Primera revisión de los vehículos automotores.** Los vehículos nuevos de servicio particular diferentes de motocicletas y similares, se someterán a la primera revisión técnico-mecánica y de emisiones contaminantes a partir del quinto (5°) año contado a partir de la fecha de su matrícula en el registro nacional automotor. Los vehículos nuevos de servicio público, así como las motocicletas y similares, se someterán a la primera revisión técnico-mecánica y de emisiones contaminantes al cumplir dos (2) años contados a partir de su fecha de matrícula. **Parágrafo.** Los vehículos automotores de placas extranjeras, que ingresen temporalmente y hasta por tres (3) meses al país, no requerirán la revisión técnico-mecánica y de emisiones contaminantes.
+
+##### **Artículo 53.** Centros de diagnóstico automotor. La revisión técnico-mecánica y de emisiones contaminantes se realizará en centros de diagnóstico automotor, legalmente constituidos y registrados ante el RUNT, que posean las condiciones mínimas que determinen los reglamentos emitidos por el Ministerio de Transporte y el Ministerio de Ambiente y de desarrollo sostenible, en el marco de sus competencias.
+
+Los resultados de la revisión técnico-mecánica y de emisiones contaminantes, serán consignados en un documento uniforme cuyas características determinará el Ministerio de Transporte. La aceptación de las condiciones de la revisión técnico-mecánica y de emisiones contaminantes del vehículo, se dará mediante el Certificado de Revisión técnico-mecánica y de emisiones contaminantes, el cual será entregado al solicitante de manera virtual y con código seguro de verificación, así como con opción de consulta en los Centros de Diagnóstico Automotor y los agentes de tránsito, a través del Registro Único Nacional de Tránsito (RUNT). Para la revisión del vehículo automotor, se requerirá contar con la licencia de tránsito vigente.
+
+**Parágrafo 1**°. Quien no cuente con certificado vigente incurrirá en las sanciones previstas en la ley. Para todos los efectos este será considerado como documento público.
+
+**Parágrafo 2°.** La Autoridad de Tránsito deberá realizar la consulta a través del Registro Único Nacional de Tránsito del cumplimiento de la revisión técnico-mecánica y de emisiones contaminantes, por lo tanto, no podrá exigir el certificado físico de la revisión técnico-mecánica y de emisiones contaminantes.
+
+Parágrafo transitorio. Las obligaciones a que se refiere este artículo serán exigibles a las autoridades de tránsito dentro de los seis (6) meses siguientes a la expedición del presente decreto ley.
+
+El Ministerio de Transporte continuará realizando las habilitaciones, hasta que se cuente con el desarrollo en el sistema RUNT, para que dichos organismos realicen el registro de manera directa, plazo que no podrá ser mayor a seis (6) meses contados a partir de la expedición del presente decreto ley prorrogables por tres (3) meses más.
+
+Para todos los efectos legales, el registro en el RUNT hará las veces de habilitación.
+
+**Parágrafo 2º.** Los Centros de Diagnóstico Automotor (CDA) deberán tomar, con una entidad aseguradora legalmente establecida en Colombia y con libertad de oferta, un seguro obligatorio individual de responsabilidad civil para vehículos de servicio particular, que ampare los daños materiales causados a terceros, sin cargo o sobrecosto para el usuario, por la vigencia de cada uno de los certificados emitidos.
+
+Este seguro deberá tener un valor asegurado mínimo de quince salarios mínimos legales mensuales vigentes (15 SMLMV) para vehículos de servicio particular y siete salarios mínimos legales mensuales vigentes (7 SMLMV) para motocicletas y similares.
+
+En el Registro Único Nacional de Tránsito (RUNT)} se registrará la información sobre los seguros obligatorios vigentes y los siniestros.
+
+Los Centros de Diagnóstico Automotor (CDA) tienen la obligación de garantizar que en cada uno de sus establecimientos se ofrezcan los seguros obligatorios previstos en esta ley.
+
+##### **Artículo 54**. R*egistro computarizado.* Los Centros de diagnóstico automotor llevarán un registro computarizado de los resultados de las revisiones técnico-mecánicas y de emisiones contaminantes de cada vehículo, incluso de los que no la aprueben.
+
+## TITULO III
+
+**NORMAS DE COMPORTAMIENTO**
+
+### CAPITULO I
+
+**Reglas generales y educación en el tránsito**
+
+##### **Artículo 55.***Comportamiento del conductor, pasajero o peatón*. Toda persona que tome parte en el tránsito como conductor, pasajero o peatón, debe comportarse en forma que no obstaculice, perjudique o ponga en riesgo a las demás y debe conocer y cumplir las normas y señales de tránsito que le sean aplicables, así como obedecer las indicaciones que les den las autoridades de tránsito.
+
+##### **Artículo 56.***Obligatoriedad de enseñanza.* Se establece como obligatoria, en la educación preescolar, básica primaria, básica secundaria, la enseñanza en educación vial de manera sistemática, de conformidad con los objetivos y propósitos señalados en la presente ley, con énfasis especial en las niñas, niños, adolescentes y jóvenes al relacionarse en el espacio público, con especial atención de los ciclistas, a fin de que se promueva el desarrollo de las competencias necesarias en la educación vial, para el uso adecuado, responsable y seguro de la bicicleta y otros medios de movilidad.
+
+**Parágrafo**. Los Ministerios de Transporte y Educación Nacional, expedirán la reglamentación atinente al cumplimiento de lo dispuesto en este artículo.
+
+### CAPITULO II
+
+**Peatones**
+
+##### **Artículo 57.***Circulación peatonal*. El tránsito de peatones por las vías públicas se hará por fuera de las zonas destinadas al tránsito de vehículos. Cuando un peatón requiera cruzar una vía vehicular, lo hará respetando las señales de tránsito y cerciorándose de que no existe peligro para hacerlo.
+
+##### **Artículo 58. *Prohibiciones a los peatones.*** Los peatones no podrán:
+
+- 1. Llevar, sin las debidas precauciones, elementos que puedan afectar el tránsito de otros peatones o actores de la vía.
+
+- 2. Cruzar por sitios no permitidos o transitar sobre el guardavías del ferrocarril.
+
+- 3. Remolcarse de vehículos en movimiento.
+
+- 4. Actuar de manera que ponga en peligro su integridad física.
+
+- 5. Cruzar la vía atravesando el tráfico vehicular en lugares en donde existen pasos peatonales.
+
+- 6. Ocupar la zona de seguridad y protección de la vía férrea, la cual se establece a una distancia no menor de doce (12) metros a lado y lado del eje de la vía férrea.
+
+- 7. Subirse o bajarse de los vehículos, estando estos en movimiento, cualquiera que sea la operación o maniobra que estén realizando.
+
+- 8. Transitar por los túneles, puentes y viaductos de las vías férreas.
+
+**Parágrafo 1°.** Además de las prohibiciones generales a los peatones, en relación con el STTMP, estos no deben ocupar la zona de seguridad y corredores de tránsito de los vehículos del STTMP, fuera de los lugares expresamente autorizados y habilitados para ello.
+
+**Parágrafo 2°.** Los peatones que queden incursos en las anteriores prohibiciones se harán acreedores a una multa de un salario mínimo legal diario vigente, sin perjuicio de las demás acciones de carácter civil, penal y de policía que se deriven de su responsabilidad y conducta.
+
+Dentro del perímetro urbano, el cruce debe hacerse solo por las zonas autorizadas, como los puentes peatonales, los pasos peatonales y las bocacalles.
+
+##### **Artículo 59.***Limitaciones a peatones especiales.* Los peatones que se enuncian a continuación deberán ser acompañados, al cruzar las vías, por personas mayores de dieciséis años:
+
+Las personas que padezcan de trastornos mentales permanentes o transitorios.
+
+Las personas que se encuentren bajo el influjo de alcohol, drogas alucinógenas y de medicamentos o sustancias que disminuyan sus reflejos.
+
+Los invidentes, los sordomudos, salvo que su capacitación o entrenamiento o la utilización de ayudas o aparatos ortopédicos los habiliten para cruzar las vías por sí mismos.
+
+Los menores de seis (6) años.
+
+Los ancianos.
+
+### CAPITULO III
+
+**Conducción de vehículos**
+
+##### **Artículo 60. Obligatoriedad de transitar por los carriles demarcados.** Los vehículos deben transitar, obligatoriamente, por sus respectivos carriles, dentro de las líneas de demarcación, y atravesarlos solamente para efectuar maniobras de adelantamiento o de cruce. **Parágrafo 1°.** Los conductores no podrán transitar con vehículo automotor o de tracción animal por la zona de seguridad y protección de la vía férrea. **Parágrafo 2°.** Todo conductor, antes de efectuar un adelantamiento o cruce de una calzada a otra o de un carril a otro, debe anunciar su intención por medio de las luces direccionales y señales ópticas o audibles y efectuar la maniobra de forma que no entorpezca el tránsito, ni ponga en peligro a los demás vehículos o peatones. **Parágrafo 3°.** Todo conductor de vehículo automotor deberá realizar la maniobra de adelantamiento de ciclistas y usuarios de vehículos eléctricos livianos de movilidad personal urbana a una distancia no menor de un metro con cincuenta centímetros (1.50 metros) de estos.
+
+##### **Artículo 61.***Vehículo en movimiento*. Todo conductor de un vehículo deberá abstenerse de realizar o adelantar acciones que afecten la seguridad en la conducción del vehículo automotor, mientras éste se encuentre en movimiento.
+
+##### **Artículo 62.***Respeto a los conglomerados*. Todo conductor de un vehículo deberá respetar las formaciones de tropas, desfiles, columnas motorizadas de fuerza pública, procesiones, entierros, filas estudiantiles y las manifestaciones públicas y actividades deportivas.
+
+##### **Artículo 63.*Respeto a los derechos de los peatones, c* iclistas*y usuarios de vehículos eléctricos livianos de movilidad personal urbana***. Los conductores de vehículos motorizados deberán respetar los derechos e integridad de los peatones, ciclistas y usuarios de vehículos eléctricos livianos de movilidad personal urbana, dándoles prelación en la vía.
+
+##### **Artículo 64.***Cesión de paso en la vía a vehículos de emergencia*. Todo conductor debe ceder el paso a los vehículos de ambulancias, cuerpo de bomberos, vehículos de socorro o emergencia y de la policía o ejército orillándose al costado derecho de la calzada o carril y deteniendo el movimiento del vehículo, cuando anuncien su presencia por medio de luces, sirenas, campanas o cualquier señal óptica o audible. En todo caso los vehículos de emergencia deben reducir la velocidad y constatar que les han cedido el derecho de paso al cruzar una intersección.
+
+**Parágrafo.** En calzadas de tres (3) carriles, deberá procurarse despejar, como mínimo, el carril del medio para el paso de estos vehículos. Si tiene más de tres (3), se despejará el siguiente al del carril más rápido, o por donde lo haya demarcado la autoridad de tránsito mediante señalización especial. En todo caso se permitirá el paso.
+
+##### **Artículo 65.***Utilización de la señal de parqueo*. Todo conductor, al detener su vehículo en la vía pública, deberá utilizar la señal luminosa intermitente que corresponda, orillarse al lado derecho de la vía y no efectuar maniobras que pongan en peligro a las personas o a otros vehículos.
+
+##### **Artículo 66.***Giros en cruce de intersección*. El conductor que transite por una vía sin prelación deberá detener completamente su vehículo al llegar a u n cruce y donde no haya semáforo tomará las precauciones debidas e iniciará la marcha cuando le corresponda.
+
+En ningún caso el conductor podrá detener su vehículo sobre la vía férrea, un paso peatonal o una intersección o un carril exclusivo, paralelo preferencial de alimentadores o compartidos con los peatonales, pertenecientes al STTMP. Todo conductor deberá permanecer a una distancia mínima de cinco (5) metros de la vía férrea.
+
+**Parágrafo.** Ningún conductor deberá frenar intempestivamente y disminuir la velocidad sin cerciorarse que la maniobra no ofrezca peligro.
+
+##### **Artículo 67.***Utilización de señales*. Todo conductor está obligado a utilizar las señales direccionales de su vehículo para dar un giro o para cambiar de carril. Sólo en caso de emergencia, y ante la imposibilidad de utilizar las señales direccionales, deberá utilizar las siguientes señales manuales:
+
+Para cruzar a la izquierda o cambio de carril sacará el brazo izquierdo y lo extenderá horizontalmente.
+
+Para indicar cruce a la derecha, cambio de carril, sacará el brazo izquierdo formando escuadra con la mano hacia arriba.
+
+Para indicar reducción de velocidad o detención del vehículo, sacará el brazo izquierdo formando escuadra con la mano hacia abajo.
+
+**Parágrafo 1°.** En carreteras o vías rápidas, la indicación intermitente de la señal direccional deberá ponerse por lo menos con sesenta (60) metros de antelación al giro, y en zonas urbanas, por lo menos con treinta (30) metros de antelación.
+
+**Parágrafo 2º.** El conductor deberá detener el vehículo para indicar al peatón con una señal de mano que tiene preferencia al paso de la vía, siempre y cuando esté cruzando por una zona demarcada en vías de baja velocidad.
+
+##### **Artículo 68.** *Utilización de los carriles.* Los vehículos transitarán de la siguiente forma:
+
+Vía de sentido único de tránsito.
+
+En aquellas vías con velocidad reglamentada para sus carriles, los vehículos utilizarán el carril de acuerdo con su velocidad de marcha.
+
+En aquellas vías donde los carriles no tengan reglamentada su velocidad, los vehículos transitarán por el carril derecho y los demás carriles se emplearán para maniobras de adelantamiento.
+
+Vías de doble sentido de tránsito.
+
+De dos (2) carriles: Por el carril de su derecha y utilizar con precaución el carril de su izquierda para maniobras de adelantamiento y respetar siempre la señalización respectiva.
+
+De tres (3) carriles: Los vehículos deberán transitar por los carriles extremos que queden a su derecha; el carril central sólo se utilizará en el sentido que señale la autoridad competente.
+
+De cuatro (4) carriles: Los carriles exteriores se utilizarán para el tránsito ordinario de vehículos, y los interiores, para maniobras de adelantamiento o para circular a mayores velocidades dentro de los límites establecidos.
+
+**Parágrafo 1o**. Sin perjuicio de las normas que sobre el particular se establecen en este código, las bicicletas, motocicletas, motociclos, mototriciclos y vehículos de tracción animal e impulsión humana, transitarán de acuerdo con las reglas que en cada caso dicte la autoridad de tránsito competente. En todo caso, estará prohibido transitar por los andenes o aceras, o puentes de uso exclusivo para los peatones.
+
+**Parágrafo 2o.** Se prohíbe el tránsito de motocicletas y motociclos por las ciclorrutas o ciclovías. En caso de infracción se procederá a la inmovilización.
+
+##### **Artículo 69.***Retroceso en las vías públicas*. No se deben realizar maniobras de retroceso en las vías públicas, salvo en casos de estacionamiento o emergencia.
+
+Los vehículos automotores no deben transitar sobre las aceras y zonas de seguridad, salvo en el caso de entrada a garajes o sitios de estacionamiento, evento en el cual respetarán la prelación de los peatones que circulan por las aceras o andenes.
+
+**Parágrafo.** El conductor no debe detener o estacionar su vehículo, por ningún motivo, dentro de la zona destinada al tránsito de peatones.
+
+##### **Artículo 70.***Prelación en intersecciones o giros.* Normas de prelación en intersecciones y situaciones de giros en las cuales dos (2) o más vehículos puedan interferir:
+
+Cuando dos (2) o más vehículos transiten en sentido contrario por una vía de doble sentido de tránsito e intenten girar al mismo lado, tiene prelación el que va a girar a la derecha; en las pendientes, tiene prelación el vehículo que sube.
+
+En intersecciones no señalizadas, salvo en glorietas, tiene prelación el vehículo que se encuentre a la derecha.
+
+Si dos (2) o más vehículos que transitan en sentido opuesto llegan a una intersección y uno de ellos va a girar a la izquierda, tiene prelación el vehículo que va a seguir derecho.
+
+Cuando un vehículo se encuentre dentro de una glorieta, tiene prelación sobre los que van a entrar a ella, siempre y cuando esté en movimiento.
+
+Cuando dos vehículos que transitan por vías diferentes llegan a una intersección y uno de ellos va a girar a la derecha, tiene prelación el vehículo que se encuentra a la derecha.
+
+Cuando un vehículo desee girar a la izquierda o a la derecha, debe buscar con anterioridad el carril más cercano a su giro e ingresar a la otra vía por el carril más próximo según el sentido de circulación.
+
+##### **Artículo 71.***Inicio de marcha*. Al poner en movimiento un vehículo estacionado se utilizará la señal direccional respectiva, dando prelación a los demás vehículos en marcha y tomando las precauciones para evitar choques con los vehículos que se aproximen.
+
+##### **Artículo 72.***Remolque de vehículos*. Solamente se podrán remolcar vehículos por medio de una grúa destinada a tal fin. En caso de una urgencia, un vehículo varado en vía urbana podrá ser remolcado por otro vehículo, sólo para que despeje la vía.
+
+En vías rurales, un vehículo diferente de grúa podrá remolcar a otro tomando las máximas precauciones y teniendo en cuenta las siguientes reglas:
+
+Cuando el vehículo es halado por medio de cable, la distancia entre los dos (2) vehículos debe estar entre tres (3) y cuatro (4) metros.
+
+Los vehículos de más de cinco (5) toneladas no podrán ser remolcados sino mediante una barra o un dispositivo especial.
+
+No se hará remolque en horas de la noche, excepto con grúas.
+
+El vehículo remolcado deberá portar una señal de alerta reflectiva en la parte posterior o las luces intermitentes encendidas.
+
+No se podrá remolcar más de un vehículo a la vez.
+
+##### **Artículo 73.***Prohibiciones especiales para adelantar otro vehículo*. No se debe adelantar a otros vehículos en los siguientes casos:
+
+En intersecciones
+
+En los tramos de la vía en donde exista línea separadora central continua o prohibición de adelantamiento.
+
+En curvas o pendientes.
+
+Cuando la visibilidad sea desfavorable.
+
+En las proximidades de pasos de peatones.
+
+En las intersecciones de las vías férreas.
+
+Por la berma o por la derecha de un vehículo.
+
+En general, cuando la maniobra ofrezca peligro.
+
+##### **Artículo 74.***Reducción de velocidad.* Los conductores deben reducir la velocidad a treinta (30) kilómetros por hora en los siguientes casos:
+
+En lugares de concentración de personas y en zonas residenciales.
+
+En las zonas escolares.
+
+Cuando se reduzcan las condiciones de visibilidad.
+
+Cuando las señales de tránsito así lo ordenen.
+
+En proximidad a una intersección.
+
+##### **Artículo 75.***Estacionamiento de vehículos*. En vías urbanas donde esté permitido el estacionamiento, se podrá hacerlo sobre el costado autorizado para ello, lo más cercano posible al andén o al límite lateral de la calzada no menos de treinta (30) centímetros del andén y a una distancia mínima de cinco (5) metros de la intersección.
+
+##### **Artículo 76.***Lugares prohibidos para estacionar.* Está prohibido estacionar vehículos en los siguientes lugares:
+
+- 1. Sobre andenes, zonas verdes o zonas de espacio público destinado para peatones, recreación o conservación.
+
+- 2. En vías arterias, autopistas, zonas de seguridad, o dentro de un cruce.
+
+- 3. En vías principales y colectoras en las cuales expresamente se indique la prohibición o la restricción en relación con horarios o tipos de vehículos.
+
+- 4. En puentes, viaductos, túneles, pasos bajos, estructuras elevadas o en cualquiera de los accesos a estos.
+
+- 5. En zonas expresamente destinadas para estacionamiento o parada de cierto tipo de vehículos, incluyendo las paradas de vehículos de servicio público, o para limitados físicos.
+
+- 6. En carriles dedicados a transporte masivo sin autorización.
+
+- 7. En ciclorrutas o carriles dedicados o con prioridad al tránsito de bicicletas.
+
+- 8. A una distancia mayor de treinta (30) centímetros de la acera.
+
+- 9. En doble fila de vehículos estacionados, o frente a hidrantes y en­tradas de garajes o accesos para personas con discapacidad.
+
+- 10. En curvas.
+
+- 11. Donde interfiera con la salida de vehículos estacionados.
+
+- 12. Donde las autoridades de tránsito lo prohíban.
+
+- 13. En zona de seguridad y de protección de la vía férrea, en la vía principal, vías secundarias, apartaderos, estaciones y anexidades férreas
+
+##### **Artículo 77.***Normas para estacionar*. En autopistas y zonas rurales, los vehículos podrán estacionarse únicamente por fuera de la vía colocando en el día señales reflectivas de peligro, y en la noche, luces de estacionamiento y señales luminosas de peligro. Quien haga caso omiso a este artículo será sancionado por la autoridad competente con multa equivalente a treinta (30) salarios mínimos legales diarios vigentes.
+
+##### **Artículo 78.***Zonas y horarios de estacionamiento especiales*. Los conductores que estacionen sus vehículos en los lugares de comercio u obras de construcción de los perímetros urbanos con el objeto de cargar o descargar, deberán hacerlo en zonas y horarios determinados para tal fin.
+
+Las entidades públicas o privadas y los propietarios de los locales comerciales no podrán hacer uso del espacio público frente a sus establecimientos para el estacionamiento exclusivo de sus vehículos o el de sus clientes.
+
+Las autoridades de tránsito definirán las horas y zonas para el cargue o descargue de mercancías.
+
+##### **Artículo 79.***Estacionamiento en vía pública*. No se deben reparar vehículos en vías públicas, parques, aceras, sino en caso de reparaciones de emergencia, o bajo absoluta imposibilidad física de mover el vehículo. En caso de reparaciones en vía pública, deberán colocarse señales visibles y el vehículo se estacionará a la derecha de la vía en la siguiente forma:
+
+En los perímetros rurales, fuera de la zona transitable de los vehículos, colocando señales de peligro a distancia entre cincuenta (50) y cien (100) metros adelante y atrás del vehículo.
+
+Cuando corresponda a zonas de estacionamiento prohibido, sólo podrá permanecer el tiempo necesario para su remolque, que no podrá ser superior a treinta (30) minutos.
+
+**Parágrafo.** Está prohibido reparar vehículos automotores en la zona de seguridad y protección de la vía férrea, en los patios de maniobras de las estaciones, los apartaderos y demás anexidades ferroviarias.
+
+##### **Artículo 80.***Medidas para evitar el movimiento de vehículo estacionado.* Siempre que el conductor descienda del vehículo, deberá tomar las medidas necesarias para evitar que éste se ponga en movimiento.
+
+**Parágrafo.** Cuando se trate de vehículos de tracción animal, deberán bloquearse las ruedas para evitar su movimiento.
+
+##### **Artículo 81.***Puertas cerradas*. Los vehículos deberán transitar siempre con todas sus puertas debidamente cerradas.
+
+##### **Artículo 82. *Cinturón de seguridad.*** En el asiento delantero de los vehículos, solo podrán viajar, además del conductor, una (1) o dos (2) personas de acuerdo con las características de ellos. Es obligatorio el uso del cinturón de seguridad por parte del conductor y de los pasajeros ubicados en los asientos delanteros del vehículo en todas las vías del territorio nacional, incluyendo las urbanas. Los menores de diez (10) años no podrán viajar en el asiento delantero del vehículo. Por razones de seguridad, los menores de dos (2) años solo podrán viajar en el asiento posterior haciendo uso de una silla que garantice su seguridad, y que permita su fijación a él, siempre y cuando el menor viaje únicamente en compañía del conductor. A partir de los vehículos fabricados en el año 2004, se exigirá el uso de cinturones de seguridad en los asientos traseros, de acuerdo con la reglamentación que sobre el particular expida el Ministerio de Transporte. Todo vehículo destinado al transporte escolar debe tener cinturones de seguridad de no menos de tres puntos de anclaje paro cada uno de sus ocupantes. El uso de los cinturones de seguridad será obligatorio durante todo el recorrido, situación que deberá corroborar el adulto acompañante de que trata el artículo 2.2.1.6.10.3 del Decreto número 1079 de 2015. Ningún estudiante o menor de edad, podrá transportarse en vehículos de transporte escolar que no cumpla con las condiciones de Seguridad de que trata el inciso anterior. **Parágrafo 1°.** Ningún vehículo podrá llevar un número de pasajeros superior a la capacidad señalada en la licencia de tránsito, con excepción de los niños de brazos. **Parágrafo 2°.** El Ministerio de Transporte reglamentará el uso de los cinturones de seguridad para las zonas diferenciales para el Transporte Escolar en donde la zona geográfica no permita cumplir con el cinturón de tres puntos.
+
+##### **Artículo 83.***Prohibición de llevar pasajeros en la parte exterior del vehículo.* Ningún vehículo podrá llevar pasajeros en su parte exterior, o fuera de la cabina, salvo aquellos que por su naturaleza así lo requieran, tales como los vehículos de atención de incendios y recolección de basuras. No se permite la movilización de pasajeros en los estribos de los vehículos.
+
+##### **Artículo 84.***Normas para el transporte de estudiantes*. En el transporte de estudiantes, los conductores de vehículos deberán garantizar la integridad física de ellos especialmente en el ascenso y descenso del vehículo. Los estudiantes ocuparán cada uno un puesto, y bajo ninguna circunstancia se podrán transportar excediendo la capacidad transportadora fijada al automotor, ni se permitirá que éstos vayan de pie. Las autoridades de tránsito darán especial prelación a la vigilancia y control de esta clase de servicio.
+
+Si fuere el caso los demás vehículos que circulen por las vías de uso público, detendrán su marcha para facilitar el paso del vehículo de transporte escolar o para permitir el ascenso o descenso del estudiante.
+
+Así mismo, los vehículos de transporte especial de estudiantes llevarán en el vehículo señales preventivas, las cuales usarán conforme lo establezca el Ministerio de Transporte.
+
+##### **Artículo 85.***Aprovisionamiento de combustible*. El aprovisionamiento de combustible a los vehículos debe hacerse con el motor apagado.
+
+Los conductores de vehículos de servicio público de radio de acción nacional y los de transporte especial y escolar, al aprovisionarse de combustible deberán hacer descender a los pasajeros. Los vehículos de servicio público colectivo de radio de acción metropolitano, distrital o municipal, no podrán aprovisionar combustible mientras que estén prestando el servicio.
+
+Los conductores de servicio público no deben, en ninguna circunstancia, abandonar el vehículo dejando los pasajeros dentro de él.
+
+##### **Artículo 85*A. Obligatoriedad de hacer inspección solo en vehículos apagados.*** La inspección canina de cualquier vehículo debe hacerse solamente cuando este se encuentre apagado. El guarda de seguridad debe exigirle al conductor apagar el vehículo. Ante una negativa del conductor, el guarda debe abstenerse de hacer la inspección.
+
+##### **Artículo 86.***De las luces exteriores*. Todo vehículo automotor deberá tener encendidas las luces exteriores a partir de las dieciocho (18) horas hasta las seis (6) horas del día siguiente, y cuando las condiciones de visibilidad sean adversas. Sin embargo, las autoridades de tránsito podrán fijar horarios de excepción.
+
+Dentro del perímetro urbano se usará la luz media, y se podrá hacer uso de luces exploradoras orientados sólo hacia la superficie de la vía, cuando éstas estén colocadas por debajo de las defensas del vehículo o cuando se trate de unidades integradas por el fabricante en el conjunto de luces frontales del vehículo. Fuera del perímetro urbano, podrá usarse la luz plena o alta, excepto cuando se aproxime un vehículo en sentido contrario o cuando la autoridad lo indique mediante la señal de tránsito correspondiente, o cuando la luz plena alcance un vehículo que transite adelante y pueda perturbar su conducción.
+
+**Parágrafo.** Ningún vehículo podrá portar luces exploradoras en la parte posterior.
+
+### CAPITULO IV
+
+**Para el transporte público**
+
+##### **Artículo 87.***De la prohibición de llevar animales y objetos molestos en vehículos para pasajeros*. En los vehículos de servicio público de pasajeros no deben llevarse objetos que puedan atentar la integridad física de los usuarios; ni animales, salvo que se trate de perros lazarillos. Elequipaje deberá transportarse en la bodega, baúl o parrilla.
+
+##### **Artículo 88.***Tránsito por el carril derecho al transporte público individual.* Cuando el vehículo de servicio público individual urbano transite sin pasajeros, estará obligado a hacerlo por el carril derecho indicando la disponibilidad para prestar el servicio, mediante luz especial destinada para tal efecto, o la señal luminosa de estar libre.
+
+##### **Artículo 89.***Taxímetro*. Ningún vehículo autorizado para prestar el servicio público con taxímetro, podrá hacerlo cuando no lo tenga instalado, no funcione correctamente o tenga los sellos rotos o etiquetas adhesivas con calibración vencida o adulterados. El taxímetro debe colocarse en sitio visible para el usuario.
+
+##### **Artículo 90.***Luces interiores del servicio público colectivo urbano*. En los vehículos de servicio público colectivo urbano, las luces interiores permanecerán encendidas durante todo el tiempo en que el vehículo esté prestando el servicio entre las dieciocho (18) horas y las seis (6) horas del día siguiente.
+
+**Parágrafo.** Todos los vidrios de estos vehículos serán transparentes.
+
+##### **Artículo 91**. *De los paraderos.* Todo conductor de vehículo de servicio público de transporte terrestre automotor debe recoger o dejar pasajeros exclusivamente en los sitios permitidos por las autoridades competentes y conforme con las rutas y horarios, según sea el caso.
+
+El incumplimiento de esta norma se sancionará con treinta (30) smldv, las empresas de servicio público a las cuales se encuentren vinculados tales vehículos serán solidariamente responsables por el pago de la multa.
+
+##### **Artículo 92.***Del comportamiento de los pasajeros*. Cuando algún usuario del transporte público profiera expresiones injuriosas o groseras, promueva riñas o cause cualquier molestia a los demás pasajeros, el conductor detendrá la marcha y dará aviso a la autoridad policiva más cercana para que obligue al perturbador a abandonar el vehículo, sin perjuicio de las sanciones a que haya lugar.
+
+##### **Artículo 93. Control de infracciones de conductores.** Los Organismos de Tránsito deberán reportar diariamente al Registro Único Nacional de Tránsito RUNT, las infracciones impuestas por violación a las normas de tránsito.
+
+**Parágrafo 1.** El módulo de infracciones del RUNT deberá entrar en operación a más tardar dentro de los seis (6) meses siguientes a la entrada en vigencia del presente Decreto Ley. Hasta que entre en operación el citado registro, deberá seguir reportándose diariamente a la información de las infracciones en los sistemas que haya desarrollado o utilizado cada Organismo de Tránsito para tal fin.
+
+**Parágrafo 2.** La Superintendencia de Puertos y Transporte sancionará con multa equivalente a cien salarios mínimos mensuales legales vigentes (100 smmlv) a las empresas de transporte público terrestre automotor, que tengan en ejercicio a conductores con licencia de conducción suspendida o cancelada.
+
+**Parágrafo 3.** Las empresas de transporte público terrestre automotor deberán establecer programas de control y seguimiento de las infracciones de tránsito de los conductores a su servicio. Dicho programa deberá enviarse mensualmente por las empresas de transporte público terrestre automotor a la Superintendencia de Puertos y Transporte. Las empresas que no cumplan con lo antes indicado serán sancionadas por dicha entidad con una multa equivalente a cien salarios mínimos legales mensuales vigentes (100 smmlv).
+
+##### **Artículo 93-1.***Solidaridad por multas.*Serán solidariamente responsables por el pago de multas por infracciones de tránsito el propietario y la empresa a la cual esté vinculado el vehículo automotor, en aquellas infracciones imputables a los propietarios o a las empresas
+
+##### **Artículo 93-2.** Corresponsabilidad de las empresas de transporte público. Las empresas de transporte público terrestre automotor, con el fin de que los conductores cumplan con la normatividad de tránsito, deberán contratar las capacitaciones necesarias para actualizar los conocimientos en materia de conducción y seguridad vial. Las empresas serán responsables de realizar la revisión técnico mecánica y de emisiones contaminantes, y la revisión periódica y mantenimiento preventivo; directamente ante los Centros de Diagnóstico Automotor (CDA) sobre los vehículos que tengan vinculados a su parque automotor, con cargo a sus propietarios. El Seguro Obligatorio de Accidente de Tránsito (SOAT), será obligatorio para la vinculación y permanencia de los propietarios de los vehículos a la empresa, so pena de las sanciones aplicables por la Superintendencia de Transporte o la autoridad de transporte de la respectiva jurisdicción.
+
+### CAPITULO V
+
+**Ciclistas y motociclistas**
+
+##### **Artículo 94.***Normas generales para bicicletas, triciclos, motocicletas, motociclos y mototriciclos.* Los conductores de bicicletas, triciclos, motocicletas, motociclos y mototriciclos, estarán sujetos a las siguientes normas:
+
+Deben transitar por la derecha de las vías a distancia no mayor de un (1) metro de la acera u orilla y nunca utilizar las vías exclusivas para servicio público colectivo.
+
+Los conductores de estos tipos de vehículos y sus acompañantes deben vestir chalecos o chaquetas reflectivas de identificación que deben ser visibles cuando se conduzca entre las 18:00 y las 6:00 horas del día siguiente, y siempre que la visibilidad sea escasa.
+
+Los conductores que transiten en grupo lo harán uno detrás de otro.
+
+No deben sujetarse de otro vehículo o viajar cerca de otro carruaje de mayor tamaño que lo oculte de la vista de los conductores que transiten en sentido contrario.
+
+No deben transitar sobre las aceras, lugares destinados al tránsito de peatones y por aquellas vías en donde las autoridades competentes lo prohíban. Deben conducir en las vías públicas permitidas o, donde existan, en aquellas especialmente diseñadas para ello.
+
+Deben respetar las señales, normas de tránsito y límites de velocidad.
+
+No deben adelantar a otros vehículos por la derecha o entre vehículos que transiten por sus respectivos carriles. Siempre utilizarán el carril libre a la izquierda del vehículo a sobrepasar.
+
+Deben usar las señales manuales detalladas en el artículo 69 de este código.
+
+Los conductores y los acompañantes cuando hubieren, deberán utilizar casco de seguridad, de acuerdo como fije el Ministerio de Transporte.
+
+La no utilización del casco de seguridad cuando corresponda dará lugar a la inmovilización del vehículo.
+
+##### **Artículo 95.***Normas específicas para bicicletas y triciclos.* Las bici­cletas y triciclos se sujetarán a las siguientes normas específicas:
+
+- 1. Debe transitar ocupando un carril, observando lo dispuesto en los artículos 60 y 68 del presente código.
+
+- 2. Los conductores que transiten en grupo deberán ocupar un carril y nunca podrán utilizar las vías exclusivas para servicio público colectivo.
+
+- 3. Los conductores podrán compartir espacios garantizando la prio­ridad de estos en el entorno vial.
+
+- 4. No podrán llevar acompañante excepto mediante el uso de dis­positivos diseñados especialmente para él o ni transportar objetos que disminuyan la visibilidad o que impida un tránsito seguro.
+
+- 5. Cuando circulen en horas nocturnas, deben llevar dispositivos en la parte delantera que proyecten luz blanca, y en la parte trasera que reflecte luz roja.
+
+**Parágrafo 1°.**Los Alcaldes Municipales podrán restringir temporal­mente los días domingos y festivos, el tránsito de todo tipo de vehículo automotor por las vías locales y nacionales o departamentales que pasen por su jurisdicción, a efectos de promover la práctica de actividades de­portivas tales como el ciclismo, el atletismo, el patinaje, las caminatas y similares, así como, la recreación y el esparcimiento de los habitantes de su jurisdicción, siempre y cuando haya una vía alterna por donde dichos vehículos puedan hacer su tránsito normal.
+
+**Parágrafo 2°.**La velocidad máxima de operación en las vías mientras se realicen actividades deportivas, lúdicas y/o recreativas será de 25 km/h.
+
+### CAPITULO VI
+
+**Tránsito de otros vehículos y de animales**
+
+##### **Artículo 96. Normas específicas para motocicletas, motociclos y mototriciclos.** Las motocicletas se sujetarán a las siguientes normas es­pecíficas:
+
+- 1. Deben transitar ocupando un carril, observando lo dispuesto en los artículos 60 y 68 del presente Código.
+
+- 2. Podrán llevar un acompañante en su vehículo, el cual también deberá utilizar casco y la prenda reflectiva exigida para el con­ductor.
+
+- 3. Deberán usar de acuerdo con lo estipulado para vehículos auto­motores, las luces direccionales. De igual forma utilizar, en todo momento, los espejos retrovisores.
+
+- 4. Todo el tiempo que transiten por las vías de uso público, debe­rán hacerlo con las luces delanteras y traseras encendidas.
+
+- 5. El conductor y el acompañante deberán portar siempre el casco de seguridad, conforme a la reglamentación que expida el Mi­nisterio de Transporte. En todo caso, no se podrá exigir que el casco contenga el número de placa correspondiente al del vehí­culo en que se moviliza.
+
+- 6. No se podrán transportar objetos que disminuyan la visibilidad, que incomoden al conductor o acompañante o que ofrezcan pe­ligro para los demás usuarios de las vías.
+
+##### **Artículo 96-1. Normas específicas para vehículos eléctricos livianos de movilidad personal urbana.** Los vehículos eléctricos livianos de movilidad personal urbana; que cumplan con las características técnicas definidas por el Ministerio de Transporte en la reglamentación que expida para el efecto, se sujetarán a las siguientes normas específicas: 1. La edad mínima para su conducción será de dieciséis (16) años cumplidos. El incumplimiento de esta disposición dará lugar a la inmovilización del vehículo. 2. No podrán movilizar a más de una persona de forma simultánea. Excepcionalmente será permitido el transporte de más de una persona de manera simultánea cuando el vehículo en particular esté especialmente diseñado para hacerlo y se cumplan las condiciones que defina el Ministerio de Transporte en la reglamentación correspondiente. 3. Su uso será exclusivamente para transporte personal urbano. Está prohibida su circulación por la Red Vial Nacional, salvo en aquellos tramos que cuenten con ciclo-infraestructura, siempre que esta no haya sido restringida expresamente por la autoridad competente. Se exceptúan de esta prohibición las bicicletas eléctricas; las cuales se asimilan a las bicicletas en lo que tiene que ver con su circulación por la Red Vial Nacional. Tanto el uso con fines recreativos y deportivos como su tránsito por fuera del perímetro urbano, deberá ajustarse a la regulación específica expedida por las entidades territoriales correspondientes, dentro de su jurisdicción. En aquellos municipios o distritos en los que no haya regulación específica se aplicará la reglamentación que expida el Ministerio de Transporte para el efecto. 4. No deben transitar sobre las aceras o andenes, los lugares destinados al tránsito de peatones ni por aquellas vías en donde las autoridades competentes lo prohíban. 5. Deberán circular por la ciclo-infraestructura, siempre que esta se encuentre en condiciones adecuadas de seguridad y transitabilidad, dando prelación a los peatones y a los ciclistas. No obstante, la autoridad competente podrá establecer tramos específicos de la ciclo-infraestructura en los que no esté permita la circulación de los vehículos eléctricos livianos de movilidad personal urbana, por razones de seguridad vial, operativas o de diseño. En tales casos, estos vehículos podrán transitar por la vía vehicular en los términos previstos en el siguiente numeral. 6. En aquellos casos donde no exista ciclo-infraestructura o esta no se encuentre en condiciones adecuadas de seguridad y transitabilidad, podrán transitar por las vías permitidas, ocupando el carril derecho, paralelo al andén o a la orilla, en el mismo sentido de la vía y sin utilizar las vías preferenciales o exclusivas del sistema. de transporte público. Podrán usar carriles distintos al derecho únicamente cuando sea necesario para realizar maniobras de adelantamiento o de giro a la izquierda. En las vías permitidas también deberán darle prelación a los peatones y a los ciclistas. 7. Deberán respetar los límites de velocidad establecidos en las normas de tránsito, tanto para la ciclo-infraestructura como para las vías permitidas por las que circulen; en todo caso, su velocidad máxima permitida nunca podrá ser mayor a 25 km/h en ciclo-infraestructura y a 40 km/h en vías permitidas. 8. No deben adelantar a otros vehículos por la derecha o entre vehículos que transiten por sus respectivos carriles. Siempre utilizarán el carril libre a la izquierda del vehículo a sobrepasar . 9. Para hacer una maniobra de giro o de adelantamiento deben usarse las señales direccionales. Siempre deberá hacerse con precaución y asegurándose de que la maniobra no resulte inesperada para los demás actores viales. 10. Deben respetar las señales y normas de tránsito de la ciclo-infraestructura y de las vías permitidas. 11. Para circular, los conductores deberán utilizar siempre un casco de seguridad que cumpla con las características definidas por el Ministerio de Transporte. El incumplimiento de esta disposición dará lugar a la inmovilización del vehículo. 12. Los conductores de estos tipos de vehículos deben vestir prendas retrorreflectivas de identificación que deben ser visibles cuando se conduzca entre las 18:00 y las 6:00 horas del día siguiente. Las referidas prendas deberán cumplir con las características definidas por el Ministerio de Transporte en la reglamentación correspondiente. 13. Los vehículos deben llevar dispositivos en la parte delantera que proyecten luz blanca y en la parte trasera que proyecten luz roja. 14. No podrán transportar objetos que disminuyan la visibilidad, que incomoden la conducción o que constituyan un peligro para los demás actores de la vía. 15. No se podrán conducir en estado de embriaguez o bajo los efectos de sustancias sicoactivas. El incumplimiento de esta disposición dará lugar a la inmovilización del vehículo y a la imposición del comparendo. **Parágrafo.** En el caso de los menores de entre 12 años a 16 años, estos podrán conducir y transitar exclusivamente en ciclo-infraestructura.
+
+##### **Artículo 97.***Movilización de animales.* No deben dejarse animales sueltos en las vías públicas, o con libre acceso a éstas. Las autoridades tomarán las medidas necesarias para despejar las vías de animales abandonados, que serán conducidos al coso o se entregarán a asociaciones sin ánimo de lucro encargados de su cuidado.
+
+Se crearán los cosos o depósitos animales, en cada uno de los municipios del país, y, en el caso del distrito capital de Bogotá, uno en cada una de sus localidades.
+
+**Parágrafo 1º.** El coso o depósito de animales será un inmueble dotado con los requisitos necesarios para el alojamiento adecuado de los animales que en él se mantengan. Este inmueble comprenderá una parte especializada en especies menores, otra para especies mayores y otra para fauna silvestre, esta última supervisada por la entidad administrativa del recurso.
+
+**Parágrafo 2º.** Este inmueble se construirá según previo concepto técnico de las Juntas Municipales Defensoras de Animales.
+
+##### **Artículo 98.***Erradicación de los vehículos de tracción animal.* En un término de un (1) año, contado a partir de la iniciación de la vigencia de la presente ley, se prohíbe el tránsito urbano en los municipios de Categoría Especial y en los municipios de primera categoría del país, de vehículos de tracción animal. A partir de esa fecha las autoridades de tránsito procederán a retirar los vehículos de tracción animal.
+
+**Parágrafo 1º.** Quedan exceptuados de la anterior medida los vehículos de tracción animal utilizados para fines turísticos, de acuerdo a las normas que expedirá al respecto el Ministerio de Transporte.
+
+**Parágrafo 2º.** Las alcaldías municipales y distritales en asocio con el SENA tendrán que promover actividades alternativas y sustitutivas para los conductores de los vehículos de tracción animal.
+
+### CAPITULO VII
+
+**Tránsito de personas en actividades colectivas**
+
+##### **Artículo 99.***Actividades colectivas en vías públicas.* La autorización de actividades colectivas en vías públicas debe ser solicitada con anticipación ante la autoridad competente. En todo caso, estas actividades no deben afectar la normal circulación de los vehículos. Para la realización de actividades deportivas en vías públicas, los responsables de ellas deben tomar las precauciones y suministrar los elementos de seguridad necesarios.
+
+El tránsito de actividades colectivas en vías públicas, será regulado por la autoridad local competente, teniendo en cuenta el señalamiento de velocidades y la utilización de vías para que no afecten la normal circulación de los vehículos. De igual manera, la autoridad regulará el tránsito durante la ocurrencia de otras actividades multitudinarias que impliquen la utilización de las vías destinadas a los vehículos.
+
+##### **Artículo 100.***Competencias deportivas en vías públicas*. Las competencias deportivas que se desarrollen en vías públicas, serán coordinadas por las federaciones o ligas respectivas, quienes deberán formular la solicitud de permiso correspondiente ante la autoridad de tránsito competente, con una antelación no inferior a quince (15) días a la realización del evento deportivo. Las autoridades de tránsito correspondientes adoptarán las medidas de circulación, información y de seguridad que fueren indispensables para tales casos.
+
+### CAPITULO VIII
+
+**Trabajos eventuales en vía pública**
+
+##### **Artículo 101.***Normas para realizar trabajos en vía pública*. Siempre que deban efectuarse trabajos que alteren la circulación en las vías públicas, el interesado en tal labor obtendrá en forma previa la autorización correspondiente de la autoridad competente y señalizará el sitio de labor mediante la colocación de señales preventivas, reglamentarias e informativas que han de iluminarse en horas nocturnas.
+
+Los proyectos de edificación que causen modificaciones al sistema de tránsito o se constituyan en un polo importante generados de viajes tales como parques de diversiones, centros comerciales, estadios, centros culturales y otros, deberán tener la aprobación del organismo de tránsito de la jurisdicción.
+
+Toda persona de derecho público o privado interesada en realizar alguna intervención en la vía pública pondrá en conocimiento de la autoridad de tránsito local la licencia que se le conceda para tal propósito, el lugar de la intervención y su duración estimada con una antelación no inferior a ocho (8) días, para que ésta le autorice y tome las medidas oportunas para mitigar el impacto que en la circulación pueda producir la intervención, pudiendo, si así lo amerita la índole de la labor, restringir o suspender el tránsito por la vía, disponiendo su traslado a trayectos alternos, y señalizándola de acuerdo con las restricciones que determine la autoridad competente. Una vez terminada la intervención, es responsabilidad de la persona de derecho público o privado, el retiro de todos los dispositivos de control de tránsito utilizados, so pena de ser multado por la autoridad de tránsito competente.
+
+En los eventos previstos en los incisos anteriores el interesado deberá presentar junto con su solicitud un plan de señalización y desvíos, que debe ser aprobado por la autoridad competente.
+
+**Parágrafo.** El Ministerio de Transporte determinará, los elementos y los dispositivos de señalizaciónnecesarios en las obras de construcción.
+
+##### **Artículo 102**. *Manejo de escombros*. Cada municipio determinará el lugar o lugares autorizados para la disposición final de los escombros que se produzcan en su jurisdicción, el manejo de estos materiales se hará debidamente aislado impidiendo que se disemine por las vías y de acuerdo con la normatividad ambiental vigente, bajo la responsabilidad del portador del permiso que haya otorgado la autoridad de tránsito quien será responsable del control de vigilancia del cumplimiento de la norma, sin perjuicio que se le determine la responsabilidad sobre daños en bienes de uso público. El incumplimiento de esta norma, se sancionará con multa de treinta (30) smldv.
+
+**Parágrafo.** Será sancionado con una multa de (30) smldv, quien transportando agregados minerales como: Arena, triturado o concretos, no aísle perfectamente la carga y permita que ella se esparza por las vías públicas, poniendo en riesgo la seguridad de otros vehículos.
+
+### CAPITULO IX
+
+**Protección ambiental**
+
+##### **Artículo 103.***Niveles permisibles de emisión de fuentes móviles.* El Gobierno Nacional reglamentará, los niveles permisibles de emisión de contaminantes producidos por fuentes móviles terrestres que funcionan con cualquier tipo de combustible apto para los mismos y los equipos y procedimientos de medición de dichas emisiones.
+
+##### **Artículo 104.***Normas para dispositivos sonoros*. Todo vehículo deberá estar provisto de un aparato para producir señales acústicas de intensidad, no superior a los señalados por las autoridades ambientales, utilizable únicamente para prevención de accidentes y para casos de emergencia. Se buscará por parte del Ministerio de Transporte y el Ministerio del Medio Ambiente reducir significativamente la intensidad de pitos y sirenas dentro del perímetro urbano, utilizando aparatos de menor contaminación auditiva.
+
+El uso de sirenas, luces intermitentes, o de alta intensidad y aparatos similares está reservado a los vehículos de bomberos, ambulancias, recolectores de basura, socorro, emergencia, fuerzas militares, policía y autoridades de tránsito y transporte.
+
+Se prohíbe el uso de sirenas en vehículos particulares; el uso de cornetas en el perímetro urbano; el uso e instalación, en cualquier vehículo destinado a la circulación en vías públicas, de toda clase de dispositivos o accesorios diseñados para producir ruido, tales como válvulas, resonadores y pitos adaptados a los sistemas de bajo y de frenos de aire; el uso de resonadores en el escape de gases de cualquier fuente móvil y la circulación de vehículos que no cuenten con sistema de silenciador en correcto estado de funcionamiento. El tránsito de transporte pesado por vehículos como camiones, volquetas o tractomulas estará restringido en las vías públicas de los sectores de tranquilidad y silencio, conforme a las normas municipales o distritales que al efecto se expidan, teniendo en cuenta el debido uso de las cornetas.
+
+### CAPITULO X
+
+**Clasificación y uso de las vías**
+
+##### **Artículo 105.***Clasificación de vías*. Para efectos de determinar su prelación, las vías se clasifican así:
+
+- 1. Dentro del perímetro urbano:
+
+Vía de metro o metrovía
+
+Vía troncal
+
+Férreas
+
+Autopistas
+
+Arterias
+
+Principales
+
+Secundarias
+
+Colectoras
+
+Ordinarias
+
+Locales
+
+Privadas
+
+Ciclorrutas
+
+Peatonales
+
+- 2. En las zonas rurales:
+
+Férreas
+
+Autopistas
+
+Carreteras Principales
+
+Carreteras Secundarias
+
+Carreteables
+
+Privadas
+
+Peatonales.
+
+La presencia de peatones en las vías y zonas para ellos diseñadas, les otorgarán prelación, excepto sobre vías férreas, autopistas y vías arterias.
+
+La autoridad de tránsito competente, por medio de resolución motivada señalará las categorías correspondientes a las vías urbanas, cualquiera que sea su denominación. En cualquier caso, las autoridades de tránsito podrán incorporar nuevas categorías y homologar su prioridad con cualquiera de las existentes.
+
+La prelación entre las vías en zonas rurales será determinada por la autoridad de tránsito competente.
+
+**Parágrafo 1º.** Las autoridades de tránsito deberán consultar con las comunidades el uso de las vías cuando no se trate de vías arterias o autopistas, principales y secundarias, para la definición de las rutas de transporte público. Si las juntas administradoras votan negativamente un tramo de una ruta, ésta no se podrá autorizar.
+
+**Parágrafo 2º.** En todo caso, las vías principales y secundarias que se autoricen para rutas de transporte público requieren concepto técnico de la autoridad competente de que son aptas para resistir el tránsito de rutas de transporte público.
+
+**Parágrafo 3º.** Se prohíbe el tránsito de vehículos de alto tonelaje por las vías de sitios que estén declarados o se declaren como monumentos de conservación histórica.
+
+### CAPITULO XI
+
+**Límites de velocidad**
+
+##### **Artículo 106. Límites de velocidad en vías urbanas y carreteras municipales.** En las vías urbanas las velocidades máximas y mínimas para vehículos de servicio público o particular será determinada y de­bidamente señalizada por la autoridad de Tránsito competente en el distrito o municipio respectivo. En ningún caso podrá sobrepasar los cincuenta (50) kilómetros por hora. La velocidad en zonas escolares y en zonas residenciales será hasta de treinta (30) kilómetros por hora.
+
+**Parágrafo 1°.** Las patinetas y bicicletas eléctricas o a gasolina no podrán sobrepasar los 40Km/h.
+
+**Parágrafo 2°.** Excepcionalmente y teniendo en cuenta lo estable­cido el estudio técnico, diseño de la infraestructura y lo dispuesto en la “Metodología para establecer la velocidad límite en las vías colom­bianas” que expidan el Ministerio de Transporte y la Agencia Nacional de Seguridad Vial, en función del contexto, tipo de vía, funcionalidad, las características operacionales de la infraestructura vial y demás cri­terios en el marco del enfoque de sistema seguro, que propendan por una movilidad eficiente y la protección de la vida de todos los actores viales. Los tramos viales en las que se presenten condiciones idóneas de infraestructura y seguridad vial, las entidades territoriales, estarán fa­cultadas, en el marco de su jurisdicción territorial de establecer límites de velocidad superiores a los establecidos en este artículo.
+
+##### **Artículo 107. Límites de velocidad en carreteras nacionales y de­partamentales.** En las carreteras nacionales y departamentales las ve­locidades autorizadas para vehículos públicos o privados serán deter­minadas por el Ministerio de Transporte o la Gobernación, según sea el caso, teniendo en cuenta las especificaciones de la vía. En ningún caso podrá sobrepasar los noventa (90) kilómetros por hora. Para el caso de vías doble calzada que no contengan dentro de su diseño pasos peatona­les, la velocidad máxima será de 120 kilómetros por hora.
+
+Para el servicio público de carga, el límite de velocidad en ningún caso podrá exceder los ochenta (80) kilómetros por hora.
+
+Será obligación de las autoridades mencionadas, la debida señaliza­ción de estas restricciones.
+
+**Parágrafo 1°.** La entidad encargada de fijar la velocidad máxima y mínima, en las zonas urbanas señaladas en el artículo 106 y en las carreteras nacionales y departamentales estipuladas en el presente ar­tículo, debe establecer los límites de velocidad de forma sectorizada, razonable, apropiada y coherente con el tráfico vehicular, las condicio­nes del medio ambiente, la infraestructura vial, el estado de las vías, visibilidad, las especificaciones de la vía, su velocidad de diseño, las características de operación de .la vía, los usuarios vulnerables, el uso del suelo y, el número de muertos y lesionados.
+
+**Parágrafo 2°.** Excepcionalmente y teniendo en cuenta lo establecido el estudio técnico, diseño de la infraestructura y lo dispuesto en la “Meto­dología para establecer la velocidad límite en las vías colombianas” que expidan el Ministerio de Transporte y la Agencia Nacional de Seguridad Vial, en función del contexto, tipo de vía, funcionalidad, las característi­cas operacionales de la infraestructura vial y demás criterios en el marco del enfoque de sistema seguro que propendan por una movilidad eficiente y la protección de la vida de todos los actores viales. Los tramos viales en los que se presenten condiciones idóneas de infraestructura y seguri­dad vial, las entidades territoriales o la Nación, según sus competencias, estarán facultadas, en el marco de su jurisdicción territorial de establecer límites de velocidad superiores a los establecidos en este artículo.
+
+### CAPITULO XII
+
+**Señales de tránsito**
+
+##### **Artículo 108.***Separación entre vehículos*. La separación entre dos (2) vehículos que circulen uno tras de otro en el mismo carril de una calzada, será de acuerdo con la velocidad.
+
+Para velocidades de hasta treinta (30) kilómetros por hora, diez (10) metros.
+
+Para velocidades entre treinta (30) y sesenta (60) kilómetros por hora, veinte (20) metros.
+
+Para velocidades entre sesenta (60) y ochenta (80) kilómetros por hora, veinticinco (25) metros.
+
+Para velocidades de ochenta (80) kilómetros en adelante, treinta (30) metros o la que la autoridad competente indique.
+
+En todos los casos, el conductor deberá atender al estado del suelo, humedad, visibilidad, peso del vehículo y otras condiciones que puedan alterar la capacidad de frenado de éste, manteniendo una distancia prudente con el vehículo que antecede.
+
+##### **Artículo 109.***De la obligatoriedad.* Todos los usuarios de la vía están obligados a obedecer las señales de tránsito de acuerdo con lo previsto en el artículo 5º, de este código.
+
+##### **Artículo 110.***Clasificación y definiciones.* Clasificación y definición de las señales de tránsito:
+
+Señales reglamentarias: Tienen por objeto indicar a los usuarios de las vías las limitaciones, prohibiciones o restricciones sobre su uso y cuya violación constituye falta que se sancionará conforme a las normas del presente código.
+
+Señales preventivas: Tienen por objeto advertir al usuario de la vía la existencia de un peligro y la naturaleza de éste.
+
+Señales informativas: Tienen por objeto identificar las vías y guiar al usuario, proporcionándole la información que pueda necesitar.
+
+Señales transitorias: Pueden ser reglamentarias, preventivas o informativas y serán de color naranja. Modifican transitoriamente el régimen normal de utilización de la vía.
+
+**Parágrafo 1º.** Las marcas sobre el pavimento constituyen señales de tránsito horizontales. Y sus indicaciones deberán acatarse.
+
+**Parágrafo 2º.** Es responsabilidad de las autoridades de tránsito la colocación de las señales de tránsito en los perímetros urbanos inclusive en las vías privadas abiertas al público. Las autoridades locales no podrán ejecutar obras sobre las vías públicas sin permiso especial de las autoridades de tránsito que tendrán la responsabilidad de regular los flujos de tránsito para que no se presenten congestiones.
+
+Para la ejecución de toda obra pública que genere congestiones, la autoridad de tránsito local deberá disponer de reguladores de tráfico. Su costo podrá calcularse dentro del valor de la obra y la vigencia de la vinculación podrá hacerse durante el plazo del contrato de obra respectivo.
+
+##### **Artículo 111.***Prelación de las señales.* La prelación entre las distintas señales de tránsito será la siguiente:
+
+Señales y órdenes emitidas por los agentes de tránsito.
+
+Señales transitorias.
+
+Semáforos.
+
+Señales verticales.
+
+Señales horizontales o demarcadas sobre la vía.
+
+##### **Artículo 112. *De la obligación de señalizar las zonas de prohibición.*** Toda zona de prohibición deberá estar expresamente señalizada y demarcada en su sitio previa decisión del funcionario de tránsito competente. No se podrán establecer zonas de prohibición permanentes, salvo por razones de seguridad debidamente justificadas; en todos los demás eventos, la señalización deberá indicar los días y horas en los cuales opera la prohibición. Se exceptúan de ser señalizadas o demarcadas todas aquellas zonas cuyas normas de prohibición o autorización están expresamente descritas en este código. Carecerán de validez la imposición de comparendos por estacionar en zona prohibida cuando fuera de los casos previstos en el artículo 76 en el lugar no exista la señalización prevista en el presente artículo.
+
+##### **Artículo 113.***Señalización en pasos de nivel*. Las entidades ferroviarias, o los particulares en caso de concesión de las vías férreas, colocarán señales, barreras y luces en los pasos a nivel de las vías férreas, así como la correspondiente demarcación, de acuerdo con lo dispuesto por el Ministerio de Transporte.
+
+**Parágrafo.** En los pasos a nivel de las vías férreas, las entidades ferroviarias o a quien se le haya entregado la concesión de la vía férrea colocará un guardavía para la regulación del tránsito cuando serequiera.
+
+##### **Artículo 114.***De los permisos*. No podrán colocarse señales o avisos en las vías sin que medie permiso o convenio con las autoridades competentes, quienes tendrán en cuenta las disposiciones sobre contaminación visual.
+
+Las autoridades de tránsito podrán ordenar el retiro de vallas, avisos, pasacalles, pendones u otros elementos que estén en la vía pública y que obstaculicen la visibilidad de las señales de tránsito.
+
+Las señales y otros elementos reguladores o indicadores de tráfico en las ciudades no podrán ser dañados, retirados o modificados por los particulares, so pena de incurrir en multa.
+
+**Parágrafo.** Será sancionado con multa equivalente a tres (3) salarios mínimos legales mensuales vigentes, el particular u organismo estatal que dañe, retire o modifique las señales u otros elementos reguladores o indicadores del tráfico en las ciudades.
+
+##### **Artículo 115.***Reglamentación de las señales*. El Ministerio de Transporte diseñará y definirá las características de las señales de tránsito, su uso, su ubicación y demás características que estime conveniente. Estas señales serán de obligatorio cumplimiento para todo el territorio nacional.
+
+**Parágrafo 1º.** Cada organismo de tránsito responderá en su jurisdicción por la colocación y el mantenimiento de todas y cada una de las señales necesarias para un adecuado control de tránsito que serán determinadas mediante estudio que contenga las necesidades y el inventario general de la señalización en cada jurisdicción.
+
+**Parágrafo 2º.** En todo contrato de construcción, pavimentación o rehabilitación de una vía urbana o rural será obligatorio incluir la demarcación vial correspondiente, so pena de incurrir el responsable, en causal de mala conducta.
+
+### CAPITULO XIII
+
+Procedimientos de control de tránsito
+
+##### **Artículo 116.***Señales corporales de los agentes de tránsito.* Las autoridades encargadas de controlar el tránsito harán las señales de la siguiente manera:
+
+La espalda o el frente indican que está cerrada la circulación y el conductor deberá detenerse.
+
+Los flancos indican que la vía esta libre.
+
+Los flancos con los brazos extendidos en ángulo de noventa (90) grados, con respecto al cuerpo y con las manos en posición horizontal, indican que está previniendo el cambio de vía libre o cerrada o viceversa.
+
+Para dirigir el tránsito durante la noche, los agentes de tránsito se proveerán de bastones luminosos y de prendas reflectivas.
+
+##### **Artículo 117.***Clasificación de semáforos*. Los semáforos son elementos para regular y ordenar el tránsito y se clasifican en:
+
+Semáforos para control de vehículos.
+
+Semáforos para peatones.
+
+Semáforos especiales.
+
+Semáforos de aproximación a cruces de transporte masivo, trenes y guardarrieles.
+
+Semáforos direccionales, intermitentes y otros.
+
+##### **Artículo 118.***Simbología de las señales luminosas*. Las señales luminosas para ordenar la circulación son las siguientes:
+
+Roja: Indica el deber de detenerse, sin pisar o invadir la raya inicial de la zona de cruce de peatones. Si ésta no se encuentra demarcada, se entenderá extendida a dos metros de distancia del semáforo. El giro a la derecha, cuando la luz está en rojo está permitido, respetando la prelación del peatón. La prohibición de este giro se indicará con señalización especial. Las autoridades de tránsito, en su jurisdicción, podrán autorizarlo.
+
+Amarilla: Indica atención para un cambio de luces o señales y para que el cruce sea desalojado por los vehículos que se encuentran en él o se abstengan de ingresar en el cruce aun disponiendo de espacio para hacerlo. No debe iniciarse la marcha en luz amarilla, ni incrementarse la velocidad durante ese lapso.
+
+No se debe ingresar en amarillo a la intersección y si un vehículo ya está en la intersección en luz amarilla mantendrá la prelación hasta culminar el cruce.
+
+Verde: Significa vía libre
+
+**Parágrafo 1º.** En ciertas situaciones o en determinados horarios, las autoridades de tránsito, en su jurisdicción y mediante resolución motivada, podrán utilizar la intermitencia de la luz de los semáforos. Esta intermitencia se da en amarillo y en rojo. El amarillo se utilizará para las vías con prelación y el rojo para todas las que acceden a éstas. La señal intermitente roja se asimila a una señal de PARE.
+
+##### **Artículo 119.***Jurisdicción y facultades.* Sólo las autoridades de tránsito, dentro del territorio de su jurisdicción, podrán ordenar el cierre temporal de vías, la demarcación de zonas, la colocación o retiro de señales, o impedir, limitar o restringir el tránsito o estacionamiento de vehículos por determinadas vías o espacios públicos.
+
+##### **Artículo 120.***Colocación de resaltos en la vía pública*. Los Alcaldes o las Secretarías de Tránsito donde existan podrán colocar reducidores de velocidad o resaltos en las zonas que presenten alto riesgo de accidentalidad.
+
+##### **Artículo 121.***Paraderos*. Las autoridades de tránsito, en coordinación con las demás autoridades, fijarán la ubicación, condiciones técnicas y aspectos relativos a los paraderos de transporte urbano y estaciones de transporte masivo siguiendo las políticas locales de planeación e ingeniería de tránsito.
+
+## TITULO IV
+
+**SANCIONES Y PROCEDIMIENTOS**
+
+### CAPITULO I
+
+**Sanciones**
+
+##### **Artículo 122**. *Tipos de sanciones.* Las sanciones por infracciones del presente Código son:
+
+- 1. Amonestación.
+
+- 2. Multa.
+
+- 3. Retención preventiva de la licencia de conducción.
+
+- 4. Suspensión de la licencia de conducción.
+
+- 5. Suspensión o cancelación del permiso o registro.
+
+- 6. Inmovilización del vehículo.
+
+- 7. Retención preventiva del vehículo.
+
+- 8. Cancelación definitiva de la licencia de conducción.
+
+Las sanciones señaladas en este artículo se impondrán como principales o accesorias al responsable de la infracción, independientemente de las sanciones ambientales a que haya lugar por violación de cualquiera de las regulaciones, prohibiciones y restricciones sobre emisiones contaminantes y generación de ruido por fuentes móviles.
+
+**Parágrafo 1°**. Ante la Comisión de Infracciones Ambientales se impondrán, por las autoridades de tránsito respectivas, las siguientes sanciones:
+
+- 1. Multa equivalente a treinta (30) salarios mínimos legales diarios (smldv).
+
+- 2. Suspensión de la licencia de conducción hasta por seis (6) meses, por la segunda vez, además de una multa igual a la prevista en el numeral 1, si el conductor fuere el propietario del vehículo.
+
+- 3. Revocatoria o caducidad de la licencia de conducción por la tercera vez, además de una multa igual a la prevista en el numeral 1, si el conductor fuere propietario del vehículo.
+
+- 4. Inmovilización del vehículo, la cual procederá sin perjuicio de la imposición de las otras sanciones.
+
+En los casos de infracción a las prohibiciones sobre dispositivos o accesorios generadores del ruido, sobre sirenas y alarmas, lo mismo que sobre el uso del silenciador se procederá a la inmediata inmovilización del vehículo, sin perjuicio de las demás sanciones que correspondan.
+
+Cuando quiera que se infrinjan las prohibiciones, restricciones o regulaciones sobre emisiones contaminantes por vehículos automotores, se seguirá el siguiente procedimiento:
+
+El agente de vigilancia del tráfico que detecte o advierta una infracción a las normas de emisión de contaminantes o de generación de ruido por vehículos automotores, entregará al presunto infractor una boleta de citación para que el vehículo sea presentado en un centro de diagnóstico para una inspección técnica en un término que no podrá exceder de quince (15) días. En la citación se indicará la modalidad de la presunta infracción que la ocasiona. Esto sin perjuicio de la vigencia del certificado de la obligatoria revisión técnico-mecánica y de gases.
+
+Realizada la inspección técnica y determinada así la naturaleza de la infracción, el centro de diagnóstico donde aquella se hubiere practicado, entregará al presunto infractor copia del resultado del examen practicado al vehículo y remitirá el original a la autoridad de tránsito competente, para que, previa audiencia del interesado, se imponga la sanción que en cada caso proceda.
+
+En caso de que el infractor citado no presentare el vehículo para la práctica de la visita de inspección en la fecha y hora señaladas, salvo causal comprobada de fuerza mayor o caso fortuito, las multas a que hubiere lugar se aumentarán hasta en el doble y el vehículo podrá ser inmovilizado por la autoridad de tránsito respectiva, hasta tanto el infractor garantice mediante caución la reparación del vehículo.
+
+Practicada la inspección técnica, el infractor dispondrá de un término de quince (15) días para reparar el vehículo y corregir la falla que haya sido detectada en el centro de diagnóstico y deberá presentarlo, antes del vencimiento de este nuevo término, para la práctica de una nueva inspección con el fin de determinar que los defectos del vehículo, causantes de la infracción a las normas ambientales, han sido corregidos. Vencido el plazo y practicada la nueva revisión, si el vehículo no cumple las normas o es sorprendido en circulación en la vía pública, será inmovilizado.
+
+Cuando la autoridad de tránsito detecte una ostensible y grave violación de las normas ambientales podrá ordenar al infractor la inmediata revisión técnica del vehículo en un centro de diagnóstico autorizado para la práctica de la inspección técnica.
+
+Si practicada la inspección técnica se establece que el vehículo cumple las normas ambientales, no habrá lugar a la aplicación de multas.
+
+Quedan exentos de inspección técnica los vehículos impulsados con motor de gasolina, durante los tres (3) primeros meses de vigencia del certificado de movilización, a menos que incurran en flagrante y ostensible violación de las normas ambientales.
+
+No habrá lugar a inspección técnica en casos de infracción a las normas ambientales por emisión de polvo, partículas, o humos provenientes de la carga descubierta de vehículos automotores.
+
+En tal caso, el agente de tránsito ordenará la detención del vehículo y entregará al infractor un comparendo o boleta de citación para que comparezca ante la autoridad de tránsito competente, a una audiencia en la que se decidirá sobre la imposición de la sanción que proceda.
+
+Los agentes de tránsito podrán inmovilizar hasta por veinticuatro (24) horas, debiendo informar de ello a la autoridad de tránsito competente, los vehículos que ocasionen emisiones fugitivas provenientes de la carga descubierta, hasta tanto se tomen por el infractor las medidas apropiadas para impedir dichas emisiones, sin perjuicio de la aplicación de las demás sanciones que correspondan.
+
+**Parágrafo 2°.** Para efectos del presente código, y salvo disposición contraria, la multa debe entenderse establecida en salarios mínimos diarios legales vigentes (smdlv).
+
+##### **Artículo 123.***Amonestación*. Las autoridades de tránsito podrán amonestar a los infractores. La amonestación consiste en la asistencia a cursos obligatorios de educación vial. El infractor que incumpla la citación al curso será sancionado con multa equivalente a cinco (5) salarios mínimos.
+
+##### **Artículo 124.***Reincidencia.* En caso de reincidencia se suspenderá la licencia de conducción por un término de seis meses, en caso de una nueva reincidencia se doblará la sanción.
+
+**Parágrafo.** Se considera reincidencia el haber cometido más de una falta a las normas de tránsito en un periodo de seis meses.
+
+##### **Artículo 125.***Inmovilización*. La inmovilización en los casos a que se refiere este código, consiste en suspender temporalmente la circulación del vehículo por las vías públicas o privadas abiertas al público. Para tal efecto, el vehículo será conducido a parqueaderos autorizados que determine la autoridad competente, hasta que se subsane o cese la causa que le dio origen, a menos que sea subsanable en el sitio que se detectó la infracción.
+
+**Parágrafo 1º.** El propietario o administrador del parqueadero autorizado utilizado para este fin, que permita la salida de un vehículo inmovilizado por infracción de las normas de tránsito, sin orden de la autoridad competente, incurrirá en multa de cincuenta (50) salarios mínimos legales mensuales vigentes. Si se tratare de parqueadero autorizado no oficial, incurrirá además en suspensión o cancelación de la autorización del patio, parqueadero autorizado de acuerdo con la gravedad de la falta.
+
+En todo caso, el ingreso del vehículo al lugar de inmovilización deberá hacerse previo inventario de los elementos contenidos en él y descripción del estado exterior. Este mismo procedimiento se hará a la salida del vehículo. En caso de diferencias entre el inventario de recibo y el de entrega, el propietario o administrador del parqueadero autorizado incurrirá en multa de veinte (20) salarios mínimos legales mensuales vigentes y, adicionalmente, deberá responder por los elementos extraviados, dañados o averiados del vehículo.
+
+**Parágrafo 2º.** La orden de entrega del vehículo se emitirá por la autoridad de tránsito competente, previa comprobación directa de haberse subsanado la causa que motivó la inmovilización. La orden de entrega se ejecutará a favor del propietario del vehículo o al infractor, quien acreditará tal calidad con la exhibición de medios de prueba documentales.
+
+**Parágrafo 3º.** En el caso de vehículos de servicio público, cuando no sea posible subsanar la falta por encontrarse el vehículo retenido, la autoridad de tránsito podrá ordenar la entrega al propietario o infractor previa suscripción de un acta en la cual se comprometa a subsanarla en un plazo no mayor a cinco días. Copia del acta se remitirá a la Empresa de Transporte Público a la cual se encuentre afiliado el vehículo.
+
+El incumplimiento del compromiso suscrito por el propietario o infractor dará lugar a una multa de veinte (20) salarios mínimos legales mensuales vigentes a cargo del propietario.
+
+**Parágrafo 4º.** En el caso de inmovilización de vehículos de servicio público, la empresa transportadora responderá como deudor solidario de las obligaciones que se contraigan, entre ellas las derivadas de la prestación del servicio de grúa y parqueaderos.
+
+La inmovilización o retención a que hacen referencia las normas de transporte se regirán por el procedimiento establecido en este artículo.
+
+**Parágrafo 5º.** Cuando el vehículo no sea llevado a parqueaderos autorizados la inmovilización se hará bajo la responsabilidad del propietario del vehículo o del infractor, para lo cual, el agente de tránsito notificará al propietario o administrador del parqueadero autorizado.
+
+**Parágrafo 6º.** El propietario del vehículo será el responsable del pago al administrador o al propietario del parqueadero por el tiempo que estuvo inmovilizado el vehículo.
+
+**Parágrafo 7º.** Los parqueaderos autorizados deben ser aprobados por el organismo de tránsito correspondiente en resolución que determinará lo atinente.
+
+##### **Artículo 126.***Retención de equipos férreos.* Las locomotoras, carros, motores y demás equipos férreos involucrados en accidentes de tránsito, no podrán ser retenidos por más tiempo de lo absolutamente indispensable para realizar las diligencias ordinarias que adelante la autoridad competente en el sitio de la novedad.
+
+En caso de que la autoridad competente determine la práctica posterior a la ocurrencia del accidente y requiera inspecciones periciales posteriores, éstas se adelantarán en las inspecciones de destino de los trenes o en los talleres de las empresas operadoras, debidamente habilitadas por el Ministerio de Transporte.
+
+##### **Artículo 127.***Del retiro de vehículos mal estacionados*. La autoridad de tránsito, podrá bloquear o retirar con grúa o cualquier otro medio idóneo los vehículos que se encuentren estacionados irregularmente en zonas prohibidas, o bloqueando alguna vía pública o abandonados en áreas destinadas al espacio público, sin la presencia del conductor o responsable del vehículo; si este último se encuentra en el sitio, únicamente habrá lugar a la imposición del comparendo y a la orden de movilizar el vehículo. En el evento en que haya lugar al retiro del vehículo, éste será conducido a un parqueadero autorizado y los costos de la grúa y el parqueadero correrán a cargo del conductor o propietario del vehículo, incluyendo la sanción pertinente.
+
+**Parágrafo 1º.** Si el propietario del vehículo o el conductor se hace presente en el lugar en donde se ha cometido la infracción, la autoridad de tránsito impondrá el comparendo respectivo y no se procederá al traslado del vehículo a los patios.
+
+**Parágrafo 2º.** Los municipios contratarán con terceros los programas de operación de grúas y parqueaderos. Estos deberán constituir pólizas de cumplimiento y responsabilidad para todos los efectos contractuales, los cobros por el servicio de grúa y parqueadero serán los que determine la autoridad de tránsito local.
+
+**Parágrafo 3º.** Los municipios y los organismos de tránsito por sí mismos o a través de un tercero podrán contratar el programa de bloqueo de vehículos a través de los llamados Cepos u otras tecnologías que cumplan con la misma finalidad. Este equipo deberá ser implementado con apoyo de las autoridades de control y aplicado sobre aquellas conductas que ameritan inmovilización. El bloqueo del vehículo que incurra en una conducta que amerita la inmovilización, se podrá realizar con el Cepo u otras tecnologías que cumplan con la misma finalidad, previa suscripción de la orden u órdenes de comparendo, según sea el caso. El retiro del equipo de bloqueo será efectivo hasta que el propietario, poseedor o tenedor del vehículo subsane la falta y realice el curso de rehabilitación a infractores de las normas de tránsito. La Superintendencia de Transporte vigilará lo correspondiente a los cobros por el retiro del equipo de bloqueo.
+
+##### **Artículo 128. *Disposición de los vehículos inmovilizados.*** Si pasado un (1) año, sin que el propietario o poseedor haya retirado el vehículo de los patios y no haya subsanado la causa que dio origen a la inmovilización y no esté a paz y salvo con la obligación generada por servicios de parqueadero y/o grúa, la autoridad de tránsito respectiva, deberá:
+
+Publicar por una vez en un periódico de amplia circulación nacional y en el territorio de la jurisdicción del respectivo organismo de tránsito, el listado correspondiente de los vehículos inmovilizados desde hace un (1) año como mínimo y que aún no han sido reclamados por el propietario o poseedor, para que dentro de los quince (15) días hábiles siguientes a la publicación, el propietario y/o poseedor del vehículo se presente a subsanar la causa que dio lugar a la inmovilización y a su vez, cancelar lo adeudado por concepto de servicios de parqueadero y/o grúa y luego se proceda a autorizar la entrega del vehículo.
+
+Vencido este término para reclamar el vehículo, si el propietario o poseedor no han subsanado la obligación por la infracción que dio lugar a la inmovilización y los servicios de parqueadero y/o grúa pendientes, se autoriza al organismo de tránsito para que mediante acto administrativo declare el abandono del vehículo inmovilizado. Acto administrativo que deberá garantizar el derecho a la defensa, conforme a lo establecido en las normas del Código de Procedimiento Administrativo y de lo Contencioso Administrativo.
+
+Para tal efecto créese la figura de declaración administrativa de abandono, la cual consiste en declarar la renuencia del propietario o poseedor de retirar el vehículo del parqueadero y a su vez, asumir la obligación adeudada por concepto de los servicios prestados por concepto de parqueadero y/o grúa con el correspondiente organismo de tránsito que la declare. Siendo así, el organismo de tránsito podrá proceder a la enajenación del vehículo para sustituirlo por su equivalente en dinero.
+
+En el acto administrativo deberá hacerse un recuento del tiempo que ha pasado el vehículo inmovilizado en el parqueadero respectivo y cualquier otra circunstancia que llegue a probar el desinterés del infractor o titular de derecho real de dominio frente al bien y por ende declarar el abandono del mismo. Además, dentro del contenido del acto administrativo se ordenará informar al organismo de tránsito donde se encuentra inscrito el vehículo para que adopte las decisiones necesarias.
+
+En cuanto a la notificación se tendrá en cuenta, que debe hacerse al propietario o poseedor, al titular del derecho real de dominio del vehículo, garantizando el debido proceso y el derecho de defensa. Cuando se trate de vehículos de servicio público, el acto administrativo de declaración de abandono, también deberá notificarse a la empresa transportadora, por las implicaciones que de la decisión puedan derivarse. En el proceso de cobro coactivo en la cual responderá como deudora solidaria.
+
+Ejecutoriado el acto administrativo que declare el vehículo en abandono, el organismo de tránsito que lo declara, podrá enajenarlo mediante cualquiera de los procedimientos autorizados por el Estatuto General de Contratación de la Administración Pública, ya sea por unidad o por lotes, previa tasación del precio unitario de cada vehículo.
+
+Con el objetivo de respetar el derecho de propiedad y dominio, se autoriza al organismo de tránsito correspondiente, para crear una cuenta especial, en una de las entidades financieras que existan en el lugar, donde se consignen los dineros individualizados de cada propietario o poseedor del vehículo producto de la enajenación del bien y de la cual se efectuarán las deducciones a las que esta dio lugar. Los recursos del propietario o poseedor depositados en esta cuenta, podrán ser objeto de embargo vía cobro coactivo y de existir un remanente este debe ser puesto a disposición del dueño del automotor. Los dineros no reclamados serán manejados por la entidad de carácter nacional responsable de la ejecución de la política pública de seguridad vial, su caducidad será de cinco (5) años.
+
+Cuando sobre el vehículo se haya celebrado un contrato de leasing, prenda, renting o arrendamiento sin opción de compra, se le dará al locatario, acreedor prendario o arrendatario el mismo tratamiento que al propietario para que este pueda hacer valer sus derechos en el proceso.
+
+El anterior procedimiento no será aplicado a los vehículos que hayan sido inmovilizados por orden judicial, los cuales seguirán el procedimiento señalado por la ley, caso en el cual la autoridad judicial instructora del proceso respectivo tendrá que asumir el costo del servicio de parqueadero y/o grúa prestado hasta el día que el vehículo sea retirado del parqueadero.
+
+La autoridad administrativa de carácter departamental, municipal o distrital, procederá a estudiar la viabilidad de condonación de las deudas generadas por todo concepto, a fin de sanear la cartera y permitir los traspasos y cancelaciones de las licencias de tránsito en el proceso de declaración administrativa de abandono.
+
+En todo caso los vehículos que presenten alto deterioro o sean inservibles como consecuencia del agua, el sol y otros factores recibidos en los parqueaderos como resultado de choque o infracción, serán enajenados como chatarra, previo dictamen de un perito adscrito al organismo de tránsito respectivo. El producto de la enajenación seguirá el mismo procedimiento del inciso 8° de este artículo.
+
+**Parágrafo.** Las disposiciones de la presente ley se aplicarán sin perjuicio en concordancia con lo previsto en la Ley 1630 de 2013 en todo lo aplicable en materia fiscal, de tránsito y ambiental.
+
+##### **Artículo 129.***De los informes de tránsito*. Los informes de las autoridades de tránsito por las infracciones previstas en este código, a través de la imposición de comparendo, deberán indicar el número de la licencia de conducción, el nombre, teléfono y dirección del presunto inculpado y el nombre y número de placa del agente que lo realiza. En el caso de no poder indicar el número de licencia de conducción del infractor, el funcionario deberá aportar pruebas objetivas que sustenten el informe o la infracción, intentando la notificación al conductor; si no fuere viable identificarlo, se notificará al último propietario registrado del vehículo, para que rinda sus descargos dentro de los siguientes diez (10) días al recibo de la notificación, en caso de no concurrir se impondrá la sanción al propietario registrado del vehículo.
+
+**Parágrafo 1º.** Las multas no podrán ser impuestas a persona distinta de quien cometió la infracción.
+
+**Parágrafo 2º.** Las ayudas tecnológicas como cámaras de vídeo y equipos electrónicos de lectura que permitan con precisión la identificación del vehículo o del conductor serán válidos como prueba de ocurrencia de una infracción de tránsito y por lo tanto darán lugar a la imposición de un comparendo.
+
+### CAPITULO II
+
+**Sanciones por incumplimiento de las normas de tránsito**
+
+##### **Artículo 130.***Gradualidad*. Las sanciones por infracciones a las normas de tránsito se aplicarán teniendo en cuenta la gravedad de la infracción. Para este efecto se tendrá en consideración el grado de peligro tanto para los peatones como para los automovilistas. En caso de fuga se duplicará la multa.
+
+##### **Artículo 131.** *Multas*. Los infractores de las normas de tránsito serán sancionados con la imposición de multas, de acuerdo con el tipo de infracción así:
+
+A. Será sancionado con multa equivalente a cuatro (4) salarios mínimos legales diarios vigentes (SMLDV) el conductor de un vehículo no automotor o de tracción animal que incurra en cualquiera de las siguientes infracciones:
+
+A.1. No transitar por la derecha de la vía.
+
+A.2. Agarrarse de otro vehículo en circulación.
+
+A.3. Transportar personas o cosas que disminuyan su visibilidad e incomoden la conducción.
+
+A.4. Transitar por andenes y demás lugares destinados al tránsito de peatones.
+
+A.5. No respetar las señales de tránsito.
+
+A.6. Transitar sin los dispositivos luminosos requeridos.
+
+A.7. Transitar sin dispositivos que permitan la parada inmediata o con ellos, pero en estado defectuoso.
+
+A.8. Transitar por zonas prohibidas.
+
+A.9. Adelantar entre dos (2) vehículos automotores que estén en sus respectivos carriles.
+
+A.10. Conducir por la vía férrea o por zonas de protección y seguridad.
+
+A.11. Transitar por zonas restringidas o por vías de alta velocidad como autopistas y arterias, en este caso el vehículo no automotor será inmovilizado.
+
+A.12. Prestar servicio público con este tipo de vehículos. Además, el vehículo será inmovilizado por primera vez, por el término de cinco días, por segunda vez veinte días y por tercera vez cuarenta días.
+
+B. Será sancionado con multa equivalente a ocho (8) salarios mínimos legales diarios vigentes (smldv) el conductor y/o propietario de un vehículo automotor que incurra en cualquiera de las siguientes infracciones:
+
+B.1. Conducir un vehículo sin llevar consigo la licencia de conducción.
+
+B.2. Conducir un vehículo con la licencia de conducción vencida.
+
+B.3. Sin placas, o sin el permiso vigente expedido por autoridad de tránsito.
+
+B.4. Con placas adulteradas.
+
+B.5. Con una sola placa, o sin el permiso vigente expedido por autoridad de tránsito.
+
+B.6. Con placas falsas.
+
+En estos casos los vehículos serán inmovilizados.
+
+B.7. No informar a la autoridad de tránsito competente el cambio de motor o color de un vehículo. En ambos casos, el vehículo será inmovilizado.
+
+B.8. No pagar el peaje en los sitios establecidos.
+
+B.9. Utilizar equipos de sonido a volúmenes que incomoden a los pasajeros de un vehículo de servicio público.
+
+B.10. Conducir un vehículo con vidrios polarizados, entintados u oscurecidos, sin portar el permiso respectivo, de acuerdo a la reglamentación existente sobre la materia.
+
+B.11. Conducir un vehículo con propaganda, publicidad o adhesivos en sus vidrios que obstaculicen la visibilidad.
+
+B.12. No respetar las normas establecidas por la autoridad competente para el tránsito de cortejos fúnebres.
+
+B.13. No respetar las formaciones de tropas, la marcha de desfiles, procesiones, entierros, filas estudiantiles y las manifestaciones públicas y actividades deportivas, debidamente autorizadas por las autoridades de tránsito.
+
+B.14. Remolcar otro vehículo violando lo dispuesto por este código.
+
+B.15. Conducir un vehículo de servicio público que no lleve el aviso de tarifas oficiales en condiciones de fácil lectura para los pasajeros o poseer este aviso deteriorado o adulterado.
+
+B.16. Permitir que en un vehículo de servicio público para transporte de pasajeros se lleven animales u objetos que incomoden a los pasajeros.
+
+B.17. Abandonar un vehículo de servicio público con pasajeros.
+
+B.18. Conducir un vehículo de transporte público individual de pasajeros sin cumplir con lo estipulado en el presente código.
+
+B.19. Realizar el cargue o descargue de un vehículo en sitios y horas prohibidas por las autoridades competentes, de acuerdo con lo establecido en las normas correspondientes.
+
+B.20. Transportar carne, pescado o alimentos fácilmente corruptibles, en vehículos que no cumplan las condiciones fijadas por el Ministerio de Transporte.
+
+B.21. Lavar vehículos en vía pública, en ríos, en canales y en quebradas.
+
+B.22. Llevar niños menores de diez (10) años en el asiento delantero.
+
+B.23. Utilizar radios, equipos de sonido o de amplificación a volúmenes que superen los decibeles máximos establecidos por las autoridades ambientales. De igual forma utilizar pantallas, proyectores de imagen o similares en la parte delantera de los vehículos, mientras esté en movimiento.
+
+- C. Será sancionado con multa equivalente a quince (15) salarios mínimos legales diarios vigentes (SMLDV) el conductor y/o propietario de un vehículo automotor que incurra en cualquiera de las siguientes infracciones:
+
+C.1. Presentar licencia de conducción adulterada o ajena, lo cual dará lugar a la inmovilización del vehículo.
+
+C.2. Estacionar un vehículo en sitios prohibidos.
+
+C.3. Bloquear una calzada o intersección con un vehículo, salvo cuando el bloqueo obedezca a la ocurrencia de un accidente de tránsito.
+
+C.4 Estacionar un vehículo sin tomar las debidas precauciones o sin colocar a la distancia señalada por este código, las señales de peligro reglamentarias.
+
+C.5. No reducir la velocidad según lo indicado por este código, cuando transite por un cruce escolar en los horarios y días de funcionamiento de la institución educativa. Así mismo, cuando transite por cruces de hospitales o terminales de pasajeros.
+
+C.6. No utilizar el cinturón de seguridad por parte de los ocupantes del vehículo.
+
+C.7. Dejar de señalizar con las luces direccionales o mediante señales de mano y con la debida anticipación, la maniobra de giro o de cambio de carril.
+
+C.8. Transitar sin los dispositivos luminosos requeridos o sin los elementos determinados en este código.
+
+C.9. No respetar las señales de detención en el cruce de una línea férrea, o conducir por la vía férrea o por las zonas de protección y seguridad de ella.
+
+C.10. Conducir un vehículo con una o varias puertas abiertas.
+
+C.11. No portar el equipo de prevención y seguridad establecido en este código o en la reglamentación correspondiente.
+
+C.12 Proveer de combustible un vehículo automotor con el motor encendido.
+
+C.12A. No apagar el motor del vehículo para la inspección canina:
+
+C.13 Conducir un vehículo automotor sin las adaptaciones pertinentes, cuando el conductor padece de limitación física.
+
+C.14 Transitar por sitios restringidos o en horas prohibidas por la autoridad competente. Además, el vehículo será inmovilizado.
+
+C.15 Conducir un vehículo, particular o de servicio público, excediendo la capacidad autorizada en la licencia de tránsito o tarjeta de operación.
+
+C.16 Conducir un vehículo escolar sin el permiso respectivo o los distintivos reglamentarios, además el vehículo será inmovilizado.
+
+C.17 Circular con combinaciones de vehículos de dos (2) o más unidades remolcadas, sin autorización especial de autoridad competente.
+
+C.18 Conducir un vehículo autorizado para prestar servicio público con el taxímetro dañado, con los sellos rotos o etiquetas adhesivas con calibración vencida o adulteradas o cuando se carezca de él, o cuando aún teniéndolo, no cumpla con las normas mínimas de calidad y seguridad exigidas por la autoridad competente o este no esté en funcionamiento, además el vehículo será inmovilizado.
+
+C.19 Dejar o recoger pasajeros en sitios distintos de los demarcados por las autoridades.
+
+C.20 Conducir un vehículo de carga en que se transporten materiales de construcción o a granel sin las medidas de protección, higiene y seguridad ordenadas. Además el vehículo será inmovilizado.
+
+C.21 No asegurar la carga para evitar que se caigan en la vía las cosas transportadas. Además, se inmovilizará el vehículo hasta tanto se remedie la situación.
+
+C.22 Transportar carga de dimensiones superiores a las autorizadas sin cumplir con los requisitos exigidos. Además, el vehículo será inmovilizado hasta que se remedie dicha situación.
+
+C.23 Impartir en vías públicas al público enseñanza práctica para conducir, sin estar autorizado para ello.
+
+C.24 Conducir motocicleta sin observar las normas establecidas en el presente código.
+
+C.25 Transitar, cuando hubiere más de un carril, por el carril izquierdo de la vía a velocidad que entorpezca el tránsito de los demás vehículos.
+
+C.26 Transitar en vehículos de 3.5 o más toneladas por el carril izquierdo de la vía cuando hubiere más de un carril.
+
+C.27 Conducir un vehículo cuya carga o pasajeros obstruyan la visibilidad del conductor hacia el frente, atrás o costados, o impidan el control sobre el sistema de dirección, frenos o seguridad. Además el vehículo será inmovilizado.
+
+C.28 Hacer uso de dispositivos propios de vehículos de emergencia, por parte de conductores de otro tipo de vehículos.
+
+C.29 Conducir un vehículo a velocidad superior a la máxima permitida.
+
+C.30 No atender una señal de ceda el paso.
+
+C.31 No acatar las señales o requerimientos impartidos por los agentes de tránsito.
+
+C.32. No respetar el paso de peatones que cruzan una vía en sitio permitido para ellos o no darles la prelación en las franjas para ello establecidas.
+
+C.33 Poner un vehículo en marcha sin las precauciones para evitar choques.
+
+C.34 Reparar un vehículo en las vías públicas, parque o acera, o hacerlo en caso de emergencia, sin atender el procedimiento señalado en este código.
+
+C.35 No realizar la revisión técnico-mecánica en el plazo legal establecido o cuando el vehículo no se encuentre en adecuadas condiciones técnico-mecánicas o de emisiones contaminantes, aun cuando porte los certificados correspondientes, además el vehículo será inmovilizado.
+
+C.36 Transportar carga en contenedores sin los dispositivos especiales de sujeción. El vehículo será inmovilizado.
+
+C.37 Transportar pasajeros en el platón de una camioneta picó o en la plataforma de un vehículo de carga, trátese de furgón o plataforma de estacas.
+
+C.38 Usar sistemas móviles de comunicación o teléfonos instalados en los vehículos al momento de conducir, exceptuando si estos son utilizados con accesorios o equipos auxiliares que permitan tener las manos libres.
+
+- C. 39. Vulnerar las reglas de estacionamiento contenidas en el artículo 77 de este Código.
+
+- D. Será sancionado con multa equivalente a treinta (30) salarios mínimos legales diarios vigentes (smldv) el conductor y/o propietario de un vehículo automotor que incurra en cualquiera de las siguientes infracciones:
+
+D.1. Guiar un vehículo sin haber obtenido la licencia de conducción correspondiente. Además, el vehículo será inmovilizado en el lugar de los hechos, hasta que este sea retirado por una persona autorizada por el infractor con licencia de conducción.
+
+D.2. Conducir sin portar los seguros ordenados por la ley. Además, el vehículo será inmovilizado.
+
+D.3. Transitar en sentido contrario al estipulado para la vía, calzada o carril.
+
+D.4. No detenerse ante una luz roja o amarilla de semáforo, una señal de “PARE” o un semáforo intermitente en rojo.
+
+D.5. Conducir un vehículo sobre aceras, plazas, vías peatonales, separadores, bermas, demarcaciones de canalización, zonas verdes o vías especiales para vehículos no motorizados.
+
+D.6. Adelantar a otro vehículo en berma, túnel, puente, curva, pasos a nivel y cruces no regulados o al aproximarse a la cima de una cuesta o donde la señal de tránsito correspondiente lo indique.
+
+D.7.Conducir realizando maniobras altamente peligrosas e irresponsables que pongan en peligro a las personas o las cosas
+
+D.8. Conducir un vehículo sin luces o sin los dispositivos luminosos de posición, direccionales o de freno, o con alguna de ellas dañada, en las horas o circunstancias en que lo exige este código. Además, el vehículo será inmovilizado, cuando no le funcionen dos (2) o más de estas luces.
+
+D.9. No permitir el paso de los vehículos de emergencia.
+
+D.10. Conducir un vehículo para transporte escolar con exceso de velocidad.
+
+D.11. Permitir el servicio público de pasajeros que no tenga las salidas de emergencia exigidas. En este caso, la multa se impondrá solidariamente a la empresa a la cual esté afiliado y al propietario. Si se tratare de vehículo particular, se impondrá la sanción solidariamente al propietario.
+
+D.12. Conducir un vehículo que, sin la debida autorización, se destine a un servicio diferente de aquel para el cual tiene licencia de tránsito. Además, el vehículo será inmovilizado por primera vez, por el término de cinco días, por segunda vez veinte días y por tercera vez cuarenta días.
+
+D.13. En caso de transportar carga con peso superior al autorizado el vehículo será inmovilizado y el exceso deberá ser transbordado.
+
+D.14. Las autoridades de tránsito ordenarán la inmovilización inmediata de los vehículos que usen para su movilización combustibles no regulados como gas propano u otros que pongan en peligro la vida de los usuarios o de los peatones.
+
+D.15. Cambio del recorrido o trazado de la ruta para vehículo de servicio de transporte público de pasajeros, autorizado por el organismo de tránsito correspondiente. En este caso, la multa se impondrá solidariamente a la empresa a la cual esté afiliado el vehículo y al propietario. Además el vehículo será inmovilizado, salvo casos de fuerza mayor que sean debidamente autorizados por el agente de tránsito.
+
+E. Será sancionado con multa equivalente a cuarenta y cinco (45) salarios mínimos legales diarios vigentes (smldv) el conductor y/o propietario de un vehículo automotor que incurra en cualquiera de las siguientes infracciones:
+
+E.1. Proveer combustible a vehículos de servicio público con pasajeros a bordo.
+
+E.2 Negarse a prestar el servicio público sin causa justificada, siempre que dicha negativa cause alteración del orden público.
+
+E.4. Transportar en el mismo vehículo y al mismo tiempo personas y sustancias peligrosas como explosivos, tóxicos, radiactivos, combustibles no autorizados, etc. En estos casos se suspenderá la licencia por un (1) año y por dos (2) años cada vez que reincida. El vehículo será inmovilizado por un (1) año cada vez.
+
+F. Conducir bajo el influjo del alcohol o bajo los efectos de sustancias psicoactivas. Esta conducta será sancionada con las multas establecidas en el artículo 152 de este Código. Si se trata de conductores de vehículos de servicio público, de transporte escolar o de instructor de conducción, la multa y el período de suspensión de la licencia se duplicarán. En todos los casos de embriaguez o alcoholemia el vehículo será inmovilizado.
+
+El estado de embriaguez o alcoholemia se establecerá mediante una prueba que no cause lesión, la cual será determinada por el Instituto de Medicina Legal y Ciencias Forenses.
+
+G. Será sancionado con multa equivalente a seis (6) salarios mínimos legales diarios vigentes (SMLDV) el conductor de vehículo eléctrico liviano de movilidad personal urbana que incurra en cualquiera de las siguientes infracciones: G.1. Transportar a más de una persona de manera simultánea en un vehículo eléctrico liviano de movilidad personal urbana que no esté expresamente diseñado para tal fin, o sin cumplir con las condiciones definidas por el Ministerio de Transporte en la reglamentación correspondiente. G.2. Circular-por la Red Vial Nacional, salvo en los tramos que cuenten con ciclo-infraestructura, siempre que esta no haya sido restringida expresamente por la autoridad competente. Esta infracción no se aplicará a las bicicletas eléctricas, las cuales podrán circular por la Red Vial Nacional en los términos definidos para las bicicletas. G.3. Circular sobre aceras, andenes, lugares destinados al tránsito de peatones o por vías en las que la autoridad competente haya prohibido expresamente su circulación. G.4. No circular por la ciclo-infraestructura habilitada en el tramo vial correspondiente, cuando esta cuente con condiciones adecuadas de seguridad y transitabilidad y no haya sido restringida expresamente. por la autoridad competente. G.5. Circular por la vía permitida utilizando carriles distintos al derecho sin que sea necesario para adelantar o para girar a la izquierda; o circular en sentido contrario al de la vía, o por vías preferenciales o exclusivas del sistema de transporte público. G.6. Superar los límites de velocidad establecidos para la ciclo-infraestructura o para las vías permitidas por las que circule, o exceder los máximos de 25 km/h en ciclo-infraestructura y 40 km/h en vías permitidas cuando dichos límites sean superiores. G.7. Adelantar a otros vehículos por la derecha o entre vehículos que transiten por sus respectivos carriles. G.8. Realizar una maniobra de giro o de adelantamiento sin utilizar señales direccionales. G.9. No respetar las señales o normas de tránsito aplicables en la cicloinfraestructura o en las vías permitidas. G.10. Circular sin utilizar casco de seguridad que cumpla con las características definidas por el Ministerio de Transporte. Esta infracción dará lugar, además, a la inmovilización del vehículo. G.11. Circular entre las 18:00 y las 6:00 horas sin vestir prendas retrorreflectivas de identificación que cumplan con las características definidas por el Ministerio de Transporte. G.12. Circular sin que el vehículo cuente con dispositivos luminosos que proyecten luz blanca en la parte delantera y luz roja en la parte trasera. G.13. Transportar objetos que disminuyan la visibilidad, incomoden la conducción o constituyan un peligro para los demás actores de la vía. G.14. Conducir en estado de embriaguez o bajo los efectos de sustancias psicoactivas. Esta infracción dará lugar, además, a la inmovilización del vehículo.
+
+##### **Artículo 132.***Fumador*. El pasajero que sea sorprendido fumando en un vehículo de servicio público, será obligado a abandonar el automotor y deberá asistir a un curso de seguridad vial. Si se tratare del conductor, éste también deberá asistir a un curso de seguridad vial.
+
+**Parágrafo.** El conductor de servicio público de transporte de pasajeros que sea sorprendido fumando mientras conduce se hará acreedor a una sanción de diez (10) salarios mínimos legales diarios vigentes.
+
+##### **Artículo 133.***Capacitación.* Los peatones y ciclistas que no cumplan con las disposiciones de este código, serán amonestados por la autoridad de tránsito competente y deberán asistir a un curso formativo dictado por las autoridades de tránsito. La inasistencia al curso será sancionada con arresto de uno (1) a seis (6) días.
+
+### CAPITULO III
+
+**Competencia**
+
+**Normas de comportamiento**
+
+##### **Artículo 134.***Jurisdicción y competencia*. Los organismos de tránsito conocerán de las faltas ocurridas dentro del territorio de su jurisdicción, así: Las inspecciones de tránsito o quienes hagan sus veces en única instancia de las infracciones sancionadas con multas de hasta veinte (20) salarios, y en primera instancia de las infracciones sancionadas con multas superiores a veinte (20) salarios mínimos diarios legales vigentes o las sancionadas con suspensión o cancelación de la licencia para conducir, siendo la segunda instancia su superior jerárquico.
+
+**Parágrafo.** Los daños y perjuicios de mayor y menor cuantía sólo pueden ser conocidos por los jueces civiles de acuerdo a su competencia.
+
+##### **Artículo 135**. *Procedimiento.* Ante la comisión de una contravención, la autoridad de tránsito debe seguir el procedimiento siguiente para imponer el comparendo:
+
+Ordenará detener la marcha del vehículo y le extenderá al conductor la orden de comparendo en la que ordenará al infractor presentarse ante la autoridad de tránsito competente dentro de los cinco (5) días hábiles siguientes. Al conductor se le entregará copia de la orden de comparendo.
+
+Para el servicio además se enviará por correo dentro de los tres (3) días hábiles siguientes copia del comparendo al propietario del vehículo, a la empresa a la cual se encuentra vinculado y a la Superintendencia de Puertos y Transporte para lo de su competencia.
+
+La orden de comparendo deberá estar firmada por el conductor, siempre y cuando ello sea posible. Si el conductor se negara a firmar o a presentar la licencia, firmará por él un testigo, el cual deberá identificarse plenamente con el número de su cédula de ciudadanía o pasaporte, dirección de domicilio y teléfono, si lo tuviere.
+
+No obstante lo anterior, las autoridades competentes podrán contratar el servicio de medios técnicos y tecnológicos que permitan evidenciar la comisión de infracciones o contravenciones, el vehículo, la fecha, el lugar y la hora. En tal caso se enviará por correo dentro de los tres (3) días hábiles siguientes la infracción y sus soportes al propietario, quien estará obligado al pago de la multa. Para el servicio público además se enviará por correo dentro de este mismo término copia del comparendo y sus soportes a la empresa a la cual se encuentre vinculado y a la Superintendencia de Puertos y Transporte para lo de su competencia.
+
+El Ministerio de Transporte determinará las características técnicas del formulario de comparendo único nacional, así como su sistema de reparto. En este se indicará al conductor que tendrá derecho a nombrar un apoderado si así lo desea y que en la audiencia, para la que se le cite, se decretarán o practicarán las pruebas que solicite. El comparendo deberá además proveer el espacio para consignar la dirección del inculpado o del testigo que lo haya suscrito por este.
+
+**Parágrafo 1°.** La autoridad de tránsito entregará al funcionario competente o a la entidad que aquella encargue para su recaudo, dentro de las doce (12) horas siguientes, la copia de la orden de comparendo, so pena de incurrir en causal de mala conducta.
+
+Cuando se trate de agentes de policía de carreteras, la entrega de esta copia se hará por conducto del comandante de la ruta o del comandante director del servicio.
+
+**Parágrafo 2°**. Los organismos de tránsito podrán suscribir contratos o convenios con entes públicos o privados con el fin de dar aplicación a los principios de celeridad y eficiencia en el cobro de las multas.
+
+### **CAPÍTULO IV**
+
+**Actuación en caso de imposición de comparendo**
+
+### CAPITULO IV
+
+**Actuación en caso de imposición de comparendo al conductor para el transporte público**
+
+##### **Artículo 136**. **Reducción de la Multa.** Una vez surtida la orden de comparendo, si el inculpado acepta la comisión de la infracción, podrá, sin necesidad de otra actuación administrativa:
+
+- 1. Cancelar el cincuenta por ciento (50%) del valor de la multa dentro de los cinco (5) días siguientes a la orden de comparendo y siempre y cuando asista obligatoriamente a un curso sobre normas de tránsito en un Organismo de Tránsito o en un Centro de Enseñanza Automovilística o un Centro integral de atención debidamente registrados ante el RUNT. Si el curso se realiza ante un centro de enseñanza automovilística o en centro integral de atención, o en un organismo de tránsito de diferente jurisdicción donde se cometió la infracción, a este se le cancelará un veinticinco por ciento (25%) del valor a pagar y el excedente se pagará al organismo de tránsito de la jurisdicción donde se cometió la infracción; o
+
+- 2. Cancelar el setenta y cinco por ciento (75%) del valor de la multa, si paga dentro de los veinte días siguientes a la orden de comparendo y siempre y cuando asista obligatoriamente a un curso sobre normas de tránsito en un Organismo de Tránsito, en un centro de enseñanza automovilística, o un Centro integral de atención debidamente registrados ante el RUNT. Si el curso se realiza ante un centro de enseñanza automovilística, o centro integral de atención o en un organismo de tránsito de diferente jurisdicción donde se cometió la infracción, a este se le cancelará un veinticinco por ciento (25%) del valor a pagar y el excedente se pagará al organismo de tránsito de la jurisdicción donde se cometió la infracción.
+
+- 3. Si aceptada la infracción, ésta no se paga en las oportunidades antes indicadas, el inculpado deberá cancelar el cien por ciento (100%) del valor de la multa más sus correspondientes intereses moratorias.
+
+Si el inculpado rechaza la comisión de la infracción, deberá comparecer ante el funcionario en audiencia pública para que éste decrete las pruebas conducentes que le sean solicitadas y las de oficio que considere útiles.
+
+Si el contraventor no compareciere sin justa causa comprobada dentro de los cinco (5) días hábiles siguientes a la notificación del comparendo, la autoridad de tránsito, después de treinta (30) días calendario de ocurrida la presunta infracción, seguirá el proceso, entendiéndose que queda vinculado al mismo, fallándose en audiencia pública y notificándose en estrados.
+
+En la misma audiencia, si fuere posible, se practicarán las pruebas y se sancionará o absolverá al inculpado. Si fuere declarado contraventor, se le impondrá el cien por ciento (100%) de la sanción prevista en la ley.
+
+Los organismos de tránsito de manera gratuita podrán celebrar acuerdos para el recaudo de las multas y podrán establecer convenios con los bancos para este fin. El pago de la multa a favor del organismo de tránsito que la impone y la comparecencia, podrá efectuarse en cualquier lugar del país.
+
+**Parágrafo 1°**. En los lugares donde existan inspecciones ambulantes de tránsito, los funcionarios competentes podrán imponer al infractor la sanción correspondiente en el sitio y hora donde se haya cometido la contravención respetando el derecho de defensa.
+
+**Parágrafo 2°**. Cuando se demuestre que la orden de comparendo por infracción a las normas de tránsito detectada por sistemas automáticos, semiautomáticos y otros medios tecnológicos, no fue notificada o indebidamente notificada, los términos establecidos para la reducción de la sanción comenzarán a correr a partir de la fecha de la notificación del comparendo.
+
+**Parágrafo 3.** Los cursos a los infractores de las normas de tránsito podrán ser también virtuales, para lo cual quien lo dicta deberá garantizar la autenticación biométrica del ciudadano en la forma en que determine el Ministerio de Transporte, a través del sistema del Registro Único Nacional de Tránsito (RUNT) y por el Sistema de Control y Vigilancia de la Superintendencia de Transporte, que permita la identificación del infractor de forma segura, así como el registro y su permanencia en el curso, en los términos señalados por el Ministerio de Transporte.
+
+Los cursos realizados por los organismos de tránsito, los centros integrales de atención y los centros de enseñanza automovilística registrados ante el sistema del Registro Nacional de Tránsito (RUNT) para dicha labor, no podrán ser en número/día más de la capacidad física instalada, certificada por medio del registro, gestión de calidad o acreditación, en las condiciones señaladas por el Ministerio de Transporte.
+
+En todo caso, para la prestación del curso virtual y/o presencial, los centros integrales de atención y los centros de enseñanza automovilística, deberán cumplir los mismos requisitos técnicos de operación y funcionamiento previstos en la ley, según reglamentación del Ministerio de Transporte.
+
+A los organismos de tránsito no se les exigirá convenio para prestar los cursos.
+
+Los cursos a los que se refiere este artículo deberán incluir contenidos de seguridad vial que promuevan el respeto en la vía por los usuarios de la bicicleta.
+
+**Parágrafo transitorio.** El Ministerio de Transporte continuará realizando las habilitaciones, hasta que se cuente con el desarrollo en el sistema RUNT, para que dichos organismos realicen el registro de manera directa, plazo que no podrá ser mayor a 6 meses contados a partir de la expedición del presente decreto ley prorrogables por 3 meses más.
+
+Para todos los efectos legales, el registro en el RUNT hará las veces de habilitación.
+
+##### **Artículo 136 A. Condiciones mínimas de validez de los cursos sobre normas de tránsito y sanciones por fraude.** Todos los cursos sobre normas de tránsito previstos en el artículo 136 de este Código para la reducción de la sanción, deberán ser impartidos por los Organismos de Tránsito o Cen­tros Integrales de Atención, y ser especializados según el tipo de vehículo, de licencia de conducción y de infracción, respectivamente.
+
+El infractor a quien se le compruebe que hizo fraude o se benefició de un curso sobre normas de tránsito fraudulento, se hará acreedor a una multa de hasta cien (100) salarios mínimos legales diarios vigentes, y a la suspensión de la licencia de conducción hasta por tres (3) años.
+
+Si la Superintendencia de Transporte a través de su sistema de con­trol y vigilancia (SICOV) detecta indicios de fraude, falsedad o suplan­tación en la realización de estos cursos determinará para el infractor o conductor la pérdida del descuento de la multa y compulsará copias a la Fiscalía General de la Nación para lo pertinente. Esto sin perjuicio del procedimiento sancionatorio que debe adelantar contra el Organismo de Tránsito u Organismo de Apoyo a la Autoridad de Tránsito que se prestó para dicha conducta.
+
+##### **Artículo 137.***Información*. En los casos en que la infracción fuere detectada por medios que permitan comprobar la identidad del vehículo o del conductor el comparendo se remitirá a la dirección registrada del último propietario del vehículo.
+
+La actuación se adelantará en la forma prevista en el artículo precedente, con un plazo adicional de seis (6) días hábiles contados a partir del recibo de la comunicación respectiva, para lo cual deberá disponerse de la prueba de la infracción como anexo necesario del comparendo.
+
+Si no se presentare el citado a rendir sus descargos ni solicitare pruebas que desvirtúen la comisión de la infracción, se registrará la sanción a su cargo en el Registro de Conductores e infractores, en concordancia con lo dispuesto por el presente código.
+
+**Parágrafo 1º.** El respeto al derecho a defensa será materializado y garantizado por los organismos de tránsito, adoptando para uso de sus inculpados y autoridad, herramientas técnicas de comunicación y representación de hechos sucedidos en el tránsito, que se constituyan en medios probatorios, para que en audiencia pública estos permitan sancionar o absolver al inculpado bajo claros principios de oportunidad, transparencia y equidad.
+
+##### **Artículo 138.***Comparecencia.* El inculpado podrá comparecer por sí mismo, pero si designa apoderado éste deberá ser abogado en ejercicio. El Ministerio Público podrá intervenir en los procesos, de acuerdo con las funciones que le sean propias.
+
+**Parágrafo.** Si resultare involucrado un menor de edad en la actuación contravencional, deberá estar asistido por su representante legal, o por un apoderado designado por éste, o por un defensor de familia.
+
+##### **Artículo 139.***Notificación*. La notificación de las providencias que se dicten dentro del proceso se hará en estrados.
+
+##### **Artículo 140.***Cobro coactivo*. Los organismos de tránsito podrán hacer efectivas las multas por razón de las infracciones a este código, a través de la jurisdicción coactiva, con arreglo a lo que sobre ejecuciones fiscales establezca el Código de Procedimiento Civil. En todo caso será procedente la inmovilización del vehículo o preferiblemente la retención de la licencia de conducción si pasados treinta (30) días de la imposición de la multa, ésta no haya sido debidamente cancelada.
+
+##### **Artículo 141.** En aquellos municipios ribereños o conurbados cuyos cascos urbanos se encuentren separados por un río y unidos por un puente, podrá prestarse el servicio público de transporte terrestre automotor individual de pasajeros entre ellos, en zona urbana o rural, por los vehículos automotores que cuenten con los permisos y autorizaciones correspondientes expedidos por las autoridades de tránsito de los municipios involucrados; únicamente para los viajes que tengan origen en el municipio donde esté matriculado el vehículo.
+
+### CAPITULO V
+
+**Recursos**
+
+##### **Artículo 142.***Recursos*. Contra las providencias que se dicten dentro del proceso procederán los recursos de reposición y apelación.
+
+El recurso de reposición procede contra los autos ante el mismo funcionario y deberá interponerse y sustentarse en la propia audiencia en la que se pronuncie.
+
+El recurso de apelación procede sólo contra las resoluciones que pongan fin a la primera instancia y deberá interponerse oralmente y sustentarse en la audiencia en que se profiera.
+
+Toda providencia queda en firme cuando vencido el término de su ejecutoria, no se ha interpuesto recurso alguno o éste ha sido negado.
+
+### CAPITULO VI.
+
+Procedimiento en caso de daños a cosas
+
+##### **Artículo 143. Daños materiales**. En todo accidente de tránsito donde sólo se causen daños materiales en los que resulten afectados vehículos asegurados no asegurados, inmuebles, cosas o animales y no sé produzcan lesiones personales, los conductores, entidades asegura­doras y demás interesados en el accidente recaudarán todas las pruebas relativas a la colisión mediante la utilización de herramientas técnicas y tecnológicas, que permitan la atención del mismo en forma oportu­na, segura y que garantice la autenticidad, integridad, conservación y posterior consulta y uso probatorio de la información. Para tal efecto, el material probatorio recaudado con estas condiciones reemplazará el informe de accidente de tránsito que expide la autoridad competente.
+
+Independientemente de que los vehículos involucrados en un acci­dente de este tipo estén asegurados o no, los conductores deben retirar inmediatamente los vehículos colisionados y todo elemento que pueda interrumpir el tránsito y acudir a los centros de conciliación debidamen­te autorizados por el Ministerio de Justicia y del Derecho. Si fracasa la conciliación, cualquiera de las partes puede acudir a los demás meca­nismos de acceso a la justicia. Para tal efecto, no será necesaria la expe­dición del informe de accidente de tránsito, ni la presencia de autoridad de tránsito en la respectiva audiencia de conciliación.
+
+##### **ARTÍCULO 143 A**. DEROGADO.
+
+##### **Artículo 144.***Informe policial*. En los casos en que no fuere posible la conciliación entre los conductores, el agente de tránsito que conozca el hecho levantará un informe descriptivo de sus pormenores, con copia inmediata a los conductores, quienes deberán suscribirlas, y si éstos se negaren a hacerlo bastará la firma de un testigo mayor de edad.
+
+El informe contendrá por lo menos:
+
+Lugar, fecha y hora en que ocurrió el hecho.
+
+Clase de vehículo, número de la placa y demás características.
+
+Nombre del conductor o conductores, documento de identidad, número de la licencia o licencias de conducción, lugar y fecha de expedición, dirección, teléfono, domicilio o residencia de los involucrados.
+
+Nombre del propietario o tenedor del vehículo o de los propietarios o tenedores de los vehículos.
+
+Nombre, documento de identidad y dirección de los testigos.
+
+Estado de seguridad, en general, del vehículo o de los vehículos, de los frenos, de la dirección, de las luces, bocinas y llantas.
+
+Estado de la vía, huella de frenada, grado de visibilidad, colocación de los vehículos y distancia, entre otros, la cual constará en el croquis levantado.
+
+Descripción de los daños y lesiones.
+
+Relación de los medios de prueba aportados por las partes.
+
+Descripción de las compañías de seguros y números de las pólizas de los seguros obligatorios exigidos por este código.
+
+##### **ARTÍCULO 144 A.** RETIRO DE VEHÍCULOS POR LA AUTORIDAD DE TRANSITO. En los casos de daños materiales en los que solo resulten afectados vehículos, inmuebles, cosas o animales y no se produzcan lesiones personales y alguno de los involucrados se niegue al retiro de los vehículos el agente de tránsito procederá al retiro y traslado del mismo de acuerdo a lo establecido en el artículo 125 del presente código y a la imposición del comparendo respectivo por bloqueo de calzada o intersección (C3).
+
+En los casos en que sea materialmente imposible el retiro de los vehículos en razón de las condiciones técnico-mecánicas del mismo, se procederá a su retiro y traslado del vehículo, sin que por estos hechos haya lugar a la imposición del comparendo por bloqueo de calzada o intersección (C3).
+
+Lo previsto en el presente artículo no será aplicable en los casos en donde presuntamente se involucren personas en estado de embriaguez. Situación en la cual cualquiera de las partes podrá negarse al retiro de los vehículos hasta tanto se hagan las pruebas establecidas en este código."
+
+##### **Artículo 145.** Copias del informe. El agente de tránsito que hubiere conocido el accidente remitirá a más tardar dentro de las veinticuatro (24) horas siguientes, copia del respectivo informe al organismo de tránsito competente para lo pertinente y a los centros de conciliación autorizados por el Ministerio de Justicia".
+
+##### **Artículo 146.** Se entenderán como conceptos técnicos que deben emitir las autoridades de tránsito, los informes de accidentes de tránsi­to donde se indicará la causa probable del accidente, sin que en dicho concepto se defina la responsabilidad en el choque, salvo en aquellos casos donde la autoridad de tránsito emite órdenes de comparendo por presunta infracción a la norma de tránsito y se impone la multa prevista al culminar el proceso contravencional y la violación de dicha norma es la causa probable del accidente de tránsito. Así mismo, no podrá la autoridad de tránsito determinar la cuantía de los daños.
+
+##### **Artículo 147.***Obligación de comparendo.* En toda circunstancia, si el agente de tránsito observare la violación de las normas establecidas en este código, en caso de daños a cosas, podrá imponer un comparendo al conductor infractor.
+
+### CAPITULO VII
+
+Actualización en caso de infracciones penales
+
+##### **Artículo 148.***Funciones de Policía Judicial.* En caso de hechos que puedan constituir infracción penal, las autoridades de tránsito tendrán las atribuciones y deberes de la policía judicial, con arreglo al Código de Procedimiento Penal.
+
+##### **Artículo 149.***Descripción*. En los casos a que se refiere el artículo anterior, el agente de tránsito que conozca el hecho levantará un informe descriptivo de sus pormenores, con copia inmediata a los conductores, quienes deberán firmarlas y en su defecto, la firmará un testigo.
+
+El informe contendrá por lo menos:
+
+Lugar, fecha y hora en que ocurrió el hecho.
+
+Clase de vehículo, número de la placa y demás características.
+
+Nombre del conductor o conductores, documentos de identidad, número de la licencia o licencias de conducción, lugar y fecha de su expedición y número de la póliza de seguro y compañía aseguradora, dirección o residencia de los involucrados.
+
+Nombre del propietario o tenedor del vehículo o de los propietarios o tenedores de los vehículos.
+
+Nombre, documentos de identidad y dirección de los testigos.
+
+Estado de seguridad, en general, del vehículo o de los vehículos, de los frenos, de la dirección, de las luces, bocinas y llantas.
+
+Estado de la vía, huella de frenada, grado de visibilidad, colocación de los vehículos y distancia, la cual constará en el croquis levantado.
+
+Descripción de los daños y lesiones.
+
+Relación de los medios de prueba aportados por las partes.
+
+Descripción de las compañías de seguros y números de las pólizas de los seguros obligatorios exigidos por este código.
+
+En todo caso en que produzca lesiones personales u homicidio en accidente de tránsito, la autoridad de tránsito deberá enviar a los conductores implicados a la práctica de la prueba de embriaguez, so pena de considerarse falta disciplinaria grave para el funcionario que no dé cumplimiento a esta norma.
+
+El informe o el croquis, o los dos, serán entregados inmediatamente a los interesados y a la autoridad instructora competente en materia penal.
+
+El funcionario de tránsito que no entregue copia de estos documentos a los interesados o a las autoridades instructoras, incurrirá en causal de mala conducta.
+
+Para efectos de determinar la responsabilidad, en cuanto al tránsito, las autoridades instructoras podrán solicitar pronunciamiento sobre el particular a las autoridades de tránsito competentes.
+
+### CAPITULO VIII
+
+**Actuación en caso de embriaguez**
+
+##### **Artículo 150.***Examen*. Las autoridades de tránsito podrán solicitar a todo conductor de vehículo automotor la práctica de examen de embriaguez, que permita determinar si se encuentra bajo efectos producidos por el alcohol o las drogas, o sustancias estupefacientes, alucinógenas o hipnóticas.
+
+Las autoridades de tránsito podrán contratar con clínicas u hospitales la práctica de las pruebas de que trata este artículo, para verificar el estado de aptitud de los conductores.
+
+**Parágrafo.** En los centros integrales de atención se tendrá una dependencia para practicar las pruebas anteriormente mencionadas.
+
+##### **Artículo 151.Suspensión de licencia.** Quien cause lesiones u homicidios en accidente de tránsito y se demuestre que actuó bajo cualquiera de los estados de embriaguez de que trata este código, o que injustificadamente abandone el lugar de los hechos, a más de las sanciones previstas en el Código Penal, se hará acreedor a la suspensión de su licencia por el término de cinco (5) años.
+
+##### **Artículo 152. Sanciones y grados de alcoholemia.** Si hecha la prueba, se establece que el conductor se encuentra en alguno de los siguientes grados de alcoholemia, incurrirá en las sanciones respectivas, según el nivel de reincidencia correspondiente de conformidad con lo indicado a continuación para cada evento:
+
+- **1. Grado cero de alcoholemia,** entre 20 y 39 mg de etanol/100 ml de sangre total, se impondrá:
+
+- **1.1. Primera vez**
+
+1.1.1. Suspensión de la licencia de conducción por un (1) año.
+
+1.1.2. Multa correspondiente a noventa (90) salarios mínimos diarios legales vigentes (smdlv).
+
+1.1.3 Realización de acciones comunitarias para la prevención de la conducción bajo el influjo del alcohol o sustancias psicoactivas, durante veinte (20) horas.
+
+1.1.4 Inmovilización del vehículo por un (1) día hábil.
+
+- **1.2. Segunda Vez**
+
+1.2.1. Suspensión de la licencia de conducción por un (1) año.
+
+1.2.2. Multa correspondiente a ciento treinta y cinco (135) salarios mínimos diarios legales vigentes (smdlv).
+
+1.2.3. Realización de acciones comunitarias para la prevención de la conducción bajo el influjo del alcohol o sustancias psicoactivas, durante veinte (20) horas.
+
+1.2.4. Inmovilización del vehículo por un (1) día hábil.
+
+- **1.3. Tercera Vez**
+
+1.3.1. Suspensión de la licencia de conducción por tres (3) años.
+
+1.3.2. Multa correspondiente a ciento ochenta (180) salarios mínimos diarios legales vigentes (smdlv).
+
+1.3.3. Realización de acciones comunitarias para la prevención de la conducción bajo el influjo del alcohol o sustancias psicoactivas, durante treinta (30) horas.
+
+1.3.4. Inmovilización del vehículo por tres (3) días hábiles.
+
+- **2. Primer grado de embriaguez,** entre 40 y 99 mg de etanol/100 ml de sangre total, se impondrá:
+
+- **2.1. Primera Vez**
+
+2.2.1. Suspensión de la licencia de conducción por tres (3) años.
+
+2.1.2. Multa correspondiente a ciento ochenta (180) salarios mínimos diarios legales vigentes (smdlv).
+
+2.1.3. Realización de acciones comunitarias para la prevención de la conducción bajo el influjo del alcohol o sustancias psicoactivas, durante treinta (30) horas.
+
+2.1.4. Inmovilización del vehículo por tres (3) días hábiles.
+
+- **2.2. Segunda Vez**
+
+2.2.1. Suspensión de la licencia de conducción por seis (6) años.
+
+2.2.2. Realización de acciones comunitarias para la prevención de la conducción bajo el influjo del alcohol o sustancias psicoactivas, durante cincuenta (50) horas.
+
+2.2.3. Multa correspondiente a doscientos setenta (270) salarios mínimos diarios legales vigentes (smdlv).
+
+2.2.4. Inmovilización del vehículo por cinco (5) días hábiles.
+
+- **2.3. Tercera Vez**
+
+2.3.1. Cancelación de la licencia de conducción.
+
+2.3.2. Realización de acciones comunitarias para la prevención de la conducción bajo el influjo del alcohol o sustancias psicoactivas, durante sesenta (60) horas.
+
+2.3.3. Multa correspondiente a trescientos sesenta (360) salarios mínimos diarios legales vigentes (smdlv).
+
+2.3.4. Inmovilización del vehículo por diez (10) días hábiles.
+
+- **3. Segundo grado de embriaguez,** entre 100 y 149 mg de etanol/100 ml de sangre total, se impondrá:
+
+- **3.1. Primera Vez**
+
+3.1.1. Suspensión de la licencia de conducción por cinco (5) años.
+
+3.1.2. Realización de acciones comunitarias para la prevención de la conducción bajo el influjo del alcohol o sustancias psicoactivas, durante cuarenta (40) horas.
+
+3.1.3. Multa correspondiente a trescientos sesenta (360) salarios mínimos diarios legales vigentes (smdlv).
+
+3.1.4. Inmovilización del vehículo por seis (6) días hábiles.
+
+- **3.2. Segunda Vez**
+
+3.2.1. Suspensión de la licencia de conducción por diez (10) años.
+
+3.2.2. Realización de acciones comunitarias para la prevención de la conducción bajo el influjo del alcohol o sustancias psicoactivas, durante sesenta (60) horas.
+
+3.2.3. Multa correspondiente a quinientos cuarenta (540) salarios mínimos diarios legales vigentes (smdlv).
+
+3.2.4. Inmovilización del vehículo por diez (10) días hábiles.
+
+- **3.3. Tercera Vez**
+
+3.3.1. Cancelación de la licencia de conducción.
+
+3.3.2. Realización de acciones comunitarias para la prevención de la conducción bajo el influjo del alcohol o sustancias psicoactivas, durante ochenta (80) horas.
+
+3.3.3. Multa correspondiente a setecientos veinte (720) salarios mínimos diarios legales vigentes (smdlv).
+
+3.3.4 Inmovilización del vehículo por veinte (20) días hábiles.
+
+- **4. Tercer grado de embriaguez,** desde 150 mg de etanol/100 ml de sangre total en adelante, se impondrá:
+
+- **4.1. Primera Vez**
+
+4.1.1. Suspensión de la licencia de conducción por diez (10) años.
+
+4.1.2. Realización de acciones comunitarias para la prevención de la conducción bajo el influjo del alcohol o sustancia psicoactivas, durante cincuenta (50) horas.
+
+4.1.3. Multa correspondiente a setecientos veinte (720) salarios mínimos diarios legales vigentes (smdlv).
+
+4.1.4. Inmovilización del vehículo por diez (10) días hábiles.
+
+- **4.2. Segunda Vez**
+
+4.2.1. Cancelación de la licencia de conducción.
+
+4.2.2. Realización de acciones comunitarias para la prevención de la conducción bajo el influjo del alcohol o sustancias psicoactivas, durante ochenta (80) horas.
+
+4.2.3. Multa correspondiente a mil ochenta (1.080) salarios mínimos diarios legales vigentes (smdlv).
+
+4.2.4. Inmovilización del vehículo por veinte (20) días hábiles.
+
+- **4.3. Tercera Vez**
+
+4.3.1. Cancelación de la licencia de conducción.
+
+4.3.2. Realización de acciones comunitarias para la prevención de la conducción bajo el influjo del alcohol o sustancias psicoactivas, durante noventa (90) horas.
+
+4.3.3. Multa correspondiente a mil cuatrocientos cuarenta (1.440) salarios mínimos diarios legales vigentes (smdlv).
+
+4.3.4. Inmovilización del vehículo por veinte (20) días hábiles.
+
+**Parágrafo 1°.** Si el conductor reincide en un grado de alcoholemia distinto a aquel en el que fue sorprendido la última vez, se le aplicarán las sanciones del grado en el que sea hallado.
+
+Para determinar el orden de reincidencia que corresponda, será considerado el número de ocasiones en que haya sido sancionado con antelación, por conducir bajo el influjo de alcohol en cualquiera de los grados previstos en este artículo.
+
+**Parágrafo 2°.** En todos los casos enunciados, la autoridad de tránsito o quien haga sus veces, al momento de realizar la orden de comparendo procederá a realizar la retención preventiva de la licencia de conducción que se mantendrá hasta tanto quede en firme el acto administrativo que decide sobre la responsabilidad contravencional. La retención deberá registrarse de manera inmediata en el RUNT.
+
+**Parágrafo 3°.** Al conductor del vehículo automotor que pese a ser requerido por las autoridades de tránsito, con plenitud de garantías, no permita la realización de las pruebas físicas o clínicas a que se refiere la presente ley o se dé a la fuga, se le cancelará la licencia, se le impondrá multa correspondiente a mil cuatrocientos cuarenta (1.440) salarios mínimos diarios legales vigentes (smdlv) y procederá la inmovilización del vehículo por veinte (20) días hábiles.
+
+**Parágrafo 4°.** En el evento en que la alcoholemia sea igual o superior a 20 mg de etanol/100 ml de sangre, se aplicará las sanciones establecidas sin que sea necesario realizar pruebas adicionales para la determinación de la presencia de otras sustancias psicoactivas.
+
+**Parágrafo 5°.** Para los conductores que incurran en las faltas previstas en el presente artículo no existirá la reducción de multas de la que trata el artículo 136 de la Ley 769 de 2002.
+
+##### **Artículo 153.Resolución judicial.** Para Efectos legales se entenderá como resolución judicial la providencia que impone una pena de suspensión de licencia de conducción.
+
+### CAPITULO IX
+
+**Sanciones especiales**
+
+##### **Artículo 154. Centros de enseñanza.** El incumplimiento de las normas que regulan el funcionamiento de los centros de enseñanza automovilística será sancionado de acuerdo con la gravedad de la falte y al procedimiento establecido en el presente Código.
+
+Las sanciones serán impuestas por la autoridad encargada de la vigilancia, supervisión y control de los Centros de Enseñanza Automovilística y consistirán en:
+
+- 1. Multa.
+
+- 2. Suspensión de la habilitación de los centros de enseñanza.
+
+- 3. Suspensión de la licencia de los instructores en conducción.
+
+- 4. Cancelación de la habilitación de los centros de enseñanza.
+
+- 5. Cancelación de la licencia de los instructores en conducción.
+
+**Parágrafo 1°.** Será sancionado con multa que oscilará entre uno (1) y trescientos (300) salarios mínimos legales diarios vigentes, teniendo en cuenta las implicaciones de la infracción, el Centro de Enseñanza Automovilística que incurra en violación a la reglamentación que con base en el artículo 15 de la Ley 769 de 2002, expida el Ministerio de Transporte.
+
+Cuando se trate de infracciones a la reglamentación establecida para los instructores en conducción, la multa se le aplicará al instructor y oscilará entre uno (1) y cincuenta (50) salarios mínimos legales diarios vigentes.
+
+**Parágrafo 2°.** Será sancionado con la suspensión de la habilitación hasta por seis (6) meses, de acuerdo con la gravedad de la falta, el centro de enseñanza automovilística que reincida, en el incumplimiento de las normas que regulen su constitución y funcionamiento.
+
+Cuando la reincidencia de que trata este parágrafo sea a las normas que regulen la actividad de los instructores en conducción, se le suspenderá la licencia al respectivo instructor hasta por dos (2) meses, según la gravedad de la infracción.
+
+**Parágrafo 3°.** Será sancionado con la cancelación de la habilitación, el centro de enseñanza automovilística que incurra por tercera vez en la causal de suspensión de que trata el parágrafo anterior. De igual forma, cuando se compruebe que los hechos que dieron origen al otorgamiento de la habilitación, no corresponden a la realidad y cuando se compruebe la injustificada cesación de actividades.
+
+Para el caso de los instructores en conducción, la licencia se les cancelará, cuando igualmente incurran por tercera vez en a causal de suspensión, contemplada en el parágrafo anterior.
+
+##### **Artículo 155.Ensambladoras.** Serán sancionados con multa equivalente a mil (1.000) salarios mínimos legales diarios vigentes por cada unidad y a la cancelación de su registro, las ensambladoras o fabricantes de vehículos, carrocerías, remolques, semi-remolques y similares, que los vendan sin el respectivo mecanismo de identificación.
+
+##### **Artículo 156.Propietario.** Será sancionado con multa equivalente a cien (100) salarios mínimos legales diarios vigentes, el propietario de expendio que provea de combustible a un vehículo automotor de servicio público con el motor encendido y pasajeros a bordo.
+
+##### **Artículo 157.Incapacidad**. Quien incumpla la obligación consagrada en el artículo 24, y se le compruebe que en caso de un accidente la deficiencia de carácter orgánico o funcional fue su causa, el conductor se hará acreedor a una multa de hasta cien (100) salarios mínimos legales diarios vigentes, y a la suspensión de la licencia de conducción hasta por cinco (5) años.
+
+##### **Artículo 158.Procedimiento.** El procedimiento para regular las actuaciones a que se refiere este capítulo, se someterá a las siguientes reglas:
+
+Apertura de la investigación mediante acto administrativo motivado, no susceptible de recurso alguno que señalará los hechos y las normas presuntamente violadas.
+
+Rendición de descargos por escrito dentro de los diez (10) días siguientes.
+
+Práctica de las pruebas pertinentes dentro de un plazo no superior a quince (15) días.
+
+Toma de la decisión dentro de los seis (6) meses siguientes a la apertura de la investigación.
+
+**Parágrafo 1º.** Los recursos se ejercitarán de conformidad con las normas del Código Contencioso Administrativo.
+
+**Parágrafo 2º.** Igualmente, se someterán a este procedimiento todas aquellas infracciones de las normas de este Código que, dada su naturaleza, no tengan señalado un procedimiento específico para su definición.
+
+##### **Artículo 158 A. Incumplimiento de criterios de seguridad vial para la instalación y operación de ayudas tecnológicas.** Las autori­dades de tránsito serán sancionadas con multa equivalente al doble del valor recaudado por concepto de las multas impuestas en los proce­sos sancionatorios derivados de las infracciones detectadas con ayudas tecnológicas, en aquellos casos en que se utilicen dichas ayudas, sin el cumplimiento de los criterios de seguridad vial para su instalación y operación establecidos por el Ministerio de Transporte y la Agencia Nacional de Seguridad Vial en cumplimiento de la Ley 1843 de 2017.
+
+Todas aquellas multas impuestas durante el período en el cual no se con­tó con la autorización, deberán ser revocadas de forma oficiosa por parte de la autoridad de tránsito y sin necesidad de la autorización expresa del afec­tado, dentro de un término que, en ningún caso, podrá superar los 30 días hábiles siguientes a la fecha en la cual haya quedado en firme la decisión que para el efecto haya proferido la Superintendencia de Transporte.
+
+Los recursos provenientes de la multa prevista en el presente artí­culo entrarán a formar parte del presupuesto de la Superintendencia de Transporte.
+
+**Parágrafo**. En aquellos organismos de tránsito que cuenten con más de una ayuda tecnológica; la sanción a la que hace referencia este ar­tículo se determinará teniendo en cuenta únicamente aquellas ayudas tecnológicas que no cumplían con los criterios de seguridad vial para su instalación y operación.”
+
+### CAPITULO X
+
+**Ejecución de la sanción**
+
+##### **Artículo 159. Cumplimiento.** La ejecución de las sanciones que se impongan por violación de las normas de tránsito, estará a cargo de las autoridades de tránsito de la jurisdicción donde se cometió el hecho, quienes estarán investidas de jurisdicción coactiva para el cobro, cuando ella fuere necesario.
+
+Las sanciones impuestas por infracciones a las normas de tránsito prescribirán en tres (3) años contados a partir de la ocurrencia del hecho; la prescripción deberá ser declarada de oficio y se interrumpirá con la notificación del mandamiento de pago. La autoridad de tránsito no podrá iniciar el cobro coactivo de sanciones respecto de las cuales se encuentren configurados los supuestos necesarios para declarar su prescripción.
+
+Las autoridades de tránsito deberán establecer públicamente a más tardar en el mes de enero de cada año, planes y programas destinados al cobro de dichas sanciones y dentro de este mismo periodo rendirán cuentas públicas sobre la ejecución de los mismos.
+
+**Parágrafo 1**. Las autoridades de tránsito podrán contratar el cobro de las multas que se impongan por la comisión de infracciones de tránsito.
+
+**Parágrafo** **2**. Las multas serán de propiedad exclusiva de los organismos de tránsito donde se cometió la infracción de acuerdo con su jurisdicción. El manto de aquellas multas que sean impuestas sobre las vías nacionales, por parte del personal de la Policía Nacional de Colombia, adscrito a la Dirección de Tránsito y Transporte, se distribuirá en un cincuenta por ciento (50%) para el municipio donde se entregue el correspondiente comparendo y el otro cincuenta por ciento (50%) para la Dirección de Tránsito y Transporte de la Policía Nacional, con destino a la capacitación de su personal adscrito, planes de educación y seguridad vial que adelante esta especialidad a lo largo de la red vial nacional, locaciones que suplan las necesidades del servicio y la construcción de la Escuela de Seguridad Vial de la Policía Nacional.
+
+##### **Artículo 160. Destinación de multas y sanciones.** De conformidad con las normas presupuestales respectivas, el recaudo por concepto de multas y sanciones por infracciones de tránsito, se destinará a la ejecu­ción de los planes y proyectos del sector movilidad, en aspectos tales como planes de tránsito, transporte y movilidad, educación, dotación de equipos, combustible, seguridad vial, operación e infraestructura vial del servicio de transporte público de pasajeros, transporte no motori­zado, y gestión del sistema de recaudo de las multas, salvo en lo que corresponde a la Federación Colombiana de Municipios.
+
+**Parágrafo.** En lo que se refiere al servicio de transporte público las entidades territoriales que cuenten con sistemas de transporte cofinan­ciados por la Nación priorizarán la financiación de estos sistemas.
+
+**Parágrafo 2**. Del recaudo por concepto de multas y sanciones por infracciones de tránsito, se podrán destinar recursos para la ejecución, en acciones y medidas que permitan realizar labores de control operativo y regulación del tránsito en el territorio nacional, para verificar el cumplimiento de las medidas adoptadas para prevenir y evitar el contagio y/o propagación de la enfermedad por Coronavirus de quienes en el marco de las excepciones contempladas siguen transitando en el territorio nacional, directamente o mediante acuerdo con terceros, sin perjuicio de las facultades de los Gobernadores y alcaldes otorgadas en el artículo 1 del Decreto 461 de 2020”.
+
+### CAPITULO X
+
+Caducidad
+
+##### **Artículo 161. Caducidad.** La acción por contravención de las normas de tránsito, caduca al año (1), contado a partir de la ocurrencia de los hechos que dieron origen a ella. En consecuencia, durante este término se deberá decidir sobre la imposición de la sanción, en tal momento se entenderá realizada efectivamente la audiencia e interrumpida la caducidad.
+
+La decisión que resuelve los recursos, de ser procedentes, deberá ser expedida en un término de un (1) año contado a partir de su debida y oportuna interposición, si los recursos no se deciden en el término fijado en esta disposición, se entenderán fallados a favor del recurrente.
+
+La revocación directa solo podrá proceder en forma supletiva al proceso contravencional y en el evento de ser resuelta a favor de los intereses del presunto infractor sus efectos serán a futuro, iniciando la contabilización de la caducidad a partir de la notificación de la aceptación de su solicitud o su declaratoria de oficio, permitiendo al presunto infractor contar con los términos establecidos en la ley para la obtención de los descuentos establecidos en la ley o la realización de la audiencia contemplados en el Código Nacional de Tránsito.
+
+### CAPITULO XI
+
+Aplicaciones de otros códigos y disposiciones finales
+
+##### **Artículo 162. Compatibilidad y analogía**. Las normas contenidas en el Código Contencioso Administrativo, Código Penal, Código de Procedimiento Penal y Código de Procedimiento Civil, serán aplicables a las situaciones no reguladas por el presente código, en cuanto no fueren incompatibles y no hubiere norma prevista para el caso en análisis.
+
+##### **Artículo 163***.* **Norma aplicable.** Las actuaciones en curso continuarán sujetas a las disposiciones con base en las cuales se iniciaron.
+
+##### **Artículo 164.Facilidades.** Las autoridades de tránsito a que se refiere el presente código, adoptarán las medidas requeridas para que los usuarios de los servicios puedan cumplir con las obligaciones que les correspondan desde cualquier otro lugar en que se encuentre, cuando ello fuere procedente.
+
+##### **Artículo 165.Presupuesto.** Autorízase al Gobierno Nacional y a las autoridades locales de tránsito para adoptar las medidas presupuestales que fueren necesarias para dar cumplimiento a lo que en este Código se dispone y para difundir su contenido y alcance.
+
+##### **Artículo 166.Vidrios oscuros.** El Ministerio de Transporte definirá lo atinente a la circulación de vehículos que posean vidrios oscuros de fabricación.
+
+##### **Artículo 167.Vehículos Inmovilizados Por Orden Judicial.** Los vehículos que sean inmovilizados por orden judicial deberán llevarse a parqueaderos cuya responsabilidad será de la Dirección Ejecutiva de la Rama Judicial. Las autoridades de tránsito no podrán inmovilizar en los parqueaderos autorizados, vehículos por acciones presuntamente delictuosas.
+
+**NOTA: a través de la Sentencia C-440 de 2020 la Corte Constitucional declaró inxequible** **la expresión “el artículo 167 de la Ley 769 de 2002”, contenida en el artículo 336 derogatorio de la Ley 1955 de 2019,**
+
+##### **Artículo 168.Tarifas que fijarán los concejos.** Los ingresos por concepto de derechos de tránsito solamente podrán cobrarse de acuerdo con las tarifas que fijen los Concejos. Las tarifas estarán basadas en un estudio económico sobre los costos del servicio, con indicadores de eficiencia, eficacia y economía.
+
+##### **Artículo 169.Sobretasa a los trámites de tránsito**. Ninguna entidad pública podrá cobrar sobretasas a los trámites de tránsito salvo autorización legal de acuerdo con el artículo 338 de la Constitución Política.
+
+##### **Artículo 170.Vigencia.** El presente código empezará a regir transcurridos tres (3) meses contados a partir de su promulgación y deroga todas las disposiciones que le sean contrarias, con excepción de las normas sobre medio ambiente. Derógase el Decreto 1344 de 1970 y sus disposiciones reglamentarias y modificatorias.
+
+##### **ARTÍCULO TRANSITORIO.** Los deudores de multas por infracciones a las normas de tránsito que se hayan hecho exigibles con anterioridad al 30 de junio de 2021, tendrán derecho a la siguiente condición especial de pago:
+
+- 1. Dentro de los cuatro (4) meses siguientes a la entrada en vigencia de la presente ley se pagará el 50% del capital sin intereses de mora.
+
+- 2. Entre los cuatro (4) Y los ocho (8) meses siguientes a la entrada en vigencia de la presente ley se pagará el 50% del capital sin intereses de mora.
+
+- 3. Entre los ocho (8) y los doce (12) meses siguientes a la entrada en vigencia de la presente ley se pagará el 80% del capital sin intereses de mora.
+
+**PARÁGRAFO 1.** La condición especial de pago establecida en el presente artículo, no se aplicará para el pago de multas por infracciones a las normas de tránsito impuestas a conductores bajo el influjo del alcohol u otras sustancias psicoactivas; y cuyas sanciones penales y administrativas están establecidas en la Ley 1696 de 2013.
+
+**PARÁGRAFO 2.** La condición especial de pago establecida en el presente artículo no afecta las destinaciones de los recursos establecidas en los artículos 10 y 160 de la Ley 769 de 2002.
+
+**El Presidente del honorable Senado de la República,**
+
+**Carlos García Orjuela.**
+
+**El Secretario General del honorable Senado de la República (E.),**
+
+**Luis Francisco Boada Gómez.**
+
+**El Presidente de la honorable Cámara de Representantes,**
+
+**Guillermo Gaviria Zapata.**
+
+**El Secretario General de la honorable Cámara de Representantes,**
+
+**Angelino Lizcano Rivera.**
+
+**REPUBLICA DE COLOMBIA - GOBIERNO NACIONAL**
+
+**Publíquese y cúmplase.**
+
+**Dada en Bogotá, D. C., a 6 de agosto de 2002.**
+
+**ANDRES PASTRANA ARANGO**
+
+**El Ministro de Justicia y del Derecho,**
+
+**Rómulo González Trujillo.**
+
+**El Ministro de Hacienda y Crédito Público,**
+
+**Juan Manuel Santos Calderón.**
+
+**El Ministro del Medio Ambiente,**
+
+**Juan Mayr Maldonado.**
+
+**El Ministro de Transporte,**
+
+**Gustavo Adolfo Canal Mora.**
