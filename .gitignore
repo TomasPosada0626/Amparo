@@ -21,3 +21,8 @@ __pycache__/
 # SO
 .DS_Store
 Thumbs.db
+
+# Corpus RAG (M3): data/corpus/normas/ SI se versiona (decision del equipo, y
+# son textos de dominio publico). Lo que no se versiona es la salida generada
+# por el ingest, que se puede reconstruir con pipeline.build_index().
+data/rag_corpus_processed.jsonl

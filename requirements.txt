@@ -13,3 +13,12 @@ sacrebleu>=2.4.0
 rouge-score>=0.1.2
 numpy>=1.26
 pytest>=8.0.0
+
+# tools/rag (M3 -- RAG ingenuo). Backend FAISS por decision documentada en
+# docs/m3_decisiones_rag.md (seccion 2): pgvector queda para cuando exista el
+# backend FastAPI+Postgres, que todavia no esta en el repo. faiss-cpu no
+# arrastra torch, asi que cabe en este requirements liviano.
+# NO se agregan aqui transformers/torch (necesarios para el modelo de
+# embeddings e5 y para la generacion): igual que en M1/M2, ese stack se instala
+# dentro de colab/ y la indexacion corre alli, donde esta la GPU.
+faiss-cpu>=1.8.0
