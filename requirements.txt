@@ -14,7 +14,7 @@ rouge-score>=0.1.2
 numpy>=1.26
 pytest>=8.0.0
 
-# tools/rag (M3 -- RAG ingenuo). Backend FAISS por decision documentada en
+# tools/rag (M3 -- RAG basico). Backend FAISS por decision documentada en
 # docs/m3_decisiones_rag.md (seccion 2): pgvector queda para cuando exista el
 # backend FastAPI+Postgres, que todavia no esta en el repo. faiss-cpu no
 # arrastra torch, asi que cabe en este requirements liviano.

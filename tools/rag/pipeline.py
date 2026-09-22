@@ -1,4 +1,4 @@
-"""Pipeline: orquesta las 7 etapas del RAG ingenuo (S07).
+"""Pipeline: orquesta las 7 etapas del RAG basico (S07).
 
 Indexacion (offline):  ingest -> chunk -> embed -> store
 Consulta (online):     retrieve -> augment -> generate
