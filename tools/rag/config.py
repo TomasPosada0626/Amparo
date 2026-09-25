@@ -62,20 +62,10 @@ TOP_K = 5
 # Umbral de la valvula de escape: por debajo de esto, el chunk NO entra al
 # prompt y el sistema responde "no tengo informacion verificada".
 #
-# CALIBRADO (ver docs/m3_decisiones_rag.md, seccion 5) contra la corrida real
-# del 2026-09-25: preguntas CON cobertura en el corpus dieron scores 0.825-0.879
-# (n=20), preguntas SIN cobertura dieron 0.840-0.854 (n=2). Los rangos se
-# solapan, asi que ningun umbral separa los dos casos a la perfeccion. 0.855
-# (justo por encima del maximo medido sin cobertura) prioriza no dejar pasar
-# contexto irrelevante -- consistente con "prudencia sobre certeza" -- a costa
-# de descartar tambien algo de contexto relevante que cayo en la zona 0.825-0.854.
-# Con el 0.80 anterior, casi nada se filtraba (el minimo sin cobertura ya era
-# 0.840): fue la causa confirmada de que una consulta real sobre liquidacion
-# laboral recuperara articulos de liquidacion de sindicatos en insolvencia
-# (score 0.845) en vez de activar la valvula de escape -- ver seccion 9.
-# Muestra de calibracion chica (n=2 sin cobertura): revisar si se repite el
-# problema con mas datos antes de asumir que 0.855 es definitivo.
-RETRIEVAL_MIN_SCORE = 0.855
+# 0.855 rompia la recuperacion normal (84% de las consultas se quedaban sin
+# chunks). 0.82 queda por debajo del minimo medido de cobertura real (0.825),
+# para no repetir ese problema.
+RETRIEVAL_MIN_SCORE = 0.82
 
 # --- Generacion -------------------------------------------------------------
 BASE_MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"  # mismo que tools/evaluation/config.py
