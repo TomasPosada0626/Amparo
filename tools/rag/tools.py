@@ -1,31 +1,30 @@
-"""Tool use: el modelo decide cuando buscar en el corpus (S10).
+"""Tool use: el modelo decide cuando buscar en el corpus.
 
 Patron agentic de function calling: en vez de recuperar SIEMPRE (RAG de una
 pasada), se le describe al modelo una herramienta -- buscar_normas -- y el
 modelo decide si la necesita. Si la necesita, responde con un JSON
-{"tool": "buscar_normas", "args": {"consulta": "..."}}; nosotros lo parseamos,
-ejecutamos la busqueda (el retrieval AVANZADO de S08: hybrid + rerank) y le
-devolvemos los chunks como observacion para que redacte la respuesta final.
+{"tool": "buscar_normas", "args": {"consulta": "..."}}; el sistema lo parsea,
+ejecuta la busqueda (el retrieval avanzado: hybrid + rerank) y le devuelve los
+chunks como observacion para que redacte la respuesta final.
 
-POR QUE una herramienta y no el RAG de una pasada (justificacion de diseño, ver
-docs/m3_decisiones_rag.md):
+Exponer el retrieval como herramienta le da al modelo dos capacidades que el RAG
+de una pasada no tiene:
 
-1. El retrieval-as-tool deja que el modelo REFORMULE la consulta antes de buscar.
-   La consulta del usuario en Amparo es coloquial y a veces ambigua ("me estan
-   cobrando algo raro en el banco"); dejar que el modelo la convierta en una
-   consulta de busqueda ("reporte negativo central de riesgo cobro no
-   reconocido") es query transformation implicita, gratis.
-2. El modelo puede DECIDIR no buscar cuando la pregunta no lo amerita (un saludo,
-   una aclaracion sobre su propia respuesta anterior), ahorrando una recuperacion
-   inutil. El RAG de una pasada busca siempre.
-3. Conecta S08 con S10 sin agregar superficie nueva: la tool ES el retrieval
-   avanzado, envuelto. No hay una segunda ruta de recuperacion que mantener.
+1. REFORMULAR la consulta antes de buscar. La consulta del usuario en Amparo es
+   coloquial y a veces ambigua ("me estan cobrando algo raro en el banco");
+   dejar que el modelo la convierta en una consulta de busqueda ("reporte
+   negativo central de riesgo cobro no reconocido") es una transformacion
+   acotada, con proposito.
+2. DECIDIR no buscar cuando la pregunta no lo amerita (un saludo, una aclaracion
+   sobre su propia respuesta anterior), ahorrando una recuperacion inutil. El RAG
+   de una pasada busca siempre.
 
-Se expone UNA sola herramienta a proposito. Amparo no puede "actuar" sobre el
-mundo (radicar una tutela, pagar una multa): su unica accion legitima es
-consultar fuentes verificadas. Darle una calculadora o herramientas de dominio
-sin un caso de uso real seria superficie sin justificacion -- justo lo que el
-estandar del proyecto rechaza.
+La herramienta envuelve el mismo retrieval avanzado, sin abrir una segunda ruta
+de recuperacion que mantener.
+
+Se expone UNA sola herramienta. Amparo consulta fuentes verificadas; no ejecuta
+acciones sobre el mundo (radicar una tutela, pagar una multa). Consultar el
+corpus es su unica accion legitima, y buscar_normas la cubre.
 
 La generacion (el modelo) es stack pesado: se importa de forma perezosa y se
 inyecta como parametro en los tests, para que el bucle se pruebe sin GPU.
@@ -59,7 +58,7 @@ TOOL_SCHEMA = {
 }
 
 # El texto que el modelo ve como instruccion de sistema del bucle de tools. Se
-# arma con el esquema serializado, igual que en el lab de S10.
+# arma con el esquema serializado.
 SYSTEM_TOOLS = (
     "Eres Amparo, un asistente juridico de derecho colombiano. Tienes una "
     "herramienta disponible:\n"
@@ -79,7 +78,7 @@ class ToolError(ValueError):
 def extraer_tool_call(texto: str) -> dict | None:
     """Extrae un {"tool":..., "args":{...}} del texto del modelo, o None.
 
-    Robusto a proposito (mismo espiritu que el lab de S10): busca el primer '{' y
+    Robusto a proposito: busca el primer '{' y
     el ultimo '}' y trata de parsear. Si no hay JSON, o esta mal formado, o no
     tiene la forma esperada, devuelve None -- y el bucle interpreta ese None como
     "el modelo respondio directo, sin pedir herramienta". Un JSON malformado NO
@@ -128,9 +127,8 @@ def ejecutar_tool(
     """Despacha una llamada a herramienta validada y devuelve su observacion.
 
     Valida que la herramienta exista y que traiga los args que declara el
-    esquema. La busqueda usa el retrieval AVANZADO (hybrid + rerank por defecto):
-    es el punto de conectar S08 con S10 -- la tool no reimplementa la busqueda,
-    invoca la que ya se construyo y midio.
+    esquema. La busqueda usa el retrieval avanzado (hybrid + rerank por defecto):
+    la tool no reimplementa la busqueda, invoca la que ya existe.
 
     Se devuelve un string (la observacion) porque es lo que se le concatena al
     historial del modelo. Un error de validacion tambien se devuelve como string

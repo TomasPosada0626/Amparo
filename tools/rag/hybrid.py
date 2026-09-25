@@ -1,19 +1,15 @@
 """Hybrid search: BM25 (lexico) + denso (semantico), fusionados con RRF.
 
-Primera de las dos tecnicas avanzadas de S08. Online / consulta.
+Online / consulta. Complementa el retrieval denso del RAG base.
 
-POR QUE hybrid en Amparo (justificacion a priori, ver
-docs/m3_decisiones_rag.md):
-
-El retrieval denso de S07 usa e5, que recupera por SIGNIFICADO. Eso es lo
-correcto para la consulta coloquial de Amparo ("me despidieron sin pagarme la
-liquidacion"), pero tiene un punto ciego conocido: los TERMINOS EXACTOS que el
-denso difumina. En derecho eso importa mucho -- "articulo 64", "Ley 1480",
+El retrieval denso con e5 recupera por SIGNIFICADO. Eso es lo correcto para la
+consulta coloquial de Amparo ("me despidieron sin pagarme la liquidacion"), pero
+difumina los TERMINOS EXACTOS. En derecho eso importa: "articulo 64", "Ley 1480",
 "habeas data" son cadenas literales, y e5 tiende a mezclar el articulo 64 con el
-46 o el 65 porque semanticamente se parecen. BM25 puntua por coincidencia
-lexica premiando los terminos raros: es exactamente donde el denso falla, y sus
-fallos NO estan correlacionados con los del denso (por eso la mezcla paga, en
-vez de amplificar el mismo error).
+46 o el 65 porque semanticamente se parecen. BM25 puntua por coincidencia lexica
+premiando los terminos raros: cubre exactamente el punto ciego del denso, y sus
+fallos no se correlacionan con los de e5, asi que combinarlos mejora la
+recuperacion en vez de amplificar un mismo error.
 
 La fusion es Reciprocal Rank Fusion (RRF), no un promedio de puntajes: los
 puntajes de BM25 (~12.7) y del coseno (~0.83) viven en escalas incomparables y
@@ -22,9 +18,9 @@ promediarlos no significa nada. RRF fusiona PUESTOS -- cada documento suma
 y premia el consenso entre los dos recuperadores.
 
 rank_bm25 es Python puro (no arrastra torch), asi que este modulo -- salvo la
-parte densa, que llama a e5 -- se testea en local sin GPU. El import de
-rank_bm25 es perezoso de todos modos, para que importar el modulo no exija la
-dependencia si solo se va a usar la funcion pura de RRF.
+parte densa, que llama a e5 -- corre sin GPU. El import de rank_bm25 es perezoso
+para que importar el modulo no exija la dependencia si solo se usa la funcion
+pura de RRF.
 """
 from __future__ import annotations
 
@@ -34,8 +30,7 @@ from tools.rag import config
 from tools.rag.embed_store import SearchResult, VectorStore, embed_query, metadata_to_result
 
 # Tokenizacion para BM25: minusculas + palabras alfanumericas. Deliberadamente
-# simple (no stemming, no stopwords) por dos razones: (1) es lo que hace el lab
-# de S08 y basta para el corpus; (2) en dominio legal los "terminos raros" que
+# simple (no stemming, no stopwords): en dominio legal los "terminos raros" que
 # BM25 debe premiar son justo numeros y nombres propios ("1480", "habeas"), que
 # no conviene alterar. Se mantiene \w+ con unicode para no perder tildes ni la ñ.
 _TOKEN_PATTERN = re.compile(r"\w+", re.UNICODE)

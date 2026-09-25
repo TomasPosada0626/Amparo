@@ -81,18 +81,19 @@ MAX_NEW_TOKENS_GENERATION = 300
 DRIVE_ROOT = "/content/drive/MyDrive/Colab Notebooks/Amparo"
 LORA_ADAPTER_PATH: str | None = f"{DRIVE_ROOT}/amparo-lora-adapter"
 
-# --- RAG avanzado (S08) -----------------------------------------------------
+# --- RAG avanzado -----------------------------------------------------------
 # Constantes de las dos tecnicas avanzadas: hybrid search (BM25 + denso, fusion
 # RRF) y reranking con cross-encoder. Las decisiones que sustentan estos valores
-# estan en docs/m3_decisiones_rag.md -- si cambias uno, actualiza esa
-# seccion. El retrieval ingenuo de S07 sigue siendo el default: estas tecnicas
-# se activan por bandera (ver retrieve.retrieve / pipeline.answer_query), para
-# que el delta A/B/C sea atribuible a cada tecnica y los tests de S07 no cambien.
+# estan en docs/m3_decisiones_rag.md -- si cambias uno, actualiza esa seccion.
+# El retrieval denso base sigue siendo el default: estas tecnicas se activan por
+# bandera (ver retrieve.retrieve / pipeline.answer_query), de modo que cualquier
+# diferencia entre configuraciones sea atribuible a la tecnica y el retrieval
+# base no cambie.
 
-# Banderas maestras del sistema. Por defecto FALSE = comportamiento S07 intacto
-# (sistema A). El notebook/harness las prende para armar B (+hybrid) y C
-# (+hybrid+rerank). Se dejan aca, y no solo como argumentos, para que exista un
-# unico lugar donde leer "en que configuracion corrio esta evaluacion".
+# Banderas maestras del retrieval. Por defecto FALSE = retrieval denso puro
+# (configuracion A). Activarlas arma B (+hybrid) y C (+hybrid+rerank). Se dejan
+# aca, y no solo como argumentos, para tener un unico lugar donde leer en que
+# configuracion corre el sistema.
 USE_HYBRID = False
 USE_RERANK = False
 

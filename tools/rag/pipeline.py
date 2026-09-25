@@ -122,11 +122,11 @@ def answer_query(
     si el fine-tuning sigue aportando cuando el modelo ya tiene fuentes en el
     contexto, o si el RAG lo vuelve redundante.
 
-    use_hybrid / use_rerank: arman los sistemas A/B/C del experimento de S08
-    (ver retrieve.retrieve y docs/m3_decisiones_rag.md). Los defaults
-    salen de config (A, denso puro), asi que sin tocar nada answer_query se
-    comporta como en S07. bm25: un BM25Index ya construido, para no reconstruirlo
-    por consulta en un lote (se pasa desde el notebook).
+    use_hybrid / use_rerank: seleccionan la configuracion A/B/C del retrieval
+    (ver retrieve.retrieve y docs/m3_decisiones_rag.md). Los defaults salen de
+    config (A, denso puro), asi que sin tocar nada answer_query usa el retrieval
+    base. bm25: un BM25Index ya construido, para no reconstruirlo por consulta en
+    un lote.
 
     model_bundle: (model, tokenizer) ya cargado. Pasarlo siempre que se evalue
     un lote -- si no, cada llamada recarga 7B de pesos desde cero.

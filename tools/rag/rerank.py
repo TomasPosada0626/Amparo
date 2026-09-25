@@ -1,28 +1,25 @@
 """Reranking: un cross-encoder reordena los candidatos del retrieval.
 
-Segunda de las dos tecnicas avanzadas de S08. Online / consulta.
+Online / consulta. Se aplica sobre los candidatos que trae hybrid search.
 
-POR QUE reranking en Amparo (justificacion a priori, ver
-docs/m3_decisiones_rag.md):
-
-El retrieval de S07 (y la hybrid search) usa BI-ENCODERS: vectorizan la consulta
-y cada chunk POR SEPARADO y comparan vectores. Es barato y escala a miles de
-chunks, pero pierde matices -- e5 tiene cosenos poco dispersos (dos textos sin
-relacion dan ~0.70-0.75, ver docs/m3_decisiones_rag.md seccion 5), asi que su
-top-k trae RUIDO: chunks que parecen relevantes por vector pero no responden la
-pregunta. Un CROSS-ENCODER lee el par (consulta, chunk) JUNTO, con atencion
-cruzada entre ambos, y produce un puntaje de relevancia mucho mas fino. Es caro
-por par, asi que no se puede correr sobre todo el corpus.
+El retrieval denso y BM25 usan BI-ENCODERS: vectorizan la consulta y cada chunk
+POR SEPARADO y comparan vectores. Es barato y escala a miles de chunks, pero
+pierde matices -- e5 tiene cosenos poco dispersos (dos textos sin relacion dan
+~0.70-0.75, ver docs/m3_decisiones_rag.md seccion 5), asi que su top-k trae
+RUIDO: chunks que parecen relevantes por vector pero no responden la pregunta. Un
+CROSS-ENCODER lee el par (consulta, chunk) JUNTO, con atencion cruzada entre
+ambos, y produce un puntaje de relevancia mucho mas fino. Es caro por par, asi
+que no se corre sobre todo el corpus.
 
 El patron es un EMBUDO: recuperar mucho con lo barato (top-N con denso/hybrid),
 reordenar poco con lo caro (el cross-encoder ve esos N y devuelve los K
 mejores). Asi se paga el cross-encoder solo N veces por consulta, no una vez por
 chunk del corpus.
 
-sentence-transformers (el cross-encoder) es stack PESADO: depende de torch. Por
-eso el import es perezoso y el modelo se cachea, igual que e5 en embed_store.py.
-En local, sin la dependencia, rerank() falla con un mensaje que dice que corre
-en Colab -- no con un ModuleNotFoundError mudo.
+sentence-transformers (el cross-encoder) depende de torch. Por eso el import es
+perezoso y el modelo se cachea, igual que e5 en embed_store.py. Sin la
+dependencia, rerank() falla con un mensaje que indica que corre en Colab, no con
+un ModuleNotFoundError mudo.
 """
 from __future__ import annotations
 

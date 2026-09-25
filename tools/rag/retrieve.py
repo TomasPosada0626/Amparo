@@ -2,18 +2,17 @@
 
 Etapa 5 de 7 del pipeline RAG. Online / consulta.
 
-Un unico punto de entrada, tres sistemas, controlados por bandera:
-  - A (ingenuo, S07):  denso puro (coseno e5, top-k). Es el DEFAULT.
-  - B (+hybrid, S08):  denso + BM25, fusionados con RRF.
-  - C (+reranker, S08): hybrid -> cross-encoder reordena el top-N a top-k.
+Un unico punto de entrada, tres configuraciones, controladas por bandera:
+  - A: denso puro (coseno e5, top-k). Es el DEFAULT.
+  - B: denso + BM25, fusionados con RRF.
+  - C: hybrid -> cross-encoder reordena el top-N a top-k.
 
-POR QUE una sola funcion con banderas y no tres funciones separadas: el
-experimento de S08 es un A/B/C controlado donde lo UNICO que cambia entre
-sistemas es el retrieval -- mismo prompt, mismo generador, mismo eval set. Si el
-codigo de A viviera en una funcion distinta del de B, un cambio accidental en
-una y no en la otra haria el delta no atribuible. Con banderas sobre el mismo
-camino, A con las dos banderas apagadas ES literalmente el retrieval de S07, y
-los tests de S07 lo garantizan.
+Una sola funcion con banderas, en vez de tres funciones separadas, mantiene las
+tres configuraciones sobre el mismo camino de codigo: lo unico que cambia entre
+ellas es el retrieval, con el mismo prompt y el mismo generador. Asi cualquier
+diferencia entre A, B y C es atribuible a la tecnica y no a una divergencia
+accidental de implementacion. Con las dos banderas apagadas, A es identico al
+retrieval base, y los tests lo garantizan.
 
 Ver docs/m3_decisiones_rag.md para la justificacion de cada tecnica.
 """
