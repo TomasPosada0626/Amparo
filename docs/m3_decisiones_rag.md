@@ -1,12 +1,19 @@
 # M3 · Sistema RAG — decisiones
 
-Documento de decisiones del RAG ingenuo de Amparo (alcance S07: `ingest →
-chunk → embed → store` offline, `retrieve → augment → generate` online).
+Documento de decisiones del sistema RAG de Amparo. Cubre las dos mitades de M3:
+
+- **Parte I — RAG ingenuo (S07), secciones 1-10:** `ingest → chunk → embed →
+  store` offline, `retrieve → augment → generate` online.
+- **Parte II — RAG avanzado (S08) + tool use (S10), secciones 11-19:** hybrid
+  search, reranking y el retrieval expuesto como herramienta.
+
 Mismo estándar de documentación que M1/M2: **decisión + justificación +
 evidencia**, no solo qué se eligió.
 
-Fecha: 2026-09-21 · código: [`tools/rag/`](../tools/rag/) · ejecución:
-[`colab/rag_ingenuo.ipynb`](../colab/rag_ingenuo.ipynb)
+Fecha: 2026-09-21 (Parte I) · 2026-09-24 (Parte II) · código:
+[`tools/rag/`](../tools/rag/) · ejecución:
+[`colab/rag_ingenuo.ipynb`](../colab/rag_ingenuo.ipynb) (S07) ·
+[`colab/rag_avanzado.ipynb`](../colab/rag_avanzado.ipynb) (S08/S10)
 
 > **Por qué este RAG existe.** El M2 midió que el modelo fine-tuneado llega a
 > **100% de cumplimiento de "no inventa citas"** en los 201 ejemplos de
@@ -253,24 +260,310 @@ pytest tests/rag -q            # 125 tests, incluida la regresión sobre el corp
 ## 9. Consultas fallidas anotadas (insumo para decidir si S08 hace falta)
 
 Vacía a propósito. Se llena con consultas reales fallidas una vez el índice esté
-construido. Hybrid search, reranking y query transformation (S08) **no** se
-implementan hasta que esta tabla justifique cuál hace falta y por qué — mismo
-estándar que M1/M2: nada entra sin un delta medido.
+construido. Sirve como el diagnóstico *a posteriori* que valida la decisión de la
+sección 12 (por qué hybrid y reranking) — mismo estándar que M1/M2: nada se
+declara medido sin un delta medido.
 
 | Consulta | Síntoma | Etapa responsable (ingest/chunk/embed/retrieve/generate) | ¿Técnica de S08 que lo arreglaría? |
 |---|---|---|---|
 | | | | |
 
-## 10. Qué se entrega y qué continúa otra persona
+> Esta tabla se llena con el diagnóstico por consulta de la Fase 2 de
+> [`colab/rag_avanzado.ipynb`](../colab/rag_avanzado.ipynb).
 
-**Entrega de M3 (este trabajo):** el RAG ingenuo completo — las 7 etapas, el
-corpus decidido e ingerido, el prompt aumentado con válvula de escape, el
-notebook que lo corre, y la salida de la corrida en formato Ragas
-(`question` / `answer` / `contexts` / `ground_truth`) más la evidencia de
-retrieval por consulta.
+## 10. Qué se entrega y quién continúa
 
-**Continúa otra persona:** el RAG avanzado (S08: hybrid search, reranking, query
-transformation) y la evaluación con Ragas y con el harness de
-`tools/evaluation/`. El contrato entre las dos mitades es
-`pipeline.to_eval_record()`: ese formato es lo que la evaluación consume, y por
-eso está fijado con tests que corren contra el `eval_set.json` real.
+**Parte I — RAG ingenuo (S07):** las 7 etapas, el corpus decidido e ingerido, el
+prompt aumentado con válvula de escape, el notebook que lo corre, y la salida de
+la corrida en formato Ragas (`question` / `answer` / `contexts` /
+`ground_truth`) más la evidencia de retrieval por consulta.
+
+**Parte II — RAG avanzado (S08) + tool use (S10):** hybrid search, reranking y el
+retrieval-as-tool. Documentado en las secciones 11-19; código en
+`tools/rag/{hybrid,rerank,tools}.py` integrado por bandera en `retrieve.py` /
+`pipeline.py`; ejecución en [`colab/rag_avanzado.ipynb`](../colab/rag_avanzado.ipynb).
+
+**Continúa otra persona:** la **evaluación** con Ragas y con el harness de
+`tools/evaluation/` sobre las tres corridas A/B/C. El contrato entre las mitades
+es `pipeline.to_eval_record()`: ese formato es lo que la evaluación consume, y por
+eso está fijado con tests que corren contra el `eval_set.json` real. El RAG
+avanzado solo le agregó dos campos de trazabilidad (`used_hybrid`/`used_rerank`)
+sin romper el contrato.
+
+---
+
+# Parte II · RAG avanzado (S08) + tool use (S10)
+
+Continúa la Parte I. Las dos técnicas avanzadas de recuperación (hybrid search y
+reranking) y la herramienta de S10 (retrieval-as-tool). La evaluación (Ragas +
+harness de M2) la corre otra persona sobre las salidas de este pipeline, por el
+contrato `pipeline.to_eval_record()` (sección 10).
+
+## 11. Estado de la evidencia — leer primero
+
+La regla del proyecto (M1/M2 y la Parte I) es **nada entra sin un delta medido**.
+Aquí hay una tensión honesta que conviene declarar de entrada:
+
+- La tabla de "consultas fallidas" de la sección 9 está **vacía**, porque el
+  índice FAISS todavía no se ha construido en Colab (varios ítems del checklist
+  de la sección 8 siguen abiertos). Sin esa tabla, no hay un delta medido
+  *previo* que diga cuál técnica hace falta.
+- La entrega M3 (dom 27 SEP) exige ≥2 técnicas avanzadas + ≥1 tool.
+
+**Decisión tomada:** implementar las dos técnicas con **justificación a priori
+por las características conocidas del corpus y del dominio** (documentadas abajo y
+ya observadas en M2 y en la Parte I), y dejar el código y el notebook preparados
+para que el compañero de evaluación **mida el delta A/B/C** y cierre la
+justificación. Todo lo que en esta parte sea hipótesis y no medición está marcado
+como tal, con un puntero a la fase del notebook que lo valida (sección 19).
+
+Esto **no** es saltarse la regla: es separar "por qué es razonable esperar que la
+técnica ayude" (diseño, a priori) de "cuánto ayudó de hecho" (evaluación, a
+posteriori). Lo primero es lo que justifica implementarla; lo segundo es lo que
+la entrega reporta. Presentar una hipótesis como medición sí violaría el
+estándar, y por eso se evita.
+
+## 12. Qué técnicas y por qué esas
+
+De las cuatro familias que enseña S08 (hybrid search, reranking, y las query
+transformations: multi-query / HyDE / step-back / decomposition), se implementan
+**hybrid search** y **reranking**. Cada una ataca un fallo *conocido* del
+retrieval de Amparo:
+
+### 12.1 Hybrid search (BM25 + denso) — el punto ciego de los términos exactos
+
+- **Decisión:** agregar BM25 (búsqueda léxica) al retrieval denso de e5 y
+  fusionar con RRF.
+- **Justificación (a priori, por el dominio):** el RAG ingenuo usa e5, que
+  recupera por **significado**. Eso es lo correcto para la consulta coloquial de
+  Amparo, pero tiene un punto ciego documentado: los **términos exactos** que el
+  denso difumina. En derecho eso pesa — "artículo 64", "Ley 1480", "habeas data"
+  son cadenas literales, y los embeddings densos tienden a mezclar el artículo 64
+  con el 46 o el 65 porque son semánticamente vecinos. Esto no es especulación
+  genérica: la sección 3 ya documenta que e5 fue elegido por su fuerza en la
+  asimetría de registro (consulta coloquial → texto normativo), fuerza que es
+  justamente ortogonal a la coincidencia léxica exacta. BM25 puntúa por términos
+  raros, que es donde el denso falla, y sus fallos **no están correlacionados**
+  con los del denso — por eso la mezcla paga en vez de amplificar el mismo error.
+- **Evidencia disponible hoy:** el test
+  [`test_bm25_encuentra_el_termino_exacto_que_el_denso_difuminaria`](../tests/rag/test_hybrid.py)
+  muestra el mecanismo sobre un corpus mínimo. El delta agregado sobre el eval
+  set real lo mide la Fase 4 del notebook.
+
+### 12.2 Reranking (cross-encoder) — el ruido en el top-k
+
+- **Decisión:** reordenar los candidatos con un cross-encoder antes de armar el
+  prompt, en patrón embudo.
+- **Justificación (a priori, por el modelo):** el retrieval denso y BM25 son
+  **bi-encoders / léxicos**: comparan la consulta y cada chunk por separado.
+  Baratos y escalables, pero pierden matices. La sección 5 ya documenta que los
+  cosenos de e5 son **poco dispersos** (dos textos sin relación dan ~0.70-0.75),
+  lo que significa que su top-k trae **ruido**: chunks que parecen relevantes por
+  vector pero no responden la pregunta. Un cross-encoder lee el par (consulta,
+  chunk) **junto**, con atención cruzada, y produce un puntaje de relevancia
+  mucho más fino. Es caro por par, así que solo se corre sobre los pocos
+  candidatos que ya trajo el recuperador barato.
+- **Evidencia disponible hoy:** los tests de
+  [`test_rerank.py`](../tests/rag/test_rerank.py) prueban la lógica del embudo
+  (entra top-N, sale top-k, reordena por el puntaje del cross-encoder). El delta
+  agregado lo mide la Fase 4.
+
+### 12.3 Por qué NO multi-query (ni HyDE, ni step-back, ni decomposition) — todavía
+
+- **Decisión:** no implementar query transformation como técnica de retrieval en
+  esta entrega.
+- **Justificación:**
+  1. **Suficiencia:** la entrega pide ≥2 técnicas; hybrid + reranking ya las
+     cubren, y son las dos que atacan fallos *conocidos* de Amparo. Agregar una
+     tercera sin un fallo identificado que la motive sería justo el "entra por
+     moda" que el estándar del proyecto rechaza.
+  2. **Riesgo en el dominio:** multi-query y HyDE hacen que un LLM **reescriba o
+     invente** texto de consulta antes de buscar. En un asistente jurídico cuyo
+     principio duro #1 es *no inventar normas*, meter texto generado en la etapa
+     de recuperación agrega una superficie de alucinación nueva que habría que
+     controlar. No se descarta, pero exige más cuidado del que cabe aquí.
+  3. **Ya hay query transformation, por otra vía:** el tool use de S10 (sección
+     16) deja que el modelo **reformule** la consulta al decidir qué buscar. Es
+     multi-query implícito, pero acotado — el modelo transforma *una* consulta
+     con un propósito claro, no genera N variantes especulativas.
+- **Puntero:** si el diagnóstico por consulta de la Fase 2 muestra un fallo que
+  solo una query transformation arregla (p. ej. consultas compuestas que piden
+  decomposition), queda como el siguiente candidato natural, y esta sección se
+  actualiza con esa evidencia.
+
+## 13. Diseño de la fusión: Reciprocal Rank Fusion (RRF)
+
+- **Decisión:** fusionar los rankings denso y léxico con RRF,
+  `RRF(chunk) = Σ 1/(k + puesto)`, con `k = 60`. Código:
+  [`hybrid.reciprocal_rank_fusion`](../tools/rag/hybrid.py).
+- **Justificación — por qué puestos y no puntajes:** BM25 devuelve puntajes en el
+  orden de ~12 y el coseno de e5 en el orden de ~0.8. **Son escalas
+  incomparables**: promediarlos, sumarlos o normalizarlos con min-max mezcla dos
+  unidades que no significan lo mismo, y el resultado depende más de la escala
+  que de la relevancia. RRF ignora el valor del puntaje y usa solo el **puesto**
+  (qué tan arriba quedó el chunk en cada lista), que sí es comparable entre
+  recuperadores. Un chunk que ambos ponen arriba (consenso) le gana a uno que
+  solo un recuperador ama.
+- **Por qué `k = 60`:** es el valor del paper original (Cormack, Clarke &
+  Buettcher, 2009) y el default de facto. Amortigua el peso de los primeros
+  puestos para que ningún ranking domine la fusión por sí solo. **No se calibra**
+  en M3: el aporte de RRF es la robustez a las escalas, no un `k` fino, y
+  calibrarlo sin un delta que lo motive sería sobre-ingeniería.
+- **Evidencia:** [`test_rrf_ignora_la_escala_de_los_puntajes`](../tests/rag/test_hybrid.py)
+  multiplica por 100 los puntajes de una lista y verifica que el orden fusionado
+  **no cambia** — la prueba de que RRF no está promediando escalas.
+
+## 14. El patrón embudo y el cross-encoder elegido
+
+- **Decisión:** patrón embudo — recuperar `RERANK_INPUT_N = 30` candidatos
+  baratos (hybrid) y reordenar con el cross-encoder para quedarse con
+  `RERANK_OUTPUT_K = TOP_K = 5`. Modelo:
+  `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1`.
+- **Justificación del embudo:** el cross-encoder es caro por par, así que no se
+  puede correr sobre los 3.425 chunks del corpus. El embudo paga el cross-encoder
+  solo N=30 veces por consulta (no una vez por chunk), y el prompt sigue
+  recibiendo TOP_K=5 chunks — el mismo tamaño de contexto que la Parte I, para
+  que el delta sea atribuible al **reordenamiento** y no a un cambio en cuánto
+  contexto ve el modelo.
+- **Justificación del modelo:** se elige un cross-encoder **abierto y
+  multilingüe** entrenado en mMARCO por el mismo motivo que e5 en el retrieval
+  denso (sección 3): el caso de Amparo es consulta coloquial en español → texto
+  normativo, así que el reranker tiene que entender español. Es también el modelo
+  del lab de S08, lo que mantiene la trazabilidad con el material del curso.
+- **Evidencia:** [`test_el_embudo_recorta_de_muchos_a_pocos`](../tests/rag/test_rerank.py)
+  y [`test_el_reranker_recibe_mas_candidatos_de_los_que_devuelve`](../tests/rag/test_retrieve.py).
+
+## 15. DECISIÓN CENTRAL — sobre qué score opera la válvula de escape
+
+Esta es la decisión de diseño más delicada de toda la integración, porque toca la
+pieza que la Parte I definió como su razón de ser: la válvula de escape.
+
+- **El problema:** el umbral `RETRIEVAL_MIN_SCORE = 0.80` está **calibrado sobre
+  el coseno de e5** (sección 5: los cosenos de e5 son poco dispersos, por eso
+  0.80 y no el 0.3 típico de otros modelos). Pero en el pipeline avanzado, el
+  campo `score` de cada resultado **cambia de significado**: en el sistema A es el
+  coseno, tras la fusión RRF es el puntaje RRF (~0.016), y tras el reranking es el
+  del cross-encoder (otra escala). Si la válvula filtrara por `score`, en B
+  compararía 0.016 contra 0.80 y **descartaría todo**; en C compararía un puntaje
+  de cross-encoder sin relación con 0.80. La válvula quedaría rota,
+  silenciosamente.
+- **Decisión:** se agregó a `SearchResult` un campo **`dense_score`** que
+  preserva el coseno de e5 **a lo largo de todo el pipeline**, y
+  `apply_score_floor` filtra por `dense_score`, no por `score`. Así la válvula
+  sigue midiendo exactamente lo que fue calibrada para medir — la relevancia
+  **semántica** del chunk — sin importar cómo se haya reordenado después. Código:
+  [`retrieve.apply_score_floor`](../tools/rag/retrieve.py) y el campo en
+  [`embed_store.SearchResult`](../tools/rag/embed_store.py).
+- **Consecuencia deliberada — el chunk "solo BM25":** un chunk que solo trajo
+  BM25 (coincidencia léxica pura, sin que e5 lo considerara relevante) tiene
+  `dense_score = None` y **no pasa el piso**. Esto es correcto y buscado: el
+  umbral es una afirmación sobre la relevancia *semántica*, y "este chunk comparte
+  palabras pero e5 no lo ve relacionado" no es evidencia suficiente para
+  fundamentar una respuesta jurídica. BM25 aporta **ordenando** candidatos que sí
+  tienen respaldo semántico hacia arriba (vía RRF), no colando candidatos que el
+  denso rechazó.
+- **Trampa evitada (documentada en el código):** el `__post_init__` de
+  `SearchResult` copia `score → dense_score` cuando este es `None`, para que el
+  código de la Parte I vea el coseno sin cambios. Eso obliga a que el reranking y
+  RRF asignen `dense_score` **después** de construir el objeto (no en el
+  constructor), o el auto-copiado lo sobrescribiría con el puntaje del reordenador
+  — justo el bug que la válvula debe evitar. Está anotado en
+  [`rerank.rerank`](../tools/rag/rerank.py).
+- **Evidencia:**
+  [`test_sistema_C_respeta_la_valvula_de_escape_sobre_dense_score`](../tests/rag/test_retrieve.py)
+  le da a un chunk solo-BM25 el puntaje de cross-encoder más alto y verifica que
+  **igual no entra** al resultado, porque su `dense_score` es `None`.
+
+## 16. Tool use (S10): retrieval-as-tool con una sola herramienta
+
+- **Decisión:** exponer el retrieval avanzado como **una** herramienta,
+  `buscar_normas`, con function calling: el modelo decide si llamarla, propone un
+  JSON `{"tool": ..., "args": {...}}`, nosotros lo ejecutamos y le devolvemos los
+  chunks como observación. Código: [`tools/rag/tools.py`](../tools/rag/tools.py).
+- **Justificación — por qué tool y no RAG de una pasada:**
+  1. **Deja que el modelo reformule la consulta** antes de buscar (query
+     transformation implícita y acotada, ver sección 12.3).
+  2. **Deja que el modelo decida no buscar** cuando la pregunta no lo amerita (un
+     saludo, una aclaración), ahorrando una recuperación inútil. El RAG de una
+     pasada busca siempre.
+  3. **Conecta S08 con S10 sin superficie nueva:** la tool *es* el retrieval
+     avanzado (hybrid + rerank), envuelto. No hay una segunda ruta de
+     recuperación que mantener en sincronía.
+- **Justificación — por qué UNA sola herramienta:** Amparo no puede *actuar*
+  sobre el mundo (no radica una tutela, no paga una multa, no calcula un plazo con
+  autoridad legal). Su única acción legítima es **consultar fuentes verificadas**.
+  Darle una calculadora o herramientas de dominio sin un caso de uso real sería
+  superficie sin justificación — el mismo estándar que rechaza agregar técnicas de
+  retrieval "por moda". Una herramienta, la que corresponde al rol del producto.
+- **Decisiones de robustez (patrón del lab S10):**
+  - JSON malformado o sin campo `tool` → `extraer_tool_call` devuelve `None` y el
+    bucle lo interpreta como "el modelo respondió directo". Un modelo pequeño a
+    veces no emite JSON válido, y eso **no debe tumbar el bucle**: degrada a
+    responder directo.
+  - Un error de validación (tool inexistente, args faltantes) se devuelve como
+    **observación** (string), no se lanza: el modelo lo lee y puede corregir en la
+    siguiente vuelta.
+  - La observación trae la **cita** de cada chunk, igual que el prompt aumentado
+    de la Parte I: es lo que permite que el modelo cite algo que apareció de
+    verdad y no de memoria.
+  - `max_llamadas` acota el bucle para que un modelo que insiste en pedir la
+    herramienta no corra indefinidamente.
+- **Evidencia:** [`test_tools.py`](../tests/rag/test_tools.py) — 12 tests que
+  cubren el parser, el dispatcher con su validación, y el bucle
+  propone→ejecuta→observa→responde, todo con la generación mockeada (sin GPU).
+
+## 17. Composición sin romper S07: el experimento A/B/C
+
+- **Decisión:** las dos técnicas se activan por **bandera** (`use_hybrid`,
+  `use_rerank`) sobre un único punto de entrada, `retrieve.retrieve`, y se
+  propagan hasta `pipeline.answer_query`. Con ambas apagadas (el default de
+  `config.USE_HYBRID`/`USE_RERANK`), el retrieval es **literalmente** el de la
+  Parte I.
+- **Justificación:** el experimento de S08 es un A/B/C controlado donde lo único
+  que cambia entre sistemas es el retrieval. Si el código de A viviera en una
+  función distinta del de B, un cambio accidental en una y no en la otra haría el
+  delta no atribuible. Con banderas sobre el mismo camino, A **es** S07, y los
+  125 tests originales del RAG lo garantizan (siguen verdes: la suite completa
+  pasó de 125 a 168 tests en `tests/rag/`, +43 nuevos, 0 regresiones).
+- **Trazabilidad:** cada `eval_record` lleva `used_hybrid`/`used_rerank`, así que
+  las tres corridas quedan etiquetadas por sistema y el compañero de evaluación
+  puede separar el desempeño de A, B y C sin ambigüedad.
+
+| Sistema | `use_hybrid` | `use_rerank` | Retrieval |
+|---|---|---|---|
+| A ingenuo (S07) | False | False | denso puro (coseno e5) |
+| B +hybrid | True | False | denso + BM25, fusión RRF |
+| C +reranker | True | True | hybrid → cross-encoder reordena |
+
+## 18. Dónde corre cada cosa (mismo patrón que M1/M2/S07)
+
+- **Liviano, en `requirements.txt` y testeable en local sin GPU:** `rank_bm25`
+  (Python puro). Toda la lógica pura — RRF, el parser de tool-calls, la
+  orquestación A/B/C, el dispatcher — se prueba en local con el recuperador denso
+  y el cross-encoder sustituidos por dobles de test.
+- **Pesado, solo en Colab (import perezoso):** el cross-encoder
+  (`sentence-transformers`), e5 y Qwen. En local, sin la dependencia, el reranker
+  falla con un `ImportError` **explícito** que dice que corre en Colab — nunca un
+  `ModuleNotFoundError` mudo.
+- **Ejecución:** [`colab/rag_avanzado.ipynb`](../colab/rag_avanzado.ipynb) carga
+  el índice de Drive, construye el BM25 una vez, corre la demo A/B/C sobre
+  retrieval, la corrida A/B/C sobre el eval set con latencia, y la demo del tool
+  use.
+
+## 19. Hipótesis vs. medido — qué falta y quién lo cierra
+
+| Afirmación | Estado | Dónde se cierra |
+|---|---|---|
+| Hybrid rescata términos exactos que e5 difumina | **hipótesis** (probada en unit test, no en el eval set real) | Fase 2 del notebook (diagnóstico por consulta) |
+| Reranking limpia el ruido del top-k | **hipótesis** | Fase 2 + delta de Fase 4 |
+| B > A / C > B en calidad | **sin medir** | evaluación del compañero sobre las corridas de Fase 4 |
+| Latencia por sistema | **se mide en Fase 4** | ya en el notebook |
+| A ≡ retrieval de S07 | **medido** | 125 tests de S07 verdes + `test_sistema_A_por_defecto_es_denso_puro` |
+| La válvula de escape sobrevive a B y C | **medido** (unit test) | `test_sistema_C_respeta_la_valvula_de_escape_sobre_dense_score` |
+
+**Lo que continúa el compañero de evaluación:** correr el harness de M2 y las
+cuatro métricas de RAGAS sobre `eval_records_sistema_{A,B,C}.json`, llenar la
+tabla de deltas (esqueleto en la Fase 4 del notebook) y escribir la lectura
+honesta que pide la entrega M3 (qué técnica movió qué, qué costó en latencia, qué
+falla queda abierta). El contrato es `pipeline.to_eval_record()`, sin cambios
+respecto de S07 salvo los dos campos de trazabilidad `used_hybrid`/`used_rerank`.

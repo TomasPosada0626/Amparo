@@ -80,3 +80,48 @@ MAX_NEW_TOKENS_GENERATION = 300
 # modulo sigue siendo seguro de importar en cualquier parte.
 DRIVE_ROOT = "/content/drive/MyDrive/Colab Notebooks/Amparo"
 LORA_ADAPTER_PATH: str | None = f"{DRIVE_ROOT}/amparo-lora-adapter"
+
+# --- RAG avanzado (S08) -----------------------------------------------------
+# Constantes de las dos tecnicas avanzadas: hybrid search (BM25 + denso, fusion
+# RRF) y reranking con cross-encoder. Las decisiones que sustentan estos valores
+# estan en docs/m3_decisiones_rag.md -- si cambias uno, actualiza esa
+# seccion. El retrieval ingenuo de S07 sigue siendo el default: estas tecnicas
+# se activan por bandera (ver retrieve.retrieve / pipeline.answer_query), para
+# que el delta A/B/C sea atribuible a cada tecnica y los tests de S07 no cambien.
+
+# Banderas maestras del sistema. Por defecto FALSE = comportamiento S07 intacto
+# (sistema A). El notebook/harness las prende para armar B (+hybrid) y C
+# (+hybrid+rerank). Se dejan aca, y no solo como argumentos, para que exista un
+# unico lugar donde leer "en que configuracion corrio esta evaluacion".
+USE_HYBRID = False
+USE_RERANK = False
+
+# Hybrid search -------------------------------------------------------------
+# Cuantos candidatos pide CADA recuperador (denso y BM25) antes de fusionar. Es
+# mayor que TOP_K a proposito: la fusion RRF necesita ver mas abajo en cada
+# ranking para premiar el consenso; si solo mirara el top-5 de cada uno, un
+# chunk que el denso pone 6o y BM25 pone 2o (buen candidato) se perderia. Es
+# tambien el "recuperar mucho" del embudo que despues el reranker reordena.
+HYBRID_TOP_N = 30
+
+# Constante de amortiguacion de Reciprocal Rank Fusion: RRF = Σ 1/(RRF_K + puesto).
+# 60 es el valor del paper original (Cormack et al., 2009) y el default de facto:
+# suaviza el peso de los primeros puestos para que ningun ranking por si solo
+# domine la fusion. No se calibra en M3 -- el aporte de RRF es la robustez a
+# escalas incomparables (BM25 ~12.7 vs. coseno ~0.83), no un valor fino de k.
+RRF_K = 60
+
+# Reranking -----------------------------------------------------------------
+# Cross-encoder multilingue entrenado en mMARCO (pares pregunta->pasaje en
+# varios idiomas, español incluido). Se elige abierto y multilingue por el mismo
+# motivo que e5 en el retrieval denso: el caso de Amparo es consulta coloquial en
+# español -> texto normativo. Stack pesado: se carga con import perezoso y solo
+# corre en Colab, igual que e5 y Qwen (no entra a requirements.txt).
+RERANK_MODEL_ID = "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"
+RERANK_MAX_LENGTH = 512  # limite de tokens del par (consulta, chunk)
+
+# El embudo: se recuperan RERANK_INPUT_N candidatos baratos (bi-encoder/BM25) y
+# el cross-encoder, caro por par, reordena para quedarse con RERANK_OUTPUT_K.
+# INPUT_N > OUTPUT_K siempre: si fueran iguales no habria nada que reordenar.
+RERANK_INPUT_N = 30
+RERANK_OUTPUT_K = TOP_K  # el prompt sigue recibiendo TOP_K chunks, como en S07
