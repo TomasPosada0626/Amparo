@@ -62,14 +62,20 @@ TOP_K = 5
 # Umbral de la valvula de escape: por debajo de esto, el chunk NO entra al
 # prompt y el sistema responde "no tengo informacion verificada".
 #
-# OJO -- SIN CALIBRAR (ver docs/m3_decisiones_rag.md, seccion 5). Los cosenos de
-# e5 son poco dispersos: dos textos sin relacion alguna suelen dar ~0.70-0.75,
-# asi que un piso bajo (como el 0.3 tipico de otros modelos) dejaria pasar
-# cualquier cosa y la valvula de escape nunca se activaria. 0.80 es un punto de
-# partida derivado de ese rango, no una medicion: hay que correr consultas con y
-# sin cobertura en el corpus, mirar la distribucion de scores y anotar el
-# resultado en la seccion 5 de ese documento.
-RETRIEVAL_MIN_SCORE = 0.80
+# CALIBRADO (ver docs/m3_decisiones_rag.md, seccion 5) contra la corrida real
+# del 2026-09-25: preguntas CON cobertura en el corpus dieron scores 0.825-0.879
+# (n=20), preguntas SIN cobertura dieron 0.840-0.854 (n=2). Los rangos se
+# solapan, asi que ningun umbral separa los dos casos a la perfeccion. 0.855
+# (justo por encima del maximo medido sin cobertura) prioriza no dejar pasar
+# contexto irrelevante -- consistente con "prudencia sobre certeza" -- a costa
+# de descartar tambien algo de contexto relevante que cayo en la zona 0.825-0.854.
+# Con el 0.80 anterior, casi nada se filtraba (el minimo sin cobertura ya era
+# 0.840): fue la causa confirmada de que una consulta real sobre liquidacion
+# laboral recuperara articulos de liquidacion de sindicatos en insolvencia
+# (score 0.845) en vez de activar la valvula de escape -- ver seccion 9.
+# Muestra de calibracion chica (n=2 sin cobertura): revisar si se repite el
+# problema con mas datos antes de asumir que 0.855 es definitivo.
+RETRIEVAL_MIN_SCORE = 0.855
 
 # --- Generacion -------------------------------------------------------------
 BASE_MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"  # mismo que tools/evaluation/config.py

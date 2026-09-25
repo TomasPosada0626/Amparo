@@ -196,17 +196,32 @@ indistinguible de un olvido.
 
 ## 5. Retrieval
 
-- **`TOP_K`: 5** · **`RETRIEVAL_MIN_SCORE`: 0.80** (umbral de la válvula de escape)
-- **Estado de la evidencia: SIN CALIBRAR.** Es un pendiente explícito:
+- **`TOP_K`: 5** · **`RETRIEVAL_MIN_SCORE`: 0.855** (umbral de la válvula de escape)
+- **Estado de la evidencia: CALIBRADO** contra una corrida real (2026-09-25, `colab/rag_ingenuo.ipynb`, fase 5):
   - El 0.3 que traía la plantilla de la skill **no sirve para e5**: sus
     embeddings son poco dispersos y pares de textos sin ninguna relación suelen
     dar coseno ~0.70-0.75. Con un piso de 0.3 la válvula de escape nunca se
     activaría y el sistema respondería con contexto irrelevante en vez de admitir
     que no sabe — precisamente el fallo que este RAG debe cerrar.
-  - 0.80 es un punto de partida derivado de ese rango, no una medición. La
-    **fase 5 del notebook** hace la calibración: recupera sin piso, compara la
-    distribución de scores de preguntas con y sin cobertura, y el corte se anota
-    acá.
+  - **Distribución medida:** preguntas *con* cobertura real en el corpus dieron
+    scores 0.825-0.879 (mediana 0.841, n=20); preguntas *sin* cobertura dieron
+    0.840-0.854 (n=2). **Los dos rangos se solapan** — ningún umbral único los
+    separa perfectamente.
+  - **0.80 (el punto de partida) resultó ser demasiado bajo**: quedaba por
+    debajo del mínimo medido incluso para preguntas *sin* cobertura (0.840), así
+    que en la práctica casi nada se filtraba. Confirmado con un caso real: la
+    consulta "me despidieron sin pagarme la liquidación" recuperó artículos
+    sobre liquidación de sindicatos en insolvencia (Decreto 2663 de 1950, Art.
+    419; score 0.845) — contexto real pero fuera de tema — y el modelo generó
+    una respuesta con esa cita en vez de reconocer que el contexto no aplicaba.
+    Ver sección 9.
+  - **Decisión:** subir el umbral a 0.855 (justo por encima del máximo medido
+    sin cobertura). Prioriza no dejar pasar contexto irrelevante, a costa de
+    descartar también contexto relevante que caiga en la zona de solape
+    (0.825-0.854) — es la misma prioridad de "prudencia sobre certeza" del resto
+    del proyecto (M1/M2), no una solución perfecta. La muestra de calibración
+    *sin cobertura* es chica (n=2); si se repiten fallos de recuperación
+    después de este ajuste, hay que ampliarla antes de tocar el umbral de nuevo.
 
 ## 6. Generación
 
@@ -244,22 +259,22 @@ pytest tests/rag -q            # 125 tests, incluida la regresión sobre el corp
 | Metadata completa por chunk | ✅ | fuente, artículo, URL, capítulo y vigencia, leídos del frontmatter |
 | Backend documentado con razón | ✅ | sección 2 |
 | Prompt de 4 partes con válvula de escape | ✅ en unit tests | `tests/rag/test_prompt_template.py` |
-| **Índice construido (embeddings)** | ⬜ | requiere correr las fases 1-2 del notebook en Colab |
-| **Válvula de escape probada end-to-end** | ⬜ | fase 4 del notebook |
-| **`RETRIEVAL_MIN_SCORE` calibrado** | ⬜ | fase 5 del notebook; anotar el resultado en la sección 5 |
-| **Corrida sobre `eval_set.json`** | ⬜ | fase 6 del notebook (56 registros: 50 gold + 6 adversariales) |
-| Consultas fallidas anotadas | ⬜ | tabla de la sección 9, se llena con la corrida |
+| **Índice construido (embeddings)** | ✅ | corrida 2026-09-25, 3.425 chunks indexados |
+| **Válvula de escape probada end-to-end** | ✅ | fase 4 del notebook: 2/2 consultas fuera de corpus respondieron correctamente "no tengo información" |
+| **`RETRIEVAL_MIN_SCORE` calibrado** | ✅ | sección 5 -- subido de 0.80 a 0.855 tras medir la distribución real |
+| **Corrida sobre `eval_set.json`** | ✅ | fase 6 del notebook, 56/56 consultas, 1 sin contexto recuperado |
+| Consultas fallidas anotadas | ✅ (parcial) | sección 9 -- 1 caso real documentado; falta re-correr la fase 6 con el umbral nuevo (0.855) y anotar si aparecen más |
 
 ## 9. Consultas fallidas anotadas (insumo para decidir si S08 hace falta)
 
-Vacía a propósito. Se llena con consultas reales fallidas una vez el índice esté
-construido. Hybrid search, reranking y query transformation (S08) **no** se
-implementan hasta que esta tabla justifique cuál hace falta y por qué — mismo
-estándar que M1/M2: nada entra sin un delta medido.
+Se llena con consultas reales fallidas una vez el índice esté construido.
+Hybrid search, reranking y query transformation (S08) **no** se implementan
+hasta que esta tabla justifique cuál hace falta y por qué — mismo estándar que
+M1/M2: nada entra sin un delta medido.
 
 | Consulta | Síntoma | Etapa responsable (ingest/chunk/embed/retrieve/generate) | ¿Técnica de S08 que lo arreglaría? |
 |---|---|---|---|
-| | | | |
+| "Me despidieron sin pagarme la liquidación, ¿qué puedo hacer?" (corrida 2026-09-25, `RETRIEVAL_MIN_SCORE=0.80`) | Recuperó Decreto 2663 de 1950 Art. 419 (liquidador de sindicatos en insolvencia) y varios artículos del Código General del Proceso (score máx. 0.845) -- confunde "liquidación laboral" (pago al trabajador despedido) con "liquidador" (figura de insolvencia/procedimiento civil). El modelo generó una respuesta basada en ese contexto equivocado en vez de activar la válvula de escape. | `embed` (la confusión semántica está en el embedding de la consulta, no en el chunking ni el índice) y `retrieve` (con el umbral de 0.80 vigente en ese momento, el score 0.845 pasaba el piso sin problema) | Reranking con cross-encoder es el candidato más directo -- un cross-encoder puede distinguir "liquidación de prestaciones laborales" de "liquidador judicial de una organización sindical" mejor que la similitud de embeddings densos sola. Con un solo caso documentado no alcanza para justificar implementarlo todavía; pendiente re-correr la fase 6 completa con `RETRIEVAL_MIN_SCORE=0.855` (ya aplicado) para ver si el umbral nuevo alcanza a filtrar este tipo de caso o si persiste. |
 
 ## 10. Qué se entrega y qué continúa otra persona
 
