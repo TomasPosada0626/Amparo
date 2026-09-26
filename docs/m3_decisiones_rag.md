@@ -6,9 +6,9 @@ Documento de decisiones del sistema RAG de Amparo. Cubre las tres partes de M3:
   store` offline, `retrieve → augment → generate` online.
 - **Parte II — RAG avanzado (S08) + tool use (S10), secciones 11-17:** hybrid
   search, reranking y el retrieval expuesto como herramienta.
-- **Parte III — RAG agéntico (S10), secciones 18-21:** el mini-agente ReAct,
-  sus herramientas, la verificación de citas y la comparación de las tres rutas
-  (una pasada, tool use, ReAct).
+- **Parte III — RAG agéntico (S10), secciones 18-23:** el mini-agente ReAct,
+  sus herramientas, la verificación de citas, la comparación de las tres rutas
+  (una pasada, tool use, ReAct), su evaluación con RAGAS y el registro en W&B.
 
 Mismo estándar de documentación que M1/M2: **decisión + justificación +
 evidencia**, no solo qué se eligió.
@@ -683,3 +683,78 @@ equivocado de artículo; más una prueba sobre el corpus real en
 de citas (cita vista, inventada, mencionada por el usuario; rechazo y corrección;
 válvula de escape si insiste), y el bucle: pregunta compuesta, plazo, `contexts`
 sin duplicados, paso a `to_eval_record` y límite de pasos.
+
+## 22. Evaluación con RAGAS (Lab C)
+
+RAGAS evalúa el RAG **por dentro**: toma cada caso resuelto (pregunta, contextos,
+respuesta, referencia) y le calcula cuatro notas de 0 a 1, cada una comparando dos
+piezas. Por eso dice **dónde** falla, cosa que el harness de M2 (que mira solo la
+respuesta final) no puede. Código:
+[`tools/evaluation/ragas_metrics.py`](../tools/evaluation/ragas_metrics.py).
+
+| Métrica | Compara | Si sale baja, el problema es… |
+|---|---|---|
+| faithfulness | respuesta vs contextos | el generador inventa o completa de memoria |
+| context_precision | contextos vs pregunta | ruido en el top-k (→ rerank) |
+| context_recall | referencia vs contextos | el retrieval no encuentra (→ hybrid, corpus) |
+| answer_relevancy | respuesta vs pregunta | divaga, o escapa cuando sí había respuesta |
+
+**Decisión: implementación propia y no la librería `ragas`.**
+
+1. **El juez es Groq (`openai/gpt-oss-120b`), no Qwen.** El M2 midió que el juez
+   Qwen se prefirió a sí mismo 60 de 60 veces; usar el modelo evaluado como juez
+   de RAGAS repetiría ese sesgo. Es el mismo juez externo de M2
+   (`external_judge.py`). El agente ReAct sí usa Qwen, y debe: es el sistema
+   evaluado, y las tres rutas tienen que compartir generador para ser comparables.
+2. **Cupo.** La capa gratuita de Groq tiene un límite diario de tokens. La
+   librería hace varias llamadas por métrica y reenvía el contexto en cada una.
+   Aquí las tres métricas de contexto salen de **una sola llamada por caso**, que
+   devuelve en JSON los veredictos de las tres; `answer_relevancy` es una llamada
+   corta sin contexto. Cada caso cuesta del orden de 3.000-4.000 tokens (medido en
+   `tokens_juez`), así que 50 casos × 3 rutas pueden no caber en un día: la
+   corrida guarda un **checkpoint** por caso en Drive (el mismo mecanismo de M2) y
+   se retoma al día siguiente o con la key de otro miembro.
+3. **Mismo patrón del repo:** el juez y los embeddings se inyectan, así que las
+   fórmulas y el parseo se prueban sin red ni GPU.
+
+**Fórmulas (las de RAGAS).** Faithfulness: afirmaciones respaldadas / total.
+Context precision: *average precision* sobre el ranking (un chunk útil en la
+posición 1 vale más que en la 5). Context recall: oraciones de la referencia
+atribuibles al contexto / total. Answer relevancy: coseno medio (e5) entre la
+pregunta y tres preguntas que el juez genera desde la respuesta.
+
+**Tratamiento de la válvula de escape.** En los casos **adversariales** la
+respuesta correcta es la frase de escape, y RAGAS la castigaría (answer relevancy
+0). Por eso RAGAS se calcula sobre los **gold**, y los adversariales se miden con
+la **tasa de escape**: alta en adversariales = bien; alta en gold = el sistema se
+niega de más. En un caso gold que escapa, faithfulness no aplica (no afirmó nada)
+y answer relevancy vale 0, como en RAGAS.
+
+**Robustez.** Un veredicto mal formado deja la métrica en `None` (no en 0) y se
+cuenta como fallo de parseo: un error del juez no puede pasar por un mal puntaje
+del sistema. Cada promedio reporta sobre cuántos casos se calculó.
+
+Verificación:
+[`test_ragas_metrics.py`](../tests/evaluation/test_ragas_metrics.py) cubre las
+fórmulas, el parseo, que el contexto viaja en una sola llamada, la válvula de
+escape, el juez caído, el checkpoint y el resumen por ruta. Ejecución: fase 5 de
+[`colab/m3_s10_rag_agentico.ipynb`](../colab/m3_s10_rag_agentico.ipynb).
+
+## 23. Seguimiento en Weights & Biases
+
+Los números de RAGAS se pierden si solo se miran en pantalla. Cada ruta se
+registra como una corrida del proyecto `amparo-rag`, en la cuenta del equipo
+(la misma entidad de M1), con: los promedios como escalares, una tabla por caso
+(pregunta, respuesta, métricas) y, en las rutas agénticas, la **traza del agente**
+paso a paso. Una corrida `comparativa` pone las rutas lado a lado, y todas las de
+una sesión comparten un `group` para compararlas con versiones futuras del
+sistema. Código: [`tools/evaluation/tracking.py`](../tools/evaluation/tracking.py).
+
+**Credenciales.** Las keys (`WANDB_API_KEY`, `GROQ_API_KEY`) se leen de los
+secretos de Colab y nunca se escriben en el notebook ni en el repo. Sin key de
+W&B, la corrida sigue en modo offline y se sube después con `wandb sync`. La
+entidad y el proyecto se pasan desde el notebook: el código no depende de una
+cuenta.
+
+Verificación: [`test_tracking.py`](../tests/evaluation/test_tracking.py), con un
+módulo `wandb` falso. Ejecución: fase 6 del notebook de S10.

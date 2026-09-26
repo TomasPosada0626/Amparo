@@ -1,0 +1,389 @@
+"""Metricas RAGAS (M3 · S10, Lab C) con juez externo: evaluar el RAG por dentro.
+
+RAGAS no mira solo la respuesta final, como el harness de M2: toma un caso ya
+resuelto (pregunta, contextos recuperados, respuesta, referencia) y le calcula
+cuatro notas de 0 a 1, cada una comparando dos piezas distintas. Por eso
+diagnostica DONDE falla el sistema:
+
+  faithfulness       respuesta  vs contextos  ¿lo que afirma sale del contexto?
+                     (baja -> el generador inventa o completa de memoria)
+  context_precision  contextos  vs pregunta   ¿los chunks relevantes quedaron arriba?
+                     (baja -> el retrieval trae ruido; S08: rerank)
+  context_recall     referencia vs contextos  ¿el contexto trae lo necesario?
+                     (baja -> el retrieval no encuentra; S08: hybrid, corpus)
+  answer_relevancy   respuesta  vs pregunta   ¿la respuesta contesta lo que se pregunto?
+                     (baja -> divaga, o se niega a responder)
+
+DECISION: implementacion propia, como en el Lab C, y no la libreria `ragas`.
+  1. El juez es Groq (openai/gpt-oss-120b, el mismo de external_judge.py): otra
+     familia que Qwen, el modelo evaluado. El M2 midio que el juez Qwen se
+     prefirio a si mismo 60 de 60 veces; usar Qwen como juez de RAGAS repetiria
+     ese sesgo. La libreria se puede conectar a Groq, pero exige wrappers de
+     LangChain y su API cambio mucho entre versiones.
+  2. Cupo: la capa gratuita de Groq tiene un limite diario de tokens. La
+     libreria hace varias llamadas por metrica y reenvia el contexto en cada
+     una. Aca las tres metricas que dependen del contexto (faithfulness,
+     context_precision, context_recall) salen de UNA sola llamada que devuelve
+     los veredictos de las tres en JSON; answer_relevancy es una llamada corta
+     sin contexto. Dos llamadas por caso, con checkpoint para retomar si el
+     cupo se acaba (tools/evaluation/checkpoint.py, el mismo de M2).
+  3. Mismo patron del repo: el juez y los embeddings se inyectan, asi que el
+     calculo de las metricas se prueba sin red ni GPU
+     (tests/evaluation/test_ragas_metrics.py).
+
+Las formulas siguen a RAGAS:
+  - faithfulness = afirmaciones respaldadas / afirmaciones de la respuesta.
+  - context_precision = precision promedio ponderada por rango (average
+    precision): un chunk relevante en la posicion 1 vale mas que en la 5.
+  - context_recall = oraciones de la referencia atribuibles al contexto / total.
+  - answer_relevancy = coseno medio entre la pregunta original y N preguntas que
+    el juez genera a partir de la respuesta (embeddings e5). Una respuesta que
+    no se compromete (la valvula de escape) vale 0, como en RAGAS.
+
+La valvula de escape se evalua aparte (es_valvula_de_escape): en los casos
+adversariales es la respuesta CORRECTA, y RAGAS la castigaria. Por eso las
+metricas RAGAS se reportan sobre los casos gold, y los adversariales se miden
+con la tasa de escape (tasas_de_escape).
+"""
+from __future__ import annotations
+
+import json
+import math
+import re
+import statistics
+import time
+from pathlib import Path
+from typing import Callable, Optional, Sequence
+
+from tools.evaluation.checkpoint import append_checkpoint, load_checkpoint
+
+METRICAS = ("faithfulness", "context_precision", "context_recall", "answer_relevancy")
+
+# Cuantas preguntas genera el juez para answer_relevancy (RAGAS usa 3).
+N_PREGUNTAS_RELEVANCIA = 3
+MAX_TOKENS_CONTEXTO = 2000
+MAX_TOKENS_RELEVANCIA = 600
+
+# Juez: (system, user, max_tokens) -> (texto, tokens_usados). Embeddings:
+# (lista de textos) -> lista de vectores.
+Juez = Callable[[str, str, int], "tuple[str, int]"]
+Embedder = Callable[[list], list]
+
+FRASES_DE_ESCAPE = (
+    "no tengo informacion verificada",
+    "no tengo información verificada",
+)
+
+
+def es_valvula_de_escape(respuesta: str) -> bool:
+    """¿La respuesta es la frase de escape de Amparo (prompt_template)?"""
+    r = (respuesta or "").lower()
+    return any(f in r for f in FRASES_DE_ESCAPE)
+
+
+# --- Prompts del juez --------------------------------------------------------
+
+SYSTEM_JUEZ = (
+    "Eres un evaluador estricto de sistemas RAG juridicos. Juzgas solo con el "
+    "texto que se te da, sin conocimiento propio sobre derecho. Respondes "
+    "unicamente con un objeto JSON valido, sin texto antes ni despues."
+)
+
+
+def prompt_contexto(pregunta: str, respuesta: str, referencia: str, contextos: list[str]) -> str:
+    if contextos:
+        bloque = "\n\n".join(f"[{i}] {c}" for i, c in enumerate(contextos, start=1))
+    else:
+        bloque = "(no se recupero ningun contexto)"
+    return f"""PREGUNTA:
+{pregunta}
+
+CONTEXTOS RECUPERADOS (en orden de ranking):
+{bloque}
+
+RESPUESTA DEL SISTEMA:
+{respuesta}
+
+RESPUESTA DE REFERENCIA:
+{referencia}
+
+Tareas:
+1. Divide la RESPUESTA DEL SISTEMA en afirmaciones atomicas (hechos o reglas
+   que afirma). Para cada una indica si los CONTEXTOS la respaldan.
+2. Para cada contexto, en orden, indica si es util para responder la PREGUNTA
+   segun la RESPUESTA DE REFERENCIA. Debe haber exactamente {len(contextos)} valores.
+3. Divide la RESPUESTA DE REFERENCIA en oraciones. Para cada una indica si su
+   contenido se puede atribuir a los CONTEXTOS.
+
+Devuelve este JSON:
+{{"afirmaciones": [{{"texto": "...", "respaldada": true}}],
+ "contextos_utiles": [true, false],
+ "referencia": [{{"oracion": "...", "en_contexto": true}}]}}"""
+
+
+def prompt_relevancia(respuesta: str) -> str:
+    return f"""RESPUESTA:
+{respuesta}
+
+Escribe {N_PREGUNTAS_RELEVANCIA} preguntas distintas, en español, que esta
+respuesta contesta directamente. Devuelve este JSON:
+{{"preguntas": ["...", "...", "..."]}}"""
+
+
+# --- Parseo y formulas (puras, testeables) -----------------------------------
+
+def extraer_json(texto: str) -> Optional[dict]:
+    """Primer '{' al ultimo '}'; None si no es JSON valido (no lanza)."""
+    if not texto:
+        return None
+    i, j = texto.find("{"), texto.rfind("}")
+    if i == -1 or j <= i:
+        return None
+    try:
+        obj = json.loads(texto[i : j + 1])
+    except (json.JSONDecodeError, ValueError):
+        return None
+    return obj if isinstance(obj, dict) else None
+
+
+def _bools(lista, clave: Optional[str] = None) -> Optional[list[bool]]:
+    if not isinstance(lista, list):
+        return None
+    salida = []
+    for item in lista:
+        valor = item.get(clave) if (clave and isinstance(item, dict)) else item
+        if not isinstance(valor, bool):
+            return None
+        salida.append(valor)
+    return salida
+
+
+def average_precision(relevantes: Sequence[bool]) -> Optional[float]:
+    """Context precision de RAGAS: sum_k (precision@k * rel_k) / #relevantes.
+
+    Premia que los chunks utiles esten arriba del ranking. 0 si ninguno es
+    util; None si no hay contextos (no hay ranking que medir)."""
+    if not relevantes:
+        return None
+    aciertos, suma = 0, 0.0
+    for k, rel in enumerate(relevantes, start=1):
+        if rel:
+            aciertos += 1
+            suma += aciertos / k
+    return suma / aciertos if aciertos else 0.0
+
+
+def metricas_de_contexto(veredicto: Optional[dict], n_contextos: int) -> dict:
+    """Convierte el JSON del juez en faithfulness / context_precision / recall.
+
+    Un veredicto mal formado deja la metrica en None (no se inventa un 0): se
+    reporta como fallo de parseo y no entra al promedio."""
+    salida = {"faithfulness": None, "context_precision": None, "context_recall": None,
+              "n_afirmaciones": None, "parse_ok": False}
+    if veredicto is None:
+        return salida
+
+    afirmaciones = _bools(veredicto.get("afirmaciones"), "respaldada")
+    utiles = _bools(veredicto.get("contextos_utiles"))
+    referencia = _bools(veredicto.get("referencia"), "en_contexto")
+
+    if afirmaciones is not None:
+        salida["n_afirmaciones"] = len(afirmaciones)
+        salida["faithfulness"] = sum(afirmaciones) / len(afirmaciones) if afirmaciones else None
+    if n_contextos == 0:
+        salida["context_precision"] = None
+        salida["context_recall"] = 0.0 if referencia else None
+    else:
+        if utiles is not None and len(utiles) == n_contextos:
+            salida["context_precision"] = average_precision(utiles)
+        if referencia:
+            salida["context_recall"] = sum(referencia) / len(referencia)
+    salida["parse_ok"] = afirmaciones is not None and referencia is not None and (
+        n_contextos == 0 or salida["context_precision"] is not None
+    )
+    return salida
+
+
+def coseno(a, b) -> float:
+    na = math.sqrt(sum(x * x for x in a))
+    nb = math.sqrt(sum(x * x for x in b))
+    if na == 0 or nb == 0:
+        return 0.0
+    return sum(x * y for x, y in zip(a, b)) / (na * nb)
+
+
+def answer_relevancy(pregunta: str, preguntas_generadas: list[str], embed: Embedder) -> Optional[float]:
+    preguntas = [p for p in preguntas_generadas if isinstance(p, str) and p.strip()]
+    if not preguntas:
+        return None
+    vectores = embed([pregunta] + preguntas)
+    return statistics.mean(coseno(vectores[0], v) for v in vectores[1:])
+
+
+# --- Evaluacion de un caso y de una corrida ----------------------------------
+
+def evaluar_caso(record: dict, *, juez: Juez, embed: Embedder) -> dict:
+    """Calcula las cuatro metricas de un registro de pipeline.to_eval_record.
+
+    Dos llamadas al juez: una con el contexto (tres metricas) y una corta para
+    answer_relevancy. Si la respuesta es la valvula de escape, no hay nada que
+    verificar: faithfulness queda None y answer_relevancy vale 0 (no contesto),
+    y el contexto se sigue evaluando (el retrieval pudo traer lo necesario y el
+    generador no lo uso)."""
+    t0 = time.perf_counter()
+    respuesta = record.get("answer", "")
+    contextos = list(record.get("contexts") or [])
+    escape = es_valvula_de_escape(respuesta)
+    tokens = 0
+
+    texto, usados = juez(
+        SYSTEM_JUEZ,
+        prompt_contexto(record["question"], respuesta, record.get("ground_truth", ""), contextos),
+        MAX_TOKENS_CONTEXTO,
+    )
+    tokens += usados
+    fila = metricas_de_contexto(extraer_json(texto), len(contextos))
+    if escape:
+        fila["faithfulness"] = None
+
+    if escape:
+        fila["answer_relevancy"] = 0.0
+    else:
+        texto, usados = juez(SYSTEM_JUEZ, prompt_relevancia(respuesta), MAX_TOKENS_RELEVANCIA)
+        tokens += usados
+        obj = extraer_json(texto) or {}
+        fila["answer_relevancy"] = answer_relevancy(record["question"], obj.get("preguntas") or [], embed)
+
+    fila.update({
+        "id": clave_de(record),
+        "registro_id": record["id"],
+        "sistema": record.get("sistema", "una_pasada"),
+        "tipo": record.get("tipo", ""),
+        "category": record.get("category", ""),
+        "escape": escape,
+        "n_contextos": len(contextos),
+        "tokens_juez": tokens,
+        "segundos": round(time.perf_counter() - t0, 2),
+    })
+    return fila
+
+
+def clave_de(record: dict) -> str:
+    """Id unico para el checkpoint: el mismo registro se evalua en varias rutas."""
+    return f"{record.get('sistema', 'una_pasada')}:{record['id']}"
+
+
+def evaluar_corrida(
+    records: Sequence[dict],
+    *,
+    juez: Juez,
+    embed: Embedder,
+    checkpoint_path: Optional[Path] = None,
+    solo_gold: bool = True,
+    progress_every: int = 5,
+) -> list[dict]:
+    """Evalua una lista de registros, con checkpoint para retomar.
+
+    solo_gold: los adversariales se miden con tasas_de_escape, no con RAGAS
+    (ver docstring del modulo). Si el cupo del juez se acaba a mitad de camino,
+    volver a llamar con el mismo checkpoint_path salta lo ya evaluado."""
+    hechos = load_checkpoint(checkpoint_path)
+    pendientes = [r for r in records if not solo_gold or r.get("tipo") == "gold"]
+    filas, tokens = [], 0
+    for i, record in enumerate(pendientes, start=1):
+        clave = clave_de(record)
+        if clave in hechos:
+            filas.append(hechos[clave])
+            continue
+        fila = evaluar_caso(record, juez=juez, embed=embed)
+        append_checkpoint(checkpoint_path, fila)
+        filas.append(fila)
+        tokens += fila["tokens_juez"]
+        if progress_every and (i % progress_every == 0 or i == len(pendientes)):
+            print(f"[ragas] {i}/{len(pendientes)} -- tokens del juez en esta sesion: {tokens}")
+    return filas
+
+
+def resumen(filas: Sequence[dict]) -> dict:
+    """Promedio de cada metrica por ruta (sistema), ignorando los None.
+
+    Reporta tambien cuantos casos entraron a cada promedio (n_<metrica>) y los
+    fallos de parseo: un promedio sobre 10 casos no se lee igual que sobre 50."""
+    por_sistema: dict[str, list[dict]] = {}
+    for f in filas:
+        por_sistema.setdefault(f["sistema"], []).append(f)
+    salida = {}
+    for sistema, fs in por_sistema.items():
+        r = {"casos": len(fs), "fallos_parseo": sum(1 for f in fs if not f.get("parse_ok")),
+             "respuestas_escape": sum(1 for f in fs if f.get("escape")),
+             "tokens_juez": sum(f.get("tokens_juez", 0) for f in fs)}
+        for m in METRICAS:
+            valores = [f[m] for f in fs if f.get(m) is not None]
+            r[m] = round(statistics.mean(valores), 4) if valores else None
+            r[f"n_{m}"] = len(valores)
+        salida[sistema] = r
+    return salida
+
+
+def tasas_de_escape(records: Sequence[dict]) -> dict:
+    """Uso de la valvula de escape por ruta, separado por tipo de caso.
+
+    - adversarial: deberia escapar (la pregunta no tiene respuesta en el
+      corpus). Tasa alta = bien.
+    - gold: deberia responder. Tasa alta = el sistema se niega de mas."""
+    salida: dict[str, dict] = {}
+    for r in records:
+        s = salida.setdefault(r.get("sistema", "una_pasada"),
+                              {"adversarial": [0, 0], "gold": [0, 0]})
+        tipo = r.get("tipo") if r.get("tipo") in ("adversarial", "gold") else None
+        if tipo:
+            s[tipo][0] += int(es_valvula_de_escape(r.get("answer", "")))
+            s[tipo][1] += 1
+    return {
+        sistema: {
+            "escape_en_adversariales": round(v["adversarial"][0] / v["adversarial"][1], 4) if v["adversarial"][1] else None,
+            "escape_en_gold": round(v["gold"][0] / v["gold"][1], 4) if v["gold"][1] else None,
+            "n_adversariales": v["adversarial"][1],
+            "n_gold": v["gold"][1],
+        }
+        for sistema, v in salida.items()
+    }
+
+
+# --- Implementaciones por defecto (red / GPU, import perezoso) ----------------
+
+def juez_groq() -> Juez:
+    """Juez real: Groq con el modelo de external_judge (GROQ_JUDGE_MODEL).
+
+    Nunca lanza ante un fallo puntual (red, rate limit): devuelve ("", 0) y la
+    metrica queda None con parse_ok=False, igual que external_judge.call_groq.
+    Si la clave falta, si falla de inmediato (error de configuracion)."""
+    from tools.evaluation import external_judge as ej
+
+    cliente = ej._get_client()
+
+    def juez(system: str, user: str, max_tokens: int):
+        kwargs = dict(
+            model=ej.GROQ_JUDGE_MODEL,
+            messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
+            max_tokens=max_tokens,
+            timeout=90.0,
+        )
+        if ej.GROQ_REASONING_EFFORT:
+            kwargs["reasoning_effort"] = ej.GROQ_REASONING_EFFORT
+        try:
+            resp = cliente.chat.completions.create(**kwargs)
+        except Exception as exc:  # noqa: BLE001 - un fallo puntual no aborta el lote
+            print(f"[ragas] error del juez: {exc}")
+            return "", 0
+        usados = getattr(getattr(resp, "usage", None), "total_tokens", 0) or 0
+        return (resp.choices[0].message.content or "").strip(), usados
+
+    return juez
+
+
+def embedder_e5() -> Embedder:
+    """Embeddings e5 del propio RAG (prefijo "query: " para las preguntas)."""
+    from tools.rag.embed_store import embed_query
+
+    return lambda textos: [embed_query(t) for t in textos]

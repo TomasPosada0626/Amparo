@@ -133,6 +133,8 @@ Amparo/
 │   │   ├── metrics_classic.py  #   BLEU, ROUGE, F1, BERTScore
 │   │   ├── domain_metric.py    #   cumplimiento de no-inventar-citas
 │   │   ├── bias.py            #   sesgos (longitud, posición, autopreferencia)
+│   │   ├── ragas_metrics.py    #   métricas RAGAS con juez Groq (M3 · S10)
+│   │   ├── tracking.py         #   registro de corridas en W&B (M3 · S10)
 │   │   └── scorecard.py        #   reporte consolidado
 │   └── model_comparator/       # Herramienta interna de comparación de modelos
 ├── data/
@@ -204,8 +206,10 @@ pytest -q                      # toda la suite
    en Drive.
 2. **Consultar** — `colab/m3_s08_rag_avanzado.ipynb` carga el índice y compara las
    tres configuraciones de retrieval (denso / hybrid / hybrid + rerank).
-3. **Agentes** — `colab/m3_s10_rag_agentico.ipynb` corre el tool use y el agente
-   ReAct, y compara las tres rutas (una pasada / tool use / ReAct) sobre el eval set.
+3. **Agentes y evaluación** — `colab/m3_s10_rag_agentico.ipynb` corre el tool use y
+   el agente ReAct, compara las tres rutas (una pasada / tool use / ReAct) sobre el
+   eval set, las evalúa con RAGAS (juez Groq) y las registra en W&B. Necesita los
+   secretos de Colab `GROQ_API_KEY` y `WANDB_API_KEY`.
 
 ### Consultar desde código
 
