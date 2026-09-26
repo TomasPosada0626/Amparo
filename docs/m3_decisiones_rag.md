@@ -1,11 +1,13 @@
 # M3 · Sistema RAG — decisiones
 
-Documento de decisiones del sistema RAG de Amparo. Cubre las dos mitades de M3:
+Documento de decisiones del sistema RAG de Amparo. Cubre las tres partes de M3:
 
 - **Parte I — RAG ingenuo (S07), secciones 1-10:** `ingest → chunk → embed →
   store` offline, `retrieve → augment → generate` online.
-- **Parte II — RAG avanzado (S08) + tool use (S10), secciones 11-19:** hybrid
+- **Parte II — RAG avanzado (S08) + tool use (S10), secciones 11-17:** hybrid
   search, reranking y el retrieval expuesto como herramienta.
+- **Parte III — RAG agéntico (S10), secciones 18-20:** el mini-agente ReAct y
+  la comparación de las tres rutas (una pasada, tool use, ReAct).
 
 Mismo estándar de documentación que M1/M2: **decisión + justificación +
 evidencia**, no solo qué se eligió.
@@ -13,7 +15,8 @@ evidencia**, no solo qué se eligió.
 Fecha: 2026-09-21 (Parte I) · 2026-09-24 (Parte II) · código:
 [`tools/rag/`](../tools/rag/) · ejecución:
 [`colab/m3_s07_rag_ingenuo.ipynb`](../colab/m3_s07_rag_ingenuo.ipynb) (S07) ·
-[`colab/m3_s08_rag_avanzado.ipynb`](../colab/m3_s08_rag_avanzado.ipynb) (S08/S10)
+[`colab/m3_s08_rag_avanzado.ipynb`](../colab/m3_s08_rag_avanzado.ipynb) (S08) ·
+[`colab/m3_s10_rag_agentico.ipynb`](../colab/m3_s10_rag_agentico.ipynb) (S10)
 
 > **Por qué este RAG existe.** El M2 midió que el modelo fine-tuneado llega a
 > **100% de cumplimiento de "no inventa citas"** en los 201 ejemplos de
@@ -463,7 +466,9 @@ secciones 11-14, sin abrir una segunda ruta de recuperación que mantener.
 acciones sobre el mundo (no radica una tutela, no paga una multa, no calcula plazos
 con autoridad legal). Consultar el corpus es su única acción legítima, y
 `buscar_normas` la cubre. Añadir herramientas sin un caso de uso real sería
-superficie injustificada.
+superficie injustificada. (El agente ReAct de la Parte III sí suma una
+calculadora: no es una acción sobre el mundo sino una herramienta de
+razonamiento, y tiene un caso de uso medible; ver sección 18.)
 
 **Robustez del bucle.**
 
@@ -478,6 +483,12 @@ superficie injustificada.
   la Parte I, para que el modelo cite lo que efectivamente recuperó.
 - `max_llamadas` acota el bucle para que un modelo que insista en pedir la
   herramienta no corra indefinidamente.
+- El prompt del bucle incluye la frase exacta de la válvula de escape
+  (`RESPUESTA_SIN_CONTEXTO`), la misma del RAG de una pasada, para que el harness
+  la detecte igual en las dos rutas.
+- La salida sigue el mismo contrato que `pipeline.answer_query` (`contexts`,
+  `retrieved_chunks`, ...), con los chunks que devolvió la herramienta: sin eso
+  la ruta no se podría evaluar con RAGAS.
 
 Verificación: [`test_tools.py`](../tests/rag/test_tools.py) cubre el parser, el
 dispatcher con su validación y el bucle propone → ejecuta → observa → responde.
@@ -518,5 +529,87 @@ los tres sistemas quedan etiquetadas y son separables.
   un `ImportError` explícito que indica que corre en Colab, no con un error mudo.
 - **Ejecución:** [`colab/m3_s08_rag_avanzado.ipynb`](../colab/m3_s08_rag_avanzado.ipynb) carga
   el índice desde Drive, construye el BM25 una vez, corre la comparación A/B/C
-  sobre retrieval, la corrida A/B/C sobre el eval set con su latencia, y la demo
-  del tool use.
+  sobre retrieval y la corrida A/B/C sobre el eval set con su latencia. La demo
+  del tool use está en `colab/m3_s10_rag_agentico.ipynb` (Parte III).
+
+---
+
+# Parte III · RAG agéntico (S10)
+
+## 18. Mini-agente ReAct: cuándo hace falta encadenar pasos
+
+El tool use de la sección 15 decide **si** buscar y **con qué consulta**, pero su
+flujo es siempre buscar → responder. Hay consultas de Amparo que necesitan más de
+un paso de naturaleza distinta: la **pregunta compuesta**, que pide una norma *y*
+una operación sobre ella. El caso típico es laboral: "me despidieron sin justa
+causa después de 3 años ganando 2.000.000, ¿cuánto me deben?". El RAG de una
+pasada trae el artículo 64 del CST, pero deja la cuenta a la memoria del modelo,
+que es donde se equivoca.
+
+ReAct resuelve eso encadenando **pensamiento → acción → observación** hasta
+responder. Código: [`tools/rag/agentico.py`](../tools/rag/agentico.py).
+
+**Acciones.**
+
+- `buscar_normas[consulta]`: el mismo retrieval avanzado del tool use (hybrid +
+  rerank), invocado a través del mismo dispatcher. No se abre otra ruta de
+  recuperación.
+- `calculadora[expresion]`: aritmética exacta. Se evalúa con un parser de AST
+  restringido (números, `+ - * / // % **`, paréntesis), **no con `eval()`**: la
+  expresión la escribe el modelo, y `eval()` sobre texto generado ejecutaría
+  código arbitrario. Entiende el formato de pesos colombianos ("2.000.000", "x").
+- `Responder[respuesta]`: termina el bucle.
+
+**Por qué el formato de texto de ReAct y no JSON.** Es el formato del Lab B y
+separa el pensamiento de la acción, que es lo que se audita. El parser toma la
+*primera* acción de cada salida (un modelo pequeño a veces sigue escribiendo pasos
+y observaciones inventadas que no se ejecutaron) y, para `Responder`, lee hasta el
+último corchete (la respuesta puede citar "[1]" o tener varias líneas).
+
+**Robustez.** Mismo criterio que el tool use: degradar, no romper.
+
+- Una salida sin acción válida se toma como respuesta directa.
+- Los errores de la calculadora vuelven como observación ("error: ...") para que
+  el modelo corrija.
+- `MAX_PASOS` (5) acota el bucle. Si se agota, se pide una respuesta final
+  forzada; si tampoco llega, se responde con la frase de la válvula de escape. Es
+  preferible admitir que no se resolvió que improvisar.
+
+## 19. Contrato de salida y trazabilidad
+
+Las tres rutas (una pasada, tool use, ReAct) devuelven el mismo contrato de
+`pipeline.answer_query`, y `pipeline.to_eval_record` las lleva al formato RAGAS
+sin casos especiales. Se agregan dos campos:
+
+- `sistema`: `una_pasada`, `tool_use` o `react`, para que las corridas sean
+  separables (mismo propósito que `used_hybrid`/`used_rerank` en A/B/C).
+- `traza`: una fila por paso (pensamiento, acción, argumento, observación). Es la
+  evidencia de auditoría: si una respuesta sale mal, dice en qué paso se torció.
+
+En las rutas agénticas, `contexts` son **todos los chunks que el agente vio** en
+sus búsquedas, sin duplicados: es contra eso que RAGAS mide si la respuesta se
+apoyó en el contexto.
+
+## 20. El experimento: ¿se justifica el agente?
+
+No todo necesita un agente: cada paso es una generación más (latencia), y un
+modelo que da vueltas puede empeorar una respuesta simple. Por eso las tres rutas
+corren sobre el mismo eval set, con el mismo generador y el mismo retrieval
+(configuración C), y lo único que cambia es quién decide cuándo y cuánto recuperar:
+
+| Ruta | Qué decide el modelo | Costo esperado |
+|---|---|---|
+| Una pasada | nada | 1 generación |
+| Tool use | si busca y con qué consulta | 2 generaciones típicas |
+| ReAct | qué acciones encadena | 3 o más generaciones |
+
+La corrida está en
+[`colab/m3_s10_rag_agentico.ipynb`](../colab/m3_s10_rag_agentico.ipynb) (fase 4),
+que guarda los registros y la latencia por ruta en `corridas_s10/` de Drive. Un
+agente solo se justifica si mejora las métricas (RAGAS y harness) lo suficiente
+para pagar su latencia.
+
+Verificación: [`test_agentico.py`](../tests/rag/test_agentico.py) cubre el parser
+de pasos, la calculadora (incluido que no ejecuta código) y el bucle: la pregunta
+compuesta, los `contexts` sin duplicados, el paso a `to_eval_record`, el límite de
+pasos y la válvula de escape.

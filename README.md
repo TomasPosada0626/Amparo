@@ -43,7 +43,7 @@ y evidencia medida.
 |---|---|:--:|---|
 | **M1** | Fine-tuning (LoRA sobre Qwen2.5-7B-Instruct) | ✅ | `data/dataset_legal.jsonl`, `colab/m1_finetune.ipynb` |
 | **M2** | Harness de evaluación (juez LLM, métricas, sesgos) | ✅ | `tools/evaluation/`, `results/m2_scorecard_2026-09-19.md` |
-| **M3** | RAG: ingenuo (S07) + avanzado (S08) + tool use (S10) | ✅ | `tools/rag/`, `docs/m3_decisiones_rag.md` |
+| **M3** | RAG: ingenuo (S07) + avanzado (S08) + agéntico (S10) | 🚧 | `tools/rag/`, `docs/m3_decisiones_rag.md` |
 
 ### Resultados de M2 (201 ejemplos de validación)
 
@@ -124,6 +124,7 @@ Amparo/
 │   │   ├── rerank.py           #   reranking con cross-encoder
 │   │   ├── prompt_template.py  #   prompt aumentado de 4 partes
 │   │   ├── tools.py            #   retrieval como herramienta (function calling)
+│   │   ├── agentico.py         #   mini-agente ReAct (buscar, calcular, responder)
 │   │   └── pipeline.py         #   orquesta las 7 etapas
 │   ├── evaluation/             # Harness de evaluación (M2)
 │   │   ├── generation.py       #   carga y generación con Qwen2.5-7B
@@ -142,7 +143,8 @@ Amparo/
 │   ├── m1_finetune.ipynb          #   M1
 │   ├── m2_evaluacion.ipynb        #   M2
 │   ├── m3_s07_rag_ingenuo.ipynb   #   M3 · S07
-│   └── m3_s08_rag_avanzado.ipynb  #   M3 · S08 + S10
+│   ├── m3_s08_rag_avanzado.ipynb  #   M3 · S08
+│   └── m3_s10_rag_agentico.ipynb  #   M3 · S10
 ├── docs/                       # Decisiones de diseño por milestone
 ├── results/                    # Scorecards
 ├── tests/                      # Pruebas (corren sin GPU)
@@ -200,9 +202,10 @@ pytest -q                      # toda la suite
 
 1. **Indexar** — `colab/m3_s07_rag_ingenuo.ipynb` construye el índice FAISS y lo guarda
    en Drive.
-2. **Consultar** — `colab/m3_s08_rag_avanzado.ipynb` carga el índice, compara las tres
-   configuraciones de retrieval (denso / hybrid / hybrid + rerank) y demuestra el
-   tool use.
+2. **Consultar** — `colab/m3_s08_rag_avanzado.ipynb` carga el índice y compara las
+   tres configuraciones de retrieval (denso / hybrid / hybrid + rerank).
+3. **Agentes** — `colab/m3_s10_rag_agentico.ipynb` corre el tool use y el agente
+   ReAct, y compara las tres rutas (una pasada / tool use / ReAct) sobre el eval set.
 
 ### Consultar desde código
 
@@ -261,7 +264,7 @@ for chunk in resultado["retrieved_chunks"]:
 
 - [`PRODUCT.md`](PRODUCT.md) — definición de producto, usuarios y principios.
 - [`docs/m3_decisiones_rag.md`](docs/m3_decisiones_rag.md) — decisiones de diseño
-  del sistema RAG (ingenuo, avanzado y tool use).
+  del sistema RAG (ingenuo, avanzado y agéntico).
 - [Wiki del proyecto](https://github.com/TomasPosada0626/Amparo/wiki) — análisis
   completo de cada milestone.
 
