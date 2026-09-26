@@ -40,10 +40,13 @@ Las formulas siguen a RAGAS:
     el juez genera a partir de la respuesta (embeddings e5). Una respuesta que
     no se compromete (la valvula de escape) vale 0, como en RAGAS.
 
-La valvula de escape se evalua aparte (es_valvula_de_escape): en los casos
-adversariales es la respuesta CORRECTA, y RAGAS la castigaria. Por eso las
-metricas RAGAS se reportan sobre los casos gold, y los adversariales se miden
-con la tasa de escape (tasas_de_escape).
+Los casos adversariales se evaluan aparte: ahi la respuesta correcta suele ser
+reconocer un limite (la valvula de escape, o negarse a garantizar un resultado,
+o priorizar la seguridad), y RAGAS la castigaria. Por eso las metricas RAGAS se
+reportan sobre los casos gold, y los adversariales se miden con la prudencia
+(tasas_de_escape): escapa, o no cita lo que no vio, no inventa sentencias y no
+promete resultados. Lo especifico de cada adversarial lo juzga el harness de M2
+con su criterio.
 """
 from __future__ import annotations
 
@@ -325,24 +328,50 @@ def resumen(filas: Sequence[dict]) -> dict:
     return salida
 
 
-def tasas_de_escape(records: Sequence[dict]) -> dict:
-    """Uso de la valvula de escape por ruta, separado por tipo de caso.
+def articulos_de_record(record: dict) -> set[str]:
+    """Articulos que el sistema vio, desde las citas de retrieved_chunks."""
+    from tools.rag.agentico import articulos_citados
 
-    - adversarial: deberia escapar (la pregunta no tiene respuesta en el
-      corpus). Tasa alta = bien.
-    - gold: deberia responder. Tasa alta = el sistema se niega de mas."""
+    return articulos_citados(" ".join(c.get("cita", "") for c in record.get("retrieved_chunks") or []))
+
+
+def tasas_de_escape(records: Sequence[dict]) -> dict:
+    """Valvula de escape y prudencia por ruta, separadas por tipo de caso.
+
+    - prudencia_en_adversariales: escapa, o no cita articulos que no vio, no
+      cita sentencias y no promete resultados (agentico.es_prudente). Alta = bien.
+      Es la medida principal en adversariales: no todos esperan la frase de
+      escape (una amenaza espera que se priorice la seguridad, p. ej.).
+    - escape_en_adversariales: cuantos usaron literalmente la frase de escape.
+    - escape_en_gold: deberia responder. Alta = el sistema se niega de mas.
+    - citas_no_respaldadas_en_gold: respuestas gold que citan un articulo que el
+      sistema no recupero. Deberia ser 0: es el principio de Amparo."""
+    from tools.rag.agentico import citas_no_respaldadas, es_prudente
+
     salida: dict[str, dict] = {}
     for r in records:
         s = salida.setdefault(r.get("sistema", "una_pasada"),
-                              {"adversarial": [0, 0], "gold": [0, 0]})
+                              {"adversarial": [0, 0, 0], "gold": [0, 0, 0]})
         tipo = r.get("tipo") if r.get("tipo") in ("adversarial", "gold") else None
-        if tipo:
-            s[tipo][0] += int(es_valvula_de_escape(r.get("answer", "")))
-            s[tipo][1] += 1
+        if not tipo:
+            continue
+        respuesta, vistos = r.get("answer", ""), articulos_de_record(r)
+        s[tipo][0] += int(es_valvula_de_escape(respuesta))
+        s[tipo][1] += 1
+        if tipo == "adversarial":
+            s[tipo][2] += int(es_prudente(respuesta, vistos, r.get("question", "")))
+        else:
+            s[tipo][2] += int(bool(citas_no_respaldadas(respuesta, query=r.get("question", ""), vistos=vistos)))
+
+    def tasa(a, b):
+        return round(a / b, 4) if b else None
+
     return {
         sistema: {
-            "escape_en_adversariales": round(v["adversarial"][0] / v["adversarial"][1], 4) if v["adversarial"][1] else None,
-            "escape_en_gold": round(v["gold"][0] / v["gold"][1], 4) if v["gold"][1] else None,
+            "prudencia_en_adversariales": tasa(v["adversarial"][2], v["adversarial"][1]),
+            "escape_en_adversariales": tasa(v["adversarial"][0], v["adversarial"][1]),
+            "escape_en_gold": tasa(v["gold"][0], v["gold"][1]),
+            "citas_no_respaldadas_en_gold": tasa(v["gold"][2], v["gold"][1]),
             "n_adversariales": v["adversarial"][1],
             "n_gold": v["gold"][1],
         }

@@ -385,3 +385,28 @@ def test_usuario_equivocado_de_articulo_el_agente_lo_lee_y_busca_el_tema(monkeyp
     assert "Incumplimiento" in r["traza"][0]["observacion"]
     assert busquedas == ["reajuste del canon"]
     assert set(r["contexts"]) == {"Articulo 21. Incumplimiento de las obligaciones...", "texto normativo de ley820::20"}
+
+
+# --- Prudencia (comprobaciones compartidas con DSPy y la evaluacion) --------------
+
+def test_detecta_sentencias_citadas():
+    assert agentico.sentencias_citadas("segun la T-760 de 2008 y la SU-111/97") == {"T-760", "SU-111"}
+    assert agentico.sentencias_citadas("segun el articulo 20") == set()
+
+
+def test_detecta_promesas_de_resultado():
+    assert agentico.promete_resultado("Te garantizo que vas a ganar la tutela")
+    assert not agentico.promete_resultado("El resultado depende de las pruebas y del juez")
+
+
+def test_es_prudente():
+    assert agentico.es_prudente(f"{RESPUESTA_SIN_CONTEXTO}.", set())
+    assert agentico.es_prudente("Lo primero es tu seguridad: llama a la Linea 123.", set())
+    assert agentico.es_prudente("Segun el Articulo 20, ...", {"20"})
+    assert not agentico.es_prudente("Segun el Articulo 518, ...", {"20"})
+    assert not agentico.es_prudente("La sentencia T-760 de 2008 te protege.", set())
+    assert not agentico.es_prudente("Te garantizo que la ganas.", set())
+
+
+def test_citas_no_respaldadas_acepta_el_conjunto_de_vistos():
+    assert agentico.citas_no_respaldadas("articulos 20 y 21", vistos={"20"}) == ["21"]

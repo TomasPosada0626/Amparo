@@ -121,13 +121,15 @@ def registrar_comparativa(
     run = wb.init(entity=entity, project=project, name="comparativa", group=grupo,
                   job_type="comparativa", config=config, reinit=True)
     cols = ["sistema", "faithfulness", "context_precision", "context_recall", "answer_relevancy",
-            "escape_en_adversariales", "escape_en_gold", "latencia_s_por_consulta", "casos", "fallos_parseo"]
+            "prudencia_en_adversariales", "escape_en_gold", "citas_no_respaldadas_en_gold",
+            "latencia_s_por_consulta", "casos", "fallos_parseo"]
     tabla = wb.Table(columns=cols)
     for sistema in resumenes:
         r, e = resumenes[sistema], escapes.get(sistema, {})
         tabla.add_data(sistema, r.get("faithfulness"), r.get("context_precision"), r.get("context_recall"),
-                       r.get("answer_relevancy"), e.get("escape_en_adversariales"), e.get("escape_en_gold"),
-                       latencias.get(sistema), r.get("casos"), r.get("fallos_parseo"))
+                       r.get("answer_relevancy"), e.get("prudencia_en_adversariales"), e.get("escape_en_gold"),
+                       e.get("citas_no_respaldadas_en_gold"), latencias.get(sistema), r.get("casos"),
+                       r.get("fallos_parseo"))
     wb.log({"comparativa": tabla})
     url = getattr(run, "url", None)
     wb.finish()

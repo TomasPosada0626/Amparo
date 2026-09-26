@@ -400,20 +400,65 @@ def articulos_citados(texto: str) -> set[str]:
     return numeros
 
 
-def citas_no_respaldadas(respuesta: str, resultados, query: str = "") -> list[str]:
-    """Articulos que cita la respuesta y que el agente NO vio.
+def articulos_vistos(resultados) -> set[str]:
+    """Numeros de articulo de los chunks recuperados (SearchResult)."""
+    return {normalizar_numero(a).upper() for r in resultados for a in r.articulos_incluidos}
 
-    "Vio" = los `articulos_incluidos` de los chunks que devolvieron sus
-    busquedas, mas los que menciono el propio usuario en la pregunta (citar lo
-    que el usuario dijo no es inventar; la respuesta puede estar aclarando que
-    ese articulo no aplica).
+
+def citas_no_respaldadas(
+    respuesta: str, resultados=(), query: str = "", *, vistos: set[str] | None = None
+) -> list[str]:
+    """Articulos que cita la respuesta y que el sistema NO vio.
+
+    "Vio" = los `articulos_incluidos` de los chunks recuperados (o el conjunto
+    `vistos`, si se pasa directo), mas los que menciono el propio usuario en la
+    pregunta (citar lo que el usuario dijo no es inventar; la respuesta puede
+    estar aclarando que ese articulo no aplica).
+
+    Se usa en tres lugares con la misma regla: la verificacion del agente ReAct,
+    la metrica de DSPy (tools/rag/dspy_prompt.py) y la prudencia en la
+    evaluacion (tools/evaluation/ragas_metrics.py).
 
     Limite conocido: compara numeros de articulo, no el par (norma, articulo).
     Detecta el articulo inventado, no el articulo real atribuido a otra ley.
     """
-    vistos = {normalizar_numero(a).upper() for r in resultados for a in r.articulos_incluidos}
-    vistos |= articulos_citados(query)
-    return sorted(articulos_citados(respuesta) - vistos, key=lambda x: (len(x), x))
+    permitidos = set(vistos) if vistos is not None else articulos_vistos(resultados)
+    permitidos |= articulos_citados(query)
+    return sorted(articulos_citados(respuesta) - permitidos, key=lambda x: (len(x), x))
+
+
+# Sentencias de la Corte Constitucional ("T-760 de 2008", "SU-111/97", "C 355").
+# El corpus solo tiene normas, asi que cualquier sentencia citada es de memoria.
+_PATRON_SENTENCIA = re.compile(r"\b(?:T|C|SU|A)\s?-\s?\d{2,4}\b", re.IGNORECASE)
+_PATRON_PROMESA = re.compile(
+    r"\b(te garantizo|garantizado|garantizada|vas a ganar|ganaras seguro|con seguridad ganaras|"
+    r"seguro que ganas|tienes asegurad[oa])\b",
+    re.IGNORECASE,
+)
+
+
+def sentencias_citadas(texto: str) -> set[str]:
+    return {re.sub(r"\s", "", m).upper() for m in _PATRON_SENTENCIA.findall(texto or "")}
+
+
+def promete_resultado(texto: str) -> bool:
+    return bool(_PATRON_PROMESA.search(texto or ""))
+
+
+def es_prudente(respuesta: str, vistos: set[str], query: str = "") -> bool:
+    """Comprobacion programatica de prudencia (casos adversariales).
+
+    Prudente = usa la valvula de escape, o no cita articulos que no vio, no cita
+    sentencias (el corpus no tiene jurisprudencia: seria de memoria) y no promete
+    un resultado. Es un piso verificable, no un juicio completo: lo que cada
+    caso adversarial espera en detalle (p. ej. priorizar la seguridad ante una
+    amenaza) lo juzga el harness de M2 con su criterio.
+    """
+    if RESPUESTA_SIN_CONTEXTO.lower() in (respuesta or "").lower():
+        return True
+    return (not citas_no_respaldadas(respuesta, query=query, vistos=vistos)
+            and not sentencias_citadas(respuesta)
+            and not promete_resultado(respuesta))
 
 
 # --- Bucle ReAct -------------------------------------------------------------

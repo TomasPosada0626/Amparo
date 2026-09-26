@@ -78,8 +78,8 @@ def test_comparativa_pone_las_rutas_lado_a_lado():
     wb = FakeWandb()
     tracking.registrar_comparativa(
         wb, resumenes={"una_pasada": {"faithfulness": 0.7, "casos": 50}, "react": {"faithfulness": 0.9}},
-        escapes={"react": {"escape_en_adversariales": 1.0}}, latencias={"react": 9.1}, config={},
+        escapes={"react": {"prudencia_en_adversariales": 1.0}}, latencias={"react": 9.1}, config={},
     )
     tabla = wb.logs[0]["comparativa"]
     assert [fila[0] for fila in tabla.data] == ["una_pasada", "react"]
-    assert tabla.data[1][5] == 1.0 and tabla.data[1][7] == 9.1
+    assert tabla.data[1][5] == 1.0 and tabla.data[1][8] == 9.1

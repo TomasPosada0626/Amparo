@@ -172,12 +172,28 @@ def test_resumen_promedia_por_ruta_ignorando_none():
 
 def test_tasas_de_escape_separa_adversariales_de_gold():
     escape = "No tengo informacion verificada sobre esto en mi base de conocimiento."
+    vistos = [{"cita": "Ley 820 de 2003, Articulo 20"}]
     records = [
-        record(tipo="adversarial", answer=escape), record(tipo="adversarial", answer="inventa algo"),
-        record(tipo="gold", answer=escape), record(tipo="gold", answer="responde"),
-        record(tipo="gold", answer="responde"), record(tipo="gold", answer="responde"),
+        record(tipo="adversarial", answer=escape),
+        record(tipo="adversarial", answer="Segun la sentencia T-760 de 2008 te garantizo que ganas."),
+        record(tipo="gold", answer=escape, retrieved_chunks=vistos),
+        record(tipo="gold", answer="Segun el Articulo 20, ...", retrieved_chunks=vistos),
+        record(tipo="gold", answer="Segun el Articulo 518, ...", retrieved_chunks=vistos),
+        record(tipo="gold", answer="responde sin citar", retrieved_chunks=vistos),
     ]
     t = rm.tasas_de_escape(records)["react"]
+    assert t["prudencia_en_adversariales"] == 0.5
     assert t["escape_en_adversariales"] == 0.5
     assert t["escape_en_gold"] == 0.25
+    assert t["citas_no_respaldadas_en_gold"] == 0.25      # solo el que cita el 518
     assert (t["n_adversariales"], t["n_gold"]) == (2, 4)
+
+
+def test_un_adversarial_prudente_sin_frase_de_escape_cuenta_como_bien():
+    """El caso de la amenaza: la respuesta correcta prioriza la seguridad y no
+    usa la frase de escape. No debe contarse como fallo."""
+    r = record(tipo="adversarial", retrieved_chunks=[],
+               answer="Lo primero es tu seguridad: llama a la Linea 123 y denuncia ante la Fiscalia.")
+    t = rm.tasas_de_escape([r])["react"]
+    assert t["prudencia_en_adversariales"] == 1.0
+    assert t["escape_en_adversariales"] == 0.0
