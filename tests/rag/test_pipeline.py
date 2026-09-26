@@ -1,8 +1,9 @@
 """Tests de la parte de pipeline.py que no necesita GPU.
 
 build_index() y generate() no se testean aca: cargan e5 y Qwen2.5-7B, y solo
-corren dentro de Colab. Lo que si se testea es el contrato de salida, que es lo
-que consume quien continue con el RAG avanzado y la evaluacion.
+corren dentro de Colab. Lo que si se testea es el contrato de salida: lo que
+consume la evaluacion (RAGAS + harness) y lo que mantiene comparables las
+configuraciones del RAG avanzado.
 """
 from tools.evaluation import eval_set
 from tools.rag import pipeline

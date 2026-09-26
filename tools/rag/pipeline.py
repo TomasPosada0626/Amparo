@@ -183,9 +183,9 @@ def to_eval_record(resultado: dict, registro: dict) -> dict:
 
     Los nombres de campo (question / answer / contexts / ground_truth) son los
     que usa Ragas, para que la corrida de este RAG se pueda evaluar sin volver a
-    transformarla. La evaluacion en si (Ragas, integracion con el harness de
-    tools/evaluation/) NO es parte de este alcance: es el trabajo que continua
-    despues de M3, y este formato es el contrato entre las dos mitades.
+    transformarla. La evaluacion de M3 (metricas RAGAS + harness de
+    tools/evaluation/) consume este formato: es el contrato entre generar y
+    evaluar, y por eso esta fijado con tests.
 
     registro: un registro de data/eval_set.json (id, category, tipo, criterio,
     messages[system, user, assistant]).

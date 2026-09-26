@@ -1,4 +1,4 @@
-"""Configuracion central del RAG ingenuo de Amparo (M3, alcance S07).
+"""Configuracion central del RAG de Amparo (M3: ingenuo S07 + avanzado S08).
 
 Mismo patron que tools/evaluation/config.py: constantes puras, sin imports
 pesados a nivel de modulo, para que sea importable sin GPU, sin faiss y sin
