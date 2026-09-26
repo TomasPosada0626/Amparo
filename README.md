@@ -124,7 +124,7 @@ Amparo/
 │   │   ├── rerank.py           #   reranking con cross-encoder
 │   │   ├── prompt_template.py  #   prompt aumentado de 4 partes
 │   │   ├── tools.py            #   retrieval como herramienta (function calling)
-│   │   ├── agentico.py         #   mini-agente ReAct (buscar, calcular, responder)
+│   │   ├── agentico.py         #   agente ReAct: buscar, calcular, plazos, verificar citas
 │   │   └── pipeline.py         #   orquesta las 7 etapas
 │   ├── evaluation/             # Harness de evaluación (M2)
 │   │   ├── generation.py       #   carga y generación con Qwen2.5-7B

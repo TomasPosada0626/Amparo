@@ -11,14 +11,14 @@ from tools.rag.embed_store import SearchResult
 from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
 
 
-def make_result(chunk_id, *, fuente="Decreto 2663 de 1950 (CST)", articulos=None):
+def make_result(chunk_id, *, fuente="Ley 820 de 2003", articulos=None):
     return SearchResult(
         chunk_id=chunk_id,
         text=f"texto normativo de {chunk_id}",
         fuente=fuente,
         url_fuente=f"https://suin/{chunk_id}",
         score=0.9,
-        articulos_incluidos=articulos or ["64"],
+        articulos_incluidos=articulos or ["20"],
         dense_score=0.9,
     )
 
@@ -76,13 +76,20 @@ def test_salida_sin_accion_devuelve_none():
 # --- Calculadora ------------------------------------------------------------
 
 def test_calculadora_hace_la_cuenta_exacta():
-    # Indemnizacion de ejemplo: 30 dias por el primer año + 20 por cada uno de
-    # los 2 siguientes, sobre un salario diario de 2.000.000 / 30.
-    assert agentico.calculadora("2000000 / 30 * (30 + 20 * 2)") == "4666666.6667"
+    # Reajuste maximo de un canon de 1.200.000 con IPC de 5,2 %.
+    assert agentico.calculadora("1200000 * 1.052") == "1262400"
+    assert agentico.calculadora("2000000 / 30 * 7") == "466666.6667"
 
 
 def test_calculadora_entiende_miles_con_punto_y_x():
     assert agentico.calculadora("2.000.000 x 3") == "6000000"
+
+
+def test_un_solo_punto_es_decimal_no_miles():
+    """El caso del IPC: 1.052 es 1,052 y no mil cincuenta y dos. Leerlo como
+    miles daria un canon 1000 veces mayor sin ningun error visible."""
+    assert agentico.calculadora("1200000 * 1.052") == "1262400"
+    assert agentico.calculadora("1.200.000 * 1.052") == "1262400"
 
 
 def test_calculadora_no_ejecuta_codigo():
@@ -100,34 +107,35 @@ def test_calculadora_devuelve_error_como_observacion():
 
 def test_pregunta_compuesta_encadena_busqueda_calculo_y_respuesta(monkeypatch):
     """El caso para el que existe el agente: norma + cuenta + respuesta."""
-    busquedas = stub_retrieve(monkeypatch, [make_result("cst::64")])
+    busquedas = stub_retrieve(monkeypatch, [make_result("ley820::20")])
     generar = generador(
-        "Pensamiento: necesito la regla\nAccion: buscar_normas[indemnizacion despido sin justa causa]",
-        "Pensamiento: calculo con su salario\nAccion: calculadora[2000000 / 30 * 70]",
-        "Pensamiento: ya tengo todo\nAccion: Responder[Segun el CST, Articulo 64, te deben 4666666.67 pesos.]",
+        "Pensamiento: necesito el tope del reajuste\nAccion: buscar_normas[reajuste canon arrendamiento IPC]",
+        "Pensamiento: calculo el tope\nAccion: calculadora[1200000 * 1.052]",
+        "Pensamiento: ya tengo todo\nAccion: Responder[Segun la Ley 820 de 2003, Articulo 20, el canon puede subir hasta 1262400.]",
     )
 
-    r = agentico.agente_react("me despidieron tras 3 años ganando 2 millones", object(), _generar=generar)
+    r = agentico.agente_react("pago 1.200.000 de arriendo y el IPC fue 5,2 %, hasta cuanto me suben",
+                              object(), _generar=generar)
 
-    assert r["response"] == "Segun el CST, Articulo 64, te deben 4666666.67 pesos."
-    assert busquedas == ["indemnizacion despido sin justa causa"]
+    assert r["response"] == "Segun la Ley 820 de 2003, Articulo 20, el canon puede subir hasta 1262400."
+    assert busquedas == ["reajuste canon arrendamiento IPC"]
     assert [p["accion"] for p in r["traza"]] == ["buscar_normas", "calculadora", "Responder"]
-    assert r["traza"][1]["observacion"] == "4666666.6667"
+    assert r["traza"][1]["observacion"] == "1262400"
 
 
 def test_la_salida_trae_los_contexts_que_vio_el_agente(monkeypatch):
     """Sin contexts no hay RAGAS: deben ser los chunks de sus busquedas, sin
     duplicados aunque busque dos veces lo mismo."""
-    stub_retrieve(monkeypatch, [make_result("cst::64")])
+    stub_retrieve(monkeypatch, [make_result("ley820::20")])
     generar = generador(
-        "Accion: buscar_normas[despido]",
-        "Accion: buscar_normas[despido sin justa causa]",
+        "Accion: buscar_normas[reajuste canon]",
+        "Accion: buscar_normas[incremento arriendo IPC]",
         "Accion: Responder[listo]",
     )
 
     r = agentico.agente_react("consulta", object(), _generar=generar)
 
-    assert r["contexts"] == ["texto normativo de cst::64"]
+    assert r["contexts"] == ["texto normativo de ley820::20"]
     assert r["n_retrieved"] == 1
     assert r["sistema"] == "react"
 
@@ -135,8 +143,8 @@ def test_la_salida_trae_los_contexts_que_vio_el_agente(monkeypatch):
 def test_la_salida_se_convierte_al_registro_de_evaluacion(monkeypatch):
     """Mismo contrato que answer_query: to_eval_record la acepta sin casos
     especiales, con la ruta y la traza para auditar."""
-    stub_retrieve(monkeypatch, [make_result("cst::64")])
-    generar = generador("Accion: buscar_normas[despido]", "Accion: Responder[respuesta]")
+    stub_retrieve(monkeypatch, [make_result("ley820::20")])
+    generar = generador("Accion: buscar_normas[reajuste canon]", "Accion: Responder[respuesta]")
     registro = eval_set.load_eval_set()[0]
 
     r = agentico.agente_react(registro["messages"][1]["content"], object(), _generar=generar)
@@ -188,3 +196,98 @@ def test_si_no_logra_responder_usa_la_valvula_de_escape(monkeypatch):
 
 def test_el_prompt_incluye_la_valvula_de_escape():
     assert RESPUESTA_SIN_CONTEXTO in agentico.SYSTEM_REACT
+
+
+# --- calcular_plazo ------------------------------------------------------------
+
+def test_plazo_en_dias_habiles_cuenta_desde_el_dia_siguiente():
+    """15 dias habiles de un derecho de peticion radicado el martes 1 de
+    septiembre de 2026 (sin festivos en el medio): vence el martes 22."""
+    obs = agentico.calcular_plazo("2026-09-01, 15, habiles")
+    assert "2026-09-22" in obs
+
+
+def test_plazo_en_dias_habiles_salta_los_festivos_de_colombia():
+    """El lunes 12 de octubre de 2026 es festivo (Dia de la Raza): un dia habil
+    despues del viernes 9 es el martes 13, y la observacion dice que se salto."""
+    obs = agentico.calcular_plazo("2026-10-09, 1, habiles")
+    assert "2026-10-13" in obs
+    assert "2026-10-12" in obs
+
+
+def test_plazo_en_dias_calendario():
+    assert "2026-09-11" in agentico.calcular_plazo("01/09/2026, 10, calendario")
+
+
+def test_plazo_con_argumentos_invalidos_devuelve_error():
+    assert agentico.calcular_plazo("mañana, 15, habiles").startswith("error:")
+    assert agentico.calcular_plazo("2026-09-01, quince, habiles").startswith("error:")
+    assert agentico.calcular_plazo("2026-09-01, 15, semanas").startswith("error:")
+    assert agentico.calcular_plazo("2026-09-01").startswith("error:")
+
+
+def test_el_agente_encadena_busqueda_plazo_y_respuesta(monkeypatch):
+    """Derecho de peticion: buscar el termino, contar los dias, responder."""
+    stub_retrieve(monkeypatch, [make_result("cpaca::14", fuente="Ley 1437 de 2011", articulos=["14"])])
+    generar = generador(
+        "Accion: buscar_normas[termino para responder derecho de peticion]",
+        "Accion: calcular_plazo[2026-09-01, 15, habiles]",
+        "Accion: Responder[Segun la Ley 1437 de 2011, Articulo 14, te deben responder a mas tardar el 2026-09-22.]",
+    )
+
+    r = agentico.agente_react("radique un derecho de peticion el 1 de septiembre", object(), _generar=generar)
+
+    assert [p["accion"] for p in r["traza"]] == ["buscar_normas", "calcular_plazo", "Responder"]
+    assert "2026-09-22" in r["traza"][1]["observacion"]
+
+
+# --- Verificacion de citas -----------------------------------------------------
+
+def test_extrae_los_articulos_citados():
+    texto = "Segun el artículo 20 de la Ley 820 de 2003, los arts. 5, 6 y 7 y el art. 6º"
+    assert agentico.articulos_citados(texto) == {"20", "5", "6", "7"}
+
+
+def test_una_cita_que_el_agente_vio_esta_respaldada():
+    vistos = [make_result("ley820::20", articulos=["20"])]
+    assert agentico.citas_no_respaldadas("Segun el articulo 20 ...", vistos) == []
+
+
+def test_una_cita_que_el_agente_no_vio_se_detecta():
+    vistos = [make_result("ley820::20", articulos=["20"])]
+    assert agentico.citas_no_respaldadas("Segun los articulos 20 y 518 ...", vistos) == ["518"]
+
+
+def test_citar_el_articulo_que_menciono_el_usuario_no_es_inventar():
+    """La respuesta puede aclarar que el articulo que dijo el usuario no aplica."""
+    assert agentico.citas_no_respaldadas(
+        "El articulo 64 que mencionas no trata ese tema.", [], query="que dice el articulo 64"
+    ) == []
+
+
+def test_una_respuesta_con_cita_inventada_se_rechaza_y_el_agente_corrige(monkeypatch):
+    """El control de 'no inventar normas': la primera respuesta cita un articulo
+    que no vio, se le devuelve como observacion y la segunda se acepta."""
+    stub_retrieve(monkeypatch, [make_result("ley820::20", articulos=["20"])])
+    generar = generador(
+        "Accion: buscar_normas[reajuste canon]",
+        "Accion: Responder[Segun el Articulo 20 y el Articulo 518, puede subir hasta el IPC.]",
+        "Accion: Responder[Segun el Articulo 20 de la Ley 820 de 2003, puede subir hasta el IPC.]",
+    )
+
+    r = agentico.agente_react("cuanto me pueden subir el arriendo", object(), _generar=generar)
+
+    assert r["response"] == "Segun el Articulo 20 de la Ley 820 de 2003, puede subir hasta el IPC."
+    rechazo = r["traza"][1]
+    assert rechazo["accion"] == "Responder (rechazado)"
+    assert "518" in rechazo["observacion"]
+
+
+def test_si_insiste_en_citar_lo_que_no_vio_responde_con_la_valvula_de_escape(monkeypatch):
+    stub_retrieve(monkeypatch, [])
+    generar = lambda system, user: "Accion: Responder[Segun el Articulo 999, si.]"
+
+    r = agentico.agente_react("consulta", object(), max_pasos=2, _generar=generar)
+
+    assert RESPUESTA_SIN_CONTEXTO in r["response"]
+    assert all(p["accion"] != "Responder" for p in r["traza"])

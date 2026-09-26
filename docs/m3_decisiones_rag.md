@@ -6,8 +6,9 @@ Documento de decisiones del sistema RAG de Amparo. Cubre las tres partes de M3:
   store` offline, `retrieve → augment → generate` online.
 - **Parte II — RAG avanzado (S08) + tool use (S10), secciones 11-17:** hybrid
   search, reranking y el retrieval expuesto como herramienta.
-- **Parte III — RAG agéntico (S10), secciones 18-20:** el mini-agente ReAct y
-  la comparación de las tres rutas (una pasada, tool use, ReAct).
+- **Parte III — RAG agéntico (S10), secciones 18-21:** el mini-agente ReAct,
+  sus herramientas, la verificación de citas y la comparación de las tres rutas
+  (una pasada, tool use, ReAct).
 
 Mismo estándar de documentación que M1/M2: **decisión + justificación +
 evidencia**, no solo qué se eligió.
@@ -291,6 +292,7 @@ Parte II y el material de trabajo para afinar el pipeline.
 | Consulta | Síntoma | Etapa responsable (ingest/chunk/embed/retrieve/generate) | Técnica que lo corrige |
 |---|---|---|---|
 | "Me despidieron sin pagarme la liquidación, ¿qué puedo hacer?" (corrida 2026-09-25, `RETRIEVAL_MIN_SCORE=0.80`) | Recuperó Decreto 2663 de 1950 Art. 419 (liquidador de sindicatos en insolvencia) y varios artículos del Código General del Proceso (score máx. 0.845) -- confunde "liquidación laboral" (pago al trabajador despedido) con "liquidador" (figura de insolvencia/procedimiento civil). El modelo generó una respuesta basada en ese contexto equivocado en vez de activar la válvula de escape. | `embed` (la confusión semántica está en el embedding de la consulta, no en el chunking ni el índice) y `retrieve` (con el umbral de 0.80 vigente en ese momento, el score 0.845 pasaba el piso sin problema) | Reranking con cross-encoder es el candidato más directo -- un cross-encoder puede distinguir "liquidación de prestaciones laborales" de "liquidador judicial de una organización sindical" mejor que la similitud de embeddings densos sola. Implementado en la Parte II (sección 11.2, `tools/rag/rerank.py`). El umbral no lo resuelve solo: con el valor final (0.82) este score sigue pasando (sección 5). |
+| "Me despidieron sin justa causa, ¿cuánto me deben de indemnización?" (revisión del corpus, 2026-09-26) | El corpus no contiene la regla vigente. `codigo_sustantivo_trabajo_decreto_2663_1950.md` trae el **texto original de 1950**: su "Artículo 64" trata de la terminación *con* justa causa y preaviso, y la tabla de indemnización del art. 64 vigente (modificado por la Ley 789 de 2002) no aparece en el archivo; la numeración tampoco coincide con el código vigente (la indemnización moratoria está en el 66 del corpus). La metadata dice `status: in_force`. El sistema puede citar "CST, Artículo 64" con un contenido que no es el vigente. | `ingest` (fuente: versión original en vez de la compilada vigente) — no la corrige ninguna técnica de retrieval | Reemplazar el archivo por la versión vigente compilada del CST y reconstruir el índice. Mientras tanto, los ejemplos de la S10 usan arriendo (Ley 820 de 2003) y plazos (CPACA), cuyo texto sí es el vigente. Revisar también las normas con muchas modificaciones (p. ej. Ley 100 de 1993). |
 
 ## 10. Alcance de cada parte
 
@@ -541,10 +543,18 @@ los tres sistemas quedan etiquetadas y son separables.
 El tool use de la sección 15 decide **si** buscar y **con qué consulta**, pero su
 flujo es siempre buscar → responder. Hay consultas de Amparo que necesitan más de
 un paso de naturaleza distinta: la **pregunta compuesta**, que pide una norma *y*
-una operación sobre ella. El caso típico es laboral: "me despidieron sin justa
-causa después de 3 años ganando 2.000.000, ¿cuánto me deben?". El RAG de una
-pasada trae el artículo 64 del CST, pero deja la cuenta a la memoria del modelo,
-que es donde se equivoca.
+una operación sobre ella. Dos casos típicos:
+
+- **Arriendo:** "pago 1.200.000 y el IPC del año pasado fue 5,2 %, ¿hasta cuánto
+  me pueden subir?" → buscar el artículo 20 de la Ley 820 de 2003 (tope: 100 % del
+  IPC) → calcular → responder citando la norma.
+- **Plazos:** "radiqué un derecho de petición el 1 de septiembre, ¿cuándo me deben
+  responder y si no, qué hago?" → buscar el término (CPACA, artículo 14: quince
+  días) → contar los días hábiles → buscar la tutela → responder.
+
+El RAG de una pasada trae la norma, pero deja la cuenta a la memoria del modelo,
+que es donde se equivoca. (El ejemplo laboral del despido se descartó por el
+problema del corpus del CST anotado en la sección 9.)
 
 ReAct resuelve eso encadenando **pensamiento → acción → observación** hasta
 responder. Código: [`tools/rag/agentico.py`](../tools/rag/agentico.py).
@@ -557,8 +567,22 @@ responder. Código: [`tools/rag/agentico.py`](../tools/rag/agentico.py).
 - `calculadora[expresion]`: aritmética exacta. Se evalúa con un parser de AST
   restringido (números, `+ - * / // % **`, paréntesis), **no con `eval()`**: la
   expresión la escribe el modelo, y `eval()` sobre texto generado ejecutaría
-  código arbitrario. Entiende el formato de pesos colombianos ("2.000.000", "x").
-- `Responder[respuesta]`: termina el bucle.
+  código arbitrario. Convención: números sin separador de miles y con punto
+  decimal (`1200000 * 1.052`). Acepta "2.000.000" (varios grupos de miles, no
+  ambiguo), pero un solo punto (`1.052`) es siempre decimal: leerlo como miles
+  daría, en el caso del IPC, un canon 1000 veces mayor sin ningún error visible.
+- `calcular_plazo[AAAA-MM-DD, n, habiles|calendario]`: fecha de vencimiento de un
+  término, contando desde el día siguiente; en días hábiles salta sábados,
+  domingos y festivos de Colombia, incluidos los trasladados por la Ley Emiliani
+  (librería `holidays`). La observación dice qué festivos saltó. La herramienta
+  **no** sabe cuántos días da la ley ni si son hábiles: eso lo dice la norma que
+  el agente encontró. Solo cuenta.
+- `Responder[respuesta]`: termina el bucle, si pasa la verificación de citas
+  (sección 19).
+
+**Ninguna herramienta contiene reglas legales.** Se descartó a propósito una tabla
+de salarios mínimos o fórmulas de liquidación en código: serían reglas que no
+salen del corpus y romperían el principio de citar solo fuentes verificadas.
 
 **Por qué el formato de texto de ReAct y no JSON.** Es el formato del Lab B y
 separa el pensamiento de la acción, que es lo que se audita. El parser toma la
@@ -575,7 +599,36 @@ y observaciones inventadas que no se ejecutaron) y, para `Responder`, lee hasta 
   forzada; si tampoco llega, se responde con la frase de la válvula de escape. Es
   preferible admitir que no se resolvió que improvisar.
 
-## 19. Contrato de salida y trazabilidad
+## 19. Verificación de citas: no inventar normas, como control y no como instrucción
+
+El prompt ya le pide al modelo citar solo lo que vio, pero una instrucción se puede
+ignorar. Por eso, antes de aceptar un `Responder`, el código extrae los artículos
+que cita la respuesta ("artículo 20", "arts. 5, 6 y 7", "art. 6º") y los compara
+con los que el agente **vio de verdad**: los `articulos_incluidos` de los chunks
+que devolvieron sus búsquedas.
+
+- **Si cita un artículo que no vio, la respuesta no se acepta.** Vuelve como
+  observación ("tu respuesta cita el artículo X, que no aparece en tus
+  observaciones") y el agente tiene que buscarlo o responder sin citarlo. El
+  rechazo queda en la traza como `Responder (rechazado)` y consume un paso.
+- **Si al final sigue citando algo que no vio**, se responde con la válvula de
+  escape.
+- **Los artículos que menciona el propio usuario cuentan como vistos.** Citar lo
+  que el usuario dijo no es inventar, y la respuesta puede estar aclarando que ese
+  artículo no trata lo que pregunta. Lo que el agente no puede hacer es
+  fundamentar en ese artículo sin haberlo leído: para eso tiene que buscarlo.
+
+**Límite conocido:** compara números de artículo, no el par (norma, artículo).
+Detecta el artículo inventado, pero no un artículo real atribuido a otra ley (el 20
+de la Ley 820 citado como si fuera de la Ley 100). Cerrar ese caso exige extraer
+también el nombre de la norma de la respuesta, que el modelo escribe de formas muy
+variadas; queda como mejora.
+
+Hoy el control corre en la ruta ReAct. El RAG de una pasada y el tool use no lo
+tienen; si la evaluación muestra citas no respaldadas en esas rutas, la misma
+función (`agentico.citas_no_respaldadas`) se puede aplicar sobre su respuesta.
+
+## 20. Contrato de salida y trazabilidad
 
 Las tres rutas (una pasada, tool use, ReAct) devuelven el mismo contrato de
 `pipeline.answer_query`, y `pipeline.to_eval_record` las lleva al formato RAGAS
@@ -590,7 +643,7 @@ En las rutas agénticas, `contexts` son **todos los chunks que el agente vio** e
 sus búsquedas, sin duplicados: es contra eso que RAGAS mide si la respuesta se
 apoyó en el contexto.
 
-## 20. El experimento: ¿se justifica el agente?
+## 21. El experimento: ¿se justifica el agente?
 
 No todo necesita un agente: cada paso es una generación más (latencia), y un
 modelo que da vueltas puede empeorar una respuesta simple. Por eso las tres rutas
@@ -610,6 +663,8 @@ agente solo se justifica si mejora las métricas (RAGAS y harness) lo suficiente
 para pagar su latencia.
 
 Verificación: [`test_agentico.py`](../tests/rag/test_agentico.py) cubre el parser
-de pasos, la calculadora (incluido que no ejecuta código) y el bucle: la pregunta
-compuesta, los `contexts` sin duplicados, el paso a `to_eval_record`, el límite de
-pasos y la válvula de escape.
+de pasos; la calculadora (que no ejecuta código y que `1.052` es decimal);
+`calcular_plazo` (días hábiles con festivos, calendario, errores); la verificación
+de citas (cita vista, inventada, mencionada por el usuario; rechazo y corrección;
+válvula de escape si insiste), y el bucle: pregunta compuesta, plazo, `contexts`
+sin duplicados, paso a `to_eval_record` y límite de pasos.
