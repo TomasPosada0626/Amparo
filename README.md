@@ -125,6 +125,7 @@ Amparo/
 │   │   ├── prompt_template.py  #   prompt aumentado de 4 partes
 │   │   ├── tools.py            #   retrieval como herramienta (function calling)
 │   │   ├── agentico.py         #   agente ReAct: buscar, leer articulo, calcular, plazos, verificar citas
+│   │   ├── dspy_prompt.py      #   optimizacion del prompt con DSPy (extra S10)
 │   │   └── pipeline.py         #   orquesta las 7 etapas
 │   ├── evaluation/             # Harness de evaluación (M2)
 │   │   ├── generation.py       #   carga y generación con Qwen2.5-7B
@@ -146,7 +147,8 @@ Amparo/
 │   ├── m2_evaluacion.ipynb        #   M2
 │   ├── m3_s07_rag_ingenuo.ipynb   #   M3 · S07
 │   ├── m3_s08_rag_avanzado.ipynb  #   M3 · S08
-│   └── m3_s10_rag_agentico.ipynb  #   M3 · S10
+│   ├── m3_s10_rag_agentico.ipynb  #   M3 · S10
+│   └── m3_s10_extra_dspy.ipynb    #   M3 · S10 · extra DSPy
 ├── docs/                       # Decisiones de diseño por milestone
 ├── results/                    # Scorecards
 ├── tests/                      # Pruebas (corren sin GPU)
@@ -210,6 +212,8 @@ pytest -q                      # toda la suite
    el agente ReAct, compara las tres rutas (una pasada / tool use / ReAct) sobre el
    eval set, las evalúa con RAGAS (juez Groq) y las registra en W&B. Necesita los
    secretos de Colab `GROQ_API_KEY` y `WANDB_API_KEY`.
+4. **Extra DSPy** — `colab/m3_s10_extra_dspy.ipynb` optimiza el prompt de generación
+   (BootstrapFewShot y MIPROv2) y lo valida en el eval set con RAGAS.
 
 ### Consultar desde código
 

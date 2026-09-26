@@ -114,6 +114,7 @@ def answer_query(
     use_rerank: bool = config.USE_RERANK,
     bm25=None,
     model_bundle=None,
+    prompt_optimizado: dict | None = None,
 ) -> dict:
     """Corre retrieve -> augment -> generate para una consulta.
 
@@ -131,6 +132,10 @@ def answer_query(
     model_bundle: (model, tokenizer) ya cargado. Pasarlo siempre que se evalue
     un lote -- si no, cada llamada recarga 7B de pesos desde cero.
 
+    prompt_optimizado: prompt exportado por DSPy (dspy_prompt.exportar_prompt:
+    instrucciones + demos). Si se pasa, reemplaza al prompt escrito a mano y la
+    salida se marca con sistema "una_pasada_dspy"; el retrieval no cambia.
+
     Devuelve tambien la evidencia de retrieval (chunks, scores) para que el
     harness de tools/evaluation/ pueda auditar no solo el texto final sino que
     efectivamente hubo recuperacion antes de responder.
@@ -144,7 +149,12 @@ def answer_query(
         use_rerank=use_rerank,
         bm25=bm25,
     )
-    messages = build_messages(query, recuperados)
+    if prompt_optimizado is not None:
+        from tools.rag.dspy_prompt import mensajes_con_prompt_optimizado
+
+        messages = mensajes_con_prompt_optimizado(query, recuperados, prompt_optimizado)
+    else:
+        messages = build_messages(query, recuperados)
     respuesta = generate(messages, use_lora=use_lora, model_bundle=model_bundle)
 
     return {
@@ -175,6 +185,7 @@ def answer_query(
         "used_rerank": use_rerank,
         "top_k": top_k,
         "min_score": min_score,
+        "sistema": "una_pasada_dspy" if prompt_optimizado is not None else "una_pasada",
     }
 
 

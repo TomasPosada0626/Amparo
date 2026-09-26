@@ -6,9 +6,10 @@ Documento de decisiones del sistema RAG de Amparo. Cubre las tres partes de M3:
   store` offline, `retrieve → augment → generate` online.
 - **Parte II — RAG avanzado (S08) + tool use (S10), secciones 11-17:** hybrid
   search, reranking y el retrieval expuesto como herramienta.
-- **Parte III — RAG agéntico (S10), secciones 18-23:** el mini-agente ReAct,
+- **Parte III — RAG agéntico (S10), secciones 18-24:** el mini-agente ReAct,
   sus herramientas, la verificación de citas, la comparación de las tres rutas
-  (una pasada, tool use, ReAct), su evaluación con RAGAS y el registro en W&B.
+  (una pasada, tool use, ReAct), su evaluación con RAGAS, el registro en W&B y la
+  optimización del prompt con DSPy (extra).
 
 Mismo estándar de documentación que M1/M2: **decisión + justificación +
 evidencia**, no solo qué se eligió.
@@ -765,3 +766,71 @@ cuenta.
 
 Verificación: [`test_tracking.py`](../tests/evaluation/test_tracking.py), con un
 módulo `wandb` falso. Ejecución: fase 6 del notebook de S10.
+
+## 24. Extra: optimización del prompt con DSPy
+
+Con una métrica confiable, el prompt se puede optimizar en vez de escribirlo a
+mano: DSPy prueba instrucciones y ejemplos (few-shot), mide cada intento y se
+queda con el mejor. Código: [`tools/rag/dspy_prompt.py`](../tools/rag/dspy_prompt.py);
+ejecución: [`colab/m3_s10_extra_dspy.ipynb`](../colab/m3_s10_extra_dspy.ipynb).
+
+**Qué se optimiza: el prompt de generación del RAG de una pasada**, con el
+retrieval fijo (configuración C). Los contextos se recuperan una vez y se guardan;
+la única variable es el prompt, así que cualquier cambio en el puntaje es
+atribuible a él. Se eligió la generación (y no la reformulación de consultas del
+tool use) porque es donde vive el principio de Amparo —citar solo lo que está en
+el contexto, escapar cuando no hay— y porque se puede medir sin juez.
+
+**Métrica programática (`metrica_amparo`).** Optimizar evalúa cientos de
+respuestas; con un juez LLM se agotaría el cupo de Groq. La métrica usa las mismas
+reglas verificables del agente ReAct (sección 19):
+
+| Caso | 1.0 | 0.5 | 0.0 |
+|---|---|---|---|
+| gold con contexto | cita ≥1 artículo del contexto y ninguno ajeno | responde sin citar | cita algo ajeno, cita sentencias, promete resultado, o escapa teniendo contexto |
+| gold sin contexto | escapa | — | responde de memoria |
+| adversarial | es prudente (`es_prudente`) | — | no es prudente |
+
+**No mide si la respuesta es jurídicamente correcta**; mide honestidad con las
+fuentes. Por eso el prompt ganador se valida al final con RAGAS (juez Groq), y
+solo se adopta si no empeora RAGAS ni la prudencia.
+
+**Datos sin fuga.** El eval set es el test y se usa una sola vez al final.
+
+- **train (46) y dev (24):** 40 + 20 preguntas del dataset de M1, solo de las 9
+  categorías que cubre el corpus, **excluyendo las 20 que también están en el
+  eval set**, repartidas por categoría con semilla fija (reproducible).
+- **10 adversariales nuevos** (`ADVERSARIALES_DSPY`: 6 a train, 4 a dev), de los
+  mismos tipos que los del eval set pero distintos, para que el prompt aprenda el
+  comportamiento y no memorice el examen. Viven en el código, documentados, en vez
+  de en un archivo aparte.
+- La referencia de cada gold es la respuesta de M1, que no está anclada al corpus:
+  por eso no entra a la métrica; solo sirve de ejemplo en los demos.
+
+**Optimizadores, de menos a más:** el prompt escrito a mano (punto de partida,
+misma métrica) → `BootstrapFewShot` (elige hasta 3 ejemplos entre las respuestas
+perfectas en train) → `MIPROv2` en modo `light` (propone instrucciones candidatas y
+busca la mejor combinación instrucción + ejemplos con optimización bayesiana,
+midiendo en dev). Gana el mayor puntaje en dev; ante empate, el más simple.
+
+**Modelo.** DSPy habla con el modelo por una API compatible con OpenAI, así que la
+optimización corre con `qwen2.5:7b` en Ollama (misma familia y tamaño que el
+generador; otra cuantización). Para que la cifra final sea comparable con las
+demás rutas, **el test corre con el generador de HF**: el prompt ganador se
+exporta a JSON (instrucciones + demos) y `pipeline.answer_query(prompt_optimizado=...)`
+lo usa con la misma estructura system/user del prompt original. La salida se marca
+`una_pasada_dspy` y se registra en W&B junto a las otras rutas.
+
+**Versión fijada:** `dspy[optuna]==3.4.0` (la API de los optimizadores cambia entre
+versiones; `optuna` lo exige MIPROv2). El flujo completo —evaluación,
+`BootstrapFewShot`, `MIPROv2` y exportación— se verificó con esa versión usando un
+modelo simulado.
+
+**Adopción.** Si el prompt optimizado gana en test y no empeora RAGAS, se versiona
+en `results/m3_dspy_prompt.json`. Si no gana, se reporta igual: es evidencia de que
+el prompt escrito a mano ya estaba cerca del óptimo para esta métrica.
+
+Verificación: [`test_dspy_prompt.py`](../tests/rag/test_dspy_prompt.py) cubre la
+división (sin fuga, tamaños, categorías, reproducible, adversariales distintos), la
+métrica en cada caso de la tabla, la exportación, los mensajes para HF y que
+`answer_query` use el prompt optimizado sin cambiar el retrieval.
