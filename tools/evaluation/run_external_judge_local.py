@@ -1,5 +1,5 @@
 """Corre el juez externo (Groq) fuera de Colab, sin GPU -- usa los archivos
-de resultados que ya genera colab/evaluacion.ipynb en Drive (Fase 7):
+de resultados que ya genera colab/m2_evaluacion.ipynb en Drive (Fase 7):
 `resultados_baseline.jsonl`, `resultados_finetuned.jsonl`, y opcionalmente
 `eval_set_baseline_results.jsonl` / `eval_set_finetuned_results.jsonl`.
 

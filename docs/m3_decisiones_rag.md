@@ -12,8 +12,8 @@ evidencia**, no solo qué se eligió.
 
 Fecha: 2026-09-21 (Parte I) · 2026-09-24 (Parte II) · código:
 [`tools/rag/`](../tools/rag/) · ejecución:
-[`colab/rag_ingenuo.ipynb`](../colab/rag_ingenuo.ipynb) (S07) ·
-[`colab/rag_avanzado.ipynb`](../colab/rag_avanzado.ipynb) (S08/S10)
+[`colab/m3_s07_rag_ingenuo.ipynb`](../colab/m3_s07_rag_ingenuo.ipynb) (S07) ·
+[`colab/m3_s08_rag_avanzado.ipynb`](../colab/m3_s08_rag_avanzado.ipynb) (S08/S10)
 
 > **Por qué este RAG existe.** El M2 midió que el modelo fine-tuneado llega a
 > **100% de cumplimiento de "no inventa citas"** en los 201 ejemplos de
@@ -204,7 +204,7 @@ indistinguible de un olvido.
 ## 5. Retrieval
 
 - **`TOP_K`: 5** · **`RETRIEVAL_MIN_SCORE`: 0.82** (umbral de la válvula de escape)
-- **Estado de la evidencia: CALIBRADO** contra una corrida real (2026-09-25, `colab/rag_ingenuo.ipynb`, fase 5):
+- **Estado de la evidencia: CALIBRADO** contra una corrida real (2026-09-25, `colab/m3_s07_rag_ingenuo.ipynb`, fase 5):
   - El 0.3 que traía la plantilla de la skill **no sirve para e5**: sus
     embeddings son poco dispersos y pares de textos sin ninguna relación suelen
     dar coseno ~0.70-0.75. Con un piso de 0.3 la válvula de escape nunca se
@@ -253,7 +253,7 @@ indistinguible de un olvido.
 
 ## 7. Cómo ejecutarlo
 
-Todo corre desde [`colab/rag_ingenuo.ipynb`](../colab/rag_ingenuo.ipynb) (GPU
+Todo corre desde [`colab/m3_s07_rag_ingenuo.ipynb`](../colab/m3_s07_rag_ingenuo.ipynb) (GPU
 T4 o superior). Las fases 1-2 construyen el índice; las 3-6 lo consultan.
 
 En local, sin GPU, se puede correr todo lo que no necesita el modelo:
@@ -299,7 +299,7 @@ evidencia de retrieval por consulta.
 **Parte II — RAG avanzado (S08) + tool use (S10):** hybrid search, reranking y el
 retrieval expuesto como herramienta. Código en `tools/rag/{hybrid,rerank,tools}.py`,
 integrado por bandera en `retrieve.py` / `pipeline.py`; ejecución en
-[`colab/rag_avanzado.ipynb`](../colab/rag_avanzado.ipynb).
+[`colab/m3_s08_rag_avanzado.ipynb`](../colab/m3_s08_rag_avanzado.ipynb).
 
 El contrato de salida es `pipeline.to_eval_record()`, estable entre las dos
 partes: el RAG avanzado solo añade dos campos de trazabilidad
@@ -516,7 +516,7 @@ los tres sistemas quedan etiquetadas y son separables.
 - **Pesado, solo en Colab, con import perezoso:** el cross-encoder
   (`sentence-transformers`), e5 y Qwen. Sin la dependencia, el reranker falla con
   un `ImportError` explícito que indica que corre en Colab, no con un error mudo.
-- **Ejecución:** [`colab/rag_avanzado.ipynb`](../colab/rag_avanzado.ipynb) carga
+- **Ejecución:** [`colab/m3_s08_rag_avanzado.ipynb`](../colab/m3_s08_rag_avanzado.ipynb) carga
   el índice desde Drive, construye el BM25 una vez, corre la comparación A/B/C
   sobre retrieval, la corrida A/B/C sobre el eval set con su latencia, y la demo
   del tool use.

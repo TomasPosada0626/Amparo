@@ -1,6 +1,6 @@
 """Carga y split estratificado del dataset legal.
 
-Replica EXACTA de la celda 7 de colab/baseline_finetune.ipynb (M1): agrupa
+Replica EXACTA de la celda 7 de colab/m1_finetune.ipynb (M1): agrupa
 por categoria (orden de primera aparicion), baraja cada grupo con un RNG
 local sembrado (bit-identico a random.seed(seed)+random.shuffle del
 notebook), separa max(1, round(len(items)*val_fraction)) por categoria, y

@@ -1,7 +1,7 @@
 """Carga del modelo, manejo del adaptador LoRA y generacion de texto.
 
 Requiere GPU + torch/transformers/peft/bitsandbytes (instalados solo dentro
-del notebook de Colab -- ver colab/evaluacion.ipynb -- no en requirements.txt
+del notebook de Colab -- ver colab/m2_evaluacion.ipynb -- no en requirements.txt
 del repo, para no arriesgar romper el build de PyTorch con CUDA que Colab ya
 trae preinstalado). Las importaciones pesadas son perezosas (dentro de cada
 funcion) a proposito: asi este modulo SI es importable fuera de Colab (p. ej.
@@ -21,7 +21,7 @@ from tools.evaluation import config
 
 def load_base_model(model_id: str = config.BASE_MODEL_ID):
     """Carga el modelo base en 4-bit (QLoRA), igual que la celda 9 de
-    baseline_finetune.ipynb / la de "Modo rapido"."""
+    m1_finetune.ipynb / la de "Modo rapido"."""
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 

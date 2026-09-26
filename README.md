@@ -41,7 +41,7 @@ y evidencia medida.
 
 | Milestone | Tema | Estado | Artefactos |
 |---|---|:--:|---|
-| **M1** | Fine-tuning (LoRA sobre Qwen2.5-7B-Instruct) | ✅ | `data/dataset_legal.jsonl`, `colab/baseline_finetune.ipynb` |
+| **M1** | Fine-tuning (LoRA sobre Qwen2.5-7B-Instruct) | ✅ | `data/dataset_legal.jsonl`, `colab/m1_finetune.ipynb` |
 | **M2** | Harness de evaluación (juez LLM, métricas, sesgos) | ✅ | `tools/evaluation/`, `results/m2_scorecard_2026-09-19.md` |
 | **M3** | RAG: ingenuo (S07) + avanzado (S08) + tool use (S10) | ✅ | `tools/rag/`, `docs/m3_decisiones_rag.md` |
 
@@ -139,10 +139,10 @@ Amparo/
 │   ├── eval_set.json           # Eval set propio: gold + adversariales (M2)
 │   └── corpus/normas/          # Corpus de normas colombianas (versionado)
 ├── colab/                      # Notebooks de ejecución (GPU)
-│   ├── baseline_finetune.ipynb #   M1
-│   ├── evaluacion.ipynb        #   M2
-│   ├── rag_ingenuo.ipynb       #   M3 · S07
-│   └── rag_avanzado.ipynb      #   M3 · S08 + S10
+│   ├── m1_finetune.ipynb          #   M1
+│   ├── m2_evaluacion.ipynb        #   M2
+│   ├── m3_s07_rag_ingenuo.ipynb   #   M3 · S07
+│   └── m3_s08_rag_avanzado.ipynb  #   M3 · S08 + S10
 ├── docs/                       # Decisiones de diseño por milestone
 ├── results/                    # Scorecards
 ├── tests/                      # Pruebas (corren sin GPU)
@@ -198,9 +198,9 @@ pytest -q                      # toda la suite
 
 ### Ejecutar el pipeline completo (Colab)
 
-1. **Indexar** — `colab/rag_ingenuo.ipynb` construye el índice FAISS y lo guarda
+1. **Indexar** — `colab/m3_s07_rag_ingenuo.ipynb` construye el índice FAISS y lo guarda
    en Drive.
-2. **Consultar** — `colab/rag_avanzado.ipynb` carga el índice, compara las tres
+2. **Consultar** — `colab/m3_s08_rag_avanzado.ipynb` carga el índice, compara las tres
    configuraciones de retrieval (denso / hybrid / hybrid + rerank) y demuestra el
    tool use.
 

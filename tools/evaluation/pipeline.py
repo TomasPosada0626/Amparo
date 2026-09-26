@@ -1,7 +1,7 @@
 """Orquestador: junta generacion + metricas clasicas + juez + metrica de
 dominio en filas EvalRow, y construye el manifiesto de reproducibilidad de
 la corrida. El notebook de Colab llama estas funciones fase por fase (ver
-colab/evaluacion.ipynb) despues de generar y calificar cada lote.
+colab/m2_evaluacion.ipynb) despues de generar y calificar cada lote.
 """
 from __future__ import annotations
 

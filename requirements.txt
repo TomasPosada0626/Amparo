@@ -8,7 +8,7 @@ python-dotenv>=1.0.0
 # reemplazar el build de PyTorch con CUDA que Colab ya trae preinstalado.
 # bert-score tambien queda fuera por el mismo motivo: depende de torch de
 # forma transitiva, asi que se instala junto al resto del stack pesado en
-# colab/evaluacion.ipynb, no aqui.
+# colab/m2_evaluacion.ipynb, no aqui.
 sacrebleu>=2.4.0
 rouge-score>=0.1.2
 numpy>=1.26
