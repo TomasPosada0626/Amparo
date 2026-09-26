@@ -110,3 +110,28 @@ def test_el_eval_set_ampliado_sigue_teniendo_gold_y_adversariales():
 
     assert len(eval_set.gold_examples(registros)) >= 10
     assert len(eval_set.adversarial_examples(registros)) >= 3
+
+
+def test_el_record_conserva_el_sistema_abc_que_lo_produjo():
+    """used_hybrid/used_rerank etiquetan el registro con el sistema (A/B/C) que
+    lo genero. Sin ellos, dos corridas del mismo eval set con numeros distintos
+    serian indistinguibles y el delta de S08 no seria atribuible a la tecnica."""
+    record = pipeline.to_eval_record(
+        resultado_de_ejemplo(used_hybrid=True, used_rerank=True), registro_de_ejemplo()
+    )
+
+    assert record["used_hybrid"] is True
+    assert record["used_rerank"] is True
+
+
+def test_el_record_asume_sistema_A_si_no_se_declara_el_sistema():
+    """Compatibilidad con el contrato S07: un resultado sin los flags (caller
+    viejo) se registra como sistema A (denso puro), no revienta."""
+    resultado = resultado_de_ejemplo()
+    resultado.pop("used_hybrid", None)
+    resultado.pop("used_rerank", None)
+
+    record = pipeline.to_eval_record(resultado, registro_de_ejemplo())
+
+    assert record["used_hybrid"] is False
+    assert record["used_rerank"] is False

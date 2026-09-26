@@ -51,10 +51,24 @@ class SearchResult:
     articulos_incluidos: list[str] = None  # type: ignore[assignment]
     capitulo: str = ""
     vigente: bool = True
+    # Score del recuperador denso (coseno e5), preservado aparte porque `score`
+    # cambia de significado a lo largo del pipeline avanzado: en el retrieval
+    # ingenuo `score` ES el coseno, pero tras la fusion RRF pasa a ser el puntaje
+    # RRF y tras el reranking el del cross-encoder -- escalas distintas. La
+    # valvula de escape (RETRIEVAL_MIN_SCORE) esta calibrada sobre el coseno de
+    # e5, asi que necesita seguir leyendo ese numero y no el que quedo en `score`
+    # despues de reordenar. Ver docs/m3_decisiones_rag.md (valvula de
+    # escape). None cuando el chunk no vino por la via densa (p. ej. solo BM25).
+    dense_score: float | None = None
 
     def __post_init__(self) -> None:
         if self.articulos_incluidos is None:
             self.articulos_incluidos = []
+        # Por defecto, el score denso ES el score inicial (caso S07): asi el
+        # codigo que ya existia sigue viendo el coseno en `dense_score` sin tener
+        # que setearlo a mano.
+        if self.dense_score is None:
+            self.dense_score = self.score
 
     @property
     def cita(self) -> str:

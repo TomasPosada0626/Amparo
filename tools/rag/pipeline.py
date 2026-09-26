@@ -110,6 +110,9 @@ def answer_query(
     use_lora: bool = False,
     top_k: int = config.TOP_K,
     min_score: float | None = config.RETRIEVAL_MIN_SCORE,
+    use_hybrid: bool = config.USE_HYBRID,
+    use_rerank: bool = config.USE_RERANK,
+    bm25=None,
     model_bundle=None,
 ) -> dict:
     """Corre retrieve -> augment -> generate para una consulta.
@@ -119,6 +122,12 @@ def answer_query(
     si el fine-tuning sigue aportando cuando el modelo ya tiene fuentes en el
     contexto, o si el RAG lo vuelve redundante.
 
+    use_hybrid / use_rerank: seleccionan la configuracion A/B/C del retrieval
+    (ver retrieve.retrieve y docs/m3_decisiones_rag.md). Los defaults salen de
+    config (A, denso puro), asi que sin tocar nada answer_query usa el retrieval
+    base. bm25: un BM25Index ya construido, para no reconstruirlo por consulta en
+    un lote.
+
     model_bundle: (model, tokenizer) ya cargado. Pasarlo siempre que se evalue
     un lote -- si no, cada llamada recarga 7B de pesos desde cero.
 
@@ -126,7 +135,15 @@ def answer_query(
     harness de tools/evaluation/ pueda auditar no solo el texto final sino que
     efectivamente hubo recuperacion antes de responder.
     """
-    recuperados = retrieve(query, store, top_k=top_k, min_score=min_score)
+    recuperados = retrieve(
+        query,
+        store,
+        top_k=top_k,
+        min_score=min_score,
+        use_hybrid=use_hybrid,
+        use_rerank=use_rerank,
+        bm25=bm25,
+    )
     messages = build_messages(query, recuperados)
     respuesta = generate(messages, use_lora=use_lora, model_bundle=model_bundle)
 
@@ -142,12 +159,20 @@ def answer_query(
                 "chunk_id": r.chunk_id,
                 "cita": r.cita,
                 "url_fuente": r.url_fuente,
+                # score es el del sistema que corrio (coseno en A, RRF en B,
+                # cross-encoder en C); dense_score preserva el coseno de e5 para
+                # que se pueda auditar la valvula de escape sin importar el sistema.
                 "score": round(r.score, 4),
+                "dense_score": round(r.dense_score, 4) if r.dense_score is not None else None,
             }
             for r in recuperados
         ],
         "n_retrieved": len(recuperados),
         "used_lora": use_lora,
+        # Trazabilidad del sistema A/B/C: sin estos flags, dos corridas con
+        # numeros distintos serian indistinguibles y el delta no seria atribuible.
+        "used_hybrid": use_hybrid,
+        "used_rerank": use_rerank,
         "top_k": top_k,
         "min_score": min_score,
     }
@@ -177,6 +202,12 @@ def to_eval_record(resultado: dict, registro: dict) -> dict:
         "retrieved_chunks": resultado["retrieved_chunks"],
         "n_retrieved": resultado["n_retrieved"],
         "used_lora": resultado["used_lora"],
+        # Sistema A/B/C que produjo esta respuesta. Se usan .get() con default
+        # False para no romper si el resultado viene de un caller que todavia no
+        # los setea (compatibilidad con el contrato S07). Ver
+        # docs/m3_decisiones_rag.md.
+        "used_hybrid": resultado.get("used_hybrid", False),
+        "used_rerank": resultado.get("used_rerank", False),
     }
 
 

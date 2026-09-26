@@ -22,3 +22,11 @@ pytest>=8.0.0
 # embeddings e5 y para la generacion): igual que en M1/M2, ese stack se instala
 # dentro de colab/ y la indexacion corre alli, donde esta la GPU.
 faiss-cpu>=1.8.0
+
+# tools/rag (M3 -- RAG avanzado, S08). rank_bm25 es la busqueda lexica (BM25)
+# de la hybrid search. Es Python puro (numpy) y NO arrastra torch, asi que cabe
+# en este requirements liviano y su parte pura (indice + scoring) se testea en
+# local sin GPU. El cross-encoder del reranking NO entra aqui: depende de
+# sentence-transformers/torch, o sea stack pesado que vive en colab/ (misma
+# razon que e5 y bert-score). Ver docs/m3_decisiones_rag.md.
+rank_bm25>=0.2.2
