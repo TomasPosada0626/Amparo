@@ -291,3 +291,97 @@ def test_si_insiste_en_citar_lo_que_no_vio_responde_con_la_valvula_de_escape(mon
 
     assert RESPUESTA_SIN_CONTEXTO in r["response"]
     assert all(p["accion"] != "Responder" for p in r["traza"])
+
+
+# --- leer_articulo -------------------------------------------------------------
+
+def meta(chunk_id, fuente, articulos, text=None):
+    return {"chunk_id": chunk_id, "doc_id": chunk_id.split("::")[0], "text": text or f"texto de {chunk_id}",
+            "fuente": fuente, "tipo": "ley", "url_fuente": f"https://suin/{chunk_id}",
+            "articulos_incluidos": articulos, "capitulo": "", "vigente": True}
+
+
+class StoreConMetadata:
+    """Solo la metadata: leer_articulo no hace busqueda semantica."""
+    def __init__(self):
+        self.metadata = [
+            meta("ley820::19", "Ley 820 de 2003 (Regimen de arrendamiento de vivienda urbana)", ["19"]),
+            meta("ley820::20", "Ley 820 de 2003 (Regimen de arrendamiento de vivienda urbana)", ["20"],
+                 "Articulo 20. Reajuste del canon de arrendamiento..."),
+            meta("ley820::21", "Ley 820 de 2003 (Regimen de arrendamiento de vivienda urbana)", ["21", "22"],
+                 "Articulo 21. Incumplimiento de las obligaciones..."),
+            meta("cst::64", "Decreto 2663 de 1950 (Codigo Sustantivo del Trabajo)", ["64"]),
+            meta("cgp::64", "Ley 1564 de 2012 (Codigo General del Proceso)", ["64"]),
+        ]
+
+
+def test_lee_el_articulo_exacto_con_su_cita():
+    obs, res = agentico.leer_articulo("Ley 820 de 2003, 20", StoreConMetadata())
+
+    assert [r.chunk_id for r in res] == ["ley820::20"]
+    assert "Ley 820 de 2003 (Regimen de arrendamiento de vivienda urbana), Articulo 20" in obs
+    assert "Reajuste del canon" in obs
+    assert res[0].dense_score is None   # lectura exacta, no vino por la via densa
+
+
+def test_encuentra_el_articulo_dentro_de_un_chunk_agrupado():
+    """Los articulos cortos se agrupan en un chunk: el 22 vive en el chunk del 21."""
+    _, res = agentico.leer_articulo("Ley 820, articulo 22", StoreConMetadata())
+    assert [r.chunk_id for r in res] == ["ley820::21"]
+
+
+def test_entiende_siglas_de_la_norma():
+    _, res = agentico.leer_articulo("CST, 64", StoreConMetadata())
+    assert [r.chunk_id for r in res] == ["cst::64"]
+    _, res = agentico.leer_articulo("CGP, art. 64", StoreConMetadata())
+    assert [r.chunk_id for r in res] == ["cgp::64"]
+
+
+def test_articulo_que_no_esta_lo_dice_y_no_trae_resultados():
+    """El caso del usuario equivocado de numero: no se inventa el contenido."""
+    obs, res = agentico.leer_articulo("Ley 820 de 2003, 999", StoreConMetadata())
+    assert res == []
+    assert "no esta en el corpus" in obs
+    assert "equivocado" in obs
+
+
+def test_norma_que_no_esta_en_el_corpus_lo_dice():
+    obs, res = agentico.leer_articulo("Codigo Civil, 1", StoreConMetadata())
+    assert res == []
+    assert "No reconozco la norma" in obs
+
+
+def test_norma_ambigua_pide_precisar():
+    """'La de 1991' puede ser la Constitucion o el Decreto 2591 de 1991: no se
+    elige al azar, se pide la norma con su numero."""
+    store = StoreConMetadata()
+    store.metadata += [meta("cp::1", "Constitucion Politica de 1991", ["1"]),
+                       meta("d2591::1", "Decreto 2591 de 1991 (Reglamentacion de la accion de tutela)", ["1"])]
+    obs, res = agentico.leer_articulo("la norma de 1991, 1", store)
+    assert res == []
+    assert "ambigua" in obs
+
+
+def test_argumentos_invalidos_devuelven_error():
+    assert agentico.leer_articulo("Ley 820 de 2003", StoreConMetadata())[0].startswith("error:")
+    assert agentico.leer_articulo("Ley 820 de 2003, veinte", StoreConMetadata())[0].startswith("error:")
+
+
+def test_usuario_equivocado_de_articulo_el_agente_lo_lee_y_busca_el_tema(monkeypatch):
+    """El usuario cree que el articulo 21 de la Ley 820 habla del reajuste. El
+    agente lo lee, ve que no, busca el tema y responde citando el correcto (el
+    20), que si vio -- asi que la verificacion de citas lo acepta."""
+    busquedas = stub_retrieve(monkeypatch, [make_result("ley820::20", articulos=["20"])])
+    generar = generador(
+        "Pensamiento: el usuario menciona el 21, lo leo\nAccion: leer_articulo[Ley 820 de 2003, 21]",
+        "Pensamiento: el 21 no trata del reajuste, busco el tema\nAccion: buscar_normas[reajuste del canon]",
+        "Accion: Responder[El articulo 21 que mencionas trata del incumplimiento; el reajuste esta en el Articulo 20.]",
+    )
+
+    r = agentico.agente_react("segun el articulo 21 de la ley 820 cuanto me pueden subir el arriendo",
+                              StoreConMetadata(), _generar=generar)
+
+    assert [p["accion"] for p in r["traza"]] == ["leer_articulo", "buscar_normas", "Responder"]
+    assert "Incumplimiento" in r["traza"][0]["observacion"]
+    assert busquedas == ["reajuste del canon"]
+    assert set(r["contexts"]) == {"Articulo 21. Incumplimiento de las obligaciones...", "texto normativo de ley820::20"}

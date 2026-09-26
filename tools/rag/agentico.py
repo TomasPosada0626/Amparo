@@ -28,6 +28,13 @@ Herramientas:
     restringido (numeros y + - * / // % ** y parentesis), NO con eval(): la
     expresion la escribe el modelo, y eval() sobre texto generado es ejecutar
     codigo arbitrario.
+  - leer_articulo[norma, numero]: lee un articulo EXACTO del corpus por su
+    numero, sin busqueda semantica. Sirve cuando el usuario menciona un articulo
+    ("segun el articulo 20 de la Ley 820...") o cuando una observacion remite a
+    otro ("en los terminos del articulo 13"). Si el usuario se equivoco de
+    articulo, el agente lo lee, ve que no trata lo que pregunta y se lo dice, en
+    vez de fundamentar en el numero que le dieron. Si el articulo no esta en el
+    corpus, la observacion lo dice: tampoco se inventa.
   - calcular_plazo[fecha, n, habiles|calendario]: fecha de vencimiento de un
     termino, contando desde el dia siguiente y, en dias habiles, sin sabados,
     domingos ni festivos de Colombia (libreria `holidays`). Contar dias habiles
@@ -66,19 +73,22 @@ import ast
 import datetime as dt
 import operator
 import re
+import unicodedata
 
 from tools.rag.chunk import normalizar_numero
+from tools.rag.embed_store import metadata_to_result
 from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
 from tools.rag.tools import (
     TOOL_TOP_K,
     _generar_por_defecto,
     ejecutar_tool_con_resultados,
+    formatear_observacion,
     resultado_para_evaluacion,
 )
 
 MAX_PASOS = 5
 
-ACCIONES = ("buscar_normas", "calculadora", "calcular_plazo", "Responder")
+ACCIONES = ("buscar_normas", "leer_articulo", "calculadora", "calcular_plazo", "Responder")
 
 SYSTEM_REACT = (
     "Eres Amparo, un asistente juridico de derecho colombiano. Resuelve la "
@@ -86,6 +96,7 @@ SYSTEM_REACT = (
     "Pensamiento: <que necesitas averiguar o calcular>\n"
     "Accion: <una de estas>\n"
     "  buscar_normas[<consulta>]   -> busca articulos en el corpus de normas colombianas verificadas\n"
+    "  leer_articulo[<norma>, <numero>] -> lee un articulo exacto (ej. leer_articulo[Ley 820 de 2003, 20])\n"
     "  calculadora[<expresion>]    -> calcula una expresion aritmetica: numeros sin separador de miles y con punto decimal, + - * / y parentesis (ej. 1200000 * 1.052)\n"
     "  calcular_plazo[<AAAA-MM-DD>, <n>, <habiles|calendario>] -> fecha en que vence un termino de n dias contado desde el dia siguiente\n"
     "  Responder[<respuesta final>] -> termina con la respuesta para el usuario\n\n"
@@ -97,6 +108,9 @@ SYSTEM_REACT = (
     "tipo que diga la norma. No hagas cuentas de cabeza.\n"
     "- Solo puedes citar articulos que aparecieron en tus observaciones: una cita "
     "que no viste sera rechazada.\n"
+    "- Si el usuario menciona un articulo concreto, leelo con leer_articulo y "
+    "comprueba que trate lo que pregunta. Si no lo trata o no existe, diselo con "
+    "claridad y busca el tema con buscar_normas.\n"
     "- Si buscar_normas no encuentra normas que respalden la respuesta, termina con: "
     f'Responder[{RESPUESTA_SIN_CONTEXTO}.]\n'
     "- Usa lenguaje comprensible para alguien sin formacion juridica."
@@ -104,7 +118,9 @@ SYSTEM_REACT = (
 
 # Accion[argumento]. Para Responder el argumento puede tener varias lineas y
 # corchetes internos (una cita "[1]"), asi que se toma hasta el ULTIMO ']'.
-_PATRON_ACCION = re.compile(r"(buscar_normas|calculadora|calcular_plazo|Responder)\s*\[", re.IGNORECASE)
+_PATRON_ACCION = re.compile(
+    r"(buscar_normas|leer_articulo|calculadora|calcular_plazo|Responder)\s*\[", re.IGNORECASE
+)
 _PATRON_PENSAMIENTO = re.compile(r"Pensamiento:\s*(.*)", re.IGNORECASE)
 
 
@@ -196,6 +212,101 @@ def calculadora(expresion: str) -> str:
     if isinstance(valor, float):
         valor = round(valor, 4)
     return str(valor)
+
+
+# --- Leer un articulo exacto -------------------------------------------------
+
+# Siglas y nombres cortos con que la gente se refiere a las normas del corpus.
+# Se expanden antes de comparar con la `fuente` de cada chunk.
+ALIAS_NORMAS = {
+    "cst": "codigo sustantivo del trabajo",
+    "cgp": "codigo general del proceso",
+    "cpaca": "cpaca",
+    "constitucion nacional": "constitucion politica",
+    "constitucion": "constitucion politica",
+    "estatuto del consumidor": "estatuto del consumidor",
+    "codigo de transito": "codigo nacional de transito",
+    "ley de arrendamiento": "arrendamiento de vivienda urbana",
+    "habeas data": "habeas data financiero",
+}
+_PALABRAS_VACIAS = {"de", "del", "la", "el", "los", "las", "y", "ley", "decreto", "codigo", "numero", "no"}
+MAX_CHUNKS_POR_ARTICULO = 3
+
+
+def _normalizar_texto(texto: str) -> str:
+    sin_tildes = unicodedata.normalize("NFKD", texto or "").encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z0-9 ]", " ", sin_tildes.lower())
+
+
+def _puntaje_norma(consulta: str, fuente: str) -> int:
+    """Cuanto se parece lo que escribio el modelo a la `fuente` de un chunk.
+
+    Los numeros pesan doble ("820", "1437": identifican la norma casi solos);
+    las palabras suman de a uno. Las siglas se expanden con ALIAS_NORMAS."""
+    q = _normalizar_texto(consulta)
+    for alias, expansion in ALIAS_NORMAS.items():
+        q = re.sub(rf"\b{alias}\b", expansion, q)
+    f = _normalizar_texto(fuente)
+    nums_q, nums_f = set(re.findall(r"\d+", q)), set(re.findall(r"\d+", f))
+    pal_q = {w for w in q.split() if not w.isdigit() and w not in _PALABRAS_VACIAS and len(w) > 2}
+    pal_f = {w for w in f.split() if not w.isdigit()}
+    return 2 * len(nums_q & nums_f) + len(pal_q & pal_f)
+
+
+def leer_articulo(argumento: str, store) -> tuple[str, list]:
+    """Lee un articulo exacto del corpus: (observacion, resultados).
+
+    argumento: "<norma>, <numero>" (p. ej. "Ley 820 de 2003, 20" o "CST, 64").
+    Recorre la metadata del indice (no hay busqueda semantica: es una lectura
+    por numero) y devuelve los chunks de esa norma que contienen ese articulo,
+    con su cita, en el mismo formato que buscar_normas. Los resultados entran a
+    los `contexts` y a la verificacion de citas igual que los de una busqueda.
+
+    Si la norma no se reconoce o el articulo no esta en el corpus, lo dice en la
+    observacion (sin resultados): el agente debe decirle al usuario que ese
+    articulo no esta o no trata el tema, no suponer su contenido.
+    """
+    if "," not in (argumento or ""):
+        return "error: usa leer_articulo[<norma>, <numero>], p. ej. leer_articulo[Ley 820 de 2003, 20].", []
+    norma, numero = (p.strip() for p in argumento.rsplit(",", 1))
+    numero = re.sub(r"(?i)^art(?:[ií]culo|\.)?\s*", "", numero).strip(" º°.")
+    if not re.fullmatch(r"\d+[A-Za-z]?", numero):
+        return f"error: {numero!r} no es un numero de articulo.", []
+    numero = normalizar_numero(numero).upper()
+
+    metadata = list(getattr(store, "metadata", []) or [])
+    fuentes = list(dict.fromkeys(m["fuente"] for m in metadata))
+    if not fuentes:
+        return "error: el indice no tiene metadata cargada.", []
+
+    puntajes = {f: _puntaje_norma(norma, f) for f in fuentes}
+    mejor = max(puntajes.values())
+    candidatas = [f for f, p in puntajes.items() if p == mejor]
+    if mejor == 0:
+        return (f"No reconozco la norma {norma!r} en el corpus. Normas disponibles: "
+                f"{'; '.join(fuentes)}."), []
+    if len(candidatas) > 1:
+        return (f"La norma {norma!r} es ambigua; puede ser: {'; '.join(candidatas)}. "
+                "Escribela con su numero y año."), []
+    fuente = candidatas[0]
+
+    encontrados = [
+        m for m in metadata
+        if m["fuente"] == fuente
+        and numero in {normalizar_numero(a).upper() for a in (m.get("articulos_incluidos") or [])}
+    ][:MAX_CHUNKS_POR_ARTICULO]
+    if not encontrados:
+        return (f"El articulo {numero} de {fuente} no esta en el corpus. Si el usuario lo "
+                "menciono, puede estar equivocado de numero: diselo y busca el tema con "
+                "buscar_normas."), []
+
+    resultados = []
+    for m in encontrados:
+        r = metadata_to_result(m, score=1.0)
+        # Lectura exacta, no vino por la via densa: sin coseno de e5 que auditar.
+        r.dense_score = None
+        resultados.append(r)
+    return f"Lectura exacta de {fuente}, articulo {numero}:\n\n" + formatear_observacion(resultados), resultados
 
 
 # --- Calcular plazos ----------------------------------------------------------
@@ -386,6 +497,9 @@ def agente_react(
                 {"tool": "buscar_normas", "args": {"consulta": argumento}},
                 store, top_k=top_k, use_hybrid=use_hybrid, use_rerank=use_rerank, bm25=bm25,
             )
+            vistos.extend(resultados)
+        elif nombre == "leer_articulo":
+            observacion, resultados = leer_articulo(argumento, store)
             vistos.extend(resultados)
         elif nombre == "calcular_plazo":
             observacion = calcular_plazo(argumento)

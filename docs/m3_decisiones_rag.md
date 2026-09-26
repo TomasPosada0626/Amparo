@@ -571,6 +571,17 @@ responder. Código: [`tools/rag/agentico.py`](../tools/rag/agentico.py).
   decimal (`1200000 * 1.052`). Acepta "2.000.000" (varios grupos de miles, no
   ambiguo), pero un solo punto (`1.052`) es siempre decimal: leerlo como miles
   daría, en el caso del IPC, un canon 1000 veces mayor sin ningún error visible.
+- `leer_articulo[norma, número]`: lee un artículo **exacto** por su número,
+  recorriendo la metadata del índice (sin búsqueda semántica). Reconoce la norma
+  por número y año ("Ley 820 de 2003"), por nombre ("código sustantivo del
+  trabajo") o por sigla (CST, CGP, CPACA); si el nombre es ambiguo pide precisar,
+  y si la norma o el artículo no están en el corpus lo dice. Existe para el
+  **usuario que se equivoca de artículo**: el prompt le pide al agente leer el
+  artículo que menciona el usuario y comprobar que trate lo que pregunta; si no,
+  decírselo y buscar el tema con `buscar_normas`, en vez de fundamentar en el
+  número que le dieron. También sirve cuando una observación remite a otro
+  artículo ("en los términos del artículo 13"). Lo que lee entra a `contexts` y a
+  la verificación de citas igual que una búsqueda.
 - `calcular_plazo[AAAA-MM-DD, n, habiles|calendario]`: fecha de vencimiento de un
   término, contando desde el día siguiente; en días hábiles salta sábados,
   domingos y festivos de Colombia, incluidos los trasladados por la Ley Emiliani
@@ -615,8 +626,9 @@ que devolvieron sus búsquedas.
   escape.
 - **Los artículos que menciona el propio usuario cuentan como vistos.** Citar lo
   que el usuario dijo no es inventar, y la respuesta puede estar aclarando que ese
-  artículo no trata lo que pregunta. Lo que el agente no puede hacer es
-  fundamentar en ese artículo sin haberlo leído: para eso tiene que buscarlo.
+  artículo no trata lo que pregunta. Lo que el agente no debe hacer es
+  fundamentar en ese artículo sin haberlo leído: para eso está `leer_articulo`
+  (sección 18).
 
 **Límite conocido:** compara números de artículo, no el par (norma, artículo).
 Detecta el artículo inventado, pero no un artículo real atribuido a otra ley (el 20
@@ -663,7 +675,10 @@ agente solo se justifica si mejora las métricas (RAGAS y harness) lo suficiente
 para pagar su latencia.
 
 Verificación: [`test_agentico.py`](../tests/rag/test_agentico.py) cubre el parser
-de pasos; la calculadora (que no ejecuta código y que `1.052` es decimal);
+de pasos; `leer_articulo` (artículo exacto, artículo dentro de un chunk
+agrupado, siglas, norma o artículo que no está, norma ambigua, y el usuario
+equivocado de artículo; más una prueba sobre el corpus real en
+`test_corpus_real.py`); la calculadora (que no ejecuta código y que `1.052` es decimal);
 `calcular_plazo` (días hábiles con festivos, calendario, errores); la verificación
 de citas (cita vista, inventada, mencionada por el usuario; rechazo y corrección;
 válvula de escape si insiste), y el bucle: pregunta compuesta, plazo, `contexts`
