@@ -34,6 +34,7 @@ from __future__ import annotations
 import json
 
 from tools.rag import config
+from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
 from tools.rag.retrieve import retrieve
 
 # Numero de chunks que la herramienta devuelve como observacion. Igual que el
@@ -67,7 +68,10 @@ SYSTEM_TOOLS = (
     '{"tool": "buscar_normas", "args": {"consulta": "<que buscar>"}}. '
     "Si ya puedes responder con fundamento (o la pregunta no requiere una norma), "
     "responde en texto normal, sin JSON. Nunca cites una norma que no haya "
-    "aparecido en una observacion de la herramienta."
+    "aparecido en una observacion de la herramienta. Si la herramienta no "
+    "encuentra normas que respalden la respuesta, responde exactamente: "
+    f'"{RESPUESTA_SIN_CONTEXTO}." -- la misma valvula de escape del RAG de una '
+    "pasada, para que el harness la detecte igual en las dos rutas."
 )
 
 
@@ -124,25 +128,51 @@ def ejecutar_tool(
     use_rerank: bool = True,
     bm25=None,
 ) -> str:
-    """Despacha una llamada a herramienta validada y devuelve su observacion.
+    """Despacha una llamada a herramienta y devuelve solo su observacion.
+
+    Envoltura de ejecutar_tool_con_resultados para quien solo necesita el texto
+    que ve el modelo.
+    """
+    observacion, _ = ejecutar_tool_con_resultados(
+        pedido, store, top_k=top_k, use_hybrid=use_hybrid, use_rerank=use_rerank, bm25=bm25
+    )
+    return observacion
+
+
+def ejecutar_tool_con_resultados(
+    pedido: dict,
+    store,
+    *,
+    top_k: int = TOOL_TOP_K,
+    use_hybrid: bool = True,
+    use_rerank: bool = True,
+    bm25=None,
+) -> tuple[str, list]:
+    """Despacha una llamada a herramienta validada: (observacion, resultados).
 
     Valida que la herramienta exista y que traiga los args que declara el
     esquema. La busqueda usa el retrieval avanzado (hybrid + rerank por defecto):
     la tool no reimplementa la busqueda, invoca la que ya existe.
 
-    Se devuelve un string (la observacion) porque es lo que se le concatena al
-    historial del modelo. Un error de validacion tambien se devuelve como string
-    de observacion, no se lanza: asi el modelo lo lee ("no existe la herramienta
-    X") y puede corregir en la siguiente vuelta, en vez de tumbar el bucle.
+    Un error de validacion se devuelve como observacion (string), no se lanza:
+    asi el modelo lo lee ("no existe la herramienta X") y puede corregir en la
+    siguiente vuelta, en vez de tumbar el bucle. En ese caso no hay resultados.
+
+    Los resultados (SearchResult) van aparte de la observacion porque son la
+    evidencia que consume la evaluacion: sin ellos no hay `contexts`, y RAGAS no
+    puede medir context precision/recall ni faithfulness de esta ruta.
     """
     nombre = pedido.get("tool")
     if nombre != TOOL_SCHEMA["name"]:
-        return f"error: no existe la herramienta {nombre!r}. La unica disponible es 'buscar_normas'."
+        return (
+            f"error: no existe la herramienta {nombre!r}. La unica disponible es 'buscar_normas'.",
+            [],
+        )
 
     args = pedido.get("args") or {}
     consulta = args.get("consulta")
     if not isinstance(consulta, str) or not consulta.strip():
-        return "error: buscar_normas requiere un arg 'consulta' de tipo texto no vacio."
+        return "error: buscar_normas requiere un arg 'consulta' de tipo texto no vacio.", []
 
     resultados = retrieve(
         consulta,
@@ -152,7 +182,56 @@ def ejecutar_tool(
         use_rerank=use_rerank,
         bm25=bm25,
     )
-    return formatear_observacion(resultados)
+    return formatear_observacion(resultados), resultados
+
+
+def resultado_para_evaluacion(
+    query: str,
+    response: str,
+    resultados,
+    *,
+    sistema: str,
+    use_lora: bool,
+    use_hybrid: bool,
+    use_rerank: bool,
+    top_k: int = TOOL_TOP_K,
+    traza: list | None = None,
+) -> dict:
+    """Arma la salida de una ruta agentica con el mismo contrato que answer_query.
+
+    Asi pipeline.to_eval_record() la convierte al formato RAGAS sin casos
+    especiales, y las rutas (una pasada, tool use, ReAct) quedan comparables
+    sobre el mismo eval set. `resultados` son todos los chunks que el agente vio
+    en sus observaciones, sin duplicados, en el orden en que aparecieron.
+    """
+    unicos, vistos = [], set()
+    for r in resultados:
+        if r.chunk_id not in vistos:
+            vistos.add(r.chunk_id)
+            unicos.append(r)
+    return {
+        "query": query,
+        "response": response,
+        "contexts": [r.text for r in unicos],
+        "retrieved_chunks": [
+            {
+                "chunk_id": r.chunk_id,
+                "cita": r.cita,
+                "url_fuente": r.url_fuente,
+                "score": round(r.score, 4),
+                "dense_score": round(r.dense_score, 4) if r.dense_score is not None else None,
+            }
+            for r in unicos
+        ],
+        "n_retrieved": len(unicos),
+        "used_lora": use_lora,
+        "used_hybrid": use_hybrid,
+        "used_rerank": use_rerank,
+        "top_k": top_k,
+        "min_score": config.RETRIEVAL_MIN_SCORE,
+        "sistema": sistema,
+        "traza": traza or [],
+    }
 
 
 def responder_con_tools(
@@ -162,6 +241,7 @@ def responder_con_tools(
     max_llamadas: int = 3,
     use_hybrid: bool = True,
     use_rerank: bool = True,
+    use_lora: bool = False,
     bm25=None,
     model_bundle=None,
     _generar=None,
@@ -175,25 +255,38 @@ def responder_con_tools(
     herramienta no lo deje corriendo indefinidamente.
 
     _generar: funcion (system, user) -> str, inyectable para tests. Por defecto
-    usa el generador real (Qwen, GPU) via import perezoso. Devuelve un dict con
-    la respuesta y la traza de herramientas usadas -- esa traza es la evidencia
-    de auditoria de que la respuesta se fundamento en el corpus y no de memoria.
+    usa el generador real (Qwen, GPU) via import perezoso.
+
+    Devuelve el mismo contrato que pipeline.answer_query (query, response,
+    contexts, retrieved_chunks, ...) mas `tool_calls`, la traza de herramientas
+    usadas: es la evidencia de auditoria de que la respuesta se fundamento en el
+    corpus y no de memoria, y lo que permite evaluar esta ruta con RAGAS.
     """
-    generar = _generar if _generar is not None else _generar_por_defecto(model_bundle)
+    generar = _generar if _generar is not None else _generar_por_defecto(model_bundle, use_lora)
 
     historial = f"Pregunta del usuario: {query}"
     traza: list[dict] = []
+    vistos: list = []
+
+    def _salida(respuesta: str) -> dict:
+        resultado = resultado_para_evaluacion(
+            query, respuesta, vistos, sistema="tool_use", use_lora=use_lora,
+            use_hybrid=use_hybrid, use_rerank=use_rerank, traza=traza,
+        )
+        resultado["tool_calls"] = traza
+        return resultado
 
     for _ in range(max_llamadas):
         salida = generar(SYSTEM_TOOLS, historial)
         pedido = extraer_tool_call(salida)
         if pedido is None:
             # El modelo respondio directo: fin del bucle.
-            return {"query": query, "response": salida, "tool_calls": traza}
+            return _salida(salida)
 
-        observacion = ejecutar_tool(
+        observacion, resultados = ejecutar_tool_con_resultados(
             pedido, store, use_hybrid=use_hybrid, use_rerank=use_rerank, bm25=bm25
         )
+        vistos.extend(resultados)
         traza.append({"tool": pedido.get("tool"), "args": pedido.get("args", {}), "observacion": observacion})
         historial += (
             f"\n\nUsaste {pedido.get('tool')} con {pedido.get('args', {})} y obtuviste:\n"
@@ -204,21 +297,21 @@ def responder_con_tools(
     respuesta = generar(
         SYSTEM_TOOLS, historial + "\n\nResponde ya con lo que tienes, sin pedir mas herramientas."
     )
-    return {"query": query, "response": respuesta, "tool_calls": traza}
+    return _salida(respuesta)
 
 
-def _generar_por_defecto(model_bundle):
+def _generar_por_defecto(model_bundle, use_lora: bool = False):
     """Envuelve el generador real (Qwen) como una funcion (system, user) -> str.
 
     Import perezoso de la generacion: stack pesado, vive en Colab. Se aisla aca
     para que el resto del modulo (esquema, dispatcher, parser) sea importable y
-    testeable sin GPU.
+    testeable sin GPU. Tambien lo reusa el agente ReAct (tools/rag/agentico.py).
     """
     from tools.evaluation import generation
 
     from tools.rag.pipeline import load_model
 
-    model, tokenizer = model_bundle if model_bundle else load_model(use_lora=False)
+    model, tokenizer = model_bundle if model_bundle else load_model(use_lora=use_lora)
 
     def generar(system: str, user: str) -> str:
         return generation.run_chat_generation(

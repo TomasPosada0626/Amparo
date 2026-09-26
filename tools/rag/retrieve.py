@@ -33,10 +33,10 @@ def apply_score_floor(
     con cita real y contenido equivocado.
 
     DECISION DE DISENO (S08): el filtro mira `dense_score`, NO `score`. El umbral
-    RETRIEVAL_MIN_SCORE (0.80) esta calibrado sobre el coseno de e5, pero tras la
+    RETRIEVAL_MIN_SCORE esta calibrado sobre el coseno de e5, pero tras la
     fusion RRF `score` es el puntaje RRF y tras el reranking es el del
-    cross-encoder -- otras escalas, no comparables con 0.80. dense_score preserva
-    el coseno de e5 a lo largo de todo el pipeline, asi que la valvula sigue
+    cross-encoder -- otras escalas, no comparables con ese umbral. dense_score
+    preserva el coseno de e5 a lo largo de todo el pipeline, asi que la valvula sigue
     midiendo lo que fue calibrada para medir. Un chunk que solo trajo BM25 tiene
     dense_score=None (e5 no lo considero relevante) y por eso no pasa el piso:
     correcto, porque el umbral es una afirmacion sobre la relevancia SEMANTICA.

@@ -177,3 +177,54 @@ def test_el_esquema_de_la_tool_es_json_serializable():
     assert recuperado["name"] == "buscar_normas"
     assert "consulta" in recuperado["args"]
     assert recuperado["description"].strip()
+
+
+# --- Salida evaluable (contrato de answer_query) -----------------------------
+
+def test_la_salida_del_tool_use_trae_contexts_para_ragas(monkeypatch):
+    """Sin contexts la ruta de tool use no se puede evaluar con RAGAS: deben ser
+    los chunks que devolvio la herramienta."""
+    monkeypatch.setattr(tools, "retrieve", stub_retrieve([make_result("c1", fuente="CST", articulos=["64"])]))
+    salidas = iter([
+        '{"tool": "buscar_normas", "args": {"consulta": "despido"}}',
+        "Segun el CST, Articulo 64, ...",
+    ])
+
+    r = tools.responder_con_tools("me despidieron", FakeStore([]), _generar=lambda s, u: next(salidas))
+
+    assert r["contexts"] == ["texto normativo de c1"]
+    assert r["retrieved_chunks"][0]["cita"] == "CST, Articulo 64"
+    assert r["sistema"] == "tool_use"
+    assert len(r["tool_calls"]) == 1
+
+
+def test_la_salida_del_tool_use_se_convierte_al_registro_de_evaluacion(monkeypatch):
+    from tools.evaluation import eval_set
+    from tools.rag import pipeline
+
+    monkeypatch.setattr(tools, "retrieve", stub_retrieve([make_result("c1")]))
+    registro = eval_set.load_eval_set()[0]
+
+    r = tools.responder_con_tools(registro["messages"][1]["content"], FakeStore([]),
+                                  _generar=lambda s, u: "respuesta directa")
+    record = pipeline.to_eval_record(r, registro)
+
+    assert record["sistema"] == "tool_use"
+    assert record["contexts"] == []
+
+
+def test_un_error_de_validacion_no_trae_resultados(monkeypatch):
+    monkeypatch.setattr(tools, "retrieve", stub_retrieve([make_result("c1")]))
+
+    obs, resultados = tools.ejecutar_tool_con_resultados({"tool": "otra", "args": {}}, FakeStore([]))
+
+    assert obs.startswith("error:")
+    assert resultados == []
+
+
+def test_el_prompt_del_tool_use_incluye_la_valvula_de_escape():
+    """Misma frase que el RAG de una pasada, para que el harness la detecte igual
+    en las dos rutas."""
+    from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
+
+    assert RESPUESTA_SIN_CONTEXTO in tools.SYSTEM_TOOLS

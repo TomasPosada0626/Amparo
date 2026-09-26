@@ -208,6 +208,11 @@ def to_eval_record(resultado: dict, registro: dict) -> dict:
         # docs/m3_decisiones_rag.md.
         "used_hybrid": resultado.get("used_hybrid", False),
         "used_rerank": resultado.get("used_rerank", False),
+        # Ruta que genero la respuesta (S10): "una_pasada" (answer_query),
+        # "tool_use" (tools.responder_con_tools) o "react" (agentico.agente_react).
+        # La traza (vacia en una pasada) es la evidencia de los pasos del agente.
+        "sistema": resultado.get("sistema", "una_pasada"),
+        "traza": resultado.get("traza", []),
     }
 
 
