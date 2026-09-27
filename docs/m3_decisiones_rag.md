@@ -1273,3 +1273,18 @@ acepta).
 
 **Qué hay que volver a correr.** S10 fases 1 a 4 (tool use y ReAct; la una pasada
 da lo mismo). Después, fase 5 (RAGAS) y 6 (W&B) sobre esa corrida.
+
+**Pendiente para M4** (decidido el 2026-09-27: M3 cierra con las correcciones de
+arriba; esto se trabaja en M4):
+
+- **Retrieval de las preguntas gold.** SIMPLE recupera el art. 30 del CPACA y no el
+  14; 9102 no recupera el art. 86 de la Constitución. Candidatos: reformular la
+  consulta, buscar dentro de la norma que nombra el usuario, context recall de
+  RAGAS (fase 5 de S10) para ver en qué preguntas falla.
+- **Corpus.** Reemplazar el CST de 1950 por la versión vigente compilada y
+  reconstruir el índice (sección 9); revisar la Ley 100; decidir si se indexan
+  las normas que ya están en `data/corpus/normas` y no en `NORMAS_EN_ALCANCE`
+  (Código Penal, Código Civil, Código de Comercio, etc.).
+- **Que el modelo use las herramientas por su cuenta.** Hoy el código hace casi
+  todas las búsquedas (el modelo buscó solo en 6 de 56 preguntas en el ReAct). Si
+  se reentrena el adaptador, incluir ejemplos de llamadas a herramientas.
