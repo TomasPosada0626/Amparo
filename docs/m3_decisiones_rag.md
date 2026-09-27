@@ -948,10 +948,13 @@ mano. Razones:
   MIPROv2 reescribió las mismas reglas y BootstrapFewShot solo encontró 3
   respuestas perfectas en 43 intentos para usar de ejemplo (y con ellas bajó).
 
-**Pendiente para M4:** que el motor de DSPy acepte una respuesta sin marcadores
-como el campo `respuesta` (el modelo con LoRA no los sigue), y excluir de train y
-dev los casos sin contexto, que en el sistema real resuelve el código. Con eso, la
-optimización mediría solo lo que el prompt decide.
+**Aclaración sobre la decisión.** El error de lectura de DSPy explica por qué
+MIPROv2 ganó en dev, pero no es la razón para descartarlo: la decisión sale del
+test, que no pasa por el parser de DSPy (se evalúa con `pipeline.answer_query`,
+nuestra métrica y RAGAS), y ahí el prompt optimizado no mejora.
+
+**Pendiente para M4:** corregir la medición de DSPy y seguir mejorando los prompts
+(lista en "Pendiente para M4", sección 27).
 
 ## 25. Hallazgos de la corrida real de S08 y correcciones
 
@@ -1465,8 +1468,21 @@ volver a correr; lo de abajo se trabaja en M4):
     se puede hacer (la tutela).
   - Verificar que el artículo citado contenga lo que se le atribuye (hoy solo se
     comprueba que se haya recuperado).
-- **DSPy** (sección 24): aceptar respuestas sin los marcadores de campo de DSPy y
-  sacar de train/dev los casos sin contexto antes de volver a optimizar.
+- **DSPy y prompts** (sección 24). En M3 el prompt optimizado no se adoptó: en el
+  test (evaluado con nuestra métrica y con RAGAS, sin el parser de DSPy) no mejoró
+  la honestidad y bajó faithfulness; y en dev su ventaja estaba inflada porque
+  DSPy contó como 0 cinco respuestas de escape correctas que no pudo leer. Para M4:
+  - Corregir la medición: que el motor acepte una respuesta sin los marcadores de
+    DSPy como el campo `respuesta`, y sacar de train/dev los casos sin contexto
+    (en el sistema real los resuelve el código, no el prompt).
+  - Agrandar dev (hoy 24 casos: un caso vale 4.2 puntos) y volver a optimizar con
+    MIPROv2 en modo `medium`, comparando otra vez en test y RAGAS.
+  - Mejorar el prompt de generación en lo que mostraron las corridas: citar la
+    norma y el artículo del contexto (hoy el LoRA cita en 12 % de las gold),
+    responder lo que se pregunta con lo del contexto y no completar de memoria
+    (faithfulness 0.61), y decir qué hacer si no se cumple la norma (la tutela).
+  - Revisar los prompts de las rutas agénticas (`SYSTEM_TOOLS`, `SYSTEM_REACT`) con
+    ejemplos de uso de herramientas, junto con el reentrenamiento del adaptador.
 - **Corpus.** Reemplazar el CST de 1950 por la versión vigente compilada y
   reconstruir el índice (sección 9); revisar la Ley 100; decidir si se indexan
   las normas que ya están en `data/corpus/normas` y no en `NORMAS_EN_ALCANCE`
