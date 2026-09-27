@@ -300,7 +300,7 @@ Parte II y el material de trabajo para afinar el pipeline.
 | 9102 "¿cuál es el número exacto del artículo de la Constitución que consagra la tutela?" (S08, config B) | Respondió "artículo 2" (es el 86), un artículo que no estaba entre los recuperados. | `generate` (cita de memoria bajo presión por un número exacto) | Verificación de citas en las tres rutas: se corrige una vez y, si insiste, escape por código (sección 25, hallazgo 2). |
 | 9034 (arriendo, S08, config A) | Citó el "artículo 24" sin haberlo recuperado (se recuperaron los arts. 8, 10, 11, 22, 23 de la Ley 820). | `generate` | Igual que el anterior (sección 25, hallazgo 2). |
 | Corrida A/B/C de S08 (2026-09-27): chunks por consulta y consultas vacías | B y C recuperan menos (3.55 y 3.71 chunks vs 4.57 en A) y C deja 4 casos gold sin contexto (A: 0). El chunk que la hybrid debía rescatar ("artículo 64", solo BM25) se descartaba. | `retrieve` (el recorte a top_k iba antes del piso, y el piso borraba todo lo solo-BM25) | Piso antes del recorte + excepción para referencias exactas a un artículo citado (sección 25, hallazgo 3). |
-| 9102 "¿cuál es el número exacto del artículo de la Constitución que consagra la tutela?" (S08 corregido, 2026-09-27, A/B/C) | El artículo 86 (tutela) no aparece entre lo recuperado en ninguna de las tres configuraciones; lo recuperado son los arts. 1, 2, 4, 5, 42, 43, 51, 169 de la Constitución. | `retrieve` / `embed` (la consulta pregunta por "el número del artículo", no por el contenido de la tutela) | Pendiente: context recall de RAGAS (fase 5b de S10) lo debería mostrar; candidatos: expansión de consulta o `leer_articulo` en el agente. |
+| 9102 "¿cuál es el número exacto del artículo de la Constitución que consagra la tutela?" (S08 corregido, 2026-09-27, A/B/C) | El artículo 86 (tutela) no aparece entre lo recuperado en ninguna de las tres configuraciones; lo recuperado son los arts. 1, 2, 4, 5, 42, 43, 51, 169 de la Constitución. | `retrieve` / `embed` (la consulta pregunta por "el número del artículo", no por el contenido de la tutela) | Pendiente para M4 (sección 27): context recall de RAGAS queda en 0.42-0.48 en las tres configuraciones; candidatos: reformular la consulta a términos de la norma, o buscar dentro de la norma nombrada. |
 | Corrida de S10 (2026-09-27, LoRA), rutas agénticas | Tool use: 53 de 56 respuestas sin contexto (0.1 llamadas por pregunta): el modelo casi nunca pidió la herramienta y respondió de memoria. ReAct: 41 de 56 sin contexto; respuestas con instrucciones ("calcula el plazo con calcular_plazo…"), formato roto (`Responde[…]`) y a medias (leyó el artículo equivocado del usuario y no buscó el correcto). | `generate` (el modelo no sigue el protocolo de herramientas inventado en el prompt) | Formato nativo de herramientas + red de seguridad por código (sección 26, hallazgo 4). |
 | S10 fase 3, PLAZO y SIMPLE (2026-09-27, después del hallazgo 4) | El ReAct usó `calcular_plazo` antes de buscar, con 30 días y una fecha que el usuario no dio; respondió "30 días hábiles" (son quince) y "queja" en vez de tutela. | `generate` (el modelo usa la herramienta como atajo con datos inventados) | Cuentas solo después de ver una norma, con días que aparezcan en ella y una fecha que dijo el usuario (sección 27, corrección 1). |
 | S10 fase 3, EQUIVOCADO | La búsqueda forzada con la pregunta completa ("según el artículo 21 de la ley 820…") trajo Ley 100, art. 34 (pensiones) y la respuesta habló de pensiones. | `retrieve` (el número equivocado del usuario guiaba la búsqueda) | La búsqueda forzada quita el artículo del usuario y conserva la norma (sección 27, corrección 2). |
@@ -1017,6 +1017,35 @@ Tabla completa y casos en
 
 Sin juez, A y B quedan empatados y C un poco por debajo (cita menos). La pregunta
 "¿qué búsqueda es mejor?" la cierra RAGAS en la fase 5b de S10.
+
+**RAGAS de las tres búsquedas** (fase 5b de S10, 2026-09-27, juez Groq
+`openai/gpt-oss-120b`, 50 gold por configuración, corrida "después"):
+
+| Configuración | Context recall | Context precision | Faithfulness | Answer relevancy | s/consulta |
+|---|---|---|---|---|---|
+| A denso | 0.42 | 0.54 | 0.55 | 0.85 | 6.43 |
+| B + hybrid | 0.46 | 0.56 | 0.57 | 0.85 | 6.55 |
+| **C + rerank** | **0.48** | **0.58** | **0.61** | 0.85 | 6.28 |
+
+**¿Qué búsqueda es mejor? C (hybrid + rerank).** Mejora en el mismo sentido en
+las cuatro métricas que dependen de la búsqueda: cada técnica suma un poco
+(hybrid: +0.04 de recall; rerank: +0.02 de recall y precision, +0.04 de
+faithfulness) y no cuesta latencia (6.3 s, igual que A). Las diferencias de a
+una son pequeñas (del orden del ruido del juez sobre 50 casos), pero van todas en
+la misma dirección, que es lo que las hace creíbles. Answer relevancy no cambia
+(0.85): la búsqueda cambia con qué se responde, no si la respuesta es pertinente.
+
+Esto corrige la lectura "sin juez" de arriba (A y B empatados, C por debajo): la
+métrica de honestidad premia citar artículos, y C cita menos, pero lo que C
+recupera cubre más de la referencia y el modelo se apoya más en ello. Por eso C es
+la búsqueda que usan las rutas de S10.
+
+Lo que sigue bajo en las tres es el recall (0.42-0.48): la búsqueda trae menos de
+la mitad de lo que dice la respuesta de referencia. Es el pendiente principal para
+M4 (sección 27). Nota de costo: C y la ruta "una pasada" de S10 son el mismo
+sistema, así que C tomó las 50 notas de la fase 5 sin llamar al juez (idénticas,
+lo que además confirma que es el mismo sistema); A y B reusaron 4 y 5 casos con
+respuesta y contextos idénticos.
 
 ### Qué cambia para las corridas siguientes
 
