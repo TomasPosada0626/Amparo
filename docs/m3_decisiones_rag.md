@@ -1106,9 +1106,16 @@ el código: es la medida de cuánto se apoya el sistema en la red de seguridad.
   una búsqueda del tema: un paso de más, a cambio de no depender de que el modelo
   juzgue bien.
 
+**Métricas del "antes"** (sin juez; detalle en
+[`results/m3_s10_rutas_2026-09-27.md`](../results/m3_s10_rutas_2026-09-27.md)):
+se buscó en el corpus en 3 de 56 preguntas con tool use y en 15 de 56 con ReAct;
+honestidad con las fuentes 0.107 (tool use) y 0.214 (ReAct) contra 0.607 de la
+ruta de una pasada. La ruta de una pasada dio las mismas 56 respuestas que la
+configuración C de S08 corregida.
+
 **Qué hay que volver a correr.** Las rutas tool use y ReAct de S10 (fases 2 a 4);
 la ruta de una pasada no cambia. Los registros de esta corrida (el "antes") se
-guardan aparte antes de volver a correr.
+guardaron aparte (`corridas_s10_antes`) antes de volver a correr.
 
 Verificación: `test_tools.py` (llamadas nativas, varias llamadas, JSON viejo,
 charla trivial, herramienta en formato nativo, búsqueda forzada, rechazo de
