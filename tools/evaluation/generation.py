@@ -60,22 +60,20 @@ def detach_adapter(model):
     return model
 
 
-def run_chat_generation(
+def run_messages_generation(
     model,
     tokenizer,
-    system_prompt: str,
-    user_content: str,
+    messages: list[dict],
     max_new_tokens: int,
 ) -> str:
     """Boilerplate compartido de generacion: apply_chat_template -> tokenize
-    -> generate (greedy) -> decode. Usado tanto para generar respuestas del
-    asistente como para las llamadas del juez (judge.py, bias.py)."""
+    -> generate (greedy) -> decode, sobre una lista de mensajes ya armada
+    (system + turnos previos + turno final). run_chat_generation (system +
+    user) es el caso de un solo turno; el motor de DSPy (tools/rag/dspy_prompt.py)
+    necesita el multi-turno completo porque los demos few-shot son turnos
+    previos, no texto dentro del mismo mensaje."""
     import torch
 
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_content},
-    ]
     prompt = tokenizer.apply_chat_template(
         messages, tokenize=False, add_generation_prompt=True
     )
@@ -89,6 +87,22 @@ def run_chat_generation(
         )
     generated_ids = output_ids[0][inputs["input_ids"].shape[1]:]
     return tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
+
+
+def run_chat_generation(
+    model,
+    tokenizer,
+    system_prompt: str,
+    user_content: str,
+    max_new_tokens: int,
+) -> str:
+    """Un solo turno (system + user). Usado tanto para generar respuestas del
+    asistente como para las llamadas del juez (judge.py, bias.py)."""
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_content},
+    ]
+    return run_messages_generation(model, tokenizer, messages, max_new_tokens)
 
 
 def generate_response(

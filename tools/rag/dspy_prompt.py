@@ -231,6 +231,50 @@ def construir_programa(instrucciones: str = INSTRUCCIONES_BASE):
     return dspy.Predict(RespuestaJuridica.with_instructions(instrucciones))
 
 
+class _MotorHF:
+    """Motor de DSPy (contrato lm15: complete(Request) -> Response) sobre el
+    generador de HF ya cargado en la GPU, en vez de un servidor externo.
+
+    Se probo primero con Ollama (DSPy habla con el modelo por una API
+    compatible con OpenAI): en Colab resulto fragil -- instalador que
+    necesita zstd, carrera entre "ollama serve" y "ollama pull", y el 404
+    del daemon cuando el modelo no llego a quedar listo. Un motor propio
+    elimina todo el proceso externo: DSPy llama directo a run_messages_generation
+    sobre el mismo bundle (modelo, tokenizer) que ya esta en memoria.
+    """
+
+    def __init__(self, model_bundle, max_new_tokens: int):
+        self.model_bundle = model_bundle
+        self.max_new_tokens = max_new_tokens
+
+    def complete(self, request):
+        from dspy.lm15 import Message, Response, TextPart, Usage
+
+        from tools.evaluation import generation
+
+        mensajes = []
+        if isinstance(request.system, str):
+            mensajes.append({"role": "system", "content": request.system})
+        for m in request.messages:
+            texto = "".join(p.text for p in m.parts_of(TextPart))
+            mensajes.append({"role": m.role, "content": texto})
+
+        model, tokenizer = self.model_bundle
+        respuesta = generation.run_messages_generation(model, tokenizer, mensajes, self.max_new_tokens)
+        return Response(
+            id=None, model=request.model, message=Message.assistant(respuesta),
+            finish_reason="stop", usage=Usage(),
+        )
+
+
+def crear_lm_hf(model_bundle, max_new_tokens: int = 300):
+    """dspy.LM sobre el generador de HF local -- ver _MotorHF. model_bundle:
+    (model, tokenizer) ya cargado (tools.rag.pipeline.load_model)."""
+    import dspy
+
+    return dspy.LM("hf/qwen2.5-7b-instruct", engine=_MotorHF(model_bundle, max_new_tokens))
+
+
 def a_ejemplos_dspy(casos: list[dict]):
     import dspy
 
