@@ -299,6 +299,7 @@ Parte II y el material de trabajo para afinar el pipeline.
 | 9102 "¿cuál es el número exacto del artículo de la Constitución que consagra la tutela?" (S08, config B) | Respondió "artículo 2" (es el 86), un artículo que no estaba entre los recuperados. | `generate` (cita de memoria bajo presión por un número exacto) | Verificación de citas en las tres rutas: se corrige una vez y, si insiste, escape por código (sección 25, hallazgo 2). |
 | 9034 (arriendo, S08, config A) | Citó el "artículo 24" sin haberlo recuperado (se recuperaron los arts. 8, 10, 11, 22, 23 de la Ley 820). | `generate` | Igual que el anterior (sección 25, hallazgo 2). |
 | Corrida A/B/C de S08 (2026-09-27): chunks por consulta y consultas vacías | B y C recuperan menos (3.55 y 3.71 chunks vs 4.57 en A) y C deja 4 casos gold sin contexto (A: 0). El chunk que la hybrid debía rescatar ("artículo 64", solo BM25) se descartaba. | `retrieve` (el recorte a top_k iba antes del piso, y el piso borraba todo lo solo-BM25) | Piso antes del recorte + excepción para referencias exactas a un artículo citado (sección 25, hallazgo 3). |
+| 9102 "¿cuál es el número exacto del artículo de la Constitución que consagra la tutela?" (S08 corregido, 2026-09-27, A/B/C) | El artículo 86 (tutela) no aparece entre lo recuperado en ninguna de las tres configuraciones; lo recuperado son los arts. 1, 2, 4, 5, 42, 43, 51, 169 de la Constitución. | `retrieve` / `embed` (la consulta pregunta por "el número del artículo", no por el contenido de la tutela) | Pendiente: context recall de RAGAS (fase 5b de S10) lo debería mostrar; candidatos: expansión de consulta o `leer_articulo` en el agente. |
 
 ## 10. Alcance de cada parte
 
@@ -960,11 +961,50 @@ plano permite reconstruir sus vectores) y aplicarles el mismo piso que a los dem
 Se eligió la excepción acotada porque no cambia la API del store y cubre el caso
 que motiva la técnica.
 
+### Resultado de las correcciones (corrida "después", 2026-09-27)
+
+Se volvió a correr S08 con las correcciones (mismas banderas, LoRA, 56 preguntas).
+Tabla completa y casos en
+[`results/m3_s08_busqueda_2026-09-27.md`](../results/m3_s08_busqueda_2026-09-27.md).
+
+| | A antes → después | B antes → después | C antes → después |
+|---|---|---|---|
+| Consultas sin contexto (gold) | 1 (0) → 1 (0) | 2 (1) → 1 (0) | 5 (4) → **1 (0)** |
+| Artículos por consulta | 4.57 → 4.57 | 3.55 → **4.57** | 3.71 → **4.57** |
+| Citas no respaldadas (gold) | 1 → **0** | 0 → 0 | 0 → 0 |
+| Prudencia en adversariales | 6/6 → 6/6 | 5/6 → **6/6** | 6/6 → 6/6 |
+| Honestidad con las fuentes | 0.634 → 0.643 | 0.571 → **0.643** | 0.562 → **0.607** |
+| Uso de la frase de escape | 0/56 → 1/56 | 0/56 → 1/56 | 0/56 → 1/56 |
+
+- **Hallazgo 1:** el escape por código se activó en el único caso sin contexto
+  (9101, California) en las tres configuraciones.
+- **Hallazgo 2:** el modelo volvió a inventar las dos citas de la corrida anterior
+  (9034 "artículo 24" en A, 9102 "artículo 2" en B); la verificación las rechazó y
+  las respuestas regeneradas ya no las citan. **Límite observado:** en 9102 la
+  respuesta corregida ya no inventa el número, pero afirma algo falso (que la
+  Constitución no tiene un artículo de tutela). La verificación detecta números no
+  recuperados, no afirmaciones falsas: eso lo mide faithfulness en RAGAS.
+- **Hallazgo 3:** B y C ya no pierden artículos (4.57 por consulta, igual que A) y
+  C pasó de 4 casos gold sin contexto a 0. La excepción para referencias exactas no
+  se activó (ninguna pregunta del eval set cita un número de artículo del corpus):
+  la mejora viene del piso antes del recorte.
+- **Nuevo, para la evaluación con juez:** el artículo 86 (tutela) no se recupera
+  en ninguna configuración para 9102: es una falla de búsqueda que context recall
+  debería mostrar.
+
+Sin juez, A y B quedan empatados y C un poco por debajo (cita menos). La pregunta
+"¿qué búsqueda es mejor?" la cierra RAGAS en la fase 5b de S10.
+
 ### Qué cambia para las corridas siguientes
 
-- Las cifras de S08 de esta sección son **anteriores** a las correcciones. Para
-  medir su efecto, basta volver a correr la fase 4 de S08 (mismas banderas) y
-  comparar con esta tabla.
+- La primera tabla de esta sección es **anterior** a las correcciones; el
+  resultado después de corregir está arriba y en `results/`.
+- **Fase 5 de S10 (RAGAS) ante el cupo de Groq:** un caso en el que el juez no
+  respondió ya no se guarda en el checkpoint (antes quedaba marcado como evaluado
+  y se saltaba al retomar); con límite por minuto el código espera y reintenta, y
+  con el cupo diario agotado se detiene tras 3 fallos seguidos y avisa cuántos
+  faltan. La fase 5b reusa las notas de casos idénticos (la configuración C de S08
+  y la ruta "una pasada" de S10 son el mismo sistema), sin gastar juez.
 - La corrida principal de S08, S10 y DSPy usa `USE_LORA = True`: Amparo es el
   modelo de M1 + RAG, y es lo que se entrega. `False` queda como ablación ("¿el
   fine-tuning sigue aportando con RAG?"). En S10 los archivos llevan sufijo
