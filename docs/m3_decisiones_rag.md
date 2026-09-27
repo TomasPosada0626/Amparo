@@ -1313,6 +1313,23 @@ artículo ni una cifra, pero dos no respondieron lo que se preguntaba.
 | **SIMPLE** ("¿cuánto tiempo tiene una entidad para responder un derecho de petición?") | El modelo buscó "derecho de peticion respuesta" y trajo el **art. 96 del CGP** (contestación de la demanda). Respondió en términos generales ("dentro de los plazos… que correspondan"), sin citar y sin inventar. | "Respuesta" + "petición" se parecen a "contestación de la demanda" (el CGP habla de peticiones y respuestas procesales). El art. 14 del CPACA dice "resolverse dentro de los quince (15) días", sin las palabras "respuesta" ni "responder": otra vez la consulta en palabras del usuario contra el texto en palabras de la norma. |
 | **PLAZO** | Dijo 15 días hábiles (correcto) pero citó el **art. 15** del CPACA (radicación de peticiones) y no el 14; **no calculó** la fecha de vencimiento y recomendó "una queja" en vez de la tutela. | (1) La cita pasa la verificación porque el art. 15 sí se recuperó: la verificación comprueba que el artículo citado esté entre lo visto, no que diga lo que se le atribuye. (2) Bug de la corrección 3: el intento de `calcular_plazo` que el código **bloqueó** quedó en la traza con la acción `calcular_plazo`, y la regla "si hay fecha, pide la cuenta" lo contó como cuenta hecha; por eso no se la pidió. Debe contar solo las cuentas que se ejecutaron. (3) No buscó qué hacer si no responden (la tutela): el prompt lo pide ("busca todo lo que necesites"), pero ni el modelo ni el código lo hicieron, y "queja" sale de memoria. |
 
+**RAGAS de la corrida final** (juez Groq `openai/gpt-oss-120b`, 50 gold por
+ruta; tabla completa en `results/m3_s10_rutas_2026-09-27.md`):
+
+| Ruta | Faithfulness | Context precision | Context recall | Answer relevancy | s/consulta |
+|---|---|---|---|---|---|
+| Una pasada | 0.61 | 0.58 | 0.48 | 0.85 | 6.3 |
+| Tool use | 0.57 | 0.54 | 0.45 | 0.86 | 15.2 |
+| ReAct | 0.57 | 0.56 | 0.48 | 0.85 | 14.6 |
+
+Respuesta a la pregunta de la sección 21 (¿se justifica el agente?): **con este
+modelo, no como ruta por defecto.** Las tres rutas empatan en RAGAS (diferencias
+de 0.01-0.04, del orden del ruido del juez) y el agente cuesta 2.3-2.4 veces la
+latencia. Lo que limita a las tres por igual es el retrieval (context recall
+0.45-0.48). El agente queda para las preguntas con cifras o fechas, que es donde
+aporta algo que la una pasada no puede hacer (la cuenta), y se vuelve a medir en
+M4 con un eval set que tenga más de esas preguntas.
+
 **Pendiente para M4** (decidido el 2026-09-27: M3 cierra con esta corrida, sin
 volver a correr; lo de abajo se trabaja en M4):
 
