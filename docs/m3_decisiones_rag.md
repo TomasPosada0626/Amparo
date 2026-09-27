@@ -6,10 +6,11 @@ Documento de decisiones del sistema RAG de Amparo. Cubre las tres partes de M3:
   store` offline, `retrieve → augment → generate` online.
 - **Parte II — RAG avanzado (S08) + tool use (S10), secciones 11-17:** hybrid
   search, reranking y el retrieval expuesto como herramienta.
-- **Parte III — RAG agéntico (S10), secciones 18-24:** el mini-agente ReAct,
+- **Parte III — RAG agéntico (S10), secciones 18-25:** el mini-agente ReAct,
   sus herramientas, la verificación de citas, la comparación de las tres rutas
-  (una pasada, tool use, ReAct), su evaluación con RAGAS, el registro en W&B y la
-  optimización del prompt con DSPy (extra).
+  (una pasada, tool use, ReAct), su evaluación con RAGAS, el registro en W&B, la
+  optimización del prompt con DSPy (extra) y los hallazgos de la corrida real de
+  S08 con sus correcciones (sección 25).
 
 Mismo estándar de documentación que M1/M2: **decisión + justificación +
 evidencia**, no solo qué se eligió.
@@ -294,6 +295,10 @@ Parte II y el material de trabajo para afinar el pipeline.
 |---|---|---|---|
 | "Me despidieron sin pagarme la liquidación, ¿qué puedo hacer?" (corrida 2026-09-25, `RETRIEVAL_MIN_SCORE=0.80`) | Recuperó Decreto 2663 de 1950 Art. 419 (liquidador de sindicatos en insolvencia) y varios artículos del Código General del Proceso (score máx. 0.845) -- confunde "liquidación laboral" (pago al trabajador despedido) con "liquidador" (figura de insolvencia/procedimiento civil). El modelo generó una respuesta basada en ese contexto equivocado en vez de activar la válvula de escape. | `embed` (la confusión semántica está en el embedding de la consulta, no en el chunking ni el índice) y `retrieve` (con el umbral de 0.80 vigente en ese momento, el score 0.845 pasaba el piso sin problema) | Reranking con cross-encoder es el candidato más directo -- un cross-encoder puede distinguir "liquidación de prestaciones laborales" de "liquidador judicial de una organización sindical" mejor que la similitud de embeddings densos sola. Implementado en la Parte II (sección 11.2, `tools/rag/rerank.py`). El umbral no lo resuelve solo: con el valor final (0.82) este score sigue pasando (sección 5). |
 | "Me despidieron sin justa causa, ¿cuánto me deben de indemnización?" (revisión del corpus, 2026-09-26) | El corpus no contiene la regla vigente. `codigo_sustantivo_trabajo_decreto_2663_1950.md` trae el **texto original de 1950**: su "Artículo 64" trata de la terminación *con* justa causa y preaviso, y la tabla de indemnización del art. 64 vigente (modificado por la Ley 789 de 2002) no aparece en el archivo; la numeración tampoco coincide con el código vigente (la indemnización moratoria está en el 66 del corpus). La metadata dice `status: in_force`. El sistema puede citar "CST, Artículo 64" con un contenido que no es el vigente. | `ingest` (fuente: versión original en vez de la compilada vigente) — no la corrige ninguna técnica de retrieval | Reemplazar el archivo por la versión vigente compilada del CST y reconstruir el índice. Mientras tanto, los ejemplos de la S10 usan arriendo (Ley 820 de 2003) y plazos (CPACA), cuyo texto sí es el vigente. Revisar también las normas con muchas modificaciones (p. ej. Ley 100 de 1993). |
+| Las 168 respuestas de la corrida A/B/C de S08 (2026-09-27, LoRA) | La frase de la válvula de escape **no apareció ni una vez**. En 5 casos gold sin contexto (p. ej. 9047 "me robaron el celular", config C) el modelo respondió de memoria. | `generate` (el modelo no obedece la regla del prompt) | Escape por código: sin contexto, responde el código sin llamar al modelo (sección 25, hallazgo 1). |
+| 9102 "¿cuál es el número exacto del artículo de la Constitución que consagra la tutela?" (S08, config B) | Respondió "artículo 2" (es el 86), un artículo que no estaba entre los recuperados. | `generate` (cita de memoria bajo presión por un número exacto) | Verificación de citas en las tres rutas: se corrige una vez y, si insiste, escape por código (sección 25, hallazgo 2). |
+| 9034 (arriendo, S08, config A) | Citó el "artículo 24" sin haberlo recuperado (se recuperaron los arts. 8, 10, 11, 22, 23 de la Ley 820). | `generate` | Igual que el anterior (sección 25, hallazgo 2). |
+| Corrida A/B/C de S08 (2026-09-27): chunks por consulta y consultas vacías | B y C recuperan menos (3.55 y 3.71 chunks vs 4.57 en A) y C deja 4 casos gold sin contexto (A: 0). El chunk que la hybrid debía rescatar ("artículo 64", solo BM25) se descartaba. | `retrieve` (el recorte a top_k iba antes del piso, y el piso borraba todo lo solo-BM25) | Piso antes del recorte + excepción para referencias exactas a un artículo citado (sección 25, hallazgo 3). |
 
 ## 10. Alcance de cada parte
 
@@ -419,11 +424,11 @@ y [`test_el_reranker_recibe_mas_candidatos_de_los_que_devuelve`](../tests/rag/te
 Esta es la decisión más delicada de la integración, porque toca la pieza central
 del RAG de la Parte I: la válvula de escape.
 
-El umbral `RETRIEVAL_MIN_SCORE = 0.80` está calibrado sobre el coseno de e5
+El umbral `RETRIEVAL_MIN_SCORE` (0.82) está calibrado sobre el coseno de e5
 (sección 5). En el pipeline avanzado, el campo `score` de cada resultado cambia de
 significado: en el sistema denso es el coseno, tras la fusión RRF es el puntaje RRF
 (~0.016) y tras el reranking es el del cross-encoder. Filtrar por `score`
-descartaría todo en hybrid y compararía un puntaje sin relación con 0.80 en
+descartaría todo en hybrid y compararía un puntaje sin relación con el umbral en
 reranking: la válvula quedaría rota sin dar señal.
 
 **Decisión.** `SearchResult` lleva un campo `dense_score` que preserva el coseno
@@ -439,6 +444,14 @@ piso. Es el comportamiento correcto: el umbral es una afirmación sobre relevanc
 semántica, y compartir palabras no basta para fundamentar una respuesta jurídica.
 BM25 aporta reordenando hacia arriba candidatos que ya tienen respaldo semántico,
 no colando candidatos que el denso descartó.
+
+> **Revisión (S10, con datos de la corrida real de S08).** Esta regla se mantiene
+> con **una excepción acotada**: un chunk solo-BM25 pasa si es una *referencia
+> exacta* a un artículo que la consulta cita, y —si la consulta nombra una norma—
+> es de esa norma ("¿qué dice el artículo 64 del CST?"). Es justo el caso que la
+> hybrid search existe para rescatar, y con la regla original se descartaba
+> siempre. Además, el piso ahora se aplica **antes** del recorte a `top_k`. Detalle
+> y evidencia en la sección 25, hallazgo 3.
 
 El `__post_init__` de `SearchResult` copia `score → dense_score` cuando este viene
 en `None`, para que el código de la Parte I siga viendo el coseno sin cambios. Por
@@ -637,9 +650,11 @@ de la Ley 820 citado como si fuera de la Ley 100). Cerrar ese caso exige extraer
 también el nombre de la norma de la respuesta, que el modelo escribe de formas muy
 variadas; queda como mejora.
 
-Hoy el control corre en la ruta ReAct. El RAG de una pasada y el tool use no lo
-tienen; si la evaluación muestra citas no respaldadas en esas rutas, la misma
-función (`agentico.citas_no_respaldadas`) se puede aplicar sobre su respuesta.
+El control nació en la ruta ReAct. La corrida real de S08 mostró citas inventadas
+en el RAG de una pasada ("artículo 2" como el de la tutela), así que ahora corre
+en las **tres rutas** con la misma función (`agentico.citas_no_verificables`, que
+además rechaza sentencias, porque el corpus no tiene jurisprudencia): ver sección
+25, hallazgo 2.
 
 ## 20. Contrato de salida y trazabilidad
 
@@ -834,3 +849,122 @@ Verificación: [`test_dspy_prompt.py`](../tests/rag/test_dspy_prompt.py) cubre l
 división (sin fuga, tamaños, categorías, reproducible, adversariales distintos), la
 métrica en cada caso de la tabla, la exportación, los mensajes para HF y que
 `answer_query` use el prompt optimizado sin cambiar el retrieval.
+
+## 25. Hallazgos de la corrida real de S08 y correcciones
+
+**La corrida.** `colab/m3_s08_rag_avanzado.ipynb`, 2026-09-27, con
+`USE_LORA = True` (el modelo de M1 + RAG), sobre el eval set completo (50 gold +
+6 adversariales) en las tres configuraciones. Registros en Drive
+(`rag/corridas_abc/`). Se analizaron sin juez, con las reglas programáticas del
+repo (`ragas_metrics.tasas_de_escape`, `dspy_prompt.puntaje_de_record`):
+
+| | A denso | B + hybrid | C + rerank |
+|---|---|---|---|
+| Consultas sin contexto (de ellas gold) | 1 (0) | 2 (1) | 5 (4) |
+| Chunks por consulta | 4.57 | 3.55 | 3.71 |
+| Respuestas gold que citan algún artículo | 22 % | 10 % | 10 % |
+| Respuestas gold con cita no respaldada | 1 | 0 | 0 |
+| Prudencia en adversariales | 6/6 | 5/6 | 6/6 |
+| Métrica de honestidad (0-1, `puntaje_de_record`) | 0.634 | 0.571 | 0.562 |
+| Uso de la frase de escape | 0/56 | 0/56 | 0/56 |
+| Latencia (s/consulta) | 6.42 | 6.34 | 6.30 |
+
+B y C cambian mucho lo que se recupera (el primer chunk difiere del de A en 31 y
+44 de 56 consultas), pero sin juez no se ven mejores que A; la calidad de las
+respuestas la mide RAGAS en S10. La latencia casi no cambia: la domina la
+generación (~6 s), no el retrieval.
+
+### Hallazgo 1 — La válvula de escape del prompt nunca se activó
+
+**Evidencia.** 0 de 168 respuestas usaron la frase de escape. En los casos sin
+contexto, el modelo respondió igual, de memoria: 9049 (B), 9012, 9013, 9023 y 9047
+(C). Ejemplo, 9047 "me robaron el celular": sin ninguna norma recuperada, respondió
+sobre denuncias e indemnización.
+
+**Causa.** La válvula existía solo como instrucción del prompt y el modelo no la
+obedece. Con LoRA se suma que M1 le enseñó su propio estilo de prudencia ("revisa
+tu contrato", "consulta a un abogado") en vez de la frase exacta. Es el mismo
+problema que motivó el M3 —una regla que depende de que el modelo quiera
+cumplirla— y el mismo que la sección 19 ya había resuelto con código en el agente
+ReAct.
+
+**Corrección: escape por código en las tres rutas.** Si no hay contexto, la
+respuesta la da el código, **sin llamar al modelo**:
+`RESPUESTA_ESCAPE_POR_CODIGO` (en `prompt_template.py`) = la frase de escape
+(para que el harness la detecte) + una orientación fija sin normas: dónde
+consultar y, si hay riesgo, la Línea 123. Así no se pierde la orientación de
+seguridad que un adversarial como el de la amenaza necesita.
+
+- Una pasada (`pipeline.answer_query`): si `retrieve` no trae nada.
+- Tool use (`tools.responder_con_tools`): si usó la herramienta y no encontró
+  ninguna norma. Un saludo, sin búsqueda, sigue respondiéndose normal.
+- ReAct (`agentico.agente_react`): si buscó (`buscar_normas`/`leer_articulo`) y no
+  encontró ninguna norma.
+
+Cada salida registra en `verificacion.escape_por_codigo` si el código intervino y
+por qué (`sin_contexto` o `citas_no_verificables`), para auditar.
+
+### Hallazgo 2 — Citas inventadas bajo presión
+
+**Evidencia.** 9102 (config B): se le pide "el número exacto del artículo de la
+Constitución que consagra la tutela" y responde "artículo 2" (es el 86), que no
+estaba entre lo recuperado. 9034 (config A): cita el "artículo 24" de la Ley 820
+cuando lo recuperado eran los artículos 8, 10, 11, 22 y 23.
+
+**Causa.** La verificación de citas (sección 19) solo existía en la ruta ReAct; el
+RAG de una pasada y el tool use entregaban la respuesta sin revisarla.
+
+**Corrección: la misma verificación en las tres rutas**
+(`agentico.citas_no_verificables`: artículos no recuperados + sentencias, que el
+corpus no tiene). Si la respuesta cita algo que no se puede verificar, se regenera
+**una vez** con una nota de corrección; si insiste, escape por código. En una
+respuesta limpia no hay costo extra: la segunda generación solo ocurre cuando hay
+algo que corregir.
+
+### Hallazgo 3 — La hybrid search descartaba justo lo que debía rescatar
+
+**Evidencia.** B y C recuperan menos chunks (3.55 y 3.71 vs 4.57) y C deja 4 casos
+gold sin contexto (A: 0). En la fase 2 del notebook de S08, para "¿qué dice el
+artículo 64 del código sustantivo del trabajo?", C pone el artículo 64 del CST
+(solo BM25) en primer lugar, pero eso es con el piso desactivado; en la corrida
+real ese chunk se descartaba.
+
+**Causa.** Dos cosas juntas en `retrieve`: (1) se recortaba a `top_k` y **después**
+se aplicaba el piso, así que los chunks solo-BM25 ocupaban puestos del top-5 y el
+piso los borraba, dejando menos de 5 aunque hubiera candidatos válidos más abajo;
+(2) el piso descartaba **todo** chunk solo-BM25 (sección 14), incluida la referencia
+exacta que motiva la hybrid search.
+
+**Corrección.**
+
+1. El piso se aplica **antes** del recorte: el top-5 se llena con los mejores
+   candidatos que sí pasan. En A no cambia nada (la lista viene ordenada por
+   coseno y el piso solo quita la cola), así que A sigue reproduciendo S07.
+2. **Excepción acotada** a la regla de la sección 14 (`retrieve.es_referencia_exacta`):
+   un chunk solo-BM25 pasa si contiene un artículo que la consulta cita
+   explícitamente y, si la consulta nombra una norma, es de esa norma (el 64 del
+   CGP no pasa por una pregunta sobre el CST). Un chunk solo-BM25 sin esa
+   referencia se sigue descartando.
+
+**Pendiente, para revisar con quien diseñó la Parte II:** la alternativa más
+general sería calcular el coseno real de los chunks solo-BM25 (el índice FAISS
+plano permite reconstruir sus vectores) y aplicarles el mismo piso que a los demás.
+Se eligió la excepción acotada porque no cambia la API del store y cubre el caso
+que motiva la técnica.
+
+### Qué cambia para las corridas siguientes
+
+- Las cifras de S08 de esta sección son **anteriores** a las correcciones. Para
+  medir su efecto, basta volver a correr la fase 4 de S08 (mismas banderas) y
+  comparar con esta tabla.
+- La corrida principal de S08, S10 y DSPy usa `USE_LORA = True`: Amparo es el
+  modelo de M1 + RAG, y es lo que se entrega. `False` queda como ablación ("¿el
+  fine-tuning sigue aportando con RAG?"). En S10 los archivos llevan sufijo
+  `_lora`/`_base` y no se pisan; en S08 no, así que una segunda corrida sobrescribe
+  la primera.
+
+Verificación: `test_retrieve.py` (piso antes del recorte, referencia exacta,
+norma nombrada), `test_pipeline.py` y `test_tools.py` (escape por código sin
+llamar al modelo, corrección de una cita, escape si insiste, respuesta limpia sin
+regenerar) y `test_agentico.py` (escape si buscó y no encontró, rechazo de
+sentencias).
