@@ -197,3 +197,57 @@ def test_un_adversarial_prudente_sin_frase_de_escape_cuenta_como_bien():
     t = rm.tasas_de_escape([r])["react"]
     assert t["prudencia_en_adversariales"] == 1.0
     assert t["escape_en_adversariales"] == 0.0
+
+
+# --- Cupo del juez y reuso (antes de correr la fase 5 de S10) ---------------------
+
+def test_un_error_del_juez_no_se_guarda_en_el_checkpoint(tmp_path):
+    """Si se guardara, al retomar se saltaria como 'ya evaluado' sin haberlo
+    evaluado nunca: justo lo que pasaria al agotarse el cupo de Groq."""
+    ck = tmp_path / "ck.jsonl"
+    filas = rm.evaluar_corrida([record(id=1)], juez=lambda s, u, m: ("", 0), embed=embed_fake,
+                               checkpoint_path=ck, progress_every=0)
+    assert filas == []
+    assert not ck.exists() or ck.read_text() == ""
+
+
+def test_con_el_cupo_agotado_se_detiene_y_al_retomar_sigue(tmp_path):
+    ck = tmp_path / "ck.jsonl"
+    records = [record(id=i) for i in range(1, 7)]
+    bueno = juez_fijo(veredicto())
+    estado = {"n": 0}
+
+    def juez_que_se_agota(system, user, max_tokens):
+        estado["n"] += 1
+        return bueno(system, user, max_tokens) if estado["n"] <= 4 else ("", 0)   # 2 casos y se agota
+
+    parcial = rm.evaluar_corrida(records, juez=juez_que_se_agota, embed=embed_fake,
+                                 checkpoint_path=ck, progress_every=0)
+    assert [f["registro_id"] for f in parcial] == [1, 2]
+    assert estado["n"] == 4 + rm.MAX_ERRORES_SEGUIDOS          # se detuvo, no siguio gastando
+
+    completa = rm.evaluar_corrida(records, juez=juez_fijo(veredicto()), embed=embed_fake,
+                                  checkpoint_path=ck, progress_every=0)
+    assert [f["registro_id"] for f in completa] == [1, 2, 3, 4, 5, 6]
+
+
+def test_reusa_casos_identicos_sin_llamar_al_juez():
+    """La ruta una_pasada de S10 y la configuracion C de S08 son el mismo sistema."""
+    base = [record(id=1, sistema="una_pasada"), record(id=2, sistema="una_pasada")]
+    previas = rm.evaluar_corrida(base, juez=juez_fijo(veredicto()), embed=embed_fake, progress_every=0)
+
+    otra = [record(id=1, sistema="C_rerank"), record(id=2, sistema="C_rerank", answer="otra respuesta distinta")]
+    juez = juez_fijo(veredicto())
+    filas = rm.evaluar_corrida(otra, juez=juez, embed=embed_fake, progress_every=0, reusar=previas)
+
+    assert filas[0]["reusada_de"] == "una_pasada:1" and filas[0]["sistema"] == "C_rerank"
+    assert "reusada_de" not in filas[1]                     # la respuesta cambio: se evalua
+    assert len(juez.llamadas) == 2                           # solo el caso 2 (contexto + relevancia)
+
+
+def test_distingue_limite_por_minuto_de_cupo_diario():
+    class E(Exception):
+        status_code = 429
+    assert rm.es_limite_por_minuto(E("Rate limit reached ... tokens per minute (TPM)"))
+    assert not rm.es_limite_por_minuto(E("Rate limit reached ... tokens per day (TPD)"))
+    assert not rm.es_limite_por_minuto(ValueError("otra cosa"))

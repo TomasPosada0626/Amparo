@@ -50,6 +50,7 @@ con su criterio.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import re
@@ -245,15 +246,19 @@ def evaluar_caso(record: dict, *, juez: Juez, embed: Embedder) -> dict:
         MAX_TOKENS_CONTEXTO,
     )
     tokens += usados
+    error_juez = not texto          # sin respuesta del juez: red, cupo agotado...
     fila = metricas_de_contexto(extraer_json(texto), len(contextos))
     if escape:
         fila["faithfulness"] = None
 
     if escape:
         fila["answer_relevancy"] = 0.0
+    elif error_juez:
+        fila["answer_relevancy"] = None   # el juez no respondio: no gastar otra llamada
     else:
         texto, usados = juez(SYSTEM_JUEZ, prompt_relevancia(respuesta), MAX_TOKENS_RELEVANCIA)
         tokens += usados
+        error_juez = error_juez or not texto
         obj = extraer_json(texto) or {}
         fila["answer_relevancy"] = answer_relevancy(record["question"], obj.get("preguntas") or [], embed)
 
@@ -265,15 +270,29 @@ def evaluar_caso(record: dict, *, juez: Juez, embed: Embedder) -> dict:
         "category": record.get("category", ""),
         "escape": escape,
         "n_contextos": len(contextos),
+        "huella": huella_de(record),
+        "error_juez": error_juez,
         "tokens_juez": tokens,
         "segundos": round(time.perf_counter() - t0, 2),
     })
     return fila
 
 
+def huella_de(record: dict) -> str:
+    """Identifica el CONTENIDO evaluado (pregunta, respuesta, contextos,
+    referencia). Dos registros con la misma huella reciben las mismas notas, asi
+    que no hace falta pagarle al juez dos veces (ver `reusar` en evaluar_corrida)."""
+    contenido = json.dumps([record.get("question"), record.get("answer"), list(record.get("contexts") or []),
+                            record.get("ground_truth")], ensure_ascii=False)
+    return hashlib.md5(contenido.encode("utf-8")).hexdigest()
+
+
 def clave_de(record: dict) -> str:
     """Id unico para el checkpoint: el mismo registro se evalua en varias rutas."""
     return f"{record.get('sistema', 'una_pasada')}:{record['id']}"
+
+
+MAX_ERRORES_SEGUIDOS = 3
 
 
 def evaluar_corrida(
@@ -284,26 +303,63 @@ def evaluar_corrida(
     checkpoint_path: Optional[Path] = None,
     solo_gold: bool = True,
     progress_every: int = 5,
+    reusar: Sequence[dict] = (),
 ) -> list[dict]:
     """Evalua una lista de registros, con checkpoint para retomar.
 
     solo_gold: los adversariales se miden con tasas_de_escape, no con RAGAS
-    (ver docstring del modulo). Si el cupo del juez se acaba a mitad de camino,
-    volver a llamar con el mismo checkpoint_path salta lo ya evaluado."""
+    (ver docstring del modulo).
+
+    Cupo del juez: un caso en el que el juez no respondio (red, limite de Groq)
+    NO se guarda en el checkpoint -- si se guardara, al retomar se saltaria como
+    "ya evaluado" sin haberlo evaluado nunca. Tras MAX_ERRORES_SEGUIDOS errores
+    seguidos (tipicamente, cupo diario agotado) la corrida se detiene y devuelve
+    lo que alcanzo a evaluar; volver a llamar con el mismo checkpoint_path sigue
+    desde ahi.
+
+    reusar: filas ya evaluadas en otra corrida. Un registro con la misma huella
+    (misma pregunta, respuesta, contextos y referencia) toma esas notas sin
+    llamar al juez. Caso tipico: la ruta "una_pasada" de S10 y la configuracion C
+    de S08 son el mismo sistema."""
     hechos = load_checkpoint(checkpoint_path)
+    previas = {(f.get("registro_id"), f.get("huella")): f for f in reusar
+               if f.get("huella") and not f.get("error_juez")}
     pendientes = [r for r in records if not solo_gold or r.get("tipo") == "gold"]
-    filas, tokens = [], 0
+    filas, tokens, errores_seguidos, reusadas = [], 0, 0, 0
     for i, record in enumerate(pendientes, start=1):
         clave = clave_de(record)
         if clave in hechos:
             filas.append(hechos[clave])
             continue
+        previa = previas.get((record["id"], huella_de(record)))
+        if previa is not None:
+            fila = {**previa, "id": clave, "sistema": record.get("sistema", "una_pasada"),
+                    "reusada_de": previa.get("id"), "tokens_juez": 0}
+            append_checkpoint(checkpoint_path, fila)
+            filas.append(fila)
+            reusadas += 1
+            continue
         fila = evaluar_caso(record, juez=juez, embed=embed)
+        tokens += fila["tokens_juez"]
+        if fila["error_juez"]:
+            errores_seguidos += 1
+            if errores_seguidos >= MAX_ERRORES_SEGUIDOS:
+                faltan = len(pendientes) - i + errores_seguidos
+                print(f"[ragas] el juez fallo {errores_seguidos} veces seguidas (cupo de Groq agotado o red). "
+                      f"Se detiene aqui: faltan ~{faltan} casos. Vuelve a correr la celda mas tarde "
+                      "(o con otra GROQ_API_KEY) y sigue desde este punto.")
+                break
+            continue
+        errores_seguidos = 0
         append_checkpoint(checkpoint_path, fila)
         filas.append(fila)
-        tokens += fila["tokens_juez"]
         if progress_every and (i % progress_every == 0 or i == len(pendientes)):
             print(f"[ragas] {i}/{len(pendientes)} -- tokens del juez en esta sesion: {tokens}")
+    if reusadas:
+        print(f"[ragas] {reusadas} casos reusados de una evaluacion identica (sin gastar juez).")
+    evaluados = len(filas)
+    if evaluados < len(pendientes):
+        print(f"[ragas] evaluados {evaluados}/{len(pendientes)}: el resumen es PARCIAL hasta completar.")
     return filas
 
 
@@ -381,12 +437,27 @@ def tasas_de_escape(records: Sequence[dict]) -> dict:
 
 # --- Implementaciones por defecto (red / GPU, import perezoso) ----------------
 
+REINTENTOS_LIMITE_MINUTO = 3
+ESPERA_LIMITE_MINUTO_S = 20
+
+
+def es_limite_por_minuto(exc: Exception) -> bool:
+    """Un 429 de Groq por limite POR MINUTO se resuelve esperando; uno por
+    limite DIARIO (tokens/requests per day) no, y no vale la pena reintentar."""
+    texto = str(exc).lower()
+    es_429 = getattr(exc, "status_code", None) == 429 or "429" in texto or "rate limit" in texto
+    diario = "per day" in texto or "tpd" in texto or "rpd" in texto
+    return es_429 and not diario
+
+
 def juez_groq() -> Juez:
     """Juez real: Groq con el modelo de external_judge (GROQ_JUDGE_MODEL).
 
-    Nunca lanza ante un fallo puntual (red, rate limit): devuelve ("", 0) y la
-    metrica queda None con parse_ok=False, igual que external_judge.call_groq.
-    Si la clave falta, si falla de inmediato (error de configuracion)."""
+    Nunca lanza ante un fallo puntual: si Groq pide esperar (limite por
+    minuto), espera y reintenta; si el fallo persiste o es el cupo diario,
+    devuelve ("", 0) y evaluar_corrida no guarda ese caso en el checkpoint (se
+    reintenta al retomar). Si la clave falta, si falla de inmediato (error de
+    configuracion)."""
     from tools.evaluation import external_judge as ej
 
     cliente = ej._get_client()
@@ -400,13 +471,20 @@ def juez_groq() -> Juez:
         )
         if ej.GROQ_REASONING_EFFORT:
             kwargs["reasoning_effort"] = ej.GROQ_REASONING_EFFORT
-        try:
-            resp = cliente.chat.completions.create(**kwargs)
-        except Exception as exc:  # noqa: BLE001 - un fallo puntual no aborta el lote
-            print(f"[ragas] error del juez: {exc}")
-            return "", 0
-        usados = getattr(getattr(resp, "usage", None), "total_tokens", 0) or 0
-        return (resp.choices[0].message.content or "").strip(), usados
+        for intento in range(REINTENTOS_LIMITE_MINUTO + 1):
+            try:
+                resp = cliente.chat.completions.create(**kwargs)
+            except Exception as exc:  # noqa: BLE001 - un fallo puntual no aborta el lote
+                if es_limite_por_minuto(exc) and intento < REINTENTOS_LIMITE_MINUTO:
+                    espera = ESPERA_LIMITE_MINUTO_S * (intento + 1)
+                    print(f"[ragas] limite por minuto de Groq; espero {espera}s y reintento...")
+                    time.sleep(espera)
+                    continue
+                print(f"[ragas] error del juez: {str(exc)[:300]}")
+                return "", 0
+            usados = getattr(getattr(resp, "usage", None), "total_tokens", 0) or 0
+            return (resp.choices[0].message.content or "").strip(), usados
+        return "", 0
 
     return juez
 
