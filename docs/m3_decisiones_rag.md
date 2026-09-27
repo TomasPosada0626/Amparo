@@ -6,11 +6,12 @@ Documento de decisiones del sistema RAG de Amparo. Cubre las tres partes de M3:
   store` offline, `retrieve → augment → generate` online.
 - **Parte II — RAG avanzado (S08) + tool use (S10), secciones 11-17:** hybrid
   search, reranking y el retrieval expuesto como herramienta.
-- **Parte III — RAG agéntico (S10), secciones 18-25:** el mini-agente ReAct,
+- **Parte III — RAG agéntico (S10), secciones 18-26:** el mini-agente ReAct,
   sus herramientas, la verificación de citas, la comparación de las tres rutas
   (una pasada, tool use, ReAct), su evaluación con RAGAS, el registro en W&B, la
-  optimización del prompt con DSPy (extra) y los hallazgos de la corrida real de
-  S08 con sus correcciones (sección 25).
+  optimización del prompt con DSPy (extra), los hallazgos de la corrida real de
+  S08 con sus correcciones (sección 25) y el de la corrida real de S10: el modelo
+  no usaba las herramientas (sección 26).
 
 Mismo estándar de documentación que M1/M2: **decisión + justificación +
 evidencia**, no solo qué se eligió.
@@ -300,6 +301,7 @@ Parte II y el material de trabajo para afinar el pipeline.
 | 9034 (arriendo, S08, config A) | Citó el "artículo 24" sin haberlo recuperado (se recuperaron los arts. 8, 10, 11, 22, 23 de la Ley 820). | `generate` | Igual que el anterior (sección 25, hallazgo 2). |
 | Corrida A/B/C de S08 (2026-09-27): chunks por consulta y consultas vacías | B y C recuperan menos (3.55 y 3.71 chunks vs 4.57 en A) y C deja 4 casos gold sin contexto (A: 0). El chunk que la hybrid debía rescatar ("artículo 64", solo BM25) se descartaba. | `retrieve` (el recorte a top_k iba antes del piso, y el piso borraba todo lo solo-BM25) | Piso antes del recorte + excepción para referencias exactas a un artículo citado (sección 25, hallazgo 3). |
 | 9102 "¿cuál es el número exacto del artículo de la Constitución que consagra la tutela?" (S08 corregido, 2026-09-27, A/B/C) | El artículo 86 (tutela) no aparece entre lo recuperado en ninguna de las tres configuraciones; lo recuperado son los arts. 1, 2, 4, 5, 42, 43, 51, 169 de la Constitución. | `retrieve` / `embed` (la consulta pregunta por "el número del artículo", no por el contenido de la tutela) | Pendiente: context recall de RAGAS (fase 5b de S10) lo debería mostrar; candidatos: expansión de consulta o `leer_articulo` en el agente. |
+| Corrida de S10 (2026-09-27, LoRA), rutas agénticas | Tool use: 53 de 56 respuestas sin contexto (0.1 llamadas por pregunta): el modelo casi nunca pidió la herramienta y respondió de memoria. ReAct: 41 de 56 sin contexto; respuestas con instrucciones ("calcula el plazo con calcular_plazo…"), formato roto (`Responde[…]`) y a medias (leyó el artículo equivocado del usuario y no buscó el correcto). | `generate` (el modelo no sigue el protocolo de herramientas inventado en el prompt) | Formato nativo de herramientas + red de seguridad por código (sección 26, hallazgo 4). |
 
 ## 10. Alcance de cada parte
 
@@ -510,6 +512,12 @@ razonamiento, y tiene un caso de uso medible; ver sección 18.)
 Verificación: [`test_tools.py`](../tests/rag/test_tools.py) cubre el parser, el
 dispatcher con su validación y el bucle propone → ejecuta → observa → responde.
 
+> **Revisión (hallazgo 4, sección 26).** En la corrida real con LoRA el modelo
+> casi nunca emitió el JSON de este protocolo (53 de 56 preguntas sin buscar). La
+> herramienta ahora va en el formato nativo de *function calling* de Qwen2.5, y si
+> el modelo responde una pregunta jurídica sin buscar, el código busca por él.
+
+
 ## 16. Composición: el experimento A/B/C
 
 Las dos técnicas se activan por bandera (`use_hybrid`, `use_rerank`) sobre un único
@@ -615,6 +623,12 @@ separa el pensamiento de la acción, que es lo que se audita. El parser toma la
 *primera* acción de cada salida (un modelo pequeño a veces sigue escribiendo pasos
 y observaciones inventadas que no se ejecutaron) y, para `Responder`, lee hasta el
 último corchete (la respuesta puede citar "[1]" o tener varias líneas).
+
+> **Revisión (hallazgo 4, sección 26).** En la corrida real el modelo no siguió
+> este formato de texto (respondió sin buscar, con instrucciones o con
+> `Responde[…]`). Ahora las herramientas van en formato nativo de *function
+> calling*; el formato de texto queda solo como respaldo del parser, y el
+> pensamiento es el texto que el modelo escribe antes de cada llamada.
 
 **Robustez.** Mismo criterio que el tool use: degradar, no romper.
 
@@ -1016,3 +1030,89 @@ norma nombrada), `test_pipeline.py` y `test_tools.py` (escape por código sin
 llamar al modelo, corrección de una cita, escape si insiste, respuesta limpia sin
 regenerar) y `test_agentico.py` (escape si buscó y no encontró, rechazo de
 sentencias).
+
+## 26. Hallazgo 4 (S10): el modelo no usaba las herramientas
+
+**La corrida.** `colab/m3_s10_rag_agentico.ipynb`, 2026-09-27, `USE_LORA = True`,
+fases 3 y 4 sobre el eval set completo (56 preguntas). Resumen de la fase 4:
+
+| Ruta | s/consulta | Sin contexto | Herramientas por pregunta |
+|---|---|---|---|
+| Una pasada | 6.8 | 1 | 0 (busca siempre el código) |
+| Tool use | 5.6 | **53** | **0.1** |
+| ReAct | 7.9 | **41** | 1.3 |
+
+Y en las consultas de la fase 3 del ReAct:
+
+- **SIMPLE** ("¿cuánto tiempo tiene una entidad para responder un derecho de
+  petición?"): no buscó; respondió con una instrucción ("calcula el plazo
+  aplicable con calcular_plazo…").
+- **COMPUESTA** (arriendo + IPC): calculó sin buscar la norma y respondió sin citar
+  el artículo 20.
+- **PLAZO**: respondió `Responde[…]` (formato roto) sin buscar nada.
+- **EQUIVOCADO** ("según el artículo 21 de la Ley 820…"): leyó el 21, dijo que no
+  trataba del aumento… y se quedó ahí, sin buscar el que sí aplica ni responder.
+
+**Causa.** Las dos rutas le pedían al modelo seguir un protocolo **inventado en el
+prompt**: un JSON `{"tool": …, "args": …}` en el tool use y líneas
+`Accion: x[…]` en el ReAct. Qwen con el adaptador de M1 —entrenado para responder
+siempre en texto— casi nunca lo sigue: responde directo, de memoria. Es el mismo
+patrón de los hallazgos 1 y 2: una regla que solo existe en el prompt. La
+respuesta de memoria además esquivaba las salvaguardas de la sección 25: sin
+búsqueda no hay escape por "sin contexto", y sin citas no hay nada que verificar.
+
+**Corrección, en dos capas.**
+
+1. **Formato nativo de herramientas.** Las herramientas se describen con el
+   esquema estándar de *function calling* y se pasan a la plantilla de chat del
+   modelo (`apply_chat_template(..., tools=[...])`, en
+   `generation.run_messages_generation`). Qwen2.5 fue entrenado para pedir
+   herramientas con ese formato (`<tool_call>{"name": …, "arguments": …}</tool_call>`)
+   y para recibir su resultado como mensaje de rol `tool`; el bucle ahora es una
+   conversación de mensajes, no un texto que crece. La respuesta final es texto
+   normal (desaparece el `Responder[…]`). Al decodificar se conservan los tokens
+   especiales para no perder las etiquetas `<tool_call>`. El parser
+   (`tools.extraer_llamadas`) sigue aceptando los formatos viejos como respaldo,
+   incluidas las variantes que el modelo escribió (`Responde[…]`).
+2. **Red de seguridad por código**, en las dos rutas:
+   - **Pregunta jurídica sin búsqueda:** si el modelo va a responder sin haber
+     usado `buscar_normas` y la consulta no es charla trivial
+     (`tools.es_charla_trivial`: saludos, gracias, "¿quién eres?"; conservadora a
+     propósito), el código busca con la pregunta del usuario y le devuelve el
+     resultado para que responda con eso. En el ReAct esto cubre también al que
+     solo leyó el artículo equivocado del usuario: el mensaje le pide decir cuál
+     sí aplica y responder la pregunta completa.
+   - **Respuesta que describe herramientas** ("usa calcular_plazo…") o vacía:
+     se rechaza y tiene que responder de verdad.
+   - Se mantienen las de la sección 25 (verificación de citas, escape por código).
+
+**Qué queda registrado.** Cada respuesta lleva `verificacion.busqueda`:
+`"modelo"` (el modelo buscó por su cuenta), `"forzada_por_codigo"` o `"ninguna"`
+(charla trivial). En el tool use cada llamada lleva `forzado_por_codigo`; en el
+ReAct la traza muestra `buscar_normas (forzado por codigo)` y la respuesta que se
+descartó. La fase 4 del notebook resume cuántas veces buscó el modelo y cuántas
+el código: es la medida de cuánto se apoya el sistema en la red de seguridad.
+
+**Límites.**
+
+- La plantilla real de Qwen2.5 no se pudo inspeccionar desde el entorno de
+  desarrollo (sin acceso a Hugging Face); el código usa el mecanismo estándar de
+  `transformers` y el formato documentado de Qwen2.5. La prueba real es la
+  próxima corrida: si el modelo sigue sin pedir herramientas, la red de seguridad
+  lo cubre igual y la cifra de `forzada_por_codigo` lo muestra.
+- La búsqueda forzada usa la pregunta del usuario tal cual, sin reformularla (lo
+  que el tool use debía aportar). Es un piso, no un reemplazo.
+- Si el usuario cita el artículo correcto, el agente lo lee y además se fuerza
+  una búsqueda del tema: un paso de más, a cambio de no depender de que el modelo
+  juzgue bien.
+
+**Qué hay que volver a correr.** Las rutas tool use y ReAct de S10 (fases 2 a 4);
+la ruta de una pasada no cambia. Los registros de esta corrida (el "antes") se
+guardan aparte antes de volver a correr.
+
+Verificación: `test_tools.py` (llamadas nativas, varias llamadas, JSON viejo,
+charla trivial, herramienta en formato nativo, búsqueda forzada, rechazo de
+respuestas que describen herramientas) y `test_agentico.py` (formato nativo con
+mensajes y herramientas, SIMPLE: búsqueda forzada; respuesta con instrucciones
+rechazada; `Responde[…]`; EQUIVOCADO: lee, se fuerza la búsqueda y responde con el
+artículo que aplica; escape si al final sigue pidiendo herramientas).

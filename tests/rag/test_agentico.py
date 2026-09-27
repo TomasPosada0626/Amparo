@@ -156,15 +156,17 @@ def test_la_salida_se_convierte_al_registro_de_evaluacion(monkeypatch):
     assert len(record["traza"]) == 2
 
 
-def test_sin_accion_valida_toma_la_salida_como_respuesta_directa(monkeypatch):
-    stub_retrieve(monkeypatch, [])
+def test_un_saludo_se_responde_sin_buscar(monkeypatch):
+    """Charla trivial: la unica excepcion a "toda pregunta se responde buscando"."""
+    busquedas = stub_retrieve(monkeypatch, [])
     generar = generador("Hola, cuentame tu caso y te oriento.")
 
     r = agentico.agente_react("hola", object(), _generar=generar)
 
     assert r["response"] == "Hola, cuentame tu caso y te oriento."
-    assert r["contexts"] == []
-    assert r["traza"][0]["accion"] == "respuesta_directa"
+    assert r["contexts"] == [] and busquedas == []
+    assert r["traza"][0]["accion"] == "Responder"
+    assert r["verificacion"]["busqueda"] == "ninguna"
 
 
 def test_el_bucle_no_corre_para_siempre(monkeypatch):
@@ -435,3 +437,119 @@ def test_react_rechaza_sentencias_citadas(monkeypatch):
 
     assert r["traza"][1]["accion"] == "Responder (rechazado)"
     assert r["response"] == "Segun el Articulo 20, si."
+
+
+
+# --- Hallazgo 4 de S10 (corrida del 2026-09-27): formato nativo y red de seguridad ---
+
+def nativo(nombre, **args):
+    import json
+    return f'<tool_call>\n{json.dumps({"name": nombre, "arguments": args})}\n</tool_call>'
+
+
+def test_entiende_el_formato_nativo_de_herramientas(monkeypatch):
+    busquedas = stub_retrieve(monkeypatch, [make_result("ley820::20")])
+    generar = generador(
+        "Busco el tope del reajuste.\n" + nativo("buscar_normas", consulta="reajuste canon IPC"),
+        nativo("calculadora", expresion="1200000 * 1.052"),
+        "Segun la Ley 820 de 2003, Articulo 20, te pueden subir hasta 1262400.",
+    )
+
+    r = agentico.agente_react("pago 1200000 y el IPC fue 5,2%, cuanto me suben", object(), _generar=generar)
+
+    assert [p["accion"] for p in r["traza"]] == ["buscar_normas", "calculadora", "Responder"]
+    assert r["traza"][0]["pensamiento"] == "Busco el tope del reajuste."
+    assert r["traza"][1]["observacion"] == "1262400"
+    assert busquedas == ["reajuste canon IPC"]
+    assert r["verificacion"]["busqueda"] == "modelo"
+
+
+def test_pasa_los_mensajes_y_las_herramientas_nativas_al_modelo(monkeypatch):
+    stub_retrieve(monkeypatch, [make_result("ley820::20")])
+    vistos = []
+
+    def generar(mensajes, herramientas):
+        vistos.append((list(mensajes), herramientas))
+        return nativo("buscar_normas", consulta="x") if len(vistos) == 1 else "Segun el Articulo 20, ..."
+
+    agentico.agente_react("cuanto me suben el arriendo", object(), _generar=generar)
+
+    mensajes, herramientas = vistos[1]
+    assert [h["function"]["name"] for h in herramientas] == ["buscar_normas", "leer_articulo",
+                                                             "calculadora", "calcular_plazo"]
+    assert mensajes[-2]["tool_calls"][0]["function"]["name"] == "buscar_normas"
+    assert mensajes[-1]["role"] == "tool"
+
+
+def test_respuesta_de_memoria_a_pregunta_juridica_fuerza_la_busqueda(monkeypatch):
+    """El caso SIMPLE/PLAZO de la corrida: respondio sin buscar. El codigo busca
+    con la pregunta del usuario y el agente responde con eso."""
+    busquedas = stub_retrieve(monkeypatch, [make_result("cpaca::14", fuente="Ley 1437 de 2011", articulos=["14"])])
+    generar = generador(
+        "La entidad tiene un plazo razonable para responder.",
+        "Segun la Ley 1437 de 2011, Articulo 14, tiene 15 dias.",
+    )
+
+    r = agentico.agente_react("cuanto tiempo tiene una entidad para responder un derecho de peticion",
+                              object(), _generar=generar)
+
+    assert busquedas == ["cuanto tiempo tiene una entidad para responder un derecho de peticion"]
+    assert r["traza"][0]["accion"] == "buscar_normas (forzado por codigo)"
+    assert r["traza"][0]["respuesta_descartada"] == "La entidad tiene un plazo razonable para responder."
+    assert r["response"] == "Segun la Ley 1437 de 2011, Articulo 14, tiene 15 dias."
+    assert r["verificacion"]["busqueda"] == "forzada_por_codigo"
+
+
+def test_respuesta_con_instrucciones_se_rechaza(monkeypatch):
+    """El caso SIMPLE de la corrida: 'Calcula el plazo con calcular_plazo...' no
+    es una respuesta para el usuario."""
+    stub_retrieve(monkeypatch, [make_result("cpaca::14", articulos=["14"])])
+    generar = generador(
+        nativo("buscar_normas", consulta="plazo derecho de peticion"),
+        "Calcula el plazo aplicable con calcular_plazo usando la fecha.",
+        "Segun el Articulo 14, la entidad debe responder en 15 dias.",
+    )
+
+    r = agentico.agente_react("cuanto tiempo tiene una entidad para responder", object(), _generar=generar)
+
+    assert r["traza"][1]["accion"] == "Responder (rechazado)"
+    assert r["response"] == "Segun el Articulo 14, la entidad debe responder en 15 dias."
+
+
+def test_formato_viejo_responde_con_errata_se_entiende(monkeypatch):
+    """La corrida mostro 'Responde[...]' en vez de 'Responder[...]'."""
+    stub_retrieve(monkeypatch, [make_result("ley820::20")])
+    generar = generador("Accion: buscar_normas[canon]", "Responde[Segun el Articulo 20, hasta el IPC.]")
+
+    r = agentico.agente_react("cuanto me suben el arriendo", object(), _generar=generar)
+
+    assert r["response"] == "Segun el Articulo 20, hasta el IPC."
+
+
+def test_usuario_equivocado_que_solo_lee_su_articulo_se_completa_con_busqueda(monkeypatch):
+    """El caso EQUIVOCADO de la corrida: leyo el articulo 21, vio que no trataba el
+    tema y se quedo ahi. Ahora el codigo busca el tema y el agente responde
+    diciendo cual si aplica."""
+    busquedas = stub_retrieve(monkeypatch, [make_result("ley820::20", articulos=["20"])])
+    generar = generador(
+        nativo("leer_articulo", norma="Ley 820 de 2003", numero="21"),
+        "El articulo 21 habla de terminacion por mutuo acuerdo, no de aumento de renta.",
+        "El articulo 21 que mencionas no trata eso; el que aplica es el Articulo 20: hasta el IPC.",
+    )
+
+    r = agentico.agente_react("segun el articulo 21 de la ley 820 cuanto me suben el arriendo",
+                              StoreConMetadata(), _generar=generar)
+
+    assert [p["accion"] for p in r["traza"]] == ["leer_articulo", "buscar_normas (forzado por codigo)", "Responder"]
+    assert busquedas == ["segun el articulo 21 de la ley 820 cuanto me suben el arriendo"]
+    assert "Articulo 20" in r["response"]
+
+
+def test_si_al_final_sigue_pidiendo_herramientas_escapa(monkeypatch):
+    stub_retrieve(monkeypatch, [make_result("ley820::20")])
+    generar = lambda m, h: nativo("buscar_normas", consulta="x")
+
+    r = agentico.agente_react("cuanto me suben el arriendo", object(), max_pasos=2, _generar=generar)
+
+    assert RESPUESTA_SIN_CONTEXTO in r["response"]
+    assert r["verificacion"]["escape_por_codigo"] == "no_respondio"

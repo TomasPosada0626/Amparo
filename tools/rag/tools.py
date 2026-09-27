@@ -32,6 +32,8 @@ inyecta como parametro en los tests, para que el bucle se pruebe sin GPU.
 from __future__ import annotations
 
 import json
+import re
+import unicodedata
 
 from tools.rag import config
 from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
@@ -58,17 +60,17 @@ TOOL_SCHEMA = {
     "args": {"consulta": "string"},
 }
 
-# El texto que el modelo ve como instruccion de sistema del bucle de tools. Se
-# arma con el esquema serializado.
+# Instruccion de sistema del bucle de tools. El esquema de la herramienta NO va
+# aqui: se pasa aparte, en el formato nativo (BUSCAR_NORMAS, mas abajo).
 SYSTEM_TOOLS = (
-    "Eres Amparo, un asistente juridico de derecho colombiano. Tienes una "
-    "herramienta disponible:\n"
-    + json.dumps([TOOL_SCHEMA], ensure_ascii=False, indent=2)
-    + "\n\nSi necesitas fundamentar en una norma, responde SOLO con un JSON: "
-    '{"tool": "buscar_normas", "args": {"consulta": "<que buscar>"}}. '
-    "Si ya puedes responder con fundamento (o la pregunta no requiere una norma), "
-    "responde en texto normal, sin JSON. Nunca cites una norma que no haya "
-    "aparecido en una observacion de la herramienta. Si la herramienta no "
+    "Eres Amparo, un asistente juridico de derecho colombiano para personas sin "
+    "formacion juridica. Tienes la herramienta buscar_normas, que consulta un "
+    "corpus de normas colombianas verificadas. Usala SIEMPRE que la pregunta sea "
+    "juridica (derechos, plazos, tramites, obligaciones): no respondas de memoria. "
+    "Solo un saludo o una charla sin contenido juridico se responde sin buscar. "
+    "Cuando tengas las normas, responde al usuario en texto normal, citando la "
+    "norma y el articulo tal como aparecen en el resultado de la herramienta. Nunca "
+    "cites una norma que no haya aparecido en un resultado. Si la herramienta no "
     "encuentra normas que respalden la respuesta, responde exactamente: "
     f'"{RESPUESTA_SIN_CONTEXTO}." -- la misma valvula de escape del RAG de una '
     "pasada, para que el harness la detecte igual en las dos rutas."
@@ -98,9 +100,127 @@ def extraer_tool_call(texto: str) -> dict | None:
         pedido = json.loads(texto[inicio : fin + 1])
     except (json.JSONDecodeError, ValueError):
         return None
-    if not isinstance(pedido, dict) or "tool" not in pedido:
+    if not isinstance(pedido, dict):
+        return None
+    if "tool" not in pedido and "name" in pedido:          # {"name", "arguments"}
+        pedido = {"tool": pedido["name"], "args": pedido.get("arguments") or {}}
+    if "tool" not in pedido:
         return None
     return pedido
+
+
+# --- Formato nativo de herramientas (hallazgo 4 de S10, docs seccion 26) ------
+#
+# La primera version le pedia al modelo un JSON inventado ({"tool": ..., "args":
+# ...}) descrito en el prompt. Con LoRA, Qwen casi nunca lo emitia: en la
+# corrida de S10 del 2026-09-27 el tool use no busco en 53 de 56 preguntas. Ahora
+# las herramientas van en el formato estandar de function calling, que la
+# plantilla de chat de Qwen2.5 presenta en el formato con el que el modelo fue
+# entrenado para pedir herramientas: <tool_call>{"name": ..., "arguments": ...}
+# </tool_call>. El parser sigue aceptando el JSON viejo como respaldo.
+
+def herramienta(nombre: str, descripcion: str, parametros: dict[str, str]) -> dict:
+    """Esquema de una herramienta en el formato estandar de function calling."""
+    return {
+        "type": "function",
+        "function": {
+            "name": nombre,
+            "description": descripcion,
+            "parameters": {
+                "type": "object",
+                "properties": {k: {"type": "string", "description": v} for k, v in parametros.items()},
+                "required": list(parametros),
+            },
+        },
+    }
+
+
+BUSCAR_NORMAS = herramienta(
+    "buscar_normas", TOOL_SCHEMA["description"],
+    {"consulta": "que buscar, en terminos juridicos (p. ej. 'reajuste canon arrendamiento IPC')"},
+)
+
+_BLOQUE_TOOL_CALL = re.compile(r"<tool_call>\s*(.*?)\s*(?:</tool_call>|$)", re.DOTALL)
+
+
+def _json_de(texto: str):
+    inicio, fin = texto.find("{"), texto.rfind("}")
+    if inicio == -1 or fin <= inicio:
+        return None
+    try:
+        return json.loads(texto[inicio : fin + 1])
+    except (json.JSONDecodeError, ValueError):
+        return None
+
+
+def extraer_llamadas(texto: str) -> tuple[str, list[dict]]:
+    """(texto libre, llamadas) de una salida del modelo.
+
+    Llamadas en formato nativo (<tool_call>{"name", "arguments"}</tool_call>,
+    una o varias) y, como respaldo, el JSON viejo {"tool", "args"}. Cada llamada
+    queda como {"name": str, "arguments": dict}. El texto libre es lo que el
+    modelo escribio fuera de las llamadas: su razonamiento, o la respuesta final
+    si no pidio ninguna herramienta."""
+    texto = texto or ""
+    llamadas = []
+    for bloque in _BLOQUE_TOOL_CALL.findall(texto):
+        obj = _json_de(bloque)
+        if not isinstance(obj, dict):
+            continue
+        nombre = obj.get("name") or obj.get("tool")
+        args = obj.get("arguments", obj.get("args", {}))
+        if isinstance(args, str):
+            args = _json_de(args) or {}
+        if nombre:
+            llamadas.append({"name": nombre, "arguments": args if isinstance(args, dict) else {}})
+    libre = _BLOQUE_TOOL_CALL.sub("", texto).strip()
+    if not llamadas and "<tool_call>" not in texto:
+        viejo = extraer_tool_call(texto)
+        if viejo is not None:
+            llamadas.append({"name": viejo["tool"], "arguments": viejo.get("args") or {}})
+            libre = texto[: texto.find("{")].strip()
+    return libre, llamadas
+
+
+def turno_con_llamada(texto_libre: str, llamada: dict) -> dict:
+    """Mensaje del asistente que pide una herramienta (formato estandar)."""
+    return {"role": "assistant", "content": texto_libre or "",
+            "tool_calls": [{"type": "function",
+                            "function": {"name": llamada["name"], "arguments": llamada["arguments"]}}]}
+
+
+def turno_resultado(nombre: str, observacion: str) -> dict:
+    return {"role": "tool", "name": nombre, "content": observacion}
+
+
+_CHARLA_TRIVIAL = re.compile(
+    r"^(hola|holi|buen[oa]s?( dias| tardes| noches)?|saludos|gracias|muchas gracias|mil gracias|"
+    r"ok|okay|listo|vale|perfecto|chao|adios|hasta luego|hasta pronto|quien eres|que eres|"
+    r"que puedes hacer|como estas|como te llamas)"
+    r"([ ,.!?]+(hola|buen[oa]s?( dias| tardes| noches)?|gracias|amparo|como estas|que tal))*[ ,.!?]*$"
+)
+
+
+def es_charla_trivial(query: str) -> bool:
+    """¿La consulta es un saludo o charla sin contenido juridico?
+
+    Es la UNICA excepcion a "toda pregunta se responde con normas buscadas": la
+    red de seguridad (buscar por codigo si el modelo no busco) no se aplica aqui.
+    Conservadora a proposito: ante la duda, no es trivial y se busca."""
+    q = unicodedata.normalize("NFKD", query or "").encode("ascii", "ignore").decode().lower()
+    q = re.sub(r"[¿¡]", "", q).strip()
+    return len(q.split()) <= 6 and bool(_CHARLA_TRIVIAL.match(q))
+
+
+_NOMBRES_HERRAMIENTAS = re.compile(
+    r"\b(buscar_normas|leer_articulo|calcular_plazo|calculadora)\b|\bRespond(?:er|e)\s*\[", re.IGNORECASE
+)
+
+
+def menciona_herramientas(texto: str) -> bool:
+    """La 'respuesta' habla de las herramientas en vez de usarlas ("calcula el
+    plazo con calcular_plazo..."): no es una respuesta para el usuario."""
+    return bool(_NOMBRES_HERRAMIENTAS.search(texto or ""))
 
 
 def formatear_observacion(resultados) -> str:
@@ -248,28 +368,49 @@ def responder_con_tools(
 ) -> dict:
     """Bucle agentic: propone -> ejecuta -> observa -> responde.
 
-    El modelo ve la pregunta y el esquema de la herramienta. Mientras pida la
-    herramienta (emita un tool-call JSON valido), se ejecuta la busqueda y se le
-    devuelve la observacion; cuando responde en texto plano, esa es la respuesta
-    final. max_llamadas acota el bucle para que un modelo que insiste en pedir la
-    herramienta no lo deje corriendo indefinidamente.
+    El modelo recibe la herramienta buscar_normas en el formato nativo de
+    function calling (ver arriba) y decide si la pide y con que consulta. Cada
+    llamada se ejecuta y su resultado vuelve como mensaje "tool"; cuando el
+    modelo responde en texto, esa es la respuesta.
 
-    _generar: funcion (system, user) -> str, inyectable para tests. Por defecto
-    usa el generador real (Qwen, GPU) via import perezoso.
+    Red de seguridad (hallazgo 4 de S10, docs seccion 26): si el modelo responde
+    sin haber buscado y la consulta NO es charla trivial (es_charla_trivial), el
+    codigo busca con la consulta del usuario y le devuelve el resultado para que
+    responda con eso. Asi la decision de "no buscar" solo vale para un saludo.
+
+    _generar: funcion (mensajes, herramientas) -> str, inyectable para tests. Por
+    defecto usa el generador real (Qwen, GPU) via import perezoso.
 
     Devuelve el mismo contrato que pipeline.answer_query (query, response,
-    contexts, retrieved_chunks, ...) mas `tool_calls`, la traza de herramientas
-    usadas: es la evidencia de auditoria de que la respuesta se fundamento en el
-    corpus y no de memoria, y lo que permite evaluar esta ruta con RAGAS.
+    contexts, retrieved_chunks, ...) mas `tool_calls` (la traza, con
+    `forzado_por_codigo` en cada llamada) y `verificacion` (incluye `busqueda`:
+    "modelo", "forzada_por_codigo" o "ninguna").
     """
-    generar = _generar if _generar is not None else _generar_por_defecto(model_bundle, use_lora)
+    generar = _generar if _generar is not None else _generar_mensajes_por_defecto(model_bundle, use_lora)
 
-    historial = f"Pregunta del usuario: {query}"
+    mensajes = [{"role": "system", "content": SYSTEM_TOOLS}, {"role": "user", "content": query}]
     traza: list[dict] = []
     vistos: list = []
 
+    def _ejecutar(llamada: dict, texto_libre: str = "", por_codigo: bool = False) -> None:
+        observacion, resultados = ejecutar_tool_con_resultados(
+            {"tool": llamada["name"], "args": llamada["arguments"]}, store,
+            use_hybrid=use_hybrid, use_rerank=use_rerank, bm25=bm25,
+        )
+        vistos.extend(resultados)
+        traza.append({"tool": llamada["name"], "args": llamada["arguments"], "observacion": observacion,
+                      "forzado_por_codigo": por_codigo})
+        mensajes.append(turno_con_llamada(texto_libre, llamada))
+        mensajes.append(turno_resultado(llamada["name"], observacion))
+
+    def _busqueda() -> str:
+        if not traza:
+            return "ninguna"
+        return "forzada_por_codigo" if all(c["forzado_por_codigo"] for c in traza) else "modelo"
+
     def _salida(respuesta: str) -> dict:
         respuesta, verificacion = _verificar(respuesta)
+        verificacion["busqueda"] = _busqueda()
         resultado = resultado_para_evaluacion(
             query, respuesta, vistos, sistema="tool_use", use_lora=use_lora,
             use_hybrid=use_hybrid, use_rerank=use_rerank, traza=traza,
@@ -279,10 +420,10 @@ def responder_con_tools(
         return resultado
 
     def _verificar(respuesta: str) -> tuple[str, dict]:
-        """Salvaguardas de codigo antes de entregar (seccion 25 de docs):
+        """Salvaguardas de codigo antes de entregar (secciones 25 y 26 de docs):
         - uso la herramienta y no encontro ninguna norma -> escape por codigo;
-        - cita articulos que no trajo la herramienta, o sentencias -> una
-          correccion; si insiste (o vuelve a pedir la herramienta), escape.
+        - cita articulos que no trajo la herramienta, o sentencias, o habla de las
+          herramientas en vez de responder -> una correccion; si insiste, escape.
         Un saludo sin busqueda y sin citas pasa tal cual."""
         from tools.rag.agentico import citas_no_verificables, nota_de_correccion
         from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO
@@ -292,37 +433,67 @@ def responder_con_tools(
         if traza and not vistos:
             return RESPUESTA_ESCAPE_POR_CODIGO, {"escape_por_codigo": "sin_contexto", "citas_rechazadas": []}
         rechazadas = citas_no_verificables(respuesta, vistos, query)
-        if not rechazadas:
+        meta = menciona_herramientas(respuesta)
+        if not rechazadas and not meta:
             return respuesta, {"escape_por_codigo": None, "citas_rechazadas": []}
-        corregida = generar(SYSTEM_TOOLS, historial + "\n\n" + nota_de_correccion(rechazadas)
-                            + " No pidas mas herramientas.")
-        if extraer_tool_call(corregida) is not None or citas_no_verificables(corregida, vistos, query):
+        nota = nota_de_correccion(rechazadas) if rechazadas else (
+            "Tu respuesta describe herramientas en vez de responder al usuario.")
+        corregida = generar(mensajes + [{"role": "user", "content": nota + " Responde ahora al usuario, "
+                                          "en texto normal y sin pedir mas herramientas."}], None)
+        libre, llamadas = extraer_llamadas(corregida)
+        if llamadas or citas_no_verificables(libre, vistos, query) or menciona_herramientas(libre) or not libre:
             return RESPUESTA_ESCAPE_POR_CODIGO, {"escape_por_codigo": "citas_no_verificables",
                                                  "citas_rechazadas": rechazadas}
-        return corregida, {"escape_por_codigo": None, "citas_rechazadas": rechazadas}
+        return libre, {"escape_por_codigo": None, "citas_rechazadas": rechazadas}
 
     for _ in range(max_llamadas):
-        salida = generar(SYSTEM_TOOLS, historial)
-        pedido = extraer_tool_call(salida)
-        if pedido is None:
-            # El modelo respondio directo: fin del bucle.
-            return _salida(salida)
-
-        observacion, resultados = ejecutar_tool_con_resultados(
-            pedido, store, use_hybrid=use_hybrid, use_rerank=use_rerank, bm25=bm25
-        )
-        vistos.extend(resultados)
-        traza.append({"tool": pedido.get("tool"), "args": pedido.get("args", {}), "observacion": observacion})
-        historial += (
-            f"\n\nUsaste {pedido.get('tool')} con {pedido.get('args', {})} y obtuviste:\n"
-            f"{observacion}\n\nAhora responde la pregunta del usuario fundamentandote en eso."
-        )
+        salida = generar(mensajes, [BUSCAR_NORMAS])
+        libre, llamadas = extraer_llamadas(salida)
+        if not llamadas:
+            if not traza and not es_charla_trivial(query):
+                # Red de seguridad: respondio sin buscar una pregunta juridica.
+                _ejecutar({"name": "buscar_normas", "arguments": {"consulta": query}}, por_codigo=True)
+                continue
+            return _salida(libre or salida)
+        for llamada in llamadas:
+            _ejecutar(llamada, libre)
 
     # Se agotaron las llamadas: se fuerza una respuesta final sin mas herramientas.
-    respuesta = generar(
-        SYSTEM_TOOLS, historial + "\n\nResponde ya con lo que tienes, sin pedir mas herramientas."
-    )
-    return _salida(respuesta)
+    salida = generar(mensajes + [{"role": "user", "content": "Responde ya al usuario con lo que tienes, "
+                                  "sin pedir mas herramientas."}], None)
+    libre, llamadas = extraer_llamadas(salida)
+    if llamadas or not libre:
+        # Sigue pidiendo herramientas: no respondio. Escape por codigo.
+        from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO
+
+        resultado = resultado_para_evaluacion(
+            query, RESPUESTA_ESCAPE_POR_CODIGO, vistos, sistema="tool_use", use_lora=use_lora,
+            use_hybrid=use_hybrid, use_rerank=use_rerank, traza=traza,
+        )
+        resultado["tool_calls"] = traza
+        resultado["verificacion"] = {"escape_por_codigo": "no_respondio", "citas_rechazadas": [],
+                                     "busqueda": _busqueda()}
+        return resultado
+    return _salida(libre)
+
+
+def _generar_mensajes_por_defecto(model_bundle, use_lora: bool = False):
+    """Generador real (Qwen) como funcion (mensajes, herramientas) -> str.
+
+    Pasa las herramientas a la plantilla de chat (formato nativo). Import
+    perezoso: stack pesado, vive en Colab. Tambien lo usa el agente ReAct."""
+    from tools.evaluation import generation
+
+    from tools.rag.pipeline import load_model
+
+    model, tokenizer = model_bundle if model_bundle else load_model(use_lora=use_lora)
+
+    def generar(mensajes: list[dict], herramientas: list[dict] | None = None) -> str:
+        return generation.run_messages_generation(
+            model, tokenizer, mensajes, config.MAX_NEW_TOKENS_GENERATION, tools=herramientas or None
+        )
+
+    return generar
 
 
 def _generar_por_defecto(model_bundle, use_lora: bool = False):

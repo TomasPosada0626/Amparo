@@ -79,11 +79,18 @@ from tools.rag.chunk import normalizar_numero
 from tools.rag.embed_store import metadata_to_result
 from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO, RESPUESTA_SIN_CONTEXTO
 from tools.rag.tools import (
+    BUSCAR_NORMAS,
     TOOL_TOP_K,
-    _generar_por_defecto,
+    _generar_mensajes_por_defecto,
     ejecutar_tool_con_resultados,
+    es_charla_trivial,
+    extraer_llamadas,
     formatear_observacion,
+    herramienta,
+    menciona_herramientas,
     resultado_para_evaluacion,
+    turno_con_llamada,
+    turno_resultado,
 )
 
 MAX_PASOS = 5
@@ -91,36 +98,43 @@ MAX_PASOS = 5
 ACCIONES = ("buscar_normas", "leer_articulo", "calculadora", "calcular_plazo", "Responder")
 
 SYSTEM_REACT = (
-    "Eres Amparo, un asistente juridico de derecho colombiano. Resuelve la "
-    "pregunta razonando por pasos. En cada paso escribe EXACTAMENTE dos lineas:\n"
-    "Pensamiento: <que necesitas averiguar o calcular>\n"
-    "Accion: <una de estas>\n"
-    "  buscar_normas[<consulta>]   -> busca articulos en el corpus de normas colombianas verificadas\n"
-    "  leer_articulo[<norma>, <numero>] -> lee un articulo exacto (ej. leer_articulo[Ley 820 de 2003, 20])\n"
-    "  calculadora[<expresion>]    -> calcula una expresion aritmetica: numeros sin separador de miles y con punto decimal, + - * / y parentesis (ej. 1200000 * 1.052)\n"
-    "  calcular_plazo[<AAAA-MM-DD>, <n>, <habiles|calendario>] -> fecha en que vence un termino de n dias contado desde el dia siguiente\n"
-    "  Responder[<respuesta final>] -> termina con la respuesta para el usuario\n\n"
+    "Eres Amparo, un asistente juridico de derecho colombiano para personas sin "
+    "formacion juridica. Resuelves la pregunta por pasos: piensas que necesitas, "
+    "usas una herramienta, lees su resultado y repites hasta poder responder. "
+    "Antes de cada herramienta puedes escribir en una linea que vas a buscar o "
+    "calcular.\n\n"
     "Reglas:\n"
-    "- Toda afirmacion legal debe salir de una observacion de buscar_normas; "
-    "cita la norma y el articulo tal como aparecen ahi. Nunca cites de memoria.\n"
-    "- Si hay que hacer una cuenta (valores, porcentajes), usa calculadora; si hay "
-    "que saber cuando vence un plazo, usa calcular_plazo con el numero de dias y el "
-    "tipo que diga la norma. No hagas cuentas de cabeza.\n"
-    "- Solo puedes citar articulos que aparecieron en tus observaciones: una cita "
-    "que no viste sera rechazada.\n"
-    "- Si el usuario menciona un articulo concreto, leelo con leer_articulo y "
-    "comprueba que trate lo que pregunta. Si no lo trata o no existe, diselo con "
-    "claridad y busca el tema con buscar_normas.\n"
-    "- Si buscar_normas no encuentra normas que respalden la respuesta, termina con: "
-    f'Responder[{RESPUESTA_SIN_CONTEXTO}.]\n'
+    "- Si la pregunta es juridica, BUSCA con buscar_normas antes de responder; no "
+    "respondas de memoria. Solo un saludo o charla sin contenido juridico se "
+    "responde sin buscar.\n"
+    "- Busca todo lo que necesites para responder COMPLETO: la regla, y si la "
+    "pregunta lo pide, que hacer si no se cumple (por ejemplo, la tutela).\n"
+    "- Si el usuario menciona un articulo, leelo con leer_articulo. Si no trata lo "
+    "que pregunta, busca el tema con buscar_normas y en tu respuesta dile que ese "
+    "articulo no aplica, cual si aplica y responde su pregunta.\n"
+    "- Cuentas de valores o porcentajes: calculadora. Cuando vence un plazo: "
+    "calcular_plazo, con el numero de dias y el tipo que diga la norma. No hagas "
+    "cuentas de cabeza.\n"
+    "- Toda afirmacion legal debe salir de un resultado de herramienta; cita la norma "
+    "y el articulo tal como aparecen ahi. Una cita que no viste sera rechazada.\n"
+    "- Cuando tengas todo, RESPONDE AL USUARIO en texto normal: la respuesta "
+    "misma, no instrucciones sobre que herramienta usar.\n"
+    "- Si las busquedas no encuentran normas que respalden la respuesta, responde: "
+    f'"{RESPUESTA_SIN_CONTEXTO}."\n'
     "- Usa lenguaje comprensible para alguien sin formacion juridica."
 )
 
 # Accion[argumento]. Para Responder el argumento puede tener varias lineas y
 # corchetes internos (una cita "[1]"), asi que se toma hasta el ULTIMO ']'.
+# Formato de texto de la primera version ("Accion: x[...]"). Ya no se le pide al
+# modelo (ahora las herramientas van en formato nativo), pero se sigue aceptando
+# como respaldo, incluidas variantes que el modelo escribio en la corrida real
+# ("Responde[...]", "Respuesta[...]").
 _PATRON_ACCION = re.compile(
-    r"(buscar_normas|leer_articulo|calculadora|calcular_plazo|Responder)\s*\[", re.IGNORECASE
+    r"(buscar_normas|leer_articulo|calculadora|calcular_plazo|Responder|Responde|Respuesta)\s*\[",
+    re.IGNORECASE,
 )
+_ALIAS_RESPONDER = {"responder", "responde", "respuesta"}
 _PATRON_PENSAMIENTO = re.compile(r"Pensamiento:\s*(.*)", re.IGNORECASE)
 
 
@@ -140,7 +154,8 @@ def parsear_paso(salida: str) -> tuple[str, tuple[str, str] | None]:
     m = _PATRON_ACCION.search(salida or "")
     if not m:
         return pensamiento, None
-    nombre = next(a for a in ACCIONES if a.lower() == m.group(1).lower())
+    crudo = m.group(1).lower()
+    nombre = "Responder" if crudo in _ALIAS_RESPONDER else next(a for a in ACCIONES if a.lower() == crudo)
     resto = salida[m.end():]
 
     if nombre == "Responder":
@@ -479,6 +494,44 @@ def es_prudente(respuesta: str, vistos: set[str], query: str = "") -> bool:
             and not promete_resultado(respuesta))
 
 
+# --- Herramientas en formato nativo (docs seccion 26) -------------------------
+
+LEER_ARTICULO = herramienta(
+    "leer_articulo",
+    "Lee el texto exacto de un articulo del corpus. Usala cuando el usuario menciona un "
+    "articulo o cuando un resultado remite a otro articulo.",
+    {"norma": "la norma, p. ej. 'Ley 820 de 2003', 'CST' o 'Constitucion'",
+     "numero": "el numero del articulo, p. ej. '20'"},
+)
+CALCULADORA = herramienta(
+    "calculadora",
+    "Calcula una expresion aritmetica exacta (valores, porcentajes).",
+    {"expresion": "numeros sin separador de miles y con punto decimal, + - * / y parentesis; "
+                  "p. ej. '1200000 * 1.052'"},
+)
+CALCULAR_PLAZO = herramienta(
+    "calcular_plazo",
+    "Fecha en que vence un termino de n dias contado desde el dia siguiente a una fecha. "
+    "En dias habiles salta sabados, domingos y festivos de Colombia.",
+    {"fecha": "fecha de inicio AAAA-MM-DD", "dias": "numero de dias que da la norma",
+     "tipo": "'habiles' o 'calendario', segun la norma"},
+)
+HERRAMIENTAS_REACT = [BUSCAR_NORMAS, LEER_ARTICULO, CALCULADORA, CALCULAR_PLAZO]
+
+
+def argumento_de(nombre: str, args: dict) -> str:
+    """Argumentos de una llamada nativa -> el texto que reciben las funciones."""
+    args = args or {}
+    if nombre == "leer_articulo" and "norma" in args:
+        return f"{args.get('norma', '')}, {args.get('numero', '')}"
+    if nombre == "calcular_plazo" and "fecha" in args:
+        return f"{args.get('fecha', '')}, {args.get('dias', '')}, {args.get('tipo', 'habiles')}"
+    clave = {"buscar_normas": "consulta", "calculadora": "expresion"}.get(nombre)
+    if clave and clave in args:
+        return str(args[clave])
+    return str(next(iter(args.values()), "")) if args else ""
+
+
 # --- Bucle ReAct -------------------------------------------------------------
 
 def agente_react(
@@ -494,105 +547,155 @@ def agente_react(
     model_bundle=None,
     _generar=None,
 ) -> dict:
-    """Bucle ReAct: pensamiento -> accion -> observacion, hasta Responder.
+    """Bucle ReAct: pensamiento -> herramienta -> resultado, hasta responder.
 
-    Devuelve el mismo contrato que pipeline.answer_query (para que
-    to_eval_record lo lleve al formato RAGAS) mas `traza`: una fila por paso con
-    pensamiento, accion, argumento y observacion. La traza es la evidencia de
-    auditoria (y lo que se registra en W&B): si una respuesta sale mal, dice en
-    que paso se torcio.
+    Las herramientas van en formato nativo de function calling (docs seccion 26):
+    el modelo las pide con <tool_call> y responde en texto normal cuando termina.
+    Se sigue aceptando el formato de texto viejo ("Accion: x[...]") como respaldo.
 
-    `contexts` son todos los chunks que el agente vio en sus busquedas: es
-    contra eso que RAGAS mide si la respuesta se apoyo en el contexto.
+    Antes de aceptar una respuesta, el codigo la revisa (secciones 19, 25 y 26):
+      1. Habla de herramientas en vez de responder ("usa calcular_plazo...") o
+         esta vacia -> se rechaza y el agente tiene que responder de verdad.
+      2. La pregunta es juridica (no charla trivial) y el agente no uso
+         buscar_normas -> el codigo busca con la pregunta del usuario y le pide
+         responder con eso (cubre al que responde de memoria y al que lee el
+         articulo equivocado del usuario y se queda ahi).
+      3. Cita articulos que no vio, o sentencias -> se rechaza.
+      4. Busco y no encontro ninguna norma -> escape por codigo.
+    Cada rechazo consume un paso. Si se agotan los pasos, una respuesta final
+    forzada pasa por las mismas reglas; si no las cumple, escape por codigo.
 
-    Un Responder que cita articulos que el agente no vio se rechaza y vuelve como
-    observacion (verificacion de citas); el rechazo consume un paso.
-
-    Si se agotan los pasos sin Responder, se pide una respuesta final forzada; si
-    tampoco llega en formato, o sigue citando algo que no vio, se devuelve la
-    frase de la valvula de escape: es preferible admitir que no se pudo resolver
-    que improvisar.
+    Devuelve el contrato de pipeline.answer_query mas `traza` (una fila por paso)
+    y `verificacion` (con `busqueda`: "modelo", "forzada_por_codigo" o "ninguna").
     """
-    generar = _generar if _generar is not None else _generar_por_defecto(model_bundle, use_lora)
+    generar = _generar if _generar is not None else _generar_mensajes_por_defecto(model_bundle, use_lora)
 
-    historial = f"Pregunta: {query}"
+    mensajes = [{"role": "system", "content": SYSTEM_REACT}, {"role": "user", "content": query}]
     traza: list[dict] = []
     vistos: list = []
+    estado = {"busqueda_forzada": False}
 
-    def _salida(respuesta: str) -> dict:
-        return resultado_para_evaluacion(
+    def _busco_normas() -> bool:
+        return any(p["accion"].startswith("buscar_normas") for p in traza)
+
+    def _busqueda() -> str:
+        if not _busco_normas():
+            return "ninguna"
+        return "forzada_por_codigo" if estado["busqueda_forzada"] and not any(
+            p["accion"] == "buscar_normas" for p in traza) else "modelo"
+
+    def _salida(respuesta: str, escape: str | None = None) -> dict:
+        resultado = resultado_para_evaluacion(
             query, respuesta, vistos, sistema="react", use_lora=use_lora,
             use_hybrid=use_hybrid, use_rerank=use_rerank, top_k=top_k, traza=traza,
         )
+        resultado["verificacion"] = {"escape_por_codigo": escape, "busqueda": _busqueda(),
+                                     "citas_rechazadas": [c for p in traza if p["accion"] == "Responder (rechazado)"
+                                                          for c in p.get("rechazadas", [])]}
+        return resultado
 
-    for paso in range(1, max_pasos + 1):
-        salida = generar(SYSTEM_REACT, historial)
-        pensamiento, accion = parsear_paso(salida)
-
-        if accion is None:
-            # Sin accion con formato: el modelo contesto en prosa. Se toma como
-            # respuesta directa, igual que el tool use ante un JSON invalido.
-            traza.append({"paso": paso, "pensamiento": pensamiento, "accion": "respuesta_directa",
-                          "argumento": "", "observacion": ""})
-            return _salida(salida.strip())
-
-        nombre, argumento = accion
-        if nombre == "Responder":
-            no_vistas = citas_no_verificables(argumento, vistos, query)
-            if not no_vistas:
-                busco = any(p["accion"] in ("buscar_normas", "leer_articulo") for p in traza)
-                if busco and not vistos and RESPUESTA_SIN_CONTEXTO.lower() not in argumento.lower():
-                    # Busco y no encontro ninguna norma: responder igual seria
-                    # responder de memoria. Escape por codigo (seccion 25 de docs).
-                    traza.append({"paso": paso, "pensamiento": pensamiento,
-                                  "accion": "Responder (escape por codigo: sin normas)",
-                                  "argumento": argumento, "observacion": ""})
-                    return _salida(RESPUESTA_ESCAPE_POR_CODIGO)
-                traza.append({"paso": paso, "pensamiento": pensamiento, "accion": "Responder",
-                              "argumento": argumento, "observacion": ""})
-                return _salida(argumento)
-            # Cita algo que no vio: no se acepta. Se le devuelve como observacion
-            # y el bucle sigue (consume un paso).
-            observacion = (
-                f"Verificacion de citas: tu respuesta cita {', '.join(no_vistas)}, que no "
-                "aparece(n) en ninguna de tus observaciones. Buscalos con buscar_normas o "
-                "leer_articulo, o responde sin citarlos."
-            )
-            traza.append({"paso": paso, "pensamiento": pensamiento, "accion": "Responder (rechazado)",
-                          "argumento": argumento, "observacion": observacion})
-            historial += f"\nAccion: Responder[{argumento}]\nObservacion: {observacion}"
-            continue
-
+    def _ejecutar(nombre: str, argumento: str) -> str:
         if nombre == "buscar_normas":
             observacion, resultados = ejecutar_tool_con_resultados(
                 {"tool": "buscar_normas", "args": {"consulta": argumento}},
                 store, top_k=top_k, use_hybrid=use_hybrid, use_rerank=use_rerank, bm25=bm25,
             )
             vistos.extend(resultados)
-        elif nombre == "leer_articulo":
+            return observacion
+        if nombre == "leer_articulo":
             observacion, resultados = leer_articulo(argumento, store)
             vistos.extend(resultados)
-        elif nombre == "calcular_plazo":
-            observacion = calcular_plazo(argumento)
-        else:
-            observacion = calculadora(argumento)
+            return observacion
+        if nombre == "calcular_plazo":
+            return calcular_plazo(argumento)
+        if nombre == "calculadora":
+            return calculadora(argumento)
+        return f"error: no existe la herramienta {nombre!r}."
 
-        traza.append({"paso": paso, "pensamiento": pensamiento, "accion": nombre,
-                      "argumento": argumento, "observacion": observacion})
-        historial += (
-            f"\nPensamiento: {pensamiento}\nAccion: {nombre}[{argumento}]\n"
-            f"Observacion: {observacion}"
-        )
+    def _revisar(texto: str) -> tuple[str, object]:
+        """('aceptar', texto) | ('rechazar', (observacion, rechazadas)) |
+        ('forzar_busqueda', None) | ('escape', motivo)."""
+        if RESPUESTA_SIN_CONTEXTO.lower() in texto.lower():
+            return "aceptar", texto
+        if not texto.strip() or menciona_herramientas(texto):
+            return "rechazar", ("Eso no es una respuesta para el usuario: describe herramientas o esta "
+                                "vacia. Usa las herramientas que necesites y luego responde al usuario "
+                                "en texto normal.", [])
+        if not _busco_normas() and not es_charla_trivial(query) and not estado["busqueda_forzada"]:
+            return "forzar_busqueda", None
+        no_vistas = citas_no_verificables(texto, vistos, query)
+        if no_vistas:
+            return "rechazar", (f"Verificacion de citas: tu respuesta cita {', '.join(no_vistas)}, que no "
+                                "aparece(n) en ninguno de tus resultados. Buscalos con buscar_normas o "
+                                "leer_articulo, o responde sin citarlos.", no_vistas)
+        if _busco_normas() and not vistos:
+            return "escape", "sin_contexto"
+        return "aceptar", texto
+
+    for paso in range(1, max_pasos + 1):
+        salida = generar(mensajes, HERRAMIENTAS_REACT)
+        libre, llamadas = extraer_llamadas(salida)
+
+        if llamadas:                                   # formato nativo
+            for llamada in llamadas:
+                argumento = argumento_de(llamada["name"], llamada["arguments"])
+                observacion = _ejecutar(llamada["name"], argumento)
+                traza.append({"paso": paso, "pensamiento": libre, "accion": llamada["name"],
+                              "argumento": argumento, "observacion": observacion})
+                mensajes.append(turno_con_llamada(libre, llamada))
+                mensajes.append(turno_resultado(llamada["name"], observacion))
+            continue
+
+        pensamiento, accion = parsear_paso(salida)     # respaldo: formato de texto
+        if accion is not None and accion[0] != "Responder":
+            nombre, argumento = accion
+            observacion = _ejecutar(nombre, argumento)
+            traza.append({"paso": paso, "pensamiento": pensamiento, "accion": nombre,
+                          "argumento": argumento, "observacion": observacion})
+            mensajes.append({"role": "assistant", "content": salida})
+            mensajes.append({"role": "user", "content": f"Observacion: {observacion}"})
+            continue
+
+        texto = accion[1] if accion is not None else (libre or salida).strip()
+        veredicto, detalle = _revisar(texto)
+        if veredicto == "aceptar":
+            traza.append({"paso": paso, "pensamiento": pensamiento, "accion": "Responder",
+                          "argumento": texto, "observacion": ""})
+            return _salida(texto)
+        if veredicto == "escape":
+            traza.append({"paso": paso, "pensamiento": pensamiento,
+                          "accion": "Responder (escape por codigo: sin normas)",
+                          "argumento": texto, "observacion": ""})
+            return _salida(RESPUESTA_ESCAPE_POR_CODIGO, detalle)
+        mensajes.append({"role": "assistant", "content": salida})
+        if veredicto == "forzar_busqueda":
+            # Red de seguridad: iba a responder una pregunta juridica sin buscar.
+            estado["busqueda_forzada"] = True
+            observacion = _ejecutar("buscar_normas", query)
+            traza.append({"paso": paso, "pensamiento": pensamiento,
+                          "accion": "buscar_normas (forzado por codigo)", "argumento": query,
+                          "observacion": observacion, "respuesta_descartada": texto})
+            mensajes.append({"role": "user", "content": (
+                f"Antes de responder hay que buscar en las normas. Resultado de buscar_normas para "
+                f"tu pregunta:\n{observacion}\n\nCon esto, responde la pregunta completa. Si el usuario "
+                "cito un articulo que no corresponde, dile cual si aplica.")})
+            continue
+        observacion, rechazadas = detalle
+        traza.append({"paso": paso, "pensamiento": pensamiento, "accion": "Responder (rechazado)",
+                      "argumento": texto, "observacion": observacion, "rechazadas": rechazadas})
+        mensajes.append({"role": "user", "content": observacion})
 
     # Pasos agotados: una ultima generacion que solo puede responder.
-    salida = generar(SYSTEM_REACT, historial + "\nYa no puedes usar herramientas. Accion: Responder[...]")
+    salida = generar(mensajes + [{"role": "user", "content": (
+        "Ya no puedes usar herramientas. Responde ahora al usuario, en texto normal, con lo que "
+        "encontraste.")}], None)
+    libre, llamadas = extraer_llamadas(salida)
     pensamiento, accion = parsear_paso(salida)
-    if (accion and accion[0] == "Responder" and accion[1]
-            and not citas_no_verificables(accion[1], vistos, query)):
-        respuesta = accion[1]
-    else:
-        # Sin respuesta en formato, o sigue citando algo que no vio.
-        respuesta = RESPUESTA_ESCAPE_POR_CODIGO
+    texto = accion[1] if accion is not None and accion[0] == "Responder" else libre
+    veredicto, _ = _revisar(texto) if not llamadas else ("rechazar", None)
+    if veredicto == "forzar_busqueda":
+        veredicto = "rechazar"      # ya no quedan pasos para buscar
+    respuesta = texto if veredicto == "aceptar" else RESPUESTA_ESCAPE_POR_CODIGO
     traza.append({"paso": max_pasos + 1, "pensamiento": pensamiento, "accion": "Responder (forzado)",
                   "argumento": respuesta, "observacion": ""})
-    return _salida(respuesta)
+    return _salida(respuesta, None if veredicto == "aceptar" else "no_respondio")

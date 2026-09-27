@@ -210,7 +210,10 @@ def test_la_salida_del_tool_use_se_convierte_al_registro_de_evaluacion(monkeypat
     record = pipeline.to_eval_record(r, registro)
 
     assert record["sistema"] == "tool_use"
-    assert record["contexts"] == []
+    # El modelo no pidio la herramienta, pero la pregunta es juridica: la red de
+    # seguridad busco por codigo (hallazgo 4 de S10, docs seccion 26).
+    assert record["contexts"] == ["texto normativo de c1"]
+    assert record["verificacion"]["busqueda"] == "forzada_por_codigo"
 
 
 def test_un_error_de_validacion_no_trae_resultados(monkeypatch):
@@ -259,3 +262,79 @@ def test_tool_use_saludo_sin_busqueda_pasa_tal_cual(monkeypatch):
     monkeypatch.setattr(tools, "retrieve", stub_retrieve([]))
     r = tools.responder_con_tools("hola", FakeStore([]), _generar=lambda s, u: "Hola, cuentame tu caso.")
     assert r["response"] == "Hola, cuentame tu caso."
+
+
+# --- Hallazgo 4 de S10: formato nativo y red de seguridad (docs seccion 26) -------
+
+def _nativo(nombre, **args):
+    import json
+    return f'<tool_call>\n{json.dumps({"name": nombre, "arguments": args})}\n</tool_call>'
+
+
+def test_extrae_llamadas_nativas_y_el_texto_libre():
+    libre, llamadas = tools.extraer_llamadas("Voy a buscar.\n" + _nativo("buscar_normas", consulta="despido"))
+    assert libre == "Voy a buscar."
+    assert llamadas == [{"name": "buscar_normas", "arguments": {"consulta": "despido"}}]
+
+
+def test_extrae_varias_llamadas_y_argumentos_como_texto():
+    texto = _nativo("buscar_normas", consulta="a") + '<tool_call>{"name": "calculadora", "arguments": "{\\"expresion\\": \\"2+2\\"}"}</tool_call>'
+    _, llamadas = tools.extraer_llamadas(texto)
+    assert [l["name"] for l in llamadas] == ["buscar_normas", "calculadora"]
+    assert llamadas[1]["arguments"] == {"expresion": "2+2"}
+
+
+def test_el_json_viejo_sigue_funcionando_como_respaldo():
+    _, llamadas = tools.extraer_llamadas('{"tool": "buscar_normas", "args": {"consulta": "x"}}')
+    assert llamadas == [{"name": "buscar_normas", "arguments": {"consulta": "x"}}]
+
+
+def test_charla_trivial():
+    for q in ("hola", "Hola, buenas tardes", "gracias!", "¿quién eres?", "ok"):
+        assert tools.es_charla_trivial(q), q
+    for q in ("hola, me despidieron sin justa causa", "me despidieron", "cuanto me suben el arriendo"):
+        assert not tools.es_charla_trivial(q), q
+
+
+def test_el_tool_use_le_pasa_la_herramienta_en_formato_nativo(monkeypatch):
+    monkeypatch.setattr(tools, "retrieve", stub_retrieve([make_result("c1", articulos=["64"])]))
+    vistos = []
+
+    def generar(mensajes, herramientas):
+        vistos.append((list(mensajes), herramientas))
+        return _nativo("buscar_normas", consulta="despido") if len(vistos) == 1 else "Segun el Articulo 64, ..."
+
+    r = tools.responder_con_tools("me despidieron", FakeStore([]), _generar=generar)
+
+    assert vistos[0][1] == [tools.BUSCAR_NORMAS]
+    assert vistos[1][0][-1] == {"role": "tool", "name": "buscar_normas", "content": r["tool_calls"][0]["observacion"]}
+    assert r["verificacion"]["busqueda"] == "modelo"
+
+
+def test_tool_use_que_responde_de_memoria_busca_por_codigo(monkeypatch):
+    """El hallazgo: en 53 de 56 preguntas el modelo no pidio la herramienta."""
+    busquedas = []
+    def _retrieve(consulta, store, **kw):
+        busquedas.append(consulta)
+        return [make_result("c1", fuente="CST", articulos=["64"])]
+    monkeypatch.setattr(tools, "retrieve", _retrieve)
+    salidas = iter(["Revisa tu contrato y documenta todo.", "Segun el CST, Articulo 64, ..."])
+
+    r = tools.responder_con_tools("me despidieron sin justa causa, que derechos tengo", FakeStore([]),
+                                  _generar=lambda m, h: next(salidas))
+
+    assert busquedas == ["me despidieron sin justa causa, que derechos tengo"]
+    assert r["tool_calls"][0]["forzado_por_codigo"] is True
+    assert r["response"] == "Segun el CST, Articulo 64, ..."
+    assert r["verificacion"]["busqueda"] == "forzada_por_codigo"
+
+
+def test_tool_use_rechaza_respuestas_que_describen_herramientas(monkeypatch):
+    monkeypatch.setattr(tools, "retrieve", stub_retrieve([make_result("c1", articulos=["14"])]))
+    salidas = iter([_nativo("buscar_normas", consulta="plazo"), "Usa buscar_normas para ver el plazo.",
+                    "Segun el Articulo 14, son 15 dias."])
+
+    r = tools.responder_con_tools("cuanto tiempo tienen para responderme", FakeStore([]),
+                                  _generar=lambda m, h: next(salidas))
+
+    assert r["response"] == "Segun el Articulo 14, son 15 dias."
