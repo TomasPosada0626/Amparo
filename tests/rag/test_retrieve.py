@@ -158,8 +158,10 @@ def test_sistema_C_respeta_la_valvula_de_escape_sobre_dense_score(monkeypatch):
     # El reranker le da a c2 (dense_score None, solo BM25) el puntaje mas alto.
     scorer = scorer_por_palabra({"trabajo": 9.9})
 
+    # La consulta NO cita un articulo: c2 no es referencia exacta (ver el test
+    # siguiente para ese caso, que desde S10 si pasa).
     resultado = retrieve.retrieve(
-        "articulo 64", store, top_k=5, min_score=0.80,
+        "justas causas para terminar el contrato de trabajo", store, top_k=5, min_score=0.80,
         use_hybrid=True, use_rerank=True, _reranker_scorer=scorer,
     )
     ids = [r.chunk_id for r in resultado]
@@ -167,6 +169,48 @@ def test_sistema_C_respeta_la_valvula_de_escape_sobre_dense_score(monkeypatch):
     # c2 tiene dense_score None (solo BM25) -> no pasa el piso, pese al score 9.9.
     assert "c2" not in ids
     assert "c1" in ids
+
+
+# --- Hallazgos de la corrida de S08 (2026-09-27), ver docs seccion 25 --------
+
+def test_referencia_exacta_solo_bm25_pasa_el_piso(monkeypatch):
+    """Lo que la hybrid search tenia que rescatar: "articulo 64" lo encuentra BM25
+    aunque e5 no lo traiga. Antes el piso lo borraba por no tener coseno."""
+    sin_gpu(monkeypatch)
+    store = FakeStore([make_result("c1", 0.90, fuente="CPACA")], CORPUS)
+
+    resultado = retrieve.retrieve("que dice el articulo 64", store, top_k=5, min_score=0.80,
+                                  use_hybrid=True, use_rerank=False)
+
+    assert "c2" in [r.chunk_id for r in resultado]
+
+
+def test_referencia_exacta_respeta_la_norma_nombrada():
+    """El 64 del CGP no pasa por una pregunta sobre el Codigo Sustantivo del Trabajo."""
+    cst = make_result("cst64", None, articulos=["64"], fuente="Decreto 2663 de 1950 (Codigo Sustantivo del Trabajo)")
+    cgp = make_result("cgp64", None, articulos=["64"], fuente="Ley 1564 de 2012 (Codigo General del Proceso)")
+    q = "que dice el articulo 64 del codigo sustantivo del trabajo"
+    assert retrieve.es_referencia_exacta(cst, q)
+    assert not retrieve.es_referencia_exacta(cgp, q)
+
+
+def test_el_piso_se_aplica_antes_de_recortar_a_top_k(monkeypatch):
+    """Antes: se recortaba a top_k y despues el piso borraba los solo-BM25,
+    dejando menos chunks de los que habia validos. Ahora el top_k se llena con
+    los mejores que SI pasan."""
+    sin_gpu(monkeypatch)
+    densos = [make_result(f"d{i}", 0.90 - i * 0.01, fuente="CST") for i in range(5)]
+    corpus = [{"chunk_id": f"x{i}", "text": "arriendo canon reajuste " * (5 - i), "fuente": "Ley 820",
+               "url_fuente": "u", "articulos_incluidos": [str(100 + i)], "vigente": True} for i in range(5)]
+    store = FakeStore(densos, corpus)
+
+    resultado = retrieve.retrieve("arriendo canon reajuste", store, top_k=3, min_score=0.80,
+                                  use_hybrid=True, use_rerank=False)
+
+    # Los x (solo BM25, sin referencia exacta) quedan fuera, pero el top 3 se llena
+    # con densos validos en vez de quedar corto.
+    assert len(resultado) == 3
+    assert all(r.chunk_id.startswith("d") for r in resultado)
 
 
 def test_el_reranker_recibe_mas_candidatos_de_los_que_devuelve(monkeypatch):
