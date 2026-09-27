@@ -757,6 +757,11 @@ relevancy vale 0, como en RAGAS.
 cuenta como fallo de parseo: un error del juez no puede pasar por un mal puntaje
 del sistema. Cada promedio reporta sobre cuántos casos se calculó.
 
+**Dos experimentos, un juez.** La fase 5 evalúa las rutas de S10 (una pasada,
+tool use, ReAct: ¿qué forma de responder es mejor?) y la fase 5b las búsquedas de
+S08 (A/B/C: ¿qué búsqueda es mejor?). S08 solo genera y reporta métricas sin juez;
+todo lo que necesita a Groq corre en S10.
+
 Verificación:
 [`test_ragas_metrics.py`](../tests/evaluation/test_ragas_metrics.py) cubre las
 fórmulas, el parseo, que el contexto viaja en una sola llamada, la válvula de
@@ -870,8 +875,11 @@ repo (`ragas_metrics.tasas_de_escape`, `dspy_prompt.puntaje_de_record`):
 | Latencia (s/consulta) | 6.42 | 6.34 | 6.30 |
 
 B y C cambian mucho lo que se recupera (el primer chunk difiere del de A en 31 y
-44 de 56 consultas), pero sin juez no se ven mejores que A; la calidad de las
-respuestas la mide RAGAS en S10. La latencia casi no cambia: la domina la
+44 de 56 consultas), pero sin juez no se ven mejores que A. S08 no tiene juez: la
+pregunta "¿qué búsqueda es mejor?" se responde con RAGAS (sobre todo context
+recall y context precision) en la **fase 5b de `m3_s10_rag_agentico.ipynb`**, que
+evalúa con el juez Groq las corridas A/B/C guardadas en Drive y las registra en
+W&B en su propio grupo (`s08-abc-…`). La latencia casi no cambia: la domina la
 generación (~6 s), no el retrieval.
 
 ### Hallazgo 1 — La válvula de escape del prompt nunca se activó
