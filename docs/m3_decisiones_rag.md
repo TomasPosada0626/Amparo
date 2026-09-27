@@ -857,13 +857,15 @@ perfectas en train) → `MIPROv2` en modo `light` (propone instrucciones candida
 busca la mejor combinación instrucción + ejemplos con optimización bayesiana,
 midiendo en dev). Gana el mayor puntaje en dev; ante empate, el más simple.
 
-**Modelo.** DSPy habla con el modelo por una API compatible con OpenAI, así que la
-optimización corre con `qwen2.5:7b` en Ollama (misma familia y tamaño que el
-generador; otra cuantización). Para que la cifra final sea comparable con las
-demás rutas, **el test corre con el generador de HF**: el prompt ganador se
-exporta a JSON (instrucciones + demos) y `pipeline.answer_query(prompt_optimizado=...)`
-lo usa con la misma estructura system/user del prompt original. La salida se marca
-`una_pasada_dspy` y se registra en W&B junto a las otras rutas.
+**Modelo.** La primera versión optimizaba con `qwen2.5:7b` en Ollama (DSPy habla con
+el modelo por una API compatible con OpenAI). En Colab resultó frágil (instalador,
+carrera entre `ollama serve` y `ollama pull`), así que se reemplazó por un motor
+propio sobre el mismo generador de HF ya cargado en la GPU (`dspy_prompt._MotorHF`,
+`crear_lm_hf`): la optimización y el test usan **el mismo modelo** (Qwen2.5-7B +
+LoRA de M1). El prompt ganador se exporta a JSON (instrucciones + demos) y
+`pipeline.answer_query(prompt_optimizado=...)` lo usa con la misma estructura
+system/user del prompt original. La salida se marca `una_pasada_dspy` y se
+registra en W&B junto a las otras rutas.
 
 **Versión fijada:** `dspy[optuna]==3.4.0` (la API de los optimizadores cambia entre
 versiones; `optuna` lo exige MIPROv2). El flujo completo —evaluación,
@@ -878,6 +880,78 @@ Verificación: [`test_dspy_prompt.py`](../tests/rag/test_dspy_prompt.py) cubre l
 división (sin fuga, tamaños, categorías, reproducible, adversariales distintos), la
 métrica en cada caso de la tabla, la exportación, los mensajes para HF y que
 `answer_query` use el prompt optimizado sin cambiar el retrieval.
+
+### Resultado de la corrida (2026-09-27, `USE_LORA = True`)
+
+Datos: train 46 (40 gold + 6 adversariales, 7 sin contexto), dev 24 (20 gold + 4
+adversariales, 5 sin contexto). Test: el eval set completo (56), igual que las
+demás rutas.
+
+| | Base (a mano) | BootstrapFewShot | MIPROv2 light |
+|---|---|---|---|
+| Métrica en dev (reportada por DSPy) | 52.1 | 47.9 | **60.4** → ganador |
+| Casos de dev que DSPy no pudo leer (cuentan 0) | 5 | 0 | 2 |
+| Métrica solo sobre los casos leídos | 65.8 (12.5/19) | 47.9 (11.5/24) | 65.9 (14.5/22) |
+
+Test final (eval set, generador de HF) y RAGAS (juez Groq, 50 gold):
+
+| | Una pasada (prompt a mano) | Una pasada + prompt MIPROv2 |
+|---|---|---|
+| Honestidad con las fuentes (test) | **0.607** | 0.598 |
+| — gold / adversariales | 0.560 / 1.000 | 0.550 / 1.000 |
+| Faithfulness | **0.61** | 0.575 |
+| Context precision | 0.576 | 0.603 |
+| Context recall | 0.477 | 0.510 |
+| Answer relevancy | 0.851 | 0.856 |
+| Prudencia adv. / citas no respaldadas | 1.00 / 0 | 1.00 / 0 |
+| s/consulta | 6.3 | 6.4 |
+
+Prompt exportado (MIPROv2, instrucción 2 + set de demos 0): *"Eres un asistente
+juridico que responde consultas de derecho colombiano. Responde de forma breve,
+fundamentada y prudente. Cita unicamente normas que aparezcan en el CONTEXTO, y
+citalas exactamente como figuran ahi (ley y articulo). Si el CONTEXTO no contiene
+informacion suficiente para responder con fundamento, responde exactamente con la
+frase: 'No tengo informacion verificada sobre esto en mi base de conocimiento.'…"*
+Dice lo mismo que el prompt escrito a mano, en otras palabras.
+
+**Conclusión: el prompt optimizado no se adopta.** Se queda el prompt escrito a
+mano. Razones:
+
+1. **La ganancia en dev es un artefacto de formato, no de contenido.** DSPy le pide
+   al modelo que responda con sus marcadores de campo (`[[ ## respuesta ## ]]`). En
+   los 5 casos de dev sin contexto, el modelo con LoRA respondió directo con la
+   frase de escape —lo correcto: vale 1.0 en la métrica— pero sin los marcadores;
+   DSPy no pudo leerlas (`JSONAdapter failed to parse`) y las contó como 0. MIPROv2
+   ganó porque falló menos en el formato (2 casos contra 5); sobre los casos que
+   sí se leyeron, base y MIPROv2 empatan (65.8 vs 65.9). Si las 5 respuestas de
+   escape se hubieran leído, el prompt base habría sacado 72.9 en dev, por encima
+   de MIPROv2.
+2. **En test no gana:** honestidad 0.598 contra 0.607, y faithfulness baja de 0.61
+   a 0.575. La regla de adopción (sección 24: no empeorar RAGAS) lo descarta.
+3. **Lo que optimizó no se usa en producción:** sin contexto, el pipeline responde
+   con el escape por código sin llamar al modelo (sección 25, hallazgo 1). Los 5
+   casos que decidieron el ganador en dev son justo los que el sistema real no le
+   deja al prompt.
+4. **Dev es chico:** un caso vale 4.2 puntos. Las diferencias entre optimizadores
+   son de 1 a 2 casos.
+
+**Dos lecturas útiles del experimento:**
+
+- **Ruido del juez.** La una pasada con el prompt de DSPy usa exactamente la misma
+  búsqueda que la una pasada normal, y aun así context precision y recall cambian
+  0.03 (0.576 → 0.603, 0.477 → 0.510). Esas dos métricas se piden en la misma
+  llamada que incluye la respuesta, y el juez no es determinista. Es la medida
+  directa del ruido de RAGAS en este eval set: diferencias de ±0.03 no son señal.
+  Por eso las comparaciones de rutas (sección 27) y de búsquedas (sección 25) se
+  leen por la dirección consistente, no por la diferencia de una métrica suelta.
+- **El prompt a mano ya estaba cerca del óptimo** para esta métrica con este modelo:
+  MIPROv2 reescribió las mismas reglas y BootstrapFewShot solo encontró 3
+  respuestas perfectas en 43 intentos para usar de ejemplo (y con ellas bajó).
+
+**Pendiente para M4:** que el motor de DSPy acepte una respuesta sin marcadores
+como el campo `respuesta` (el modelo con LoRA no los sigue), y excluir de train y
+dev los casos sin contexto, que en el sistema real resuelve el código. Con eso, la
+optimización mediría solo lo que el prompt decide.
 
 ## 25. Hallazgos de la corrida real de S08 y correcciones
 
@@ -1391,6 +1465,8 @@ volver a correr; lo de abajo se trabaja en M4):
     se puede hacer (la tutela).
   - Verificar que el artículo citado contenga lo que se le atribuye (hoy solo se
     comprueba que se haya recuperado).
+- **DSPy** (sección 24): aceptar respuestas sin los marcadores de campo de DSPy y
+  sacar de train/dev los casos sin contexto antes de volver a optimizar.
 - **Corpus.** Reemplazar el CST de 1950 por la versión vigente compilada y
   reconstruir el índice (sección 9); revisar la Ley 100; decidir si se indexan
   las normas que ya están en `data/corpus/normas` y no en `NORMAS_EN_ALCANCE`
