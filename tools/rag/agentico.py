@@ -83,8 +83,13 @@ from tools.rag.tools import (
     TOOL_TOP_K,
     _generar_mensajes_por_defecto,
     ejecutar_tool_con_resultados,
+    NOTA_SENTENCIA,
+    _normalizar,
     es_charla_trivial,
     extraer_llamadas,
+    limpiar_consulta_forzada,
+    pide_sentencia,
+    reconoce_limite,
     formatear_observacion,
     herramienta,
     menciona_herramientas,
@@ -115,6 +120,14 @@ SYSTEM_REACT = (
     "- Cuentas de valores o porcentajes: calculadora. Cuando vence un plazo: "
     "calcular_plazo, con el numero de dias y el tipo que diga la norma. No hagas "
     "cuentas de cabeza.\n"
+    "- Primero la norma, despues la cuenta: no uses calculadora ni calcular_plazo "
+    "antes de encontrar la norma que da el dato. No inventes fechas ni numeros de "
+    "dias: si el usuario no dio una fecha, explica el plazo en dias.\n"
+    "- Si la pregunta trae cifras (valores, porcentajes) o una fecha, tu respuesta "
+    "debe dar el resultado de la cuenta.\n"
+    "- El corpus no tiene sentencias: nunca des numero, fecha ni contenido de una "
+    "sentencia. Si un resultado dice que la norma que nombra el usuario no esta, "
+    "diselo en vez de presentar otra norma como si fuera esa.\n"
     "- Toda afirmacion legal debe salir de un resultado de herramienta; cita la norma "
     "y el articulo tal como aparecen ahi. Una cita que no viste sera rechazada.\n"
     "- Cuando tengas todo, RESPONDE AL USUARIO en texto normal: la respuesta "
@@ -396,6 +409,112 @@ def calcular_plazo(argumento: str) -> str:
             f"{dia.isoformat()}.{nota}")
 
 
+# --- Cuentas con respaldo (hallazgo 5 de S10, docs seccion 27) ---------------
+#
+# En la corrida del 2026-09-27 el agente uso calcular_plazo ANTES de buscar, con
+# 30 dias y una fecha que el usuario nunca dio (2023-04-01), y respondio "30 dias
+# habiles" cuando la norma da quince. La herramienta cuenta bien; el error es el
+# dato que le entra. Por eso el codigo no deja contar un plazo que ninguna norma
+# vista respalde, ni desde una fecha que no dijo el usuario.
+
+_UNIDADES = ["", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez",
+             "once", "doce", "trece", "catorce", "quince", "dieciseis", "diecisiete", "dieciocho",
+             "diecinueve", "veinte", "veintiuno", "veintidos", "veintitres", "veinticuatro",
+             "veinticinco", "veintiseis", "veintisiete", "veintiocho", "veintinueve"]
+_DECENAS = {3: "treinta", 4: "cuarenta", 5: "cincuenta", 6: "sesenta", 7: "setenta", 8: "ochenta", 9: "noventa"}
+_CENTENAS = {1: "ciento", 2: "doscientos", 3: "trescientos", 4: "cuatrocientos", 5: "quinientos",
+             6: "seiscientos", 7: "setecientos", 8: "ochocientos", 9: "novecientos"}
+
+
+def numero_en_letras(n: int) -> str:
+    """1..999 en letras, sin tildes, como lo escriben las normas ("quince (15) dias")."""
+    if not 1 <= n <= 999:
+        return str(n)
+    if n == 100:
+        return "cien"
+    c, resto = divmod(n, 100)
+    partes = [_CENTENAS[c]] if c else []
+    if resto:
+        if resto < 30:
+            partes.append(_UNIDADES[resto])
+        else:
+            d, u = divmod(resto, 10)
+            partes.append(_DECENAS[d] + (f" y {_UNIDADES[u]}" if u else ""))
+    return " ".join(partes)
+
+
+def plazo_respaldado(dias: int, textos) -> bool:
+    """¿Algun texto recuperado da un termino de `dias` dias? Acepta "quince (15)
+    dias", "15 dias", "(15)" y "quince dias" (tambien "... dias habiles")."""
+    letras = numero_en_letras(dias)
+    patron = re.compile(
+        rf"\(\s*{dias}\s*\)|\b{dias}\s+dias\b|\b{letras}\s+(?:\(\s*{dias}\s*\)\s+)?dias\b"
+    )
+    return any(patron.search(_normalizar(t)) for t in textos)
+
+
+_MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre",
+          "octubre", "noviembre", "diciembre"]
+_FECHA_RELATIVA = re.compile(r"\b(hoy|ayer|antier|anteayer|manana|hace \w+)\b")
+
+
+def fecha_en_consulta(fecha: dt.date, query: str) -> bool:
+    """¿La fecha sale de lo que dijo el usuario? "1 de septiembre", "01/09/2026",
+    "2026-09-01", o una referencia relativa ("ayer", "hace 20 dias") que el modelo
+    tuvo que convertir."""
+    q = _normalizar(query)
+    if _FECHA_RELATIVA.search(q):
+        return True
+    dia, mes = fecha.day, _MESES[fecha.month - 1]
+    if re.search(rf"\b0?{dia} de {mes}\b", q) or (dia == 1 and re.search(rf"\bprimero de {mes}\b", q)):
+        return True
+    crudo = (query or "").lower()
+    return any(f in crudo for f in (fecha.isoformat(), f"{dia}/{fecha.month}", f"{dia:02d}/{fecha.month:02d}"))
+
+
+_CIFRA = re.compile(r"\$\s*\d|\b\d{1,3}(?:[.,]\d{3})+\b|\b\d{5,}\b|\d+(?:[.,]\d+)?\s*(?:%|por ?ciento)")
+_FECHA_EN_TEXTO = re.compile(rf"\b\d{{1,2}} de (?:{'|'.join(_MESES)})\b|\b\d{{1,2}}/\d{{1,2}}(?:/\d{{2,4}})?\b")
+
+
+def pide_calculo(query: str) -> bool:
+    """La pregunta trae valores o porcentajes (p. ej. canon + IPC)."""
+    return bool(_CIFRA.search((query or "").lower()))
+
+
+def pide_plazo(query: str) -> bool:
+    """La pregunta trae una fecha y pregunta cuando vence algo."""
+    q = _normalizar(query)
+    return bool(_FECHA_EN_TEXTO.search((query or "").lower())) and bool(
+        re.search(r"\b(cuando|vence|plazo|termino|hasta que dia|me deben responder)\b", q))
+
+
+def revisar_calculo(nombre: str, argumento: str, query: str, textos_vistos) -> str | None:
+    """None si la cuenta se puede hacer; si no, la observacion que explica por que.
+
+    - calculadora y calcular_plazo: solo despues de encontrar una norma.
+    - calcular_plazo: el numero de dias tiene que aparecer en una norma vista, y
+      la fecha tiene que salir de lo que dijo el usuario."""
+    if not textos_vistos:
+        return ("error: primero busca con buscar_normas (o leer_articulo) la norma que da el dato; "
+                "no se hacen cuentas que ninguna norma respalde.")
+    if nombre != "calcular_plazo":
+        return None
+    partes = [p.strip() for p in (argumento or "").split(",")]
+    if len(partes) == 3:
+        try:
+            dias = int(partes[1])
+        except ValueError:
+            return None                      # el error de formato lo da calcular_plazo
+        if not plazo_respaldado(dias, textos_vistos):
+            return (f"error: ninguna norma que encontraste da un termino de {dias} dias. Revisa que plazo "
+                    "da la norma (p. ej. 'quince (15) dias') y usa ese numero, o busca la norma del plazo.")
+        fecha = _parsear_fecha(partes[0])
+        if fecha is not None and not fecha_en_consulta(fecha, query):
+            return (f"error: el usuario no dio la fecha {fecha.isoformat()}. No inventes fechas: si no la "
+                    "dio, explica el plazo en dias sin calcular una fecha de vencimiento.")
+    return None
+
+
 # --- Verificacion de citas ---------------------------------------------------
 
 # "articulo 20", "artículos 13 y 14", "art. 6º", "arts. 5, 6 y 7".
@@ -562,6 +681,13 @@ def agente_react(
          articulo equivocado del usuario y se queda ahi).
       3. Cita articulos que no vio, o sentencias -> se rechaza.
       4. Busco y no encontro ninguna norma -> escape por codigo.
+      5. Le piden una sentencia y no dice que no puede verificarla -> se rechaza.
+      6. La pregunta trae cifras o una fecha y no hizo la cuenta -> se le pide
+         una vez (seccion 27).
+    Ademas, calculadora y calcular_plazo solo corren despues de ver una norma, y
+    calcular_plazo solo con dias que aparezcan en ella y una fecha que dijo el
+    usuario (revisar_calculo). La busqueda forzada va sin el articulo que cito
+    el usuario (tools.limpiar_consulta_forzada).
     Cada rechazo consume un paso. Si se agotan los pasos, una respuesta final
     forzada pasa por las mismas reglas; si no las cumple, escape por codigo.
 
@@ -573,7 +699,7 @@ def agente_react(
     mensajes = [{"role": "system", "content": SYSTEM_REACT}, {"role": "user", "content": query}]
     traza: list[dict] = []
     vistos: list = []
-    estado = {"busqueda_forzada": False}
+    estado = {"busqueda_forzada": False, "pidio_calculo": False}
 
     def _busco_normas() -> bool:
         return any(p["accion"].startswith("buscar_normas") for p in traza)
@@ -606,10 +732,11 @@ def agente_react(
             observacion, resultados = leer_articulo(argumento, store)
             vistos.extend(resultados)
             return observacion
-        if nombre == "calcular_plazo":
-            return calcular_plazo(argumento)
-        if nombre == "calculadora":
-            return calculadora(argumento)
+        if nombre in ("calcular_plazo", "calculadora"):
+            bloqueo = revisar_calculo(nombre, argumento, query, [r.text for r in vistos])
+            if bloqueo:
+                return bloqueo
+            return calcular_plazo(argumento) if nombre == "calcular_plazo" else calculadora(argumento)
         return f"error: no existe la herramienta {nombre!r}."
 
     def _revisar(texto: str) -> tuple[str, object]:
@@ -630,6 +757,16 @@ def agente_react(
                                 "leer_articulo, o responde sin citarlos.", no_vistas)
         if _busco_normas() and not vistos:
             return "escape", "sin_contexto"
+        if pide_sentencia(query) and not reconoce_limite(texto):
+            return "rechazar", (NOTA_SENTENCIA, [])
+        faltan = [h for h, pide in (("calculadora", pide_calculo(query)), ("calcular_plazo", pide_plazo(query)))
+                  if pide and not any(p["accion"] == h for p in traza)]
+        if faltan and vistos and not estado["pidio_calculo"]:
+            # Una sola vez: la pregunta trae cifras o una fecha y no se hizo la cuenta.
+            estado["pidio_calculo"] = True
+            return "rechazar", (f"La pregunta trae cifras o una fecha y no hiciste la cuenta. Usa "
+                                f"{' y '.join(faltan)} con los datos del usuario y los de la norma que "
+                                "encontraste, y da el resultado en tu respuesta.", [])
         return "aceptar", texto
 
     for paso in range(1, max_pasos + 1):
@@ -671,9 +808,10 @@ def agente_react(
         if veredicto == "forzar_busqueda":
             # Red de seguridad: iba a responder una pregunta juridica sin buscar.
             estado["busqueda_forzada"] = True
-            observacion = _ejecutar("buscar_normas", query)
+            consulta = limpiar_consulta_forzada(query)   # sin el articulo del usuario (seccion 27)
+            observacion = _ejecutar("buscar_normas", consulta)
             traza.append({"paso": paso, "pensamiento": pensamiento,
-                          "accion": "buscar_normas (forzado por codigo)", "argumento": query,
+                          "accion": "buscar_normas (forzado por codigo)", "argumento": consulta,
                           "observacion": observacion, "respuesta_descartada": texto})
             mensajes.append({"role": "user", "content": (
                 f"Antes de responder hay que buscar en las normas. Resultado de buscar_normas para "
@@ -692,6 +830,7 @@ def agente_react(
     libre, llamadas = extraer_llamadas(salida)
     pensamiento, accion = parsear_paso(salida)
     texto = accion[1] if accion is not None and accion[0] == "Responder" else libre
+    estado["pidio_calculo"] = True  # sin pasos, ya no se puede pedir la cuenta
     veredicto, _ = _revisar(texto) if not llamadas else ("rechazar", None)
     if veredicto == "forzar_busqueda":
         veredicto = "rechazar"      # ya no quedan pasos para buscar

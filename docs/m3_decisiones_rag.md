@@ -302,6 +302,12 @@ Parte II y el material de trabajo para afinar el pipeline.
 | Corrida A/B/C de S08 (2026-09-27): chunks por consulta y consultas vacías | B y C recuperan menos (3.55 y 3.71 chunks vs 4.57 en A) y C deja 4 casos gold sin contexto (A: 0). El chunk que la hybrid debía rescatar ("artículo 64", solo BM25) se descartaba. | `retrieve` (el recorte a top_k iba antes del piso, y el piso borraba todo lo solo-BM25) | Piso antes del recorte + excepción para referencias exactas a un artículo citado (sección 25, hallazgo 3). |
 | 9102 "¿cuál es el número exacto del artículo de la Constitución que consagra la tutela?" (S08 corregido, 2026-09-27, A/B/C) | El artículo 86 (tutela) no aparece entre lo recuperado en ninguna de las tres configuraciones; lo recuperado son los arts. 1, 2, 4, 5, 42, 43, 51, 169 de la Constitución. | `retrieve` / `embed` (la consulta pregunta por "el número del artículo", no por el contenido de la tutela) | Pendiente: context recall de RAGAS (fase 5b de S10) lo debería mostrar; candidatos: expansión de consulta o `leer_articulo` en el agente. |
 | Corrida de S10 (2026-09-27, LoRA), rutas agénticas | Tool use: 53 de 56 respuestas sin contexto (0.1 llamadas por pregunta): el modelo casi nunca pidió la herramienta y respondió de memoria. ReAct: 41 de 56 sin contexto; respuestas con instrucciones ("calcula el plazo con calcular_plazo…"), formato roto (`Responde[…]`) y a medias (leyó el artículo equivocado del usuario y no buscó el correcto). | `generate` (el modelo no sigue el protocolo de herramientas inventado en el prompt) | Formato nativo de herramientas + red de seguridad por código (sección 26, hallazgo 4). |
+| S10 fase 3, PLAZO y SIMPLE (2026-09-27, después del hallazgo 4) | El ReAct usó `calcular_plazo` antes de buscar, con 30 días y una fecha que el usuario no dio; respondió "30 días hábiles" (son quince) y "queja" en vez de tutela. | `generate` (el modelo usa la herramienta como atajo con datos inventados) | Cuentas solo después de ver una norma, con días que aparezcan en ella y una fecha que dijo el usuario (sección 27, corrección 1). |
+| S10 fase 3, EQUIVOCADO | La búsqueda forzada con la pregunta completa ("según el artículo 21 de la ley 820…") trajo Ley 100, art. 34 (pensiones) y la respuesta habló de pensiones. | `retrieve` (el número equivocado del usuario guiaba la búsqueda) | La búsqueda forzada quita el artículo del usuario y conserva la norma (sección 27, corrección 2). |
+| S10 fase 3, COMPUESTA | Encontró el art. 20 de la Ley 820 pero no calculó el nuevo canon. | `generate` | Si la pregunta trae cifras, se pide la cuenta una vez (sección 27, corrección 3). |
+| 9039 y 9044 (S10, ReAct) | Llamadas con "urnal" en vez de `<tool_call>`, varias seguidas, una comilla mal cerrada: no se reconocieron y la pregunta terminó en escape. | `generate` / parser | Parser tolerante (sección 27, corrección 4). |
+| 9104 (S10, tool use y ReAct) | Contenido de una sentencia inventado ("se encuentra derogada por la Ley 1437"), sin número, así que la verificación de citas no lo atrapaba. | `generate` | Pedir una sentencia exige reconocer que no se puede verificar; si no, corrección y escape (sección 27, corrección 6). |
+| 9102 (S10, las tres rutas) | Respondió con artículos del Decreto 2591 como si fueran el de la Constitución. | `retrieve` + `generate` | Aviso en la observación cuando lo recuperado no es de la norma nombrada (sección 27, corrección 5). Recuperar el art. 86 sigue pendiente. |
 
 ## 10. Alcance de cada parte
 
@@ -1117,9 +1123,153 @@ configuración C de S08 corregida.
 la ruta de una pasada no cambia. Los registros de esta corrida (el "antes") se
 guardaron aparte (`corridas_s10_antes`) antes de volver a correr.
 
+**Resultado (corrida "después", 2026-09-27, commit `7ce8b68`).** Mismo eval set,
+mismo modelo, sin juez (detalle en `results/m3_s10_rutas_2026-09-27.md`):
+
+| | Tool use antes → después | ReAct antes → después |
+|---|---|---|
+| Preguntas en las que se buscó | 3 → **56** (modelo 15, código 41) | 15 → **54** (modelo 6, código 48) |
+| Consultas sin contexto (gold) | 53 (50) → **2 (0)** | 41 (37) → **3 (2)** |
+| Artículos por consulta | 0.20 → 4.48 | 1.27 → 4.41 |
+| Respuestas gold que citan algún artículo | 0 % → 6 % | 2 % → **28 %** |
+| Citas no respaldadas (gold) | 0 → 0 | 0 → 0 |
+| Honestidad con las fuentes (0-1) | 0.107 → **0.580** | 0.214 → **0.696** |
+| Latencia (s/consulta) | 5.6 → 15.0 | 7.9 → 15.9 |
+
+Lectura:
+
+- **La red de seguridad hace casi todo el trabajo.** Con el formato nativo el
+  modelo pidió la herramienta por su cuenta en 15 de 56 preguntas (tool use) y 6
+  de 56 (ReAct), contra 3 y 15 antes: en el ReAct incluso bajó. El resto lo buscó
+  el código. Es decir: el adaptador de M1 sigue prefiriendo responder directo, y
+  lo que hace que estas rutas funcionen es el control por código, no la decisión
+  del modelo.
+- **El ReAct queda con la mejor honestidad de las tres rutas** (0.696, contra
+  0.607 de una pasada y 0.580 del tool use) y es el que más cita artículos que
+  vio (28 % de las gold). Cuesta 2.6 veces la latencia de una pasada (15.9 s vs
+  6.2 s).
+- **Los 2 sin contexto gold del ReAct (9039, 9044) no son del retrieval**: el
+  modelo sí pidió la herramienta, pero escribió la llamada rota ("urnal" en vez
+  de `<tool_call>`, varias seguidas, una comilla mal cerrada), el parser no la
+  reconoció y todo terminó en escape. Es el primer fallo del hallazgo 5 (sección 27).
+- En las consultas de la fase 3 el ReAct ya busca, pero con errores nuevos que no
+  miden estas cifras: cuentas con datos inventados y una búsqueda forzada que se
+  fue a pensiones. También son la sección 27.
+
 Verificación: `test_tools.py` (llamadas nativas, varias llamadas, JSON viejo,
 charla trivial, herramienta en formato nativo, búsqueda forzada, rechazo de
 respuestas que describen herramientas) y `test_agentico.py` (formato nativo con
 mensajes y herramientas, SIMPLE: búsqueda forzada; respuesta con instrucciones
 rechazada; `Responde[…]`; EQUIVOCADO: lee, se fuerza la búsqueda y responde con el
 artículo que aplica; escape si al final sigue pidiendo herramientas).
+
+## 27. Hallazgo 5 (S10): el agente ya busca, pero hace cuentas con datos inventados
+
+**La corrida.** La misma del resultado de la sección 26 (2026-09-27, commit
+`7ce8b68`, `USE_LORA = True`). Las cifras de la fase 4 mejoraron, pero leyendo las
+respuestas de la fase 3, de la fase 2 y del eval set aparecen errores que ninguna
+métrica automática marcaba, y todos son del tipo que Amparo no puede permitirse:
+decir algo falso con tono seguro.
+
+| Consulta | Qué pasó | Por qué es grave |
+|---|---|---|
+| **PLAZO** ("radiqué un derecho de petición el 1 de septiembre de 2026, ¿cuándo me deben responder y si no, qué hago?") | Usó `calcular_plazo` **antes de buscar**, con 30 días; respondió "30 días hábiles" y recomendó la "queja" en vez de la tutela. | La norma (CPACA, art. 14) da quince (15) días. La herramienta contó bien; el dato que le entró era inventado. |
+| **SIMPLE** ("¿cuánto tiempo tiene una entidad para responder un derecho de petición?") | Llamó `calcular_plazo` con una fecha que el usuario nunca dio (2023) y 30 días; la búsqueda forzada trajo el art. 30 del CPACA y no el 14; mezcló plazos sin citar. | Una fecha de vencimiento calculada desde una fecha inventada. |
+| **EQUIVOCADO** ("según el artículo 21 de la Ley 820 de 2003, ¿cuánto me pueden subir el arriendo?") | La búsqueda forzada usó la pregunta completa; el "21" la arrastró a Ley 100, art. 34 (**pensiones**) y la respuesta habló de pensiones. | El número equivocado del usuario guiaba justo la búsqueda que debía corregirlo. |
+| **COMPUESTA** (canon 1.200.000 + IPC 5,2 %) | Encontró el art. 20 de la Ley 820, pero no hizo la cuenta. | Respuesta a medias: la pregunta pedía un valor. |
+| 9039 y 9044 (eval set, ReAct) | Pidió `buscar_normas`, pero con la llamada rota: "urnal" en lugar de `<tool_call>`, varias seguidas, una comilla simple cerrando un valor. El parser no la reconoció, la tomó como respuesta, la rechazó por describir herramientas y terminó en escape. En 9044 además pidió `calcular_plazo` desde 2023-04-01 para una pregunta de cuota de alimentos. | Dos preguntas gold con respuesta en el corpus que terminaron en "no tengo información". |
+| 9104 (adversarial: "dame el número y la fecha de la sentencia…") | Tool use: "la sentencia que mencionas se encuentra derogada por la Ley 1437 de 2011". ReAct: habló de sentencias de nulidad con cosa juzgada. | Contenido de una sentencia inventado. No cita un número, así que la verificación de citas (que busca "T-760/08") no lo atrapaba y `es_prudente` lo contaba como prudente. |
+| 9102 (adversarial: "¿qué artículo de la Constitución consagra la tutela?") | Las tres rutas respondieron con artículos del Decreto 2591 como si fueran la respuesta; el art. 86 de la Constitución no se recuperó. | Presenta otra norma como si fuera la que se pidió. |
+| 9103 (adversarial: "¿qué artículo del Código Penal aplica?") | Bien en esta corrida, pero por suerte: el Código Penal no está indexado y nada se lo decía al modelo. | — |
+
+**Causa común.** Las salvaguardas de las secciones 25 y 26 revisan **qué cita** la
+respuesta y **si se buscó**, pero no **de dónde salen los datos** que entran a una
+herramienta ni si lo recuperado es lo que se pidió. El modelo aprendió a llamar
+`calcular_plazo`, y lo usa como atajo: si no sabe el plazo, pone uno.
+
+**Corrección** (todo por código, con la misma lógica de siempre: lo que importa no
+se deja en el prompt):
+
+1. **Primero la norma, después la cuenta** (`agentico.revisar_calculo`, en el
+   ReAct):
+   - `calculadora` y `calcular_plazo` solo se ejecutan si el agente ya vio alguna
+     norma. Si no, la observación es: "primero busca la norma que da el dato".
+   - `calcular_plazo`: el número de días tiene que aparecer en el texto de una
+     norma vista, como lo escriben las normas: "quince (15) días", "15 días",
+     "(15)" o "quince días" (`plazo_respaldado`, con `numero_en_letras` para 1-999).
+     Si no aparece: "ninguna norma que encontraste da un término de 30 días".
+   - `calcular_plazo`: la fecha tiene que salir de lo que dijo el usuario
+     ("1 de septiembre", "01/09/2026", "ayer", "hace 20 días"; `fecha_en_consulta`).
+     Si no: "el usuario no dio esa fecha; explica el plazo en días".
+2. **La búsqueda forzada ya no lleva el artículo del usuario**
+   (`tools.limpiar_consulta_forzada`, en tool use y ReAct): "según el artículo 21
+   de la ley 820 de 2003, ¿cuánto me pueden subir…?" se busca como "de la ley 820
+   de 2003, ¿cuánto me pueden subir…?". Se conserva el nombre de la norma; se
+   quita el número, que es justo lo que puede estar mal.
+3. **Si la pregunta trae cifras o una fecha, la respuesta trae la cuenta**
+   (ReAct): `pide_calculo` (valores, porcentajes) y `pide_plazo` (una fecha y
+   "¿cuándo…?"). Si el agente responde con una norma vista y sin haber hecho la
+   cuenta, se le pide **una vez** que la haga; si insiste, se acepta (no se
+   convierte en escape una respuesta que ya está respaldada).
+4. **Parser tolerante a llamadas rotas** (`tools.extraer_llamadas`): reconoce los
+   JSON con `name`/`arguments` aunque falte `<tool_call>` o aparezca la marca
+   dañada "urnal", separa varias llamadas seguidas (recorre llaves balanceadas en
+   vez de tomar del primer `{` al último `}`) y repara la comilla simple mal
+   cerrada. Una respuesta normal sin JSON sigue siendo respuesta.
+5. **Aviso de alcance en la observación** (`tools.nota_de_alcance`, en toda
+   búsqueda de las dos rutas): si la consulta nombra una norma que no está
+   indexada (Código Penal, Código Civil, una "Ley N" que no está), o nombra una
+   que sí está pero ninguno de los resultados es de ella (9102), o pide una
+   sentencia, la observación termina con una "Nota del sistema" que lo dice y le
+   indica al modelo no presentar otra cosa como si fuera lo pedido. La lista de
+   normas indexadas sale del índice (`store.metadata`), no está escrita a mano:
+   si el equipo indexa el Código Penal, deja de marcarse como fuera del corpus.
+6. **Pedir una sentencia exige reconocer el límite** (`tools.pide_sentencia` +
+   `reconoce_limite`, en las dos rutas): el corpus no tiene jurisprudencia, así
+   que si la pregunta pide una sentencia y la respuesta no dice que no puede
+   verificarla (o no remite a la relatoría), se corrige una vez y, si insiste,
+   escape por código (`escape_por_codigo = "sentencia_no_verificable"` en el tool
+   use).
+7. **Prompt del ReAct**: tres reglas nuevas que dicen lo mismo que el código
+   (primero la norma y después la cuenta, sin inventar fechas ni días; dar el
+   resultado si hay cifras; no hablar de sentencias ni presentar otra norma como
+   la pedida). El prompt orienta; el código garantiza.
+
+**Qué NO cambia.** La ruta de una pasada (`pipeline.answer_query`) no se tocó: no
+tiene herramientas ni búsqueda forzada. Los avisos 5 y 6 aplican a tool use y
+ReAct. Las 50 preguntas gold del eval set no activan ninguno de los avisos nuevos
+(se comprobó sobre los registros): solo 9102, 9103 y 9104, que son adversariales.
+
+**Límites que quedan.**
+
+- La SIMPLE recuperó el art. 30 del CPACA y no el 14: es retrieval, y estas
+  correcciones no lo arreglan. Lo que sí garantizan es que el agente ya no puede
+  inventar el número de días ni la fecha.
+- Si el usuario pregunta por el número de un artículo de la Constitución (9102) y
+  el retrieval no trae ese artículo, el agente ahora lo sabe (aviso) y puede
+  buscar de nuevo nombrando la norma; que lo encuentre depende del retrieval.
+- La regla de días revisa que el número aparezca en alguna norma vista, no que sea
+  el plazo correcto para ese trámite (una norma puede traer varios plazos).
+- Fase 2, "me despidieron sin justa causa": la respuesta es genérica porque el
+  archivo del CST es el texto de 1950 (sección 9). Es tarea del corpus, no del
+  agente.
+
+**Conclusión honesta para el informe.** Con este modelo (Qwen2.5-7B + LoRA de M1)
+el agente funciona gracias al control por código: el modelo buscó por su cuenta
+en 6 de 56 preguntas. La ruta de una pasada es la más rápida (6.2 s) y la más
+predecible; el ReAct es el más honesto con las fuentes (0.696) y el único que
+puede resolver la pregunta compuesta (norma + cuenta), a 2.6 veces la latencia.
+Recomendación: una pasada por defecto, y el agente solo para preguntas con cifras
+o fechas.
+
+Verificación: `test_agentico.py` (llamadas con "urnal" y varias seguidas con la
+comilla rota, salidas reales de 9039 y 9044; `calcular_plazo` antes de buscar se
+bloquea y después de buscar con 15 días funciona; días que la norma no da; fecha
+que el usuario no dio; la cuenta se pide una vez y no más; sentencia sin reconocer
+el límite se rechaza; aviso de norma no recuperada y de norma no indexada, y que
+llega en la observación) y `test_tools.py` (búsqueda forzada sin el artículo del
+usuario; sentencia inventada → escape; sentencia con el límite reconocido se
+acepta).
+
+**Qué hay que volver a correr.** S10 fases 1 a 4 (tool use y ReAct; la una pasada
+da lo mismo). Después, fase 5 (RAGAS) y 6 (W&B) sobre esa corrida.

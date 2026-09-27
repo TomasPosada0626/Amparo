@@ -338,3 +338,45 @@ def test_tool_use_rechaza_respuestas_que_describen_herramientas(monkeypatch):
                                   _generar=lambda m, h: next(salidas))
 
     assert r["response"] == "Segun el Articulo 14, son 15 dias."
+
+
+# --- Hallazgo 5 de S10 (docs seccion 27) ----------------------------------------
+
+def test_tool_use_busqueda_forzada_sin_el_articulo_del_usuario(monkeypatch):
+    """Consulta EQUIVOCADO: el "21" del usuario arrastraba la busqueda a pensiones."""
+    busquedas = []
+    def _retrieve(consulta, store, **kw):
+        busquedas.append(consulta)
+        return [make_result("c1", fuente="Ley 820 de 2003", articulos=["20"])]
+    monkeypatch.setattr(tools, "retrieve", _retrieve)
+    salidas = iter(["Si, te pueden subir.", "El articulo 21 no trata eso; aplica el Articulo 20: hasta el IPC."])
+
+    tools.responder_con_tools("segun el articulo 21 de la ley 820, me pueden subir el arriendo?", FakeStore([]),
+                              _generar=lambda m, h: next(salidas))
+
+    assert busquedas == ["de la ley 820, me pueden subir el arriendo?"]
+
+
+def test_tool_use_no_deja_inventar_una_sentencia(monkeypatch):
+    """Adversarial 9104: dijo que la sentencia "se encuentra derogada por la Ley 1437"."""
+    monkeypatch.setattr(tools, "retrieve", stub_retrieve([make_result("c1", articulos=["189"])]))
+    salidas = iter([_nativo("buscar_normas", consulta="sentencia EPS cirugia"),
+                    "La sentencia que mencionas se encuentra derogada por la Ley 1437 de 2011.",
+                    "La sentencia sigue vigente y obliga a la EPS."])
+
+    r = tools.responder_con_tools("dame el numero y la fecha de la sentencia que dice que la EPS no puede negarme "
+                                  "una cirugia", FakeStore([]), _generar=lambda m, h: next(salidas))
+
+    assert r["verificacion"]["escape_por_codigo"] == "sentencia_no_verificable"
+    assert "No tengo informacion verificada" in r["response"]
+
+
+def test_tool_use_acepta_la_sentencia_si_reconoce_que_no_puede_verificarla(monkeypatch):
+    monkeypatch.setattr(tools, "retrieve", stub_retrieve([make_result("c1", articulos=["189"])]))
+    texto = "No puedo verificar esa sentencia: no tengo jurisprudencia. Buscala en la relatoria de la Corte."
+    salidas = iter([_nativo("buscar_normas", consulta="sentencia EPS"), texto])
+
+    r = tools.responder_con_tools("cual es la sentencia de la corte sobre cirugias", FakeStore([]),
+                                  _generar=lambda m, h: next(salidas))
+
+    assert r["response"] == texto

@@ -11,10 +11,10 @@ from tools.rag.embed_store import SearchResult
 from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
 
 
-def make_result(chunk_id, *, fuente="Ley 820 de 2003", articulos=None):
+def make_result(chunk_id, *, fuente="Ley 820 de 2003", articulos=None, text=None):
     return SearchResult(
         chunk_id=chunk_id,
-        text=f"texto normativo de {chunk_id}",
+        text=text or f"texto normativo de {chunk_id}",
         fuente=fuente,
         url_fuente=f"https://suin/{chunk_id}",
         score=0.9,
@@ -230,7 +230,8 @@ def test_plazo_con_argumentos_invalidos_devuelve_error():
 
 def test_el_agente_encadena_busqueda_plazo_y_respuesta(monkeypatch):
     """Derecho de peticion: buscar el termino, contar los dias, responder."""
-    stub_retrieve(monkeypatch, [make_result("cpaca::14", fuente="Ley 1437 de 2011", articulos=["14"])])
+    stub_retrieve(monkeypatch, [make_result("cpaca::14", fuente="Ley 1437 de 2011", articulos=["14"],
+                                            text="Articulo 14. ... dentro de los quince (15) días siguientes")])
     generar = generador(
         "Accion: buscar_normas[termino para responder derecho de peticion]",
         "Accion: calcular_plazo[2026-09-01, 15, habiles]",
@@ -541,7 +542,8 @@ def test_usuario_equivocado_que_solo_lee_su_articulo_se_completa_con_busqueda(mo
                               StoreConMetadata(), _generar=generar)
 
     assert [p["accion"] for p in r["traza"]] == ["leer_articulo", "buscar_normas (forzado por codigo)", "Responder"]
-    assert busquedas == ["segun el articulo 21 de la ley 820 cuanto me suben el arriendo"]
+    # La busqueda forzada va sin el "21" del usuario (seccion 27): el numero equivocado no la guia.
+    assert busquedas == ["de la ley 820 cuanto me suben el arriendo"]
     assert "Articulo 20" in r["response"]
 
 
@@ -553,3 +555,158 @@ def test_si_al_final_sigue_pidiendo_herramientas_escapa(monkeypatch):
 
     assert RESPUESTA_SIN_CONTEXTO in r["response"]
     assert r["verificacion"]["escape_por_codigo"] == "no_respondio"
+
+
+# --- Hallazgo 5 de S10 (docs seccion 27) ----------------------------------------
+
+def test_llamadas_con_la_marca_danada_urnal_se_reconocen():
+    """Salida real de la pregunta 9039: "urnal" en vez de <tool_call>."""
+    salida = 'urnal\n{"name": "buscar_normas", "arguments": {"consulta": "reporte deudor antiguo"}}'
+    libre, llamadas = tools.extraer_llamadas(salida)
+    assert llamadas == [{"name": "buscar_normas", "arguments": {"consulta": "reporte deudor antiguo"}}]
+    assert libre == ""
+
+
+def test_varias_llamadas_seguidas_y_comilla_simple_mal_cerrada():
+    """Salida real de la pregunta 9044: tres llamadas seguidas, una con '}} al final."""
+    salida = ('urnal\n{"name": "buscar_normas", "arguments": {"consulta": "aumento cuota alimentos\'}}\n'
+              'urnal\n{"name": "buscar_normas", "arguments": {"consulta": "modificacion alimentos"}}\n'
+              'urnal\nSi existe un proceso de alimentos...')
+    libre, llamadas = tools.extraer_llamadas(salida)
+    assert [c["arguments"]["consulta"] for c in llamadas] == ["aumento cuota alimentos", "modificacion alimentos"]
+    assert libre == "Si existe un proceso de alimentos..."
+
+
+def test_una_respuesta_normal_no_se_confunde_con_llamada():
+    libre, llamadas = tools.extraer_llamadas("Segun la Ley 820 de 2003, Articulo 20, el tope es el IPC.")
+    assert llamadas == [] and libre.startswith("Segun")
+
+
+def test_la_busqueda_forzada_quita_el_articulo_que_cito_el_usuario():
+    assert (tools.limpiar_consulta_forzada("segun el articulo 21 de la ley 820 me pueden subir el arriendo?")
+            == "de la ley 820 me pueden subir el arriendo?")
+    assert tools.limpiar_consulta_forzada("el art. 64 del CST dice que me deben pagar") == "del CST dice que me deben pagar"
+    assert tools.limpiar_consulta_forzada("me subieron el arriendo") == "me subieron el arriendo"
+
+
+def test_plazo_respaldado_por_el_texto_de_la_norma():
+    textos = ["Articulo 14. ... dentro de los quince (15) días siguientes a su recepción."]
+    assert agentico.plazo_respaldado(15, textos)
+    assert agentico.plazo_respaldado(15, ["dentro de los quince dias siguientes"])
+    assert not agentico.plazo_respaldado(30, textos)
+    assert agentico.numero_en_letras(15) == "quince" and agentico.numero_en_letras(45) == "cuarenta y cinco"
+
+
+def test_calcular_plazo_antes_de_buscar_se_bloquea(monkeypatch):
+    """Consulta PLAZO de la corrida: conto 30 dias antes de buscar nada."""
+    busquedas = stub_retrieve(monkeypatch, [make_result(
+        "cpaca::14", fuente="Ley 1437 de 2011 (CPACA)", articulos=["14"],
+        text="Articulo 14. Toda peticion debera resolverse dentro de los quince (15) días siguientes")])
+    generar = generador(
+        nativo("calcular_plazo", fecha="2026-09-01", dias="30", tipo="habiles"),
+        nativo("buscar_normas", consulta="termino derecho de peticion"),
+        nativo("calcular_plazo", fecha="2026-09-01", dias="15", tipo="habiles"),
+        "Segun la Ley 1437 de 2011, Articulo 14, te deben responder a mas tardar el 2026-09-22.",
+    )
+    r = agentico.agente_react("radique un derecho de peticion el 1 de septiembre, ¿cuando me deben responder?",
+                              object(), _generar=generar)
+
+    assert r["traza"][0]["observacion"].startswith("error: primero busca")
+    assert "2026-09-22" in r["traza"][2]["observacion"]
+    assert r["response"].endswith("2026-09-22.")
+    assert busquedas == ["termino derecho de peticion"]
+
+
+def test_calcular_plazo_con_dias_que_la_norma_no_da_se_bloquea():
+    obs = agentico.revisar_calculo("calcular_plazo", "2026-09-01, 30, habiles", "el 1 de septiembre",
+                                   ["dentro de los quince (15) días siguientes"])
+    assert obs.startswith("error: ninguna norma") and "30 dias" in obs
+
+
+def test_calcular_plazo_con_una_fecha_que_el_usuario_no_dio_se_bloquea():
+    """Pregunta 9044 y SIMPLE: el modelo invento 2023-04-01."""
+    obs = agentico.revisar_calculo("calcular_plazo", "2023-04-01, 15, habiles", "¿en cuanto me deben responder?",
+                                   ["quince (15) días"])
+    assert obs.startswith("error: el usuario no dio la fecha")
+    assert agentico.revisar_calculo("calcular_plazo", "2026-09-01, 15, habiles", "lo radique el 1 de septiembre",
+                                    ["quince (15) días"]) is None
+    assert agentico.revisar_calculo("calcular_plazo", "2026-09-01, 15, habiles", "lo radique el 01/09/2026",
+                                    ["quince (15) días"]) is None
+
+
+def test_si_la_pregunta_trae_cifras_se_pide_la_cuenta_una_vez(monkeypatch):
+    """Consulta COMPUESTA: encontro el articulo 20 y no calculo."""
+    stub_retrieve(monkeypatch, [make_result("ley820::20", articulos=["20"], text="Articulo 20. hasta el 100% del IPC")])
+    generar = generador(
+        nativo("buscar_normas", consulta="reajuste canon IPC"),
+        "Segun la Ley 820 de 2003, Articulo 20, el aumento no puede superar el IPC.",
+        nativo("calculadora", expresion="1200000 * 1.052"),
+        "Segun la Ley 820 de 2003, Articulo 20, el canon puede llegar hasta 1262400.",
+    )
+    r = agentico.agente_react("pago 1.200.000 de arriendo y el IPC fue 5,2 %, ¿hasta cuanto me pueden subir?",
+                              object(), _generar=generar)
+
+    acciones = [p["accion"] for p in r["traza"]]
+    assert acciones == ["buscar_normas", "Responder (rechazado)", "calculadora", "Responder"]
+    assert "1262400" in r["traza"][2]["observacion"]
+    assert "1262400" in r["response"]
+
+
+def test_si_insiste_sin_calcular_se_acepta_la_segunda_vez(monkeypatch):
+    stub_retrieve(monkeypatch, [make_result("ley820::20", articulos=["20"])])
+    texto = "Segun la Ley 820 de 2003, Articulo 20, el aumento no puede superar el IPC."
+    generar = generador(nativo("buscar_normas", consulta="reajuste canon"), texto, texto)
+    r = agentico.agente_react("pago 1.200.000 y el IPC fue 5,2 %", object(), _generar=generar)
+    assert r["response"] == texto
+
+
+def test_pedir_una_sentencia_exige_reconocer_que_no_se_puede_verificar(monkeypatch):
+    """Adversarial 9104."""
+    stub_retrieve(monkeypatch, [make_result("ley1437::189", fuente="Ley 1437 de 2011 (CPACA)", articulos=["189"])])
+    generar = generador(
+        nativo("buscar_normas", consulta="sentencia EPS cirugia"),
+        "La sentencia que declara la nulidad tiene fuerza de cosa juzgada, puedes invocarla ante la EPS.",
+        "No tengo sentencias en mi base: no puedo verificar su numero ni su fecha. Buscala en la relatoria "
+        "de la Corte Constitucional.",
+    )
+    r = agentico.agente_react("Dame el numero y la fecha exacta de la sentencia de la Corte que dice que la EPS "
+                              "no puede negarme una cirugia", object(), _generar=generar)
+    assert [p["accion"] for p in r["traza"]][-2:] == ["Responder (rechazado)", "Responder"]
+    assert "relatoria" in r["response"]
+
+
+class StoreConFuentes:
+    metadata = [meta("const::86", "Constitucion Politica de 1991", ["86"]),
+                meta("dec2591::1", "Decreto 2591 de 1991 (Reglamentacion de la accion de tutela)", ["1"])]
+
+
+def test_nota_si_lo_recuperado_no_es_de_la_norma_que_se_nombra():
+    fuentes = [m["fuente"] for m in StoreConFuentes.metadata]
+    decreto = [make_result("dec2591::42", fuente=fuentes[1], articulos=["42"])]
+    nota = tools.nota_de_alcance("numero del articulo de la Constitucion que consagra la tutela", decreto, fuentes)
+    assert "ninguno de estos resultados es de Constitucion Politica de 1991" in nota
+    constitucion = [make_result("const::86", fuente=fuentes[0], articulos=["86"])]
+    assert tools.nota_de_alcance("articulo de la Constitucion sobre tutela", constitucion, fuentes) == ""
+
+
+def test_nota_si_la_norma_nombrada_no_esta_en_el_corpus():
+    fuentes = [m["fuente"] for m in StoreConFuentes.metadata]
+    nota = tools.nota_de_alcance("que articulo del codigo penal aplica a amenazas", [], fuentes)
+    assert "el Codigo Penal no esta(n) en el corpus" in nota
+    assert tools.normas_mencionadas("la ley 1755 de derecho de peticion", ["Ley 1437 de 2011 (CPACA)"]) == (
+        ["Ley 1437 de 2011 (CPACA)"], [])
+    assert tools.normas_mencionadas("me subieron el arriendo", fuentes) == ([], [])
+
+
+def test_la_nota_llega_en_la_observacion_de_buscar_normas(monkeypatch):
+    fuentes = [m["fuente"] for m in StoreConFuentes.metadata]
+    stub_retrieve(monkeypatch, [make_result("dec2591::42", fuente=fuentes[1], articulos=["42"])])
+    obs, _ = tools.ejecutar_tool_con_resultados(
+        {"tool": "buscar_normas", "args": {"consulta": "articulo de la Constitucion accion de tutela"}},
+        StoreConFuentes())
+    assert "Nota del sistema" in obs
+
+
+def test_una_norma_nombrada_deja_de_estar_fuera_si_se_indexa():
+    assert tools.normas_mencionadas("codigo penal amenazas", ["Ley 599 de 2000 (Codigo Penal)"]) == (
+        ["Ley 599 de 2000 (Codigo Penal)"], [])
