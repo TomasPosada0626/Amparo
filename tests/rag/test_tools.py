@@ -228,3 +228,34 @@ def test_el_prompt_del_tool_use_incluye_la_valvula_de_escape():
     from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
 
     assert RESPUESTA_SIN_CONTEXTO in tools.SYSTEM_TOOLS
+
+
+# --- Salvaguardas de codigo (docs seccion 25) ---------------------------------------
+
+def test_tool_use_que_busca_y_no_encuentra_escapa_por_codigo(monkeypatch):
+    from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO
+
+    monkeypatch.setattr(tools, "retrieve", stub_retrieve([]))
+    salidas = iter(['{"tool": "buscar_normas", "args": {"consulta": "x"}}', "Te respondo de memoria..."])
+
+    r = tools.responder_con_tools("consulta", FakeStore([]), _generar=lambda s, u: next(salidas))
+
+    assert r["response"] == RESPUESTA_ESCAPE_POR_CODIGO
+    assert r["verificacion"]["escape_por_codigo"] == "sin_contexto"
+
+
+def test_tool_use_corrige_una_cita_no_recuperada(monkeypatch):
+    monkeypatch.setattr(tools, "retrieve", stub_retrieve([make_result("c1", fuente="CST", articulos=["64"])]))
+    salidas = iter(['{"tool": "buscar_normas", "args": {"consulta": "despido"}}',
+                    "Segun el Articulo 65 ...", "Segun el Articulo 64 ..."])
+
+    r = tools.responder_con_tools("me despidieron", FakeStore([]), _generar=lambda s, u: next(salidas))
+
+    assert r["response"] == "Segun el Articulo 64 ..."
+    assert r["verificacion"]["citas_rechazadas"] == ["65"]
+
+
+def test_tool_use_saludo_sin_busqueda_pasa_tal_cual(monkeypatch):
+    monkeypatch.setattr(tools, "retrieve", stub_retrieve([]))
+    r = tools.responder_con_tools("hola", FakeStore([]), _generar=lambda s, u: "Hola, cuentame tu caso.")
+    assert r["response"] == "Hola, cuentame tu caso."

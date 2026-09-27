@@ -410,3 +410,28 @@ def test_es_prudente():
 
 def test_citas_no_respaldadas_acepta_el_conjunto_de_vistos():
     assert agentico.citas_no_respaldadas("articulos 20 y 21", vistos={"20"}) == ["21"]
+
+
+def test_react_que_busca_y_no_encuentra_escapa_por_codigo(monkeypatch):
+    """Si busco y no encontro ninguna norma, responder igual es responder de
+    memoria (hallazgo de S08, docs seccion 25)."""
+    from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO
+
+    stub_retrieve(monkeypatch, [])
+    generar = generador("Accion: buscar_normas[robo de celular]", "Accion: Responder[Debes denunciar ante la Fiscalia.]")
+
+    r = agentico.agente_react("me robaron el celular", object(), _generar=generar)
+
+    assert r["response"] == RESPUESTA_ESCAPE_POR_CODIGO
+    assert r["traza"][-1]["accion"].startswith("Responder (escape por codigo")
+
+
+def test_react_rechaza_sentencias_citadas(monkeypatch):
+    stub_retrieve(monkeypatch, [make_result("ley820::20")])
+    generar = generador("Accion: buscar_normas[x]", "Accion: Responder[Segun la T-760 de 2008, si.]",
+                        "Accion: Responder[Segun el Articulo 20, si.]")
+
+    r = agentico.agente_react("q", object(), _generar=generar)
+
+    assert r["traza"][1]["accion"] == "Responder (rechazado)"
+    assert r["response"] == "Segun el Articulo 20, si."

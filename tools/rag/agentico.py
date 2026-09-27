@@ -77,7 +77,7 @@ import unicodedata
 
 from tools.rag.chunk import normalizar_numero
 from tools.rag.embed_store import metadata_to_result
-from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
+from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO, RESPUESTA_SIN_CONTEXTO
 from tools.rag.tools import (
     TOOL_TOP_K,
     _generar_por_defecto,
@@ -445,6 +445,24 @@ def promete_resultado(texto: str) -> bool:
     return bool(_PATRON_PROMESA.search(texto or ""))
 
 
+def citas_no_verificables(respuesta: str, resultados=(), query: str = "", *,
+                          vistos: set[str] | None = None) -> list[str]:
+    """Todo lo que la respuesta cita y no se puede verificar contra lo recuperado:
+    articulos que no vio y sentencias (el corpus no tiene jurisprudencia, asi que
+    una sentencia citada es siempre de memoria). Lista vacia = respuesta limpia.
+
+    Es la regla que aplican las tres rutas antes de entregar una respuesta: el
+    agente ReAct, el RAG de una pasada (pipeline.answer_query) y el tool use."""
+    return (citas_no_respaldadas(respuesta, resultados, query, vistos=vistos)
+            + sorted(sentencias_citadas(respuesta)))
+
+
+def nota_de_correccion(no_verificables: list[str]) -> str:
+    return (f"Verificacion de citas: tu respuesta cita {', '.join(no_verificables)}, que no aparece(n) "
+            "en las normas recuperadas. Responde de nuevo citando solo normas que aparezcan ahi, o "
+            "sin citar numeros de articulo ni sentencias.")
+
+
 def es_prudente(respuesta: str, vistos: set[str], query: str = "") -> bool:
     """Comprobacion programatica de prudencia (casos adversariales).
 
@@ -520,17 +538,25 @@ def agente_react(
 
         nombre, argumento = accion
         if nombre == "Responder":
-            no_vistas = citas_no_respaldadas(argumento, vistos, query)
+            no_vistas = citas_no_verificables(argumento, vistos, query)
             if not no_vistas:
+                busco = any(p["accion"] in ("buscar_normas", "leer_articulo") for p in traza)
+                if busco and not vistos and RESPUESTA_SIN_CONTEXTO.lower() not in argumento.lower():
+                    # Busco y no encontro ninguna norma: responder igual seria
+                    # responder de memoria. Escape por codigo (seccion 25 de docs).
+                    traza.append({"paso": paso, "pensamiento": pensamiento,
+                                  "accion": "Responder (escape por codigo: sin normas)",
+                                  "argumento": argumento, "observacion": ""})
+                    return _salida(RESPUESTA_ESCAPE_POR_CODIGO)
                 traza.append({"paso": paso, "pensamiento": pensamiento, "accion": "Responder",
                               "argumento": argumento, "observacion": ""})
                 return _salida(argumento)
             # Cita algo que no vio: no se acepta. Se le devuelve como observacion
             # y el bucle sigue (consume un paso).
             observacion = (
-                f"Verificacion de citas: tu respuesta cita el/los articulo(s) "
-                f"{', '.join(no_vistas)}, que no aparecen en ninguna de tus observaciones. "
-                "Buscalos con buscar_normas o responde sin citarlos."
+                f"Verificacion de citas: tu respuesta cita {', '.join(no_vistas)}, que no "
+                "aparece(n) en ninguna de tus observaciones. Buscalos con buscar_normas o "
+                "leer_articulo, o responde sin citarlos."
             )
             traza.append({"paso": paso, "pensamiento": pensamiento, "accion": "Responder (rechazado)",
                           "argumento": argumento, "observacion": observacion})
@@ -562,11 +588,11 @@ def agente_react(
     salida = generar(SYSTEM_REACT, historial + "\nYa no puedes usar herramientas. Accion: Responder[...]")
     pensamiento, accion = parsear_paso(salida)
     if (accion and accion[0] == "Responder" and accion[1]
-            and not citas_no_respaldadas(accion[1], vistos, query)):
+            and not citas_no_verificables(accion[1], vistos, query)):
         respuesta = accion[1]
     else:
         # Sin respuesta en formato, o sigue citando algo que no vio.
-        respuesta = f"{RESPUESTA_SIN_CONTEXTO}."
+        respuesta = RESPUESTA_ESCAPE_POR_CODIGO
     traza.append({"paso": max_pasos + 1, "pensamiento": pensamiento, "accion": "Responder (forzado)",
                   "argumento": respuesta, "observacion": ""})
     return _salida(respuesta)

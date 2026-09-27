@@ -149,13 +149,10 @@ def answer_query(
         use_rerank=use_rerank,
         bm25=bm25,
     )
-    if prompt_optimizado is not None:
-        from tools.rag.dspy_prompt import mensajes_con_prompt_optimizado
-
-        messages = mensajes_con_prompt_optimizado(query, recuperados, prompt_optimizado)
-    else:
-        messages = build_messages(query, recuperados)
-    respuesta = generate(messages, use_lora=use_lora, model_bundle=model_bundle)
+    respuesta, verificacion = _generar_verificado(
+        query, recuperados, use_lora=use_lora, model_bundle=model_bundle,
+        prompt_optimizado=prompt_optimizado,
+    )
 
     return {
         "query": query,
@@ -186,7 +183,49 @@ def answer_query(
         "top_k": top_k,
         "min_score": min_score,
         "sistema": "una_pasada_dspy" if prompt_optimizado is not None else "una_pasada",
+        "verificacion": verificacion,
     }
+
+
+def _generar_verificado(query, recuperados, *, use_lora, model_bundle, prompt_optimizado=None):
+    """Genera la respuesta con las dos salvaguardas de codigo (seccion 25 de docs).
+
+    Hallazgos de la corrida de S08 (2026-09-27) que las motivan: la valvula de
+    escape del prompt no se activo ni una vez en 168 respuestas (el modelo
+    respondia de memoria aun sin contexto), y hubo citas de articulos que no se
+    habian recuperado ("articulo 2" como el de la tutela, "articulo 24").
+
+    1. Sin contexto -> RESPUESTA_ESCAPE_POR_CODIGO, sin llamar al modelo.
+    2. Con contexto -> se genera y se verifican las citas (articulos que no se
+       recuperaron y sentencias). Si hay alguna, se regenera UNA vez con una nota
+       de correccion; si insiste, escape por codigo.
+
+    Devuelve (respuesta, verificacion) para auditar que hizo el codigo."""
+    from tools.rag.agentico import citas_no_verificables, nota_de_correccion
+    from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO
+
+    if not recuperados:
+        return RESPUESTA_ESCAPE_POR_CODIGO, {"escape_por_codigo": "sin_contexto", "citas_rechazadas": []}
+
+    if prompt_optimizado is not None:
+        from tools.rag.dspy_prompt import mensajes_con_prompt_optimizado
+
+        messages = mensajes_con_prompt_optimizado(query, recuperados, prompt_optimizado)
+    else:
+        messages = build_messages(query, recuperados)
+    respuesta = generate(messages, use_lora=use_lora, model_bundle=model_bundle)
+
+    rechazadas = citas_no_verificables(respuesta, recuperados, query)
+    if not rechazadas:
+        return respuesta, {"escape_por_codigo": None, "citas_rechazadas": []}
+
+    corregidos = [messages[0], {"role": "user",
+                                "content": messages[1]["content"] + "\n\n" + nota_de_correccion(rechazadas)}]
+    respuesta = generate(corregidos, use_lora=use_lora, model_bundle=model_bundle)
+    if citas_no_verificables(respuesta, recuperados, query):
+        return RESPUESTA_ESCAPE_POR_CODIGO, {"escape_por_codigo": "citas_no_verificables",
+                                             "citas_rechazadas": rechazadas}
+    return respuesta, {"escape_por_codigo": None, "citas_rechazadas": rechazadas}
 
 
 def to_eval_record(resultado: dict, registro: dict) -> dict:
@@ -224,6 +263,9 @@ def to_eval_record(resultado: dict, registro: dict) -> dict:
         # La traza (vacia en una pasada) es la evidencia de los pasos del agente.
         "sistema": resultado.get("sistema", "una_pasada"),
         "traza": resultado.get("traza", []),
+        # Que hizo el codigo antes de entregar la respuesta (escape por codigo,
+        # citas rechazadas). Vacio en corridas anteriores a esa salvaguarda.
+        "verificacion": resultado.get("verificacion", {}),
     }
 
 

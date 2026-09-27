@@ -269,12 +269,37 @@ def responder_con_tools(
     vistos: list = []
 
     def _salida(respuesta: str) -> dict:
+        respuesta, verificacion = _verificar(respuesta)
         resultado = resultado_para_evaluacion(
             query, respuesta, vistos, sistema="tool_use", use_lora=use_lora,
             use_hybrid=use_hybrid, use_rerank=use_rerank, traza=traza,
         )
         resultado["tool_calls"] = traza
+        resultado["verificacion"] = verificacion
         return resultado
+
+    def _verificar(respuesta: str) -> tuple[str, dict]:
+        """Salvaguardas de codigo antes de entregar (seccion 25 de docs):
+        - uso la herramienta y no encontro ninguna norma -> escape por codigo;
+        - cita articulos que no trajo la herramienta, o sentencias -> una
+          correccion; si insiste (o vuelve a pedir la herramienta), escape.
+        Un saludo sin busqueda y sin citas pasa tal cual."""
+        from tools.rag.agentico import citas_no_verificables, nota_de_correccion
+        from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO
+
+        if RESPUESTA_SIN_CONTEXTO.lower() in respuesta.lower():
+            return respuesta, {"escape_por_codigo": None, "citas_rechazadas": []}
+        if traza and not vistos:
+            return RESPUESTA_ESCAPE_POR_CODIGO, {"escape_por_codigo": "sin_contexto", "citas_rechazadas": []}
+        rechazadas = citas_no_verificables(respuesta, vistos, query)
+        if not rechazadas:
+            return respuesta, {"escape_por_codigo": None, "citas_rechazadas": []}
+        corregida = generar(SYSTEM_TOOLS, historial + "\n\n" + nota_de_correccion(rechazadas)
+                            + " No pidas mas herramientas.")
+        if extraer_tool_call(corregida) is not None or citas_no_verificables(corregida, vistos, query):
+            return RESPUESTA_ESCAPE_POR_CODIGO, {"escape_por_codigo": "citas_no_verificables",
+                                                 "citas_rechazadas": rechazadas}
+        return corregida, {"escape_por_codigo": None, "citas_rechazadas": rechazadas}
 
     for _ in range(max_llamadas):
         salida = generar(SYSTEM_TOOLS, historial)
