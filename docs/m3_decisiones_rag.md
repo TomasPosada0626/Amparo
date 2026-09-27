@@ -308,6 +308,9 @@ Parte II y el material de trabajo para afinar el pipeline.
 | 9039 y 9044 (S10, ReAct) | Llamadas con "urnal" en vez de `<tool_call>`, varias seguidas, una comilla mal cerrada: no se reconocieron y la pregunta terminó en escape. | `generate` / parser | Parser tolerante (sección 27, corrección 4). |
 | 9104 (S10, tool use y ReAct) | Contenido de una sentencia inventado ("se encuentra derogada por la Ley 1437"), sin número, así que la verificación de citas no lo atrapaba. | `generate` | Pedir una sentencia exige reconocer que no se puede verificar; si no, corrección y escape (sección 27, corrección 6). |
 | 9102 (S10, las tres rutas) | Respondió con artículos del Decreto 2591 como si fueran el de la Constitución. | `retrieve` + `generate` | Aviso en la observación cuando lo recuperado no es de la norma nombrada (sección 27, corrección 5). Recuperar el art. 86 sigue pendiente. |
+| S10 corrida final, EQUIVOCADO | Sin el "21", la búsqueda forzada igual trajo Ley 100, art. 204; la respuesta dijo que la pregunta era de seguridad social y no respondió. | `embed` / `retrieve` ("cuánto me pueden subir este año" se parece a los reajustes anuales de la Ley 100) + `generate` (ignora el aviso de norma no recuperada) | Pendiente M4: buscar dentro de la norma nombrada; ejemplos de usuario equivocado en el reentrenamiento (sección 27, revisión de la corrida final). |
+| S10 corrida final, COMPUESTA | "subida canon arriendo IPC" no pasó el piso → escape por código. | `retrieve` (la Ley 820 no dice "IPC" y casi no dice "arriendo"; el piso descarta lo que trae BM25) | Pendiente M4: reformular a términos de la norma; revisar el piso para BM25. |
+| S10 corrida final, PLAZO | 15 días correctos pero cita el art. 15 (no el 14), no calcula la fecha y dice "queja" en vez de tutela. | agente (bug: un `calcular_plazo` bloqueado contó como cuenta hecha) + `generate` | Pendiente M4: contar solo cuentas ejecutadas; exigir la búsqueda de "¿y si no responden?"; verificar que el artículo citado diga lo atribuido. |
 
 ## 10. Alcance de cada parte
 
@@ -1205,7 +1208,8 @@ se deja en el prompt):
    (`tools.limpiar_consulta_forzada`, en tool use y ReAct): "según el artículo 21
    de la ley 820 de 2003, ¿cuánto me pueden subir…?" se busca como "de la ley 820
    de 2003, ¿cuánto me pueden subir…?". Se conserva el nombre de la norma; se
-   quita el número, que es justo lo que puede estar mal.
+   quita el número, que es justo lo que puede estar mal. (La corrida final mostró
+   que esto no bastó para EQUIVOCADO: ver "Revisión de la corrida final".)
 3. **Si la pregunta trae cifras o una fecha, la respuesta trae la cuenta**
    (ReAct): `pide_calculo` (valores, porcentajes) y `pide_plazo` (una fecha y
    "¿cuándo…?"). Si el agente responde con una norma vista y sin haber hecho la
@@ -1274,17 +1278,74 @@ acepta).
 **Qué hay que volver a correr.** S10 fases 1 a 4 (tool use y ReAct; la una pasada
 da lo mismo). Después, fase 5 (RAGAS) y 6 (W&B) sobre esa corrida.
 
-**Pendiente para M4** (decidido el 2026-09-27: M3 cierra con las correcciones de
-arriba; esto se trabaja en M4):
+### Revisión de la corrida final (2026-09-27, commit `ba7c859`)
 
-- **Retrieval de las preguntas gold.** SIMPLE recupera el art. 30 del CPACA y no el
-  14; 9102 no recupera el art. 86 de la Constitución. Candidatos: reformular la
-  consulta, buscar dentro de la norma que nombra el usuario, context recall de
-  RAGAS (fase 5 de S10) para ver en qué preguntas falla.
+Resumen de la fase 4 con las correcciones de esta sección:
+
+| Ruta | s/consulta | Sin contexto | Buscó el modelo | Búsqueda forzada por código | Escape por código |
+|---|---|---|---|---|---|
+| Una pasada | 6.3 | 1 | — | — | 1 |
+| Tool use | 15.2 | 2 | 15 | 41 | 1 |
+| ReAct | 14.6 | 2 | **9** | 47 | 0 |
+
+Métricas completas y RAGAS en `results/m3_s10_rutas_2026-09-27.md`.
+
+**Lo que las correcciones sí lograron (fases 2 y 3):**
+
+- **PLAZO:** el agente intentó `calcular_plazo` antes de buscar y el código lo
+  frenó ("primero busca…"). Ya no afirma "30 días": dijo 15 días, que es el plazo
+  del CPACA.
+- **Despido:** el modelo buscó dos veces por su cuenta ("despido sin justa causa",
+  "terminación contrato sin justa causa"), sin red de seguridad.
+- **Saludo:** respondió sin buscar, en texto normal.
+- En el eval set el ReAct ya no tiene escapes por llamadas rotas (0, antes 2) y el
+  modelo pidió la búsqueda por su cuenta en 9 preguntas (antes 6).
+
+**Limitaciones que quedan (se intentarán corregir en M4).** Revisadas a mano, las
+cuatro consultas de la fase 3 muestran que lo que falla ahora es sobre todo el
+**retrieval** y el **modelo**, no las salvaguardas: ninguna respuesta inventó un
+artículo ni una cifra, pero dos no respondieron lo que se preguntaba.
+
+| Consulta | Qué pasó | Qué pudo haber sucedido |
+|---|---|---|
+| **EQUIVOCADO** ("según el artículo 21 de la Ley 820 de 2003, ¿cuánto me pueden subir el arriendo este año?") | Con el "21" ya quitado, la búsqueda forzada ("de la ley 820 de 2003, cuánto me pueden subir el arriendo este año") trajo **Ley 100, art. 204** (cotización a salud). La respuesta le dijo al usuario que su pregunta "parece referirse a seguridad social" y lo mandó a revisar el artículo correspondiente, sin darle la respuesta. El aviso "ninguno de estos resultados es de la Ley 820" sí llegó en la observación, y el modelo no lo usó. | La causa que se dio arriba (el número "21") era solo parte. "¿Cuánto me pueden subir… este año?" se parece semánticamente a los **reajustes anuales** de la Ley 100: el art. 204 habla de porcentajes "a partir del primero de enero del año…", y el art. 14 de reajuste de pensiones "el 1o. de enero de cada año según el IPC". Para el embedding, "subir X este año" está más cerca de eso que de "reajuste del canon" (art. 20 de la Ley 820). Y el aviso no basta: es un texto más en la observación, y un modelo de 7B con LoRA lo lee pero no cambia de plan (no vuelve a buscar). |
+| **COMPUESTA** (1.200.000 + IPC 5,2 %) | El modelo buscó por su cuenta "subida canon arriendo IPC" y **no pasó ningún resultado** → escape por código. En la corrida anterior, con otra consulta, sí encontró el art. 20. | Vocabulario: en el texto de la Ley 820 "IPC" no aparece nunca (dice "índice de precios al consumidor", una vez) y "arriendo" aparece 7 veces contra 71 de "arrendamiento". La consulta corta del modelo usa las palabras del usuario, no las de la norma; el coseno de e5 queda por debajo del piso (0.82), y lo que BM25 sí encontraba por "canon" se descarta porque el piso solo deja pasar resultados léxicos que sean referencia exacta a un artículo (sección 25, hallazgo 3). La respuesta fue honesta ("no tengo información"), pero inútil. |
+| **SIMPLE** ("¿cuánto tiempo tiene una entidad para responder un derecho de petición?") | El modelo buscó "derecho de peticion respuesta" y trajo el **art. 96 del CGP** (contestación de la demanda). Respondió en términos generales ("dentro de los plazos… que correspondan"), sin citar y sin inventar. | "Respuesta" + "petición" se parecen a "contestación de la demanda" (el CGP habla de peticiones y respuestas procesales). El art. 14 del CPACA dice "resolverse dentro de los quince (15) días", sin las palabras "respuesta" ni "responder": otra vez la consulta en palabras del usuario contra el texto en palabras de la norma. |
+| **PLAZO** | Dijo 15 días hábiles (correcto) pero citó el **art. 15** del CPACA (radicación de peticiones) y no el 14; **no calculó** la fecha de vencimiento y recomendó "una queja" en vez de la tutela. | (1) La cita pasa la verificación porque el art. 15 sí se recuperó: la verificación comprueba que el artículo citado esté entre lo visto, no que diga lo que se le atribuye. (2) Bug de la corrección 3: el intento de `calcular_plazo` que el código **bloqueó** quedó en la traza con la acción `calcular_plazo`, y la regla "si hay fecha, pide la cuenta" lo contó como cuenta hecha; por eso no se la pidió. Debe contar solo las cuentas que se ejecutaron. (3) No buscó qué hacer si no responden (la tutela): el prompt lo pide ("busca todo lo que necesites"), pero ni el modelo ni el código lo hicieron, y "queja" sale de memoria. |
+
+**Pendiente para M4** (decidido el 2026-09-27: M3 cierra con esta corrida, sin
+volver a correr; lo de abajo se trabaja en M4):
+
+- **Más ejemplos.**
+  - Ampliar el eval set con preguntas redactadas como las escribe la gente
+    ("arriendo", "me suben", "IPC", "cuánto tiempo tienen para responderme") y
+    con su artículo esperado, para medir el retrieval en esas palabras.
+  - Casos para las rutas agénticas: norma equivocada del usuario, preguntas con
+    cifras, plazos con fecha y sin fecha, "¿y si no me responden?".
+- **Reentrenar el adaptador** (M1): el LoRA se entrenó solo con respuestas en
+  texto y por eso el modelo casi nunca pide herramientas (9 de 56 en el ReAct).
+  Incluir ejemplos de conversaciones con llamadas a herramientas en el formato
+  nativo, y ejemplos que respondan lo que se pregunta cuando el usuario se
+  equivoca de artículo ("el 21 no trata eso; el que aplica es el 20, y te pueden
+  subir hasta…").
+- **Retrieval.**
+  - Cuando la pregunta nombra una norma que sí está en el índice (Ley 820) y la
+    búsqueda no trae nada de ella, buscar dentro de esa norma, en vez de solo
+    avisarle al modelo.
+  - Revisar el piso para los resultados que solo trae BM25 (el caso "canon").
+  - Probar la reformulación de la consulta a términos de la norma ("arriendo" →
+    "arrendamiento", "IPC" → "índice de precios al consumidor", "responder" →
+    "resolver") (sección 11.3).
+  - Recuperar el art. 14 del CPACA en SIMPLE y el art. 86 de la Constitución en
+    9102.
+- **Agente.**
+  - Corregir el bug de la corrección 3: contar solo las cuentas que se
+    ejecutaron.
+  - Si la pregunta pregunta "¿y si no…?", exigir una segunda búsqueda de lo que
+    se puede hacer (la tutela).
+  - Verificar que el artículo citado contenga lo que se le atribuye (hoy solo se
+    comprueba que se haya recuperado).
 - **Corpus.** Reemplazar el CST de 1950 por la versión vigente compilada y
   reconstruir el índice (sección 9); revisar la Ley 100; decidir si se indexan
   las normas que ya están en `data/corpus/normas` y no en `NORMAS_EN_ALCANCE`
   (Código Penal, Código Civil, Código de Comercio, etc.).
-- **Que el modelo use las herramientas por su cuenta.** Hoy el código hace casi
-  todas las búsquedas (el modelo buscó solo en 6 de 56 preguntas en el ReAct). Si
-  se reentrena el adaptador, incluir ejemplos de llamadas a herramientas.
