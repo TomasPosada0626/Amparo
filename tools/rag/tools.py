@@ -77,10 +77,6 @@ SYSTEM_TOOLS = (
 )
 
 
-class ToolError(ValueError):
-    """La llamada a herramienta no se pudo ejecutar (tool inexistente, args mal)."""
-
-
 def extraer_tool_call(texto: str) -> dict | None:
     """Extrae un {"tool":..., "args":{...}} del texto del modelo, o None.
 
@@ -693,22 +689,3 @@ def _generar_mensajes_por_defecto(model_bundle, use_lora: bool = False):
     return generar
 
 
-def _generar_por_defecto(model_bundle, use_lora: bool = False):
-    """Envuelve el generador real (Qwen) como una funcion (system, user) -> str.
-
-    Import perezoso de la generacion: stack pesado, vive en Colab. Se aisla aca
-    para que el resto del modulo (esquema, dispatcher, parser) sea importable y
-    testeable sin GPU. Tambien lo reusa el agente ReAct (tools/rag/agentico.py).
-    """
-    from tools.evaluation import generation
-
-    from tools.rag.pipeline import load_model
-
-    model, tokenizer = model_bundle if model_bundle else load_model(use_lora=use_lora)
-
-    def generar(system: str, user: str) -> str:
-        return generation.run_chat_generation(
-            model, tokenizer, system, user, config.MAX_NEW_TOKENS_GENERATION
-        )
-
-    return generar

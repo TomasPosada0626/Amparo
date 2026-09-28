@@ -43,7 +43,7 @@ y evidencia medida.
 |---|---|:--:|---|
 | **M1** | Fine-tuning (LoRA sobre Qwen2.5-7B-Instruct) | ✅ | `data/dataset_legal.jsonl`, `colab/m1_finetune.ipynb` |
 | **M2** | Harness de evaluación (juez LLM, métricas, sesgos) | ✅ | `tools/evaluation/`, `results/m2_scorecard_2026-09-19.md` |
-| **M3** | RAG: ingenuo (S07) + avanzado (S08) + agéntico (S10) | 🚧 | `tools/rag/`, `docs/m3_decisiones_rag.md` |
+| **M3** | RAG: ingenuo (S07) + avanzado (S08) + agéntico (S10) + DSPy | ✅ | `tools/rag/`, `docs/m3_decisiones_rag.md`, `results/m3_s08_busqueda_2026-09-27.md`, `results/m3_s10_rutas_2026-09-27.md` |
 
 ### Resultados de M2 (201 ejemplos de validación)
 
@@ -137,9 +137,10 @@ Amparo/
 │   │   ├── ragas_metrics.py    #   métricas RAGAS con juez Groq (M3 · S10)
 │   │   ├── tracking.py         #   registro de corridas en W&B (M3 · S10)
 │   │   └── scorecard.py        #   reporte consolidado
-│   └── model_comparator/       # Herramienta interna de comparación de modelos
+│   ├── model_comparator/       # Herramienta interna de comparación de modelos
+│   └── dataset_to_jsonl.py     # Genera data/dataset_legal.jsonl desde private/ (M1, se corrio una vez)
 ├── data/
-│   ├── dataset_legal.jsonl     # Dataset de fine-tuning (M1)
+│   ├── dataset_legal.jsonl     # Dataset de fine-tuning (M1), generado por tools/dataset_to_jsonl.py
 │   ├── eval_set.json           # Eval set propio: gold + adversariales (M2)
 │   └── corpus/normas/          # Corpus de normas colombianas (versionado)
 ├── colab/                      # Notebooks de ejecución (GPU)
