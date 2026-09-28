@@ -1,6 +1,9 @@
 # Datos privados (no deben subirse al repo)
 private/
 
+# Lista de trabajo de auditoria interna, no es un artefacto de entrega
+AUDITORIA_PENDIENTES.md
+
 # Borradores de la wiki (M2-M5): se editan localmente y solo se suben
 # a la wiki de GitHub cuando cada milestone este listo para entrega.
 wiki-drafts/
