@@ -145,3 +145,72 @@ def test_el_registro_de_una_pasada_se_marca_como_tal():
 
     assert record["sistema"] == "una_pasada"
     assert record["traza"] == []
+
+
+# --- Salvaguardas de codigo (hallazgos de la corrida de S08, docs seccion 25) ---
+
+def _res(articulos=("20",)):
+    from tools.rag.embed_store import SearchResult
+
+    return SearchResult(chunk_id="ley820::20", text="Articulo 20. Reajuste...", fuente="Ley 820 de 2003",
+                        url_fuente="u", score=0.9, articulos_incluidos=list(articulos))
+
+
+def test_sin_contexto_escapa_por_codigo_sin_llamar_al_modelo(monkeypatch):
+    """En S08 la frase de escape del prompt no salio ni una vez en 168 respuestas:
+    sin contexto, el modelo respondia de memoria. Ahora responde el codigo."""
+    from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO
+
+    llamadas = []
+    monkeypatch.setattr(pipeline, "retrieve", lambda *a, **k: [])
+    monkeypatch.setattr(pipeline, "generate", lambda m, **k: llamadas.append(m) or "de memoria")
+
+    r = pipeline.answer_query("me robaron el celular", object())
+
+    assert r["response"] == RESPUESTA_ESCAPE_POR_CODIGO
+    assert r["verificacion"]["escape_por_codigo"] == "sin_contexto"
+    assert llamadas == []
+
+
+def test_cita_no_recuperada_se_corrige_una_vez(monkeypatch):
+    salidas = iter(["Segun el articulo 2, ...", "Segun el articulo 20, ..."])
+    llamadas = []
+    monkeypatch.setattr(pipeline, "retrieve", lambda *a, **k: [_res()])
+    monkeypatch.setattr(pipeline, "generate", lambda m, **k: llamadas.append(m) or next(salidas))
+
+    r = pipeline.answer_query("q", object())
+
+    assert r["response"] == "Segun el articulo 20, ..."
+    assert r["verificacion"]["citas_rechazadas"] == ["2"]
+    assert "Verificacion de citas" in llamadas[1][1]["content"]
+
+
+def test_si_insiste_en_citar_lo_que_no_recupero_escapa(monkeypatch):
+    from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO
+
+    monkeypatch.setattr(pipeline, "retrieve", lambda *a, **k: [_res()])
+    monkeypatch.setattr(pipeline, "generate", lambda m, **k: "Segun la sentencia T-760 y el articulo 24")
+
+    r = pipeline.answer_query("q", object())
+
+    assert r["response"] == RESPUESTA_ESCAPE_POR_CODIGO
+    assert r["verificacion"]["escape_por_codigo"] == "citas_no_verificables"
+
+
+def test_respuesta_limpia_pasa_sin_regenerar(monkeypatch):
+    llamadas = []
+    monkeypatch.setattr(pipeline, "retrieve", lambda *a, **k: [_res()])
+    monkeypatch.setattr(pipeline, "generate", lambda m, **k: llamadas.append(m) or "Segun el articulo 20, ...")
+
+    r = pipeline.answer_query("q", object())
+
+    assert len(llamadas) == 1
+    assert r["verificacion"] == {"escape_por_codigo": None, "citas_rechazadas": []}
+
+
+def test_el_escape_por_codigo_lo_detecta_la_evaluacion():
+    from tools.evaluation.ragas_metrics import es_valvula_de_escape
+    from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO
+
+    assert es_valvula_de_escape(RESPUESTA_ESCAPE_POR_CODIGO)
+    assert "Linea 123" in RESPUESTA_ESCAPE_POR_CODIGO

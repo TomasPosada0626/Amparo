@@ -6,10 +6,12 @@ Documento de decisiones del sistema RAG de Amparo. Cubre las tres partes de M3:
   store` offline, `retrieve → augment → generate` online.
 - **Parte II — RAG avanzado (S08) + tool use (S10), secciones 11-17:** hybrid
   search, reranking y el retrieval expuesto como herramienta.
-- **Parte III — RAG agéntico (S10), secciones 18-24:** el mini-agente ReAct,
+- **Parte III — RAG agéntico (S10), secciones 18-26:** el mini-agente ReAct,
   sus herramientas, la verificación de citas, la comparación de las tres rutas
-  (una pasada, tool use, ReAct), su evaluación con RAGAS, el registro en W&B y la
-  optimización del prompt con DSPy (extra).
+  (una pasada, tool use, ReAct), su evaluación con RAGAS, el registro en W&B, la
+  optimización del prompt con DSPy (extra), los hallazgos de la corrida real de
+  S08 con sus correcciones (sección 25) y el de la corrida real de S10: el modelo
+  no usaba las herramientas (sección 26).
 
 Mismo estándar de documentación que M1/M2: **decisión + justificación +
 evidencia**, no solo qué se eligió.
@@ -294,6 +296,21 @@ Parte II y el material de trabajo para afinar el pipeline.
 |---|---|---|---|
 | "Me despidieron sin pagarme la liquidación, ¿qué puedo hacer?" (corrida 2026-09-25, `RETRIEVAL_MIN_SCORE=0.80`) | Recuperó Decreto 2663 de 1950 Art. 419 (liquidador de sindicatos en insolvencia) y varios artículos del Código General del Proceso (score máx. 0.845) -- confunde "liquidación laboral" (pago al trabajador despedido) con "liquidador" (figura de insolvencia/procedimiento civil). El modelo generó una respuesta basada en ese contexto equivocado en vez de activar la válvula de escape. | `embed` (la confusión semántica está en el embedding de la consulta, no en el chunking ni el índice) y `retrieve` (con el umbral de 0.80 vigente en ese momento, el score 0.845 pasaba el piso sin problema) | Reranking con cross-encoder es el candidato más directo -- un cross-encoder puede distinguir "liquidación de prestaciones laborales" de "liquidador judicial de una organización sindical" mejor que la similitud de embeddings densos sola. Implementado en la Parte II (sección 11.2, `tools/rag/rerank.py`). El umbral no lo resuelve solo: con el valor final (0.82) este score sigue pasando (sección 5). |
 | "Me despidieron sin justa causa, ¿cuánto me deben de indemnización?" (revisión del corpus, 2026-09-26) | El corpus no contiene la regla vigente. `codigo_sustantivo_trabajo_decreto_2663_1950.md` trae el **texto original de 1950**: su "Artículo 64" trata de la terminación *con* justa causa y preaviso, y la tabla de indemnización del art. 64 vigente (modificado por la Ley 789 de 2002) no aparece en el archivo; la numeración tampoco coincide con el código vigente (la indemnización moratoria está en el 66 del corpus). La metadata dice `status: in_force`. El sistema puede citar "CST, Artículo 64" con un contenido que no es el vigente. | `ingest` (fuente: versión original en vez de la compilada vigente) — no la corrige ninguna técnica de retrieval | Reemplazar el archivo por la versión vigente compilada del CST y reconstruir el índice. Mientras tanto, los ejemplos de la S10 usan arriendo (Ley 820 de 2003) y plazos (CPACA), cuyo texto sí es el vigente. Revisar también las normas con muchas modificaciones (p. ej. Ley 100 de 1993). |
+| Las 168 respuestas de la corrida A/B/C de S08 (2026-09-27, LoRA) | La frase de la válvula de escape **no apareció ni una vez**. En 5 casos gold sin contexto (p. ej. 9047 "me robaron el celular", config C) el modelo respondió de memoria. | `generate` (el modelo no obedece la regla del prompt) | Escape por código: sin contexto, responde el código sin llamar al modelo (sección 25, hallazgo 1). |
+| 9102 "¿cuál es el número exacto del artículo de la Constitución que consagra la tutela?" (S08, config B) | Respondió "artículo 2" (es el 86), un artículo que no estaba entre los recuperados. | `generate` (cita de memoria bajo presión por un número exacto) | Verificación de citas en las tres rutas: se corrige una vez y, si insiste, escape por código (sección 25, hallazgo 2). |
+| 9034 (arriendo, S08, config A) | Citó el "artículo 24" sin haberlo recuperado (se recuperaron los arts. 8, 10, 11, 22, 23 de la Ley 820). | `generate` | Igual que el anterior (sección 25, hallazgo 2). |
+| Corrida A/B/C de S08 (2026-09-27): chunks por consulta y consultas vacías | B y C recuperan menos (3.55 y 3.71 chunks vs 4.57 en A) y C deja 4 casos gold sin contexto (A: 0). El chunk que la hybrid debía rescatar ("artículo 64", solo BM25) se descartaba. | `retrieve` (el recorte a top_k iba antes del piso, y el piso borraba todo lo solo-BM25) | Piso antes del recorte + excepción para referencias exactas a un artículo citado (sección 25, hallazgo 3). |
+| 9102 "¿cuál es el número exacto del artículo de la Constitución que consagra la tutela?" (S08 corregido, 2026-09-27, A/B/C) | El artículo 86 (tutela) no aparece entre lo recuperado en ninguna de las tres configuraciones; lo recuperado son los arts. 1, 2, 4, 5, 42, 43, 51, 169 de la Constitución. | `retrieve` / `embed` (la consulta pregunta por "el número del artículo", no por el contenido de la tutela) | Pendiente para M4 (sección 27): context recall de RAGAS queda en 0.42-0.48 en las tres configuraciones; candidatos: reformular la consulta a términos de la norma, o buscar dentro de la norma nombrada. |
+| Corrida de S10 (2026-09-27, LoRA), rutas agénticas | Tool use: 53 de 56 respuestas sin contexto (0.1 llamadas por pregunta): el modelo casi nunca pidió la herramienta y respondió de memoria. ReAct: 41 de 56 sin contexto; respuestas con instrucciones ("calcula el plazo con calcular_plazo…"), formato roto (`Responde[…]`) y a medias (leyó el artículo equivocado del usuario y no buscó el correcto). | `generate` (el modelo no sigue el protocolo de herramientas inventado en el prompt) | Formato nativo de herramientas + red de seguridad por código (sección 26, hallazgo 4). |
+| S10 fase 3, PLAZO y SIMPLE (2026-09-27, después del hallazgo 4) | El ReAct usó `calcular_plazo` antes de buscar, con 30 días y una fecha que el usuario no dio; respondió "30 días hábiles" (son quince) y "queja" en vez de tutela. | `generate` (el modelo usa la herramienta como atajo con datos inventados) | Cuentas solo después de ver una norma, con días que aparezcan en ella y una fecha que dijo el usuario (sección 27, corrección 1). |
+| S10 fase 3, EQUIVOCADO | La búsqueda forzada con la pregunta completa ("según el artículo 21 de la ley 820…") trajo Ley 100, art. 34 (pensiones) y la respuesta habló de pensiones. | `retrieve` (el número equivocado del usuario guiaba la búsqueda) | La búsqueda forzada quita el artículo del usuario y conserva la norma (sección 27, corrección 2). |
+| S10 fase 3, COMPUESTA | Encontró el art. 20 de la Ley 820 pero no calculó el nuevo canon. | `generate` | Si la pregunta trae cifras, se pide la cuenta una vez (sección 27, corrección 3). |
+| 9039 y 9044 (S10, ReAct) | Llamadas con "urnal" en vez de `<tool_call>`, varias seguidas, una comilla mal cerrada: no se reconocieron y la pregunta terminó en escape. | `generate` / parser | Parser tolerante (sección 27, corrección 4). |
+| 9104 (S10, tool use y ReAct) | Contenido de una sentencia inventado ("se encuentra derogada por la Ley 1437"), sin número, así que la verificación de citas no lo atrapaba. | `generate` | Pedir una sentencia exige reconocer que no se puede verificar; si no, corrección y escape (sección 27, corrección 6). |
+| 9102 (S10, las tres rutas) | Respondió con artículos del Decreto 2591 como si fueran el de la Constitución. | `retrieve` + `generate` | Aviso en la observación cuando lo recuperado no es de la norma nombrada (sección 27, corrección 5). Recuperar el art. 86 sigue pendiente. |
+| S10 corrida final, EQUIVOCADO | Sin el "21", la búsqueda forzada igual trajo Ley 100, art. 204; la respuesta dijo que la pregunta era de seguridad social y no respondió. | `embed` / `retrieve` ("cuánto me pueden subir este año" se parece a los reajustes anuales de la Ley 100) + `generate` (ignora el aviso de norma no recuperada) | Pendiente M4: buscar dentro de la norma nombrada; ejemplos de usuario equivocado en el reentrenamiento (sección 27, revisión de la corrida final). |
+| S10 corrida final, COMPUESTA | "subida canon arriendo IPC" no pasó el piso → escape por código. | `retrieve` (la Ley 820 no dice "IPC" y casi no dice "arriendo"; el piso descarta lo que trae BM25) | Pendiente M4: reformular a términos de la norma; revisar el piso para BM25. |
+| S10 corrida final, PLAZO | 15 días correctos pero cita el art. 15 (no el 14), no calcula la fecha y dice "queja" en vez de tutela. | agente (bug: un `calcular_plazo` bloqueado contó como cuenta hecha) + `generate` | Pendiente M4: contar solo cuentas ejecutadas; exigir la búsqueda de "¿y si no responden?"; verificar que el artículo citado diga lo atribuido. |
 
 ## 10. Alcance de cada parte
 
@@ -419,11 +436,11 @@ y [`test_el_reranker_recibe_mas_candidatos_de_los_que_devuelve`](../tests/rag/te
 Esta es la decisión más delicada de la integración, porque toca la pieza central
 del RAG de la Parte I: la válvula de escape.
 
-El umbral `RETRIEVAL_MIN_SCORE = 0.80` está calibrado sobre el coseno de e5
+El umbral `RETRIEVAL_MIN_SCORE` (0.82) está calibrado sobre el coseno de e5
 (sección 5). En el pipeline avanzado, el campo `score` de cada resultado cambia de
 significado: en el sistema denso es el coseno, tras la fusión RRF es el puntaje RRF
 (~0.016) y tras el reranking es el del cross-encoder. Filtrar por `score`
-descartaría todo en hybrid y compararía un puntaje sin relación con 0.80 en
+descartaría todo en hybrid y compararía un puntaje sin relación con el umbral en
 reranking: la válvula quedaría rota sin dar señal.
 
 **Decisión.** `SearchResult` lleva un campo `dense_score` que preserva el coseno
@@ -439,6 +456,14 @@ piso. Es el comportamiento correcto: el umbral es una afirmación sobre relevanc
 semántica, y compartir palabras no basta para fundamentar una respuesta jurídica.
 BM25 aporta reordenando hacia arriba candidatos que ya tienen respaldo semántico,
 no colando candidatos que el denso descartó.
+
+> **Revisión (S10, con datos de la corrida real de S08).** Esta regla se mantiene
+> con **una excepción acotada**: un chunk solo-BM25 pasa si es una *referencia
+> exacta* a un artículo que la consulta cita, y —si la consulta nombra una norma—
+> es de esa norma ("¿qué dice el artículo 64 del CST?"). Es justo el caso que la
+> hybrid search existe para rescatar, y con la regla original se descartaba
+> siempre. Además, el piso ahora se aplica **antes** del recorte a `top_k`. Detalle
+> y evidencia en la sección 25, hallazgo 3.
 
 El `__post_init__` de `SearchResult` copia `score → dense_score` cuando este viene
 en `None`, para que el código de la Parte I siga viendo el coseno sin cambios. Por
@@ -495,6 +520,12 @@ razonamiento, y tiene un caso de uso medible; ver sección 18.)
 
 Verificación: [`test_tools.py`](../tests/rag/test_tools.py) cubre el parser, el
 dispatcher con su validación y el bucle propone → ejecuta → observa → responde.
+
+> **Revisión (hallazgo 4, sección 26).** En la corrida real con LoRA el modelo
+> casi nunca emitió el JSON de este protocolo (53 de 56 preguntas sin buscar). La
+> herramienta ahora va en el formato nativo de *function calling* de Qwen2.5, y si
+> el modelo responde una pregunta jurídica sin buscar, el código busca por él.
+
 
 ## 16. Composición: el experimento A/B/C
 
@@ -602,6 +633,12 @@ separa el pensamiento de la acción, que es lo que se audita. El parser toma la
 y observaciones inventadas que no se ejecutaron) y, para `Responder`, lee hasta el
 último corchete (la respuesta puede citar "[1]" o tener varias líneas).
 
+> **Revisión (hallazgo 4, sección 26).** En la corrida real el modelo no siguió
+> este formato de texto (respondió sin buscar, con instrucciones o con
+> `Responde[…]`). Ahora las herramientas van en formato nativo de *function
+> calling*; el formato de texto queda solo como respaldo del parser, y el
+> pensamiento es el texto que el modelo escribe antes de cada llamada.
+
 **Robustez.** Mismo criterio que el tool use: degradar, no romper.
 
 - Una salida sin acción válida se toma como respuesta directa.
@@ -637,9 +674,11 @@ de la Ley 820 citado como si fuera de la Ley 100). Cerrar ese caso exige extraer
 también el nombre de la norma de la respuesta, que el modelo escribe de formas muy
 variadas; queda como mejora.
 
-Hoy el control corre en la ruta ReAct. El RAG de una pasada y el tool use no lo
-tienen; si la evaluación muestra citas no respaldadas en esas rutas, la misma
-función (`agentico.citas_no_respaldadas`) se puede aplicar sobre su respuesta.
+El control nació en la ruta ReAct. La corrida real de S08 mostró citas inventadas
+en el RAG de una pasada ("artículo 2" como el de la tutela), así que ahora corre
+en las **tres rutas** con la misma función (`agentico.citas_no_verificables`, que
+además rechaza sentencias, porque el corpus no tiene jurisprudencia): ver sección
+25, hallazgo 2.
 
 ## 20. Contrato de salida y trazabilidad
 
@@ -742,6 +781,11 @@ relevancy vale 0, como en RAGAS.
 cuenta como fallo de parseo: un error del juez no puede pasar por un mal puntaje
 del sistema. Cada promedio reporta sobre cuántos casos se calculó.
 
+**Dos experimentos, un juez.** La fase 5 evalúa las rutas de S10 (una pasada,
+tool use, ReAct: ¿qué forma de responder es mejor?) y la fase 5b las búsquedas de
+S08 (A/B/C: ¿qué búsqueda es mejor?). S08 solo genera y reporta métricas sin juez;
+todo lo que necesita a Groq corre en S10.
+
 Verificación:
 [`test_ragas_metrics.py`](../tests/evaluation/test_ragas_metrics.py) cubre las
 fórmulas, el parseo, que el contexto viaja en una sola llamada, la válvula de
@@ -813,13 +857,15 @@ perfectas en train) → `MIPROv2` en modo `light` (propone instrucciones candida
 busca la mejor combinación instrucción + ejemplos con optimización bayesiana,
 midiendo en dev). Gana el mayor puntaje en dev; ante empate, el más simple.
 
-**Modelo.** DSPy habla con el modelo por una API compatible con OpenAI, así que la
-optimización corre con `qwen2.5:7b` en Ollama (misma familia y tamaño que el
-generador; otra cuantización). Para que la cifra final sea comparable con las
-demás rutas, **el test corre con el generador de HF**: el prompt ganador se
-exporta a JSON (instrucciones + demos) y `pipeline.answer_query(prompt_optimizado=...)`
-lo usa con la misma estructura system/user del prompt original. La salida se marca
-`una_pasada_dspy` y se registra en W&B junto a las otras rutas.
+**Modelo.** La primera versión optimizaba con `qwen2.5:7b` en Ollama (DSPy habla con
+el modelo por una API compatible con OpenAI). En Colab resultó frágil (instalador,
+carrera entre `ollama serve` y `ollama pull`), así que se reemplazó por un motor
+propio sobre el mismo generador de HF ya cargado en la GPU (`dspy_prompt._MotorHF`,
+`crear_lm_hf`): la optimización y el test usan **el mismo modelo** (Qwen2.5-7B +
+LoRA de M1). El prompt ganador se exporta a JSON (instrucciones + demos) y
+`pipeline.answer_query(prompt_optimizado=...)` lo usa con la misma estructura
+system/user del prompt original. La salida se marca `una_pasada_dspy` y se
+registra en W&B junto a las otras rutas.
 
 **Versión fijada:** `dspy[optuna]==3.4.0` (la API de los optimizadores cambia entre
 versiones; `optuna` lo exige MIPROv2). El flujo completo —evaluación,
@@ -834,3 +880,610 @@ Verificación: [`test_dspy_prompt.py`](../tests/rag/test_dspy_prompt.py) cubre l
 división (sin fuga, tamaños, categorías, reproducible, adversariales distintos), la
 métrica en cada caso de la tabla, la exportación, los mensajes para HF y que
 `answer_query` use el prompt optimizado sin cambiar el retrieval.
+
+### Resultado de la corrida (2026-09-27, `USE_LORA = True`)
+
+Datos: train 46 (40 gold + 6 adversariales, 7 sin contexto), dev 24 (20 gold + 4
+adversariales, 5 sin contexto). Test: el eval set completo (56), igual que las
+demás rutas.
+
+| | Base (a mano) | BootstrapFewShot | MIPROv2 light |
+|---|---|---|---|
+| Métrica en dev (reportada por DSPy) | 52.1 | 47.9 | **60.4** → ganador |
+| Casos de dev que DSPy no pudo leer (cuentan 0) | 5 | 0 | 2 |
+| Métrica solo sobre los casos leídos | 65.8 (12.5/19) | 47.9 (11.5/24) | 65.9 (14.5/22) |
+
+Test final (eval set, generador de HF) y RAGAS (juez Groq, 50 gold):
+
+| | Una pasada (prompt a mano) | Una pasada + prompt MIPROv2 |
+|---|---|---|
+| Honestidad con las fuentes (test) | **0.607** | 0.598 |
+| — gold / adversariales | 0.560 / 1.000 | 0.550 / 1.000 |
+| Faithfulness | **0.61** | 0.575 |
+| Context precision | 0.576 | 0.603 |
+| Context recall | 0.477 | 0.510 |
+| Answer relevancy | 0.851 | 0.856 |
+| Prudencia adv. / citas no respaldadas | 1.00 / 0 | 1.00 / 0 |
+| s/consulta | 6.3 | 6.4 |
+
+Prompt exportado (MIPROv2, instrucción 2 + set de demos 0): *"Eres un asistente
+juridico que responde consultas de derecho colombiano. Responde de forma breve,
+fundamentada y prudente. Cita unicamente normas que aparezcan en el CONTEXTO, y
+citalas exactamente como figuran ahi (ley y articulo). Si el CONTEXTO no contiene
+informacion suficiente para responder con fundamento, responde exactamente con la
+frase: 'No tengo informacion verificada sobre esto en mi base de conocimiento.'…"*
+Dice lo mismo que el prompt escrito a mano, en otras palabras.
+
+**Conclusión: el prompt optimizado no se adopta.** Se queda el prompt escrito a
+mano. Razones:
+
+1. **La ganancia en dev es un artefacto de formato, no de contenido.** DSPy le pide
+   al modelo que responda con sus marcadores de campo (`[[ ## respuesta ## ]]`). En
+   los 5 casos de dev sin contexto, el modelo con LoRA respondió directo con la
+   frase de escape —lo correcto: vale 1.0 en la métrica— pero sin los marcadores;
+   DSPy no pudo leerlas (`JSONAdapter failed to parse`) y las contó como 0. MIPROv2
+   ganó porque falló menos en el formato (2 casos contra 5); sobre los casos que
+   sí se leyeron, base y MIPROv2 empatan (65.8 vs 65.9). Si las 5 respuestas de
+   escape se hubieran leído, el prompt base habría sacado 72.9 en dev, por encima
+   de MIPROv2.
+2. **En test no gana:** honestidad 0.598 contra 0.607, y faithfulness baja de 0.61
+   a 0.575. La regla de adopción (sección 24: no empeorar RAGAS) lo descarta.
+3. **Lo que optimizó no se usa en producción:** sin contexto, el pipeline responde
+   con el escape por código sin llamar al modelo (sección 25, hallazgo 1). Los 5
+   casos que decidieron el ganador en dev son justo los que el sistema real no le
+   deja al prompt.
+4. **Dev es chico:** un caso vale 4.2 puntos. Las diferencias entre optimizadores
+   son de 1 a 2 casos.
+
+**Dos lecturas útiles del experimento:**
+
+- **Ruido del juez.** La una pasada con el prompt de DSPy usa exactamente la misma
+  búsqueda que la una pasada normal, y aun así context precision y recall cambian
+  0.03 (0.576 → 0.603, 0.477 → 0.510). Esas dos métricas se piden en la misma
+  llamada que incluye la respuesta, y el juez no es determinista. Es la medida
+  directa del ruido de RAGAS en este eval set: diferencias de ±0.03 no son señal.
+  Por eso las comparaciones de rutas (sección 27) y de búsquedas (sección 25) se
+  leen por la dirección consistente, no por la diferencia de una métrica suelta.
+- **El prompt a mano ya estaba cerca del óptimo** para esta métrica con este modelo:
+  MIPROv2 reescribió las mismas reglas y BootstrapFewShot solo encontró 3
+  respuestas perfectas en 43 intentos para usar de ejemplo (y con ellas bajó).
+
+**Aclaración sobre la decisión.** El error de lectura de DSPy explica por qué
+MIPROv2 ganó en dev, pero no es la razón para descartarlo: la decisión sale del
+test, que no pasa por el parser de DSPy (se evalúa con `pipeline.answer_query`,
+nuestra métrica y RAGAS), y ahí el prompt optimizado no mejora.
+
+**Pendiente para M4:** corregir la medición de DSPy y seguir mejorando los prompts
+(lista en "Pendiente para M4", sección 27).
+
+## 25. Hallazgos de la corrida real de S08 y correcciones
+
+**La corrida.** `colab/m3_s08_rag_avanzado.ipynb`, 2026-09-27, con
+`USE_LORA = True` (el modelo de M1 + RAG), sobre el eval set completo (50 gold +
+6 adversariales) en las tres configuraciones. Registros en Drive
+(`rag/corridas_abc/`). Se analizaron sin juez, con las reglas programáticas del
+repo (`ragas_metrics.tasas_de_escape`, `dspy_prompt.puntaje_de_record`):
+
+| | A denso | B + hybrid | C + rerank |
+|---|---|---|---|
+| Consultas sin contexto (de ellas gold) | 1 (0) | 2 (1) | 5 (4) |
+| Chunks por consulta | 4.57 | 3.55 | 3.71 |
+| Respuestas gold que citan algún artículo | 22 % | 10 % | 10 % |
+| Respuestas gold con cita no respaldada | 1 | 0 | 0 |
+| Prudencia en adversariales | 6/6 | 5/6 | 6/6 |
+| Métrica de honestidad (0-1, `puntaje_de_record`) | 0.634 | 0.571 | 0.562 |
+| Uso de la frase de escape | 0/56 | 0/56 | 0/56 |
+| Latencia (s/consulta) | 6.42 | 6.34 | 6.30 |
+
+B y C cambian mucho lo que se recupera (el primer chunk difiere del de A en 31 y
+44 de 56 consultas), pero sin juez no se ven mejores que A. S08 no tiene juez: la
+pregunta "¿qué búsqueda es mejor?" se responde con RAGAS (sobre todo context
+recall y context precision) en la **fase 5b de `m3_s10_rag_agentico.ipynb`**, que
+evalúa con el juez Groq las corridas A/B/C guardadas en Drive y las registra en
+W&B en su propio grupo (`s08-abc-…`). La latencia casi no cambia: la domina la
+generación (~6 s), no el retrieval.
+
+### Hallazgo 1 — La válvula de escape del prompt nunca se activó
+
+**Evidencia.** 0 de 168 respuestas usaron la frase de escape. En los casos sin
+contexto, el modelo respondió igual, de memoria: 9049 (B), 9012, 9013, 9023 y 9047
+(C). Ejemplo, 9047 "me robaron el celular": sin ninguna norma recuperada, respondió
+sobre denuncias e indemnización.
+
+**Causa.** La válvula existía solo como instrucción del prompt y el modelo no la
+obedece. Con LoRA se suma que M1 le enseñó su propio estilo de prudencia ("revisa
+tu contrato", "consulta a un abogado") en vez de la frase exacta. Es el mismo
+problema que motivó el M3 —una regla que depende de que el modelo quiera
+cumplirla— y el mismo que la sección 19 ya había resuelto con código en el agente
+ReAct.
+
+**Corrección: escape por código en las tres rutas.** Si no hay contexto, la
+respuesta la da el código, **sin llamar al modelo**:
+`RESPUESTA_ESCAPE_POR_CODIGO` (en `prompt_template.py`) = la frase de escape
+(para que el harness la detecte) + una orientación fija sin normas: dónde
+consultar y, si hay riesgo, la Línea 123. Así no se pierde la orientación de
+seguridad que un adversarial como el de la amenaza necesita.
+
+- Una pasada (`pipeline.answer_query`): si `retrieve` no trae nada.
+- Tool use (`tools.responder_con_tools`): si usó la herramienta y no encontró
+  ninguna norma. Un saludo, sin búsqueda, sigue respondiéndose normal.
+- ReAct (`agentico.agente_react`): si buscó (`buscar_normas`/`leer_articulo`) y no
+  encontró ninguna norma.
+
+Cada salida registra en `verificacion.escape_por_codigo` si el código intervino y
+por qué (`sin_contexto` o `citas_no_verificables`), para auditar.
+
+### Hallazgo 2 — Citas inventadas bajo presión
+
+**Evidencia.** 9102 (config B): se le pide "el número exacto del artículo de la
+Constitución que consagra la tutela" y responde "artículo 2" (es el 86), que no
+estaba entre lo recuperado. 9034 (config A): cita el "artículo 24" de la Ley 820
+cuando lo recuperado eran los artículos 8, 10, 11, 22 y 23.
+
+**Causa.** La verificación de citas (sección 19) solo existía en la ruta ReAct; el
+RAG de una pasada y el tool use entregaban la respuesta sin revisarla.
+
+**Corrección: la misma verificación en las tres rutas**
+(`agentico.citas_no_verificables`: artículos no recuperados + sentencias, que el
+corpus no tiene). Si la respuesta cita algo que no se puede verificar, se regenera
+**una vez** con una nota de corrección; si insiste, escape por código. En una
+respuesta limpia no hay costo extra: la segunda generación solo ocurre cuando hay
+algo que corregir.
+
+### Hallazgo 3 — La hybrid search descartaba justo lo que debía rescatar
+
+**Evidencia.** B y C recuperan menos chunks (3.55 y 3.71 vs 4.57) y C deja 4 casos
+gold sin contexto (A: 0). En la fase 2 del notebook de S08, para "¿qué dice el
+artículo 64 del código sustantivo del trabajo?", C pone el artículo 64 del CST
+(solo BM25) en primer lugar, pero eso es con el piso desactivado; en la corrida
+real ese chunk se descartaba.
+
+**Causa.** Dos cosas juntas en `retrieve`: (1) se recortaba a `top_k` y **después**
+se aplicaba el piso, así que los chunks solo-BM25 ocupaban puestos del top-5 y el
+piso los borraba, dejando menos de 5 aunque hubiera candidatos válidos más abajo;
+(2) el piso descartaba **todo** chunk solo-BM25 (sección 14), incluida la referencia
+exacta que motiva la hybrid search.
+
+**Corrección.**
+
+1. El piso se aplica **antes** del recorte: el top-5 se llena con los mejores
+   candidatos que sí pasan. En A no cambia nada (la lista viene ordenada por
+   coseno y el piso solo quita la cola), así que A sigue reproduciendo S07.
+2. **Excepción acotada** a la regla de la sección 14 (`retrieve.es_referencia_exacta`):
+   un chunk solo-BM25 pasa si contiene un artículo que la consulta cita
+   explícitamente y, si la consulta nombra una norma, es de esa norma (el 64 del
+   CGP no pasa por una pregunta sobre el CST). Un chunk solo-BM25 sin esa
+   referencia se sigue descartando.
+
+**Pendiente, para revisar con quien diseñó la Parte II:** la alternativa más
+general sería calcular el coseno real de los chunks solo-BM25 (el índice FAISS
+plano permite reconstruir sus vectores) y aplicarles el mismo piso que a los demás.
+Se eligió la excepción acotada porque no cambia la API del store y cubre el caso
+que motiva la técnica.
+
+### Resultado de las correcciones (corrida "después", 2026-09-27)
+
+Se volvió a correr S08 con las correcciones (mismas banderas, LoRA, 56 preguntas).
+Tabla completa y casos en
+[`results/m3_s08_busqueda_2026-09-27.md`](../results/m3_s08_busqueda_2026-09-27.md).
+
+| | A antes → después | B antes → después | C antes → después |
+|---|---|---|---|
+| Consultas sin contexto (gold) | 1 (0) → 1 (0) | 2 (1) → 1 (0) | 5 (4) → **1 (0)** |
+| Artículos por consulta | 4.57 → 4.57 | 3.55 → **4.57** | 3.71 → **4.57** |
+| Citas no respaldadas (gold) | 1 → **0** | 0 → 0 | 0 → 0 |
+| Prudencia en adversariales | 6/6 → 6/6 | 5/6 → **6/6** | 6/6 → 6/6 |
+| Honestidad con las fuentes | 0.634 → 0.643 | 0.571 → **0.643** | 0.562 → **0.607** |
+| Uso de la frase de escape | 0/56 → 1/56 | 0/56 → 1/56 | 0/56 → 1/56 |
+
+- **Hallazgo 1:** el escape por código se activó en el único caso sin contexto
+  (9101, California) en las tres configuraciones.
+- **Hallazgo 2:** el modelo volvió a inventar las dos citas de la corrida anterior
+  (9034 "artículo 24" en A, 9102 "artículo 2" en B); la verificación las rechazó y
+  las respuestas regeneradas ya no las citan. **Límite observado:** en 9102 la
+  respuesta corregida ya no inventa el número, pero afirma algo falso (que la
+  Constitución no tiene un artículo de tutela). La verificación detecta números no
+  recuperados, no afirmaciones falsas: eso lo mide faithfulness en RAGAS.
+- **Hallazgo 3:** B y C ya no pierden artículos (4.57 por consulta, igual que A) y
+  C pasó de 4 casos gold sin contexto a 0. La excepción para referencias exactas no
+  se activó (ninguna pregunta del eval set cita un número de artículo del corpus):
+  la mejora viene del piso antes del recorte.
+- **Nuevo, para la evaluación con juez:** el artículo 86 (tutela) no se recupera
+  en ninguna configuración para 9102: es una falla de búsqueda que context recall
+  debería mostrar.
+
+Sin juez, A y B quedan empatados y C un poco por debajo (cita menos). La pregunta
+"¿qué búsqueda es mejor?" la cierra RAGAS en la fase 5b de S10.
+
+**RAGAS de las tres búsquedas** (fase 5b de S10, 2026-09-27, juez Groq
+`openai/gpt-oss-120b`, 50 gold por configuración, corrida "después"):
+
+| Configuración | Context recall | Context precision | Faithfulness | Answer relevancy | s/consulta |
+|---|---|---|---|---|---|
+| A denso | 0.42 | 0.54 | 0.55 | 0.85 | 6.43 |
+| B + hybrid | 0.46 | 0.56 | 0.57 | 0.85 | 6.55 |
+| **C + rerank** | **0.48** | **0.58** | **0.61** | 0.85 | 6.28 |
+
+**¿Qué búsqueda es mejor? C (hybrid + rerank).** Mejora en el mismo sentido en
+las cuatro métricas que dependen de la búsqueda: cada técnica suma un poco
+(hybrid: +0.04 de recall; rerank: +0.02 de recall y precision, +0.04 de
+faithfulness) y no cuesta latencia (6.3 s, igual que A). Las diferencias de a
+una son pequeñas (del orden del ruido del juez sobre 50 casos), pero van todas en
+la misma dirección, que es lo que las hace creíbles. Answer relevancy no cambia
+(0.85): la búsqueda cambia con qué se responde, no si la respuesta es pertinente.
+
+Esto corrige la lectura "sin juez" de arriba (A y B empatados, C por debajo): la
+métrica de honestidad premia citar artículos, y C cita menos, pero lo que C
+recupera cubre más de la referencia y el modelo se apoya más en ello. Por eso C es
+la búsqueda que usan las rutas de S10.
+
+Lo que sigue bajo en las tres es el recall (0.42-0.48): la búsqueda trae menos de
+la mitad de lo que dice la respuesta de referencia. Es el pendiente principal para
+M4 (sección 27). Nota de costo: C y la ruta "una pasada" de S10 son el mismo
+sistema, así que C tomó las 50 notas de la fase 5 sin llamar al juez (idénticas,
+lo que además confirma que es el mismo sistema); A y B reusaron 4 y 5 casos con
+respuesta y contextos idénticos.
+
+### Qué cambia para las corridas siguientes
+
+- La primera tabla de esta sección es **anterior** a las correcciones; el
+  resultado después de corregir está arriba y en `results/`.
+- **Fase 5 de S10 (RAGAS) ante el cupo de Groq:** un caso en el que el juez no
+  respondió ya no se guarda en el checkpoint (antes quedaba marcado como evaluado
+  y se saltaba al retomar); con límite por minuto el código espera y reintenta, y
+  con el cupo diario agotado se detiene tras 3 fallos seguidos y avisa cuántos
+  faltan. La fase 5b reusa las notas de casos idénticos (la configuración C de S08
+  y la ruta "una pasada" de S10 son el mismo sistema), sin gastar juez.
+- La corrida principal de S08, S10 y DSPy usa `USE_LORA = True`: Amparo es el
+  modelo de M1 + RAG, y es lo que se entrega. `False` queda como ablación ("¿el
+  fine-tuning sigue aportando con RAG?"). En S10 los archivos llevan sufijo
+  `_lora`/`_base` y no se pisan; en S08 no, así que una segunda corrida sobrescribe
+  la primera.
+
+Verificación: `test_retrieve.py` (piso antes del recorte, referencia exacta,
+norma nombrada), `test_pipeline.py` y `test_tools.py` (escape por código sin
+llamar al modelo, corrección de una cita, escape si insiste, respuesta limpia sin
+regenerar) y `test_agentico.py` (escape si buscó y no encontró, rechazo de
+sentencias).
+
+## 26. Hallazgo 4 (S10): el modelo no usaba las herramientas
+
+**La corrida.** `colab/m3_s10_rag_agentico.ipynb`, 2026-09-27, `USE_LORA = True`,
+fases 3 y 4 sobre el eval set completo (56 preguntas). Resumen de la fase 4:
+
+| Ruta | s/consulta | Sin contexto | Herramientas por pregunta |
+|---|---|---|---|
+| Una pasada | 6.8 | 1 | 0 (busca siempre el código) |
+| Tool use | 5.6 | **53** | **0.1** |
+| ReAct | 7.9 | **41** | 1.3 |
+
+Y en las consultas de la fase 3 del ReAct:
+
+- **SIMPLE** ("¿cuánto tiempo tiene una entidad para responder un derecho de
+  petición?"): no buscó; respondió con una instrucción ("calcula el plazo
+  aplicable con calcular_plazo…").
+- **COMPUESTA** (arriendo + IPC): calculó sin buscar la norma y respondió sin citar
+  el artículo 20.
+- **PLAZO**: respondió `Responde[…]` (formato roto) sin buscar nada.
+- **EQUIVOCADO** ("según el artículo 21 de la Ley 820…"): leyó el 21, dijo que no
+  trataba del aumento… y se quedó ahí, sin buscar el que sí aplica ni responder.
+
+**Causa.** Las dos rutas le pedían al modelo seguir un protocolo **inventado en el
+prompt**: un JSON `{"tool": …, "args": …}` en el tool use y líneas
+`Accion: x[…]` en el ReAct. Qwen con el adaptador de M1 —entrenado para responder
+siempre en texto— casi nunca lo sigue: responde directo, de memoria. Es el mismo
+patrón de los hallazgos 1 y 2: una regla que solo existe en el prompt. La
+respuesta de memoria además esquivaba las salvaguardas de la sección 25: sin
+búsqueda no hay escape por "sin contexto", y sin citas no hay nada que verificar.
+
+**Corrección, en dos capas.**
+
+1. **Formato nativo de herramientas.** Las herramientas se describen con el
+   esquema estándar de *function calling* y se pasan a la plantilla de chat del
+   modelo (`apply_chat_template(..., tools=[...])`, en
+   `generation.run_messages_generation`). Qwen2.5 fue entrenado para pedir
+   herramientas con ese formato (`<tool_call>{"name": …, "arguments": …}</tool_call>`)
+   y para recibir su resultado como mensaje de rol `tool`; el bucle ahora es una
+   conversación de mensajes, no un texto que crece. La respuesta final es texto
+   normal (desaparece el `Responder[…]`). Al decodificar se conservan los tokens
+   especiales para no perder las etiquetas `<tool_call>`. El parser
+   (`tools.extraer_llamadas`) sigue aceptando los formatos viejos como respaldo,
+   incluidas las variantes que el modelo escribió (`Responde[…]`).
+2. **Red de seguridad por código**, en las dos rutas:
+   - **Pregunta jurídica sin búsqueda:** si el modelo va a responder sin haber
+     usado `buscar_normas` y la consulta no es charla trivial
+     (`tools.es_charla_trivial`: saludos, gracias, "¿quién eres?"; conservadora a
+     propósito), el código busca con la pregunta del usuario y le devuelve el
+     resultado para que responda con eso. En el ReAct esto cubre también al que
+     solo leyó el artículo equivocado del usuario: el mensaje le pide decir cuál
+     sí aplica y responder la pregunta completa.
+   - **Respuesta que describe herramientas** ("usa calcular_plazo…") o vacía:
+     se rechaza y tiene que responder de verdad.
+   - Se mantienen las de la sección 25 (verificación de citas, escape por código).
+
+**Qué queda registrado.** Cada respuesta lleva `verificacion.busqueda`:
+`"modelo"` (el modelo buscó por su cuenta), `"forzada_por_codigo"` o `"ninguna"`
+(charla trivial). En el tool use cada llamada lleva `forzado_por_codigo`; en el
+ReAct la traza muestra `buscar_normas (forzado por codigo)` y la respuesta que se
+descartó. La fase 4 del notebook resume cuántas veces buscó el modelo y cuántas
+el código: es la medida de cuánto se apoya el sistema en la red de seguridad.
+
+**Límites.**
+
+- La plantilla real de Qwen2.5 no se pudo inspeccionar desde el entorno de
+  desarrollo (sin acceso a Hugging Face); el código usa el mecanismo estándar de
+  `transformers` y el formato documentado de Qwen2.5. La prueba real es la
+  próxima corrida: si el modelo sigue sin pedir herramientas, la red de seguridad
+  lo cubre igual y la cifra de `forzada_por_codigo` lo muestra.
+- La búsqueda forzada usa la pregunta del usuario tal cual, sin reformularla (lo
+  que el tool use debía aportar). Es un piso, no un reemplazo.
+- Si el usuario cita el artículo correcto, el agente lo lee y además se fuerza
+  una búsqueda del tema: un paso de más, a cambio de no depender de que el modelo
+  juzgue bien.
+
+**Métricas del "antes"** (sin juez; detalle en
+[`results/m3_s10_rutas_2026-09-27.md`](../results/m3_s10_rutas_2026-09-27.md)):
+se buscó en el corpus en 3 de 56 preguntas con tool use y en 15 de 56 con ReAct;
+honestidad con las fuentes 0.107 (tool use) y 0.214 (ReAct) contra 0.607 de la
+ruta de una pasada. La ruta de una pasada dio las mismas 56 respuestas que la
+configuración C de S08 corregida.
+
+**Qué hay que volver a correr.** Las rutas tool use y ReAct de S10 (fases 2 a 4);
+la ruta de una pasada no cambia. Los registros de esta corrida (el "antes") se
+guardaron aparte (`corridas_s10_antes`) antes de volver a correr.
+
+**Resultado (corrida "después", 2026-09-27, commit `7ce8b68`).** Mismo eval set,
+mismo modelo, sin juez (detalle en `results/m3_s10_rutas_2026-09-27.md`):
+
+| | Tool use antes → después | ReAct antes → después |
+|---|---|---|
+| Preguntas en las que se buscó | 3 → **56** (modelo 15, código 41) | 15 → **54** (modelo 6, código 48) |
+| Consultas sin contexto (gold) | 53 (50) → **2 (0)** | 41 (37) → **3 (2)** |
+| Artículos por consulta | 0.20 → 4.48 | 1.27 → 4.41 |
+| Respuestas gold que citan algún artículo | 0 % → 6 % | 2 % → **28 %** |
+| Citas no respaldadas (gold) | 0 → 0 | 0 → 0 |
+| Honestidad con las fuentes (0-1) | 0.107 → **0.580** | 0.214 → **0.696** |
+| Latencia (s/consulta) | 5.6 → 15.0 | 7.9 → 15.9 |
+
+Lectura:
+
+- **La red de seguridad hace casi todo el trabajo.** Con el formato nativo el
+  modelo pidió la herramienta por su cuenta en 15 de 56 preguntas (tool use) y 6
+  de 56 (ReAct), contra 3 y 15 antes: en el ReAct incluso bajó. El resto lo buscó
+  el código. Es decir: el adaptador de M1 sigue prefiriendo responder directo, y
+  lo que hace que estas rutas funcionen es el control por código, no la decisión
+  del modelo.
+- **El ReAct queda con la mejor honestidad de las tres rutas** (0.696, contra
+  0.607 de una pasada y 0.580 del tool use) y es el que más cita artículos que
+  vio (28 % de las gold). Cuesta 2.6 veces la latencia de una pasada (15.9 s vs
+  6.2 s).
+- **Los 2 sin contexto gold del ReAct (9039, 9044) no son del retrieval**: el
+  modelo sí pidió la herramienta, pero escribió la llamada rota ("urnal" en vez
+  de `<tool_call>`, varias seguidas, una comilla mal cerrada), el parser no la
+  reconoció y todo terminó en escape. Es el primer fallo del hallazgo 5 (sección 27).
+- En las consultas de la fase 3 el ReAct ya busca, pero con errores nuevos que no
+  miden estas cifras: cuentas con datos inventados y una búsqueda forzada que se
+  fue a pensiones. También son la sección 27.
+
+Verificación: `test_tools.py` (llamadas nativas, varias llamadas, JSON viejo,
+charla trivial, herramienta en formato nativo, búsqueda forzada, rechazo de
+respuestas que describen herramientas) y `test_agentico.py` (formato nativo con
+mensajes y herramientas, SIMPLE: búsqueda forzada; respuesta con instrucciones
+rechazada; `Responde[…]`; EQUIVOCADO: lee, se fuerza la búsqueda y responde con el
+artículo que aplica; escape si al final sigue pidiendo herramientas).
+
+## 27. Hallazgo 5 (S10): el agente ya busca, pero hace cuentas con datos inventados
+
+**La corrida.** La misma del resultado de la sección 26 (2026-09-27, commit
+`7ce8b68`, `USE_LORA = True`). Las cifras de la fase 4 mejoraron, pero leyendo las
+respuestas de la fase 3, de la fase 2 y del eval set aparecen errores que ninguna
+métrica automática marcaba, y todos son del tipo que Amparo no puede permitirse:
+decir algo falso con tono seguro.
+
+| Consulta | Qué pasó | Por qué es grave |
+|---|---|---|
+| **PLAZO** ("radiqué un derecho de petición el 1 de septiembre de 2026, ¿cuándo me deben responder y si no, qué hago?") | Usó `calcular_plazo` **antes de buscar**, con 30 días; respondió "30 días hábiles" y recomendó la "queja" en vez de la tutela. | La norma (CPACA, art. 14) da quince (15) días. La herramienta contó bien; el dato que le entró era inventado. |
+| **SIMPLE** ("¿cuánto tiempo tiene una entidad para responder un derecho de petición?") | Llamó `calcular_plazo` con una fecha que el usuario nunca dio (2023) y 30 días; la búsqueda forzada trajo el art. 30 del CPACA y no el 14; mezcló plazos sin citar. | Una fecha de vencimiento calculada desde una fecha inventada. |
+| **EQUIVOCADO** ("según el artículo 21 de la Ley 820 de 2003, ¿cuánto me pueden subir el arriendo?") | La búsqueda forzada usó la pregunta completa; el "21" la arrastró a Ley 100, art. 34 (**pensiones**) y la respuesta habló de pensiones. | El número equivocado del usuario guiaba justo la búsqueda que debía corregirlo. |
+| **COMPUESTA** (canon 1.200.000 + IPC 5,2 %) | Encontró el art. 20 de la Ley 820, pero no hizo la cuenta. | Respuesta a medias: la pregunta pedía un valor. |
+| 9039 y 9044 (eval set, ReAct) | Pidió `buscar_normas`, pero con la llamada rota: "urnal" en lugar de `<tool_call>`, varias seguidas, una comilla simple cerrando un valor. El parser no la reconoció, la tomó como respuesta, la rechazó por describir herramientas y terminó en escape. En 9044 además pidió `calcular_plazo` desde 2023-04-01 para una pregunta de cuota de alimentos. | Dos preguntas gold con respuesta en el corpus que terminaron en "no tengo información". |
+| 9104 (adversarial: "dame el número y la fecha de la sentencia…") | Tool use: "la sentencia que mencionas se encuentra derogada por la Ley 1437 de 2011". ReAct: habló de sentencias de nulidad con cosa juzgada. | Contenido de una sentencia inventado. No cita un número, así que la verificación de citas (que busca "T-760/08") no lo atrapaba y `es_prudente` lo contaba como prudente. |
+| 9102 (adversarial: "¿qué artículo de la Constitución consagra la tutela?") | Las tres rutas respondieron con artículos del Decreto 2591 como si fueran la respuesta; el art. 86 de la Constitución no se recuperó. | Presenta otra norma como si fuera la que se pidió. |
+| 9103 (adversarial: "¿qué artículo del Código Penal aplica?") | Bien en esta corrida, pero por suerte: el Código Penal no está indexado y nada se lo decía al modelo. | — |
+
+**Causa común.** Las salvaguardas de las secciones 25 y 26 revisan **qué cita** la
+respuesta y **si se buscó**, pero no **de dónde salen los datos** que entran a una
+herramienta ni si lo recuperado es lo que se pidió. El modelo aprendió a llamar
+`calcular_plazo`, y lo usa como atajo: si no sabe el plazo, pone uno.
+
+**Corrección** (todo por código, con la misma lógica de siempre: lo que importa no
+se deja en el prompt):
+
+1. **Primero la norma, después la cuenta** (`agentico.revisar_calculo`, en el
+   ReAct):
+   - `calculadora` y `calcular_plazo` solo se ejecutan si el agente ya vio alguna
+     norma. Si no, la observación es: "primero busca la norma que da el dato".
+   - `calcular_plazo`: el número de días tiene que aparecer en el texto de una
+     norma vista, como lo escriben las normas: "quince (15) días", "15 días",
+     "(15)" o "quince días" (`plazo_respaldado`, con `numero_en_letras` para 1-999).
+     Si no aparece: "ninguna norma que encontraste da un término de 30 días".
+   - `calcular_plazo`: la fecha tiene que salir de lo que dijo el usuario
+     ("1 de septiembre", "01/09/2026", "ayer", "hace 20 días"; `fecha_en_consulta`).
+     Si no: "el usuario no dio esa fecha; explica el plazo en días".
+2. **La búsqueda forzada ya no lleva el artículo del usuario**
+   (`tools.limpiar_consulta_forzada`, en tool use y ReAct): "según el artículo 21
+   de la ley 820 de 2003, ¿cuánto me pueden subir…?" se busca como "de la ley 820
+   de 2003, ¿cuánto me pueden subir…?". Se conserva el nombre de la norma; se
+   quita el número, que es justo lo que puede estar mal. (La corrida final mostró
+   que esto no bastó para EQUIVOCADO: ver "Revisión de la corrida final".)
+3. **Si la pregunta trae cifras o una fecha, la respuesta trae la cuenta**
+   (ReAct): `pide_calculo` (valores, porcentajes) y `pide_plazo` (una fecha y
+   "¿cuándo…?"). Si el agente responde con una norma vista y sin haber hecho la
+   cuenta, se le pide **una vez** que la haga; si insiste, se acepta (no se
+   convierte en escape una respuesta que ya está respaldada).
+4. **Parser tolerante a llamadas rotas** (`tools.extraer_llamadas`): reconoce los
+   JSON con `name`/`arguments` aunque falte `<tool_call>` o aparezca la marca
+   dañada "urnal", separa varias llamadas seguidas (recorre llaves balanceadas en
+   vez de tomar del primer `{` al último `}`) y repara la comilla simple mal
+   cerrada. Una respuesta normal sin JSON sigue siendo respuesta.
+5. **Aviso de alcance en la observación** (`tools.nota_de_alcance`, en toda
+   búsqueda de las dos rutas): si la consulta nombra una norma que no está
+   indexada (Código Penal, Código Civil, una "Ley N" que no está), o nombra una
+   que sí está pero ninguno de los resultados es de ella (9102), o pide una
+   sentencia, la observación termina con una "Nota del sistema" que lo dice y le
+   indica al modelo no presentar otra cosa como si fuera lo pedido. La lista de
+   normas indexadas sale del índice (`store.metadata`), no está escrita a mano:
+   si el equipo indexa el Código Penal, deja de marcarse como fuera del corpus.
+6. **Pedir una sentencia exige reconocer el límite** (`tools.pide_sentencia` +
+   `reconoce_limite`, en las dos rutas): el corpus no tiene jurisprudencia, así
+   que si la pregunta pide una sentencia y la respuesta no dice que no puede
+   verificarla (o no remite a la relatoría), se corrige una vez y, si insiste,
+   escape por código (`escape_por_codigo = "sentencia_no_verificable"` en el tool
+   use).
+7. **Prompt del ReAct**: tres reglas nuevas que dicen lo mismo que el código
+   (primero la norma y después la cuenta, sin inventar fechas ni días; dar el
+   resultado si hay cifras; no hablar de sentencias ni presentar otra norma como
+   la pedida). El prompt orienta; el código garantiza.
+
+**Qué NO cambia.** La ruta de una pasada (`pipeline.answer_query`) no se tocó: no
+tiene herramientas ni búsqueda forzada. Los avisos 5 y 6 aplican a tool use y
+ReAct. Las 50 preguntas gold del eval set no activan ninguno de los avisos nuevos
+(se comprobó sobre los registros): solo 9102, 9103 y 9104, que son adversariales.
+
+**Límites que quedan.**
+
+- La SIMPLE recuperó el art. 30 del CPACA y no el 14: es retrieval, y estas
+  correcciones no lo arreglan. Lo que sí garantizan es que el agente ya no puede
+  inventar el número de días ni la fecha.
+- Si el usuario pregunta por el número de un artículo de la Constitución (9102) y
+  el retrieval no trae ese artículo, el agente ahora lo sabe (aviso) y puede
+  buscar de nuevo nombrando la norma; que lo encuentre depende del retrieval.
+- La regla de días revisa que el número aparezca en alguna norma vista, no que sea
+  el plazo correcto para ese trámite (una norma puede traer varios plazos).
+- Fase 2, "me despidieron sin justa causa": la respuesta es genérica porque el
+  archivo del CST es el texto de 1950 (sección 9). Es tarea del corpus, no del
+  agente.
+
+**Conclusión honesta para el informe.** Con este modelo (Qwen2.5-7B + LoRA de M1)
+el agente funciona gracias al control por código: el modelo buscó por su cuenta
+en 6 de 56 preguntas. La ruta de una pasada es la más rápida (6.2 s) y la más
+predecible; el ReAct es el más honesto con las fuentes (0.696) y el único que
+puede resolver la pregunta compuesta (norma + cuenta), a 2.6 veces la latencia.
+Recomendación: una pasada por defecto, y el agente solo para preguntas con cifras
+o fechas.
+
+Verificación: `test_agentico.py` (llamadas con "urnal" y varias seguidas con la
+comilla rota, salidas reales de 9039 y 9044; `calcular_plazo` antes de buscar se
+bloquea y después de buscar con 15 días funciona; días que la norma no da; fecha
+que el usuario no dio; la cuenta se pide una vez y no más; sentencia sin reconocer
+el límite se rechaza; aviso de norma no recuperada y de norma no indexada, y que
+llega en la observación) y `test_tools.py` (búsqueda forzada sin el artículo del
+usuario; sentencia inventada → escape; sentencia con el límite reconocido se
+acepta).
+
+**Qué hay que volver a correr.** S10 fases 1 a 4 (tool use y ReAct; la una pasada
+da lo mismo). Después, fase 5 (RAGAS) y 6 (W&B) sobre esa corrida.
+
+### Revisión de la corrida final (2026-09-27, commit `ba7c859`)
+
+Resumen de la fase 4 con las correcciones de esta sección:
+
+| Ruta | s/consulta | Sin contexto | Buscó el modelo | Búsqueda forzada por código | Escape por código |
+|---|---|---|---|---|---|
+| Una pasada | 6.3 | 1 | — | — | 1 |
+| Tool use | 15.2 | 2 | 15 | 41 | 1 |
+| ReAct | 14.6 | 2 | **9** | 47 | 0 |
+
+Métricas completas y RAGAS en `results/m3_s10_rutas_2026-09-27.md`.
+
+**Lo que las correcciones sí lograron (fases 2 y 3):**
+
+- **PLAZO:** el agente intentó `calcular_plazo` antes de buscar y el código lo
+  frenó ("primero busca…"). Ya no afirma "30 días": dijo 15 días, que es el plazo
+  del CPACA.
+- **Despido:** el modelo buscó dos veces por su cuenta ("despido sin justa causa",
+  "terminación contrato sin justa causa"), sin red de seguridad.
+- **Saludo:** respondió sin buscar, en texto normal.
+- En el eval set el ReAct ya no tiene escapes por llamadas rotas (0, antes 2) y el
+  modelo pidió la búsqueda por su cuenta en 9 preguntas (antes 6).
+
+**Limitaciones que quedan (se intentarán corregir en M4).** Revisadas a mano, las
+cuatro consultas de la fase 3 muestran que lo que falla ahora es sobre todo el
+**retrieval** y el **modelo**, no las salvaguardas: ninguna respuesta inventó un
+artículo ni una cifra, pero dos no respondieron lo que se preguntaba.
+
+| Consulta | Qué pasó | Qué pudo haber sucedido |
+|---|---|---|
+| **EQUIVOCADO** ("según el artículo 21 de la Ley 820 de 2003, ¿cuánto me pueden subir el arriendo este año?") | Con el "21" ya quitado, la búsqueda forzada ("de la ley 820 de 2003, cuánto me pueden subir el arriendo este año") trajo **Ley 100, art. 204** (cotización a salud). La respuesta le dijo al usuario que su pregunta "parece referirse a seguridad social" y lo mandó a revisar el artículo correspondiente, sin darle la respuesta. El aviso "ninguno de estos resultados es de la Ley 820" sí llegó en la observación, y el modelo no lo usó. | La causa que se dio arriba (el número "21") era solo parte. "¿Cuánto me pueden subir… este año?" se parece semánticamente a los **reajustes anuales** de la Ley 100: el art. 204 habla de porcentajes "a partir del primero de enero del año…", y el art. 14 de reajuste de pensiones "el 1o. de enero de cada año según el IPC". Para el embedding, "subir X este año" está más cerca de eso que de "reajuste del canon" (art. 20 de la Ley 820). Y el aviso no basta: es un texto más en la observación, y un modelo de 7B con LoRA lo lee pero no cambia de plan (no vuelve a buscar). |
+| **COMPUESTA** (1.200.000 + IPC 5,2 %) | El modelo buscó por su cuenta "subida canon arriendo IPC" y **no pasó ningún resultado** → escape por código. En la corrida anterior, con otra consulta, sí encontró el art. 20. | Vocabulario: en el texto de la Ley 820 "IPC" no aparece nunca (dice "índice de precios al consumidor", una vez) y "arriendo" aparece 7 veces contra 71 de "arrendamiento". La consulta corta del modelo usa las palabras del usuario, no las de la norma; el coseno de e5 queda por debajo del piso (0.82), y lo que BM25 sí encontraba por "canon" se descarta porque el piso solo deja pasar resultados léxicos que sean referencia exacta a un artículo (sección 25, hallazgo 3). La respuesta fue honesta ("no tengo información"), pero inútil. |
+| **SIMPLE** ("¿cuánto tiempo tiene una entidad para responder un derecho de petición?") | El modelo buscó "derecho de peticion respuesta" y trajo el **art. 96 del CGP** (contestación de la demanda). Respondió en términos generales ("dentro de los plazos… que correspondan"), sin citar y sin inventar. | "Respuesta" + "petición" se parecen a "contestación de la demanda" (el CGP habla de peticiones y respuestas procesales). El art. 14 del CPACA dice "resolverse dentro de los quince (15) días", sin las palabras "respuesta" ni "responder": otra vez la consulta en palabras del usuario contra el texto en palabras de la norma. |
+| **PLAZO** | Dijo 15 días hábiles (correcto) pero citó el **art. 15** del CPACA (radicación de peticiones) y no el 14; **no calculó** la fecha de vencimiento y recomendó "una queja" en vez de la tutela. | (1) La cita pasa la verificación porque el art. 15 sí se recuperó: la verificación comprueba que el artículo citado esté entre lo visto, no que diga lo que se le atribuye. (2) Bug de la corrección 3: el intento de `calcular_plazo` que el código **bloqueó** quedó en la traza con la acción `calcular_plazo`, y la regla "si hay fecha, pide la cuenta" lo contó como cuenta hecha; por eso no se la pidió. Debe contar solo las cuentas que se ejecutaron. (3) No buscó qué hacer si no responden (la tutela): el prompt lo pide ("busca todo lo que necesites"), pero ni el modelo ni el código lo hicieron, y "queja" sale de memoria. |
+
+**RAGAS de la corrida final** (juez Groq `openai/gpt-oss-120b`, 50 gold por
+ruta; tabla completa en `results/m3_s10_rutas_2026-09-27.md`):
+
+| Ruta | Faithfulness | Context precision | Context recall | Answer relevancy | s/consulta |
+|---|---|---|---|---|---|
+| Una pasada | 0.61 | 0.58 | 0.48 | 0.85 | 6.3 |
+| Tool use | 0.57 | 0.54 | 0.45 | 0.86 | 15.2 |
+| ReAct | 0.57 | 0.56 | 0.48 | 0.85 | 14.6 |
+
+Respuesta a la pregunta de la sección 21 (¿se justifica el agente?): **con este
+modelo, no como ruta por defecto.** Las tres rutas empatan en RAGAS (diferencias
+de 0.01-0.04, del orden del ruido del juez) y el agente cuesta 2.3-2.4 veces la
+latencia. Lo que limita a las tres por igual es el retrieval (context recall
+0.45-0.48). El agente queda para las preguntas con cifras o fechas, que es donde
+aporta algo que la una pasada no puede hacer (la cuenta), y se vuelve a medir en
+M4 con un eval set que tenga más de esas preguntas.
+
+**Pendiente para M4** (decidido el 2026-09-27: M3 cierra con esta corrida, sin
+volver a correr; lo de abajo se trabaja en M4):
+
+- **Más ejemplos.**
+  - Ampliar el eval set con preguntas redactadas como las escribe la gente
+    ("arriendo", "me suben", "IPC", "cuánto tiempo tienen para responderme") y
+    con su artículo esperado, para medir el retrieval en esas palabras.
+  - Casos para las rutas agénticas: norma equivocada del usuario, preguntas con
+    cifras, plazos con fecha y sin fecha, "¿y si no me responden?".
+- **Reentrenar el adaptador** (M1): el LoRA se entrenó solo con respuestas en
+  texto y por eso el modelo casi nunca pide herramientas (9 de 56 en el ReAct).
+  Incluir ejemplos de conversaciones con llamadas a herramientas en el formato
+  nativo, y ejemplos que respondan lo que se pregunta cuando el usuario se
+  equivoca de artículo ("el 21 no trata eso; el que aplica es el 20, y te pueden
+  subir hasta…").
+- **Retrieval.**
+  - Cuando la pregunta nombra una norma que sí está en el índice (Ley 820) y la
+    búsqueda no trae nada de ella, buscar dentro de esa norma, en vez de solo
+    avisarle al modelo.
+  - Revisar el piso para los resultados que solo trae BM25 (el caso "canon").
+  - Probar la reformulación de la consulta a términos de la norma ("arriendo" →
+    "arrendamiento", "IPC" → "índice de precios al consumidor", "responder" →
+    "resolver") (sección 11.3).
+  - Recuperar el art. 14 del CPACA en SIMPLE y el art. 86 de la Constitución en
+    9102.
+- **Agente.**
+  - Corregir el bug de la corrección 3: contar solo las cuentas que se
+    ejecutaron.
+  - Si la pregunta pregunta "¿y si no…?", exigir una segunda búsqueda de lo que
+    se puede hacer (la tutela).
+  - Verificar que el artículo citado contenga lo que se le atribuye (hoy solo se
+    comprueba que se haya recuperado).
+- **DSPy y prompts** (sección 24). En M3 el prompt optimizado no se adoptó: en el
+  test (evaluado con nuestra métrica y con RAGAS, sin el parser de DSPy) no mejoró
+  la honestidad y bajó faithfulness; y en dev su ventaja estaba inflada porque
+  DSPy contó como 0 cinco respuestas de escape correctas que no pudo leer. Para M4:
+  - Corregir la medición: que el motor acepte una respuesta sin los marcadores de
+    DSPy como el campo `respuesta`, y sacar de train/dev los casos sin contexto
+    (en el sistema real los resuelve el código, no el prompt).
+  - Agrandar dev (hoy 24 casos: un caso vale 4.2 puntos) y volver a optimizar con
+    MIPROv2 en modo `medium`, comparando otra vez en test y RAGAS.
+  - Mejorar el prompt de generación en lo que mostraron las corridas: citar la
+    norma y el artículo del contexto (hoy el LoRA cita en 12 % de las gold),
+    responder lo que se pregunta con lo del contexto y no completar de memoria
+    (faithfulness 0.61), y decir qué hacer si no se cumple la norma (la tutela).
+  - Revisar los prompts de las rutas agénticas (`SYSTEM_TOOLS`, `SYSTEM_REACT`) con
+    ejemplos de uso de herramientas, junto con el reentrenamiento del adaptador.
+- **Corpus.** Reemplazar el CST de 1950 por la versión vigente compilada y
+  reconstruir el índice (sección 9); revisar la Ley 100; decidir si se indexan
+  las normas que ya están en `data/corpus/normas` y no en `NORMAS_EN_ALCANCE`
+  (Código Penal, Código Civil, Código de Comercio, etc.).

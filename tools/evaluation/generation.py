@@ -60,22 +60,36 @@ def detach_adapter(model):
     return model
 
 
+# Marcas de fin de turno que quedan al decodificar SIN saltar tokens especiales.
+_FINES_DE_TURNO = ("<|im_end|>", "<|endoftext|>")
+
+
 def run_messages_generation(
     model,
     tokenizer,
     messages: list[dict],
     max_new_tokens: int,
+    tools: list[dict] | None = None,
 ) -> str:
     """Boilerplate compartido de generacion: apply_chat_template -> tokenize
     -> generate (greedy) -> decode, sobre una lista de mensajes ya armada
     (system + turnos previos + turno final). run_chat_generation (system +
     user) es el caso de un solo turno; el motor de DSPy (tools/rag/dspy_prompt.py)
     necesita el multi-turno completo porque los demos few-shot son turnos
-    previos, no texto dentro del mismo mensaje."""
+    previos, no texto dentro del mismo mensaje.
+
+    tools: esquemas de herramientas en el formato estandar de function calling
+    ({"type": "function", "function": {...}}). Se pasan a la plantilla de chat
+    del modelo, que los presenta en el formato con el que Qwen2.5 fue entrenado
+    para pedir herramientas (<tool_call>...</tool_call>). En ese caso se decodifica
+    SIN saltar tokens especiales, para no perder las etiquetas <tool_call>, y se
+    limpian solo las marcas de fin de turno. Ver tools/rag/tools.py (seccion 26
+    de docs/m3_decisiones_rag.md)."""
     import torch
 
+    extra = {"tools": tools} if tools else {}
     prompt = tokenizer.apply_chat_template(
-        messages, tokenize=False, add_generation_prompt=True
+        messages, tokenize=False, add_generation_prompt=True, **extra
     )
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     with torch.no_grad():
@@ -86,7 +100,12 @@ def run_messages_generation(
             pad_token_id=tokenizer.pad_token_id,
         )
     generated_ids = output_ids[0][inputs["input_ids"].shape[1]:]
-    return tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
+    if not tools:
+        return tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
+    texto = tokenizer.decode(generated_ids, skip_special_tokens=False)
+    for marca in _FINES_DE_TURNO:
+        texto = texto.replace(marca, "")
+    return texto.strip()
 
 
 def run_chat_generation(

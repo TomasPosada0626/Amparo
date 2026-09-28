@@ -55,6 +55,18 @@ pero no completes la respuesta con lo que creas que podria ser correcto: es \
 preferible reconocer la falta de informacion que arriesgar una afirmacion \
 legal sin fuente verificable."""
 
+# Respuesta que devuelve el CODIGO (sin llamar al modelo) cuando no hay contexto
+# o cuando la respuesta insiste en citar lo que no vio. Hallazgo de la corrida de
+# S08 (2026-09-27): la valvula de escape escrita en el prompt no se activo ni una
+# vez en 168 respuestas -- el modelo respondia de memoria aun sin contexto. La
+# frase va primero (el harness la detecta) y despues una orientacion fija, sin
+# normas: donde consultar y, si hay riesgo, la linea de emergencia.
+RESPUESTA_ESCAPE_POR_CODIGO = (
+    f"{RESPUESTA_SIN_CONTEXTO}. Te sugiero consultar un consultorio juridico "
+    "universitario, la Personeria o la Defensoria del Pueblo. Si tu seguridad esta "
+    "en riesgo, llama a la Linea 123."
+)
+
 SIN_CONTEXTO_RELEVANTE = (
     "(No se encontro contexto relevante en la base de conocimiento.)"
 )
