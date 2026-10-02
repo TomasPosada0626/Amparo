@@ -1,7 +1,7 @@
 """Guardia deterministica de citas legales inventadas.
 
 El dataset gold (data/dataset_legal.jsonl) nunca cita normas por numero -- se
-verifico por conteo directo sobre los 1320 registros (cero coincidencias de
+verifico por conteo directo sobre los 1410 registros del dataset reconstruido (cero coincidencias de
 los patrones de abajo; los casi-aciertos como "decreto" -- solo aparece como
 el verbo "decreto la medida", nunca como "Decreto 1076" -- ya estan cubiertos
 por el \\d+ obligatorio). Esto convierte cualquier coincidencia en una

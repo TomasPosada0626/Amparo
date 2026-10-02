@@ -120,9 +120,16 @@ MECANISMOS = {
 
 # Lo que el dataset NO debe ensenar: precision normativa no verificable. Eso lo
 # aporta el RAG de M3 contra el corpus real, no la memoria del modelo.
+#
+# La definicion NO se escribe aqui: se toma de tools/evaluation/domain_metric.py,
+# que es la que usa el harness de M2 para medir el mismo fenomeno sobre las
+# respuestas generadas. Tener dos definiciones distintas hacia que M1 y M2
+# reportaran cifras no comparables de "citas inventadas" (10.8%->0.0% en uno,
+# 89.2%->100% en el otro) para lo que en principio es la misma propiedad.
+from tools.evaluation.domain_metric import CITATION_PATTERNS
+
 CITA_NORMATIVA = re.compile(
-    r"\bart[ií]culos?\b|\bart\.\s*\d|\bley\s+\d{2,4}\b|\bdecreto\s+\d+\b"
-    r"|\bsentencia\s+[TC]-\d|\bresoluci[oó]n\s+\d+\b",
+    "|".join(p.pattern for p in CITATION_PATTERNS.values()),
     re.IGNORECASE,
 )
 # Plazos exactos: tampoco se memorizan (cambian por norma y por tramite).

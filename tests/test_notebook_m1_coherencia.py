@@ -20,6 +20,7 @@ from pathlib import Path
 import pytest
 
 from tools.dataset_quality import MECANISMOS
+from tools.evaluation.domain_metric import CITATION_PATTERNS
 
 NOTEBOOK = Path(__file__).resolve().parents[1] / "colab" / "m1_finetune.ipynb"
 
@@ -52,6 +53,24 @@ def test_el_catalogo_del_notebook_no_se_desincroniza_del_repo(fuente):
         "El catalogo embebido en el notebook ya no coincide con "
         "tools.dataset_quality.MECANISMOS. Regeneralo desde el catalogo en vez de "
         "editarlo a mano, o la medicion del notebook dejara de ser comparable."
+    )
+
+
+@pytest.mark.parametrize("fuente", _celdas_con_catalogo())
+def test_la_definicion_de_cita_es_la_misma_que_mide_m2(fuente):
+    """M1 y M2 deben medir "cita inventada" con la misma regla.
+
+    Tenian definiciones distintas (una exigia 2-4 digitos tras "Ley", la otra
+    cualquier numero; una reconocia sentencias SU y resoluciones, la otra no),
+    asi que sus cifras de citas inventadas no eran comparables entre si aunque
+    midieran lo mismo en principio.
+    """
+    m = re.search(r'CITA_NO_VERIFICABLE = re\.compile\(\s*r"""(.*?)"""', fuente, re.S)
+    assert m, "no se pudo extraer CITA_NO_VERIFICABLE de la celda"
+    esperado = "|".join(p.pattern for p in CITATION_PATTERNS.values())
+    assert m.group(1) == esperado, (
+        "La definicion de cita del notebook ya no coincide con "
+        "tools.evaluation.domain_metric.CITATION_PATTERNS, que es la que usa M2."
     )
 
 
