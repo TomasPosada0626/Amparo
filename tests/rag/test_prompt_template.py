@@ -18,7 +18,7 @@ def resultado(**overrides) -> SearchResult:
 def test_el_prompt_tiene_las_cuatro_partes_en_orden():
     prompt = prompt_template.build_augmented_prompt("¿Cuanto tardan en responder?", [resultado()])
 
-    pos_instruccion = prompt.index("Eres un asistente juridico")
+    pos_instruccion = prompt.index("Eres un asistente jurídico")
     pos_contexto = prompt.index("CONTEXTO:")
     pos_valvula = prompt.index(prompt_template.RESPUESTA_SIN_CONTEXTO)
     pos_pregunta = prompt.index("PREGUNTA DEL USUARIO:")
@@ -31,7 +31,10 @@ def test_la_instruccion_arranca_del_system_prompt_real_de_m1():
     fine-tuneado, el delta contra el scorecard de M2 dejaria de ser atribuible
     al RAG."""
     assert prompt_template.SYSTEM_PROMPT_M1 in prompt_template.INSTRUCCION
-    assert "No inventes normas" in prompt_template.INSTRUCCION
+    assert "no inventes normas" in prompt_template.INSTRUCCION
+    # El prompt de M1 ahora codifica tambien el anclaje al mecanismo legal y el
+    # lenguaje accesible (principios 3 y 4 de PRODUCT.md), no solo la prudencia.
+    assert "mecanismo legal aplicable" in prompt_template.INSTRUCCION
 
 
 def test_la_valvula_de_escape_esta_presente_incluso_cuando_si_hay_contexto():
