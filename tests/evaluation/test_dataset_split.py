@@ -3,12 +3,18 @@ import hashlib
 from tools.evaluation import dataset
 
 # Hash dorado del split de validacion de M1 (RANDOM_SEED=42, VAL_FRACTION=0.15),
-# recalculado y verificado de forma independiente contra data/dataset_legal.jsonl
-# antes de escribir este test. Si este test falla, el split dejo de ser
-# reproducible respecto al baseline ya publicado en la wiki -- no "arreglar"
-# el hash sin entender por que cambio.
+# recalculado y verificado de forma independiente contra data/dataset_legal.jsonl.
+# Si este test falla, el split dejo de ser reproducible respecto a la corrida
+# publicada -- no "arreglar" el hash sin entender por que cambio.
+#
+# Historial de cambios del dorado (cada entrada necesita una razon, justamente
+# para que actualizarlo no se vuelva un reflejo):
+#   - 1119/201, a37d9534...: dataset original de 1320 ejemplos en 24 categorias.
+#   - 1197/213, 0c4963b9...: reconstruccion del dataset (1410 ejemplos, 27
+#     categorias) documentada en data/dataset_src/GUIA.md. El split cambio
+#     porque cambiaron los datos, no la logica: stratified_split no se toco.
 GOLDEN_VAL_IDS_SHA256 = (
-    "a37d95349b71adf6b5a439e29d899af782ae7404b4c531145bf0ae3c923cfabb"
+    "0c4963b9f56170a244e2ff7d405742694cc7ae0abc168af1bb57a8fa4f831e1b"
 )
 
 
@@ -16,8 +22,8 @@ def test_stratified_split_matches_m1_golden_split():
     records = dataset.load_records()
     train, val = dataset.stratified_split(records)
 
-    assert len(train) == 1119
-    assert len(val) == 201
+    assert len(train) == 1197
+    assert len(val) == 213
 
     val_ids = sorted(r["id"] for r in val)
     digest = hashlib.sha256(",".join(str(i) for i in val_ids).encode()).hexdigest()
