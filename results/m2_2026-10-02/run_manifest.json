@@ -1,0 +1,18 @@
+{
+  "git_commit": "0b2f7006f87e59204a523e32abc06b2a1b2af380",
+  "random_seed": 42,
+  "val_fraction": 0.15,
+  "n_val": 213,
+  "base_model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "adapter_dir": "/content/drive/MyDrive/Colab Notebooks/Amparo/amparo-lora-adapter",
+  "library_versions": {
+    "transformers": "5.18.0",
+    "peft": "0.21.2",
+    "torch": "2.11.0+cu130",
+    "sacrebleu": "2.6.0",
+    "rouge-score": "0.1.2",
+    "bert-score": "0.3.13"
+  },
+  "hardware": "NVIDIA L4, 23034 MiB",
+  "timestamp": "2026-10-02T22:49:24.568341+00:00"
+}
