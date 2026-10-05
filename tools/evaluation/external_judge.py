@@ -29,7 +29,7 @@ from tools.evaluation.bias import (
     PositionBiasReport,
     _run_position_bias_probe_core,
 )
-from tools.evaluation.checkpoint import append_checkpoint, load_checkpoint
+from tools.evaluation.checkpoint import append_checkpoint, huella, load_checkpoint, sin_metadatos
 from tools.evaluation.judge import JUDGE_SYSTEM_PROMPT, JudgeScore, build_judge_prompt, parse_judge_output
 
 load_dotenv(config.PROJECT_ROOT / ".env")
@@ -125,23 +125,20 @@ def score_batch(
 
     checkpoint_path (opcional): JSONL donde se guarda cada resultado a
     medida que se calcula. Si el archivo ya existe (de una corrida
-    interrumpida por un rate limit, por ejemplo), las filas cuyo id ya
-    este ahi se saltan en vez de volver a gastar cupo calificandolas."""
-    done = load_checkpoint(checkpoint_path)
-    if done:
-        print(f"[external_judge] checkpoint: {len(done)} filas ya resueltas, se saltan.")
+    interrumpida por un rate limit, por ejemplo), se reusan solo las filas
+    con el MISMO texto (huella, ver checkpoint.py), sin volver a gastar cupo."""
+    huellas = {row.id: huella(row.query, row.expected, row.generated) for row in rows}
+    done = load_checkpoint(checkpoint_path, huellas, log_prefix="external_judge")
 
     total = len(rows)
     scores: list[JudgeScore] = []
     start_batch = time.perf_counter()
     for i, row in enumerate(rows, start=1):
         if row.id in done:
-            entry = dict(done[row.id])
-            entry.pop("id")
-            score = JudgeScore(**entry)
+            score = JudgeScore(**sin_metadatos(done[row.id]))
         else:
             score = score_response(row.query, row.expected, row.generated)
-            append_checkpoint(checkpoint_path, {"id": row.id, **score.__dict__})
+            append_checkpoint(checkpoint_path, {"id": row.id, "huella": huellas[row.id], **score.__dict__})
         scores.append(score)
         if progress_every and (i % progress_every == 0 or i == total):
             elapsed = time.perf_counter() - start_batch

@@ -20,7 +20,7 @@ from typing import Callable, Optional
 import numpy as np
 
 from tools.evaluation import config, generation
-from tools.evaluation.checkpoint import append_checkpoint, load_checkpoint
+from tools.evaluation.checkpoint import append_checkpoint, huella, load_checkpoint
 
 PAIRWISE_JUDGE_SYSTEM_PROMPT = (
     "Eres un evaluador experto en derecho colombiano. Se te daran dos "
@@ -101,13 +101,14 @@ def _run_position_bias_probe_core(
     checkpoint_path (opcional): JSONL donde se guarda cada par resuelto a
     medida que se procesa. Si el archivo ya existe (de una corrida
     interrumpida), los pares cuyo id ya este ahi se saltan en vez de
-    volver a gastar cupo/tiempo resolviendolos."""
+    volver a gastar cupo/tiempo resolviendolos -- siempre que los textos
+    sean los mismos (huella); si cambiaron, el par se vuelve a juzgar."""
     rng = Random(seed)
     sample = pairs if len(pairs) <= sample_size else rng.sample(pairs, sample_size)
 
-    done = load_checkpoint(checkpoint_path)
-    if done:
-        print(f"[{log_prefix}] checkpoint: {len(done)} pares ya resueltos, se saltan.")
+    # Se reusa un par solo si los dos textos son los mismos (checkpoint.py).
+    huellas = {pid: huella(q, b, f) for pid, q, b, f in sample}
+    done = load_checkpoint(checkpoint_path, huellas, log_prefix=log_prefix)
 
     n_flipped = 0
     n_tied_or_unparsed = 0
@@ -143,6 +144,7 @@ def _run_position_bias_probe_core(
             )
             entry = {
                 "id": record_id,
+                "huella": huellas[record_id],
                 "verdict_normal": winner_normal,
                 "verdict_swapped": winner_swapped,
             }

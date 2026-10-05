@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Optional, Sequence
 
 from tools.evaluation import config, generation
-from tools.evaluation.checkpoint import append_checkpoint, load_checkpoint
+from tools.evaluation.checkpoint import append_checkpoint, huella, load_checkpoint, sin_metadatos
 
 JUDGE_SYSTEM_PROMPT = (
     "Eres un evaluador experto en derecho colombiano. Tu tarea es calificar, "
@@ -170,25 +170,22 @@ def score_batch(
 ) -> list[JudgeScore]:
     """checkpoint_path (opcional): JSONL donde se guarda cada resultado a
     medida que se calcula. Si el archivo ya existe (de una corrida
-    interrumpida), las filas cuyo id ya este ahi se saltan en vez de
-    volver a calificarlas."""
+    interrumpida), se reusan solo las filas con el MISMO texto (huella de
+    pregunta + referencia + respuesta, ver checkpoint.py)."""
     import time
 
-    done = load_checkpoint(checkpoint_path)
-    if done:
-        print(f"[judge] checkpoint: {len(done)} filas ya resueltas, se saltan.")
+    huellas = {row.id: huella(row.query, row.expected, row.generated) for row in rows}
+    done = load_checkpoint(checkpoint_path, huellas, log_prefix="judge")
 
     total = len(rows)
     scores: list[JudgeScore] = []
     start_batch = time.perf_counter()
     for i, row in enumerate(rows, start=1):
         if row.id in done:
-            entry = dict(done[row.id])
-            entry.pop("id")
-            score = JudgeScore(**entry)
+            score = JudgeScore(**sin_metadatos(done[row.id]))
         else:
             score = score_response(model, tokenizer, row.query, row.expected, row.generated)
-            append_checkpoint(checkpoint_path, {"id": row.id, **score.__dict__})
+            append_checkpoint(checkpoint_path, {"id": row.id, "huella": huellas[row.id], **score.__dict__})
         scores.append(score)
         if progress_every and (i % progress_every == 0 or i == total):
             elapsed = time.perf_counter() - start_batch
