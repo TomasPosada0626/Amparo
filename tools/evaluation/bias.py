@@ -148,7 +148,9 @@ def _run_position_bias_probe_core(
                 "verdict_normal": winner_normal,
                 "verdict_swapped": winner_swapped,
             }
-            append_checkpoint(checkpoint_path, entry)
+            if raw_normal.strip() and raw_swapped.strip():
+                # Sin respuesta del juez (cupo, red) no se guarda: se reintenta al retomar.
+                append_checkpoint(checkpoint_path, entry)
 
         if (
             winner_normal in (None, "empate")

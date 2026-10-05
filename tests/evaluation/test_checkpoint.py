@@ -152,3 +152,14 @@ def test_sondeo_de_posicion_vuelve_a_juzgar_si_cambian_los_textos(tmp_path):
     llamadas.clear()
     _run_position_bias_probe_core(fake, [(1, "q", "base", "ft NUEVO")], **kw)
     assert len(llamadas) == 2
+
+
+def test_juez_externo_no_guarda_las_llamadas_sin_respuesta(tmp_path, monkeypatch):
+    """Sin respuesta de Groq (cupo agotado) no se guarda: si se guardara, el
+    fallo quedaria 'resuelto' para siempre y nunca se reintentaria."""
+    from tools.evaluation import external_judge
+
+    path = tmp_path / "groq.jsonl"
+    monkeypatch.setattr(external_judge, "call_groq", lambda s, u, m: "")
+    external_judge.score_batch([_Fila(1, "q", "ref", "resp")], progress_every=0, checkpoint_path=path)
+    assert not path.exists()
