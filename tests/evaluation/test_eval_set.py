@@ -35,3 +35,26 @@ def test_ids_are_unique_and_do_not_collide_with_m1_dataset_ids():
     # data/dataset_legal.jsonl usa ids 1..1320 -- eval_set.json usa un rango
     # aparte (9000+) para que nunca se puedan confundir con un id de M1.
     assert all(i >= 9000 for i in ids)
+
+
+def test_ninguna_pregunta_del_eval_set_esta_en_train():
+    """Fuga: si una pregunta del eval set esta en train, el modelo ya vio su
+    respuesta y el eval set deja de medir generalizacion. Nada lo impedia: si
+    el dataset cambia de nuevo, el split puede mover preguntas a train."""
+    from tools.evaluation import dataset
+
+    records = dataset.load_records()
+    train, val = dataset.stratified_split(records)
+    sol = eval_set.solapamiento(eval_set.load_eval_set(), train, val)
+    assert sol["en_train"] == []
+
+
+def test_las_gold_repetidas_de_validacion_estan_identificadas():
+    """20 de las 50 gold repiten preguntas de validacion (no son fuga, pero
+    tampoco son casos propios). Si cambia este conteo, revisar el eval set."""
+    from tools.evaluation import dataset
+
+    records = dataset.load_records()
+    train, val = dataset.stratified_split(records)
+    sol = eval_set.solapamiento(eval_set.load_eval_set(), train, val)
+    assert sol["en_val"] == list(range(9011, 9031))

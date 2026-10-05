@@ -42,3 +42,12 @@ def test_todo_el_dataset_usa_el_mismo_system_prompt():
     with open(eval_config.LOCAL_DATASET_PATH, encoding="utf-8") as f:
         prompts = {json.loads(linea)["messages"][0]["content"] for linea in f if linea.strip()}
     assert len(prompts) == 1, f"el dataset mezcla {len(prompts)} system prompts distintos"
+
+
+def test_el_eval_set_de_m2_usa_el_prompt_que_se_entreno():
+    # M2 genera con el prompt del dataset (no con el del eval set), pero el
+    # eval set traia el prompt anterior a la reconstruccion del dataset: un
+    # registro que no describe como se evaluo. Se mantienen iguales.
+    with open(eval_config.PROJECT_ROOT / "data" / "eval_set.json", encoding="utf-8") as f:
+        eval_set = json.load(f)
+    assert {r["messages"][0]["content"] for r in eval_set} == {_system_prompt_del_dataset()}

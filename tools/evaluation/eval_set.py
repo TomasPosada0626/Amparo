@@ -31,3 +31,32 @@ def gold_examples(records: list[dict]) -> list[dict]:
 
 def adversarial_examples(records: list[dict]) -> list[dict]:
     return [r for r in records if r["tipo"] == "adversarial"]
+
+
+def _normalizar_pregunta(texto: str) -> str:
+    import re
+    import unicodedata
+
+    t = unicodedata.normalize("NFKD", texto or "").encode("ascii", "ignore").decode().lower()
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9 ]", " ", t)).strip()
+
+
+def solapamiento(eval_records: list[dict], train_records: list[dict], val_records: list[dict]) -> dict:
+    """Ids del eval set cuya pregunta (normalizada) aparece en train o en val.
+
+    En train seria fuga: el modelo habria visto la pregunta con su respuesta.
+    En val no es fuga, pero esos casos no son "propios": repiten preguntas de
+    la validacion de M1. Al 2026-10-04, 20 de las 50 gold (9011-9030) son copia
+    literal de preguntas de validacion y ninguna esta en train."""
+    def preguntas(rs):
+        return {_normalizar_pregunta(r["messages"][1]["content"]) for r in rs}
+
+    en_train, en_val = preguntas(train_records), preguntas(val_records)
+    salida = {"en_train": [], "en_val": []}
+    for r in eval_records:
+        q = _normalizar_pregunta(r["messages"][1]["content"])
+        if q in en_train:
+            salida["en_train"].append(r["id"])
+        elif q in en_val:
+            salida["en_val"].append(r["id"])
+    return salida
