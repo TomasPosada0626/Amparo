@@ -4,11 +4,12 @@ prompt/rubrica/parseo que judge.py y bias.py; solo cambia el backend de
 generacion: llamada HTTP a la API de Groq (compatible con OpenAI) en vez de
 generacion local con GPU.
 
-Motivo: el sondeo de position bias con el juez local (misma familia que el
-modelo evaluado) mostro que, en los 30 pares probados, el juez prefirio la
-respuesta baseline las 60 veces (ver bias.PositionBiasReport.winner_counts) --
-evidencia de auto-preferencia. Este modulo permite repetir la misma
-evaluacion con un juez independiente para ver si el patron se sostiene.
+Motivo: el juez local es el mismo modelo base que escribio las respuestas
+del baseline, y en la comparacion cara a cara las elige casi siempre (60 de
+60 veredictos con el adaptador anterior; 50 de 60 en la corrida del
+2026-10-02). Este modulo repite la evaluacion con un juez de otra familia para
+separar auto-preferencia de preferencia real. Tambien es el backend del juez
+del eval set contra su criterio (criterio.py).
 
 Requiere GROQ_API_KEY en el .env (ver .env.example) -- capa gratuita de
 Groq, sin costo. No requiere GPU ni torch: es HTTP puro, corre igual en

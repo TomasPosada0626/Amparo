@@ -77,43 +77,46 @@ def build_pairs(
 
 def run_eval_set_judging(
     eval_baseline_path: Path, eval_finetuned_path: Path, out_dir: Path
-) -> None:
+) -> dict:
+    """Califica el eval set contra su criterio con Groq (criterio.py), igual
+    que la Fase 5 del notebook. Devuelve el resumen por modelo y tipo."""
+    from tools.evaluation import criterio
     from tools.evaluation import eval_set as eval_set_module
 
+    registros = eval_set_module.load_eval_set()
     eval_baseline = load_results(eval_baseline_path)
     eval_finetuned = load_results(eval_finetuned_path)
-    groq_eval_baseline = external_judge.score_batch(
-        eval_baseline, checkpoint_path=out_dir / "checkpoint_eval_set_baseline.jsonl"
-    )
-    groq_eval_finetuned = external_judge.score_batch(
-        eval_finetuned, checkpoint_path=out_dir / "checkpoint_eval_set_finetuned.jsonl"
-    )
+    juez = criterio.generador_groq()
+    vb = criterio.evaluar_contra_criterio(
+        eval_baseline, registros, juez, checkpoint_path=out_dir / "checkpoint_criterio_baseline.jsonl")
+    vf = criterio.evaluar_contra_criterio(
+        eval_finetuned, registros, juez, checkpoint_path=out_dir / "checkpoint_criterio_finetuned.jsonl")
 
-    criterios = {r["id"]: r for r in eval_set_module.load_eval_set()}
-
+    por_id = {r["id"]: r for r in registros}
     rows = []
-    for b, f, gb, gf in zip(eval_baseline, eval_finetuned, groq_eval_baseline, groq_eval_finetuned):
-        rec = criterios.get(b.id, {})
+    for b, f, xb, xf in zip(eval_baseline, eval_finetuned, vb, vf):
+        rec = por_id.get(b.id, {})
         rows.append({
-            "id": b.id,
-            "tipo": rec.get("tipo"),
-            "category": b.category,
-            "criterio": rec.get("criterio"),
+            "id": b.id, "tipo": rec.get("tipo"), "category": b.category, "criterio": rec.get("criterio"),
             "query": b.query,
-            "baseline_generated": b.generated,
-            "finetuned_generated": f.generated,
-            "groq_judge_baseline": gb.composite,
-            "groq_judge_finetuned": gf.composite,
+            "baseline": b.generated, "baseline_veredicto": xb.veredicto,
+            "baseline_errores": xb.errores_juridicos, "baseline_citas": xb.n_citas,
+            "fine_tuned": f.generated, "fine_tuned_veredicto": xf.veredicto,
+            "fine_tuned_errores": xf.errores_juridicos, "fine_tuned_citas": xf.n_citas,
         })
         print(f"\n--- id {b.id} ({rec.get('tipo')}) {b.category} ---")
         print(f"Criterio: {rec.get('criterio')}")
-        print(f"[baseline]   {b.generated}\n  Groq: {gb.composite}")
-        print(f"[fine-tuned] {f.generated}\n  Groq: {gf.composite}")
+        print(f"[baseline]   {b.generated}\n  -> {xb.veredicto} | errores: {xb.errores_juridicos}")
+        print(f"[fine-tuned] {f.generated}\n  -> {xf.veredicto} | errores: {xf.errores_juridicos}")
 
     (out_dir / "groq_eval_set_resultados.jsonl").write_text(
-        "\n".join(json.dumps(r, ensure_ascii=False) for r in rows), encoding="utf-8"
+        "\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + "\n", encoding="utf-8"
     )
-    print(f"\nEval set (Groq) guardado en: {out_dir / 'groq_eval_set_resultados.jsonl'}")
+    resumen = criterio.resumen(vb + vf)
+    (out_dir / "groq_eval_set_resumen.json").write_text(
+        json.dumps(resumen, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"\nEval set (Groq, contra criterio) guardado en: {out_dir}")
+    return resumen
 
 
 def main() -> None:

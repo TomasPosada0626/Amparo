@@ -246,11 +246,18 @@ def self_preference_gap(
     sim_baseline: list[float],
     sim_finetuned: list[float],
 ) -> SelfPreferenceReport:
-    """Compara la mejora fine-tuned-vs-baseline que ve el juez (misma familia
-    de modelo que el fine-tuned) contra la que ve la heuristica lexica
-    independiente similarity_pct. Una divergencia grande entre ambas senales
-    es evidencia de que el juez podria estar favoreciendo/penalizando por
-    compartir familia de modelo, no por calidad real."""
+    """Compara la mejora fine-tuned-vs-baseline que ve el juez contra la que
+    ve la heuristica lexica similarity_pct (difflib).
+
+    LIMITE (revision docente de M2): esto NO detecta auto-preferencia. El juez
+    local es el mismo modelo que escribio el baseline, y difflib solo mide
+    parecido de caracteres con la referencia, que sube cuando el modelo imita
+    el estilo del dataset. Que las dos senales coincidan no dice que el juez
+    sea imparcial: con el modelo anterior este indicador dio "flagged=False"
+    mientras el juez elegia al baseline en 60 de 60 veredictos cara a cara.
+    Se conserva como dato; la evidencia de auto-preferencia sale de comparar
+    el conteo de ganadores del juez local con el de un juez de otra familia
+    (external_judge)."""
     judge_gap = float(
         np.mean([normalize_judge_score(s) for s in judge_finetuned])
         - np.mean([normalize_judge_score(s) for s in judge_baseline])
