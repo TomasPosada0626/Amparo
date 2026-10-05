@@ -313,10 +313,14 @@ def export_markdown(
     ganadores: Optional[dict] = None,
     eval_set: Optional[dict] = None,
     ejemplos: Optional[list[dict]] = None,
+    juez_externo: Optional[tuple[str, list[MetricSummary], dict]] = None,
 ) -> None:
     """ejemplos: [{id, query, baseline, fine_tuned, nota?}] -- respuestas
     textuales que se imprimen tal cual (la revision de M2 marco que no habia
-    ni una respuesta textual en los resultados)."""
+    ni una respuesta textual en los resultados).
+
+    juez_externo: (nombre, summaries, comparacion) del mismo analisis con un
+    juez de otra familia (Groq) sobre la validacion, si se corrio."""
     lines: list[str] = []
     lines.append("# Scorecard M2 — Evaluación del Modelo")
     lines.append("")
@@ -348,25 +352,11 @@ def export_markdown(
             f"{s.avg_latency_s} |"
         )
     lines.append("")
-    lines.append("## Juez por criterio")
-    lines.append("")
-    lines.append("| Criterio | " + " | ".join(s.label for s in summaries)
-                 + " | Diferencia fine-tuned − baseline [IC 95 %] |")
-    lines.append("|---|" + "---|" * len(summaries) + "---|")
-    filas = (("Corrección jurídica", "avg_judge_correccion", "judge_correccion"),
-             ("Prudencia", "avg_judge_prudencia", "judge_prudencia"),
-             ("Claridad y utilidad", "avg_judge_claridad", "judge_claridad"),
-             ("Concisión", "avg_judge_concision", "judge_concision"),
-             ("**Sin concisión**", "avg_judge_sin_concision", "judge_sin_concision"),
-             ("**Compuesto**", "avg_judge_composite", "judge_composite"))
-    for nombre, attr, clave in filas:
-        iv = (comparacion or {}).get(clave)
-        dif = (iv.texto() + (" *" if iv.significativo else "")) if iv else "—"
-        lines.append(f"| {nombre} | " + " | ".join(str(getattr(s, attr)) for s in summaries)
-                     + f" | {dif} |")
-    lines.append("")
-    lines.append("\\* intervalo que no contiene el 0 (diferencia demostrable).")
-    lines.append("")
+    jueces = [("Juez por criterio", summaries, comparacion)]
+    if juez_externo:
+        jueces.append((f"Juez por criterio — {juez_externo[0]}", juez_externo[1], juez_externo[2]))
+    for titulo, sums, comp in jueces:
+        lines.extend(_tabla_criterios(titulo, sums, comp))
     if ganadores:
         lines.append("## Comparación cara a cara")
         lines.append("")
@@ -435,6 +425,26 @@ def export_markdown(
 
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines), encoding="utf-8")
+
+
+def _tabla_criterios(titulo: str, summaries: list[MetricSummary], comparacion: Optional[dict]) -> list[str]:
+    lines = [f"## {titulo}", ""]
+    lines.append("| Criterio | " + " | ".join(s.label for s in summaries)
+                 + " | Diferencia fine-tuned − baseline [IC 95 %] |")
+    lines.append("|---|" + "---|" * len(summaries) + "---|")
+    filas = (("Corrección jurídica", "avg_judge_correccion", "judge_correccion"),
+             ("Prudencia", "avg_judge_prudencia", "judge_prudencia"),
+             ("Claridad y utilidad", "avg_judge_claridad", "judge_claridad"),
+             ("Concisión", "avg_judge_concision", "judge_concision"),
+             ("**Sin concisión**", "avg_judge_sin_concision", "judge_sin_concision"),
+             ("**Compuesto**", "avg_judge_composite", "judge_composite"))
+    for nombre, attr, clave in filas:
+        iv = (comparacion or {}).get(clave)
+        dif = (iv.texto() + (" *" if iv.significativo else "")) if iv else "—"
+        lines.append(f"| {nombre} | " + " | ".join(str(getattr(s, attr)) for s in summaries)
+                     + f" | {dif} |")
+    lines += ["", "\\* intervalo que no contiene el 0 (diferencia demostrable).", ""]
+    return lines
 
 
 def _una_linea(texto: str) -> str:

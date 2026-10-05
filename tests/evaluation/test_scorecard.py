@@ -71,3 +71,30 @@ def test_csv_ida_y_vuelta(tmp_path):
     assert len(leidas) == len(rows)
     assert leidas[1].judge_correccion == rows[1].judge_correccion and leidas[2].cortada is True and leidas[0].cortada is False
     assert "judge_sin_concision" in ruta.read_text(encoding="utf-8").splitlines()[0]
+
+
+def test_export_con_juez_externo_agrega_su_tabla(tmp_path):
+    rows = corrida()
+    sums = scorecard.summarize_by_label(rows)
+    ruta = tmp_path / "s.md"
+    scorecard.export_markdown(ruta, sums, {}, "x", {}, {}, comparacion=scorecard.comparar(rows),
+                              juez_externo=("Groq gpt-oss-120b", sums, scorecard.comparar(rows)))
+    md = ruta.read_text(encoding="utf-8")
+    assert md.count("**Sin concisión**") == 2 and "## Juez por criterio — Groq gpt-oss-120b" in md
+
+
+def test_elegir_ejemplos_trae_todos_los_adversariales_y_gold_reproducibles():
+    from types import SimpleNamespace
+
+    recs = ([{"id": i, "tipo": "gold", "criterio": "c", "messages": [{}, {"content": f"q{i}"}, {}]} for i in range(10)]
+            + [{"id": 100 + i, "tipo": "adversarial", "criterio": "c", "messages": [{}, {"content": "a"}, {}]}
+               for i in range(3)])
+    gens = [SimpleNamespace(id=r["id"], generated=f"r{r['id']}") for r in recs]
+    e1 = scorecard.elegir_ejemplos(recs, gens, gens, n_gold=4)
+    assert [e["id"] for e in e1[:3]] == [100, 101, 102] and len(e1) == 7
+    assert e1 == scorecard.elegir_ejemplos(recs, gens, gens, n_gold=4)
+
+
+def test_parece_cortada():
+    assert scorecard.parece_cortada("1. **Revisar el contrato**: Verifica si")
+    assert not scorecard.parece_cortada("Reclama por escrito.")
