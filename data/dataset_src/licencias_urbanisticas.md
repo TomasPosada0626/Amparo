@@ -16,7 +16,7 @@ R: Solicita por escrito al curador urbano el acto motivado con la norma que cons
 
 P: Construi sin licencia y ahora quiero legalizar mi construccion.
 
-R: Consulta ante la curaduria urbana o la oficina de planeacion municipal los requisitos para un proceso de legalizacion. Es probable que debas presentar planos actualizados y podrias enfrentar alguna sancion por la construccion sin permiso previo.
+R: Consulta ante la curaduría urbana o la oficina de planeación municipal los requisitos para un proceso de legalización. Es probable que debas presentar planos actualizados y podrías enfrentar alguna sanción por la construcción sin permiso previo.
 
 ## 1173
 
@@ -46,7 +46,7 @@ R: Pide a la Secretaría de Planeación el concepto de norma con la altura máxi
 
 P: Quiero ampliar mi casa, necesito licencia?
 
-R: En general, cualquier ampliacion que modifique la estructura o el area construida requiere licencia. Verifica con la curaduria urbana o la oficina de planeacion municipal los requisitos especificos para tu tipo de ampliacion.
+R: En general, cualquier ampliación que modifique la estructura o el área construida requiere licencia. Verifica con la curaduría urbana o la oficina de planeación municipal los requisitos especificos para tu tipo de ampliación.
 
 ## 1178
 
@@ -76,13 +76,13 @@ R: El uso permitido lo define el plan de ordenamiento: pídele a la Secretaría 
 
 P: Tengo una construccion familiar antigua sin planos, quiero legalizarla.
 
-R: Consulta ante la oficina de planeacion municipal los requisitos para legalizar construcciones antiguas, que pueden incluir un levantamiento arquitectonico actual y el pago de algun tramite. Reune cualquier evidencia de la antiguedad de la construccion que tengas.
+R: Consulta ante la oficina de planeación municipal los requisitos para legalizar construcciones antiguas, que pueden incluir un levantamiento arquitectónico actual y el pago de algún trámite. Reúne cualquier evidencia de la antigüedad de la construcción que tengas.
 
 ## 1183
 
 P: Me estan cobrando una sancion urbanistica por construir sin licencia.
 
-R: Solicita el expediente sancionatorio para conocer el fundamento especifico de la sancion. Presenta tus descargos dentro del termino, evaluando tambien si es posible iniciar en paralelo un proceso de legalizacion de la construccion.
+R: Solicita el expediente sancionatorio para conocer el fundamento específico de la sanción. Presenta tus descargos dentro del término, evaluando también si es posible iniciar en paralelo un proceso de legalización de la construcción.
 
 ## 1184
 
@@ -94,7 +94,7 @@ R: También en lo rural se requiere licencia, y la expide el curador urbano o la
 
 P: Necesito una licencia de demolicion para tumbar una construccion vieja?
 
-R: En general, la demolicion de construcciones requiere una licencia especifica, especialmente en zonas urbanas. Verifica los requisitos ante la curaduria urbana o la oficina de planeacion municipal antes de proceder.
+R: En general, la demolición de construcciones requiere una licencia específica, especialmente en zonas urbanas. Verifica los requisitos ante la curaduría urbana o la oficina de planeación municipal antes de proceder.
 
 ## 1186
 
@@ -106,13 +106,13 @@ R: Pide un certificado de tradición y libertad reciente en la Oficina de Regist
 
 P: Quiero subdividir un lote grande en varios mas pequenos, cual es el tramite?
 
-R: Este proceso en general requiere una licencia de parcelacion o subdivision, dependiendo de si tu predio es urbano o rural. Consulta con la curaduria urbana o la oficina de planeacion municipal los requisitos especificos.
+R: Este proceso en general requiere una licencia de parcelación o subdivisión, dependiendo de si tu predio es urbano o rural. Consulta con la curaduría urbana o la oficina de planeación municipal los requisitos especificos.
 
 ## 1188
 
 P: Me exigen licencia ambiental ademas de la licencia urbanistica.
 
-R: Algunos proyectos, dependiendo de su ubicacion o impacto, requieren ambas licencias de forma independiente. Verifica con la autoridad ambiental los requisitos especificos aplicables a tu proyecto.
+R: Algunos proyectos, dependiendo de su ubicación o impacto, requieren ambas licencias de forma independiente. Verifica con la autoridad ambiental los requisitos especificos aplicables a tu proyecto.
 
 ## 1189
 
@@ -148,7 +148,7 @@ R: El curador urbano es la persona particular autorizada para estudiar, tramitar
 
 P: Cuanto se demora normalmente una licencia de construccion?
 
-R: El tiempo puede variar segun la complejidad del proyecto y si se requieren aclaraciones o correcciones durante el tramite. Consulta con la curaduria urbana o la oficina de planeacion municipal los plazos estimados para tu tipo de solicitud.
+R: El tiempo puede variar según la complejidad del proyecto y si se requieren aclaraciones o correcciones durante el trámite. Consulta con la curaduría urbana o la oficina de planeación municipal los plazos estimados para tu tipo de solicitud.
 
 ## 1195
 
@@ -190,7 +190,7 @@ R: Lo primero es ganar tiempo y respaldo: pide copia del expediente en control u
 
 P: Necesito licencia para poner un cerramiento (muro o reja) alrededor de mi lote?
 
-R: Dependiendo del tipo y altura del cerramiento, puede requerirse una licencia especifica. Verifica con la curaduria urbana o la oficina de planeacion municipal los requisitos aplicables a tu caso.
+R: Dependiendo del tipo y altura del cerramiento, puede requerirse una licencia específica. Verifica con la curaduría urbana o la oficina de planeación municipal los requisitos aplicables a tu caso.
 
 ## 1202
 
@@ -280,7 +280,7 @@ R: Encarga la corrección a un topógrafo con matrícula profesional y radica el
 
 P: Mi predio esta en zona de expansion urbana, que normativa me aplica?
 
-R: Estas zonas suelen tener planes parciales o normas especificas de desarrollo distintas a las zonas ya consolidadas. Consulta con la oficina de planeacion municipal la normativa vigente aplicable a tu predio en particular.
+R: Estas zonas suelen tener planes parciales o normas especificas de desarrollo distintas a las zonas ya consolidadas. Consulta con la oficina de planeación municipal la normativa vigente aplicable a tu predio en particular.
 
 ## 1217
 
@@ -304,4 +304,4 @@ R: Exígele por escrito al curador urbano el sustento de ese requisito; lo que s
 
 P: La curaduria me nego la licencia, a donde puedo apelar?
 
-R: Puedes presentar los recursos disponibles ante la misma curaduria o, segun corresponda, ante la autoridad de planeacion municipal. Revisa el acto de negativa, que deberia indicarte la via y los plazos especificos para impugnarlo.
+R: Puedes presentar los recursos disponibles ante la misma curaduría o, según corresponda, ante la autoridad de planeación municipal. Revisa el acto de negativa, que debería indicarte la vía y los plazos especificos para impugnarlo.

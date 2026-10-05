@@ -162,7 +162,18 @@ def cargar(path: Path) -> list[dict]:
 
 
 def menciona_mecanismo(texto: str) -> bool:
-    return any(re.search(p, texto) for p in MECANISMOS.values())
+    """Se compara SIN distinguir mayusculas, igual que el catalogo embebido en
+    colab/m1_finetune.ipynb (que compila con re.I).
+
+    Antes esta funcion comparaba con mayusculas significativas y el notebook no,
+    asi que la misma respuesta podia "nombrar una ruta" para M1 y no para la
+    puerta de calidad: dos cifras distintas de la misma propiedad. El caso
+    concreto eran los patrones escritos en minuscula ("... de tr[aá]nsito")
+    frente a la mayuscula natural de un nombre propio ("Secretaria de Transito",
+    40 respuestas del dataset); dos de ellas se contaban como consejo generico
+    aunque si daban el destino.
+    """
+    return any(re.search(p, texto, re.IGNORECASE) for p in MECANISMOS.values())
 
 
 def _shingles(texto: str, n: int = 4) -> set[str]:

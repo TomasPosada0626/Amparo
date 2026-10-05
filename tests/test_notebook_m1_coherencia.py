@@ -85,3 +85,20 @@ def test_el_patron_del_notebook_compila_y_reconoce_rutas_reales(fuente):
     # Consejo generico sin destino: no debe contar como ruta.
     for texto in ("revisa el contrato con calma", "reune toda la evidencia disponible"):
         assert not patron.search(texto), f"el patron cuenta como ruta un consejo generico: {texto!r}"
+
+
+def test_la_puerta_del_dataset_y_la_metrica_del_notebook_ignoran_mayusculas_igual():
+    """Las dos copias del catalogo deben comparar con el mismo criterio.
+
+    El notebook compila con re.I y la puerta de calidad lo hacia sin flags, asi
+    que "Secretaria de Transito" (mayuscula natural de un nombre propio) contaba
+    como ruta para la metrica de M1 y no para la puerta: la misma propiedad con
+    dos cifras. Mismo tipo de divergencia que el de las citas, pero en el
+    catalogo de mecanismos.
+    """
+    from tools.dataset_quality import menciona_mecanismo
+
+    for texto in ("acude a la Secretaria de Transito",
+                  "acude a la Secretaría de Tránsito",
+                  "ACUDE A LA SECRETARIA DE TRANSITO"):
+        assert menciona_mecanismo(texto), f"la puerta no reconoce la ruta en {texto!r}"

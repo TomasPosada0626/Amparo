@@ -13,8 +13,14 @@ from tools.evaluation import dataset
 #   - 1197/213, 0c4963b9...: reconstruccion del dataset (1410 ejemplos, 27
 #     categorias) documentada en data/dataset_src/GUIA.md. El split cambio
 #     porque cambiaron los datos, no la logica: stratified_split no se toco.
+#   - 1305/231, c60fdd30...: seis categorias nuevas de abstencion (126
+#     ejemplos, ids 1411-1536) para que el modelo aprenda a decir "no puedo
+#     verificarlo" en vez de inventar. Antes ninguna de las 1410 respuestas
+#     se abstenia explicitamente, y esa brecha era justo la que median los
+#     casos adversariales del eval set de M2. Otra vez: cambiaron los datos,
+#     no la logica de particion.
 GOLDEN_VAL_IDS_SHA256 = (
-    "0c4963b9f56170a244e2ff7d405742694cc7ae0abc168af1bb57a8fa4f831e1b"
+    "c60fdd3022ef369d9145217fdf1f9c51208263d9a5e92619d8a127f731a317e5"
 )
 
 
@@ -22,8 +28,8 @@ def test_stratified_split_matches_m1_golden_split():
     records = dataset.load_records()
     train, val = dataset.stratified_split(records)
 
-    assert len(train) == 1197
-    assert len(val) == 213
+    assert len(train) == 1305
+    assert len(val) == 231
 
     val_ids = sorted(r["id"] for r in val)
     digest = hashlib.sha256(",".join(str(i) for i in val_ids).encode()).hexdigest()

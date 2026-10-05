@@ -160,7 +160,7 @@ R: Ese es un cobro coactivo, no judicial. Pide a la DIAN copia del expediente y 
 
 P: Quiero ofrecer un bien para pagar la deuda y que me levanten el embargo.
 
-R: Formula la propuesta de dación en pago por escrito ante el juez del proceso ejecutivo, con el avalúo y el folio de matrícula del bien. Si el acreedor la acepta, el acuerdo se radica en el juzgado para terminar el proceso y levantar el embargo.
+R: Fórmula la propuesta de dación en pago por escrito ante el juez del proceso ejecutivo, con el avalúo y el folio de matrícula del bien. Si el acreedor la acepta, el acuerdo se radica en el juzgado para terminar el proceso y levantar el embargo.
 
 ## 487
 

@@ -4,7 +4,7 @@
 
 P: Un proveedor incumplio entrega en contrato empresarial.
 
-R: Verifica clausulas de incumplimiento, multas, clausula penal y solucion de controversias. Notifica formalmente mora, cuantifica perjuicios y define estrategia: negociacion, conciliacion o proceso judicial.
+R: Verifica cláusulas de incumplimiento, multas, cláusula penal y solución de controversias. Notifica formalmente mora, cuantifica perjuicios y define estrategia: negociación, conciliación o proceso judicial.
 
 ## 1221
 
@@ -16,7 +16,7 @@ R: Notifica la mora por escrito y cuantifica lo que te costó con facturas y ped
 
 P: Un cliente empresarial no me paga una factura vencida.
 
-R: Reune el contrato, la factura y cualquier soporte de la entrega o prestacion del servicio. Requiere el pago por escrito y, si no responde, evalua las vias de cobro disponibles, incluyendo la posible necesidad de conciliacion previa segun el monto.
+R: Reúne el contrato, la factura y cualquier soporte de la entrega o prestación del servicio. Requiere el pago por escrito y, si no responde, evalúa las vías de cobro disponibles, incluyendo la posible necesidad de conciliación previa según el monto.
 
 ## 1223
 
@@ -52,7 +52,7 @@ R: Lista cada obligación del manual que no cumplieron y requiérelos por escrit
 
 P: Mi proveedor subio los precios sin avisarme durante el contrato vigente.
 
-R: Revisa el contrato para verificar las condiciones pactadas sobre ajustes de precio. Si no se siguio el procedimiento acordado, puedes objetar el aumento y exigir que se respeten los precios originalmente pactados.
+R: Revisa el contrato para verificar las condiciones pactadas sobre ajustes de precio. Si no se siguió el procedimiento acordado, puedes objetar el aumento y exigir que se respeten los precios originalmente pactados.
 
 ## 1229
 
@@ -94,7 +94,7 @@ R: Exige por escrito que cese el uso de esa información. Si la aprovecharon par
 
 P: Tengo un contrato de arrendamiento de un local comercial con otra empresa y hay un conflicto.
 
-R: Revisa el contrato para identificar la naturaleza exacta del conflicto (canon, mantenimiento, uso). Notifica formalmente tu posicion y evalua la conciliacion prejudicial si no logran un acuerdo directo.
+R: Revisa el contrato para identificar la naturaleza exacta del conflicto (canon, mantenimiento, uso). Notifica formalmente tu posición y evalúa la conciliación prejudicial si no logran un acuerdo directo.
 
 ## 1236
 
@@ -304,4 +304,4 @@ R: Eso se decide en la asamblea o junta de socios, siguiendo los estatutos y los
 
 P: Tengo un conflicto empresarial complejo, que via legal deberia usar?
 
-R: Revisa el contrato involucrado para verificar si existe un mecanismo de resolucion de conflictos pactado (conciliacion, arbitraje, jurisdiccion ordinaria). Dada la complejidad de este tipo de conflictos, conviene reunir toda tu documentacion contractual antes de decidir la via mas adecuada para tu caso especifico.
+R: Revisa el contrato involucrado para verificar si existe un mecanismo de resolución de conflictos pactado (conciliación, arbitraje, jurisdicción ordinaria). Dada la complejidad de este tipo de conflictos, conviene reunir toda tu documentación contractual antes de decidir la vía mas adecuada para tu caso específico.

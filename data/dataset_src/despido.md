@@ -124,7 +124,7 @@ R: Depende de si lo publicado afecta realmente la relación laboral y de si te d
 
 P: Estoy en periodo de prueba y me despidieron sin explicacion.
 
-R: En periodo de prueba el contrato puede terminarse con más flexibilidad, pero igual deben pagarte lo trabajado, las prestaciones causadas y la seguridad social. Verifica en tu contrato cuánto duraba ese periodo: si ya había vencido, el despido se evalúa como cualquier otro.
+R: En periodo de prueba el contrato puede terminarse con más flexibilidad, pero igual deben pagarte lo trabajado, las prestaciones causadas y la seguridad social. Verifica en tu contrato cuánto duraba ese periodo: si ya había vencido, el despido se evalúa como cualquier otro. Si no te pagan lo causado, presenta una querella ante la Inspección del Trabajo.
 
 ## 180
 
@@ -292,7 +292,7 @@ R: Si el preaviso estaba pactado y no se respetó, puedes reclamar la compensaci
 
 P: Llevo mas de 20 anos en la empresa y me despidieron de un dia para otro.
 
-R: Tu antigüedad pesa en el cálculo de la indemnización y, si estás próximo a pensionarte, puede darte una protección especial frente al despido. Reúne contrato, historial de pagos y carta de despido, y consulta tu situación pensional antes de aceptar la liquidación.
+R: Tu antigüedad pesa en el cálculo de la indemnización y, si estás próximo a pensionarte, puede darte una protección especial frente al despido. Reúne contrato, historial de pagos y carta de despido, y consulta tu situación pensional en Colpensiones o en tu fondo de pensiones antes de aceptar la liquidación.
 
 ## 208
 

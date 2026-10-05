@@ -208,13 +208,13 @@ R: Pide la decisión motivada y mira qué prueba echaron de menos. Puedes interp
 
 P: Un competidor registro una marca parecida a la mia a proposito.
 
-R: Reune evidencia de tu uso previo y de la similitud entre ambos signos. Si consideras que hubo mala fe en ese registro, puedes evaluar acciones de nulidad o cancelacion del registro posterior.
+R: Reúne evidencia de tu uso previo y de la similitud entre ambos signos. Si consideras que hubo mala fe en ese registro, puedes evaluar acciones de nulidad o cancelación del registro posterior.
 
 ## 1055
 
 P: Alguien registro mi marca sin yo saberlo y de mala fe, que puedo hacer?
 
-R: Reune toda la evidencia de tu uso previo del signo (facturas, publicidad, redes sociales con fecha). Puedes presentar una accion de nulidad del registro alegando la mala fe de quien lo solicito.
+R: Reúne toda la evidencia de tu uso previo del signo (facturas, publicidad, redes sociales con fecha). Puedes presentar una acción de nulidad del registro alegando la mala fe de quien lo solicitó.
 
 ## 1056
 
@@ -244,7 +244,7 @@ R: Un signo que solo nombra el producto no se concede, porque todos los competid
 
 P: Quiero transferir mi marca a mis hijos dentro de una sucesion familiar.
 
-R: La marca es un activo que puede transmitirse por sucesion como cualquier otro bien. Incluye ese registro dentro del proceso de sucesion correspondiente para formalizar la transferencia a los herederos.
+R: La marca es un activo que puede transmitirse por sucesión como cualquier otro bien. Incluye ese registro dentro del proceso de sucesión correspondiente para formalizar la transferencia a los herederos.
 
 ## 1061
 

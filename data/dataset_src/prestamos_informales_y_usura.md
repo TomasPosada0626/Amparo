@@ -76,7 +76,7 @@ R: Saca copia del contrato y léelo con calma, de preferencia acompañado por un
 
 P: El prestamista me amenaza con quitarme mis bienes sin ningun proceso.
 
-R: Ningun acreedor puede quitarte bienes por su cuenta sin un proceso judicial correspondiente. Si te amenazan de esa forma, documenta la situacion y puedes acudir a la policia y presentar la denuncia respectiva.
+R: Ningún acreedor puede quitarte bienes por su cuenta sin un proceso judicial correspondiente. Si te amenazan de esa forma, documenta la situación y puedes acudir a la policía y presentar la denuncia respectiva.
 
 ## 1083
 
@@ -112,7 +112,7 @@ R: Pide la devolución de los cheques por escrito y revisa con tu banco si algun
 
 P: Pedi un prestamo por una aplicacion informal y las tasas son altisimas.
 
-R: Reune la informacion del prestamo (capturas de pantalla, terminos aceptados). Verifica si esa tasa supera los limites legales permitidos y, de ser asi, puedes poner la situacion en conocimiento de las autoridades de proteccion al consumidor financiero.
+R: Reúne la información del préstamo (capturas de pantalla, términos aceptados). Verifica si esa tasa supera los límites legales permitidos y, de ser así, puedes poner la situación en conocimiento de las autoridades de protección al consumidor financiero.
 
 ## 1089
 
@@ -202,7 +202,7 @@ R: No vayas: paga por transferencia o consignación, que deja comprobante, y av�
 
 P: El prestamista se presenta en mi casa a cobrar de forma agresiva.
 
-R: Documenta cada visita (fecha, testigos, comportamiento). Si sientes que tu seguridad esta en riesgo, puedes acudir a la policia, y este tipo de cobro agresivo puede ser puesto en conocimiento de las autoridades competentes.
+R: Documenta cada visita (fecha, testigos, comportamiento). Si sientes que tu seguridad esta en riesgo, puedes acudir a la policía, y este tipo de cobro agresivo puede ser puesto en conocimiento de las autoridades competentes.
 
 ## 1104
 
@@ -256,13 +256,13 @@ R: No necesariamente; un acuerdo privado puede tener validez sin notariar, aunqu
 
 P: El prestamista me amenaza con dañar mis pertenencias si no pago.
 
-R: Documenta esa amenaza (mensajes, testigos) y prioriza tu seguridad. Puedes acudir a la policia y presentar la denuncia correspondiente por ese tipo de amenaza.
+R: Documenta esa amenaza (mensajes, testigos) y prioriza tu seguridad. Puedes acudir a la policía y presentar la denuncia correspondiente por ese tipo de amenaza.
 
 ## 1113
 
 P: El prestamista que me presto dinero fallecio, a quien le pago ahora?
 
-R: La deuda en general pasa a formar parte de la sucesion del fallecido. Verifica quienes son los herederos o si hay un proceso de sucesion en curso para saber a quien corresponde realizar los pagos formalmente.
+R: La deuda en general pasa a formar parte de la sucesión del fallecido. Verifica quienes son los herederos o si hay un proceso de sucesión en curso para saber a quien corresponde realizar los pagos formalmente.
 
 ## 1114
 
@@ -286,7 +286,7 @@ R: Ninguna deuda toca la custodia de tus hijos: eso solo lo decide un juez de fa
 
 P: Me prestaron dinero y me estan cobrando comisiones que no entiendo.
 
-R: Solicita por escrito el detalle de cada comision aplicada y su justificacion. Si no hay una explicacion clara o no fueron acordadas inicialmente, puedes objetar esos cobros adicionales.
+R: Solicita por escrito el detalle de cada comisión aplicada y su justificación. Si no hay una explicación clara o no fueron acordadas inicialmente, puedes objetar esos cobros adicionales.
 
 ## 1118
 
@@ -304,4 +304,4 @@ R: Exige la cuenta de cobro detallada y compárala con los comprobantes de cada 
 
 P: No se a donde denunciar un caso de prestamo gota a gota.
 
-R: Puedes poner la situacion en conocimiento de las autoridades de policia o de las entidades encargadas de la proteccion al consumidor financiero, especialmente si hay amenazas o cobros que superan los limites legales de interes. Documenta toda la evidencia posible antes de presentar la denuncia.
+R: Puedes poner la situación en conocimiento de las autoridades de policía o de las entidades encargadas de la protección al consumidor financiero, especialmente si hay amenazas o cobros que superan los límites legales de interés. Documenta toda la evidencia posible antes de presentar la denuncia.

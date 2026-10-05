@@ -40,7 +40,7 @@ R: Puedes pedirle por escrito que ajuste esa exclusividad y, si se niega, llevar
 
 P: Firme un contrato con una clausula que me parece abusiva, la puedo anular?
 
-R: Identifica la clausula especifica y por que la consideras abusiva (desequilibrio injustificado entre las partes). Puedes plantear su nulidad o inaplicabilidad directamente con la otra parte o, de no haber acuerdo, evaluar la via judicial.
+R: Identifica la cláusula específica y por que la consideras abusiva (desequilibrio injustificado entre las partes). Puedes plantear su nulidad o inaplicabilidad directamente con la otra parte o, de no haber acuerdo, evaluar la vía judicial.
 
 ## 627
 
@@ -58,7 +58,7 @@ R: Mándale un cobro escrito con el monto y la fecha. Si existe un documento fir
 
 P: Le di un poder notarial a alguien y ahora quiero revocarlo.
 
-R: Puedes revocar un poder en general mediante otro documento formal ante notario, y conviene notificar a la persona afectada y a terceros relevantes. Verifica los pasos especificos con la notaria donde se otorgo el poder original.
+R: Puedes revocar un poder en general mediante otro documento formal ante notario, y conviene notificar a la persona afectada y a terceros relevantes. Verifica los pasos especificos con la notaría donde se otorgó el poder original.
 
 ## 630
 
@@ -226,7 +226,7 @@ R: Compara el texto de esas condiciones con la realidad y reúne lo que pruebe s
 
 P: Quiero demandar por incumplimiento de un contrato pero no se por donde empezar.
 
-R: Reune el contrato, evidencia del incumplimiento y de los perjuicios que te genero. Dependiendo del monto y tipo de contrato, puede existir un requisito de conciliacion prejudicial antes de acudir a un proceso judicial; verifica esto antes de continuar.
+R: Reúne el contrato, evidencia del incumplimiento y de los perjuicios que te generó. Dependiendo del monto y tipo de contrato, puede existir un requisito de conciliación prejudicial antes de acudir a un proceso judicial; verifica esto antes de continuar.
 
 ## 658
 
@@ -268,13 +268,13 @@ R: Pide la devolución por escrito, con lista y descripción del bien. Si se nie
 
 P: Me estan cobrando intereses de mora que nunca pactamos.
 
-R: Revisa el contrato para verificar si se pacto expresamente algun interes de mora. Si no hay pacto claro, puedes objetar ese cobro adicional por escrito.
+R: Revisa el contrato para verificar si se pactó expresamente algún interés de mora. Si no hay pacto claro, puedes objetar ese cobro adicional por escrito.
 
 ## 665
 
 P: Mi contrato tiene una clausula ambigua y cada uno la interpreta distinto.
 
-R: Reune cualquier comunicacion previa a la firma que ayude a aclarar la intencion real de las partes sobre esa clausula. Si no logran un acuerdo directo sobre su interpretacion, puede ser necesario un mecanismo de resolucion de conflictos (conciliacion o proceso judicial).
+R: Reúne cualquier comunicación previa a la firma que ayude a aclarar la intención real de las partes sobre esa cláusula. Si no logran un acuerdo directo sobre su interpretación, puede ser necesario un mecanismo de resolución de conflictos (conciliación o proceso judicial).
 
 ## 666
 

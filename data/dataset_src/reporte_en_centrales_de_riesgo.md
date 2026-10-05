@@ -4,19 +4,19 @@
 
 P: Me reportaron mal en central de riesgo, que hago?
 
-R: Presenta reclamacion por habeas data para solicitar actualizacion, rectificacion o supresion cuando proceda. Adjunta soportes de pago y estado de cuenta. Si no corrigen dentro del tramite legal, puedes acudir ante la autoridad competente y valorar acciones judiciales.
+R: Presenta reclamación por habeas data para solicitar actualización, rectificación o supresión cuando proceda. Adjunta soportes de pago y estado de cuenta. Si no corrigen dentro del trámite legal, puedes acudir ante la autoridad competente y valorar acciones judiciales.
 
 ## 61
 
 P: Ya pague la deuda pero sigo reportado en Datacredito.
 
-R: Presenta reclamacion de habeas data ante la entidad que reporto (la fuente de la informacion) solicitando la actualizacion, adjuntando el soporte de pago. Si no corrigen dentro del termino legal, puedes acudir ante la autoridad de proteccion de datos.
+R: Presenta reclamación de habeas data ante la entidad que reportó (la fuente de la información) solicitando la actualización, adjuntando el soporte de pago. Si no corrigen dentro del término legal, puedes acudir ante la autoridad de protección de datos.
 
 ## 62
 
 P: Me reportaron por una deuda que no reconozco.
 
-R: Esto puede indicar un error o una posible suplantacion. Presenta reclamacion formal solicitando el soporte del origen de la obligacion, y si no lo hay o hay indicios de fraude, considera tambien poner en conocimiento a las autoridades competentes.
+R: Esto puede indicar un error o una posible suplantación. Presenta reclamación formal solicitando el soporte del origen de la obligación, y si no lo hay o hay indicios de fraude, considera también poner en conocimiento a las autoridades competentes.
 
 ## 63
 
@@ -28,7 +28,7 @@ R: Pide a la entidad que reportó, y también a Datacrédito, el soporte con la 
 
 P: Era codeudor y me reportaron sin avisarme antes.
 
-R: En general debe informarse previamente al deudor y codeudores antes de reportarlos negativamente. Si no recibiste ese aviso, puedes presentar reclamacion de habeas data alegando la falta de notificacion previa.
+R: En general debe informarse previamente al deudor y codeudores antes de reportarlos negativamente. Si no recibiste ese aviso, puedes presentar reclamación de habeas data alegando la falta de notificación previa.
 
 ## 65
 
@@ -52,7 +52,7 @@ R: Guarda el número de radicación y la fecha del reclamo. Con esa constancia p
 
 P: Me reportaron por una tarjeta de credito que nunca pedi.
 
-R: Esto puede indicar suplantacion de identidad. Presenta reclamacion formal a la entidad financiera y a la central de riesgo, solicitando el retiro del reporte, y evalua tambien la denuncia correspondiente ante las autoridades.
+R: Esto puede indicar suplantación de identidad. Presenta reclamación formal a la entidad financiera y a la central de riesgo, solicitando el retiro del reporte, y evalúa también la denuncia correspondiente ante las autoridades.
 
 ## 69
 
@@ -64,7 +64,7 @@ R: Toma pantallazo de los dos registros y pide a Datacrédito y a la entidad que
 
 P: Quiero saber que informacion tiene la central de riesgo sobre mi.
 
-R: Tienes derecho a conocer, actualizar y rectificar tus datos personales. Puedes solicitar directamente a la central de riesgo un reporte completo de tu informacion para verificarla.
+R: Tienes derecho a conocer, actualizar y rectificar tus datos personales. Puedes solicitar directamente a la central de riesgo un reporte completo de tu información para verificarla.
 
 ## 271
 
@@ -88,19 +88,19 @@ R: Pide a la empresa de gas el detalle de la factura y el soporte del retiro del
 
 P: Cancele mi plan de celular y ahora la operadora me reporto por una deuda que no sabia que tenia.
 
-R: Solicita a la operadora el detalle del origen de esa deuda (clausulas de permanencia, equipos, etc.). Si no estas de acuerdo, presenta reclamacion formal solicitando el soporte antes de que el reporte se mantenga.
+R: Solicita a la operadora el detalle del origen de esa deuda (cláusulas de permanencia, equipos, etc.). Si no estas de acuerdo, presenta reclamación formal solicitando el soporte antes de que el reporte se mantenga.
 
 ## 275
 
 P: Me negaron un apartamento en arriendo por salir reportado.
 
-R: El reporte negativo puede influir en decisiones de terceros como propietarios. Si consideras que el reporte es incorrecto o desactualizado, presenta reclamacion de habeas data para corregirlo cuanto antes.
+R: El reporte negativo puede influir en decisiones de terceros como propietarios. Si consideras que el reporte es incorrecto o desactualizado, presenta reclamación de habeas data para corregirlo cuanto antes.
 
 ## 276
 
 P: Me negaron un trabajo porque revisaron mi reporte y sali con mora.
 
-R: Verifica si la entidad realmente esta autorizada a consultar tu informacion crediticia para fines de contratacion laboral. Si el reporte es incorrecto, presenta reclamacion de habeas data para corregirlo.
+R: Verifica si la entidad realmente esta autorizada a consultar tu información crediticia para fines de contratación laboral. Si el reporte es incorrecto, presenta reclamación de habeas data para corregirlo.
 
 ## 277
 
@@ -118,7 +118,7 @@ R: Solicita a Datacrédito y a TransUnion tu historia de crédito completa: tien
 
 P: Fui victima de suplantacion y me abrieron creditos a mi nombre sin saberlo.
 
-R: Presenta la denuncia correspondiente ante las autoridades y notifica de inmediato a las entidades financieras y a la central de riesgo sobre la suplantacion, solicitando el bloqueo y correccion de los reportes derivados del fraude.
+R: Presenta la denuncia correspondiente ante las autoridades y notifica de inmediato a las entidades financieras y a la central de riesgo sobre la suplantación, solicitando el bloqueo y corrección de los reportes derivados del fraude.
 
 ## 280
 
@@ -130,19 +130,19 @@ R: Cada codeudor radica su propio reclamo ante la entidad que reportó, con los 
 
 P: Me reportaron por una tarjeta de credito adicional que nunca use.
 
-R: Verifica si autorizaste esa tarjeta adicional y si tienes responsabilidad sobre su manejo. Si no fue asi, presenta reclamacion formal solicitando la verificacion del origen de la deuda.
+R: Verifica si autorizaste esa tarjeta adicional y si tienes responsabilidad sobre su manejo. Si no fue así, presenta reclamación formal solicitando la verificación del origen de la deuda.
 
 ## 282
 
 P: No puedo descargar mi propio reporte de la central de riesgo.
 
-R: Tienes derecho a acceder a tu informacion personal. Si tienes problemas tecnicos o de acceso, contacta directamente a la central de riesgo para solicitar el reporte por otro medio.
+R: Tienes derecho a acceder a tu información personal. Si tienes problemas técnicos o de acceso, contacta directamente a la central de riesgo para solicitar el reporte por otro medio.
 
 ## 283
 
 P: Fui fiador de un arriendo y me reportaron porque el arrendatario no pago.
 
-R: Revisa el contrato de fianza o codeudor para verificar el alcance de tu responsabilidad. Si consideras que el reporte no sigue el procedimiento correcto (por ejemplo, sin aviso previo), presenta reclamacion de habeas data.
+R: Revisa el contrato de fianza o codeudor para verificar el alcance de tu responsabilidad. Si consideras que el reporte no sigue el procedimiento correcto (por ejemplo, sin aviso previo), presenta reclamación de habeas data.
 
 ## 284
 
@@ -172,7 +172,7 @@ R: Lleva la constancia de admisión al proceso de insolvencia de persona natural
 
 P: Me estan cobrando por consultar mi propio reporte crediticio, eso es legal?
 
-R: Puede existir un numero de consultas gratuitas y otras que tengan costo, dependiendo del servicio. Verifica las condiciones especificas de la central de riesgo antes de decidir si el cobro corresponde a tu caso.
+R: Puede existir un número de consultas gratuitas y otras que tengan costo, dependiendo del servicio. Verifica las condiciones especificas de la central de riesgo antes de decidir si el cobro corresponde a tu caso.
 
 ## 289
 
@@ -184,19 +184,19 @@ R: Consigue por escrito la comunicación donde el banco reconoce el fraude y la 
 
 P: Gane un proceso legal contra el banco pero la central de riesgo no me quita el reporte.
 
-R: Reune la decision o resolucion a tu favor y presentala directamente ante la central de riesgo solicitando su cumplimiento. Si persisten sin corregir, puedes acudir ante la autoridad de proteccion de datos para exigir el cumplimiento.
+R: Reúne la decisión o resolución a tu favor y preséntala directamente ante la central de riesgo solicitando su cumplimiento. Si persisten sin corregir, puedes acudir ante la autoridad de protección de datos para exigir el cumplimiento.
 
 ## 291
 
 P: Me reportaron por un sobregiro que nunca autorice en mi cuenta.
 
-R: Solicita al banco el soporte y la autorizacion de ese sobregiro. Si no existe, presenta reclamacion formal ante el banco y la central de riesgo solicitando la correccion.
+R: Solicita al banco el soporte y la autorización de ese sobregiro. Si no existe, presenta reclamación formal ante el banco y la central de riesgo solicitando la corrección.
 
 ## 292
 
 P: Una empresa me reporto sin que yo tuviera contrato firmado con ellos.
 
-R: Solicita el soporte del contrato o la relacion que sustenta la deuda reportada. Si no existe, presenta reclamacion de habeas data alegando la falta de origen valido de la obligacion.
+R: Solicita el soporte del contrato o la relación que sustenta la deuda reportada. Si no existe, presenta reclamación de habeas data alegando la falta de origen válido de la obligación.
 
 ## 293
 
@@ -232,7 +232,7 @@ R: Avisa al banco de inmediato por un canal que deje constancia y presenta denun
 
 P: Siento que la central de riesgo comparte mi informacion con empresas sin que yo autorice.
 
-R: Tienes derecho a que tus datos personales se usen solo para las finalidades autorizadas. Si consideras que hay un uso indebido, presenta reclamacion formal solicitando informacion sobre a quienes se ha compartido tu informacion.
+R: Tienes derecho a que tus datos personales se usen solo para las finalidades autorizadas. Si consideras que hay un uso indebido, presenta reclamación formal solicitando información sobre a quienes se ha compartido tu información.
 
 ## 299
 
@@ -316,7 +316,7 @@ R: Exige a quien reportó el soporte del crédito y la autorización que diste p
 
 P: Mi reporte tiene mi direccion y telefono desactualizados.
 
-R: Solicita directamente la actualizacion de tus datos personales ante la entidad correspondiente o la central de riesgo. Mantener tus datos actualizados es parte de tu derecho de habeas data.
+R: Solicita directamente la actualización de tus datos personales ante la entidad correspondiente o la central de riesgo. Mantener tus datos actualizados es parte de tu derecho de habeas data.
 
 ## 313
 
@@ -334,7 +334,7 @@ R: No es para siempre: el dato negativo tiene un tiempo de permanencia que corre
 
 P: Quiero reclamar por un reporte pero no logro contactar a la entidad que me reporto.
 
-R: Documenta tus intentos de contacto (fechas, medios usados). Si no logras respuesta, puedes presentar tu reclamacion directamente ante la central de riesgo o ante la autoridad de proteccion de datos, informando esa dificultad.
+R: Documenta tus intentos de contacto (fechas, medios usados). Si no logras respuesta, puedes presentar tu reclamación directamente ante la central de riesgo o ante la autoridad de protección de datos, informando esa dificultad.
 
 ## 316
 
@@ -364,4 +364,4 @@ R: Documenta el daño concreto: la carta donde te negaron el crédito o el arrie
 
 P: No se si debo reclamar directamente al banco o a la central de riesgo por mi reporte.
 
-R: En general, la reclamacion inicial se dirige a la entidad que origino y reporto la informacion (la fuente), y si no la resuelve, puedes escalar ante la central de riesgo o la autoridad de proteccion de datos.
+R: En general, la reclamación inicial se dirige a la entidad que originó y reportó la información (la fuente), y si no la resuelve, puedes escalar ante la central de riesgo o la autoridad de protección de datos.
