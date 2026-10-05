@@ -5,6 +5,11 @@ private/
 AUDITORIA_PENDIENTES.md
 AUDITORIA_M1.md
 
+# Roadmaps de planeacion interna del equipo (reparto de tareas y fechas):
+# documentos de trabajo, no entregables. El patron cubre las versiones que
+# se vayan agregando, no solo el archivo de hoy.
+ROADMAP*.pdf
+
 # Borradores de la wiki (M2-M5): se editan localmente y solo se suben
 # a la wiki de GitHub cuando cada milestone este listo para entrega.
 wiki-drafts/
