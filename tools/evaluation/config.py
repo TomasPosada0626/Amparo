@@ -14,7 +14,12 @@ VAL_FRACTION = 0.15
 
 BASE_MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"
 
-MAX_NEW_TOKENS_GENERATION = 300
+# Respuestas del asistente. Era 300: el baseline escribe ~180 palabras con
+# listas y 159 de sus 213 respuestas quedaban cortadas a mitad de frase
+# (corrida M2 del 2026-10-02), lo que sesgaba la comparacion contra el. Con
+# 640 caben completas; el fine-tuned (~46 palabras) no cambia. El scorecard
+# reporta igual el % de respuestas cortadas de cada modelo.
+MAX_NEW_TOKENS_GENERATION = 640
 MAX_NEW_TOKENS_JUDGE = 200
 MAX_NEW_TOKENS_PAIRWISE_JUDGE = 100
 
