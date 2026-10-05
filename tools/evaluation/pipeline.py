@@ -113,6 +113,7 @@ def build_eval_rows(
             judge_composite=jscore.composite,
             judge_parse_ok=jscore.parse_ok,
             latency_s=gen.latency_s,
+            cortada=getattr(gen, "cortada", False),
         ))
     return rows
 
