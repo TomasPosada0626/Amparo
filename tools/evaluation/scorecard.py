@@ -263,7 +263,7 @@ def build_narrative(
         for label, por_tipo in eval_set.items():
             for tipo, r in por_tipo.items():
                 if r.get("aprobacion") is not None:
-                    textos.append(f"{label}/{tipo}: {round(100 * r['aprobacion'])}% "
+                    textos.append(f"{label}/{tipo}: cumple {round(100 * r['aprobacion'])}% "
                                   f"(n={r['n']}, con errores juridicos {round(100 * (r['con_errores_juridicos'] or 0))}%)")
         if textos:
             lines.append("Eval set contra su criterio -- " + "; ".join(textos) + ".")
@@ -362,18 +362,21 @@ def export_markdown(
         lines.append("")
         lines.append("Cada par se juzga dos veces, cambiando el orden. Se cuentan los veredictos.")
         lines.append("")
-        lines.append("| Juez | Gana baseline | Gana fine-tuned | Empate |")
-        lines.append("|---|---|---|---|")
+        lines.append("| Juez | Gana baseline | Gana fine-tuned | Empate | Sin veredicto |")
+        lines.append("|---|---|---|---|---|")
         for juez, conteo in ganadores.items():
             lines.append(f"| {juez} | {conteo.get('baseline', 0)} | {conteo.get('fine_tuned', 0)} | "
-                         f"{conteo.get('empate', 0)} |")
+                         f"{conteo.get('empate', 0)} | {conteo.get('sin_veredicto', 0)} |")
         lines.append("")
     if eval_set:
         lines.append("## Eval set propio, contra su criterio")
         lines.append("")
-        lines.append("| Modelo | Tipo | N | Cumple | Parcial | No cumple | Aprobación [IC 95 %] | "
-                     "Con errores jurídicos | Con citas numeradas |")
-        lines.append("|---|---|---|---|---|---|---|---|---|")
+        lines.append("Aprobación = proporción de casos que cumplen el criterio completo (IC de Wilson). "
+                     "Puntaje medio: cumple 1, parcial 0.5. Los casos sin veredicto del juez no entran.")
+        lines.append("")
+        lines.append("| Modelo | Tipo | N | Cumple | Parcial | No cumple | Sin veredicto | "
+                     "Aprobación [IC 95 %] | Puntaje medio | Con errores jurídicos | Con citas numeradas |")
+        lines.append("|---|---|---|---|---|---|---|---|---|---|---|")
         for label, por_tipo in eval_set.items():
             for tipo, r in por_tipo.items():
                 ic = r.get("aprobacion_ic95")
@@ -382,7 +385,8 @@ def export_markdown(
                 err = (f"{round(100 * r['con_errores_juridicos'])}%"
                        if r.get("con_errores_juridicos") is not None else "—")
                 lines.append(f"| {label} | {tipo} | {r['n']} | {r['cumple']} | {r['parcial']} | "
-                             f"{r['no_cumple']} | {apr} | {err} | {r['con_citas_numeradas']} |")
+                             f"{r['no_cumple']} | {r.get('sin_veredicto', 0)} | {apr} | "
+                             f"{r.get('puntaje_medio', '—')} | {err} | {r['con_citas_numeradas']} |")
         lines.append("")
     lines.append("## Resumen por categoría")
     lines.append("")
@@ -460,6 +464,11 @@ def export_csv(path: Path, rows: list[EvalRow]) -> None:
         writer.writeheader()
         for row in rows:
             writer.writerow({**asdict(row), **{k: getattr(row, k) for k in extras}})
+
+
+def csv_tiene_columna(path: Path, columna: str) -> bool:
+    with open(path, encoding="utf-8") as f:
+        return columna in next(csv.reader(f), [])
 
 
 def load_csv(path: Path) -> list[EvalRow]:

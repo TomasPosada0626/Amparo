@@ -50,7 +50,13 @@ def load_checkpoint(
             line = line.strip()
             if not line:
                 continue
-            entry = json.loads(line)
+            try:
+                entry = json.loads(line)
+            except json.JSONDecodeError:
+                # Linea cortada (Colab se desconecto mientras escribia): se
+                # ignora y ese item se vuelve a calcular.
+                print(f"[{log_prefix}] checkpoint: linea ilegible ignorada en {path}")
+                continue
             done[entry["id"]] = entry
     if huellas is None:
         return done

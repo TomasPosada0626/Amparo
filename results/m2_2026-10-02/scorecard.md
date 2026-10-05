@@ -50,9 +50,9 @@ Sesgos: position_bias_flip_rate_pct=21.4; position_bias_n_pairs=30
 
 Cada par se juzga dos veces, cambiando el orden. Se cuentan los veredictos.
 
-| Juez | Gana baseline | Gana fine-tuned | Empate |
-|---|---|---|---|
-| Qwen2.5-7B (juez local, mismo modelo que el baseline) | 50 | 8 | 2 |
+| Juez | Gana baseline | Gana fine-tuned | Empate | Sin veredicto |
+|---|---|---|---|---|
+| Qwen2.5-7B (juez local, mismo modelo que el baseline) | 50 | 8 | 2 | 0 |
 
 ## Resumen por categoría
 

@@ -68,9 +68,8 @@ class PositionBiasReport:
         counts: dict[str, int] = {}
         for d in self.details:
             for key in ("verdict_normal", "verdict_swapped"):
-                w = d.get(key)
-                if w:
-                    counts[w] = counts.get(w, 0) + 1
+                w = d.get(key) or "sin_veredicto"   # sin respuesta o ilegible: se cuenta, no se esconde
+                counts[w] = counts.get(w, 0) + 1
         return counts
 
 

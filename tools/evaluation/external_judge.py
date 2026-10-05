@@ -139,7 +139,7 @@ def score_batch(
             score = JudgeScore(**sin_metadatos(done[row.id]))
         else:
             score = score_response(row.query, row.expected, row.generated)
-            if score.raw_output.strip():   # sin respuesta de Groq (cupo, red): se reintenta al retomar
+            if score.parse_ok:   # sin respuesta de Groq (cupo, red) o ilegible: se reintenta al retomar
                 append_checkpoint(checkpoint_path, {"id": row.id, "huella": huellas[row.id], **score.__dict__})
         scores.append(score)
         if progress_every and (i % progress_every == 0 or i == total):

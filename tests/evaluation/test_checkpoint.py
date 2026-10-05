@@ -163,3 +163,19 @@ def test_juez_externo_no_guarda_las_llamadas_sin_respuesta(tmp_path, monkeypatch
     monkeypatch.setattr(external_judge, "call_groq", lambda s, u, m: "")
     external_judge.score_batch([_Fila(1, "q", "ref", "resp")], progress_every=0, checkpoint_path=path)
     assert not path.exists()
+
+
+def test_linea_cortada_del_checkpoint_se_ignora(tmp_path):
+    path = tmp_path / "c.jsonl"
+    append_checkpoint(path, {"id": 1, "huella": huella("a")})
+    with open(path, "a", encoding="utf-8") as f:
+        f.write('{"id": 2, "huel')          # Colab se desconecto escribiendo
+    assert set(load_checkpoint(path, {1: huella("a"), 2: huella("b")})) == {1}
+
+
+def test_winner_counts_cuenta_los_pares_sin_veredicto():
+    from tools.evaluation.bias import PositionBiasReport
+
+    r = PositionBiasReport(2, 0, 1, 0.0, [{"id": 1, "verdict_normal": "baseline", "verdict_swapped": None},
+                                           {"id": 2, "verdict_normal": "baseline", "verdict_swapped": "baseline"}])
+    assert r.winner_counts() == {"baseline": 3, "sin_veredicto": 1}

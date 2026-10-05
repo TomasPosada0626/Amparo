@@ -49,7 +49,7 @@ def test_narrativa_dice_lo_que_empeora_y_lo_trivial(tmp_path):
     texto = scorecard.build_narrative(sums, {}, n_val=40, comparacion=comp, ganadores=ganadores, eval_set=eval_set)
     assert "EMPEORA" in texto and "correccion juridica" in texto
     assert "Respuestas cortadas" in texto and "baseline 75.0%" in texto
-    assert "baseline 50" in texto and "fine_tuned/adversarial: 50%" in texto
+    assert "baseline 50" in texto and "fine_tuned/adversarial: cumple 50%" in texto
 
     ruta = tmp_path / "scorecard.md"
     scorecard.export_markdown(ruta, sums, {}, texto, {"position_bias_flip_rate_pct": 21.4},
@@ -98,3 +98,14 @@ def test_elegir_ejemplos_trae_todos_los_adversariales_y_gold_reproducibles():
 def test_parece_cortada():
     assert scorecard.parece_cortada("1. **Revisar el contrato**: Verifica si")
     assert not scorecard.parece_cortada("Reclama por escrito.")
+
+
+def test_reanalizar_respeta_la_columna_cortada_real(tmp_path):
+    """Una corrida nueva sin respuestas cortadas no debe pasar a la heuristica."""
+    rows = corrida()
+    for r in rows:
+        r.cortada = False
+        r.generated = r.generated + " 1."    # termina en algo que la heuristica no confunde
+    ruta = tmp_path / "metricas_por_registro.csv"
+    scorecard.export_csv(ruta, rows)
+    assert scorecard.csv_tiene_columna(ruta, "cortada")

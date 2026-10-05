@@ -163,7 +163,7 @@ def evaluar_contra_criterio(
                               build_criterio_prompt(g.query, rec["criterio"], rec["tipo"], g.generated),
                               max_tokens)
             veredicto, errores, justificacion, ok = parse_criterio_output(raw)
-            if raw.strip():   # sin respuesta (cupo, red): no se guarda, se reintenta al retomar
+            if ok:   # sin respuesta (cupo, red) o ilegible: no se guarda, se reintenta al retomar
                 append_checkpoint(checkpoint_path, {
                     "id": g.id, "huella": huellas[g.id], "veredicto": veredicto,
                     "errores_juridicos": errores, "justificacion": justificacion,
@@ -179,9 +179,10 @@ def evaluar_contra_criterio(
 
 
 def resumen(veredictos: Sequence[VeredictoCriterio]) -> dict:
-    """Por modelo (label) y tipo de caso: conteos, tasa de aprobacion (cumple
-    = 1, parcial = 0.5) con IC de Wilson, respuestas con errores juridicos y
-    con citas numeradas. Los casos sin veredicto se cuentan aparte."""
+    """Por modelo (label) y tipo de caso: conteos; aprobacion = proporcion de
+    "cumple" con IC de Wilson; puntaje_medio (cumple 1, parcial 0.5) sin IC;
+    respuestas con errores juridicos y con citas numeradas. Los casos sin
+    veredicto se cuentan aparte (sin_veredicto) y no entran a las tasas."""
     grupos: dict[tuple[str, str], list[VeredictoCriterio]] = {}
     for v in veredictos:
         grupos.setdefault((v.label, v.tipo), []).append(v)
@@ -190,17 +191,19 @@ def resumen(veredictos: Sequence[VeredictoCriterio]) -> dict:
         validos = [v for v in vs if v.veredicto]
         conteo = {k: sum(1 for v in validos if v.veredicto == k) for k in VEREDICTOS}
         n = len(validos)
-        tasa = proporcion(sum(v.puntaje for v in validos), n)
+        tasa = proporcion(conteo["cumple"], n)
         con_error = proporcion(sum(1 for v in validos if v.errores_juridicos), n)
         salida.setdefault(label, {})[tipo] = {
             "n": n,
+            "n_total": len(vs),
             "sin_veredicto": len(vs) - n,
             **conteo,
             "aprobacion": tasa.valor if tasa else None,
             "aprobacion_ic95": [tasa.bajo, tasa.alto] if tasa else None,
+            "puntaje_medio": round(sum(v.puntaje for v in validos) / n, 4) if n else None,
             "con_errores_juridicos": con_error.valor if con_error else None,
             "errores_juridicos_total": sum(len(v.errores_juridicos) for v in validos),
-            "con_citas_numeradas": sum(1 for v in vs if v.n_citas),
+            "con_citas_numeradas": sum(1 for v in vs if v.n_citas),   # sobre n_total
         }
     return salida
 

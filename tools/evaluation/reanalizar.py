@@ -32,15 +32,17 @@ def _ganadores(path: Path) -> dict:
     conteo: dict[str, int] = {}
     for d in detalles:
         for k in ("verdict_normal", "verdict_swapped"):
-            if d.get(k):
-                conteo[d[k]] = conteo.get(d[k], 0) + 1
+            w = d.get(k) or "sin_veredicto"
+            conteo[w] = conteo.get(w, 0) + 1
     return conteo
 
 
 def reanalizar(run_dir: Path, out: Path, incluir_groq: bool = False, notas_extra: list[str] | None = None) -> Path:
     out.mkdir(parents=True, exist_ok=True)
     rows = scorecard.load_csv(run_dir / "metricas_por_registro.csv")
-    if not any(r.cortada for r in rows):           # corrida anterior a la columna `cortada`
+    if not scorecard.csv_tiene_columna(run_dir / "metricas_por_registro.csv", "cortada"):
+        # Corrida anterior al conteo de tokens: se estima por puntuacion final.
+        # El scorecard lo dice en sus notas; en las corridas nuevas se usa el dato real.
         for r in rows:
             r.cortada = scorecard.parece_cortada(r.generated)
     manifest = json.loads((run_dir / "run_manifest.json").read_text(encoding="utf-8"))
