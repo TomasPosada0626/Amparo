@@ -4,7 +4,7 @@
 
 P: Un proveedor incumplio entrega en contrato empresarial.
 
-R: Verifica cláusulas de incumplimiento, multas, cláusula penal y solución de controversias. Notifica formalmente mora, cuantifica perjuicios y define estrategia: negociación, conciliación o proceso judicial.
+R: Verifica en el contrato las cláusulas de incumplimiento, multas, cláusula penal y solución de controversias. Requiere por escrito el cumplimiento y cuantifica los perjuicios. Luego define la vía: negociación, conciliación en un centro de conciliación o demanda. Reúne el contrato, las órdenes de compra, las facturas y los correos donde conste la mora.
 
 ## 1221
 

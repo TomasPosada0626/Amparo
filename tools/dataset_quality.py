@@ -152,7 +152,10 @@ AYUDA_INMEDIATA = re.compile(
     r"|[Dd]efensor[ií]a del [Pp]ueblo|[Pp]ersoner[ií]a|[Ll][ií]nea 155",
 )
 
-MIN_PALABRAS, MAX_PALABRAS = 15, 75
+# El mismo rango que pide data/dataset_src/GUIA.md. Era 15-75 mientras la
+# guia pedia 25-60: dos contratos para la misma propiedad, asi que una
+# respuesta de 20 palabras pasaba la puerta incumpliendo la guia.
+MIN_PALABRAS, MAX_PALABRAS = 25, 60
 SOLAPAMIENTO_MAX = 0.5  # jaccard de 4-gramas entre respuestas de una misma categoria
 
 

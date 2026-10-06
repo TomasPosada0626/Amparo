@@ -124,7 +124,7 @@ R: Depende del centro: los consultorios jurídicos de universidades y las Casas 
 
 P: Puedo hacer la conciliacion por videollamada?
 
-R: Algunos centros de conciliación ofrecen la modalidad virtual. Verifica directamente con el centro específico si tienen esa opción disponible para tu caso.
+R: Varios centros de conciliación atienden por videollamada, pero no todos y no para todo tipo de caso. Confírmalo directamente con el centro donde piensas radicar y pregunta cómo se firma el acta a distancia. Ten a mano tu documento, los datos de la otra parte y los soportes de lo que vas a reclamar.
 
 ## 1141
 

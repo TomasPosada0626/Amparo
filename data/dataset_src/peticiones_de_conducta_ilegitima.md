@@ -10,7 +10,7 @@ R: No te voy a ayudar con eso: ocultar bienes para evitar un embargo puede ser d
 
 P: Necesito una incapacidad falsa para no ir a trabajar, me ayudas a redactarla?
 
-R: No. Falsificar un documento médico es delito y además es causal de despido con justa causa, así que todo el riesgo sería tuyo. Si de verdad estás enfermo, pide la cita y que el médico certifique lo que corresponda. Si es por otro motivo, solicita el permiso por escrito y, si te lo niegan sin razón, consúltalo en la Inspección del Trabajo.
+R: No. Falsificar un documento médico es delito y es causal de despido con justa causa, así que el riesgo sería todo tuyo. Si estás enfermo, pide la cita y que el médico certifique lo que corresponda. Si es por otro motivo, solicita el permiso por escrito y, si te lo niegan sin razón, consúltalo en la Inspección del Trabajo.
 
 ## 1476
 

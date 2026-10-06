@@ -1,100 +1,78 @@
-"""El notebook de M1 lleva copiado el catalogo de rutas legales; este test lo ancla.
+"""El notebook de M1 no debe llevar copias de las metricas: debe importarlas.
 
-El notebook corre en Colab, donde no puede importar `tools/`, asi que el catalogo
-de `tools.dataset_quality.MECANISMOS` va embebido en sus celdas. Esa copia ya se
-desincronizo una vez con consecuencias reales: la version del notebook estaba
-recortada (le faltaban "Secretaria de Transito", "apelar", SIMIT, Colpensiones...)
-y marcaba como "no nombra ruta legal" respuestas que si la nombraban, subestimando
-al modelo en la comparacion baseline vs. afinado.
+Historia de por que existe este test. El catalogo de rutas legales vivia
+copiado dentro del notebook, porque M1 leia el dataset de Drive y no tenia el
+repo disponible para importar nada. Esa copia se desincronizo con consecuencias
+reales: la version del notebook estaba recortada (le faltaban "Secretaria de
+Transito", "apelar", SIMIT, Colpensiones...) y marcaba como "no nombra ruta
+legal" respuestas que si la nombraban, subestimando al modelo. El fallo era
+silencioso: el notebook corria sin errores y producia una cifra creible y
+equivocada. Lo mismo paso con la definicion de "cita inventada", que llego a
+tener tres versiones distintas entre M1, las puertas del dataset y M2.
 
-El fallo era silencioso -- el notebook corria sin errores y producia una cifra
-creible pero equivocada -- asi que se vigila con una prueba en vez de con
-disciplina al editar.
+La solucion de fondo fue quitar la causa, no vigilar el sintoma: el notebook
+clona el repo e importa cada metrica de tools/. Por eso este test ya no compara
+dos copias -- comprueba que no haya una segunda copia que comparar.
 """
 from __future__ import annotations
 
 import json
-import re
 from pathlib import Path
-
-import pytest
-
-from tools.dataset_quality import MECANISMOS
-from tools.evaluation.domain_metric import CITATION_PATTERNS
 
 NOTEBOOK = Path(__file__).resolve().parents[1] / "colab" / "m1_finetune.ipynb"
 
 
-def _celdas_con_catalogo() -> list[str]:
+def _codigo() -> str:
     nb = json.loads(NOTEBOOK.read_text(encoding="utf-8"))
-    return [
-        "".join(c["source"])
-        for c in nb["cells"]
-        if c["cell_type"] == "code" and "MECANISMO = re.compile(" in "".join(c["source"])
-    ]
-
-
-def _patron_embebido(fuente: str) -> str:
-    m = re.search(r'MECANISMO = re\.compile\(\s*r"""(.*?)"""', fuente, re.S)
-    assert m, "no se pudo extraer el patron MECANISMO de la celda"
-    return m.group(1)
-
-
-def test_el_notebook_lleva_el_catalogo_embebido():
-    assert _celdas_con_catalogo(), (
-        "ninguna celda del notebook define MECANISMO: si se renombro, actualiza este test"
+    return "\n".join(
+        "".join(c["source"]) for c in nb["cells"] if c["cell_type"] == "code"
     )
 
 
-@pytest.mark.parametrize("fuente", _celdas_con_catalogo())
-def test_el_catalogo_del_notebook_no_se_desincroniza_del_repo(fuente):
-    esperado = "|".join(sorted(set(MECANISMOS.values())))
-    assert _patron_embebido(fuente) == esperado, (
-        "El catalogo embebido en el notebook ya no coincide con "
-        "tools.dataset_quality.MECANISMOS. Regeneralo desde el catalogo en vez de "
-        "editarlo a mano, o la medicion del notebook dejara de ser comparable."
+def test_el_notebook_clona_el_repo():
+    """Sin el clone no puede importar tools/, y volveria a necesitar copias."""
+    codigo = _codigo()
+    assert "git clone" in codigo and "Amparo.git" in codigo, (
+        "el notebook ya no clona el repo: sin eso no puede importar las metricas "
+        "y habria que volver a copiarlas dentro, que es el bug que esto evita"
     )
 
 
-@pytest.mark.parametrize("fuente", _celdas_con_catalogo())
-def test_la_definicion_de_cita_es_la_misma_que_mide_m2(fuente):
-    """M1 y M2 deben medir "cita inventada" con la misma regla.
-
-    Tenian definiciones distintas (una exigia 2-4 digitos tras "Ley", la otra
-    cualquier numero; una reconocia sentencias SU y resoluciones, la otra no),
-    asi que sus cifras de citas inventadas no eran comparables entre si aunque
-    midieran lo mismo en principio.
-    """
-    m = re.search(r'CITA_NO_VERIFICABLE = re\.compile\(\s*r"""(.*?)"""', fuente, re.S)
-    assert m, "no se pudo extraer CITA_NO_VERIFICABLE de la celda"
-    esperado = "|".join(p.pattern for p in CITATION_PATTERNS.values())
-    assert m.group(1) == esperado, (
-        "La definicion de cita del notebook ya no coincide con "
-        "tools.evaluation.domain_metric.CITATION_PATTERNS, que es la que usa M2."
-    )
+def test_el_notebook_importa_las_metricas_del_repo():
+    codigo = _codigo()
+    for importacion in (
+        "from tools.dataset_quality import menciona_mecanismo",
+        "from tools.evaluation.domain_metric import has_invented_citation",
+        "from tools.evaluation.entity_metric import find_fabricated_entities",
+    ):
+        assert importacion in codigo, f"el notebook ya no importa: {importacion}"
 
 
-@pytest.mark.parametrize("fuente", _celdas_con_catalogo())
-def test_el_patron_del_notebook_compila_y_reconoce_rutas_reales(fuente):
-    patron = re.compile(_patron_embebido(fuente), re.I)
-    # Casos que la version recortada fallaba, por los que existe este test.
-    for texto in ("puedes apelar la sancion ante la Secretaria de Transito",
-                  "consulta tus comparendos en el SIMIT",
-                  "reclama ante Colpensiones"):
-        assert patron.search(texto), f"el patron no reconoce una ruta real: {texto!r}"
-    # Consejo generico sin destino: no debe contar como ruta.
-    for texto in ("revisa el contrato con calma", "reune toda la evidencia disponible"):
-        assert not patron.search(texto), f"el patron cuenta como ruta un consejo generico: {texto!r}"
+def test_el_notebook_no_redefine_las_metricas_que_ya_importa():
+    """Una definicion propia dentro del notebook es la segunda copia que se
+    desincroniza. Si alguna vuelve a aparecer, este test lo dice."""
+    codigo = _codigo()
+    for copia in (
+        "MECANISMO = re.compile",
+        "CITA_NO_VERIFICABLE = re.compile",
+        "MECANISMOS = {",
+        "CITATION_PATTERNS = {",
+        "ENTIDADES_REALES = ",
+    ):
+        assert copia not in codigo, (
+            f"el notebook volvio a definir una metrica por su cuenta ({copia!r}). "
+            "Importala de tools/ en vez de copiarla: las dos copias se "
+            "desincronizan y producen cifras creibles y equivocadas."
+        )
 
 
-def test_la_puerta_del_dataset_y_la_metrica_del_notebook_ignoran_mayusculas_igual():
-    """Las dos copias del catalogo deben comparar con el mismo criterio.
+def test_la_metrica_de_ruta_ignora_mayusculas():
+    """"Secretaria de Transito" es un nombre propio y se escribe con mayuscula.
 
-    El notebook compila con re.I y la puerta de calidad lo hacia sin flags, asi
-    que "Secretaria de Transito" (mayuscula natural de un nombre propio) contaba
-    como ruta para la metrica de M1 y no para la puerta: la misma propiedad con
-    dos cifras. Mismo tipo de divergencia que el de las citas, pero en el
-    catalogo de mecanismos.
+    Cuando la puerta comparaba con mayusculas significativas y el notebook no,
+    la misma respuesta nombraba una ruta para M1 y no para la puerta: la misma
+    propiedad con dos cifras. Ahora hay una sola funcion, y esta es la propiedad
+    que tiene que cumplir.
     """
     from tools.dataset_quality import menciona_mecanismo
 
@@ -102,3 +80,70 @@ def test_la_puerta_del_dataset_y_la_metrica_del_notebook_ignoran_mayusculas_igua
                   "acude a la Secretaría de Tránsito",
                   "ACUDE A LA SECRETARIA DE TRANSITO"):
         assert menciona_mecanismo(texto), f"la puerta no reconoce la ruta en {texto!r}"
+    for texto in ("revisa el contrato con calma", "reune toda la evidencia disponible"):
+        assert not menciona_mecanismo(texto), (
+            f"cuenta como ruta un consejo generico sin destino: {texto!r}"
+        )
+
+
+def test_el_notebook_no_vuelve_a_la_similitud_lexica():
+    """difflib daba 3.2 contra 6.0 sobre 100 y no distingue una respuesta
+    correcta de una incorrecta. La comparacion contra la referencia la hace M2
+    con BLEU/ROUGE/BERTScore sobre el mismo split; duplicarla aqui era otra
+    cifra de la misma propiedad."""
+    nb = json.loads(NOTEBOOK.read_text(encoding="utf-8"))
+    for celda in nb["cells"]:
+        if celda["cell_type"] != "code":
+            continue
+        for linea in "".join(celda["source"]).splitlines():
+            if linea.lstrip().startswith("#"):
+                continue  # los comentarios explican por que se quito
+            assert "difflib" not in linea and "similarity_pct" not in linea, (
+                f"volvio la similitud lexica al notebook: {linea.strip()!r}"
+            )
+
+
+def test_la_evaluacion_persiste_cada_ejemplo_y_valida_el_checkpoint():
+    """Con 900 tokens la evaluacion toma horas; sin escritura incremental una
+    desconexion de Colab borra la corrida. Y el resume necesita sus guardas: en
+    Drive quedan checkpoints de corridas anteriores."""
+    codigo = _codigo()
+    assert "def evaluate(model, val_set, label: str, checkpoint: str)" in codigo
+    assert "'a', encoding='utf-8'" in codigo, "la evaluacion ya no hace append incremental"
+    for guarda in ("es de otra corrida", "ids distintos a los esperados",
+                   "es de un esquema anterior"):
+        assert guarda in codigo, f"falta la guarda del checkpoint: {guarda!r}"
+
+
+def test_la_perdida_cae_solo_sobre_la_respuesta():
+    """El 68% del gradiente se gastaba en tokens que el modelo nunca debe
+    generar, y el 60% era un system prompt identico en los 1536 ejemplos."""
+    codigo = _codigo()
+    assert "def a_prompt_completion" in codigo, (
+        "el entrenamiento ya no usa formato prompt/completion: sin eso la perdida "
+        "vuelve a incluir el system prompt y la pregunta"
+    )
+    # Solo lineas de codigo: los comentarios mencionan dataset_text_field
+    # justamente para explicar por que ya no se usa.
+    efectivo = [l for l in codigo.splitlines() if not l.lstrip().startswith("#")]
+    assert not any("dataset_text_field" in l for l in efectivo), (
+        "volvio dataset_text_field: eso entrena sobre el texto completo"
+    )
+    assert "_ignorados > _aprendidos" in codigo, (
+        "falta la verificacion del enmascarado, que es lo unico que delata que "
+        "TRL no reconocio el formato (el notebook corre igual, sin un solo error)"
+    )
+
+
+def test_el_checkpoint_se_elige_con_un_dev_que_no_es_la_validacion():
+    codigo = _codigo()
+    assert "DEV_FRACTION" in codigo and "dev_records" in codigo
+    assert "eval_dataset=dev_dataset" in codigo, (
+        "el trainer no evalua contra el dev: sin eso no hay forma de ver "
+        "sobreajuste ni de justificar el numero de epocas"
+    )
+    assert "load_best_model_at_end=True" in codigo
+    assert "eval_dataset=val" not in codigo, (
+        "la validacion de 231 no puede usarse para elegir el checkpoint: si se "
+        "elige mirandola, deja de ser held-out y el reporte queda contaminado"
+    )

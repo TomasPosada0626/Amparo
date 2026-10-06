@@ -256,7 +256,7 @@ R: No necesariamente; un acuerdo privado puede tener validez sin notariar, aunqu
 
 P: El prestamista me amenaza con dañar mis pertenencias si no pago.
 
-R: Documenta esa amenaza (mensajes, testigos) y prioriza tu seguridad. Puedes acudir a la policía y presentar la denuncia correspondiente por ese tipo de amenaza.
+R: Lo primero es tu seguridad: si el riesgo es inmediato llama a la Línea 123. Amenazar con dañar tus cosas para cobrarte es un delito, aparte de la deuda. Denúncialo en la Fiscalía con los mensajes, las grabaciones y los nombres de testigos, y guarda el comprobante de todo lo que ya le hayas pagado.
 
 ## 1113
 
