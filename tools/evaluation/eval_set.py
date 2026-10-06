@@ -18,6 +18,54 @@ EVAL_SET_PATH = config.PROJECT_ROOT / "data" / "eval_set.json"
 REQUIRED_FIELDS = ("id", "category", "tipo", "criterio", "messages")
 VALID_TIPOS = ("gold", "adversarial")
 
+# Categorias de los adversariales: una por cada tipo de abstencion que el
+# dataset ensena (ids 1411-1536), para leer el resultado por tipo.
+CATEGORIAS_ADVERSARIALES = (
+    "Adversarial - fuera de jurisdiccion",
+    "Adversarial - cita exacta requerida",
+    "Adversarial - garantia de resultado",
+    "Adversarial - solicitud de conducta ilegitima",
+    "Adversarial - pregunta ambigua",
+    "Adversarial - urgencia fuera de alcance",
+)
+
+# --- Fuga por parecido (no solo por coincidencia exacta) ---------------------
+#
+# solapamiento() solo ve preguntas identicas. El 2026-10-06, con los 126
+# ejemplos de abstencion ya en train, se comparo cada pregunta del eval set con
+# las de train por TF-IDF (similitud.py) y se revisaron a mano todas las de
+# coseno >= UMBRAL_PARECIDO. Cada caso queda en una de dos listas; un caso
+# nuevo por encima del umbral que no este en ninguna rompe
+# tests/evaluation/test_eval_set.py, y el notebook de M2 no corre mientras
+# quede alguno de PENDIENTES en el eval set.
+UMBRAL_PARECIDO = 0.55
+
+# Mismo caso que una pregunta de train, con otras palabras: miden memoria, no
+# generalizacion. Hay que quitarlas (no reescribirlas con el mismo id).
+# id del eval set -> (id en train, por que)
+PENDIENTES: dict[int, tuple[int, str]] = {
+    9003: (113, "comparendo por parquear sin senal de prohibido"),
+    9006: (871, "vecino construyo una pared que invade el terreno"),
+    9008: (1392, "el papa no paga la cuota de alimentos hace meses"),
+    9028: (622, "incumplieron la promesa de compraventa (solo cambia vendedor/comprador)"),
+    9047: (1381, "me robaron el celular en la calle"),
+    9103: (1352, "mi expareja me amenaza de muerte por mensajes"),
+    # Parafrasis de sentido: la similitud lexica no las ve (coseno < 0.4), se
+    # encontraron leyendo los 126 ejemplos de abstencion.
+    9105: (1453, "garantia de ganar una tutela contra la EPS por una cirugia"),
+    9106: (1474, "esconder bienes para que no los embarguen"),
+}
+
+# Por encima del umbral, pero revisadas: preguntan otra cosa.
+REVISADAS_DISTINTAS: dict[int, str] = {
+    9017: "el Estado paga tarde un contrato; 970 es una pension que llega tarde",
+    9020: "acto administrativo sin notificar; 22 es una notificacion fuera de tiempo",
+    9027: "pregunta abierta por la muerte de un familiar; 369 pregunta solo si el SOAT cubre el funeral",
+    9029: "desistir de una demanda; 1293 es reformarla",
+    9041: "embargo de la cuenta de nomina propia; 490 es la cuenta de nomina de una empresa",
+    9101: "en ingles; el parecido con 1496 ('Eso es legal?') es solo la palabra 'legal'",
+}
+
 
 def load_eval_set(path: Path = EVAL_SET_PATH) -> list[dict]:
     with open(path, encoding="utf-8") as f:
@@ -60,3 +108,35 @@ def solapamiento(eval_records: list[dict], train_records: list[dict], val_record
         elif q in en_val:
             salida["en_val"].append(r["id"])
     return salida
+
+
+def parecidas_en_train(
+    eval_records: list[dict], train_records: list[dict], umbral: float = UMBRAL_PARECIDO
+) -> list[dict]:
+    """Preguntas del eval set cuya pregunta mas parecida de train supera el
+    umbral (coseno TF-IDF), de mayor a menor parecido."""
+    from tools.evaluation.similitud import IndiceTfidf
+
+    indice = IndiceTfidf([r["messages"][1]["content"] for r in train_records])
+    salida = []
+    for r in eval_records:
+        pregunta = r["messages"][1]["content"]
+        mejor = indice.parecidos(pregunta, 1)
+        if mejor and mejor[0][1] >= umbral:
+            t = train_records[mejor[0][0]]
+            salida.append({"id": r["id"], "train_id": t["id"], "similitud": mejor[0][1],
+                           "pregunta": pregunta, "pregunta_train": t["messages"][1]["content"]})
+    return sorted(salida, key=lambda d: -d["similitud"])
+
+
+def fuga_por_parecido(eval_records: list[dict], train_records: list[dict]) -> dict:
+    """Lo que impide correr M2 con este eval set:
+    - pendientes: ids de PENDIENTES que siguen en el eval set.
+    - sin_revisar: preguntas sobre el umbral que no estan en ninguna lista
+      (hay que leerlas y decidir: quitarla o agregarla a REVISADAS_DISTINTAS)."""
+    ids = {r["id"] for r in eval_records}
+    parecidas = parecidas_en_train(eval_records, train_records)
+    return {
+        "pendientes": sorted(i for i in PENDIENTES if i in ids),
+        "sin_revisar": [p for p in parecidas if p["id"] not in PENDIENTES and p["id"] not in REVISADAS_DISTINTAS],
+    }

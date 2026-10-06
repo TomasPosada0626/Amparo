@@ -58,3 +58,39 @@ def test_las_gold_repetidas_de_validacion_estan_identificadas():
     train, val = dataset.stratified_split(records)
     sol = eval_set.solapamiento(eval_set.load_eval_set(), train, val)
     assert sol["en_val"] == list(range(9011, 9031))
+
+
+def _train():
+    from tools.evaluation import dataset
+
+    return dataset.stratified_split(dataset.load_records())[0]
+
+
+def test_toda_pregunta_parecida_a_train_esta_revisada():
+    """La coincidencia exacta no ve las casi copias: 9028 ("El vendedor no
+    cumplio la promesa de compraventa") y 622 de train ("El comprador no
+    cumplio...") pasaban como distintas. Toda pregunta con coseno TF-IDF >=
+    UMBRAL_PARECIDO contra train tiene que estar leida y en PENDIENTES (se
+    quita) o en REVISADAS_DISTINTAS (pregunta otra cosa, con el motivo)."""
+    sin_revisar = eval_set.fuga_por_parecido(eval_set.load_eval_set(), _train())["sin_revisar"]
+    assert sin_revisar == [], (
+        "Preguntas del eval set muy parecidas a una de train, sin revisar. Leer cada par: si es el "
+        "mismo caso, quitarla; si pregunta otra cosa, agregarla a REVISADAS_DISTINTAS con el motivo:\n"
+        + "\n".join(f"  {p['id']} ~ train {p['train_id']} ({p['similitud']}): {p['pregunta']!r} / "
+                    f"{p['pregunta_train']!r}" for p in sin_revisar))
+
+
+def test_las_revisadas_siguen_siendo_parecidas():
+    """Una entrada de REVISADAS_DISTINTAS cuya pregunta ya no existe o ya no se
+    parece es una excepcion vieja: se borra, para que no tape un caso nuevo con
+    el mismo id."""
+    parecidas = {p["id"] for p in eval_set.parecidas_en_train(eval_set.load_eval_set(), _train())}
+    viejas = sorted(set(eval_set.REVISADAS_DISTINTAS) - parecidas)
+    assert viejas == [], f"Borrar de REVISADAS_DISTINTAS: {viejas}"
+
+
+def test_los_adversariales_usan_una_categoria_de_abstencion():
+    for r in eval_set.adversarial_examples(eval_set.load_eval_set()):
+        assert r["category"] in eval_set.CATEGORIAS_ADVERSARIALES, (
+            f"{r['id']}: categoria {r['category']!r}; usar una de CATEGORIAS_ADVERSARIALES "
+            "para que el scorecard lo cuente en su tipo de abstencion")
