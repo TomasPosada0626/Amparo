@@ -21,7 +21,15 @@ BASE_MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"
 # las de largo medio); el fine-tuned (~46 palabras) no cambia. El scorecard
 # reporta igual el % de respuestas cortadas de cada modelo.
 MAX_NEW_TOKENS_GENERATION = 900
-MAX_NEW_TOKENS_JUDGE = 200
+# Salida del juez: un JSON con puntajes y justificacion. Era 200 y truncaba la
+# respuesta a media llave, asi que en la corrida del 2026-10-02 el parseo fallo
+# en 36 de 213 casos del baseline y 25 de 213 del afinado. No era ruido: los
+# fallos se concentraban en las respuestas largas, y al descartarlos la
+# diferencia entre modelos parecia +0.127 cuando sobre los 213 completos es
+# +0.028. Con 512 el parseo no falla. Reintentar no sirve como arreglo: la
+# generacion es greedy (do_sample=False) y vuelve a producir el mismo texto
+# truncado.
+MAX_NEW_TOKENS_JUDGE = 512
 MAX_NEW_TOKENS_PAIRWISE_JUDGE = 100
 
 BERTSCORE_MODEL = "dccuchile/bert-base-spanish-wwm-cased"
