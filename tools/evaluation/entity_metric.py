@@ -71,6 +71,16 @@ ENTIDADES_REALES: frozenset[str] = frozenset(
         "Inspeccion de Transito",
         # --- Comisarias (solo la de Familia existe como tal) ---
         "Comisaria de Familia",
+        "Comisario de Familia",
+        # --- Inspectores (el funcionario de cada inspeccion) ---
+        "Inspector del Trabajo",
+        "Inspector de Trabajo",
+        "Inspector de Policia",
+        "Inspector de Transito",
+        # Rol real de un contrato de obra (no una entidad publica).
+        "Inspector de Obra",
+        "Inspector de Obras",
+        "Inspector de la Obra",
         # --- Secretarias (son del orden municipal/distrital) ---
         "Secretaria de Transito",
         "Secretaria de Movilidad",
@@ -162,8 +172,11 @@ ENTIDADES_REALES: frozenset[str] = frozenset(
 
 # Cabezas de nombre institucional. Si una de estas aparece y lo que sigue no
 # forma ninguna entidad de la lista blanca, se marca para revisar.
+# "comisario" e "inspector" (el funcionario, no la oficina) se agregaron al
+# revisar la corrida de M1 del 2026-10-06: "comisario de policia", "comisario del
+# arrendamiento" y "comisario del contrato" pasaban sin marca.
 CABEZAS: tuple[str, ...] = (
-    "superintendencia", "comisaria", "secretaria", "ministerio", "inspeccion",
+    "superintendencia", "comisaria", "comisario", "secretaria", "ministerio", "inspeccion", "inspector",
     "defensoria", "procuraduria", "contraloria", "instituto", "agencia",
 )
 
