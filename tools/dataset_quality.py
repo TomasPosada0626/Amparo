@@ -47,6 +47,15 @@ DEFAULT_DATASET = PROJECT_ROOT / "data" / "dataset_legal.jsonl"
 # falsos negativos y castiga respuestas correctas (paso en el piloto de
 # Despido, donde "Inspeccion DEL Trabajo" no hacia match con un patron escrito
 # como "Inspeccion DE Trabajo").
+#
+# Se amplio otra vez con la corrida del 2026-10-06. El catalogo se escribio con
+# las formas del dataset, y el modelo afinado -- que responde mas corto --
+# parafrasea el destino: "ante el juez que la impuso", "un notario", "la oficina
+# de planeacion", "el registro mercantil", "el comisario de familia". Todas son
+# rutas reales que el catalogo no reconocia, y le restaban 2.6 puntos que no
+# eran suyos: con estas formas, baseline y afinado quedan los dos en 97.0%.
+# NO se agrego "banco" a secas, que aparece de forma incidental ("el banco te
+# reporto sin avisarte") sin ser una ruta a donde acudir.
 MECANISMOS = {
     # --- (A) Figuras y acciones juridicas ---
     "tutela": r"\btutelas?\b|acci[oó]n de tutela",
@@ -62,7 +71,7 @@ MECANISMOS = {
     "arbitraje": r"tribunal de arbitramento|cl[aá]usula compromisoria|centro de arbitraje|arbitraje",
     "requerimiento / resolucion del contrato": r"requerimiento escrito|requiere por escrito"
                                                r"|(resoluci[oó]n|terminaci[oó]n) del contrato|junta o asamblea de socios",
-    "demanda / juez competente": r"demand(a|ar|as)\b|juez (laboral|civil|de familia|administrativo|de peque[nñ]as causas)"
+    "demanda / juez competente": r"demand(a|ar|as)\b|\bjueza?\b"
                                  r"|juzgado|v[ií]a judicial|proceso (ordinario|verbal|declarativo)",
     "querella": r"\bquerellas?\b",
     "denuncia penal": r"denuncia(r|s)? (penal|ante la [Ff]iscal)|\bFiscal[ií]a\b|\bURI\b|\bSAU\b|[Cc]asa de [Jj]usticia",
@@ -91,19 +100,21 @@ MECANISMOS = {
                              r"|inspector de tr[aá]nsito|impugna(r|cion|ción)|descargos|comparendo ante",
     "SOAT / aseguradora": r"\bSOAT\b|aseguradora|[Mm]edicina [Ll]egal",
     "linea de emergencia / policia": r"[Ll][ií]nea 123|\b123\b|[Ll][ií]nea 155|[Pp]olic[ií]a|urgencias",
-    "ICBF / familia": r"\bICBF\b|[Bb]ienestar [Ff]amiliar|[Dd]efensor de [Ff]amilia|[Cc]omisar[ií]a"
+    "ICBF / familia": r"\bICBF\b|[Bb]ienestar [Ff]amiliar|[Dd]efensor de [Ff]amilia|[Cc]omisar[ií][ao]s?\b"
                       r"|r[eé]gimen de visitas|\bcustodia\b|alimentos provisionales|\bsucesi[oó]n\b"
                       r"|[Cc]onsulado|[Cc]anciller[ií]a",
     "educacion (secretaria / ministerio)": r"[Ss]ecretar[ií]a de [Ee]ducaci[oó]n|[Mm]inisterio de [Ee]ducaci[oó]n"
                                            r"|manual de convivencia|reglamento (acad[eé]mico|estudiantil)",
-    "curador urbano / planeacion": r"[Cc]urador [Uu]rbano|[Pp]laneaci[oó]n [Mm]unicipal|[Ss]ecretar[ií]a de [Pp]laneaci[oó]n"
+    "curador urbano / planeacion": r"[Cc]urador [Uu]rbano|[Pp]laneaci[oó]n [Mm]unicipal"
+                                   r"|(?:[Ss]ecretar[ií]a|[Oo]ficina) de [Pp]laneaci[oó]n"
                                    r"|[Aa]lcald[ií]a",
     "autoridad ambiental": r"[Aa]utoridad ambiental|\bCAR\b|\bANLA\b|[Cc]orporaci[oó]n [Aa]ut[oó]noma"
                            r"|[Ss]ecretar[ií]a (Distrital |Municipal )?de [Aa]mbiente",
     "DIAN / UGPP": r"\bDIAN\b|\bUGPP\b",
     "SENA": r"\bSENA\b",
     "migracion colombia": r"[Mm]igraci[oó]n [Cc]olombia",
-    "camara de comercio / notaria": r"[Cc][aá]mara de [Cc]omercio|[Nn]otar[ií]a|[Oo]ficina de [Ii]nstrumentos [Pp][uú]blicos"
+    "camara de comercio / notaria": r"[Cc][aá]mara de [Cc]omercio|[Nn]otar[ií][ao]s?\b|registro mercantil"
+                                    r"|[Oo]ficina de [Ii]nstrumentos [Pp][uú]blicos"
                                     r"|\bORIP\b|\bIGAC\b",
     "propiedad industrial": r"registro de marca|infracci[oó]n marcaria|competencia desleal|oposici[oó]n al registro"
                             r"|cancelaci[oó]n por no uso|b[uú]squeda de antecedentes|[Dd]erecho de [Aa]utor|\bInvima\b",

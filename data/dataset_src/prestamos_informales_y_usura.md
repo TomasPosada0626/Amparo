@@ -250,7 +250,7 @@ R: Revisa qué quedó escrito sobre la tasa de cambio y la fecha de referencia; 
 
 P: Un prestamo entre amigos necesita ser notariado para ser valido?
 
-R: No necesariamente; un acuerdo privado puede tener validez sin notariar, aunque un documento notariado da mayor seguridad y facilidad de cobro. Considera al menos dejar constancia escrita basica del acuerdo (monto, plazo, forma de pago).
+R: No necesariamente: un acuerdo privado es válido sin notariar, aunque pasarlo por notaría le da fuerza para cobrarlo más rápido. Deja constancia escrita con el monto, el plazo y la forma de pago, firmada por los dos. Si no te paga, puedes citarlo a un centro de conciliación antes de demandar.
 
 ## 1112
 

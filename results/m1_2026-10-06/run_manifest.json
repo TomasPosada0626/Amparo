@@ -22,11 +22,16 @@
     "lora_r": 16,
     "lora_alpha": 32,
     "lora_dropout": 0.05,
-    "target_modules": ["q_proj", "k_proj", "v_proj", "o_proj"],
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj"
+    ],
     "trainable_params": 10092544,
     "trainable_pct": 0.1323,
     "num_epochs": 3,
-    "learning_rate": 2e-4,
+    "learning_rate": 0.0002,
     "per_device_batch_size": 2,
     "grad_accum_steps": 8,
     "max_seq_length": 1024,
@@ -34,8 +39,16 @@
     "enmascarado_verificado": "71% de los tokens del lote fuera de la perdida, 29% dentro"
   },
   "entrenamiento": {
-    "eval_loss_por_epoca": {"1": 1.676553, "2": 1.590809, "3": 1.579355},
-    "train_loss_por_epoca": {"1": 1.666431, "2": 1.483398, "3": 1.338528},
+    "eval_loss_por_epoca": {
+      "1": 1.676553,
+      "2": 1.590809,
+      "3": 1.579355
+    },
+    "train_loss_por_epoca": {
+      "1": 1.666431,
+      "2": 1.483398,
+      "3": 1.338528
+    },
     "checkpoint_elegido": "epoca 3 (menor eval_loss, via load_best_model_at_end)",
     "lectura": "eval_loss sigue bajando, asi que 3 epocas esta justificado por medicion. Pero la ganancia de la 2 a la 3 es 0.011 contra 0.086 de la 1 a la 2, y la brecha train/eval se abre (0.010 -> 0.108 -> 0.241): el sobreajuste esta empezando y una cuarta epoca probablemente da la vuelta."
   },
@@ -45,19 +58,59 @@
     "n_val": 231
   },
   "resultados": {
-    "nombra_ruta_legal": {"baseline_pct": 96.1, "afinado_pct": 93.5, "diferencia_pts": -2.6, "significativo": false},
-    "cita_normas_inventadas": {"baseline_pct": 14.7, "afinado_pct": 0.0, "diferencia_pts": -14.7, "significativo": true},
-    "inventa_entidades": {"baseline_pct": 11.7, "afinado_pct": 3.0, "diferencia_pts": -8.7, "significativo": true},
-    "longitud_media_palabras": {"baseline": 229, "afinado": 45},
+    "nombra_ruta_legal": {
+      "baseline_pct": 97.0,
+      "afinado_pct": 96.5,
+      "diferencia_pts": -0.4,
+      "ic95_diferencia": [
+        -3.0,
+        2.6
+      ],
+      "significativo": false
+    },
+    "cita_normas_inventadas": {
+      "baseline_pct": 14.7,
+      "afinado_pct": 0.0,
+      "diferencia_pts": -14.7,
+      "significativo": true,
+      "ic95_diferencia": [
+        -19.1,
+        -10.4
+      ]
+    },
+    "inventa_entidades": {
+      "baseline_pct": 11.7,
+      "afinado_pct": 3.0,
+      "diferencia_pts": -8.7,
+      "significativo": true,
+      "ic95_diferencia": [
+        -13.0,
+        -3.9
+      ]
+    },
+    "longitud_media_palabras": {
+      "baseline": 229,
+      "afinado": 45
+    },
     "nota_significancia": "IC95 de Wilson por proporcion y bootstrap pareado por diferencia (tools/evaluation/estadistica.py). 'significativo' = el IC de la diferencia pareada no contiene el 0.",
-    "nota_ruta_legal": "Metrica saturada (el modelo base ya venia en 96%) y confundida con la longitud: es coincidencia de palabras clave y el baseline escribe ~5x mas texto, o sea ~5x mas superficie para acertar por azar. No soporta una conclusion en ninguna direccion."
+    "nota_ruta_legal": "Metrica saturada: el modelo base ya venia en 97%, asi que no tiene margen para mostrar mejora. Las cifras de aqui son con el catalogo de MECANISMOS ampliado el 2026-10-06. Antes de ampliarlo daba 96.1% contra 93.5% (-2.6 pts), pero esa diferencia era un artefacto: el catalogo se escribio con las formas del dataset y el afinado, que responde mas corto, parafrasea el destino ('ante el juez que la impuso', 'un notario', 'la oficina de planeacion'). Al reconocer esas formas, los dos modelos quedan practicamente iguales."
   },
   "comparacion_con_la_corrida_anterior": {
     "que_cambio": "La perdida paso a calcularse solo sobre la respuesta. Antes se entrenaba sobre el texto completo y el system prompt -- 87 palabras identicas en los 1536 ejemplos -- se llevaba el 60% del presupuesto.",
     "hipotesis_escrita_antes_de_correr": "Si la senal diluida causaba el ajuste agresivo de estilo, las entidades inventadas deben bajar del 6.5%.",
     "resultado": "Confirmada: 6.5% -> 3.0%.",
-    "2026-10-05": {"ruta_legal_pct": 93.9, "citas_pct": 0.0, "entidades_pct": 6.5, "palabras": 46},
-    "2026-10-06": {"ruta_legal_pct": 93.5, "citas_pct": 0.0, "entidades_pct": 3.0, "palabras": 45},
+    "2026-10-05": {
+      "ruta_legal_pct": 93.9,
+      "citas_pct": 0.0,
+      "entidades_pct": 6.5,
+      "palabras": 46
+    },
+    "2026-10-06": {
+      "ruta_legal_pct": 93.5,
+      "citas_pct": 0.0,
+      "entidades_pct": 3.0,
+      "palabras": 45
+    },
     "control": "Las cifras del baseline son identicas en las dos corridas (96.1 / 14.7 / 11.7 / 229 palabras): mismo modelo, misma semilla, decoding greedy."
   },
   "artefactos": {
@@ -72,5 +125,17 @@
   "no_capturado_en_esta_corrida": [
     "versiones de librerias (transformers/peft/torch/trl)",
     "modelo y memoria de la GPU"
-  ]
+  ],
+  "catalogo_de_mecanismos": {
+    "ampliado_el": "2026-10-06",
+    "formas_agregadas": [
+      "juez (a secas)",
+      "notario",
+      "registro mercantil",
+      "oficina de planeacion",
+      "comisario"
+    ],
+    "no_agregado": "banco a secas, porque aparece de forma incidental ('el banco te reporto') sin ser una ruta",
+    "falso_positivo_corregido": "el patron viejo [Nn]otar[ií]a matcheaba dentro de 'notariado', un adjetivo que no es un destino. Al exigir limite de palabra quedo al descubierto el ejemplo 1111, que daba consejo generico sin decir a donde acudir, y se completo."
+  }
 }
