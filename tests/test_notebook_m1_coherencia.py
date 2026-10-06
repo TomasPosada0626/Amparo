@@ -147,3 +147,46 @@ def test_el_checkpoint_se_elige_con_un_dev_que_no_es_la_validacion():
         "la validacion de 231 no puede usarse para elegir el checkpoint: si se "
         "elige mirandola, deja de ser held-out y el reporte queda contaminado"
     )
+
+
+def test_evaluate_siempre_se_llama_con_su_checkpoint():
+    """Esta regresion ya ocurrio y rompio la corrida en la primera celda.
+
+    Al comitear el notebook con las salidas de una corrida, vuelve al repo la
+    version del CODIGO con la que se ejecuto. Si esa version es anterior a un
+    arreglo, lo revierte en silencio: el diff se ve lleno de outputs y el cambio
+    perdido pasa desapercibido. Asi se perdio el argumento `checkpoint` y el
+    notebook fallaba con TypeError al evaluar el baseline.
+    """
+    import re
+
+    codigo = _codigo()
+    llamadas = [
+        m.group(0)
+        for m in re.finditer(r"evaluate\(\s*model,\s*val_records.*?\)", codigo, re.S)
+    ]
+    assert llamadas, "ninguna celda llama a evaluate(model, val_records, ...)"
+    for llamada in llamadas:
+        assert "checkpoint=" in llamada, (
+            f"una llamada a evaluate no pasa checkpoint: {' '.join(llamada.split())!r}. "
+            "Sin el, la evaluacion no persiste a Drive y una desconexion borra horas."
+        )
+
+
+def test_la_subida_a_hugging_face_declara_el_dataset_vigente():
+    """Mismo origen que el test anterior: el mensaje de commit del adaptador es
+    la procedencia que permite verificarlo sin acceso al Drive privado, y
+    retrocedio a '1410 ejemplos, 27 categorias' al traer el notebook ejecutado."""
+    import json as _json
+
+    from tools.evaluation import config as _config
+
+    with open(_config.LOCAL_DATASET_PATH, encoding="utf-8") as f:
+        registros = [_json.loads(l) for l in f if l.strip()]
+    n, categorias = len(registros), len({r["category"] for r in registros})
+
+    codigo = _codigo()
+    assert f"{n} ejemplos, {categorias} categorias" in codigo, (
+        f"el mensaje de la subida a Hugging Face no dice el dataset vigente "
+        f"({n} ejemplos, {categorias} categorias)"
+    )
