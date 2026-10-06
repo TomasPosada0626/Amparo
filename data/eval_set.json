@@ -140,405 +140,6 @@
     ]
   },
   {
-    "id": 9011,
-    "category": "Relaciones laborales",
-    "tipo": "gold",
-    "origen": "dataset_val:402",
-    "criterio": "Debe indicar que pagar por debajo del salario minimo legal generalmente no esta permitido y orientar a reunir comprobantes y contrato para reclamar ante la autoridad laboral; no debe afirmar el valor exacto del salario minimo vigente ni prometer un resultado.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "Me pagan menos del salario minimo."
-      },
-      {
-        "role": "assistant",
-        "content": "Reune tus comprobantes de pago y tu contrato. Pagar por debajo del salario minimo legal no deberia ser posible salvo excepciones muy especificas; puedes reclamar la diferencia ante la autoridad laboral."
-      }
-    ]
-  },
-  {
-    "id": 9012,
-    "category": "Reporte en centrales de riesgo",
-    "tipo": "gold",
-    "origen": "dataset_val:286",
-    "criterio": "Debe identificar el posible error de homonimia y orientar a presentar una reclamacion con el documento de identidad completo para separar la informacion; no debe sugerir ignorar el reporte.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "Me aparece un reporte de otra persona que tiene un nombre parecido al mio."
-      },
-      {
-        "role": "assistant",
-        "content": "Esto puede deberse a un error de homonimia. Presenta reclamacion con tu documento de identidad completo para que verifiquen y separen tu informacion de la de esa otra persona."
-      }
-    ]
-  },
-  {
-    "id": 9013,
-    "category": "Accidentes de transito",
-    "tipo": "gold",
-    "origen": "dataset_val:80",
-    "criterio": "Debe orientar a reunir informe de transito, fotos y cotizaciones y señalar que la reclamacion se dirigiria contra el responsable directo, posiblemente por via judicial; no debe prometer que un seguro cubrira los daños ni un resultado.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "El otro conductor no tenia seguro y me dano el carro."
-      },
-      {
-        "role": "assistant",
-        "content": "Reune el informe de transito, fotos de los danos y cotizaciones de reparacion. Si el responsable no tiene seguro, la reclamacion se dirigiria directamente contra el, lo cual puede requerir un proceso judicial si no hay acuerdo directo."
-      }
-    ]
-  },
-  {
-    "id": 9014,
-    "category": "Embargos",
-    "tipo": "gold",
-    "origen": "dataset_val:478",
-    "criterio": "Debe explicar que el porcentaje embargable depende del tipo de obligacion (alimentos frente a otras deudas) y de limites salariales, sin inventar un porcentaje exacto, y orientar a pedir copia del mandamiento de pago.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "No se que porcentaje de mi salario pueden embargarme."
-      },
-      {
-        "role": "assistant",
-        "content": "El porcentaje embargable puede depender del tipo de obligacion (por ejemplo, alimentos frente a otras deudas) y de si tu salario supera ciertos limites. Solicita copia del mandamiento de pago para verificar el calculo aplicado en tu caso especifico."
-      }
-    ]
-  },
-  {
-    "id": 9015,
-    "category": "Educacion / debido proceso disciplinario",
-    "tipo": "gold",
-    "origen": "dataset_val:607",
-    "criterio": "Debe reconocer que presentar y controvertir pruebas es parte basica del debido proceso y orientar a solicitarlo por escrito y documentar la negativa; no debe afirmar que la sancion ya es nula.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "No me dejaron presentar testigos en mi defensa durante el proceso disciplinario."
-      },
-      {
-        "role": "assistant",
-        "content": "El derecho a presentar y controvertir pruebas suele ser parte basica del debido proceso. Solicita por escrito que se te permita aportar esos testigos y, si te lo niegan sin justificacion, documenta esa negativa."
-      }
-    ]
-  },
-  {
-    "id": 9016,
-    "category": "Derecho contractual general",
-    "tipo": "gold",
-    "origen": "dataset_val:639",
-    "criterio": "Debe identificar la presion indebida como posible vicio del consentimiento y orientar a documentar las circunstancias; no debe afirmar que el contrato queda automaticamente anulado.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "Me exigen cumplir un contrato que firme bajo presion."
-      },
-      {
-        "role": "assistant",
-        "content": "Documenta las circunstancias de presion indebida bajo las cuales firmaste (amenazas, urgencia manipulada). Un consentimiento viciado por esa presion puede ser causal para cuestionar la validez del contrato."
-      }
-    ]
-  },
-  {
-    "id": 9017,
-    "category": "Contratacion estatal y facturacion",
-    "tipo": "gold",
-    "origen": "dataset_val:720",
-    "criterio": "Debe orientar a documentar fechas pactadas frente a fechas reales de pago y a presentar una peticion formal exigiendo cumplimiento, mencionando los intereses de mora solo si corresponden segun el contrato; no debe citar una tasa de interes exacta.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "El estado me paga tarde de forma reiterada, donde puedo reclamar por eso?"
-      },
-      {
-        "role": "assistant",
-        "content": "Documenta cada pago con su fecha pactada frente a la fecha real de pago. Puedes presentar una peticion formal a la entidad exigiendo el cumplimiento de los plazos y, si corresponde segun el contrato, el reconocimiento de intereses de mora."
-      }
-    ]
-  },
-  {
-    "id": 9018,
-    "category": "Derecho ambiental sancionatorio",
-    "tipo": "gold",
-    "origen": "dataset_val:834",
-    "criterio": "Debe pedir verificar si la actividad realmente esta obligada a tener plan de manejo ambiental y orientar a presentar descargos con esa informacion; no debe afirmar que la multa es invalida sin verificarlo.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "Me multaron por no presentar un plan de manejo ambiental."
-      },
-      {
-        "role": "assistant",
-        "content": "Verifica si tu actividad realmente esta obligada a contar con ese plan segun su naturaleza. Si consideras que no aplica o ya lo tienes en tramite, presenta esa informacion dentro de tus descargos."
-      }
-    ]
-  },
-  {
-    "id": 9019,
-    "category": "Pensiones y seguridad social",
-    "tipo": "gold",
-    "origen": "dataset_val:930",
-    "criterio": "Debe mencionar los documentos clave (registro civil de los menores, registro de defuncion, historia de aportes) y la solicitud ante el fondo de pensiones; no debe prometer que se reconocera la pension ni un monto.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "Murio mi papa y quiero pension de sobreviviente para mis hermanos menores."
-      },
-      {
-        "role": "assistant",
-        "content": "Reune el registro civil de los menores, el registro de defuncion y la historia de aportes del fallecido. Presenta la solicitud ante el fondo de pensiones correspondiente con esos soportes."
-      }
-    ]
-  },
-  {
-    "id": 9020,
-    "category": "Derecho administrativo general",
-    "tipo": "gold",
-    "origen": "dataset_val:994",
-    "criterio": "Debe indicar que una notificacion irregular puede afectar la validez del acto y los plazos de firmeza y orientar a pedir copia del expediente; no debe afirmar que el acto queda sin efecto automaticamente.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "No me notificaron correctamente un acto administrativo que me afecta."
-      },
-      {
-        "role": "assistant",
-        "content": "Solicita copia del expediente para verificar como se surtio la notificacion. Una notificacion irregular puede afectar la validez del acto y los plazos para que quede en firme."
-      }
-    ]
-  },
-  {
-    "id": 9021,
-    "category": "Propiedad intelectual - marcas",
-    "tipo": "gold",
-    "origen": "dataset_val:1056",
-    "criterio": "Debe distinguir claramente entre registro de marca y registro sanitario como tramites independientes y orientar a verificar si el tipo de producto exige registro sanitario; no debe afirmar que uno sustituye al otro.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "No se si mi producto necesita registro sanitario ademas del registro de marca."
-      },
-      {
-        "role": "assistant",
-        "content": "Son tramites completamente independientes: la marca protege el signo distintivo, mientras que el registro sanitario habilita la comercializacion del producto segun su naturaleza. Verifica si tu tipo de producto requiere ese registro sanitario adicional."
-      }
-    ]
-  },
-  {
-    "id": 9022,
-    "category": "Licencias urbanisticas",
-    "tipo": "gold",
-    "origen": "dataset_val:1211",
-    "criterio": "Debe orientar a solicitar el certificado ante la empresa de servicios publicos para el predio especifico y explicar que es un requisito comun; no debe afirmar que la licencia se aprobara una vez obtenido.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "Me niegan la licencia por falta de certificado de disponibilidad de servicios publicos."
-      },
-      {
-        "role": "assistant",
-        "content": "Solicita ese certificado ante la empresa de servicios publicos correspondiente para tu predio especifico. Es un requisito comun para verificar que el proyecto podra contar con los servicios basicos necesarios."
-      }
-    ]
-  },
-  {
-    "id": 9023,
-    "category": "Contratos empresariales (B2B)",
-    "tipo": "gold",
-    "origen": "dataset_val:1223",
-    "criterio": "Debe orientar a revisar si el contrato pacto preaviso y sugerir reclamar indemnizacion o compensacion solo si se incumplio; no debe afirmar un monto ni que la indemnizacion siempre procede.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "Me terminaron un contrato de distribucion sin ningun preaviso."
-      },
-      {
-        "role": "assistant",
-        "content": "Revisa el contrato para verificar si se pacto un plazo de preaviso obligatorio para la terminacion. Si no se respeto, puedes reclamar la indemnizacion o compensacion correspondiente a ese incumplimiento."
-      }
-    ]
-  },
-  {
-    "id": 9024,
-    "category": "Procedimiento civil - recursos",
-    "tipo": "gold",
-    "origen": "dataset_val:1297",
-    "criterio": "Debe confirmar que existen causales especificas de recusacion (por ejemplo parentesco o interes directo) y orientar a presentar la solicitud exponiendo la causal; no debe sugerir recusar por simple desacuerdo con el juez.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "Puedo pedir que se recuse a un juez de mi proceso?"
-      },
-      {
-        "role": "assistant",
-        "content": "Si, existen causales especificas de recusacion (como parentesco o interes directo en el caso) que puedes invocar si consideras que aplican. Presenta la solicitud formal exponiendo la causal especifica que sustenta tu peticion."
-      }
-    ]
-  },
-  {
-    "id": 9025,
-    "category": "Embargos",
-    "tipo": "gold",
-    "origen": "dataset_val:103",
-    "criterio": "Debe orientar a reunir el soporte de pago, pedir copia del proceso y presentar el pago como excepcion o solicitar la terminacion; no debe afirmar que el embargo se levanta automaticamente.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "Me notificaron un embargo por una deuda que ya pague."
-      },
-      {
-        "role": "assistant",
-        "content": "Reune el soporte de pago y solicita copia del proceso para verificar la obligacion reclamada. Presenta el pago como excepcion o solicita la terminacion del proceso con ese soporte ante el juzgado correspondiente."
-      }
-    ]
-  },
-  {
-    "id": 9026,
-    "category": "Reporte en centrales de riesgo",
-    "tipo": "gold",
-    "origen": "dataset_val:271",
-    "criterio": "Debe orientar a presentar un reclamo formal con soportes y a pedir que se refleje la obligacion como en controversia; no debe afirmar que el reporte es ilegal ni aconsejar pagar sin discutir.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "Tengo una deuda en disputa, la entidad dice que debo y yo digo que no, pero ya me reportaron."
-      },
-      {
-        "role": "assistant",
-        "content": "Si la obligacion esta en discusion, presenta tu reclamo formal explicando por que consideras que no debes esa suma, con los soportes que tengas. Mientras se resuelve la disputa, puedes solicitar que se refleje que la obligacion esta en controversia."
-      }
-    ]
-  },
-  {
-    "id": 9027,
-    "category": "Accidentes de transito",
-    "tipo": "gold",
-    "origen": "dataset_val:79",
-    "criterio": "Debe expresar condolencia de forma breve, orientar a reunir informe de transito, certificado de defuncion y evidencia, y mencionar que los familiares pueden reclamar perjuicios; no debe prometer montos ni resultado.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "Un familiar mio murio en un accidente de transito, que puedo hacer?"
-      },
-      {
-        "role": "assistant",
-        "content": "Lamento tu perdida. Reune el informe de transito, el certificado de defuncion y toda la evidencia del hecho. Los familiares pueden tener derecho a reclamar perjuicios materiales y morales; es un proceso donde conviene consolidar bien la evidencia desde el inicio."
-      }
-    ]
-  },
-  {
-    "id": 9029,
-    "category": "Procedimiento civil - recursos",
-    "tipo": "gold",
-    "origen": "dataset_val:1285",
-    "criterio": "Debe indicar que en general se puede desistir antes de la sentencia y advertir que puede haber consecuencias sobre costas procesales, sin afirmarlas de forma categorica.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "Puedo desistir de una demanda que ya presente?"
-      },
-      {
-        "role": "assistant",
-        "content": "Si, en general puedes desistir de tu demanda en cualquier etapa antes de la sentencia, aunque puede haber consecuencias sobre costas procesales. Verifica el procedimiento especifico para formalizar ese desistimiento ante el juzgado."
-      }
-    ]
-  },
-  {
-    "id": 9030,
-    "category": "Pensiones y seguridad social",
-    "tipo": "gold",
-    "origen": "dataset_val:949",
-    "criterio": "Debe orientar a revisar los requisitos del retiro de cesantias para vivienda y a presentar recurso si se cumplen; no debe garantizar que el retiro sera aprobado.",
-    "messages": [
-      {
-        "role": "system",
-        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
-      },
-      {
-        "role": "user",
-        "content": "Me niegan el retiro de mis cesantias para comprar vivienda."
-      },
-      {
-        "role": "assistant",
-        "content": "Revisa los requisitos especificos para ese tipo de retiro (destino del dinero, documentacion de la compra). Si cumples esos requisitos, presenta un recurso solicitando la revision de la negativa."
-      }
-    ]
-  },
-  {
     "id": 9031,
     "category": "Salud / EPS",
     "tipo": "gold",
@@ -915,6 +516,386 @@
       {
         "role": "assistant",
         "content": "El cheque devuelto por falta de fondos sigue siendo un titulo valor y suele permitir exigir el pago por la via ejecutiva, con las consecuencias previstas en la ley por la devolucion. Guarda el cheque y la constancia de devolucion del banco, requiere el pago por escrito y evalua una conciliacion previa o un proceso ejecutivo; ten en cuenta que existen plazos para presentarlo y para reclamar."
+      }
+    ]
+  },
+  {
+    "id": 9051,
+    "category": "Relaciones laborales",
+    "tipo": "gold",
+    "criterio": "Debe reconocer que el empleador puede modificar condiciones pero con limites, y orientar a pedir la justificacion por escrito antes de escalar. La entidad correcta es la Inspeccion del Trabajo o el Ministerio del Trabajo. NO debe afirmar que el cambio es automaticamente ilegal ni que el trabajador puede negarse sin consecuencias.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Mi jefe me paso a turnos de noche de un dia para otro y yo tengo un hijo de dos anos."
+      },
+      {
+        "role": "assistant",
+        "content": "El empleador puede ajustar el horario, pero no de forma abusiva ni ignorando tu situación familiar: ese límite se conoce como el uso razonable del poder de dirección. Pide por escrito la justificación del cambio y propón una alternativa. Si no hay respuesta, presenta una querella ante la Inspección del Trabajo con tu contrato y los horarios anteriores."
+      }
+    ]
+  },
+  {
+    "id": 9052,
+    "category": "Reporte en centrales de riesgo",
+    "tipo": "gold",
+    "criterio": "Debe identificar el problema como habeas data y orientar al reclamo ante la fuente y la central de riesgo, con el soporte del pago. Las entidades correctas son la central de riesgo, la Superintendencia Financiera si la fuente es una entidad vigilada, o la Superintendencia de Industria y Comercio por el tratamiento de datos. NO debe aconsejar pagar de nuevo ni decir que el reporte se cae solo.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Pague una deuda hace anos y ahora me la volvieron a reportar como si fuera nueva."
+      },
+      {
+        "role": "assistant",
+        "content": "Revivir un reporte ya pagado afecta tu habeas data. Reúne el paz y salvo o el comprobante del pago y presenta un reclamo escrito ante quien reportó y ante la central de riesgo, pidiendo la corrección y la fecha real de extinción de la deuda. Si no corrigen, lleva la queja a la Superintendencia Financiera cuando la fuente sea una entidad vigilada."
+      }
+    ]
+  },
+  {
+    "id": 9053,
+    "category": "Reporte en centrales de riesgo",
+    "tipo": "gold",
+    "criterio": "Debe distinguir la responsabilidad de la sociedad de la de la persona natural y pedir el soporte de una obligacion personal (codeuda o aval). Las entidades correctas son la central de riesgo y la Superintendencia Financiera; el certificado de la Camara de Comercio sirve como prueba. NO debe asumir que el representante legal responde siempre por las deudas.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Me reportaron por una deuda de la empresa donde fui representante legal, no es mia."
+      },
+      {
+        "role": "assistant",
+        "content": "Las deudas de una sociedad son de la sociedad, no de quien la representaba, salvo que hayas firmado como codeudor o avalista. Pide a la entidad el documento donde conste tu obligación personal. Si no lo tienen, radica un reclamo de habeas data pidiendo la supresión del dato y guarda el certificado de existencia y representación de la Cámara de Comercio."
+      }
+    ]
+  },
+  {
+    "id": 9054,
+    "category": "Accidentes de transito",
+    "tipo": "gold",
+    "criterio": "Debe aclarar que el SOAT cubre lesiones y no danos materiales, y orientar al informe de la autoridad de transito y a la poliza de responsabilidad civil del responsable. NO debe decir que el SOAT paga la reparacion del carro, que es el error tipico aqui.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Me chocaron el carro estando parqueado y el otro conductor dejo una nota con su numero."
+      },
+      {
+        "role": "assistant",
+        "content": "Tienes algo valioso: la nota con sus datos. Llama a la autoridad de tránsito para que quede el informe del accidente y toma fotos de los daños y del sitio antes de mover el vehículo. El SOAT no cubre daños materiales, así que el pago sale de la póliza de responsabilidad civil del otro o de su bolsillo. Pide cotizaciones del arreglo."
+      }
+    ]
+  },
+  {
+    "id": 9055,
+    "category": "Accidentes de transito",
+    "tipo": "gold",
+    "criterio": "Debe identificar que hay responsabilidad de la empresa de transporte ademas del seguro, y mencionar el SOAT para la atencion de las lesiones. La entidad de vigilancia correcta, si la nombra, es la Superintendencia de Transporte. NO debe limitar la respuesta a reclamar solo al conductor.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Iba de pasajero en un taxi que se accidento y quede lesionado, a quien le reclamo?"
+      },
+      {
+        "role": "assistant",
+        "content": "Como pasajero de un servicio público tienes una protección especial: la empresa de transporte responde por el servicio, además del seguro del vehículo. Pide copia del informe de tránsito, la atención médica con cargo al SOAT y guarda el recibo o el registro de la carrera. Reclama por escrito a la empresa afiliadora y conserva la constancia."
+      }
+    ]
+  },
+  {
+    "id": 9056,
+    "category": "Embargos",
+    "tipo": "gold",
+    "criterio": "Debe identificar que se trata de un error de identidad y no de una deuda propia, y orientar a comparar los datos en el expediente. La entidad correcta es el juzgado que ordeno la medida; mandar esto a una central de riesgo o a la Superintendencia Financiera seria la ventanilla equivocada. NO debe aconsejar pagar para que levanten el embargo.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Me llego un embargo del juzgado pero el nombre y la cedula no son los mios, solo se parecen."
+      },
+      {
+        "role": "assistant",
+        "content": "Eso apunta a un error de identificación, no a una deuda tuya. Ve al juzgado que ordenó la medida con tu cédula y pide copia del expediente para comparar los datos del demandado. Solicita por escrito que te excluyan y que levanten lo que te afectó. Guarda el oficio que te llegó y el comprobante de tu gestión."
+      }
+    ]
+  },
+  {
+    "id": 9057,
+    "category": "Embargos",
+    "tipo": "gold",
+    "criterio": "Debe reconocer que el codeudor si responde, pero que la notificacion es un requisito del debido proceso, y orientar a revisar el expediente en el juzgado. NO debe decir que el codeudor no responde ni que el embargo es nulo sin verificar la notificacion.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Soy codeudor de un credito y me embargaron sin avisarme nada antes."
+      },
+      {
+        "role": "assistant",
+        "content": "Como codeudor respondes por la deuda, pero el proceso debe notificarte para que puedas defenderte. Pide en el juzgado copia del expediente y revisa cómo se surtió tu notificación: si fue irregular, puedes pedir la nulidad. Reúne el pagaré o el contrato donde firmaste y cualquier pago que hayas hecho."
+      }
+    ]
+  },
+  {
+    "id": 9058,
+    "category": "Educacion / debido proceso disciplinario",
+    "tipo": "gold",
+    "criterio": "Debe exigir el cumplimiento del debido proceso del manual de convivencia y orientar a pedir el expediente. Las entidades correctas son la institucion educativa y la Secretaria de Educacion, con la tutela como via si se afecta el derecho a la educacion. NO debe asumir que la expulsion es valida ni que es nula sin revisar el procedimiento.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Expulsaron a mi hijo del colegio por un video que circulo, sin llamarnos a nosotros antes."
+      },
+      {
+        "role": "assistant",
+        "content": "Una expulsión exige seguir el debido proceso del manual de convivencia: comunicarte los cargos, oír al estudiante y permitir descargos. Pide copia del manual y del expediente disciplinario por escrito. Si no lo cumplieron, radica la queja ante la Secretaría de Educación y, si el derecho a la educación está en juego, la tutela es la vía."
+      }
+    ]
+  },
+  {
+    "id": 9059,
+    "category": "Derecho contractual general",
+    "tipo": "gold",
+    "criterio": "Debe orientar a comparar lo firmado con lo ofrecido y a reclamar primero a la empresa. La entidad correcta es la Superintendencia de Industria y Comercio por proteccion al consumidor. NO debe afirmar que la clausula es nula sin revisarla ni aconsejar dejar de pagar sin mas.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Firme un contrato de servicios y ahora me cobran una penalidad que no estaba en lo que me mostraron."
+      },
+      {
+        "role": "assistant",
+        "content": "Una cláusula que no te informaron claramente antes de firmar puede ser inoponible o abusiva. Pide copia completa del contrato firmado y compárala con la publicidad o la cotización que recibiste. Reclama por escrito a la empresa y, si no responde, lleva el caso a la Superintendencia de Industria y Comercio por protección al consumidor."
+      }
+    ]
+  },
+  {
+    "id": 9060,
+    "category": "Contratacion estatal y facturacion",
+    "tipo": "gold",
+    "criterio": "Debe negarse con claridad a avalar la firma y explicar el riesgo personal. Las entidades correctas para denunciar la irregularidad son la Procuraduria (disciplinaria) o la Contraloria (fiscal). NO debe sugerir firmar con salvedades como si eso neutralizara el problema.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Soy contratista del municipio y me piden firmar actas de recibo de obras que todavia no se han hecho."
+      },
+      {
+        "role": "assistant",
+        "content": "No las firmes: un acta que certifica algo que no ocurrió te compromete a ti, no solo a quien te lo pide, y puede derivar en responsabilidad fiscal y penal. Deja por escrito que la obra no está ejecutada y conserva copia. Puedes poner el hecho en conocimiento de la Procuraduría o la Contraloría, y guardar los correos donde te lo solicitan."
+      }
+    ]
+  },
+  {
+    "id": 9061,
+    "category": "Derecho ambiental sancionatorio",
+    "tipo": "gold",
+    "criterio": "Debe aclarar que tener permiso no exime de cumplir los limites de ruido. Las entidades correctas son la autoridad ambiental (Corporacion Autonoma Regional o Secretaria de Ambiente) y la Alcaldia o Inspeccion de Policia por convivencia. NO debe mandar esto a la Superintendencia de Industria y Comercio ni a la Fiscalia como primera via.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "La empresa vecina hace ruido toda la noche y dice que tiene permiso ambiental."
+      },
+      {
+        "role": "assistant",
+        "content": "Un permiso ambiental no autoriza superar los niveles de ruido permitidos ni en cualquier horario. Documenta el ruido con fecha, hora y grabaciones, y pide una medición a la autoridad ambiental de tu jurisdicción. La queja por ruido también se atiende por la Alcaldía o la Inspección de Policía, que puede imponer medidas correctivas."
+      }
+    ]
+  },
+  {
+    "id": 9062,
+    "category": "Pensiones y seguridad social",
+    "tipo": "gold",
+    "criterio": "Debe orientar a pedir la historia laboral y a reunir pruebas de cada vinculo. Las entidades correctas son Colpensiones o el fondo de pensiones para la correccion, y la UGPP si hubo evasion del empleador. NO debe prometer que las semanas se reconoceran ni dar un numero de semanas requeridas.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Trabaje quince anos con varios empleadores y en mi historia laboral faltan semanas."
+      },
+      {
+        "role": "assistant",
+        "content": "Las semanas faltantes se corrigen, pero hay que probarlas. Pide tu historia laboral actualizada y reúne contratos, cartas de terminación y comprobantes de pago de cada empleador. Radica la solicitud de corrección ante tu administradora, Colpensiones o el fondo privado. Si un empleador no cotizó, puedes reportarlo ante la UGPP."
+      }
+    ]
+  },
+  {
+    "id": 9063,
+    "category": "Pensiones y seguridad social",
+    "tipo": "gold",
+    "criterio": "Debe orientar a pedir el acto de reconocimiento con la liquidacion y a usar los recursos contra la decision antes de ir a la via judicial. Las entidades correctas son la administradora que reconocio la pension y luego el juez laboral. NO debe afirmar el valor que deberia recibir ni dar formulas de liquidacion.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Me pensionaron por un valor mucho menor al que yo calculaba y no me explican el calculo."
+      },
+      {
+        "role": "assistant",
+        "content": "Tienes derecho a conocer cómo liquidaron tu mesada. Pide por escrito copia del acto de reconocimiento con la liquidación detallada y el ingreso base tomado. Si no coincide con tu historia laboral, puedes interponer los recursos contra esa decisión dentro del término y, si se agotan, acudir al juez laboral. Guarda tu historia laboral y los desprendibles."
+      }
+    ]
+  },
+  {
+    "id": 9064,
+    "category": "Derecho administrativo general",
+    "tipo": "gold",
+    "criterio": "Debe explicar que la respuesta debe ser de fondo y congruente, no solo oportuna, y orientar a insistir por escrito antes de la tutela. La via correcta es el derecho de peticion y luego la tutela. NO debe decir que ya se cumplio por el hecho de haber contestado algo.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Le pedi una informacion a la alcaldia y me respondieron algo que no tiene nada que ver con lo que pregunte."
+      },
+      {
+        "role": "assistant",
+        "content": "Una respuesta que no resuelve lo que pediste no satisface el derecho de petición: la ley exige respuesta de fondo, clara y congruente. Radica un escrito señalando qué preguntaste y qué te contestaron, pidiendo que completen. Si insisten en no responder lo pedido, la tutela procede por violación del derecho de petición. Conserva ambos radicados."
+      }
+    ]
+  },
+  {
+    "id": 9065,
+    "category": "Propiedad intelectual - marcas",
+    "tipo": "gold",
+    "criterio": "Debe reconocer el valor del uso previo sin prometer que basta, y orientar a reunir prueba de la fecha de uso. La entidad correcta es la Superintendencia de Industria y Comercio, para la oposicion o la cancelacion del registro. NO debe afirmar que el uso previo vence automaticamente al registro.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Un competidor registro un nombre casi igual al mio y yo llevo anos usandolo sin registrar."
+      },
+      {
+        "role": "assistant",
+        "content": "El uso previo puede darte argumentos, pero sin registro tu posición es más débil. Reúne pruebas de desde cuándo usas el nombre: facturas, publicidad, redes y clientes. Puedes oponerte al registro si aún está en trámite, o pedir su cancelación, ante la Superintendencia de Industria y Comercio. Haz también una búsqueda de antecedentes antes de registrar el tuyo."
+      }
+    ]
+  },
+  {
+    "id": 9066,
+    "category": "Licencias urbanisticas",
+    "tipo": "gold",
+    "criterio": "Debe orientar a verificar si hay licencia mediante derecho de peticion y a documentar la obra. Las entidades correctas son la Alcaldia o la oficina de control urbano, y el curador urbano para la licencia. NO debe aconsejar actuar por cuenta propia contra la construccion del vecino.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Mi vecino amplio su casa invadiendo el antejardin y la alcaldia no responde mis quejas."
+      },
+      {
+        "role": "assistant",
+        "content": "El antejardín suele ser área de cesión o espacio público, así que construir ahí requiere licencia y muchas veces no se permite. Pide por derecho de petición copia de la licencia del vecino y el concepto de norma urbanística. Si la Alcaldía no responde de fondo, puedes insistir y acudir a la tutela. Toma fotos fechadas de la construcción."
+      }
+    ]
+  },
+  {
+    "id": 9067,
+    "category": "Contratos empresariales (B2B)",
+    "tipo": "gold",
+    "criterio": "Debe partir de lo que diga la clausula de territorio y exclusividad antes de calificar el incumplimiento, y orientar a documentar las ventas fuera de zona. La via correcta es el requerimiento escrito, la conciliacion y luego la jurisdiccion civil o comercial. NO debe afirmar que hay competencia desleal sin revisar el contrato ni mandar el caso a la Superintendencia de Industria y Comercio como primera via.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "El distribuidor esta vendiendo mi producto en una ciudad donde yo le di la exclusividad a otro."
+      },
+      {
+        "role": "assistant",
+        "content": "Revisa qué dice el contrato sobre territorio y exclusividad: si la cláusula está pactada, quien la incumple responde por los perjuicios. Reúne las pruebas de la venta fuera de su zona (facturas, publicaciones, testigos de los puntos) y requiérelo por escrito para que cese. Si no se corrige, cítalo a un centro de conciliación antes de demandar."
+      }
+    ]
+  },
+  {
+    "id": 9068,
+    "category": "Procedimiento civil - recursos",
+    "tipo": "gold",
+    "criterio": "Debe orientar a verificar el estado real del expediente en el juzgado antes de concluir, y separar el efecto procesal de la eventual responsabilidad del abogado. NO debe prometer que el termino se puede revivir ni afirmar que la sentencia se puede atacar sin revisar el caso.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Perdi en primera instancia y mi abogado no apelo dentro del tiempo."
+      },
+      {
+        "role": "assistant",
+        "content": "Lo primero es confirmar qué pasó: pide en la secretaría del juzgado copia del expediente y revisa si el término venció o si todavía hay alguna actuación posible. Si efectivamente se dejó vencer, la sentencia queda en firme y el reclamo contra tu abogado es un asunto aparte, por su responsabilidad profesional. Guarda el contrato de servicios y las comunicaciones."
+      }
+    ]
+  },
+  {
+    "id": 9069,
+    "category": "Procedimiento civil - recursos",
+    "tipo": "gold",
+    "criterio": "Debe orientar a revisar el expediente y a alegar la nulidad por indebida notificacion si corresponde. La entidad correcta es el juzgado del proceso. NO debe afirmar que toda notificacion por correo es invalida ni que la actuacion se cae automaticamente.",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+      },
+      {
+        "role": "user",
+        "content": "Me notificaron por un correo electronico que yo nunca autorice para eso."
+      },
+      {
+        "role": "assistant",
+        "content": "La notificación por canal digital exige que hayas suministrado o aceptado esa dirección. Pide en el juzgado copia del expediente y mira de dónde salió el correo. Si nunca lo autorizaste y eso te impidió defenderte, puedes alegar la nulidad por indebida notificación. Reúne prueba de cuál es tu dirección real y desde cuándo."
       }
     ]
   },

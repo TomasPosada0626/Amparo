@@ -52,10 +52,6 @@ PENDIENTES: dict[int, tuple[int, str]] = {
 
 # Por encima del umbral, pero revisadas: preguntan otra cosa.
 REVISADAS_DISTINTAS: dict[int, str] = {
-    9017: "el Estado paga tarde un contrato; 970 es una pension que llega tarde",
-    9020: "acto administrativo sin notificar; 22 es una notificacion fuera de tiempo",
-    9027: "pregunta abierta por la muerte de un familiar; 369 pregunta solo si el SOAT cubre el funeral",
-    9029: "desistir de una demanda; 1293 es reformarla",
     9041: "embargo de la cuenta de nomina propia; 490 es la cuenta de nomina de una empresa",
     9101: "en ingles; el parecido con 1496 ('Eso es legal?') es solo la palabra 'legal'",
 }
