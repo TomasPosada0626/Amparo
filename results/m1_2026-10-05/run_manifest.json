@@ -1,0 +1,51 @@
+{
+  "milestone": "M1",
+  "fecha": "2026-10-05",
+  "git_commit": "1c44115",
+  "notebook": "colab/m1_finetune.ipynb",
+  "dataset": {
+    "archivo": "data/dataset_legal.jsonl",
+    "n_total": 1536,
+    "n_categorias": 33,
+    "n_train": 1305,
+    "n_val": 231,
+    "random_seed": 42,
+    "val_fraction": 0.15
+  },
+  "modelo": {
+    "base_model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "cuantizacion": "4-bit nf4, double quant, compute dtype bfloat16",
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "target_modules": ["q_proj", "k_proj", "v_proj", "o_proj"],
+    "trainable_params": 10092544,
+    "trainable_pct": 0.1323,
+    "num_epochs": 3,
+    "learning_rate": 2e-4,
+    "per_device_batch_size": 2,
+    "grad_accum_steps": 8,
+    "max_seq_length": 1024
+  },
+  "evaluacion": {
+    "max_new_tokens_eval": 900,
+    "decoding": "greedy (do_sample=False)",
+    "nota_max_new_tokens": "Era 300 en corridas anteriores, donde el baseline quedaba cortado a mitad de frase y se le castigaba por incompleto. 900 es el mismo valor que MAX_NEW_TOKENS_GENERATION de M2."
+  },
+  "resultados": {
+    "nombra_ruta_legal": {"baseline_pct": 96.1, "afinado_pct": 93.9, "n": 231},
+    "cita_normas_no_verificables": {"baseline_pct": 14.7, "afinado_pct": 0.0, "n": 231},
+    "longitud_media_palabras": {"baseline": 229, "afinado": 46},
+    "similitud_lexica": {"baseline": 3.2, "afinado": 6.0}
+  },
+  "artefactos": {
+    "wandb_run": "https://wandb.ai/tomasposada67-universidad-eafit/amparo-legal-finetune/runs/d96zniak",
+    "adaptador_publico": "https://huggingface.co/Tomas0626/amparo-lora-qwen2.5-7b",
+    "adaptador_drive": "/content/drive/MyDrive/Colab Notebooks/Amparo/amparo-lora-adapter"
+  },
+  "no_capturado_en_esta_corrida": [
+    "versiones de librerias (transformers/peft/torch/trl)",
+    "modelo y memoria de la GPU",
+    "curva de perdida en texto (queda solo en el dashboard de W&B)"
+  ]
+}

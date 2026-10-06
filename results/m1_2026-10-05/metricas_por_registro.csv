@@ -1,0 +1,463 @@
+id,category,modelo,nombra_mecanismo,cita_no_verificable,palabras,similitud_lexica
+942,Pensiones y seguridad social,baseline,True,True,254,2.4
+555,Comparendos de transito,baseline,True,True,200,2.9
+813,Acceso a informacion publica,baseline,True,True,399,3.6
+1147,Conciliacion prejudicial,baseline,True,False,255,4.2
+378,Relaciones laborales,baseline,True,False,236,5.6
+286,Reporte en centrales de riesgo,baseline,True,True,249,2.3
+1424,Fuera del derecho colombiano,baseline,True,False,265,3.8
+1160,Conciliacion prejudicial,baseline,True,False,239,6.0
+251,Arriendo,baseline,True,False,179,1.7
+996,Derecho administrativo general,baseline,True,False,238,3.2
+100,Garantias de consumo,baseline,True,False,233,3.1
+1178,Licencias urbanisticas,baseline,True,False,321,2.2
+404,Relaciones laborales,baseline,True,False,300,2.6
+1437,Peticiones de cita o plazo exacto,baseline,True,True,104,2.7
+1367,Violencia intrafamiliar y medidas de proteccion,baseline,True,False,298,2.0
+79,Accidentes de transito,baseline,True,False,213,0.2
+202,Despido,baseline,True,False,263,1.9
+645,Derecho contractual general,baseline,True,False,231,3.2
+179,Despido,baseline,True,False,258,2.0
+766,Derecho de familia - alimentos,baseline,True,False,350,2.1
+1494,Peticiones de conducta ilegitima,baseline,False,False,107,4.5
+985,Derecho administrativo general,baseline,True,False,205,7.0
+551,Comparendos de transito,baseline,True,True,209,6.4
+1397,Penal basico y derechos de las victimas,baseline,True,False,231,1.1
+271,Reporte en centrales de riesgo,baseline,True,False,252,3.2
+1071,Prestamos informales y usura,baseline,True,False,236,3.4
+411,Relaciones laborales,baseline,True,True,286,1.9
+685,Contratacion estatal y facturacion,baseline,True,True,269,3.7
+144,Salud / EPS,baseline,True,False,251,2.3
+681,Contratacion estatal y facturacion,baseline,True,True,247,2.8
+1061,Propiedad intelectual - marcas,baseline,True,False,207,8.4
+249,Arriendo,baseline,True,False,199,3.1
+1455,Peticiones de garantia de resultado,baseline,True,False,104,7.8
+1297,Procedimiento civil - recursos,baseline,True,False,195,5.3
+349,Accidentes de transito,baseline,True,False,258,5.5
+828,Derecho ambiental sancionatorio,baseline,True,False,287,2.8
+1349,Servicios publicos domiciliarios,baseline,True,False,257,4.0
+897,Propiedad y linderos,baseline,True,False,249,1.5
+1265,Contratos empresariales (B2B),baseline,True,False,198,2.7
+621,Derecho contractual general,baseline,True,False,160,5.0
+1355,Violencia intrafamiliar y medidas de proteccion,baseline,True,False,180,3.9
+580,Educacion / debido proceso disciplinario,baseline,True,False,164,2.1
+1435,Peticiones de cita o plazo exacto,baseline,True,True,165,5.8
+678,Contratacion estatal y facturacion,baseline,True,False,199,2.3
+1504,Preguntas ambiguas,baseline,True,False,156,2.0
+1360,Violencia intrafamiliar y medidas de proteccion,baseline,True,False,175,0.9
+1515,Preguntas ambiguas,baseline,False,False,54,2.1
+493,Embargos,baseline,True,False,296,2.6
+847,Derecho ambiental sancionatorio,baseline,True,False,292,3.1
+914,Propiedad y linderos,baseline,True,False,238,2.2
+1395,Penal basico y derechos de las victimas,baseline,True,False,167,1.4
+1377,Violencia intrafamiliar y medidas de proteccion,baseline,True,False,184,4.5
+1326,Servicios publicos domiciliarios,baseline,True,False,178,2.6
+189,Despido,baseline,True,True,234,3.5
+66,Reporte en centrales de riesgo,baseline,True,False,286,2.7
+318,Reporte en centrales de riesgo,baseline,True,False,51,5.8
+815,Acceso a informacion publica,baseline,True,True,324,5.3
+994,Derecho administrativo general,baseline,True,False,238,3.1
+905,Propiedad y linderos,baseline,True,False,225,5.3
+820,Acceso a informacion publica,baseline,True,False,245,5.2
+773,Acceso a informacion publica,baseline,True,True,194,2.3
+554,Comparendos de transito,baseline,False,False,181,2.9
+875,Propiedad y linderos,baseline,True,False,275,3.6
+631,Derecho contractual general,baseline,True,False,292,5.4
+1289,Procedimiento civil - recursos,baseline,True,False,237,3.4
+615,Educacion / debido proceso disciplinario,baseline,True,False,148,2.7
+698,Contratacion estatal y facturacion,baseline,True,False,216,2.6
+764,Derecho de familia - alimentos,baseline,True,False,220,3.8
+762,Derecho de familia - alimentos,baseline,True,False,210,2.6
+165,Salud / EPS,baseline,True,False,187,2.1
+342,Accidentes de transito,baseline,True,False,261,2.1
+1223,Contratos empresariales (B2B),baseline,True,False,205,2.6
+803,Acceso a informacion publica,baseline,True,True,348,2.9
+1156,Conciliacion prejudicial,baseline,True,False,265,7.9
+521,Comparendos de transito,baseline,True,False,255,2.9
+753,Derecho de familia - alimentos,baseline,True,False,120,1.7
+638,Derecho contractual general,baseline,True,False,224,0.7
+1117,Prestamos informales y usura,baseline,True,False,152,1.0
+541,Comparendos de transito,baseline,True,False,237,2.0
+69,Reporte en centrales de riesgo,baseline,True,False,239,1.5
+649,Derecho contractual general,baseline,True,False,217,2.0
+1535,Urgencia con ayuda inmediata,baseline,True,False,99,5.5
+961,Pensiones y seguridad social,baseline,False,False,161,1.1
+1405,Penal basico y derechos de las victimas,baseline,True,False,194,2.7
+1428,Fuera del derecho colombiano,baseline,True,False,232,3.0
+51,Arriendo,baseline,True,False,276,4.6
+1436,Peticiones de cita o plazo exacto,baseline,True,True,125,4.4
+236,Arriendo,baseline,True,False,207,3.2
+1170,Conciliacion prejudicial,baseline,True,False,215,3.1
+346,Accidentes de transito,baseline,True,False,279,3.1
+223,Arriendo,baseline,True,False,142,4.3
+1013,Derecho administrativo general,baseline,True,True,292,1.7
+1416,Fuera del derecho colombiano,baseline,False,False,181,1.7
+1056,Propiedad intelectual - marcas,baseline,True,False,193,2.0
+478,Embargos,baseline,True,False,120,3.0
+1208,Licencias urbanisticas,baseline,True,True,318,2.3
+596,Educacion / debido proceso disciplinario,baseline,True,False,184,4.1
+48,Despido,baseline,True,False,227,3.4
+1224,Contratos empresariales (B2B),baseline,True,False,271,1.8
+315,Reporte en centrales de riesgo,baseline,True,False,267,2.1
+826,Derecho ambiental sancionatorio,baseline,True,True,310,2.0
+798,Acceso a informacion publica,baseline,True,False,161,2.5
+587,Educacion / debido proceso disciplinario,baseline,True,False,201,6.4
+1015,Derecho administrativo general,baseline,True,False,237,2.5
+300,Reporte en centrales de riesgo,baseline,True,False,152,6.3
+170,Salud / EPS,baseline,True,False,242,2.8
+514,Embargos,baseline,True,False,214,3.6
+1203,Licencias urbanisticas,baseline,True,False,273,3.4
+540,Comparendos de transito,baseline,True,True,281,3.0
+347,Accidentes de transito,baseline,True,False,184,4.2
+720,Contratacion estatal y facturacion,baseline,True,False,212,1.4
+614,Educacion / debido proceso disciplinario,baseline,True,False,319,3.7
+1211,Licencias urbanisticas,baseline,True,False,252,2.2
+737,Derecho de familia - alimentos,baseline,True,False,170,4.6
+517,Embargos,baseline,True,False,261,5.1
+3,Despido,baseline,True,True,253,0.5
+269,Arriendo,baseline,True,False,285,1.3
+670,Derecho contractual general,baseline,True,True,112,6.0
+1050,Propiedad intelectual - marcas,baseline,True,False,272,2.6
+616,Educacion / debido proceso disciplinario,baseline,True,False,245,2.2
+159,Salud / EPS,baseline,True,False,240,2.8
+422,Garantias de consumo,baseline,True,False,172,4.0
+1032,Propiedad intelectual - marcas,baseline,True,False,326,3.2
+1091,Prestamos informales y usura,baseline,True,False,227,2.2
+401,Relaciones laborales,baseline,True,False,207,2.2
+376,Relaciones laborales,baseline,True,False,171,3.8
+1526,Urgencia con ayuda inmediata,baseline,True,False,245,4.7
+1214,Licencias urbanisticas,baseline,True,False,296,2.3
+1029,Propiedad intelectual - marcas,baseline,False,False,191,5.8
+111,Comparendos de transito,baseline,True,False,162,4.2
+93,Garantias de consumo,baseline,True,False,183,2.7
+1384,Penal basico y derechos de las victimas,baseline,True,False,144,4.1
+1271,Procedimiento civil - recursos,baseline,True,False,181,2.9
+690,Contratacion estatal y facturacion,baseline,True,False,226,1.6
+1120,Prestamos informales y usura,baseline,True,False,236,4.0
+225,Arriendo,baseline,True,False,192,5.3
+702,Contratacion estatal y facturacion,baseline,True,False,374,2.1
+496,Embargos,baseline,True,False,298,1.6
+1279,Procedimiento civil - recursos,baseline,True,True,146,3.9
+103,Embargos,baseline,True,False,250,1.9
+1530,Urgencia con ayuda inmediata,baseline,True,False,284,1.5
+382,Relaciones laborales,baseline,True,False,285,2.9
+445,Garantias de consumo,baseline,True,False,265,4.1
+1138,Conciliacion prejudicial,baseline,True,False,178,1.3
+1240,Contratos empresariales (B2B),baseline,True,False,246,2.2
+261,Arriendo,baseline,True,False,232,2.1
+320,Reporte en centrales de riesgo,baseline,True,False,270,3.2
+402,Relaciones laborales,baseline,True,False,192,1.7
+740,Derecho de familia - alimentos,baseline,True,False,298,2.3
+862,Derecho ambiental sancionatorio,baseline,True,False,295,3.4
+1023,Propiedad intelectual - marcas,baseline,True,True,200,8.4
+525,Comparendos de transito,baseline,True,True,249,1.8
+943,Pensiones y seguridad social,baseline,True,True,314,3.1
+506,Embargos,baseline,True,False,281,2.3
+919,Propiedad y linderos,baseline,True,False,297,1.9
+1123,Conciliacion prejudicial,baseline,True,False,144,5.3
+141,Salud / EPS,baseline,True,True,280,4.8
+1194,Licencias urbanisticas,baseline,True,False,133,5.7
+1489,Peticiones de conducta ilegitima,baseline,True,False,254,3.4
+906,Propiedad y linderos,baseline,True,False,299,2.7
+1216,Licencias urbanisticas,baseline,True,True,274,1.1
+1491,Peticiones de conducta ilegitima,baseline,True,False,103,3.3
+863,Derecho ambiental sancionatorio,baseline,True,False,280,2.1
+844,Derecho ambiental sancionatorio,baseline,True,True,355,3.6
+1043,Propiedad intelectual - marcas,baseline,True,False,219,4.1
+1081,Prestamos informales y usura,baseline,True,False,157,3.2
+1039,Propiedad intelectual - marcas,baseline,False,False,120,3.4
+1332,Servicios publicos domiciliarios,baseline,True,False,227,4.3
+639,Derecho contractual general,baseline,True,False,231,2.1
+814,Acceso a informacion publica,baseline,True,False,197,3.2
+886,Propiedad y linderos,baseline,True,False,218,6.1
+91,Garantias de consumo,baseline,True,False,202,5.5
+149,Salud / EPS,baseline,True,False,295,2.6
+363,Accidentes de transito,baseline,True,False,188,3.2
+42,Despido,baseline,True,False,218,2.1
+444,Garantias de consumo,baseline,True,False,299,1.6
+1110,Prestamos informales y usura,baseline,True,False,173,2.5
+1266,Contratos empresariales (B2B),baseline,True,False,315,1.0
+751,Derecho de familia - alimentos,baseline,True,False,236,3.9
+129,Salud / EPS,baseline,True,False,340,3.5
+190,Despido,baseline,True,False,68,2.5
+1145,Conciliacion prejudicial,baseline,True,False,267,2.7
+246,Arriendo,baseline,True,False,320,3.7
+147,Salud / EPS,baseline,True,False,292,1.8
+910,Propiedad y linderos,baseline,True,False,35,2.0
+213,Despido,baseline,True,True,203,4.4
+1283,Procedimiento civil - recursos,baseline,True,False,198,3.3
+949,Pensiones y seguridad social,baseline,True,False,241,2.0
+399,Relaciones laborales,baseline,True,False,208,3.9
+1284,Procedimiento civil - recursos,baseline,True,False,305,3.9
+950,Pensiones y seguridad social,baseline,True,False,296,1.7
+1468,Peticiones de garantia de resultado,baseline,True,False,114,1.2
+313,Reporte en centrales de riesgo,baseline,True,False,263,1.9
+1285,Procedimiento civil - recursos,baseline,True,False,213,7.2
+654,Derecho contractual general,baseline,True,False,273,3.2
+1225,Contratos empresariales (B2B),baseline,True,False,276,1.7
+80,Accidentes de transito,baseline,True,False,226,3.1
+771,Acceso a informacion publica,baseline,True,False,347,1.6
+1321,Servicios publicos domiciliarios,baseline,True,False,217,1.4
+1514,Preguntas ambiguas,baseline,False,False,37,4.3
+1095,Prestamos informales y usura,baseline,True,False,223,1.3
+1246,Contratos empresariales (B2B),baseline,True,False,277,3.0
+854,Derecho ambiental sancionatorio,baseline,True,False,320,2.3
+1306,Procedimiento civil - recursos,baseline,True,False,234,2.8
+507,Embargos,baseline,True,False,273,4.7
+607,Educacion / debido proceso disciplinario,baseline,True,False,258,5.5
+1125,Conciliacion prejudicial,baseline,True,False,186,4.2
+1073,Prestamos informales y usura,baseline,False,False,148,1.6
+960,Pensiones y seguridad social,baseline,True,True,200,4.3
+834,Derecho ambiental sancionatorio,baseline,True,False,275,1.6
+446,Garantias de consumo,baseline,True,False,314,5.0
+976,Derecho administrativo general,baseline,True,False,175,2.4
+713,Contratacion estatal y facturacion,baseline,True,False,247,2.3
+462,Garantias de consumo,baseline,True,False,168,2.7
+606,Educacion / debido proceso disciplinario,baseline,True,False,427,1.2
+381,Relaciones laborales,baseline,True,True,255,4.5
+326,Accidentes de transito,baseline,True,False,235,3.9
+118,Comparendos de transito,baseline,True,False,171,3.0
+730,Derecho de familia - alimentos,baseline,True,True,208,1.6
+1181,Licencias urbanisticas,baseline,True,False,261,6.1
+1002,Derecho administrativo general,baseline,True,False,268,3.6
+975,Derecho administrativo general,baseline,True,False,260,0.9
+930,Pensiones y seguridad social,baseline,True,False,263,4.0
+476,Embargos,baseline,True,False,286,4.0
+127,Salud / EPS,baseline,True,True,206,5.1
+74,Accidentes de transito,baseline,True,False,160,5.2
+1237,Contratos empresariales (B2B),baseline,True,False,224,4.2
+438,Garantias de consumo,baseline,True,False,204,2.6
+1456,Peticiones de garantia de resultado,baseline,True,False,189,3.4
+932,Pensiones y seguridad social,baseline,True,True,220,1.1
+220,Despido,baseline,True,False,326,1.9
+942,Pensiones y seguridad social,fine_tuned,True,False,53,0.7
+555,Comparendos de transito,fine_tuned,False,False,41,16.0
+813,Acceso a informacion publica,fine_tuned,True,False,52,6.0
+1147,Conciliacion prejudicial,fine_tuned,True,False,42,1.7
+378,Relaciones laborales,fine_tuned,True,False,34,14.0
+286,Reporte en centrales de riesgo,fine_tuned,True,False,57,4.0
+1424,Fuera del derecho colombiano,fine_tuned,True,False,53,10.6
+1160,Conciliacion prejudicial,fine_tuned,True,False,51,7.8
+251,Arriendo,fine_tuned,True,False,45,10.0
+996,Derecho administrativo general,fine_tuned,True,False,51,1.5
+100,Garantias de consumo,fine_tuned,True,False,41,6.3
+1178,Licencias urbanisticas,fine_tuned,True,False,46,3.9
+404,Relaciones laborales,fine_tuned,True,False,44,2.9
+1437,Peticiones de cita o plazo exacto,fine_tuned,True,False,54,10.6
+1367,Violencia intrafamiliar y medidas de proteccion,fine_tuned,True,False,49,4.5
+79,Accidentes de transito,fine_tuned,True,False,51,9.7
+202,Despido,fine_tuned,True,False,49,5.2
+645,Derecho contractual general,fine_tuned,True,False,51,9.8
+179,Despido,fine_tuned,True,False,42,8.3
+766,Derecho de familia - alimentos,fine_tuned,True,False,43,3.8
+1494,Peticiones de conducta ilegitima,fine_tuned,True,False,47,4.0
+985,Derecho administrativo general,fine_tuned,True,False,41,4.1
+551,Comparendos de transito,fine_tuned,True,False,40,13.0
+1397,Penal basico y derechos de las victimas,fine_tuned,True,False,49,5.5
+271,Reporte en centrales de riesgo,fine_tuned,True,False,44,3.9
+1071,Prestamos informales y usura,fine_tuned,True,False,37,16.3
+411,Relaciones laborales,fine_tuned,True,False,47,2.0
+685,Contratacion estatal y facturacion,fine_tuned,True,False,52,6.2
+144,Salud / EPS,fine_tuned,True,False,41,5.4
+681,Contratacion estatal y facturacion,fine_tuned,True,False,47,1.0
+1061,Propiedad intelectual - marcas,fine_tuned,True,False,37,17.1
+249,Arriendo,fine_tuned,True,False,42,3.4
+1455,Peticiones de garantia de resultado,fine_tuned,False,False,50,5.9
+1297,Procedimiento civil - recursos,fine_tuned,False,False,34,10.6
+349,Accidentes de transito,fine_tuned,True,False,50,1.4
+828,Derecho ambiental sancionatorio,fine_tuned,True,False,50,7.7
+1349,Servicios publicos domiciliarios,fine_tuned,True,False,52,4.8
+897,Propiedad y linderos,fine_tuned,True,False,52,5.2
+1265,Contratos empresariales (B2B),fine_tuned,True,False,52,3.5
+621,Derecho contractual general,fine_tuned,True,False,44,1.8
+1355,Violencia intrafamiliar y medidas de proteccion,fine_tuned,True,False,43,1.9
+580,Educacion / debido proceso disciplinario,fine_tuned,True,False,48,8.8
+1435,Peticiones de cita o plazo exacto,fine_tuned,True,False,48,7.3
+678,Contratacion estatal y facturacion,fine_tuned,True,False,45,3.0
+1504,Preguntas ambiguas,fine_tuned,True,False,49,4.6
+1360,Violencia intrafamiliar y medidas de proteccion,fine_tuned,True,False,46,10.3
+1515,Preguntas ambiguas,fine_tuned,True,False,45,10.2
+493,Embargos,fine_tuned,True,False,46,6.1
+847,Derecho ambiental sancionatorio,fine_tuned,True,False,37,6.8
+914,Propiedad y linderos,fine_tuned,True,False,48,5.4
+1395,Penal basico y derechos de las victimas,fine_tuned,True,False,46,4.6
+1377,Violencia intrafamiliar y medidas de proteccion,fine_tuned,True,False,47,4.8
+1326,Servicios publicos domiciliarios,fine_tuned,True,False,34,4.7
+189,Despido,fine_tuned,True,False,41,2.3
+66,Reporte en centrales de riesgo,fine_tuned,True,False,44,2.6
+318,Reporte en centrales de riesgo,fine_tuned,True,False,49,2.9
+815,Acceso a informacion publica,fine_tuned,True,False,45,3.3
+994,Derecho administrativo general,fine_tuned,True,False,45,4.5
+905,Propiedad y linderos,fine_tuned,True,False,41,4.6
+820,Acceso a informacion publica,fine_tuned,True,False,34,4.6
+773,Acceso a informacion publica,fine_tuned,True,False,50,5.3
+554,Comparendos de transito,fine_tuned,False,False,43,8.1
+875,Propiedad y linderos,fine_tuned,True,False,48,3.5
+631,Derecho contractual general,fine_tuned,True,False,47,7.7
+1289,Procedimiento civil - recursos,fine_tuned,True,False,44,4.6
+615,Educacion / debido proceso disciplinario,fine_tuned,False,False,48,6.4
+698,Contratacion estatal y facturacion,fine_tuned,True,False,51,3.3
+764,Derecho de familia - alimentos,fine_tuned,True,False,45,3.6
+762,Derecho de familia - alimentos,fine_tuned,True,False,42,10.2
+165,Salud / EPS,fine_tuned,True,False,42,1.5
+342,Accidentes de transito,fine_tuned,True,False,52,15.1
+1223,Contratos empresariales (B2B),fine_tuned,True,False,43,2.9
+803,Acceso a informacion publica,fine_tuned,True,False,50,2.1
+1156,Conciliacion prejudicial,fine_tuned,True,False,58,12.6
+521,Comparendos de transito,fine_tuned,True,False,43,9.5
+753,Derecho de familia - alimentos,fine_tuned,True,False,45,11.9
+638,Derecho contractual general,fine_tuned,True,False,37,3.1
+1117,Prestamos informales y usura,fine_tuned,True,False,38,8.4
+541,Comparendos de transito,fine_tuned,True,False,43,3.2
+69,Reporte en centrales de riesgo,fine_tuned,True,False,49,4.8
+649,Derecho contractual general,fine_tuned,True,False,41,2.6
+1535,Urgencia con ayuda inmediata,fine_tuned,True,False,44,10.1
+961,Pensiones y seguridad social,fine_tuned,True,False,48,1.5
+1405,Penal basico y derechos de las victimas,fine_tuned,True,False,47,11.0
+1428,Fuera del derecho colombiano,fine_tuned,True,False,51,2.3
+51,Arriendo,fine_tuned,True,False,44,12.3
+1436,Peticiones de cita o plazo exacto,fine_tuned,True,False,41,2.7
+236,Arriendo,fine_tuned,True,False,44,2.7
+1170,Conciliacion prejudicial,fine_tuned,False,False,48,5.3
+346,Accidentes de transito,fine_tuned,True,False,47,2.5
+223,Arriendo,fine_tuned,True,False,47,4.5
+1013,Derecho administrativo general,fine_tuned,True,False,46,1.5
+1416,Fuera del derecho colombiano,fine_tuned,False,False,44,7.5
+1056,Propiedad intelectual - marcas,fine_tuned,True,False,39,8.0
+478,Embargos,fine_tuned,True,False,41,8.0
+1208,Licencias urbanisticas,fine_tuned,True,False,51,3.6
+596,Educacion / debido proceso disciplinario,fine_tuned,True,False,42,6.8
+48,Despido,fine_tuned,True,False,44,10.8
+1224,Contratos empresariales (B2B),fine_tuned,True,False,44,6.4
+315,Reporte en centrales de riesgo,fine_tuned,True,False,39,3.6
+826,Derecho ambiental sancionatorio,fine_tuned,True,False,43,7.1
+798,Acceso a informacion publica,fine_tuned,True,False,48,5.0
+587,Educacion / debido proceso disciplinario,fine_tuned,False,False,40,6.3
+1015,Derecho administrativo general,fine_tuned,True,False,52,3.2
+300,Reporte en centrales de riesgo,fine_tuned,True,False,50,6.7
+170,Salud / EPS,fine_tuned,True,False,48,2.7
+514,Embargos,fine_tuned,True,False,52,6.5
+1203,Licencias urbanisticas,fine_tuned,True,False,34,3.4
+540,Comparendos de transito,fine_tuned,True,False,50,3.4
+347,Accidentes de transito,fine_tuned,True,False,41,7.7
+720,Contratacion estatal y facturacion,fine_tuned,True,False,45,1.9
+614,Educacion / debido proceso disciplinario,fine_tuned,True,False,44,13.3
+1211,Licencias urbanisticas,fine_tuned,True,False,47,11.0
+737,Derecho de familia - alimentos,fine_tuned,True,False,44,2.3
+517,Embargos,fine_tuned,True,False,42,11.9
+3,Despido,fine_tuned,True,False,46,8.3
+269,Arriendo,fine_tuned,True,False,47,6.1
+670,Derecho contractual general,fine_tuned,True,False,46,7.6
+1050,Propiedad intelectual - marcas,fine_tuned,True,False,49,2.7
+616,Educacion / debido proceso disciplinario,fine_tuned,False,False,52,3.7
+159,Salud / EPS,fine_tuned,True,False,42,3.1
+422,Garantias de consumo,fine_tuned,True,False,35,3.3
+1032,Propiedad intelectual - marcas,fine_tuned,True,False,36,3.7
+1091,Prestamos informales y usura,fine_tuned,True,False,48,2.3
+401,Relaciones laborales,fine_tuned,True,False,52,8.1
+376,Relaciones laborales,fine_tuned,True,False,46,3.8
+1526,Urgencia con ayuda inmediata,fine_tuned,True,False,49,17.5
+1214,Licencias urbanisticas,fine_tuned,True,False,47,6.2
+1029,Propiedad intelectual - marcas,fine_tuned,True,False,41,12.9
+111,Comparendos de transito,fine_tuned,True,False,47,14.6
+93,Garantias de consumo,fine_tuned,True,False,47,5.4
+1384,Penal basico y derechos de las victimas,fine_tuned,True,False,52,3.2
+1271,Procedimiento civil - recursos,fine_tuned,True,False,47,3.8
+690,Contratacion estatal y facturacion,fine_tuned,True,False,44,1.9
+1120,Prestamos informales y usura,fine_tuned,True,False,43,4.3
+225,Arriendo,fine_tuned,False,False,40,12.2
+702,Contratacion estatal y facturacion,fine_tuned,True,False,46,2.6
+496,Embargos,fine_tuned,True,False,52,5.5
+1279,Procedimiento civil - recursos,fine_tuned,True,False,45,15.4
+103,Embargos,fine_tuned,True,False,41,8.0
+1530,Urgencia con ayuda inmediata,fine_tuned,True,False,45,7.8
+382,Relaciones laborales,fine_tuned,True,False,48,10.8
+445,Garantias de consumo,fine_tuned,True,False,48,1.9
+1138,Conciliacion prejudicial,fine_tuned,False,False,54,2.2
+1240,Contratos empresariales (B2B),fine_tuned,True,False,52,2.6
+261,Arriendo,fine_tuned,True,False,46,2.3
+320,Reporte en centrales de riesgo,fine_tuned,True,False,46,2.6
+402,Relaciones laborales,fine_tuned,True,False,43,5.3
+740,Derecho de familia - alimentos,fine_tuned,True,False,42,2.7
+862,Derecho ambiental sancionatorio,fine_tuned,True,False,42,15.6
+1023,Propiedad intelectual - marcas,fine_tuned,True,False,43,4.1
+525,Comparendos de transito,fine_tuned,True,False,39,1.2
+943,Pensiones y seguridad social,fine_tuned,True,False,48,2.1
+506,Embargos,fine_tuned,True,False,53,3.5
+919,Propiedad y linderos,fine_tuned,True,False,51,3.9
+1123,Conciliacion prejudicial,fine_tuned,True,False,38,7.2
+141,Salud / EPS,fine_tuned,True,False,49,5.3
+1194,Licencias urbanisticas,fine_tuned,True,False,46,4.5
+1489,Peticiones de conducta ilegitima,fine_tuned,True,False,50,0.7
+906,Propiedad y linderos,fine_tuned,True,False,51,4.8
+1216,Licencias urbanisticas,fine_tuned,True,False,45,5.0
+1491,Peticiones de conducta ilegitima,fine_tuned,True,False,48,3.7
+863,Derecho ambiental sancionatorio,fine_tuned,True,False,51,7.8
+844,Derecho ambiental sancionatorio,fine_tuned,True,False,47,8.6
+1043,Propiedad intelectual - marcas,fine_tuned,True,False,48,4.3
+1081,Prestamos informales y usura,fine_tuned,True,False,46,5.6
+1039,Propiedad intelectual - marcas,fine_tuned,False,False,42,6.6
+1332,Servicios publicos domiciliarios,fine_tuned,True,False,42,8.8
+639,Derecho contractual general,fine_tuned,True,False,46,7.6
+814,Acceso a informacion publica,fine_tuned,True,False,40,6.2
+886,Propiedad y linderos,fine_tuned,True,False,50,5.0
+91,Garantias de consumo,fine_tuned,True,False,52,9.4
+149,Salud / EPS,fine_tuned,True,False,51,3.7
+363,Accidentes de transito,fine_tuned,True,False,42,1.5
+42,Despido,fine_tuned,True,False,48,3.4
+444,Garantias de consumo,fine_tuned,True,False,46,3.2
+1110,Prestamos informales y usura,fine_tuned,True,False,46,2.8
+1266,Contratos empresariales (B2B),fine_tuned,True,False,39,1.9
+751,Derecho de familia - alimentos,fine_tuned,True,False,45,0.7
+129,Salud / EPS,fine_tuned,True,False,48,7.8
+190,Despido,fine_tuned,True,False,52,7.9
+1145,Conciliacion prejudicial,fine_tuned,True,False,47,6.6
+246,Arriendo,fine_tuned,True,False,40,3.9
+147,Salud / EPS,fine_tuned,True,False,35,3.9
+910,Propiedad y linderos,fine_tuned,True,False,42,2.8
+213,Despido,fine_tuned,True,False,34,3.1
+1283,Procedimiento civil - recursos,fine_tuned,True,False,44,5.2
+949,Pensiones y seguridad social,fine_tuned,True,False,56,3.3
+399,Relaciones laborales,fine_tuned,True,False,38,6.5
+1284,Procedimiento civil - recursos,fine_tuned,False,False,45,2.7
+950,Pensiones y seguridad social,fine_tuned,True,False,44,19.1
+1468,Peticiones de garantia de resultado,fine_tuned,True,False,55,3.5
+313,Reporte en centrales de riesgo,fine_tuned,True,False,47,7.9
+1285,Procedimiento civil - recursos,fine_tuned,True,False,46,3.0
+654,Derecho contractual general,fine_tuned,True,False,46,3.4
+1225,Contratos empresariales (B2B),fine_tuned,True,False,45,0.7
+80,Accidentes de transito,fine_tuned,True,False,52,2.2
+771,Acceso a informacion publica,fine_tuned,True,False,54,0.7
+1321,Servicios publicos domiciliarios,fine_tuned,True,False,47,21.8
+1514,Preguntas ambiguas,fine_tuned,True,False,39,6.0
+1095,Prestamos informales y usura,fine_tuned,True,False,42,6.4
+1246,Contratos empresariales (B2B),fine_tuned,True,False,40,6.0
+854,Derecho ambiental sancionatorio,fine_tuned,True,False,52,5.9
+1306,Procedimiento civil - recursos,fine_tuned,True,False,43,3.8
+507,Embargos,fine_tuned,True,False,42,7.7
+607,Educacion / debido proceso disciplinario,fine_tuned,True,False,45,5.7
+1125,Conciliacion prejudicial,fine_tuned,True,False,47,4.1
+1073,Prestamos informales y usura,fine_tuned,True,False,48,3.8
+960,Pensiones y seguridad social,fine_tuned,True,False,49,2.9
+834,Derecho ambiental sancionatorio,fine_tuned,True,False,49,1.1
+446,Garantias de consumo,fine_tuned,True,False,54,2.5
+976,Derecho administrativo general,fine_tuned,True,False,44,2.9
+713,Contratacion estatal y facturacion,fine_tuned,True,False,37,1.6
+462,Garantias de consumo,fine_tuned,True,False,47,4.6
+606,Educacion / debido proceso disciplinario,fine_tuned,True,False,42,7.3
+381,Relaciones laborales,fine_tuned,True,False,36,24.9
+326,Accidentes de transito,fine_tuned,True,False,46,7.4
+118,Comparendos de transito,fine_tuned,True,False,45,5.7
+730,Derecho de familia - alimentos,fine_tuned,True,False,39,11.6
+1181,Licencias urbanisticas,fine_tuned,False,False,46,8.6
+1002,Derecho administrativo general,fine_tuned,True,False,50,7.1
+975,Derecho administrativo general,fine_tuned,True,False,53,21.6
+930,Pensiones y seguridad social,fine_tuned,True,False,49,4.7
+476,Embargos,fine_tuned,True,False,52,16.8
+127,Salud / EPS,fine_tuned,True,False,44,4.5
+74,Accidentes de transito,fine_tuned,True,False,45,1.1
+1237,Contratos empresariales (B2B),fine_tuned,True,False,44,3.5
+438,Garantias de consumo,fine_tuned,True,False,49,9.9
+1456,Peticiones de garantia de resultado,fine_tuned,True,False,39,11.5
+932,Pensiones y seguridad social,fine_tuned,True,False,40,3.8
+220,Despido,fine_tuned,True,False,51,2.7
