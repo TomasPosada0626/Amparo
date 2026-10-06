@@ -21,22 +21,16 @@ BASE_MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"
 # las de largo medio); el fine-tuned (~46 palabras) no cambia. El scorecard
 # reporta igual el % de respuestas cortadas de cada modelo.
 MAX_NEW_TOKENS_GENERATION = 900
-# Salida del juez: un JSON con puntajes y justificacion. Era 200 y truncaba la
-# respuesta a media llave, asi que en la corrida del 2026-10-02 el parseo fallo
-# en 36 de 213 casos del baseline y 25 de 213 del afinado. No era ruido: los
-# fallos se concentraban en las respuestas largas, y al descartarlos la
-# diferencia entre modelos parecia +0.127 cuando sobre los 213 completos es
-# +0.028. Con 512 el parseo no falla. Reintentar no sirve como arreglo: la
-# generacion es greedy (do_sample=False) y vuelve a producir el mismo texto
-# truncado.
-MAX_NEW_TOKENS_JUDGE = 512
-MAX_NEW_TOKENS_PAIRWISE_JUDGE = 100
+# El juez es Groq (external_judge.py): sus presupuestos de tokens viven ahi
+# (GROQ_MAX_TOKENS_*). El juez local Qwen, con MAX_NEW_TOKENS_JUDGE=512, se
+# quito en m3.5: era de la misma familia que el modelo evaluado.
 
 BERTSCORE_MODEL = "dccuchile/bert-base-spanish-wwm-cased"
 BERTSCORE_NUM_LAYERS = 10
 
-POSITION_BIAS_SAMPLE_SIZE = 30
-SELF_PREF_DIVERGENCE_THRESHOLD = 0.10
+# Pares de la comparacion cara a cara. None = todos (231 pares x 2 ordenes).
+# Era una muestra de 30: poca para concluir quien gana.
+PAIRWISE_SAMPLE_SIZE = None
 
 # Rutas de Google Drive. Son simples strings (no se tocan fuera de Colab), por
 # eso es seguro importar este modulo tambien fuera de Colab (p. ej. en tests).

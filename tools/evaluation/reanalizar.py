@@ -46,6 +46,12 @@ def reanalizar(run_dir: Path, out: Path, incluir_groq: bool = False, notas_extra
         for r in rows:
             r.cortada = scorecard.parece_cortada(r.generated)
     manifest = json.loads((run_dir / "run_manifest.json").read_text(encoding="utf-8"))
+    if not scorecard.csv_tiene_columna(run_dir / "metricas_por_registro.csv", "rutas_incorrectas"):
+        # Corrida anterior a las guardias de rutas: se calculan ahora sobre sus
+        # respuestas, con el train de la rama actual (las preguntas viejas de
+        # validacion siguen en validacion: agregar categorias no las mueve).
+        from tools.evaluation import dataset, fase_groq, rutas
+        fase_groq._guardias(rows, rutas.construir_mapa(dataset.stratified_split(dataset.load_records())[0]))
 
     summaries = scorecard.summarize_by_label(rows)
     comparacion = scorecard.comparar(rows)

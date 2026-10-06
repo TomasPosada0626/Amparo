@@ -1,11 +1,20 @@
-"""Mitigacion y medicion de sesgos del LLM-as-judge (wiki-drafts/M2.md,
-seccion 5): position bias, length bias y self-preference bias.
+"""Sesgos del LLM-as-judge y como se controlan en M2.
 
-Las funciones de sondeo (run_position_bias_probe) requieren GPU/modelo
-cargado, igual que generation.py/judge.py. Las funciones de analisis
-estadistico (length_bias_correlation, self_preference_gap,
-judge_vs_similarity_correlation) son puro Python/numpy y si son testeables
-sin GPU.
+- Familia (auto-preferencia): el juez es Groq (openai/gpt-oss-120b), de otra
+  familia que el Qwen2.5 evaluado y que no escribio ninguna respuesta. El juez
+  local Qwen se quito (ver judge.py).
+- Posicion: solo existe cuando el juez compara dos respuestas lado a lado. Cada
+  par se juzga en los dos ordenes y solo cuenta como victoria si el mismo modelo
+  gana en ambos (veredicto_consistente); si el ganador cambia con el orden, el
+  par es "inconsistente" y no se le suma a nadie. El flip rate queda como
+  diagnostico. La rubrica 1-5 y el criterio califican una respuesta a la vez:
+  no tienen posicion.
+- Longitud: los prompts piden no premiar la extension y length_bias_correlation
+  mide si el puntaje sube con el largo. El scorecard reporta el juez sin el
+  criterio de concision, que es el unico que mira el largo a proposito.
+
+El nucleo de la comparacion (_run_position_bias_probe_core) depende solo de
+generate_fn: se prueba sin red ni GPU.
 """
 from __future__ import annotations
 
@@ -19,13 +28,22 @@ from typing import Callable, Optional
 
 import numpy as np
 
-from tools.evaluation import config, generation
 from tools.evaluation.checkpoint import append_checkpoint, huella, load_checkpoint
+from tools.evaluation.estadistica import proporcion
+
+# Cambia cuando cambia el prompt (entra en la huella del checkpoint).
+PAIRWISE_PROMPT_VERSION = "2026-10-06"
 
 PAIRWISE_JUDGE_SYSTEM_PROMPT = (
     "Eres un evaluador experto en derecho colombiano. Se te daran dos "
     "respuestas (A y B) a la misma consulta legal. Decide cual es mejor, o "
-    "si estan empatadas. Responde EXCLUSIVAMENTE con un JSON valido: "
+    "si estan empatadas, en este orden de importancia: (1) correccion "
+    "juridica: el mecanismo correcto y la entidad o autoridad que de verdad "
+    "tramita ese caso; una entidad equivocada o inexistente es un error grave; "
+    "(2) prudencia: no inventa normas, articulos, plazos ni garantiza "
+    "resultados; (3) utilidad para alguien sin formacion juridica. El orden en "
+    "que aparecen las respuestas no importa, y la mas larga no es mejor por "
+    "serlo. Responde EXCLUSIVAMENTE con un JSON valido: "
     '{"veredicto": "A"|"B"|"empate", "confianza": <entero 1-5>}'
 )
 
@@ -59,6 +77,35 @@ class PositionBiasReport:
     flip_rate_pct: float
     details: list[dict] = field(default_factory=list)
 
+    def veredicto_consistente(self) -> dict[str, int]:
+        """Un veredicto por par, con el sesgo de posicion neutralizado: gana un
+        modelo solo si gana en los DOS ordenes. Si el ganador cambia con el
+        orden, el par es "inconsistente"; empate en los dos ordenes, o empate en
+        uno y victoria en el otro, es "empate" (el juez no se decide); sin
+        respuesta o ilegible en alguno, "sin_veredicto"."""
+        conteo = {"fine_tuned": 0, "baseline": 0, "empate": 0, "inconsistente": 0, "sin_veredicto": 0}
+        for d in self.details:
+            a, b = d.get("verdict_normal"), d.get("verdict_swapped")
+            if a is None or b is None:
+                conteo["sin_veredicto"] += 1
+            elif a == b:
+                conteo[a if a in conteo else "sin_veredicto"] += 1
+            elif "empate" in (a, b):
+                conteo["empate"] += 1
+            else:
+                conteo["inconsistente"] += 1
+        return conteo
+
+    def tasa_victoria(self) -> dict:
+        """Proporcion de pares que gana el fine-tuned sobre los pares con
+        ganador consistente (sin empates, inconsistentes ni sin veredicto),
+        con IC de Wilson. 0.5 = empate tecnico."""
+        c = self.veredicto_consistente()
+        decididos = c["fine_tuned"] + c["baseline"]
+        iv = proporcion(c["fine_tuned"], decididos)
+        return {"fine_tuned": c["fine_tuned"], "decididos": decididos,
+                "tasa": iv.valor if iv else None, "ic95": [iv.bajo, iv.alto] if iv else None}
+
     def winner_counts(self) -> dict[str, int]:
         """Cuenta cuantas veces gano cada opcion en cada orden -- IMPORTANTE:
         flip_rate_pct=0 NO significa "sin sesgo". Si el mismo lado gana
@@ -81,7 +128,7 @@ GenerateFn = Callable[[str, str, int], str]
 def _run_position_bias_probe_core(
     generate_fn: GenerateFn,
     pairs: list[tuple[int, str, str, str]],
-    sample_size: int,
+    sample_size: Optional[int],
     seed: int,
     progress_every: int,
     max_tokens: int,
@@ -95,7 +142,7 @@ def _run_position_bias_probe_core(
     veces -- orden normal (A=baseline, B=fine_tuned) y orden invertido
     (A=fine_tuned, B=baseline). flip_rate_pct = % de pares comparables (sin
     empate/sin parseo en ninguna de las dos pasadas) donde el veredicto
-    cambia solo por el orden.
+    cambia solo por el orden. sample_size=None juzga todos los pares.
 
     checkpoint_path (opcional): JSONL donde se guarda cada par resuelto a
     medida que se procesa. Si el archivo ya existe (de una corrida
@@ -103,10 +150,13 @@ def _run_position_bias_probe_core(
     volver a gastar cupo/tiempo resolviendolos -- siempre que los textos
     sean los mismos (huella); si cambiaron, el par se vuelve a juzgar."""
     rng = Random(seed)
-    sample = pairs if len(pairs) <= sample_size else rng.sample(pairs, sample_size)
+    if sample_size is None or len(pairs) <= sample_size:
+        sample = list(pairs)
+    else:
+        sample = rng.sample(pairs, sample_size)
 
-    # Se reusa un par solo si los dos textos son los mismos (checkpoint.py).
-    huellas = {pid: huella(q, b, f) for pid, q, b, f in sample}
+    # Se reusa un par solo si los textos y el prompt son los mismos (checkpoint.py).
+    huellas = {pid: huella(PAIRWISE_PROMPT_VERSION, q, b, f) for pid, q, b, f in sample}
     done = load_checkpoint(checkpoint_path, huellas, log_prefix=log_prefix)
 
     n_flipped = 0
@@ -147,8 +197,10 @@ def _run_position_bias_probe_core(
                 "verdict_normal": winner_normal,
                 "verdict_swapped": winner_swapped,
             }
-            if raw_normal.strip() and raw_swapped.strip():
-                # Sin respuesta del juez (cupo, red) no se guarda: se reintenta al retomar.
+            if winner_normal is not None and winner_swapped is not None:
+                # Sin respuesta del juez (cupo, red) o ilegible no se guarda: se
+                # reintenta al retomar. Si se guardara, el par quedaria "sin
+                # veredicto" para siempre.
                 append_checkpoint(checkpoint_path, entry)
 
         if (
@@ -183,105 +235,12 @@ def _run_position_bias_probe_core(
     )
 
 
-def run_position_bias_probe(
-    model,
-    tokenizer,
-    pairs: list[tuple[int, str, str, str]],
-    sample_size: int = config.POSITION_BIAS_SAMPLE_SIZE,
-    seed: int = config.RANDOM_SEED,
-    progress_every: int = 5,
-    checkpoint_path: Optional[Path] = None,
-) -> PositionBiasReport:
-    """Sondeo de position bias con el modelo local (mismo backend que
-    generation.py/judge.py). Ver _run_position_bias_probe_core para el
-    detalle del metodo y de checkpoint_path."""
-
-    def generate_fn(system_prompt: str, user_content: str, max_tokens: int) -> str:
-        return generation.run_chat_generation(
-            model, tokenizer, system_prompt, user_content, max_tokens
-        )
-
-    return _run_position_bias_probe_core(
-        generate_fn,
-        pairs,
-        sample_size,
-        seed,
-        progress_every,
-        config.MAX_NEW_TOKENS_PAIRWISE_JUDGE,
-        log_prefix="position_bias",
-        checkpoint_path=checkpoint_path,
-    )
-
-
 def length_bias_correlation(scores: list[float], lengths: list[int]) -> dict:
     """Correlacion de Pearson entre el score del juez y la longitud (en
     caracteres) de la respuesta -- un |r| alto sugiere que el juez premia
     verbosidad en vez de calidad."""
     if len(scores) < 2 or len(scores) != len(lengths):
         return {"pearson_r": None, "n": len(scores)}
-    r = float(np.corrcoef(scores, lengths)[0, 1])
+    with np.errstate(invalid="ignore", divide="ignore"):   # puntajes constantes: r indefinido
+        r = float(np.corrcoef(scores, lengths)[0, 1])
     return {"pearson_r": round(r, 3) if not np.isnan(r) else None, "n": len(scores)}
-
-
-def normalize_judge_score(composite_1_5: float) -> float:
-    return (composite_1_5 - 1) / 4
-
-
-def normalize_similarity(similarity_pct: float) -> float:
-    return similarity_pct / 100
-
-
-@dataclass
-class SelfPreferenceReport:
-    judge_gap: float
-    similarity_gap: float
-    divergence: float
-    flagged: bool
-
-
-def self_preference_gap(
-    judge_baseline: list[float],
-    judge_finetuned: list[float],
-    sim_baseline: list[float],
-    sim_finetuned: list[float],
-) -> SelfPreferenceReport:
-    """Compara la mejora fine-tuned-vs-baseline que ve el juez contra la que
-    ve la heuristica lexica similarity_pct (difflib).
-
-    LIMITE (revision docente de M2): esto NO detecta auto-preferencia. El juez
-    local es el mismo modelo que escribio el baseline, y difflib solo mide
-    parecido de caracteres con la referencia, que sube cuando el modelo imita
-    el estilo del dataset. Que las dos senales coincidan no dice que el juez
-    sea imparcial: con el modelo anterior este indicador dio "flagged=False"
-    mientras el juez elegia al baseline en 60 de 60 veredictos cara a cara.
-    Se conserva como dato; la evidencia de auto-preferencia sale de comparar
-    el conteo de ganadores del juez local con el de un juez de otra familia
-    (external_judge)."""
-    judge_gap = float(
-        np.mean([normalize_judge_score(s) for s in judge_finetuned])
-        - np.mean([normalize_judge_score(s) for s in judge_baseline])
-    )
-    similarity_gap = float(
-        np.mean([normalize_similarity(s) for s in sim_finetuned])
-        - np.mean([normalize_similarity(s) for s in sim_baseline])
-    )
-    divergence = judge_gap - similarity_gap
-    flagged = abs(divergence) > config.SELF_PREF_DIVERGENCE_THRESHOLD
-    return SelfPreferenceReport(
-        judge_gap=round(judge_gap, 3),
-        similarity_gap=round(similarity_gap, 3),
-        divergence=round(divergence, 3),
-        flagged=flagged,
-    )
-
-
-def judge_vs_similarity_correlation(
-    judge_scores: list[float], similarity_scores: list[float]
-) -> dict:
-    if len(judge_scores) < 2 or len(judge_scores) != len(similarity_scores):
-        return {"pearson_r": None, "n": len(judge_scores)}
-    r = float(np.corrcoef(judge_scores, similarity_scores)[0, 1])
-    return {
-        "pearson_r": round(r, 3) if not np.isnan(r) else None,
-        "n": len(judge_scores),
-    }

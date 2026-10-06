@@ -100,27 +100,42 @@ def test_load_checkpoint_con_huellas_descarta_otro_texto_y_entradas_viejas(tmp_p
     assert set(done) == {1}
 
 
-def test_juez_local_recalifica_si_la_respuesta_cambio(tmp_path, monkeypatch):
-    from tools.evaluation import judge
+def test_juez_recalifica_si_la_respuesta_cambio(tmp_path, monkeypatch):
+    from tools.evaluation import external_judge, judge
 
     llamadas = []
 
-    def fake_score(model, tokenizer, query, reference, candidate, max_new_tokens=0):
+    def fake_score(query, reference, candidate):
         llamadas.append(candidate)
         return judge.parse_judge_output(
             '{"correccion_juridica": 4, "prudencia": 4, "claridad_utilidad": 4, "concision": 4}')
 
-    monkeypatch.setattr(judge, "score_response", fake_score)
+    monkeypatch.setattr(external_judge, "score_response", fake_score)
     path = tmp_path / "juez.jsonl"
-    judge.score_batch(None, None, [_Fila(1, "q", "ref", "resp A"), _Fila(2, "q2", "ref2", "resp B")],
-                      progress_every=0, checkpoint_path=path)
+    external_judge.score_batch([_Fila(1, "q", "ref", "resp A"), _Fila(2, "q2", "ref2", "resp B")],
+                               progress_every=0, checkpoint_path=path)
     assert llamadas == ["resp A", "resp B"]
 
     llamadas.clear()
-    puntajes = judge.score_batch(None, None, [_Fila(1, "q", "ref", "resp A"), _Fila(2, "q2", "ref2", "OTRA")],
-                                 progress_every=0, checkpoint_path=path)
+    puntajes = external_judge.score_batch([_Fila(1, "q", "ref", "resp A"), _Fila(2, "q2", "ref2", "OTRA")],
+                                          progress_every=0, checkpoint_path=path)
     assert llamadas == ["OTRA"]                          # la 1 se reusa, la 2 se vuelve a calificar
     assert [p.composite for p in puntajes] == [4.0, 4.0]
+
+
+def test_juez_recalifica_si_cambio_el_prompt(tmp_path, monkeypatch):
+    """Un puntaje dado con la rubrica anterior no se reusa con la nueva."""
+    from tools.evaluation import external_judge, judge
+
+    llamadas = []
+    monkeypatch.setattr(external_judge, "score_response", lambda q, r, c: llamadas.append(c) or
+                        judge.parse_judge_output('{"correccion_juridica": 4, "prudencia": 4, '
+                                                 '"claridad_utilidad": 4, "concision": 4}'))
+    path = tmp_path / "juez.jsonl"
+    external_judge.score_batch([_Fila(1, "q", "ref", "resp")], progress_every=0, checkpoint_path=path)
+    monkeypatch.setattr(external_judge, "JUDGE_PROMPT_VERSION", "otra")
+    external_judge.score_batch([_Fila(1, "q", "ref", "resp")], progress_every=0, checkpoint_path=path)
+    assert llamadas == ["resp", "resp"]
 
 
 def test_juez_externo_no_reusa_checkpoint_de_otra_corrida(tmp_path, monkeypatch):

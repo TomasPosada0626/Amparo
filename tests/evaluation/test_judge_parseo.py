@@ -11,19 +11,36 @@ scorecard -- asi que se vigila con una prueba en vez de con memoria.
 """
 from __future__ import annotations
 
-from tools.evaluation import config
 from tools.evaluation.judge import parse_judge_output
 
-# Holgura medida: con 512 el parseo fallo en 0 de 213 en ambos modelos.
-MINIMO_SEGURO = 512
+# El juez es Groq (gpt-oss-120b), que ademas razona antes de escribir el JSON
+# y ahora tambien lista los errores juridicos: necesita mas que los 512 del
+# juez local que se quito. 700 es lo que usa el juez del criterio, que pide el
+# mismo JSON con lista de errores.
+MINIMO_SEGURO = 700
 
 
 def test_el_presupuesto_del_juez_alcanza_para_cerrar_el_json():
-    assert config.MAX_NEW_TOKENS_JUDGE >= MINIMO_SEGURO, (
-        f"MAX_NEW_TOKENS_JUDGE={config.MAX_NEW_TOKENS_JUDGE} es menor que "
+    from tools.evaluation import external_judge
+
+    assert external_judge.GROQ_MAX_TOKENS_JUDGE >= MINIMO_SEGURO, (
+        f"GROQ_MAX_TOKENS_JUDGE={external_judge.GROQ_MAX_TOKENS_JUDGE} es menor que "
         f"{MINIMO_SEGURO}. Con 200 el juez truncaba el JSON y se perdia el "
         "17% de las filas del baseline, sesgando la comparacion."
     )
+
+
+def test_los_errores_juridicos_se_leen():
+    salida = (
+        '{"correccion_juridica": 2, "prudencia": 4, "claridad_utilidad": 4, "concision": 5, '
+        '"errores_juridicos": ["querella ante la Procuraduria: alli se presenta queja disciplinaria"], '
+        '"justificacion": "ruta equivocada"}'
+    )
+    score = parse_judge_output(salida)
+    assert score.parse_ok
+    assert score.errores_juridicos == ["querella ante la Procuraduria: alli se presenta queja disciplinaria"]
+    assert parse_judge_output(salida.replace('["querella', '["').replace(
+        ' ante la Procuraduria: alli se presenta queja disciplinaria"]', '"]')).errores_juridicos == []
 
 
 def test_una_salida_truncada_no_se_cuenta_como_valida():

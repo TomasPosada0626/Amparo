@@ -19,8 +19,8 @@ inexistentes, afirmaciones falsas): ninguna metrica automatica los detecta y
 el fine-tuned los comete (p. ej. "reporte de la PNP", que es la policia del
 Peru, o "el SOAT cubre la reparacion del vehiculo").
 
-El backend es intercambiable (generate_fn): Groq por defecto (otra familia que
-Qwen, sin auto-preferencia) o el modelo local. Checkpoint con huella
+El backend es generate_fn (en los tests, uno falso); en la corrida es siempre
+Groq (generador_groq), de otra familia que Qwen. Checkpoint con huella
 (pregunta + criterio + respuesta), como el resto del harness.
 """
 from __future__ import annotations
@@ -42,6 +42,8 @@ GenerateFn = Callable[[str, str, int], str]
 VEREDICTOS = ("cumple", "parcial", "no_cumple")
 PUNTAJE = {"cumple": 1.0, "parcial": 0.5, "no_cumple": 0.0}
 MAX_TOKENS_CRITERIO = 700   # Groq gpt-oss-120b razona antes de escribir el JSON
+# Cambia cuando cambia el prompt: entra en la huella del checkpoint.
+CRITERIO_PROMPT_VERSION = "2026-10-06"
 
 CRITERIO_SYSTEM_PROMPT = (
     "Eres un evaluador experto en derecho colombiano. Verificas si la respuesta "
@@ -147,7 +149,12 @@ def evaluar_contra_criterio(
     """generaciones: objetos con .id/.query/.generated/.label (GenerationResult
     o equivalentes); registros: data/eval_set.json (aporta criterio y tipo)."""
     por_id = {r["id"]: r for r in registros}
-    huellas = {g.id: huella(g.query, por_id[g.id]["criterio"], g.generated) for g in generaciones}
+    faltan = sorted(g.id for g in generaciones if g.id not in por_id)
+    if faltan:
+        raise ValueError(f"Respuestas de casos que ya no estan en el eval set: {faltan}. El eval set cambio "
+                         "despues de generar: volver a generar con el eval set actual.")
+    huellas = {g.id: huella(CRITERIO_PROMPT_VERSION, g.query, por_id[g.id]["criterio"], g.generated)
+               for g in generaciones}
     done = load_checkpoint(checkpoint_path, huellas, log_prefix=log_prefix)
 
     salida: list[VeredictoCriterio] = []
@@ -213,10 +220,3 @@ def generador_groq() -> GenerateFn:
     from tools.evaluation import external_judge
 
     return lambda system, user, max_tokens: external_judge.call_groq(system, user, max_tokens)
-
-
-def generador_local(model, tokenizer) -> GenerateFn:
-    from tools.evaluation import generation
-
-    return lambda system, user, max_tokens: generation.run_chat_generation(
-        model, tokenizer, system, user, max_tokens)

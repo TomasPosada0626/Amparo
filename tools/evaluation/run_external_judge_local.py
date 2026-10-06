@@ -1,33 +1,26 @@
-"""Corre el juez externo (Groq) fuera de Colab, sin GPU -- usa los archivos
-de resultados que ya genera colab/m2_evaluacion.ipynb en Drive (Fase 7):
-`resultados_baseline.jsonl`, `resultados_finetuned.jsonl`, y opcionalmente
-`eval_set_baseline_results.jsonl` / `eval_set_finetuned_results.jsonl`.
+"""Fase Groq de M2 fuera de Colab, sin GPU.
 
-Motivo de este script: la generacion (GPU) y el juez externo (HTTP puro)
-son pasos independientes. Si Groq falla o se acaba el cupo gratuito
-mientras el notebook de Colab corre, no hace falta reintentar todo desde
-cero en una sesion de GPU nueva -- basta con bajar esos archivos de Drive
-a la maquina local y correr esto, en cualquier momento, sin GPU.
+La forma actual es fase_groq.py, que trabaja sobre la carpeta completa de la
+corrida (la que el notebook deja en Drive) y escribe el scorecard final:
 
-Uso:
-    python -m tools.evaluation.run_external_judge_local \\
-        --baseline resultados_baseline.jsonl \\
-        --finetuned resultados_finetuned.jsonl \\
-        --eval-set-baseline eval_set_baseline_results.jsonl \\
-        --eval-set-finetuned eval_set_finetuned_results.jsonl \\
-        --out results/groq_local
+    python -m tools.evaluation.run_external_judge_local <carpeta_de_la_corrida> [--out results/m2_<fecha>]
 
-Requiere GROQ_API_KEY en tu .env local (ver .env.example). Solo necesita
-las dependencias de requirements.txt -- nada de torch/transformers/peft.
+es lo mismo que `python -m tools.evaluation.fase_groq`. Sirve para retomar al
+dia siguiente cuando se acaba el cupo de Groq, desde el computador de
+cualquiera del equipo: bajar la carpeta de la corrida de Drive y correr esto.
+
+Requiere GROQ_API_KEY en tu .env local (ver .env.example). Solo necesita las
+dependencias de requirements.txt -- nada de torch/transformers/peft.
+
+load_results, build_pairs y run_eval_set_judging quedan para leer archivos de
+corridas anteriores.
 """
 from __future__ import annotations
 
-import argparse
 import json
 from dataclasses import dataclass
 from pathlib import Path
 
-from tools.evaluation import external_judge
 
 
 @dataclass
@@ -120,33 +113,9 @@ def run_eval_set_judging(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--baseline", type=Path, required=True, help="resultados_baseline.jsonl")
-    parser.add_argument("--finetuned", type=Path, required=True, help="resultados_finetuned.jsonl")
-    parser.add_argument("--eval-set-baseline", type=Path, help="eval_set_baseline_results.jsonl (opcional)")
-    parser.add_argument("--eval-set-finetuned", type=Path, help="eval_set_finetuned_results.jsonl (opcional)")
-    parser.add_argument("--out", type=Path, default=Path("results/groq_local"))
-    args = parser.parse_args()
+    from tools.evaluation import fase_groq
 
-    args.out.mkdir(parents=True, exist_ok=True)
-
-    baseline = load_results(args.baseline)
-    finetuned = load_results(args.finetuned)
-    pairs = build_pairs(baseline, finetuned)
-    print(f"{len(pairs)} pares cargados para el sondeo de position bias.")
-
-    report = external_judge.run_position_bias_probe(
-        pairs, checkpoint_path=args.out / "checkpoint_position_bias.jsonl"
-    )
-    print(report)
-    print("Conteo de veredictos:", report.winner_counts())
-    (args.out / "groq_position_bias_probe.json").write_text(
-        json.dumps(report.__dict__, indent=2, ensure_ascii=False), encoding="utf-8"
-    )
-    print(f"Guardado en: {args.out / 'groq_position_bias_probe.json'}")
-
-    if args.eval_set_baseline and args.eval_set_finetuned:
-        run_eval_set_judging(args.eval_set_baseline, args.eval_set_finetuned, args.out)
+    fase_groq.main()
 
 
 if __name__ == "__main__":

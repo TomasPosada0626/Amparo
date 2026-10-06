@@ -5,7 +5,7 @@ del notebook de Colab -- ver colab/m2_evaluacion.ipynb -- no en requirements.txt
 del repo, para no arriesgar romper el build de PyTorch con CUDA que Colab ya
 trae preinstalado). Las importaciones pesadas son perezosas (dentro de cada
 funcion) a proposito: asi este modulo SI es importable fuera de Colab (p. ej.
-por judge.py/bias.py para sus partes puras), aunque llamar a estas funciones
+por tests y por herramientas que no generan), aunque llamar a estas funciones
 sin torch/peft instalados sigue fallando -- eso es esperado, solo corren
 dentro de Colab.
 """
@@ -46,16 +46,6 @@ def attach_adapter(model, adapter_dir: str | Path):
     from peft import PeftModel
 
     model = PeftModel.from_pretrained(model, str(adapter_dir))
-    model.eval()
-    return model
-
-
-def detach_adapter(model):
-    """Quita las capas LoRA SIN fusionarlas (model.unload()) y devuelve el
-    modelo base original -- para reutilizarlo como juez independiente. NO usar
-    merge_and_unload(): eso horneria el fine-tuning en los pesos y arruinaria
-    la independencia del juez."""
-    model = model.unload()
     model.eval()
     return model
 
@@ -122,8 +112,7 @@ def run_chat_generation(
     max_new_tokens: int,
     return_n_tokens: bool = False,
 ):
-    """Un solo turno (system + user). Usado tanto para generar respuestas del
-    asistente como para las llamadas del juez (judge.py, bias.py)."""
+    """Un solo turno (system + user) con el modelo cargado en la GPU."""
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_content},
