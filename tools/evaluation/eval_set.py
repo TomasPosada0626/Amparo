@@ -44,16 +44,10 @@ UMBRAL_PARECIDO = 0.55
 # generalizacion. Hay que quitarlas (no reescribirlas con el mismo id).
 # id del eval set -> (id en train, por que)
 PENDIENTES: dict[int, tuple[int, str]] = {
-    9003: (113, "comparendo por parquear sin senal de prohibido"),
-    9006: (871, "vecino construyo una pared que invade el terreno"),
-    9008: (1392, "el papa no paga la cuota de alimentos hace meses"),
-    9028: (622, "incumplieron la promesa de compraventa (solo cambia vendedor/comprador)"),
-    9047: (1381, "me robaron el celular en la calle"),
-    9103: (1352, "mi expareja me amenaza de muerte por mensajes"),
-    # Parafrasis de sentido: la similitud lexica no las ve (coseno < 0.4), se
-    # encontraron leyendo los 126 ejemplos de abstencion.
-    9105: (1453, "garantia de ganar una tutela contra la EPS por una cirugia"),
-    9106: (1474, "esconder bienes para que no los embarguen"),
+    # Vacia desde el 2026-10-06: los ocho casos que habia (9003, 9006, 9008,
+    # 9028, 9047, 9103, 9105, 9106) se quitaron del eval set. Se vuelve a
+    # llenar si aparece otra pregunta que repita un caso de train, como paso
+    # intermedio antes de borrarla.
 }
 
 # Por encima del umbral, pero revisadas: preguntan otra cosa.

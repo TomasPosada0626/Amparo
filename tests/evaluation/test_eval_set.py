@@ -57,7 +57,12 @@ def test_las_gold_repetidas_de_validacion_estan_identificadas():
     records = dataset.load_records()
     train, val = dataset.stratified_split(records)
     sol = eval_set.solapamiento(eval_set.load_eval_set(), train, val)
-    assert sol["en_val"] == list(range(9011, 9031))
+    # Eran las 20 del rango 9011-9030. 9028 se quito por repetir un caso de
+    # train (promesa de compraventa), asi que hoy son 19. El objetivo sigue
+    # siendo dejar esta lista vacia: son gold copiadas de la validacion de M1,
+    # no casos propios del eval set.
+    esperadas = [i for i in range(9011, 9031) if i != 9028]
+    assert sol["en_val"] == esperadas
 
 
 def _train():
