@@ -38,9 +38,30 @@ from tools.rag import config
 # aceptan tambien "Articulo" sin tilde -- media docena de normas del corpus lo
 # escriben asi -- y los articulos transitorios de la Constitucion.
 ARTICLE_PATTERN = re.compile(
-    r"^[ \t]*(?:art[íi]culo|art[íi]c\.|art\.)[ \t]*"
+    # Un encabezado de articulo empieza el texto o va despues de una linea en
+    # blanco. Sin esa condicion, una referencia interna que cae al inicio de
+    # linea al reflowear ("...articulo 156, o por iniciativa popular...") abria
+    # un articulo nuevo y partia el anterior por la mitad: pasaba cinco veces en
+    # la Constitucion (74, 155, 156, 179, 357).
+    #
+    # El criterio NO puede ser la mayuscula inicial: el Codigo de Procedimiento
+    # Penal escribe "articulo 287." en minuscula y es un encabezado real, y el
+    # Codigo Civil escribe "ArtIculo" con I mayuscula en medio.
+    # Tres posiciones validas de encabezado: inicio del texto, despues de una
+    # linea en blanco, o despues de un salto simple si lo que sigue empieza con
+    # mayuscula ("Articulo", "ART."). La tercera evita depender de que la fuente
+    # deje linea en blanco, sin volver a aceptar las referencias internas en
+    # minuscula a mitad de parrafo.
+    r"(?:\A|(?<=\n\n)|(?<=\n)(?=[ \t]*(?-i:ART|Art)))"
+    r"[ \t]*(?:art[íiÍI]culo|art[íiÍI]c\.|art\.)[ \t]*"
     r"(?P<transitorio>transitorio[ \t]+)?"
-    r"(?P<numero>\d+[a-zA-Z]?)[ \t]*(?:[°ºo]\b)?[ \t]*[\.\-–:)]?",
+    # El sufijo de los articulos "bis" va pegado, con guion o con espacio:
+    # "14A", "151-A", "19 A". Con espacio se exige que lo siga un cierre de
+    # encabezado, para no confundirlo con el inicio del texto del articulo.
+    r"(?P<numero>\d+(?:[ \t]*[-–][ \t]*[A-Za-z](?![A-Za-z])"
+    r"|[ \t]+[A-Za-z](?![A-Za-z])(?=[ \t]*[\.\-–:)])"
+    r"|[a-zA-Z](?![A-Za-z]))?)"
+    r"[ \t]*(?:[°ºo]\b)?[ \t]*[\.\-–:)]?",
     re.IGNORECASE | re.MULTILINE,
 )
 
@@ -99,8 +120,15 @@ def normalizar_numero(numero: str) -> str:
     corpus. La letra final SI se conserva cuando no es la marca de ordinal, para
     no romper los articulos bis del tipo "Articulo 14A".
     """
+    numero = " ".join(numero.split())          # "151 - A" -> "151 - A" sin dobles
     if len(numero) > 1 and numero[-1] in "oO" and numero[:-1].isdigit():
         return numero[:-1]
+    # Sufijo "bis" a una sola forma: el corpus lo escribe "151-A", "19 A" y
+    # "185 a" indistintamente, y sin unificarlos la misma norma se citaria de
+    # tres maneras y las citas no coincidirian entre si.
+    m = re.fullmatch(r"(\d+)[ \t]*[-–]?[ \t]*([A-Za-z])", numero)
+    if m:
+        return f"{m.group(1)}-{m.group(2).upper()}"
     return numero
 
 

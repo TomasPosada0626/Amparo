@@ -168,7 +168,10 @@ def test_no_hay_chunk_ids_repetidos_en_todo_el_corpus():
 def test_los_numeros_de_articulo_tienen_forma_de_numero_de_articulo():
     """Detecta falsos positivos del patron: si empezara a capturar fechas o
     montos, apareceria un "articulo 45244" (el numero del Diario Oficial)."""
-    patron = re.compile(r"^(transitorio )?\d{1,4}[a-zA-Z]?$")
+    # Forma canonica de los articulos "bis": "151-A", con el sufijo en mayuscula
+    # y separado por guion (chunk.normalizar_numero). El corpus los escribe
+    # "151-A", "19 A" y "185 a" y se unifican al indexar.
+    patron = re.compile(r"^(transitorio )?\d{1,4}(-[A-Z])?$")
 
     for filename in MINIMO_ARTICULOS:
         for c in chunks_de(filename):
