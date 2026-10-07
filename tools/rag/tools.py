@@ -36,7 +36,7 @@ import re
 import unicodedata
 
 from tools.rag import config
-from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
+from tools.rag.prompt_template import SYSTEM_PROMPT_M1, RESPUESTA_SIN_CONTEXTO
 from tools.rag.retrieve import retrieve
 
 # Numero de chunks que la herramienta devuelve como observacion. Igual que el
@@ -63,8 +63,11 @@ TOOL_SCHEMA = {
 # Instruccion de sistema del bucle de tools. El esquema de la herramienta NO va
 # aqui: se pasa aparte, en el formato nativo (BUSCAR_NORMAS, mas abajo).
 SYSTEM_TOOLS = (
-    "Eres Amparo, un asistente juridico de derecho colombiano para personas sin "
-    "formacion juridica. Tienes la herramienta buscar_normas, que consulta un "
+    # El mismo rol con el que se entreno el adaptador de M1. Iba un "Eres
+    # Amparo..." propio, asi que comparar esta ruta con la de una pasada mezclaba
+    # dos variables: que decide el modelo y con que rol responde.
+    f"{SYSTEM_PROMPT_M1}\n\n"
+    "Tienes la herramienta buscar_normas, que consulta un "
     "corpus de normas colombianas verificadas. Usala SIEMPRE que la pregunta sea "
     "juridica (derechos, plazos, tramites, obligaciones): no respondas de memoria. "
     "Solo un saludo o una charla sin contenido juridico se responde sin buscar. "

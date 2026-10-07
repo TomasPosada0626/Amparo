@@ -114,3 +114,36 @@ def test_la_pregunta_del_usuario_va_tal_cual_sin_reformular():
     prompt = prompt_template.build_augmented_prompt(query, [])
 
     assert query in prompt
+
+
+def test_las_tres_rutas_comparten_el_system_prompt_de_m1():
+    """S10-6: comparar rutas exige que solo cambie la ruta.
+
+    La de una pasada arrancaba con SYSTEM_PROMPT_M1 (via INSTRUCCION) y las dos
+    agenticas con un "Eres Amparo..." propio, asi que la comparacion de la
+    corrida del 2026-10-07 mezclaba dos variables: que decide el modelo y con
+    que rol responde. Ademas el adaptador se entreno con ese prompt exacto, asi
+    que las rutas agenticas lo usaban fuera del rol que aprendio.
+    """
+    from tools.rag.agentico import SYSTEM_REACT
+    from tools.rag.prompt_template import INSTRUCCION, SYSTEM_PROMPT_M1
+    from tools.rag.tools import SYSTEM_TOOLS
+
+    for nombre, texto in (("INSTRUCCION", INSTRUCCION),
+                          ("SYSTEM_TOOLS", SYSTEM_TOOLS),
+                          ("SYSTEM_REACT", SYSTEM_REACT)):
+        assert texto.startswith(SYSTEM_PROMPT_M1), (
+            f"{nombre} no arranca con el system prompt con el que se entreno M1")
+
+
+def test_el_prompt_de_m1_de_la_libreria_rag_es_el_del_dataset():
+    """Si se desincroniza, el RAG genera con un rol distinto del que aprendio el
+    adaptador y el delta deja de ser atribuible al RAG."""
+    import json
+
+    from tools.evaluation import config as eval_config
+    from tools.rag.prompt_template import SYSTEM_PROMPT_M1
+
+    with open(eval_config.LOCAL_DATASET_PATH, encoding="utf-8") as f:
+        primero = json.loads(f.readline())
+    assert SYSTEM_PROMPT_M1 == primero["messages"][0]["content"]

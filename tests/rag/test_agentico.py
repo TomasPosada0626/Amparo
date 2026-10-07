@@ -752,3 +752,38 @@ def test_repetir_la_misma_respuesta_rechazada_corta_el_bucle(monkeypatch):
     assert "Responder (corte por repeticion)" in acciones, f"no corto; traza: {acciones}"
     assert sum(1 for a in acciones if a == "Responder (rechazado)") == 1, (
         "deberia rechazar una vez y cortar a la segunda, no acumular rechazos")
+
+
+def test_la_frase_de_escape_no_da_permiso_para_citar(monkeypatch):
+    """S10-5: la valvula servia de atajo.
+
+    Bastaba con que la respuesta CONTUVIERA la frase para darla por prudente y
+    por aceptable, sin mirar nada mas. Asi, "No tengo informacion verificada...
+    pero segun el articulo 99 y la sentencia T-760 de 2008" pasaba: justo lo
+    que la valvula existe para evitar. Vuelve sospechoso el 1.00 de prudencia
+    en adversariales de la corrida del 2026-10-07.
+    """
+    stub_retrieve(monkeypatch, [make_result("ley820::20", articulos=["20"])])
+    con_cita = (f"{agentico.RESPUESTA_SIN_CONTEXTO}, pero segun el articulo 99 y la "
+                "sentencia T-760 de 2008 tienes derecho.")
+
+    assert not agentico.es_prudente(con_cita, vistos=set(), query="tengo derecho?"), (
+        "la frase de escape no puede dar por prudente una respuesta que cita lo que no vio")
+    # La frase sola si es prudente.
+    assert agentico.es_prudente(agentico.RESPUESTA_SIN_CONTEXTO, vistos=set(), query="tengo derecho?")
+
+
+def test_el_react_rechaza_un_escape_que_ademas_cita(monkeypatch):
+    stub_retrieve(monkeypatch, [make_result("ley820::20", articulos=["20"])])
+    con_cita = (f"{agentico.RESPUESTA_SIN_CONTEXTO}, pero segun el articulo 99 de la "
+                "Ley 100 de 1993 tienes derecho.")
+    generar = generador(
+        nativo("buscar_normas", consulta="arriendo"),
+        con_cita,
+        agentico.RESPUESTA_SIN_CONTEXTO,
+    )
+
+    r = agentico.agente_react("tengo derecho?", object(), _generar=generar)
+
+    acciones = [p["accion"] for p in r["traza"]]
+    assert "Responder (rechazado)" in acciones, f"acepto el escape con cita; traza: {acciones}"

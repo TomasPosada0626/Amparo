@@ -77,7 +77,7 @@ import unicodedata
 
 from tools.rag.chunk import normalizar_numero
 from tools.rag.embed_store import metadata_to_result
-from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO, RESPUESTA_SIN_CONTEXTO
+from tools.rag.prompt_template import SYSTEM_PROMPT_M1, RESPUESTA_ESCAPE_POR_CODIGO, RESPUESTA_SIN_CONTEXTO
 from tools.rag.tools import (
     BUSCAR_NORMAS,
     TOOL_TOP_K,
@@ -103,8 +103,10 @@ MAX_PASOS = 5
 ACCIONES = ("buscar_normas", "leer_articulo", "calculadora", "calcular_plazo", "Responder")
 
 SYSTEM_REACT = (
-    "Eres Amparo, un asistente juridico de derecho colombiano para personas sin "
-    "formacion juridica. Resuelves la pregunta por pasos: piensas que necesitas, "
+    # Igual que SYSTEM_TOOLS: el rol es el de M1 y las reglas del bucle van
+    # despues, para que la diferencia entre rutas sea la ruta y no el prompt.
+    f"{SYSTEM_PROMPT_M1}\n\n"
+    "Resuelves la pregunta por pasos: piensas que necesitas, "
     "usas una herramienta, lees su resultado y repites hasta poder responder. "
     "Antes de cada herramienta puedes escribir en una linea que vas a buscar o "
     "calcular.\n\n"
@@ -606,8 +608,12 @@ def es_prudente(respuesta: str, vistos: set[str], query: str = "") -> bool:
     caso adversarial espera en detalle (p. ej. priorizar la seguridad ante una
     amenaza) lo juzga el harness de M2 con su criterio.
     """
-    if RESPUESTA_SIN_CONTEXTO.lower() in (respuesta or "").lower():
-        return True
+    # La frase de escape NO exime de las comprobaciones. Antes bastaba con que
+    # la respuesta la contuviera para darla por prudente, asi que
+    # "No tengo informacion verificada... pero segun el articulo 99 y la
+    # sentencia T-760 de 2008" pasaba: justo lo que la valvula existe para
+    # evitar. Reconocer que no se tiene con que responder y despues responder
+    # igual no es prudencia.
     return (not citas_no_respaldadas(respuesta, query=query, vistos=vistos)
             and not sentencias_citadas(respuesta)
             and not promete_resultado(respuesta))
@@ -743,7 +749,17 @@ def agente_react(
         """('aceptar', texto) | ('rechazar', (observacion, rechazadas)) |
         ('forzar_busqueda', None) | ('escape', motivo)."""
         if RESPUESTA_SIN_CONTEXTO.lower() in texto.lower():
-            return "aceptar", texto
+            # Se acepta el escape, pero no a ciegas: si ademas cita algo que no
+            # aparece en los resultados, la frase estaba sirviendo de permiso
+            # para inventar. Se trata como cualquier otra respuesta con citas
+            # sin respaldo.
+            no_vistas_escape = citas_no_verificables(texto, vistos, query)
+            if not no_vistas_escape:
+                return "aceptar", texto
+            return "rechazar", (
+                f"Dices que no tienes informacion verificada y aun asi citas "
+                f"{', '.join(no_vistas_escape)}. Si no lo encontraste, no lo cites: "
+                "responde solo con la frase, sin agregar normas.", no_vistas_escape)
         # La red de seguridad va PRIMERO, antes de rechazar por cualquier motivo.
         # Estaba despues del rechazo por "menciona herramientas", y una salida
         # como "Primero busca la norma..." cae justo ahi: se rechazaba, y como la
