@@ -205,4 +205,35 @@ def hybrid_search(
     """
     denso = store.search(embed_query(query), top_k=top_n)
     lexico = bm25.search(query, top_n=top_n)
-    return reciprocal_rank_fusion([denso, lexico], top_k=top_k)
+    fusionados = reciprocal_rank_fusion([denso, lexico], top_k=len(denso) + len(lexico))
+    return promover_referencias_exactas(fusionados, query)[:top_k]
+
+
+def promover_referencias_exactas(
+    resultados: list[SearchResult], query: str
+) -> list[SearchResult]:
+    """Sube al frente los chunks cuyo articulo cita la consulta explicitamente.
+
+    Por que hace falta. El RRF no puede hacerlo solo: un chunk presente en las
+    dos listas suma 1/(k+1) dos veces y uno de solo BM25, aunque quede primero,
+    suma 1/(k+1) una vez -- 0.0328 contra 0.0164 con k=60. Como el denso casi
+    siempre aporta cinco chunks que tambien estan en la lexica, el candidato
+    lexico puro nunca entraba al top-5, y ese es justo el caso para el que
+    existe la busqueda hibrida: "que dice el articulo 64 del Codigo Sustantivo
+    del Trabajo".
+
+    La condicion no se inventa aqui: es la misma de
+    retrieve.es_referencia_exacta, que ya exige que la consulta cite ese numero
+    y, cuando nombra una norma, que el chunk sea de esa norma. Asi el articulo
+    64 del Codigo General del Proceso no se promueve ante una pregunta sobre el
+    Codigo Sustantivo del Trabajo.
+
+    Entre las promovidas se respeta el orden que traian del RRF, y las demas
+    quedan detras tambien en su orden: no se reordena nada mas.
+    """
+    from tools.rag.retrieve import es_referencia_exacta   # perezoso: evita ciclo
+
+    exactas, resto = [], []
+    for r in resultados:
+        (exactas if es_referencia_exacta(r, query) else resto).append(r)
+    return exactas + resto

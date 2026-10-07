@@ -208,3 +208,55 @@ def test_la_enne_no_se_confunde_con_la_ene():
     # Y sigue empatando consigo misma venga como venga normalizada.
     import unicodedata
     assert tokenize(unicodedata.normalize("NFD", "año")) == tokenize("año")
+
+
+def _res(chunk_id, fuente, articulos, dense=None):
+    from tools.rag.embed_store import SearchResult
+    return SearchResult(chunk_id=chunk_id, text=f"texto de {chunk_id}", fuente=fuente,
+                        url_fuente="http://x", score=1.0, articulos_incluidos=articulos,
+                        dense_score=dense)
+
+
+def test_un_articulo_que_solo_encuentra_bm25_llega_al_top_k():
+    """RAG-2: la aritmetica del RRF se lo impedia.
+
+    Un chunk en las dos listas suma 1/(k+1) dos veces; uno de solo BM25, aunque
+    quede primero, suma 1/(k+1) una vez -- 0.0328 contra 0.0164 con k=60. Como
+    el denso casi siempre aporta cinco chunks que tambien estan en la lexica, el
+    candidato lexico puro nunca entraba al top-5. Y ese es exactamente el caso
+    para el que existe la busqueda hibrida: en la demo de S08, para "articulo 64
+    del Codigo Sustantivo del Trabajo", B devolvia los articulos 468, 62 y 466.
+    """
+    from tools.rag.hybrid import promover_referencias_exactas, reciprocal_rank_fusion
+
+    CST = "Decreto 2663 de 1950 (Codigo Sustantivo del Trabajo)"
+    consenso = [_res(f"cst::{n}", CST, [str(n)], dense=0.85) for n in (46, 158, 165, 468, 62)]
+    solo_bm25 = _res("cst::64", CST, ["64"])          # sin dense_score
+    query = "que dice el articulo 64 del codigo sustantivo del trabajo"
+
+    fusionados = reciprocal_rank_fusion([consenso, consenso + [solo_bm25]], top_k=10)
+    ids_sin_promover = [r.chunk_id for r in fusionados[:5]]
+    assert "cst::64" not in ids_sin_promover, (
+        "el escenario de la prueba no reproduce el fallo que RAG-2 describe")
+
+    promovidos = promover_referencias_exactas(fusionados, query)
+    assert promovidos[0].chunk_id == "cst::64", (
+        f"la referencia exacta sigue sin subir: {[r.chunk_id for r in promovidos[:5]]}")
+
+
+def test_no_se_promueve_el_mismo_numero_de_otra_norma():
+    """El articulo 64 del Codigo General del Proceso no puede subir ante una
+    pregunta que nombra el Codigo Sustantivo del Trabajo."""
+    from tools.rag.hybrid import promover_referencias_exactas
+
+    CST = "Decreto 2663 de 1950 (Codigo Sustantivo del Trabajo)"
+    CGP = "Ley 1564 de 2012 (Codigo General del Proceso)"
+    resultados = [_res("cgp::64", CGP, ["64"]), _res("cst::20", CST, ["20"], dense=0.85)]
+
+    promovidos = promover_referencias_exactas(
+        resultados, "que dice el articulo 64 del codigo sustantivo del trabajo")
+
+    # Ninguno de los dos es referencia exacta: el 64 es de otra norma y el 20 no
+    # lo cita la consulta. Asi que el orden tiene que quedar intacto.
+    assert [r.chunk_id for r in promovidos] == ["cgp::64", "cst::20"], (
+        "promovio un articulo con el numero correcto pero de la norma equivocada")
