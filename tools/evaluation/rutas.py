@@ -402,3 +402,20 @@ def referencias_como_filas(records: Sequence[dict]) -> list[dict]:
     referencias son correctas por construccion."""
     return [{"id": r["id"], "query": r["messages"][1]["content"], "category": r["category"],
              "generated": r["messages"][2]["content"]} for r in records]
+
+
+def registros_rag_como_filas(records: Sequence[dict]) -> list[dict]:
+    """Las corridas de M3 con la forma que espera reporte().
+
+    El RAG usa los nombres de campo de Ragas (question/answer, ver
+    pipeline.to_eval_record) y la guardia espera query/generated. Es solo un
+    cambio de nombre, pero hacerlo aqui -- junto al adaptador de las
+    referencias -- evita que tools/rag tenga que importar tools/evaluation:
+    generar y medir siguen siendo independientes.
+
+    Con esto, la pregunta que M3 existe para responder se mide con la MISMA
+    guardia que uso M2 sobre el modelo sin RAG (7.4 % de rutas incorrectas en
+    el fine-tuned), asi que las dos cifras son comparables.
+    """
+    return [{"id": r["id"], "query": r["question"], "category": r["category"],
+             "generated": r["answer"]} for r in records]

@@ -169,3 +169,32 @@ def test_la_guardia_separa_al_afinado_de_las_referencias(registros, mapa):
     base = rutas.reporte("baseline", cargar("baseline_results.jsonl"), mapa)
     assert ft.con_ruta_incorrecta == 19
     assert base.con_ruta_incorrecta == 1
+
+
+def test_las_corridas_del_rag_se_miden_con_la_misma_guardia():
+    """M3 tiene que ser comparable con M2 en rutas incorrectas.
+
+    El RAG nombra sus campos como Ragas (question/answer) y la guardia espera
+    query/generated. Si el adaptador se rompe o cambia de claves, M3 dejaria de
+    poder responder la pregunta por la que existe -- si recuperar arregla el
+    7.4 % de rutas incorrectas que M2 midio en el fine-tuned sin RAG -- y el
+    fallo seria silencioso: un KeyError se ve, pero medir el campo equivocado no.
+    """
+    from tools.evaluation import rutas
+
+    corrida = [{
+        "id": 9001,
+        "category": "Despido",
+        "question": "me despidieron estando embarazada",
+        "answer": "radica la accion de tutela ante la Inspeccion del Trabajo",
+        "contexts": ["..."],
+        "ground_truth": "...",
+    }]
+    filas = rutas.registros_rag_como_filas(corrida)
+
+    assert filas == [{"id": 9001, "query": "me despidieron estando embarazada",
+                      "category": "Despido",
+                      "generated": "radica la accion de tutela ante la Inspeccion del Trabajo"}]
+    # Y la guardia lo marca: una tutela no se radica ante una autoridad administrativa.
+    assert rutas.rutas_incorrectas(filas[0]["generated"], filas[0]["query"]) == [
+        "tutela_ante_autoridad_no_judicial"]
