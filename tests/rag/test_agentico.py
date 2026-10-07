@@ -710,3 +710,45 @@ def test_la_nota_llega_en_la_observacion_de_buscar_normas(monkeypatch):
 def test_una_norma_nombrada_deja_de_estar_fuera_si_se_indexa():
     assert tools.normas_mencionadas("codigo penal amenazas", ["Ley 599 de 2000 (Codigo Penal)"]) == (
         ["Ley 599 de 2000 (Codigo Penal)"], [])
+
+
+def test_si_no_ha_buscado_fuerza_la_busqueda_antes_de_rechazar(monkeypatch):
+    """S10-2: el ReAct escapaba sin haber buscado nunca.
+
+    El rechazo por "menciona herramientas" estaba antes de la red de seguridad
+    que fuerza la busqueda. Una salida como "Primero busca la norma..." cae ahi:
+    se rechazaba, y como la generacion es greedy el modelo devolvia el mismo
+    texto en cada paso hasta agotarlos y terminar en escape sin contexto. En la
+    corrida del 2026-10-07 eso dejo 5 casos sin buscar y 9 sin contexto, contra
+    4 de las otras rutas, justo en las preguntas compuestas y de plazo.
+    """
+    stub_retrieve(monkeypatch, [make_result("ley820::20", articulos=["20"])])
+    texto = "Primero busca la norma con buscar_normas y luego responde."
+    generar = generador(texto, "Segun la Ley 820 de 2003, Articulo 20, el reajuste tiene un tope.")
+
+    r = agentico.agente_react("cuanto me pueden subir el arriendo", object(), _generar=generar)
+
+    acciones = [p["accion"] for p in r["traza"]]
+    assert any("buscar_normas (forzado por codigo)" in a for a in acciones), (
+        f"no se forzo la busqueda; la traza fue {acciones}")
+    assert r["response"] != agentico.RESPUESTA_ESCAPE_POR_CODIGO
+
+
+def test_repetir_la_misma_respuesta_rechazada_corta_el_bucle(monkeypatch):
+    """Con greedy, repetir una respuesta ya rechazada no avanza: gasta pasos.
+
+    Solo se corta ante una RESPUESTA rechazada. Repetir una llamada a
+    herramienta si avanza (se ejecuta cada vez) y hay un caso legitimo en que la
+    misma respuesta se rechaza y despues se acepta.
+    """
+    stub_retrieve(monkeypatch, [make_result("ley820::20", articulos=["20"])])
+    # Cita algo que no esta en los resultados: se rechaza siempre, igual.
+    malo = "Segun la Ley 100 de 1993, Articulo 999, tienes derecho."
+    generar = generador(nativo("buscar_normas", consulta="arriendo"), malo, malo, malo, malo)
+
+    r = agentico.agente_react("cuanto me pueden subir el arriendo", object(), _generar=generar)
+
+    acciones = [p["accion"] for p in r["traza"]]
+    assert "Responder (corte por repeticion)" in acciones, f"no corto; traza: {acciones}"
+    assert sum(1 for a in acciones if a == "Responder (rechazado)") == 1, (
+        "deberia rechazar una vez y cortar a la segunda, no acumular rechazos")

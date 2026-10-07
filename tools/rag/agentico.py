@@ -744,12 +744,20 @@ def agente_react(
         ('forzar_busqueda', None) | ('escape', motivo)."""
         if RESPUESTA_SIN_CONTEXTO.lower() in texto.lower():
             return "aceptar", texto
+        # La red de seguridad va PRIMERO, antes de rechazar por cualquier motivo.
+        # Estaba despues del rechazo por "menciona herramientas", y una salida
+        # como "Primero busca la norma..." cae justo ahi: se rechazaba, y como la
+        # generacion es greedy el modelo repetia el mismo texto hasta agotar los
+        # pasos y escapar sin haber buscado nunca. En la corrida del 2026-10-07
+        # eso dejo 5 casos sin buscar y 9 sin contexto (contra 4 de las otras
+        # rutas), justo en las preguntas compuestas y de plazo, que son para las
+        # que existe el ReAct.
+        if not _busco_normas() and not es_charla_trivial(query) and not estado["busqueda_forzada"]:
+            return "forzar_busqueda", None
         if not texto.strip() or menciona_herramientas(texto):
             return "rechazar", ("Eso no es una respuesta para el usuario: describe herramientas o esta "
                                 "vacia. Usa las herramientas que necesites y luego responde al usuario "
                                 "en texto normal.", [])
-        if not _busco_normas() and not es_charla_trivial(query) and not estado["busqueda_forzada"]:
-            return "forzar_busqueda", None
         no_vistas = citas_no_verificables(texto, vistos, query)
         if no_vistas:
             return "rechazar", (f"Verificacion de citas: tu respuesta cita {', '.join(no_vistas)}, que no "
@@ -768,6 +776,15 @@ def agente_react(
                                 f"{' y '.join(faltan)} con los datos del usuario y los de la norma que "
                                 "encontraste, y da el resultado en tu respuesta.", [])
         return "aceptar", texto
+
+    # Respuesta que ya se rechazo una vez. Con generacion greedy, que el modelo
+    # vuelva a entregar EXACTAMENTE lo mismo despues de leer la correccion
+    # significa que no va a avanzar, y seguir solo gasta pasos hasta el escape.
+    # Se compara solo contra respuestas rechazadas, no contra cualquier salida:
+    # repetir una llamada a herramienta si avanza (se ejecuta cada vez), y hay
+    # un caso legitimo en que la misma respuesta se rechaza y luego se acepta
+    # (la regla de pedir el calculo una sola vez).
+    ultimo_rechazado = None
 
     for paso in range(1, max_pasos + 1):
         salida = generar(mensajes, HERRAMIENTAS_REACT)
@@ -819,6 +836,12 @@ def agente_react(
                 "cito un articulo que no corresponde, dile cual si aplica.")})
             continue
         observacion, rechazadas = detalle
+        if texto == ultimo_rechazado:
+            traza.append({"paso": paso, "pensamiento": pensamiento,
+                          "accion": "Responder (corte por repeticion)", "argumento": texto,
+                          "observacion": "repitio la misma respuesta ya rechazada; no avanza"})
+            break
+        ultimo_rechazado = texto
         traza.append({"paso": paso, "pensamiento": pensamiento, "accion": "Responder (rechazado)",
                       "argumento": texto, "observacion": observacion, "rechazadas": rechazadas})
         mensajes.append({"role": "user", "content": observacion})
