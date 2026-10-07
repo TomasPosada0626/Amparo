@@ -17,7 +17,7 @@ from __future__ import annotations
 import time
 
 from tools.rag import config, corpus
-from tools.rag.chunk import chunk_corpus
+from tools.rag.chunk import chunk_corpus, texto_indexable
 from tools.rag.embed_store import embed_passages, get_store
 from tools.rag.ingest import ingest_corpus, save_processed
 from tools.rag.prompt_template import build_messages
@@ -80,7 +80,9 @@ def build_index(manifest: list[dict] | None = None, *, save: bool = True):
     embeddings: list[list[float]] = []
     inicio = time.perf_counter()
     for i in range(0, len(chunks), PROGRESO_CADA):
-        lote = [c.text for c in chunks[i : i + PROGRESO_CADA]]
+        # Con la cita delante (RAG-6): el vector lleva la norma y el numero de
+        # articulo, para que una pregunta por un articulo concreto pueda empatar.
+        lote = [texto_indexable(c) for c in chunks[i : i + PROGRESO_CADA]]
         embeddings.extend(embed_passages(lote))
         hechos = len(embeddings)
         transcurrido = time.perf_counter() - inicio

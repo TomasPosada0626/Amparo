@@ -207,6 +207,29 @@ def split_long_text(texto: str, max_tokens: int) -> list[str]:
     return piezas or [texto]
 
 
+def texto_indexable(chunk: Chunk) -> str:
+    """El texto que se embebe: la cita y despues el contenido.
+
+    Lo que se indexaba era `chunk.text` pelado, sin decir de que norma ni de que
+    articulo venia. Para el embedding denso "64" no significa nada y el nombre de
+    la norma no estaba en el vector, asi que "que dice el articulo 64 del Codigo
+    Sustantivo del Trabajo" no tenia contra que empatar: en la demo de S08 las
+    configuraciones A y B devolvian los articulos 46, 158, 165 y 468, y solo C lo
+    encontraba, por BM25.
+
+    Se usa la misma forma que SearchResult.cita, para que lo indexado y lo que se
+    le muestra al modelo digan la misma cita. El `text` del chunk no se toca: el
+    prompt sigue armandose con format_context, que ya pone la cita arriba, asi
+    que no se duplica.
+    """
+    if chunk.articulos_incluidos:
+        etiqueta = "Articulo" if len(chunk.articulos_incluidos) == 1 else "Articulos"
+        cita = f"{chunk.fuente}, {etiqueta} {', '.join(chunk.articulos_incluidos)}"
+    else:
+        cita = chunk.fuente
+    return f"{cita}\n{chunk.text}"
+
+
 def chunk_document(
     doc: dict,
     *,

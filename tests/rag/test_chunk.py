@@ -228,3 +228,34 @@ def test_un_encabezado_en_minuscula_tras_linea_en_blanco_si_cuenta():
              "articulo 287. situaciones que determinan la imputacion.\n\n"
              "Articulo 288. Contenido.")
     assert [s.numero for s in chunk.split_by_article(texto)] == ["286", "287", "288"]
+
+
+def test_lo_que_se_indexa_lleva_la_norma_y_el_articulo():
+    """RAG-6: se embebia el texto pelado, sin decir de que norma venia.
+
+    Para el embedding denso "64" no significa nada y el nombre de la norma no
+    estaba en el vector, asi que "que dice el articulo 64 del Codigo Sustantivo
+    del Trabajo" no tenia contra que empatar. En la demo de S08, A y B devolvian
+    los articulos 46, 158, 165 y 468, y solo C lo encontraba, por BM25.
+    """
+    c = chunk.Chunk(
+        chunk_id="cst::chunk1", doc_id="cst",
+        text="Articulo 64. Son justas causas para dar por terminado el contrato.",
+        fuente="Decreto 2663 de 1950 (Codigo Sustantivo del Trabajo)",
+        tipo="ley", url_fuente="http://x", articulos_incluidos=["64"],
+    )
+    indexable = chunk.texto_indexable(c)
+
+    assert indexable.startswith("Decreto 2663 de 1950 (Codigo Sustantivo del Trabajo), Articulo 64")
+    assert c.text in indexable
+    # El text del chunk no cambia: el prompt lo arma format_context, que ya pone
+    # la cita arriba, asi que duplicarla ahi la repetiria.
+    assert not c.text.startswith("Decreto 2663")
+
+
+def test_el_texto_indexable_usa_plural_con_varios_articulos():
+    c = chunk.Chunk(
+        chunk_id="x::1", doc_id="x", text="Texto agrupado.", fuente="Ley 820 de 2003",
+        tipo="ley", url_fuente="http://x", articulos_incluidos=["18", "19"],
+    )
+    assert chunk.texto_indexable(c).startswith("Ley 820 de 2003, Articulos 18, 19")
