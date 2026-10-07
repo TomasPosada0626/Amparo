@@ -42,7 +42,7 @@ y evidencia medida.
 | Milestone | Tema | Estado | Artefactos |
 |---|---|:--:|---|
 | **M1** | Fine-tuning (LoRA sobre Qwen2.5-7B-Instruct) | ✅ | `data/dataset_legal.jsonl`, `colab/m1_finetune.ipynb` |
-| **M2** | Harness de evaluación (juez LLM, métricas, sesgos) | ✅ | `tools/evaluation/`, `results/m2_scorecard_2026-09-19.md` |
+| **M2** | Harness de evaluación (juez LLM, métricas, sesgos) | ✅ | `tools/evaluation/`, `results/m2_2026-10-06/` |
 | **M3** | RAG: ingenuo (S07) + avanzado (S08) + agéntico (S10) + DSPy | ✅ | `tools/rag/`, `docs/m3_decisiones_rag.md`, `results/m3_s08_busqueda_2026-09-27.md`, `results/m3_s10_rutas_2026-09-27.md` |
 
 ### Resultados de M2 (201 ejemplos de validación)

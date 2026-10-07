@@ -23,9 +23,9 @@ Fecha: 2026-09-21 (Parte I) · 2026-09-24 (Parte II) · código:
 [`colab/m3_s10_rag_agentico.ipynb`](../colab/m3_s10_rag_agentico.ipynb) (S10)
 
 > **Por qué este RAG existe.** El M2 midió que el modelo fine-tuneado llega a
-> **100% de cumplimiento de "no inventa citas"** en los 201 ejemplos de
-> validación ([scorecard](../results/m2_scorecard_2026-09-19.md)), frente a
-> 73.6% del baseline. Pero ese 100% es "aprendió a no citar", no "aprende a
+> **100% de respuestas sin citas numeradas** en los 231 ejemplos de
+> validación ([scorecard](../results/m2_2026-10-06/scorecard.md)), frente a
+> 87.4% del modelo base. Pero ese 100% es "aprendió a no citar", no "aprende a
 > citar bien": en el eval set adversarial el modelo cede y cita cuando se le
 > presiona por un número de artículo, sin tener de dónde verificarlo. Este RAG
 > es la pieza que convierte eso en "cita correctamente porque tiene de dónde
