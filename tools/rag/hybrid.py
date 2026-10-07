@@ -25,20 +25,50 @@ pura de RRF.
 from __future__ import annotations
 
 import re
+import unicodedata
 
 from tools.rag import config
 from tools.rag.embed_store import SearchResult, VectorStore, embed_query, metadata_to_result
 
-# Tokenizacion para BM25: minusculas + palabras alfanumericas. Deliberadamente
-# simple (no stemming, no stopwords): en dominio legal los "terminos raros" que
-# BM25 debe premiar son justo numeros y nombres propios ("1480", "habeas"), que
-# no conviene alterar. Se mantiene \w+ con unicode para no perder tildes ni la ñ.
+# Tokenizacion para BM25: minusculas, sin tildes y palabras alfanumericas.
+# Deliberadamente simple (no stemming, no stopwords): en dominio legal los
+# "terminos raros" que BM25 debe premiar son justo numeros y nombres propios
+# ("1480", "habeas"), que no conviene alterar.
+#
+# Las tildes SI se quitan, en los dos lados. Antes no, con el argumento de "no
+# perder tildes ni la ñ", pero el razonamiento fallaba por un lado que no se
+# habia mirado: el corpus viene con tildes y las preguntas vienen sin ellas,
+# porque asi escribe la gente desde el celular -- y asi estan escritas a
+# proposito en el dataset de M1 y en el eval set. El termino nunca empataba.
+# Medido sobre el eval set, 37 de las 75 preguntas perdian al menos una palabra
+# ("peticion", "credito", "nomina", "liquidacion"), y es la causa de que
+# "Me despidieron sin pagarme la liquidacion" trajera articulos del Codigo
+# General del Proceso en vez de los laborales.
+#
+# La ñ se conserva: NFD la descompone en "n" + marca combinante, asi que
+# quitarla sin mas confundiria "año" con "ano", que en texto legal importa. Se
+# recompone antes de filtrar las marcas.
 _TOKEN_PATTERN = re.compile(r"\w+", re.UNICODE)
+
+_N_CON_TILDE = "\u0303"      # marca combinante de la ñ
+
+
+def _sin_tildes(texto: str) -> str:
+    descompuesto = unicodedata.normalize("NFD", texto)
+    conservado = "".join(
+        c for c in descompuesto
+        if unicodedata.category(c) != "Mn" or c == _N_CON_TILDE
+    )
+    return unicodedata.normalize("NFC", conservado)
 
 
 def tokenize(text: str) -> list[str]:
-    """Texto -> lista de tokens en minuscula, para BM25."""
-    return _TOKEN_PATTERN.findall(text.lower())
+    """Texto -> tokens en minuscula y sin tildes, para BM25.
+
+    Se aplica igual al indexar y al consultar: si solo se normalizara un lado,
+    el problema seria el mismo al reves.
+    """
+    return _TOKEN_PATTERN.findall(_sin_tildes(text.lower()))
 
 
 class BM25Index:

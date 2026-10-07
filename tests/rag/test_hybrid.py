@@ -175,3 +175,36 @@ def test_hybrid_search_fusiona_denso_y_bm25(monkeypatch):
 
     assert "c2" in ids  # lo aporto BM25 (termino exacto)
     assert "c1" in ids  # lo aporto el denso
+
+
+def test_bm25_encuentra_aunque_la_pregunta_venga_sin_tildes():
+    """RAG-1: el corpus viene con tildes y las preguntas sin ellas.
+
+    No es un descuido de quien pregunta: el dataset de M1 y el eval set estan
+    escritos sin tildes a proposito, porque asi escribe la gente desde el
+    celular. Con el tokenizador anterior el termino nunca empataba, y 33 de las
+    75 preguntas del eval set perdian al menos una palabra que SI esta en el
+    corpus ("liquidacion", "credito", "cedula", "cirugia"). Es la causa de que
+    "Me despidieron sin pagarme la liquidacion" trajera articulos del Codigo
+    General del Proceso en vez de los laborales.
+    """
+    from tools.rag.hybrid import tokenize
+
+    for sin_tilde, con_tilde in (("liquidacion", "liquidación"),
+                                 ("peticion", "petición"),
+                                 ("credito", "crédito"),
+                                 ("cedula", "cédula")):
+        assert tokenize(sin_tilde) == tokenize(con_tilde), (
+            f"{sin_tilde!r} y {con_tilde!r} siguen siendo tokens distintos")
+
+
+def test_la_enne_no_se_confunde_con_la_ene():
+    """Quitar todas las marcas combinantes convertiria "año" en "ano", que en
+    texto legal no es lo mismo. La ñ se recompone antes de filtrar."""
+    from tools.rag.hybrid import tokenize
+
+    assert tokenize("año") != tokenize("ano")
+    assert tokenize("año") == ["año"]
+    # Y sigue empatando consigo misma venga como venga normalizada.
+    import unicodedata
+    assert tokenize(unicodedata.normalize("NFD", "año")) == tokenize("año")
