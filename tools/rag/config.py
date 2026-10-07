@@ -69,7 +69,11 @@ RETRIEVAL_MIN_SCORE = 0.82
 
 # --- Generacion -------------------------------------------------------------
 BASE_MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"  # mismo que tools/evaluation/config.py
-MAX_NEW_TOKENS_GENERATION = 300
+# Mismo valor que tools/evaluation/config.py. Era 300, y con ese techo el
+# modelo base -- que escribe ~224 palabras -- salia cortado a mitad de frase,
+# igual que pasaba en M2 antes del 2026-10-04 (159 de 213 respuestas). Mientras
+# M2 generara con 900 y M3 con 300, sus cifras no eran comparables.
+MAX_NEW_TOKENS_GENERATION = 900
 
 # Ruta al adaptador LoRA de M1. Igual que en tools/evaluation/config.py, las
 # rutas de Drive son simples strings: no se tocan fuera de Colab, asi que este

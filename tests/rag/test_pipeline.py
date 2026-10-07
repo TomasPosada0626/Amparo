@@ -214,3 +214,40 @@ def test_el_escape_por_codigo_lo_detecta_la_evaluacion():
 
     assert es_valvula_de_escape(RESPUESTA_ESCAPE_POR_CODIGO)
     assert "Linea 123" in RESPUESTA_ESCAPE_POR_CODIGO
+
+
+def test_m3_genera_con_el_mismo_techo_de_tokens_que_m2():
+    """RAG-7 / S10-7: mientras M3 generara con 300 y M2 con 900, sus cifras no
+    eran comparables. El base escribe ~224 palabras y con 300 tokens salia
+    cortado por el techo, no por su contenido -- el mismo error que M2 ya habia
+    corregido (159 de 213 respuestas cortadas antes del 2026-10-04)."""
+    from tools.evaluation import config as m2_config
+    from tools.rag import config as m3_config
+
+    assert m3_config.MAX_NEW_TOKENS_GENERATION == m2_config.MAX_NEW_TOKENS_GENERATION
+
+
+def test_el_registro_de_evaluacion_guarda_si_la_respuesta_se_corto():
+    """Sin n_tokens y cortada no hay forma de saber cuales se cortaron, que es
+    justo lo que invalidaba la comparacion cuando el limite era 300."""
+    from tools.rag import pipeline
+
+    resultado = {
+        "query": "me subieron el arriendo",
+        "response": "respuesta",
+        "contexts": ["c1"],
+        "retrieved_chunks": [],
+        "n_retrieved": 1,
+        "used_lora": True,
+        "n_tokens": 900,
+        "cortada": True,
+    }
+    registro = {"id": 9001, "category": "Arriendo", "tipo": "gold", "criterio": "...",
+                "messages": [{"role": "system", "content": "s"},
+                             {"role": "user", "content": "me subieron el arriendo"},
+                             {"role": "assistant", "content": "ref"}]}
+
+    fila = pipeline.to_eval_record(resultado, registro)
+
+    assert fila["n_tokens"] == 900
+    assert fila["cortada"] is True

@@ -27,6 +27,13 @@ from tools.rag.retrieve import retrieve
 PROGRESO_CADA = 250
 
 
+# Tokens de la ultima generacion, para que to_eval_record pueda registrar si la
+# respuesta se corto. Es estado de modulo y no un valor de retorno porque las
+# tres rutas (una pasada, tool use, ReAct) llaman a generate por caminos
+# distintos y cambiar sus firmas tocaria mucho mas de lo que el dato justifica.
+_ULTIMA_GENERACION: dict = {"n_tokens": 0, "cortada": False}
+
+
 # --- Indexacion (offline) ---------------------------------------------------
 
 def build_index(manifest: list[dict] | None = None, *, save: bool = True):
@@ -252,6 +259,10 @@ def to_eval_record(resultado: dict, registro: dict) -> dict:
         "retrieved_chunks": resultado["retrieved_chunks"],
         "n_retrieved": resultado["n_retrieved"],
         "used_lora": resultado["used_lora"],
+        # Cuantos tokens genero y si toco el techo (RAG-7). El scorecard de M2
+        # reporta lo mismo, asi que las dos mitades del proyecto se leen igual.
+        "n_tokens": resultado.get("n_tokens", _ULTIMA_GENERACION["n_tokens"]),
+        "cortada": resultado.get("cortada", _ULTIMA_GENERACION["cortada"]),
         # Sistema A/B/C que produjo esta respuesta. Se usan .get() con default
         # False para no romper si el resultado viene de un caller que todavia no
         # los setea (compatibilidad con el contrato S07). Ver
@@ -300,13 +311,20 @@ def generate(messages: list[dict], *, use_lora: bool = False, model_bundle=None)
     model, tokenizer = model_bundle if model_bundle else load_model(use_lora)
     system_prompt = next(m["content"] for m in messages if m["role"] == "system")
     user_content = next(m["content"] for m in messages if m["role"] == "user")
-    return generation.run_chat_generation(
+    texto, n_tokens = generation.run_chat_generation(
         model,
         tokenizer,
         system_prompt,
         user_content,
         config.MAX_NEW_TOKENS_GENERATION,
+        return_n_tokens=True,
     )
+    # Se guardan los tokens y si la respuesta toco el techo: sin eso no hay forma
+    # de saber cuales salieron cortadas, que es lo que invalidaba la comparacion
+    # cuando el limite era 300.
+    _ULTIMA_GENERACION["n_tokens"] = n_tokens
+    _ULTIMA_GENERACION["cortada"] = n_tokens >= config.MAX_NEW_TOKENS_GENERATION
+    return texto
 
 
 if __name__ == "__main__":
