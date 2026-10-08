@@ -32,6 +32,9 @@ from tools.dataset_quality import (
 )
 
 PALABRAS = {"B1": (30, 90), "B2": (10, 45), "B3": (30, 90)}
+MAX_USOS_ARTICULO = 3            # un articulo es fuente de a lo sumo 3 ejemplos
+PARECIDO_MAX_V2 = 0.8            # TF-IDF entre dos preguntas de v2
+PROPORCION_MIN_ESCAPE = 1 / 3    # regla de Tomas: 1 de cada 3 con contexto que no responde
 
 _ARTICULO = re.compile(r"\bart(?:[ií]culos?|s?\.)\s*(\d+(?:\s*-\s*[A-Za-z]|[A-Za-z](?![a-z]))?)", re.IGNORECASE)
 _NORMA_CON_NUMERO = re.compile(r"\b(ley|decreto)\s+(\d+)\s+de\s+(\d{4})\b", re.IGNORECASE)
@@ -216,8 +219,27 @@ def analizar(registros: list[dict]) -> dict:
             if eid not in eval_set.REVISADAS_DISTINTAS and (r["id"], eid) not in REVISADAS_DISTINTAS_V2:
                 fuga.append((r["id"], eid, mejor[0][1]))
 
+    # Variedad: un mismo articulo como fuente de muchos ejemplos ensena a
+    # recitar ese articulo, no a leer el contexto; y dos preguntas casi iguales
+    # son el mismo ejemplo dos veces.
+    usos = Counter(f for r in registros for f in r.get("fuentes", []))
+    sobreusados = sorted(f for f, n in usos.items() if n > MAX_USOS_ARTICULO)
+    preguntas = [_pregunta(r) for r in registros]
+    indice_v2 = IndiceTfidf(preguntas) if len(preguntas) > 1 else None
+    casi_iguales = []
+    for i, q in enumerate(preguntas):
+        for j, s in (indice_v2.parecidos(q, 3) if indice_v2 else []):
+            if j > i and s >= PARECIDO_MAX_V2:
+                casi_iguales.append((registros[i]["id"], registros[j]["id"], round(s, 2)))
+    # Regla de Tomas: de cada 3 ejemplos, 1 con contexto que no responde (B2).
+    n_b2 = sum(1 for r in registros if r["modo"] == "B2")
+    escape_corto = len(registros) >= 20 and n_b2 / len(registros) < PROPORCION_MIN_ESCAPE
+
     ids = [r["id"] for r in registros]
     return {
+        "articulos_sobreusados": sobreusados,
+        "preguntas_casi_iguales": casi_iguales,
+        "proporcion_escape": (n_b2, len(registros), escape_corto),
         "total": len(registros),
         "por_modo": Counter(r["modo"] for r in registros),
         "por_categoria": {c: len(v) for c, v in sorted(por_categoria.items())},
@@ -230,6 +252,9 @@ def analizar(registros: list[dict]) -> dict:
 
 def reportar(a: dict) -> list[str]:
     fallos = []
+    for clave in ("articulos_sobreusados", "preguntas_casi_iguales"):
+        if a[clave]:
+            print(f"{clave}: {a[clave][:20]}")
     print(f"Dataset v2: {a['total']} ejemplos | por modo: {dict(sorted(a['por_modo'].items()))}")
     print(f"Categorias: {len(a['por_categoria'])}\n")
     conteo = Counter(p for ps in a["problemas"].values() for p in ps)
@@ -242,7 +267,13 @@ def reportar(a: dict) -> list[str]:
         print(f"  [{'OK  ' if not n else 'FALLA'}] {puerta}: {n}")
         if n:
             fallos.append(puerta)
+    n_b2, total, corto = a["proporcion_escape"]
+    print(f"  [{'FALLA' if corto else 'OK  '}] escapes (B2) >= 1 de cada 3: {n_b2}/{total}")
+    if corto:
+        fallos.append("proporcion de escapes")
     for etiqueta, lista in (("repeticion", a["repetidos"]), ("fuga al eval set", a["fuga_eval_set"]),
+                            (f"articulo fuente de mas de {MAX_USOS_ARTICULO} ejemplos", a["articulos_sobreusados"]),
+                            ("preguntas casi iguales", a["preguntas_casi_iguales"]),
                             ("ids duplicados", a["ids_duplicados"])):
         print(f"  [{'OK  ' if not lista else 'FALLA'}] {etiqueta}: {len(lista)}")
         if lista:

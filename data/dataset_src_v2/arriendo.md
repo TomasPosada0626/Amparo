@@ -116,3 +116,50 @@ R: No tengo informacion verificada sobre esto en mi base de conocimiento. El arr
 modo: B2
 base: 242
 R: No tengo informacion verificada sobre esto en mi base de conocimiento. Antes de firmar, te sugiero llevar el contrato a un consultorio jurídico universitario o a una notaría para que te lo expliquen.
+
+## 2501
+modo: B2
+base: 238
+R: No tengo informacion verificada sobre esto en mi base de conocimiento. Para saber qué documento de identidad sirve para firmar, consulta en Migración Colombia o en un consultorio jurídico universitario.
+
+## 2502
+modo: B2
+base: 244
+R: No tengo informacion verificada sobre esto en mi base de conocimiento. Revisa qué dice tu contrato sobre mascotas y, si te presiona, busca orientación gratuita en la Personería de tu municipio o en un consultorio jurídico universitario.
+
+## 2503
+modo: B2
+base: 226
+R: No tengo informacion verificada sobre esto en mi base de conocimiento. Habla cuanto antes con el arrendador para proponer un acuerdo de pago por escrito; un centro de conciliación o un consultorio jurídico universitario pueden ayudarte a formalizarlo.
+
+## 2504
+modo: B2
+base: 235
+R: No tengo informacion verificada sobre esto en mi base de conocimiento. Toma fotos del daño, avisa por escrito al arrendador y a la administración del edificio, y pide orientación en la inspección de policía o en un consultorio jurídico.
+
+## 2505
+modo: B2
+base: 248
+R: No tengo informacion verificada sobre esto en mi base de conocimiento. Revisen juntos qué dice el contrato y, si no se ponen de acuerdo, acudan a un centro de conciliación o a un consultorio jurídico universitario.
+
+## 2506
+modo: B2
+base: 260
+R: No tengo informacion verificada sobre esto en mi base de conocimiento. Revisa las cláusulas de tu contrato sobre permisos y suspensión del canon, y busca asesoría en un consultorio jurídico o en el centro de conciliación de la Cámara de Comercio.
+
+## 2507
+modo: B2
+P: Cuanto me puede cobrar de comision la inmobiliaria por conseguirme el apartamento?
+R: No tengo informacion verificada sobre esto en mi base de conocimiento. Pide a la inmobiliaria la tarifa por escrito antes de pagar y, si tienes dudas, consulta en la alcaldía o en un consultorio jurídico universitario.
+
+## 2508
+modo: B3
+base: 245
+fuentes: LEY-820-2003:21
+R: Si estás en riesgo, llama a la Línea 155 o a la Línea 123 y acude a la Comisaría de Familia. Sobre el arriendo, el artículo 21 de la Ley 820 de 2003 permite terminar el contrato en cualquier tiempo de común acuerdo con el arrendador. No tengo información verificada sobre si la violencia te exime de la indemnización; pídele por escrito la terminación de mutuo acuerdo o acude a un centro de conciliación.
+
+## 2509
+modo: B3
+base: 237
+fuentes: LEY-820-2003:7
+R: El artículo 7 de la Ley 820 de 2003 dice que las obligaciones del contrato son solidarias entre arrendatarios: el arrendador puede cobrarle el canon completo a cualquiera de quienes quedan. No tengo información verificada sobre cómo repartir lo que dejó de pagar quien se fue. Hablen con el arrendador para firmar un otrosí y, si no hay acuerdo, acudan a un centro de conciliación.

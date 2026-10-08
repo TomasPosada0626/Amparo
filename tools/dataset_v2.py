@@ -73,6 +73,8 @@ SOURCE_DIR = PROJECT_ROOT / "data" / "dataset_src_v2"
 OUTPUT_JSONL = PROJECT_ROOT / "data" / "dataset_v2.jsonl"
 
 MODOS = ("B1", "B2", "B3")
+NORMAS_GENERALES = {"codigo_civil_ley_84_1873", "codigo_comercio_decreto_410_1971",
+                    "codigo_general_proceso_ley_1564_2012", "cpaca_ley_1437_2011"}
 CANDIDATOS = 30                     # cuantos pide al buscador antes de armar el contexto
 FRAGMENTOS_POR_EJEMPLO = 5          # = config.TOP_K del RAG
 RANGO_IDS = (2001, 8999)            # 1-1536 es dataset_legal; 9000+ es el eval set
@@ -237,8 +239,16 @@ def fragmentos_para(e: Especificacion, pregunta: str, c: Corpus, buscador: "Busc
 
     candidatos = buscador.candidatos(pregunta, CANDIDATOS)
     if e.modo == "B2":
+        # Ningun fragmento puede responder: fuera las normas de la categoria, las
+        # transversales, las de las 3 categorias que el enrutador ve probables
+        # y los codigos generales (que regulan de todo: el Civil trae el arriendo
+        # de fincas, el CGP cualquier proceso).
+        from tools.rag.enrutador import enrutador_por_defecto
+
+        probables = {cat for cat, _ in enrutador_por_defecto().probabilidades(pregunta)[:3]}
         prohibidos = {doc for doc, cats in c.categorias_de_doc.items()
-                      if e.categoria in cats or TRANSVERSAL in cats}
+                      if e.categoria in cats or TRANSVERSAL in cats or cats & probables}
+        prohibidos |= NORMAS_GENERALES
         elegidos = [r for r in candidatos if r.doc_id not in prohibidos][:FRAGMENTOS_POR_EJEMPLO]
         if len(elegidos) < FRAGMENTOS_POR_EJEMPLO:
             vistos = {r.chunk_id for r in elegidos}
@@ -314,6 +324,7 @@ def construir(especificaciones: list[Especificacion], registros_m1: list[dict], 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--check", action="store_true", help="valida sin escribir el JSONL")
+    parser.add_argument("--archivo", help="valida solo data/dataset_src_v2/<archivo> (no escribe)")
     parser.add_argument("--indice", action="store_true",
                         help="contexto con el indice FAISS + e5 de artifacts/ (Colab), no con BM25")
     args = parser.parse_args()
@@ -322,6 +333,10 @@ def main() -> None:
     from tools.evaluation import dataset
 
     especificaciones = cargar_especificaciones()
+    if args.archivo:
+        nombre = Path(args.archivo).name
+        especificaciones = parsear_fuente(SOURCE_DIR / nombre)
+        args.check = True
     ids = [e.id for e in especificaciones]
     repetidos = sorted({i for i in ids if ids.count(i) > 1})
     if repetidos:
