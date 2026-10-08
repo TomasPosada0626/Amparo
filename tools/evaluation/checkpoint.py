@@ -21,7 +21,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-from typing import Mapping, Optional
+from typing import Hashable, Mapping, Optional
 
 
 def huella(*textos: Optional[str]) -> str:
@@ -33,15 +33,20 @@ def huella(*textos: Optional[str]) -> str:
 
 def load_checkpoint(
     path: Optional[Path],
-    huellas: Optional[Mapping[int, str]] = None,
+    huellas: Optional[Mapping[Hashable, str]] = None,
     log_prefix: str = "checkpoint",
-) -> dict[int, dict]:
-    """Items ya resueltos, por id.
+) -> dict[Hashable, dict]:
+    """Items ya resueltos, por clave.
 
-    huellas: {id: huella del contenido actual}. Si se pasa, solo se devuelven
+    La clave suele ser el id del registro, pero no siempre: RAGAS usa
+    "sistema:id" porque el mismo caso se evalua en varias rutas. Por eso la
+    anotacion es Hashable y no int, que es lo que decia antes sin ser cierto.
+
+    huellas: {clave: huella del contenido actual}. Si se pasa, solo se devuelven
     las entradas cuya huella coincide; las demas (otro texto, u entradas
-    viejas sin huella) se descartan y se informa cuantas. Todos los lotes del
-    harness la pasan; sin ella se reusa por id (solo para compatibilidad)."""
+    viejas sin huella) se descartan y se informa cuantas. Sin ella se reusa por
+    clave, lo que publica notas de una corrida sobre las respuestas de otra:
+    paso en M2 el 2026-10-02 y en RAGAS el 2026-10-07. Pasala siempre."""
     if not path or not Path(path).exists():
         return {}
     done: dict[int, dict] = {}
