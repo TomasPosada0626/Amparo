@@ -43,7 +43,7 @@ def test_una_ley_que_no_esta_en_el_contexto_se_marca():
 
 
 def _registro(modo, respuesta, fuentes=("LEY-820-2003:20",), pregunta="Me subieron el arriendo, es legal?"):
-    user = pregunta if modo == "A" else f"CONTEXTO:\n...\n\nPREGUNTA DEL USUARIO:\n{pregunta}"
+    user = f"CONTEXTO:\n...\n\nPREGUNTA DEL USUARIO:\n{pregunta}"
     return {"id": 2999, "category": "Arriendo", "modo": modo, "base_id": None,
             "fuentes": list(fuentes) if modo in ("B1", "B3") else [], "contexto": CONTEXTO,
             "messages": [{"role": "system", "content": "s"}, {"role": "user", "content": user},
@@ -97,7 +97,7 @@ def test_split_v2_respeta_el_lado_de_la_pregunta_base():
 def test_split_v2_no_mueve_el_split_de_m1():
     m1 = dataset.load_records()
     antes = dataset.stratified_split(m1)
-    dataset.split_v2([{"id": 2001, "category": "Arriendo", "modo": "A", "base_id": None}], m1)
+    dataset.split_v2([{"id": 2001, "category": "Arriendo", "modo": "B2", "base_id": None}], m1)
     assert dataset.stratified_split(m1) == antes
 
 
@@ -109,3 +109,44 @@ def test_las_fuentes_del_dataset_v2_pasan_todas_las_puertas():
     analisis = q.analizar(registros)
     assert not analisis["problemas"], analisis["problemas"]
     assert not analisis["repetidos"] and not analisis["fuga_eval_set"]
+
+
+def test_un_ejemplo_sin_contexto_no_pasa():
+    """Regla de Tomas: ningun ejemplo de v2 queda con contexto vacio. En
+    servicio, sin contexto el codigo responde la frase de escape sin llamar al
+    modelo; un ejemplo asi ensenaria algo que el modelo nunca vive."""
+    r = _registro("B1", "Según el artículo 20 de la Ley 820 de 2003, el canon solo se reajusta cada doce meses "
+                        "y hasta el IPC; objétalo por escrito y acude a un centro de conciliación con tus recibos.")
+    r["contexto"] = []
+    assert "contexto vacio" in q.revisar(r)
+
+
+def test_cada_ejemplo_trae_en_su_contexto_los_articulos_que_cita():
+    """B1/B3: el contexto viene de la busqueda; si no trajo el articulo que
+    responde, se mete (busqueda+oraculo). Nunca queda un B1 sin su fuente."""
+    from tools import dataset_v2
+
+    registros = dataset_v2.construir(dataset_v2.cargar_especificaciones(), dataset.load_records())
+    assert {r["modo"] for r in registros} <= {"B1", "B2", "B3"}
+    for r in registros:
+        assert len(r["contexto"]) == dataset_v2.FRAGMENTOS_POR_EJEMPLO
+        if r["modo"] == "B2":
+            assert r["contexto_origen"] == "busqueda-otras-normas"
+            continue
+        assert r["contexto_origen"] in ("busqueda", "busqueda+oraculo")
+        vistos = {a for f in r["contexto"] for a in f["articulos"]}
+        for fuente in r["fuentes"]:
+            assert fuente.rsplit(":", 1)[1] in vistos, (r["id"], fuente)
+
+
+def test_una_pregunta_del_eval_set_en_el_train_de_v2_es_fuga(monkeypatch):
+    from tools.evaluation import eval_set
+
+    ev = eval_set.load_eval_set()
+    copia = _registro("B2", "No tengo informacion verificada sobre esto en mi base de conocimiento.",
+                      pregunta=ev[0]["messages"][1]["content"])
+    copia["pregunta"] = ev[0]["messages"][1]["content"]
+    copia["id"] = 2998
+    analisis = q.analizar([copia])
+    assert analisis["fuga_eval_set"], "la copia literal de una pregunta del eval set no se detecto"
+

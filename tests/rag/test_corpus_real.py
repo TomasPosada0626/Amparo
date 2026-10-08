@@ -202,7 +202,8 @@ def test_los_numeros_de_articulo_tienen_forma_de_numero_de_articulo():
     # Forma canonica de los articulos "bis": "151-A", con el sufijo en mayuscula
     # y separado por guion (chunk.normalizar_numero). El corpus los escribe
     # "151-A", "19 A" y "185 a" y se unifican al indexar.
-    patron = re.compile(r"^(transitorio )?\d{1,4}(-[A-Z])?$")
+    # Y los de sufijo numerico, "391-1" (CST) o "269-1" (Codigo Penal).
+    patron = re.compile(r"^(transitorio )?\d{1,4}(-[A-Z]|-\d{1,2})?$")
 
     for filename in MINIMO_ARTICULOS:
         for c in chunks_de(filename):

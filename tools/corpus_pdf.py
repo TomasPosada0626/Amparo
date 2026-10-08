@@ -102,6 +102,14 @@ FUENTES: list[FuentePdf] = [
               "LEY-1801-2016", "ley",
               "Por la cual se expide el Código Nacional de Seguridad y Convivencia Ciudadana",
               "2016-07-29", GESTOR + "80538", inicio=r"^DECRETA:?\s*$", tablas=True),
+    FuentePdf("Decreto_2663_de_1950.pdf", "codigo_sustantivo_trabajo_decreto_2663_1950.md",
+              "DECRETO-2663-1950", "decreto", "Código Sustantivo del Trabajo",
+              "1950-09-09", GESTOR + "199983",
+              nota="Reemplaza el archivo del espejo de SUIN, que traia la numeracion original del "
+                   "Decreto 2663 (anterior a la codificacion del Decreto 3743 de 1950): su articulo 64 "
+                   "era el 62 oficial, su 161 el 160. Esta version usa la numeracion oficial y esta "
+                   "compilada hasta 2021 (jornada de 42 horas, Ley 2101), pero solo anota la Ley 2466 de "
+                   "2025 en sus primeros articulos: no trae, p. ej., el nocturno desde las 7 p. m."),
     FuentePdf("Ley_2452_de_2025.pdf", "codigo_procesal_trabajo_ley_2452_2025.md",
               "LEY-2452-2025", "ley",
               "Por la cual se expide el Código Procesal del Trabajo y de la Seguridad Social",
@@ -138,6 +146,7 @@ _ABRE_PARRAFO = re.compile(
     r"^(PAR[ÁA]GRAFO|Par[áa]grafo|NOTA|Nota|Numeral(?:es)? \d+[^:]{0,20}:|\d{1,3}[\.\)]\s|[a-zñ]\)\s|[A-Z]\)\s|[ivx]+\)\s)"
 )
 _CIERRA = re.compile(r"[\.:;]$")
+_QUEDARA_ASI = re.compile(r"quedar[aá]n?\s+as[ií]\s*[:.]?\s*$", re.IGNORECASE)
 
 
 def _texto_pdf(path: Path, layout: bool = False) -> list[str]:
@@ -259,9 +268,9 @@ def marcar_articulos_citados(parrafos: list[str]) -> list[str]:
     como el articulo 5 de ESTA ley y se citaria "Ley 2126 de 2021, articulo 5".
 
     Regla: el articulado propio va en orden. Un encabezado es propio si su numero
-    es el siguiente (o el mismo, para los "bis" 185A), o salta hasta 3 adelante
-    (articulos que la fuente omitio) sin venir despues de un "asi:". Si no, es
-    texto citado: se le antepone una comilla, y el chunker ya no lo reconoce
+    es el siguiente (o el mismo, para los "bis" 185A), o salta hacia adelante sin
+    venir despues de un "quedara asi:". Si retrocede, o salta justo despues de
+    un "asi:", es texto citado: se le antepone una comilla, y el chunker ya no lo reconoce
     como encabezado (queda dentro del articulo que lo modifica, que es su lugar).
     """
     salida, ultimo, anterior = [], 0, ""
@@ -269,8 +278,10 @@ def marcar_articulos_citados(parrafos: list[str]) -> list[str]:
         m = _NUMERO.match(p) if _ARTICULO.match(p) else None
         if m:
             n = int(m.group(1))
-            tras_cita = anterior.rstrip().endswith(":")
-            propio = n in (ultimo, ultimo + 1) or (ultimo + 1 < n <= ultimo + 3 and not tras_cita)
+            tras_cita = anterior.rstrip().endswith(":") or bool(_QUEDARA_ASI.search(anterior))
+            # Hacia adelante sin "asi:" es un hueco de la fuente (articulos
+            # derogados que no se transcriben: el CST salta del 437 al 443).
+            propio = n in (ultimo, ultimo + 1) or (n > ultimo + 1 and not tras_cita)
             if propio:
                 ultimo = n
             else:

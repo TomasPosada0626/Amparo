@@ -97,6 +97,15 @@ LORA_ADAPTER_PATH: str | None = f"{DRIVE_ROOT}/amparo-lora-adapter"
 USE_HYBRID = False
 USE_RERANK = False
 
+# Enrutador por categoria (tools/rag/enrutador.py, 2026-10-08): antes de cortar
+# el top-k, sube al frente los candidatos de las normas de las categorias que el
+# clasificador le asigna a la pregunta. Para que tenga de donde elegir, la
+# busqueda trae ENRUTADOR_POOL candidatos en vez de top_k. Medido con BM25 sobre
+# los 45 gold etiquetados: acierto en el top-5 de 10 a 17. Con e5, medir en Colab
+# (tools/rag/benchmark_busqueda.py) antes de dar el numero por bueno.
+USE_ENRUTADOR = True
+ENRUTADOR_POOL = 300
+
 # Hybrid search -------------------------------------------------------------
 # Cuantos candidatos pide CADA recuperador (denso y BM25) antes de fusionar. Es
 # mayor que TOP_K a proposito: la fusion RRF necesita ver mas abajo en cada

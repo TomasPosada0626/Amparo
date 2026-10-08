@@ -78,10 +78,11 @@ CATEGORIAS_SIN_NORMA: dict[str, str] = {}
 # Normas que cubririan mejor categorias que hoy solo quedan cubiertas en parte,
 # o que estan desactualizadas. No bloquean el indice; quedan a la vista.
 NORMAS_PENDIENTES: dict[str, str] = {
-    "Codigo Sustantivo del Trabajo vigente (con la Ley 2466 de 2025)": (
-        "El archivo del espejo es de 2019 y no trae la reforma laboral: p. ej. su "
-        "articulo 160 dice que el trabajo diurno va hasta las 9 p. m., y desde el "
-        "25-12-2025 el nocturno empieza a las 7 p. m. Despido / Relaciones laborales."
+    "Ley 2466 de 2025 (reforma laboral)": (
+        "El CST compilado de Funcion Publica (2026-10-08) solo la anota en sus primeros "
+        "articulos: p. ej. su articulo 160 dice que el trabajo diurno va hasta las 9 p. m., "
+        "y desde el 25-12-2025 el nocturno empieza a las 7 p. m. Agregarla como norma "
+        "aparte. Despido / Relaciones laborales."
     ),
     "Ley 1123 de 2007": "Codigo disciplinario del abogado: quejas contra abogados (sin categoria hoy)",
 }

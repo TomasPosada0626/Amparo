@@ -1,11 +1,11 @@
 """Dataset de M1 v2: los ejemplos que ensenan a usar el contexto.
 
 Por que existe. M1 entrenaba con una sola forma de conversacion: prompt de M1,
-pregunta y respuesta sin citas (data/dataset_legal.jsonl). En M3 el modelo
-recibe ademas fragmentos de normas y se le pide citar de ahi; nunca vio un
-ejemplo asi y cito en 0 de 9 casos aun con el contexto perfecto
-(results/m3_s08_2026-10-07/scorecard.md). Este modulo construye
-data/dataset_v2.jsonl con los modos que faltaban:
+pregunta y respuesta sin citas (data/dataset_legal.jsonl: 0 de 1536 ejemplos con
+contexto, 0 de 1536 respuestas con un articulo). En M3 el modelo recibe
+fragmentos de normas y se le pide citar de ahi; nunca vio un ejemplo asi y cito
+en 0 de 9 casos aun con el contexto perfecto (results/m3_s08_2026-10-07). Este
+modulo construye data/dataset_v2.jsonl, siempre CON contexto, en tres modos:
 
   B1  el contexto trae el articulo que responde, entre fragmentos que no sirven:
       la respuesta cita ese articulo (norma y numero) tal como aparece.
@@ -13,8 +13,22 @@ data/dataset_v2.jsonl con los modos que faltaban:
       consultar, sin afirmar nada de fondo.
   B3  el contexto responde una parte: se responde esa parte con su cita y se
       dice que la otra no esta respaldada.
-  A   refuerzos sin contexto (abstencion, rutas en contraste), con las mismas
-      reglas que data/dataset_legal.jsonl.
+
+No hay ejemplos sin contexto (el modo A del piloto se quito el 2026-10-08):
+cuando la busqueda no trae nada, el sistema responde la frase de escape SIN
+llamar al modelo (pipeline._generar_verificado), asi que un ejemplo sin contexto
+le ensenaria al modelo una situacion que en servicio nunca ve. Para eso ya esta
+data/dataset_legal.jsonl.
+
+De donde sale el contexto. De la MISMA busqueda que usa el sistema al
+responder (Buscador): en Colab, retrieve() con e5 + FAISS + enrutador
+(python -m tools.dataset_v2 --indice); en local, BM25 + enrutador, que no
+necesita descargar modelos. Si la busqueda trae el articulo que responde entre
+los 5 primeros, el contexto es exactamente lo que trajo (contexto_origen
+"busqueda"); si no, el articulo se mete en el lugar de uno de los fragmentos
+que si trajo ("busqueda+oraculo"). Asi nunca se entrena a citar sobre un
+contexto que no tiene con que responder, y los fragmentos que acompanan son los
+que de verdad devuelve el buscador.
 
 data/dataset_legal.jsonl NO se toca: su split es el de M1/M2 y cambiarlo rompe
 la comparacion con la corrida de M2 del 2026-10-06. Este archivo va aparte y
@@ -22,11 +36,8 @@ cada ejemplo cae en el mismo lado (train o val) que su pregunta base
 (tools/evaluation/dataset.split_v2).
 
 Los mensajes se arman con las MISMAS funciones que usa el sistema al responder
-(prompt_template.build_messages, format_context, SYSTEM_PROMPT de M1): un
-ejemplo con un formato distinto del de inferencia ensena otra cosa (fue el
-fallo del extra de DSPy). Los fragmentos salen del corpus real, chunkeado con
-el chunker actual: si el chunker cambia, se vuelve a construir y el dataset
-sigue coincidiendo con lo que el modelo vera.
+(prompt_template.build_messages): un ejemplo con un formato distinto del de
+inferencia ensena otra cosa (fue el fallo del extra de DSPy).
 
 Fuentes: data/dataset_src_v2/*.md, una por categoria, con el formato
 
@@ -43,7 +54,8 @@ Fuentes: data/dataset_src_v2/*.md, una por categoria, con el formato
 punto y coma. En B1 y B3 son los que responden; en B2 se omite.
 
     python -m tools.dataset_v2 --check    # valida sin escribir
-    python -m tools.dataset_v2            # escribe data/dataset_v2.jsonl
+    python -m tools.dataset_v2            # escribe data/dataset_v2.jsonl (BM25)
+    python -m tools.dataset_v2 --indice   # en Colab: contexto de e5 + FAISS
 """
 from __future__ import annotations
 
@@ -60,7 +72,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = PROJECT_ROOT / "data" / "dataset_src_v2"
 OUTPUT_JSONL = PROJECT_ROOT / "data" / "dataset_v2.jsonl"
 
-MODOS = ("A", "B1", "B2", "B3")
+MODOS = ("B1", "B2", "B3")
+CANDIDATOS = 30                     # cuantos pide al buscador antes de armar el contexto
 FRAGMENTOS_POR_EJEMPLO = 5          # = config.TOP_K del RAG
 RANGO_IDS = (2001, 8999)            # 1-1536 es dataset_legal; 9000+ es el eval set
 
@@ -174,73 +187,97 @@ def cargar_corpus() -> Corpus:
     return Corpus(resultados, por_articulo, doc_de_identifier, categorias_de_doc, BM25Index(metadata))
 
 
-def _ranking_bm25(c: Corpus, consulta: str) -> list[int]:
-    from tools.rag.hybrid import tokenize
+class Buscador:
+    """La busqueda del sistema, para armar contextos: candidatos(pregunta, n)
+    devuelve SearchResult en orden. Por defecto BM25 + enrutador sobre el corpus
+    chunkeado (local, sin modelos); con un store FAISS, retrieve() de produccion."""
 
-    puntajes = c.bm25._bm25.get_scores(tokenize(consulta))
-    return sorted(range(len(puntajes)), key=lambda i: (-puntajes[i], i))
+    def __init__(self, c: "Corpus", store=None):
+        self.c = c
+        self.store = store
+        self.nombre = "e5+faiss+enrutador" if store is not None else "bm25+enrutador"
+
+    def candidatos(self, pregunta: str, n: int) -> list:
+        from tools.rag import config
+        from tools.rag.enrutador import enrutador_por_defecto, priorizar
+
+        if self.store is not None:
+            from tools.rag.retrieve import retrieve
+
+            return retrieve(pregunta, self.store, top_k=n, min_score=None, use_router=True)
+        res = self.c.bm25.search(pregunta, config.ENRUTADOR_POOL)
+        return priorizar(res, enrutador_por_defecto().normas(pregunta))[:n]
 
 
-def fragmentos_para(e: Especificacion, pregunta: str, c: Corpus) -> list:
-    """Los FRAGMENTOS_POR_EJEMPLO fragmentos del contexto, en el orden en que
-    los vera el modelo.
+def fragmentos_para(e: Especificacion, pregunta: str, c: Corpus, buscador: "Buscador | None" = None):
+    """(fragmentos, origen): los FRAGMENTOS_POR_EJEMPLO del contexto, en el orden
+    en que los vera el modelo, y de donde salieron.
 
-    B1/B3: los chunks de las fuentes declaradas mas distractores, que son los
-    primeros de BM25 para la pregunta (parecidos en la letra, como los que trae
-    el buscador real) sin repetir los de las fuentes. La posicion de los
-    oraculos se sortea con el id como semilla.
-    B2: los primeros de BM25 entre normas que NO cubren la categoria (ni las
-    transversales): el buscador se fue a otra norma, que es como falla en la
-    realidad (arriendo -> Ley 100).
+    B1/B3: lo que trae el buscador. Si el articulo que responde no esta entre los
+    primeros, entra en el lugar de uno de ellos, en una posicion sorteada con el
+    id como semilla ("busqueda+oraculo"); si esta, el contexto es exactamente el
+    de la busqueda ("busqueda").
+    B2: lo que trae el buscador entre normas que NO cubren la categoria (ni las
+    transversales): ningun fragmento puede responder.
     """
     from tools.rag.corpus import TRANSVERSAL
 
-    oraculos: list[int] = []
+    buscador = buscador or Buscador(c)
+    oraculos: list[str] = []
     for ident, art in e.fuentes:
         idx = c.por_articulo.get((ident, art))
         if not idx:
             raise SystemExit(f"{e.id}: el corpus no tiene {ident} articulo {art}")
         for i in idx:
-            if i not in oraculos:
-                oraculos.append(i)
+            cid = c.resultados[i].chunk_id
+            if cid not in oraculos:
+                oraculos.append(cid)
     if len(oraculos) > FRAGMENTOS_POR_EJEMPLO:
         raise SystemExit(f"{e.id}: las fuentes ocupan {len(oraculos)} fragmentos, mas que el contexto")
 
-    ranking = _ranking_bm25(c, pregunta)
+    candidatos = buscador.candidatos(pregunta, CANDIDATOS)
     if e.modo == "B2":
         prohibidos = {doc for doc, cats in c.categorias_de_doc.items()
                       if e.categoria in cats or TRANSVERSAL in cats}
-        elegidos = [i for i in ranking if c.resultados[i].doc_id not in prohibidos]
-        return [c.resultados[i] for i in elegidos[:FRAGMENTOS_POR_EJEMPLO]]
+        elegidos = [r for r in candidatos if r.doc_id not in prohibidos][:FRAGMENTOS_POR_EJEMPLO]
+        if len(elegidos) < FRAGMENTOS_POR_EJEMPLO:
+            vistos = {r.chunk_id for r in elegidos}
+            for r in c.bm25.search(pregunta, 300):
+                if r.doc_id not in prohibidos and r.chunk_id not in vistos:
+                    elegidos.append(r)
+                    vistos.add(r.chunk_id)
+                if len(elegidos) == FRAGMENTOS_POR_EJEMPLO:
+                    break
+        return elegidos, "busqueda-otras-normas"
 
-    articulos_oraculo = {(c.resultados[i].doc_id, a) for i in oraculos
-                         for a in c.resultados[i].articulos_incluidos}
-    distractores = []
-    for i in ranking:
-        r = c.resultados[i]
-        if i in oraculos or any((r.doc_id, a) in articulos_oraculo for a in r.articulos_incluidos):
-            continue
-        distractores.append(i)
-        if len(distractores) == FRAGMENTOS_POR_EJEMPLO - len(oraculos):
-            break
-    orden = list(distractores)
+    por_id = {r.chunk_id: r for r in c.resultados}
+    articulos_oraculo = {(por_id[cid].doc_id, a) for cid in oraculos for a in por_id[cid].articulos_incluidos}
+    top = candidatos[:FRAGMENTOS_POR_EJEMPLO]
+    if all(any(r.chunk_id == cid for r in top) for cid in oraculos):
+        return top, "busqueda"
+    # Sin el oraculo: los mejores candidatos que no son el oraculo (ni otro chunk
+    # del mismo articulo), y el oraculo en una posicion sorteada.
+    distractores = [r for r in candidatos
+                    if r.chunk_id not in oraculos
+                    and not any((r.doc_id, a) in articulos_oraculo for a in r.articulos_incluidos)]
+    orden = distractores[: FRAGMENTOS_POR_EJEMPLO - len(oraculos)]
     rng = random.Random(e.id)
-    for i in oraculos:
-        orden.insert(rng.randint(0, len(orden)), i)
-    return [c.resultados[i] for i in orden]
+    for cid in oraculos:
+        orden.insert(rng.randint(0, len(orden)), por_id[cid])
+    return orden, "busqueda+oraculo"
 
 
 # --------------------------------------------------------------------------
 # Construccion
 # --------------------------------------------------------------------------
 
-def construir(especificaciones: list[Especificacion], registros_m1: list[dict]) -> list[dict]:
-    from tools.dataset_build import SYSTEM_PROMPT
+def construir(especificaciones: list[Especificacion], registros_m1: list[dict], store=None) -> list[dict]:
     from tools.rag.prompt_template import build_messages
 
     preguntas_m1 = {r["id"]: r["messages"][1]["content"] for r in registros_m1}
     categorias_m1 = {r["id"]: r["category"] for r in registros_m1}
-    c = cargar_corpus() if any(e.modo != "A" for e in especificaciones) else None
+    c = cargar_corpus()
+    buscador = Buscador(c, store)
 
     salida = []
     for e in especificaciones:
@@ -255,23 +292,20 @@ def construir(especificaciones: list[Especificacion], registros_m1: list[dict]) 
         else:
             raise SystemExit(f"{e.id}: sin base ni P")
 
-        if e.modo == "A":
-            mensajes = [{"role": "system", "content": SYSTEM_PROMPT},
-                        {"role": "user", "content": pregunta}]
-            fuentes_vistas = []
-        else:
-            if e.modo in ("B1", "B3") and not e.fuentes:
-                raise SystemExit(f"{e.id}: {e.modo} sin fuentes")
-            if e.modo == "B2" and e.fuentes:
-                raise SystemExit(f"{e.id}: B2 no lleva fuentes (ningun fragmento debe servir)")
-            fragmentos = fragmentos_para(e, pregunta, c)
-            mensajes = build_messages(pregunta, fragmentos)
-            fuentes_vistas = [{"cita": f.cita, "doc_id": f.doc_id, "articulos": f.articulos_incluidos}
-                              for f in fragmentos]
+        if e.modo in ("B1", "B3") and not e.fuentes:
+            raise SystemExit(f"{e.id}: {e.modo} sin fuentes")
+        if e.modo == "B2" and e.fuentes:
+            raise SystemExit(f"{e.id}: B2 no lleva fuentes (ningun fragmento debe servir)")
+        fragmentos, origen = fragmentos_para(e, pregunta, c, buscador)
+        mensajes = build_messages(pregunta, fragmentos)
         mensajes.append({"role": "assistant", "content": e.respuesta})
         salida.append({
             "id": e.id, "category": e.categoria, "modo": e.modo, "base_id": e.base,
-            "fuentes": [f"{i}:{a}" for i, a in e.fuentes], "contexto": fuentes_vistas,
+            "pregunta": pregunta,
+            "fuentes": [f"{i}:{a}" for i, a in e.fuentes],
+            "contexto": [{"cita": f.cita, "doc_id": f.doc_id, "articulos": f.articulos_incluidos,
+                          "chunk_id": f.chunk_id} for f in fragmentos],
+            "contexto_origen": origen, "buscador": buscador.nombre,
             "messages": mensajes,
         })
     return salida
@@ -280,6 +314,8 @@ def construir(especificaciones: list[Especificacion], registros_m1: list[dict]) 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--check", action="store_true", help="valida sin escribir el JSONL")
+    parser.add_argument("--indice", action="store_true",
+                        help="contexto con el indice FAISS + e5 de artifacts/ (Colab), no con BM25")
     args = parser.parse_args()
 
     from tools.dataset_v2_quality import analizar, reportar
@@ -294,7 +330,12 @@ def main() -> None:
     if fuera:
         raise SystemExit(f"IDs fuera de {RANGO_IDS}: {fuera[:10]}")
 
-    registros = construir(sorted(especificaciones, key=lambda e: e.id), dataset.load_records())
+    store = None
+    if args.indice:
+        from tools.rag import pipeline
+
+        store = pipeline.load_index()
+    registros = construir(sorted(especificaciones, key=lambda e: e.id), dataset.load_records(), store)
     fallos = reportar(analizar(registros))
     if fallos:
         print(f"\nNO se escribe el dataset: {len(fallos)} puerta(s) sin pasar -> {', '.join(fallos)}")

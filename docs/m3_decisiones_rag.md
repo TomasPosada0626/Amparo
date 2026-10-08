@@ -1544,3 +1544,57 @@ que ve en M3/M4.
 se puede hacer en el backend con reglas, después de recuperar la norma, sin que
 el modelo tenga que decidir llamar una herramienta.
 
+## 29. Busqueda v2 (2026-10-08): por que no traia el articulo, y que se cambio
+
+**Diagnostico.** En la corrida de S08 del 2026-10-07, 19 de los 45 gold tenian
+context recall 0. Mirando caso por caso que trajo la busqueda:
+
+1. **La norma no estaba** (11 de 19): acoso laboral, cheques, registro
+   mercantil, colegios, contratacion estatal, ruido, marcas, licencias, B2B,
+   salud estatutaria. Resuelto al ampliar el corpus a 36 normas y las 27
+   categorias (`docs/m3_cobertura_corpus.md`).
+2. **Articulos que el chunker no veia.** La Constitucion trae 107 saltos de
+   pagina (`\f`) pegados al "Articulo N." que abre la pagina; el chunker no los
+   reconocia como encabezado y el articulo quedaba dentro del anterior. El 23
+   (derecho de peticion) no se podia citar. Corregido en
+   `ingest.sin_saltos_de_pagina`; la Constitucion pasa a tener sus 380 articulos.
+   Tambien los de sufijo numerico ("391-1" en el CST, "269-1" en el Penal).
+3. **El CST del espejo tenia otra numeracion.** Es el Decreto 2663 con la
+   numeracion original, anterior a la codificacion del Decreto 3743 de 1950: su
+   articulo 64 era el 62 oficial (justas causas), su 161 el 160 (y decia que el
+   trabajo diurno iba hasta las 6 p. m.). Toda cita del CST salia con el numero
+   corrido. Reemplazado por la version compilada de Funcion Publica (numeracion
+   oficial, actualizada hasta 2021; ver `data/corpus/normas/README.md`). Le
+   falta la reforma laboral (Ley 2466 de 2025).
+4. **La norma correcta compite con 35.** El coseno de e5 entre una pregunta
+   coloquial y cualquier articulo cae entre 0.82 y 0.86; una pregunta de salud
+   trae articulos del CST y del CPACA. Y con el piso en 0.82, 5 gold se
+   quedaban sin ningun contexto.
+
+**Que se cambio para el punto 4: enrutador por categoria**
+(`tools/rag/enrutador.py`). Un clasificador lineal entrenado con las 1 536
+preguntas etiquetadas del dataset de M1 le pone categoria a la pregunta (77 %
+de acierto en el top-1 sobre los 43 gold con categoria tematica, 84 % en el
+top-3), y la busqueda sube al frente los candidatos de las normas de sus 2
+categorias mas probables mas las transversales. No borra los demas: si el
+clasificador se equivoca, siguen detras. `config.USE_ENRUTADOR = True`.
+
+**Como se mide, sin juez.** `data/eval_set_articulos.json` etiqueta los
+articulos que responden cada gold (pendiente de revision juridica), y
+`tools/rag/benchmark_busqueda.py` cuenta los aciertos en el top-k:
+
+| Busqueda (local, BM25) | acierto@1 | @3 | @5 | @10 | MRR |
+|---|---|---|---|---|---|
+| BM25 | 0.11 | 0.18 | 0.22 | 0.31 | 0.16 |
+| BM25 + enrutador | 0.13 | 0.31 | 0.33 | 0.49 | 0.24 |
+
+Con e5 se mide en `colab/m3_busqueda_v2.ipynb` (Hugging Face no es alcanzable
+desde el entorno donde se escribio esto). Ese notebook tambien barre el piso de
+la valvula y regenera el dataset v2 con el contexto real. **Pendiente:** fijar
+`RETRIEVAL_MIN_SCORE` y confirmar `USE_ENRUTADOR` con esa tabla.
+
+Ademas, cada chunk se embebe con su capitulo (`chunk.texto_indexable`): "CAPITULO
+VII Terminacion del contrato de arrendamiento" dice de que trata el articulo con
+palabras que la pregunta usa. En BM25 no ayudo (los capitulos del espejo suelen
+ser "CAPITULO 2") y no se aplico.
+

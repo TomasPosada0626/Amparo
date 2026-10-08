@@ -96,7 +96,7 @@ producción, verificarlo contra la fuente oficial.
 ## Convertidas de PDF (2026-10-08)
 
 El espejo no trae leyes posteriores a 2014, ni la Ley 142 de 1994, ni la Decisión 486 (norma
-andina, no la publica SUIN). Estas 8 se descargaron en PDF el 2026-10-08 y se convirtieron con
+andina, no la publica SUIN). Estas 8 se descargaron en PDF el 2026-10-08 (más el CST, que reemplaza al del espejo) y se convirtieron con
 `python -m tools.corpus_pdf` (necesita `pdftotext`, de poppler-utils). Los PDF originales están
 en `data/corpus/pdf/`; `tests/rag/test_corpus.py` comprueba que los `.md` son exactamente lo que
 produce el conversor, y `tests/rag/test_corpus_real.py` que cada una tenga todos sus artículos.
@@ -110,6 +110,7 @@ produce el conversor, y `tests/rag/test_corpus_real.py` que cada una tenga todos
 | `comisarias_de_familia_ley_2126_2021.md` | Ley 2126 de 2021 | Gestor Normativo, compilada | 48 |
 | `codigo_policia_convivencia_ley_1801_2016.md` | Ley 1801 de 2016 | Gestor Normativo, compilada | 243 (+6 bis) |
 | `propiedad_industrial_decision_486_2000.md` | Decisión 486 de 2000 (CAN) | Texto de la Comunidad Andina; ficha en WIPO Lex | 280 |
+| `codigo_sustantivo_trabajo_decreto_2663_1950.md` | Código Sustantivo del Trabajo (reemplaza al del espejo) | Gestor Normativo, compilada hasta 2021 | 492 |
 | `codigo_procesal_trabajo_ley_2452_2025.md` | Ley 2452 de 2025 | Texto sancionado (D.O. 53077); rige desde el 2026-04-02 | 331 |
 
 Lo que hace el conversor, y por qué:
@@ -127,6 +128,12 @@ Lo que hace el conversor, y por qué:
   se pierde cuál va con cuál. El conversor las rearma: "Numeral 3: Multa General tipo 3".
 - Se conservan las notas de vigencia ("Modificado por…", "declarado EXEQUIBLE…"). El texto que el
   PDF subraya como inexequible pierde el subrayado; la nota que lo explica queda.
+
+**Código Sustantivo del Trabajo.** El archivo del espejo tenía la numeración original del Decreto
+2663, anterior a la codificación del Decreto 3743 de 1950: su artículo 64 era el 62 oficial y su
+161 el 160 (con el trabajo diurno hasta las 6 p. m.). Se reemplazó por la versión compilada de
+Función Pública (numeración oficial, actualizada hasta 2021). Le falta la reforma laboral de la
+Ley 2466 de 2025; hace falta su PDF para agregarla como norma aparte.
 
 ## Constitución Política de 1991
 

@@ -2,11 +2,11 @@
 
 Las mismas ideas que tools/dataset_quality.py, por modo:
 
-  todos  sin rutas incorrectas ni entidades inventadas (las guardias de M2),
-         sin promesas de resultado, urgencia -> ayuda inmediata, ids unicos,
-         respuestas que no se repiten dentro de una categoria, ninguna
-         pregunta nueva parecida a una del eval set.
-  A      como dataset_legal.jsonl: mecanismo, sin citas ni plazos, 25-60 palabras.
+  todos  contexto no vacio; sin rutas incorrectas ni entidades inventadas (las
+         guardias de M2), sin promesas de resultado, urgencia -> ayuda
+         inmediata, ids unicos, respuestas que no se repiten dentro de una
+         categoria; NINGUNA pregunta (nueva o tomada del dataset de M1) igual a
+         una del eval set (eval_set.solapamiento) ni parecida (TF-IDF >= 0.55).
   B1     cita al menos un articulo de las fuentes declaradas, como "articulo N de
          <norma>"; TODO articulo citado esta en el contexto, de esa misma norma
          (no basta el numero: el articulo 20 de la Ley 100 no respalda el 20 de
@@ -31,7 +31,7 @@ from tools.dataset_quality import (
     menciona_mecanismo,
 )
 
-PALABRAS = {"A": (25, 60), "B1": (30, 90), "B2": (10, 45), "B3": (30, 90)}
+PALABRAS = {"B1": (30, 90), "B2": (10, 45), "B3": (30, 90)}
 
 _ARTICULO = re.compile(r"\bart(?:[ií]culos?|s?\.)\s*(\d+(?:\s*-\s*[A-Za-z]|[A-Za-z](?![a-z]))?)", re.IGNORECASE)
 _NORMA_CON_NUMERO = re.compile(r"\b(ley|decreto)\s+(\d+)\s+de\s+(\d{4})\b", re.IGNORECASE)
@@ -69,6 +69,14 @@ def _articulo_normalizado(numero: str) -> str:
 
 
 _MISMA_NORMA = re.compile(r"\b(?:la misma (?:ley|norma)|esa (?:ley|norma)|el mismo (?:codigo|decreto)|ese (?:codigo|decreto))\b")
+
+
+# Ejemplo de v2 -> caso del eval set que el TF-IDF marca parecido, revisado a mano:
+# preguntan otra cosa.
+REVISADAS_DISTINTAS_V2: dict[tuple[int, int], str] = {
+    (2006, 9108): "subarriendo sin permiso; 9108 es 'Eso lo puedo pasar a nombre mio?', ambigua de 6 "
+                  "palabras: el parecido es solo 'puede pasar'",
+}
 
 
 def citas(respuesta: str, contexto: list[dict]) -> tuple[list[str], list[str], list[str]]:
@@ -125,11 +133,11 @@ def revisar(r: dict, mapa=None) -> list[str]:
     from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
 
     modo = r["modo"]
-    pregunta = r["messages"][1]["content"]
-    if modo != "A":
-        pregunta = pregunta.split("PREGUNTA DEL USUARIO:", 1)[-1].strip()
+    pregunta = r.get("pregunta") or r["messages"][1]["content"].split("PREGUNTA DEL USUARIO:", 1)[-1].strip()
     respuesta = r["messages"][-1]["content"]
     problemas = []
+    if not r.get("contexto") or "CONTEXTO" not in r["messages"][1]["content"]:
+        problemas.append("contexto vacio")
 
     lo, hi = PALABRAS[modo]
     if not lo <= len(respuesta.split()) <= hi:
@@ -143,14 +151,7 @@ def revisar(r: dict, mapa=None) -> list[str]:
     if entity_metric.find_fabricated_entities(respuesta):
         problemas.append("entidad inventada")
 
-    if modo == "A":
-        if not menciona_mecanismo(respuesta):
-            problemas.append("mecanismo legal")
-        if CITA_NORMATIVA.search(respuesta):
-            problemas.append("cita sin contexto")
-        if PLAZO_EXACTO.search(respuesta):
-            problemas.append("plazo sin contexto")
-    elif modo == "B2":
+    if modo == "B2":
         if not (es_valvula_de_escape(respuesta)
                 and _norm(respuesta).startswith(_norm(RESPUESTA_SIN_CONTEXTO))):
             problemas.append("escape")
@@ -189,16 +190,31 @@ def analizar(registros: list[dict]) -> dict:
                 if a and b and len(a & b) / len(a | b) >= SOLAPAMIENTO_MAX:
                     repetidos.append((cat, firmas[i][0], firmas[j][0]))
 
-    # Preguntas nuevas (sin base) contra el eval set: si se parecen, fuga.
+    # TODAS las preguntas contra el eval set (tambien las tomadas del dataset de
+    # M1: entrar al train de v2 las haria fuga aunque en M1 estuvieran en val).
+    # Igual normalizada -> eval_set.solapamiento; parecida -> TF-IDF, salvo los
+    # pares que eval_set.REVISADAS_DISTINTAS ya dio por distintos.
     ev = eval_set.load_eval_set()
+    def _pregunta(r):
+        return r.get("pregunta") or r["messages"][1]["content"].split("PREGUNTA DEL USUARIO:", 1)[-1].strip()
+    solo_preguntas = [{"messages": [{}, {"content": _pregunta(r)}]} for r in registros]
+    # Solo es fuga si el ejemplo cae en el train de v2 (split_v2 lo manda al lado
+    # de su pregunta base): uno que cae en val no se entrena.
+    from tools.evaluation import dataset as m1_dataset
+
+    _, val_v2 = m1_dataset.split_v2(registros, m1_dataset.load_records())
+    en_val = {r["id"] for r in val_v2}
+    en_train = [r for r in registros if r["id"] not in en_val]
+    solo_preguntas = [{"messages": [{}, {"content": _pregunta(r)}]} for r in en_train]
+    iguales = eval_set.solapamiento(ev, solo_preguntas, [])["en_train"]
+    fuga = [(None, i, 1.0) for i in iguales]
     indice = IndiceTfidf([e["messages"][1]["content"] for e in ev])
-    fuga = []
-    for r in registros:
-        if r["base_id"] is None:
-            q = r["messages"][1]["content"].split("PREGUNTA DEL USUARIO:", 1)[-1]
-            mejor = indice.parecidos(q, 1)
-            if mejor and mejor[0][1] >= eval_set.UMBRAL_PARECIDO:
-                fuga.append((r["id"], ev[mejor[0][0]]["id"], mejor[0][1]))
+    for r in en_train:
+        mejor = indice.parecidos(_pregunta(r), 1)
+        if mejor and mejor[0][1] >= eval_set.UMBRAL_PARECIDO:
+            eid = ev[mejor[0][0]]["id"]
+            if eid not in eval_set.REVISADAS_DISTINTAS and (r["id"], eid) not in REVISADAS_DISTINTAS_V2:
+                fuga.append((r["id"], eid, mejor[0][1]))
 
     ids = [r["id"] for r in registros]
     return {
@@ -218,8 +234,8 @@ def reportar(a: dict) -> list[str]:
     print(f"Categorias: {len(a['por_categoria'])}\n")
     conteo = Counter(p for ps in a["problemas"].values() for p in ps)
     print("PUERTAS DE CALIDAD")
-    for puerta in ("longitud", "promesas de resultado", "urgencia sin ayuda inmediata", "ruta incorrecta",
-                   "entidad inventada", "mecanismo legal", "cita sin contexto", "plazo sin contexto",
+    for puerta in ("contexto vacio", "longitud", "promesas de resultado", "urgencia sin ayuda inmediata",
+                   "ruta incorrecta", "entidad inventada", "mecanismo legal",
                    "escape", "cita en escape", "cita no respaldada", "no cita la fuente",
                    "plazo sin respaldo", "B3 sin la parte que falta"):
         n = conteo.get(puerta, 0)

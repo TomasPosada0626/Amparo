@@ -91,7 +91,7 @@ def numero_en_letras(n: int) -> str:
 
 # "articulo 20", "artículos 13 y 14", "art. 6º", "arts. 5, 6 y 7".
 _PATRON_CITA = re.compile(
-    r"\bart(?:[ií]culos?|s?\.)\s*((?:\d+[A-Za-z]?\s*[º°]?\s*(?:,|\by\b|\be\b)?\s*)+)",
+    r"\bart(?:[ií]culos?|s?\.)\s*((?:\d+(?:\s*-\s*[A-Za-z](?![A-Za-z])|[A-Za-z](?![A-Za-z]))?\s*[º°]?\s*(?:,|\by\b|\be\b)?\s*)+)",
     re.IGNORECASE,
 )
 
@@ -101,7 +101,7 @@ def articulos_citados(texto: str) -> set[str]:
     los guarda el chunker ("6º" -> "6", "14a" -> "14A")."""
     numeros = set()
     for grupo in _PATRON_CITA.findall(texto or ""):
-        for numero in re.findall(r"\d+[A-Za-z]?", grupo):
+        for numero in re.findall(r"\d+(?:\s*-\s*[A-Za-z](?![A-Za-z])|[A-Za-z](?![A-Za-z]))?", grupo):
             numeros.add(normalizar_numero(numero).upper())
     return numeros
 

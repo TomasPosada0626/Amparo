@@ -134,12 +134,25 @@ def extract_text(path: Path) -> str:
     """Despacha por extension del archivo."""
     suffix = path.suffix.lower()
     if suffix == ".pdf":
-        return extract_pdf_text(path)
-    if suffix in (".html", ".htm"):
-        return extract_html_text(path.read_text(encoding="utf-8", errors="ignore"))
-    if suffix in (".md", ".markdown"):
-        return extract_markdown_text(path.read_text(encoding="utf-8", errors="ignore"))
-    return path.read_text(encoding="utf-8", errors="ignore")
+        texto = extract_pdf_text(path)
+    elif suffix in (".html", ".htm"):
+        texto = extract_html_text(path.read_text(encoding="utf-8", errors="ignore"))
+    elif suffix in (".md", ".markdown"):
+        texto = extract_markdown_text(path.read_text(encoding="utf-8", errors="ignore"))
+    else:
+        texto = path.read_text(encoding="utf-8", errors="ignore")
+    return sin_saltos_de_pagina(texto)
+
+
+def sin_saltos_de_pagina(texto: str) -> str:
+    """El salto de pagina (\\f) que deja pdftotext pasa a ser una linea en blanco.
+
+    Hallazgo del 2026-10-08: la Constitucion trae 107 saltos de pagina, casi
+    siempre pegados al "Articulo N." que abre la pagina. El chunker reconoce un
+    encabezado de articulo al inicio de linea, y "\\fArticulo 23." no lo es: el
+    articulo 23 (derecho de peticion) quedaba dentro del 22 y nunca se podia
+    citar. Lo mismo con todo articulo que abriera pagina."""
+    return texto.replace("\f", "\n\n")
 
 
 def recortar_al_articulado_propio(texto: str, n_articulos: int) -> str:

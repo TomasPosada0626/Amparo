@@ -58,7 +58,10 @@ ARTICLE_PATTERN = re.compile(
     # El sufijo de los articulos "bis" va pegado, con guion o con espacio:
     # "14A", "151-A", "19 A". Con espacio se exige que lo siga un cierre de
     # encabezado, para no confundirlo con el inicio del texto del articulo.
-    r"(?P<numero>\d+(?:[ \t]*[-–][ \t]*[A-Za-z](?![A-Za-z])"
+    # Sufijo numerico "391-1" (CST, Codigo Penal): solo si le sigue el punto del
+    # encabezado, para no confundirlo con un rango "articulos 5-7".
+    r"(?P<numero>\d+(?:[ \t]*[-–][ \t]*\d{1,2}(?=[ \t]*[°º]?[ \t]*\.)"
+    r"|[ \t]*[-–][ \t]*[A-Za-z](?![A-Za-z])"
     r"|[ \t]+[A-Za-z](?![A-Za-z])(?=[ \t]*[\.\-–:)])"
     r"|[a-zA-Z](?![A-Za-z]))?)"
     r"[ \t]*(?:[°ºo]\b)?[ \t]*[\.\-–:)]?",
@@ -227,6 +230,12 @@ def texto_indexable(chunk: Chunk) -> str:
         cita = f"{chunk.fuente}, {etiqueta} {', '.join(chunk.articulos_incluidos)}"
     else:
         cita = chunk.fuente
+    # El capitulo dice de que trata el articulo con palabras que la pregunta suele
+    # usar ("Terminacion del contrato de arrendamiento") y que el articulo mismo
+    # a veces no repite. 2026-10-08, junto con el enrutador.
+    capitulo = getattr(chunk, "capitulo", "") or ""
+    if capitulo:
+        cita = f"{cita} ({capitulo})"
     return f"{cita}\n{chunk.text}"
 
 

@@ -97,10 +97,10 @@ fuentes: LEY-820-2003:24
 R: El artículo 24 de la Ley 820 de 2003 regula cómo terminar el contrato: aviso escrito con tres meses de anticipación, y una indemnización de tres cánones si sales antes del vencimiento. No tengo información verificada sobre si el mes en curso se paga completo o proporcional: eso depende de tu contrato. Revisa la cláusula de terminación y, si hay desacuerdo, acude a un centro de conciliación.
 
 ## 2017
-modo: B3
-base: 270
-fuentes: LEY-820-2003:16
-R: El artículo 16 de la Ley 820 de 2003 prohíbe exigir depósitos en dinero en el arriendo de vivienda urbana, así que puedes pedir que te lo devuelva. No tengo información verificada sobre un plazo para esa devolución. Requiérela por escrito con el acta de entrega y tu número de cuenta; si no responde, puedes conciliar o demandar ante el juez civil.
+modo: B1
+base: 264
+fuentes: LEY-820-2003:3; LEY-820-2003:16
+R: Tienes dos puntos a tu favor. El artículo 3 de la Ley 820 de 2003 reconoce el contrato de arriendo verbal, así que no firmar no lo invalida, y el artículo 16 de la misma ley prohíbe exigir depósitos en dinero en vivienda urbana. Pide por escrito la devolución con el comprobante del pago; si no responde, cítalo a un centro de conciliación.
 
 ## 2018
 modo: B2
@@ -116,8 +116,3 @@ R: No tengo informacion verificada sobre esto en mi base de conocimiento. El arr
 modo: B2
 base: 242
 R: No tengo informacion verificada sobre esto en mi base de conocimiento. Antes de firmar, te sugiero llevar el contrato a un consultorio jurídico universitario o a una notaría para que te lo expliquen.
-
-## 2021
-modo: A
-P: Me dijeron que pusiera una querella ante la Procuraduria contra el dueno del apartamento que arriendo, eso sirve?
-R: No: la Procuraduría vigila a los servidores públicos, no a un arrendador particular. Un conflicto de arriendo se resuelve primero por escrito con el propietario; si no responde, se cita a un centro de conciliación o se demanda ante el juez civil. Guarda el contrato, los recibos y los mensajes.

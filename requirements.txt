@@ -31,3 +31,8 @@ faiss-cpu>=1.8.0
 # razon que e5 y bert-score). Ver docs/m3_decisiones_rag.md.
 rank_bm25>=0.2.2
 
+
+# tools/rag (M3 -- enrutador por categoria, 2026-10-08). Clasificador lineal
+# (TF-IDF + regresion logistica) que decide en que normas buscar primero. CPU,
+# sin torch.
+scikit-learn>=1.3

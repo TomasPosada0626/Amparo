@@ -1,0 +1,400 @@
+{
+ "_nota": "Articulos que responden cada caso gold del eval set (data/eval_set.json). Un caso cuenta como acierto si la busqueda trae al menos uno de sus articulos. Etiquetado el 2026-10-08 a partir de la respuesta de referencia; pendiente de revision juridica (Tomas). Formato: {id: {doc_id: [articulos]}}, doc_id = nombre del archivo de data/corpus/normas sin .md.",
+ "casos": {
+  "9001": {
+   "arrendamiento_vivienda_urbana_ley_820_2003": [
+    "20"
+   ]
+  },
+  "9002": {
+   "codigo_sustantivo_trabajo_decreto_2663_1950": [
+    "62",
+    "64"
+   ],
+   "acoso_laboral_ley_1010_2006": [
+    "2"
+   ]
+  },
+  "9004": {
+   "estatutaria_salud_ley_1751_2015": [
+    "2",
+    "6"
+   ],
+   "constitucion_politica_1991": [
+    "49",
+    "86"
+   ],
+   "tutela_decreto_2591_1991": [
+    "1"
+   ],
+   "cpaca_ley_1437_2011": [
+    "13",
+    "14"
+   ]
+  },
+  "9005": {
+   "estatuto_consumidor_ley_1480_2011": [
+    "7",
+    "8",
+    "11",
+    "58"
+   ]
+  },
+  "9007": {
+   "codigo_penal_ley_599_2000": [
+    "305"
+   ],
+   "codigo_comercio_decreto_410_1971": [
+    "884"
+   ],
+   "codigo_civil_ley_84_1873": [
+    "2231"
+   ]
+  },
+  "9009": {
+   "ley_transparencia_acceso_info_ley_1712_2014": [
+    "18",
+    "19",
+    "28"
+   ],
+   "cpaca_ley_1437_2011": [
+    "24",
+    "25"
+   ],
+   "constitucion_politica_1991": [
+    "74"
+   ]
+  },
+  "9010": {
+   "estatuto_conciliacion_ley_2220_2022": [
+    "67",
+    "68",
+    "70",
+    "71"
+   ],
+   "codigo_general_proceso_ley_1564_2012": [
+    "90"
+   ]
+  },
+  "9031": {
+   "estatutaria_salud_ley_1751_2015": [
+    "14"
+   ],
+   "seguridad_social_ley_100_1993": [
+    "168"
+   ]
+  },
+  "9032": {
+   "estatutaria_salud_ley_1751_2015": [
+    "15",
+    "10"
+   ],
+   "constitucion_politica_1991": [
+    "49"
+   ],
+   "tutela_decreto_2591_1991": [
+    "1"
+   ]
+  },
+  "9033": {
+   "discapacidad_estabilidad_reforzada_ley_361_1997": [
+    "26"
+   ]
+  },
+  "9034": {
+   "arrendamiento_vivienda_urbana_ley_820_2003": [
+    "22",
+    "23"
+   ],
+   "codigo_general_proceso_ley_1564_2012": [
+    "384"
+   ]
+  },
+  "9035": {
+   "arrendamiento_vivienda_urbana_ley_820_2003": [
+    "16"
+   ]
+  },
+  "9036": {
+   "codigo_sustantivo_trabajo_decreto_2663_1950": [
+    "159",
+    "168",
+    "179",
+    "160"
+   ]
+  },
+  "9037": {
+   "acoso_laboral_ley_1010_2006": [
+    "2",
+    "9",
+    "7"
+   ]
+  },
+  "9038": {
+   "codigo_sustantivo_trabajo_decreto_2663_1950": [
+    "23",
+    "24"
+   ]
+  },
+  "9039": {
+   "habeas_data_financiero_ley_1266_2008": [
+    "13"
+   ]
+  },
+  "9040": {
+   "codigo_nacional_transito_ley_769_2002": [
+    "42"
+   ],
+   "seguridad_social_ley_100_1993": [
+    "167"
+   ]
+  },
+  "9041": {
+   "codigo_sustantivo_trabajo_decreto_2663_1950": [
+    "154",
+    "155",
+    "156"
+   ],
+   "codigo_general_proceso_ley_1564_2012": [
+    "594"
+   ]
+  },
+  "9042": {
+   "codigo_nacional_transito_ley_769_2002": [
+    "135",
+    "161"
+   ]
+  },
+  "9043": {
+   "estatuto_consumidor_ley_1480_2011": [
+    "47"
+   ]
+  },
+  "9044": {
+   "codigo_infancia_adolescencia_ley_1098_2006": [
+    "129",
+    "111"
+   ],
+   "codigo_civil_ley_84_1873": [
+    "411",
+    "422"
+   ]
+  },
+  "9045": {
+   "tutela_decreto_2591_1991": [
+    "42"
+   ],
+   "constitucion_politica_1991": [
+    "86"
+   ]
+  },
+  "9046": {
+   "cpaca_ley_1437_2011": [
+    "32",
+    "14"
+   ],
+   "constitucion_politica_1991": [
+    "23"
+   ]
+  },
+  "9048": {
+   "codigo_penal_ley_599_2000": [
+    "246",
+    "269-J"
+   ],
+   "codigo_procedimiento_penal_ley_906_2004": [
+    "67",
+    "69"
+   ]
+  },
+  "9049": {
+   "codigo_comercio_decreto_410_1971": [
+    "10",
+    "13",
+    "19",
+    "26",
+    "28"
+   ]
+  },
+  "9050": {
+   "codigo_comercio_decreto_410_1971": [
+    "712",
+    "730",
+    "731",
+    "784",
+    "793"
+   ],
+   "codigo_general_proceso_ley_1564_2012": [
+    "422"
+   ]
+  },
+  "9051": {
+   "codigo_sustantivo_trabajo_decreto_2663_1950": [
+    "57",
+    "158",
+    "160",
+    "161"
+   ],
+   "acoso_laboral_ley_1010_2006": [
+    "7"
+   ]
+  },
+  "9052": {
+   "habeas_data_financiero_ley_1266_2008": [
+    "8",
+    "13",
+    "16"
+   ]
+  },
+  "9053": {
+   "habeas_data_financiero_ley_1266_2008": [
+    "16",
+    "8",
+    "7"
+   ],
+   "codigo_comercio_decreto_410_1971": [
+    "98"
+   ]
+  },
+  "9054": {
+   "codigo_nacional_transito_ley_769_2002": [
+    "143",
+    "144",
+    "149"
+   ],
+   "codigo_civil_ley_84_1873": [
+    "2341",
+    "2356"
+   ]
+  },
+  "9055": {
+   "codigo_comercio_decreto_410_1971": [
+    "1003",
+    "982"
+   ]
+  },
+  "9056": {
+   "codigo_general_proceso_ley_1564_2012": [
+    "597"
+   ]
+  },
+  "9057": {
+   "codigo_general_proceso_ley_1564_2012": [
+    "133",
+    "290",
+    "291",
+    "292"
+   ]
+  },
+  "9058": {
+   "ley_general_educacion_ley_115_1994": [
+    "87",
+    "96",
+    "132"
+   ],
+   "convivencia_escolar_ley_1620_2013": [
+    "21"
+   ]
+  },
+  "9059": {
+   "estatuto_consumidor_ley_1480_2011": [
+    "37",
+    "38",
+    "42",
+    "43"
+   ]
+  },
+  "9060": {
+   "contratacion_estatal_ley_80_1993": [
+    "5",
+    "26",
+    "52"
+   ],
+   "codigo_penal_ley_599_2000": [
+    "286",
+    "287"
+   ]
+  },
+  "9061": {
+   "codigo_policia_convivencia_ley_1801_2016": [
+    "33"
+   ],
+   "sancionatorio_ambiental_ley_1333_2009": [
+    "1",
+    "5"
+   ]
+  },
+  "9062": {
+   "seguridad_social_ley_100_1993": [
+    "17",
+    "22",
+    "23",
+    "24",
+    "33"
+   ]
+  },
+  "9063": {
+   "seguridad_social_ley_100_1993": [
+    "21",
+    "34"
+   ],
+   "cpaca_ley_1437_2011": [
+    "74",
+    "76"
+   ]
+  },
+  "9064": {
+   "cpaca_ley_1437_2011": [
+    "13",
+    "14",
+    "21"
+   ],
+   "constitucion_politica_1991": [
+    "23"
+   ]
+  },
+  "9065": {
+   "propiedad_industrial_decision_486_2000": [
+    "136",
+    "146",
+    "172",
+    "154"
+   ]
+  },
+  "9066": {
+   "ordenamiento_territorial_ley_388_1997": [
+    "99",
+    "103"
+   ],
+   "codigo_policia_convivencia_ley_1801_2016": [
+    "135",
+    "140"
+   ]
+  },
+  "9067": {
+   "codigo_comercio_decreto_410_1971": [
+    "1317",
+    "1318",
+    "1319"
+   ],
+   "codigo_civil_ley_84_1873": [
+    "1546",
+    "1602",
+    "1613"
+   ]
+  },
+  "9068": {
+   "codigo_general_proceso_ley_1564_2012": [
+    "322",
+    "302"
+   ]
+  },
+  "9069": {
+   "codigo_general_proceso_ley_1564_2012": [
+    "133",
+    "291",
+    "292"
+   ]
+  }
+ }
+}

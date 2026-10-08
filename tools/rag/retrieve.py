@@ -103,6 +103,8 @@ def retrieve(
     use_hybrid: bool = False,
     use_rerank: bool = False,
     bm25=None,
+    use_router: bool | None = None,
+    enrutador=None,
     _reranker_scorer=None,
 ) -> list[SearchResult]:
     """Recupera los chunks mas relevantes para la consulta.
@@ -121,7 +123,20 @@ def retrieve(
 
     _reranker_scorer: gancho de test para inyectar un scorer fake y no descargar
     el cross-encoder. En produccion es None y se usa el modelo real.
+
+    use_router / enrutador: prioriza los candidatos de las normas de la
+    categoria de la pregunta (tools/rag/enrutador.py). use_router=None toma
+    config.USE_ENRUTADOR; enrutador=None usa el entrenado con el dataset de M1.
     """
+    if use_router is None:
+        use_router = config.USE_ENRUTADOR
+    permitidas = None
+    if use_router:
+        if enrutador is None:
+            from tools.rag.enrutador import enrutador_por_defecto
+
+            enrutador = enrutador_por_defecto()
+        permitidas = enrutador.normas(query)
     # Cuantos candidatos recuperar antes de recortar. Con reranker, el embudo
     # necesita RERANK_INPUT_N candidatos para que el cross-encoder tenga de donde
     # elegir; con hybrid solo, HYBRID_TOP_N; sin nada, top_k directo.
@@ -131,6 +146,8 @@ def retrieve(
         n_recuperar = config.HYBRID_TOP_N
     else:
         n_recuperar = top_k
+    if permitidas is not None:
+        n_recuperar = max(n_recuperar, config.ENRUTADOR_POOL)
 
     # --- Etapa 1: candidatos (denso, o hybrid denso+BM25) -------------------
     if use_hybrid:
@@ -141,6 +158,16 @@ def retrieve(
         candidatos = hybrid_search(query, store, bm25, top_n=n_recuperar, top_k=n_recuperar)
     else:
         candidatos = store.search(embed_query(query), top_k=n_recuperar)
+
+    # --- Etapa 1b: enrutador -------------------------------------------------
+    # Las normas de la categoria de la pregunta van al frente. El reranker (si
+    # esta) solo ve los primeros RERANK_INPUT_N, que ahora son de esas normas.
+    if permitidas is not None:
+        from tools.rag.enrutador import priorizar
+
+        candidatos = priorizar(candidatos, permitidas)
+        if use_rerank:
+            candidatos = candidatos[: config.RERANK_INPUT_N]
 
     # --- Etapa 2: reranking (opcional) --------------------------------------
     # El reranker ordena TODOS los candidatos; el recorte a top_k va despues del
