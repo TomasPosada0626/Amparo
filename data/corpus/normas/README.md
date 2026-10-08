@@ -27,7 +27,10 @@ el Título II de derecho de petición tal como lo sustituyó la Ley 1755 de 2015
 una respuesta de producción, verificar contra la fuente oficial (`suin-juriscol.gov.co` o
 `secretariasenado.gov.co`) cuando haya acceso a internet sin restricciones.
 
-## Archivos incluidos (17)
+## Archivos incluidos (28)
+
+Los primeros 17 se descargaron el 2026-09-21. Los 11 de la sección "Agregadas el
+2026-10-08" vienen del repositorio upstream del mismo espejo.
 
 | Archivo | Norma |
 |---|---|
@@ -49,6 +52,47 @@ una respuesta de producción, verificar contra la fuente oficial (`suin-juriscol
 | `seguridad_social_ley_100_1993.md` | Sistema de seguridad social integral (Ley 100 de 1993) |
 | `constitucion_politica_1991.md` | Constitución Política de Colombia de 1991 (texto completo, provisto por el usuario en PDF; ver detalle abajo) |
 
+### Agregadas el 2026-10-08
+
+Fuente: https://github.com/legalize-dev/legalize-co (el upstream del fork usado el 2026-09-21),
+commit `c25da5b1a507dd681b6704334e284d2e60f8e6d3` (2026-09-05). Cada archivo es copia byte a
+byte de `co/<IDENTIFIER>.md` en ese commit; solo cambia el nombre, para seguir la convención
+del corpus. Se verificó además que los 16 archivos descargados el 2026-09-21 son idénticos a
+los de ese commit: el corpus anterior sigue vigente tal cual.
+
+| Archivo | Norma | Categoría del dataset |
+|---|---|---|
+| `contratacion_estatal_ley_80_1993.md` | Estatuto General de Contratación (Ley 80 de 1993) | Contratación estatal |
+| `contratacion_estatal_ley_1150_2007.md` | Eficiencia y transparencia en la contratación (Ley 1150 de 2007) | Contratación estatal |
+| `sancionatorio_ambiental_ley_1333_2009.md` | Procedimiento sancionatorio ambiental (Ley 1333 de 2009) | Derecho ambiental sancionatorio |
+| `ordenamiento_territorial_ley_388_1997.md` | Ordenamiento territorial (Ley 388 de 1997) | Licencias urbanísticas |
+| `ley_general_educacion_ley_115_1994.md` | Ley General de Educación (Ley 115 de 1994) | Educación / debido proceso |
+| `convivencia_escolar_ley_1620_2013.md` | Convivencia escolar (Ley 1620 de 2013) | Educación / debido proceso |
+| `violencia_intrafamiliar_ley_294_1996.md` | Violencia intrafamiliar (Ley 294 de 1996) | Violencia intrafamiliar |
+| `violencia_contra_la_mujer_ley_1257_2008.md` | Violencia contra la mujer (Ley 1257 de 2008) | Violencia intrafamiliar |
+| `observancia_propiedad_industrial_ley_1648_2013.md` | Observancia de la propiedad industrial (Ley 1648 de 2013) | Propiedad intelectual - marcas |
+| `competencia_desleal_ley_256_1996.md` | Competencia desleal (Ley 256 de 1996) | Propiedad intelectual - marcas |
+| `discapacidad_estabilidad_reforzada_ley_361_1997.md` | Integración de personas con discapacidad (Ley 361 de 1997) | Despido (estabilidad reforzada) |
+
+### Texto ajeno dentro de algunos archivos
+
+El espejo intercala en algunos archivos texto de otra norma con su propia numeración. Si se
+indexara, el sistema citaría un artículo que no es de esa norma. Los archivos no se modifican
+(siguen siendo copia exacta del espejo); el texto ajeno se quita al ingerir, declarado en
+`tools/rag/corpus.py` y con un test que falla si el marcador deja de encontrarse:
+
+| Archivo | Texto ajeno | Cómo se quita |
+|---|---|---|
+| `ley_transparencia_acceso_info_ley_1712_2014.md` | Después de los 33 artículos, el proyecto de ley que revisó la Corte | `articulos_propios=33` |
+| `habeas_data_datos_personales_ley_1581_2012.md` | Después de los 30 artículos, el proyecto de ley y extractos de otros instrumentos | `articulos_propios=30` |
+| `codigo_comercio_decreto_410_1971.md` | Tras el art. 751, los 6 artículos de la ley de cheques fiscales numerados desde 1 | `fragmentos_ajenos` |
+| `codigo_civil_ley_84_1873.md` | Antes del art. 1, un "Artículo 1" de un decreto de estado de sitio | `fragmentos_ajenos` |
+
+Advertencia sobre el Código Civil: el espejo conserva en algunos artículos la redacción
+original con expresiones que la Corte Constitucional declaró inexequibles (por ejemplo,
+"legítimos" y "naturales" en el art. 411). Antes de citar un artículo del Código Civil en
+producción, verificarlo contra la fuente oficial.
+
 ## Constitución Política de 1991
 
 No estaba en el espejo de GitHub (SUIN-Juriscol no la indexa con el mismo esquema ley/decreto
@@ -64,3 +108,14 @@ antes de citar un artículo en producción.
 
 - Ley 1755 de 2015 como archivo independiente: no existe en el espejo, pero su contenido vigente
   ya está incorporado dentro de `cpaca_ley_1437_2011.md` (Título II).
+- El espejo no trae leyes posteriores a 2014 ni la Ley 142 de 1994, y la Decisión 486 de la CAN
+  no es norma colombiana, así que SUIN no la publica. Faltan, y hay que traerlas de
+  `secretariasenado.gov.co` (como la Constitución, en PDF o HTML):
+  - Ley 142 de 1994 (servicios públicos domiciliarios): hoy la categoría queda sin norma.
+  - Ley 1801 de 2016 (Código de Policía): querellas policivas, linderos, licencias.
+  - Ley 2220 de 2022 (estatuto de conciliación; la Ley 640 de 2001 está derogada).
+  - Ley 1751 de 2015 (estatutaria de salud).
+  - Ley 1010 de 2006 (acoso laboral).
+  - Ley 2126 de 2021 (comisarías de familia).
+  - Decisión 486 de 2000 de la CAN (régimen de propiedad industrial: marcas).
+  La lista vive también en `tools/rag/corpus.py` (`NORMAS_PENDIENTES`).

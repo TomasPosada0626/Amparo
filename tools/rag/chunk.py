@@ -276,7 +276,14 @@ def chunk_document(
         if estimate_tokens(span.texto) < min_tokens:
             # Articulo corto: se agrupa con los cortos contiguos, no se descarta.
             # Si el grupo acumulado ya llega al presupuesto, se cierra antes de
-            # seguir sumando.
+            # seguir sumando. Y si sumar este articulo lo pasaria del
+            # presupuesto, se cierra ANTES de sumarlo: el Codigo Civil tiene
+            # tiradas de 20+ articulos "Derogado" seguidos y el grupo llegaba a
+            # 384 tokens con un presupuesto de 350.
+            if pendientes and estimate_tokens(
+                "\n\n".join([*(s.texto for s in pendientes), span.texto])
+            ) > max_tokens:
+                cerrar_pendientes()
             pendientes.append(span)
             if estimate_tokens("\n\n".join(s.texto for s in pendientes)) >= max_tokens:
                 cerrar_pendientes()

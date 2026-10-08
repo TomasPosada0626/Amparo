@@ -1,0 +1,272 @@
+---
+title: "por la cual se desarrolla el artículo 42 de la Constitución Política y se dictan normas para prevenir remediar y sancionar la violencia Intrafamiliar"
+identifier: "LEY-294-1996"
+country: "co"
+rank: "ley"
+publication_date: "1996-07-22"
+last_updated: "2023-08-03"
+status: "in_force"
+source: "https://www.suin-juriscol.gov.co/viewDocument.asp?id=1657714"
+department: "CONGRESO DE LA REPUBLICA"
+document_status_raw: "Vigente"
+gazette_reference: "DIARIO OFICIAL. AÑO CXXXII. N. 42836. 22, JULIO, 1996. PÁG. 3."
+gazette_number: "42836"
+gazette_page: "3"
+gazette_pdf_page: "3"
+subtype: "LEY ORDINARIA"
+sector: "Inclusión Social y Reconciliación"
+entry_into_force: "1996-07-22"
+modification_count: "20"
+modification_summary: "Modificado [Artículo 1 LEY 575 de 2000](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1662775#ver_1662778) · Modificado [Artículo 16 LEY 1257 de 2008](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1676263#ver_1676281) · Modificado [Artículo 60 LEY 2197 de 2022](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30043812#ver_30267240) · Modificado [Artículo 17 LEY 2126 de 2021](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30042087#ver_30249856) · Modificado parcialmente (el literal b) ) [Artículo 18 LEY 2126 de 2021](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30042087#ver_30249857) · Adicionado parcialmente (parágrafo 4° ) [Artículo 18 LEY 2126 de 2021](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30042087#ver_30249857) · Modificado [Artículo 2 LEY 575 de 2000](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1662775#ver_1662779) · Modificado [Artículo 17 LEY 1257 de 2008](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1676263#ver_1676282) · Modificado [Artículo 3 LEY 575 de 2000](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1662775#ver_1662780) · Modificado [Artículo 4 LEY 575 de 2000](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1662775#ver_1662781) · Modificado [Artículo 5 LEY 575 de 2000](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1662775#ver_1662782) · Modificado [Artículo 6 LEY 575 de 2000](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1662775#ver_1662783) · Modificado [Artículo 7 LEY 575 de 2000](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1662775#ver_1662784) · Modificado [Artículo 8 LEY 575 de 2000](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1662775#ver_1662785) · Modificado [Artículo 9 LEY 575 de 2000](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1662775#ver_1662786) · Modificado [Artículo 10 LEY 575 de 2000](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1662775#ver_1662787) · Modificado [Artículo 11 LEY 575 de 2000](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1662775#ver_1662788) · Modificado [Artículo 12 LEY 575 de 2000](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1662775#ver_1662789) · Derogado parcialmente (Parágrafo. ) [Artículo 48 LEY 2126 de 2021](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30042087#ver_30249891) · Modificado [Artículo 13 LEY 575 de 2000](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1662775#ver_1662790)"
+---
+# por la cual se desarrolla el artículo 42 de la Constitución Política y se dictan normas para prevenir remediar y sancionar la violencia Intrafamiliar
+
+El Congreso de Colombia
+
+**DECRETA:**
+
+## TITULO I
+
+**Objeto, definición y principios generales**
+
+##### **Artículo 1º.** La presente Ley tiene por objeto desarrollar el articulo 42, inciso 5º, de la Carta Política, mediante un tratamiento integral de las diferentes modalidades de violencia en la familia, a efecto de asegurar a ésta su armonía y unidad.
+
+##### **Artículo 2º.** La familia se constituye por vínculos naturales o jurídicos, por la decisión libre de un hombre y una mujer de contraer matrimonio o por la voluntad responsable de conformarla.
+
+Para los efectos de la presente Ley, integran la familia:
+
+- a) Los cónyuges o compañeros permanentes;
+
+- b) El padre y la madre de familia, aunque no convivan en un mismo hogar;
+
+- c) Los ascendientes o descendientes de los anteriores y los hijos adoptivos;
+
+- d) Todas las demás personas que de manera permanente se hallaren integrados a la unidad doméstica.
+
+##### **Artículo 3º.** Para la interpretación y la aplicación de la presente Ley se tendrán en cuenta los siguientes principios:
+
+- a) Primacía de los derechos fundamentales y reconocimiento de la familia como institución básica de la sociedad;
+
+- b) Toda forma de violencia en la familia se considera destructiva de su armonía y unidad, y por lo tanto, será prevenida, corregida y sancionada por las autoridades públicas;
+
+- c) La oportuna y eficaz protección especial a aquellas personas que en el contexto de una familia sean o puedan llegar a ser víctimas, en cualquier forma, de daño físico o síquico, amenaza, maltrato, agravio, ofensa, tortura o ultraje, por causa del comportamiento de otro integrante de la unidad familiar;
+
+- d) La igualdad de derechos y oportunidades del hombre y la mujer;
+
+- e) Son derechos fundamentales de los niños: la vida, la integridad física, la salud, la seguridad social, la alimentación equilibrada, su nombre y nacionalidad, tener una familia y no ser separados de ella, el cuidado y el amor, la educación, la cultura, la recreación y la libre expresión de sus opiniones;
+
+- f) Los derechos de los niños prevalecen sobre los de los demás;
+
+- g) La preservación de la unidad y la armonía entre los miembros de la familia, recurriendo para ello a los medios conciliatorios legales cuando fuere procedente;
+
+- h) La eficacia, celeridad, sumariedad y oralidad en la aplicación de los procedimientos contemplados en la presente Ley;
+
+- i) El respeto a la intimidad y al buen nombre en la tramitación y resolución de los conflictos intrafamiliares.
+
+## TITULO II
+
+**Medidas de protección**
+
+##### **Artículo 4º.** Toda persona que dentro de su contexto familiar sea víctima de daño físico, psíquico, o daño a su integridad sexual, amenaza, agravio, ofensa o cualquier otra forma de agresión por parte de otro miembro del grupo familiar, podrá pedir, sin perjuicio de las denuncias penales a que hubiere lugar, al comisario de familia del lugar donde ocurrieren los hechos y a falta de este al Juez Civil Municipal o Promiscuo Municipal, una medida de protección inmediata que ponga fin a la violencia, maltrato o agresión o evite que esta se realice cuando fuere inminente.
+
+Cuando en el domicilio de la persona agredida hubiere más de un despacho judicial competente para conocer de esta acción, la petición se someterá en forma inmediata a reparto.
+
+**Parágrafo.** En los casos de violencia intrafamiliar en las comunidades indígenas, el competente para conocer de estos casos es la respectiva autoridad indígena, en desarrollo de la jurisdicción especial prevista por la Constitución Nacional en el artículo 246.
+
+##### **Artículo 5°.** Medidas de protección en casos de violencia intrafamiliar. Si la autoridad competente determina que el solicitante o un miembro del núcleo familiar ha sido víctima de violencia, emitirá mediante providencia motivada una medida definitiva de protección, en la cual ordenará al agresor abstenerse de realizar la conducta objeto de la queja, o cualquier otra similar contra la persona ofendida u otro miembro del núcleo familiar. El funcionario podrá imponer, además, según el caso, las siguientes medidas, sin perjuicio de las establecidas en el artículo 18 de la presente ley:
+
+- a) Ordenar al agresor el desalojo de la casa de habitación que comparte con la víctima, cuando su presencia constituye una amenaza para la vida, la integridad física o la salud de cualquiera de los miembros de la familia. El comisario de familia o la autoridad competente enviará copia de la medida provisional o definitiva decretada a la Policía Nacional, con el objeto de evitar el acceso al lugar de habitación por parte del agresor, para lo cual la Policía Nacional ejecutará la orden de desalojo en presencia de la autoridad que emitió la orden; si el presunto agresor tuviese retenido un menor de edad, hará presencia la Policía de Infancia y Adolescencia.
+
+- b) Ordenar al agresor abstenerse de penetrar en cualquier lugar donde se encuentre la víctima, cuando a juicio del funcionario dicha limitación resulte necesaria para prevenir que aquel perturbe, intimide, amenace o de cualquier otra forma interfiera con la víctima o con los menores, cuya custodia provisional le haya sido adjudicada;
+
+- c) Prohibir al agresor esconder o trasladar de la residencia a los niños, niñas y personas discapacitadas en situación de indefensión miembros del núcleo familiar, sin perjuicio de las acciones penales a que hubiere lugar;
+
+- d) Obligación del agresor de acudir a un tratamiento reeducativo y terapéutico en una institución pública o privada que ofrezca tales servicios, los costos deberán ser asumidos por el victimario. Cuando el maltrato o el daño en el cuerpo o en la salud generen incapacidad médico-legal igual o superior a treinta (30) días, deformidad, perturbación funcional o psíquica, o pérdida anatómica o funcional, será obligatorio para la autoridad competente adoptar esta medida de protección;
+
+- e) Si fuere necesario, se ordenará al agresor el pago de los gastos de orientación y asesoría jurídica, médica, psicológica y psíquica que requiera la víctima, así como de los servicios, procedimientos, intervenciones y tratamientos médicos y psicológicos;
+
+- f) Cuando la violencia o maltrato revista gravedad y se tema su repetición, la autoridad competente ordenará una protección temporal especial de la víctima por parte de las autoridades de policía, tanto en su domicilio como en su lugar de trabajo, si lo tuviere;
+
+- g) Ordenar a la autoridad de policía, previa solicitud de la víctima, el acompañamiento a esta para su reingreso al lugar de domicilio cuando ella se haya visto en la obligación de salir para proteger su seguridad;
+
+- h) Decidir provisionalmente el régimen de visitas, la guarda y custodia de los hijos e hijas si los hubiere, sin perjuicio de la competencia en materia civil de otras autoridades; quienes podrán ratificar esta medida o modificarla;
+
+- i) Suspender al agresor la tenencia, porte y uso de armas, en caso de que estas sean indispensables para el ejercicio de su profesión u oficio, la suspensión deberá ser motivada;
+
+- j) Decidir provisionalmente quién tendrá a su cargo las pensiones alimentarias, sin perjuicio de la competencia en materia civil de otras autoridades quienes podrán ratificar esta medida o modificarla;
+
+- k) Decidir provisionalmente el uso y disfrute de la vivienda familiar, sin perjuicio de la competencia en materia civil de otras autoridades quienes podrán ratificar esta medida o modificarla;
+
+- l) Prohibir, al agresor la realización de cualquier acto de enajenación o gravamen de bienes de su propiedad sujetos a registro, si tuviere sociedad conyugal o patrimonial vigente. Para este efecto, oficiará a las autoridades competentes. Esta medida será decretada por Autoridad Judicial;
+
+- m) Ordenar al agresor la devolución inmediata de los objetos de uso personal, documentos de identidad y cualquier otro documento u objeto de propiedad o custodia de la víctima;
+
+- n) Cualquiera otra medida necesaria para el cumplimiento de los objetivos de la presente ley.
+
+**PARÁGRAFO 1°.** En los procesos de divorcio o de separación de cuerpos por causal de maltrato, el juez podrá decretar cualquiera de las medidas de protección consagradas en este artículo.
+
+**PARÁGRAFO 2°.** Estas mismas medidas podrán ser dictadas en forma provisional e inmediata por la autoridad judicial que conozca de los delitos que tengan origen en actos de violencia intrafamiliar.
+
+**PARÁGRAFO 3°.** La autoridad competente deberá remitir todos los casos de violencia intrafamiliar a la Fiscalía General de la Nación para efectos de la investigación del delito de violencia intrafamiliar y posibles delitos conexos.
+
+##### **Artículo 6º.** Cuando el hecho objeto de la queja constituyere delito o contravención, el funcionario de conocimiento remitirá las diligencias adelantadas a la autoridad competente, sin perjuicio de las medidas de protección consagradas en esta ley.
+
+##### **Artículo 7º.** El incumplimiento de las medidas de protección dará lugar a las siguientes sanciones:
+
+- a) Por la primera vez, multa entre dos (2) y diez (10) salarios mínimos legales mensuales, convertibles en arresto, la cual debe consignarse dentro de los cinco (5) días siguientes a su imposición. La Conversión en arresto se adoptará de plano mediante auto que sólo tendrá recursos de reposición, a razón de tres (3) días por cada salario mínimo;
+
+- b) Si el incumplimiento de las medidas de protección se repitiere en el plazo de dos (2) años, la sanción será de arresto entre treinta (30) y cuarenta y cinco (45) días.
+
+En el caso de incumplimiento de medidas de protección impuestas por actos de violencia o maltrato que constituyeren delito o contravención, al agresor se le revocarán los beneficios de excarcelación y los subrogados penales de que estuviere gozando.
+
+##### **Artículo 8º.** Todo comportamiento de retaliación, venganza o evasión de los deberes alimentarios por parte del agresor, se entenderá como incumplimiento de las medidas de protección que le fueron impuestas.
+
+## TITULO III
+
+**Procedimiento**
+
+##### **Artículo 9º.** Llevar información sobre hechos de violencia intrafamiliar a las autoridades competentes es responsabilidad de la comunidad, de los vecinos y debe realizarse inmediatamente se identifique el caso.
+
+La petición de medida de protección podrá ser presentada personalmente por el agredido, por cualquier otra persona que actúe en su nombre, o por el defensor de familia cuando la víctima se hallare en imposibilidad de hacerlo por sí misma.
+
+La petición de una medida de protección podrá formularse por escrito, en forma oral o por cualquier medio idóneo para poner en conocimiento del funcionario competente los hechos de violencia intrafamiliar, y deberá presentarse a más tardar dentro de los treinta (30) días siguientes a su acaecimiento.
+
+##### **Artículo 10.** La petición de medida de protección deberá expresar con claridad los siguientes datos:
+
+- a) Nombre de quien la presenta y su identificación, si fuere posible;
+
+- b) Nombre de la persona o personas víctimas de la violencia intrafamiliar;
+
+- c) Nombre y domicilio del agresor;
+
+- d) Relato de los hechos denunciados, y
+
+- e) Solicitud de las pruebas que estime necesarias.
+
+##### **Artículo 11**. El Comisario o el Juez, según el caso, recibirá y avocará en forma inmediata la petición, y si estuviere fundada en al menos indicios leves, podrá dictar dentro de las cuatro (4) horas hábiles siguientes, medidas de protección en forma provisional tendientes a evitar la continuación de todo acto de violencia,agresión, maltrato, amenaza u ofensa contra la víctima, so pena de hacerse el agresor acreedor a las sanciones previstas en esta ley para el incumplimiento de las medidas de protección.
+
+Contra la medida provisional de protección no procederá recurso alguno.
+
+Igualmente podrá solicitar prueba pericial, técnica o científica, a peritos oficiales, quienes rendirán su dictamen conforme a los procedimientos establecidos por el Instituto de Medicina Legal y Ciencias Forenses.
+
+##### **Artículo 12**. Radicada la petición, el Comisario o el Juez, según el caso, citará al acusado para que comparezca a una audiencia que tendrá lugar entre los cinco (5) y diez (10) días siguientes a la presentación de la petición. A esta audiencia deberá concurrir la víctima.
+
+La notificación de citación a la audiencia se hará personalmente o por aviso fijado a la entrada de la residencia del agresor.
+
+**Parágrafo.** Si las víctimas son personas discapacitadas en situación de indefensión deberá ser notificada la personería. El Personero o su delegado deberá estar presente en las audiencias. Su ausencia no impide la realización de la misma, pero constituye falta grave disciplinaria.
+
+##### **Artículo 13.** El agresor podrá presentar descargos antes de la audiencia, y proponer formulas de avenimiento con la víctima, e igualmente solicitar pruebas, que se practicarán durante la audiencia.
+
+##### **Artículo 14**. Antes de la audiencia y durante la misma, el Comisionario o el Juez, según el caso, deberá procurar por todos los medios legales a su alcance, fórmulas de solución al conflicto intrafamiliar entre el agresor y la víctima, a fin de garantizar la unidad y armonía de la familia, y especialmente que el agresor enmiende su comportamiento. En todos los casos, propiciará el acercamiento y el diálogo directo entre las partes para el logro de acuerdo sobre paz y la convivencia en familia. En la misma audiencia decretará y practicará las pruebas que soliciten las partes y las que de oficio estime conducentes.
+
+##### **Artículo 15**. Si el agresor no compareciere a la audiencia se entenderá que acepta los cargos formulados en su contra.
+
+No obstante, las partes podrán excusarse de la inasistencia por una sola vez antes de la audiencia o dentro de la misma, siempre que medie justa causa. El funcionario evaluará la excusa y, si la encuentra procedente, fijará fecha para celebrar la nueva audiencia dentro de los cinco (5) días siguientes.
+
+##### **Artículo 16**. La resolución o sentencia se dictará al finalizar la audiencia y será notificada a las partes en estrados. Se entenderán surtidos los efectos de la notificación desde su pronunciamiento. Si alguna de las partes estuviere ausente, se le comunicará la decisión mediante aviso, telegrama o por cualquier otro medio idóneo.
+
+De la actuación se dejará constancia en acta, de la cual se entregará copia a cada una de las partes.
+
+**Parágrafo.** En todas las etapas del proceso, el Comisario contará con la asistencia del equipo interdisciplinario de la Institución.
+
+##### **Artículo 17**. El funcionario que expidió la orden de protección mantendrá la competencia para la ejecución y el cumplimiento de las medidas de protección.
+
+Las sanciones por incumplimiento de las medidas de protección se impondrán en audiencia que deberá celebrarse dentro de los diez (10) días siguientes a su solicitud, luego de haberse practicado las pruebas pertinentes y oídos los descargos de la parte acusada.
+
+No obstante cuando a juicio de Comisario sean necesario ordenar el arresto, luego de practicar las pruebas y oídos los descargos, le pedirá al Juez de Familia o Promiscuo de Familia, o en su defecto, al Civil Municipal o al Promiscuo que expida la orden correspondiente, lo que decidirá dentro de las 48 horas siguientes.
+
+La Providencia que imponga las sanciones por incumplimiento de la orden de protección, provisional o definitiva, será motivada y notificada personalmente en la audiencia o mediante aviso.
+
+##### **Artículo 18**. En cualquier momento, las partes interesadas, el Ministerio Público, el Defensor de Familia, demostrando plenamente que se han superado las circunstancias que dieron origen a las medidas de protección interpuestas, podrán pedir al funcionario que expidió las orden la terminación de los efectos de las declaraciones hechas y la terminación de las medidas ordenadas.
+
+Contra la decisión definitiva sobre una medida de protección que tomen los Comisarios de Familia o los Jueces Civiles Municipales o Promiscuos Municipales, procederá en el efecto devolutivo, el Recurso de Apelación ante el Juez de Familia o Promiscuo de Familia.
+
+Serán aplicables al procedimiento previsto en la presente ley las normas procesales contenidas en el Decreto número 2591 de 1991, en cuanto su naturaleza lo permita.
+
+##### **Artículo 19.** Los procedimientos consagrados en la presente ley no sustituyen ni modifican las acciones previstas en la Constitución y en la ley para la garantía de los derechos fundamentales, ni para la solución de los conflictos jurídicos intrafamiliares.
+
+## TITULO IV
+
+**Asistencia a las víctimas del maltrato**
+
+##### **Artículo 20.** Las autoridades de Policía prestarán a la víctima de maltrato intrafamiliar toda la ayuda necesaria para impedir la repetición de esos hechos, remediar las secuelas físicas y sicológicas que se hubieren ocasionado y evitar retaliaciones por tales actos. En especial, tomarán las siguientes medidas:
+
+- a) Conducir inmediatamente a la víctima hasta el centro asistencial más cercano, aunque las lesiones no fueren visibles;
+
+- b) Acompañar a la víctima hasta un lugar seguro o hasta su hogar para el retiro de las pertenencias personales, en caso de considerarse necesario para la seguridad de aquella;
+
+- c) Asesorar a la víctima en la preservación de las pruebas de los actos de violencia y;
+
+- d) Suministrarle la información pertinente sobre los derechos de la víctima y sobre los servicios gubernamentales y privados disponibles para las víctimas del maltrato intrafamiliar.
+
+**Parágrafo.** Las autoridades de policía dejarán constancia de lo actuado en un acta, de la cual se entregará copia a la persona que alegue ser víctima del maltrato. El incumplimiento de este deber será causal de mala conducta sancionable con destitución.
+
+##### **Artículo 21.** En la orden provisional de protección y en la definitiva se podrá solicitar a los hogares de paso, albergues, ancianatos, o instituciones similares que existan en el municipio, recibir en ellos a la víctima, según las condiciones que el respectivo establecimiento estipule.
+
+## TITULO V
+
+**De los delitos contra la armonía y la unidad de la familia**
+
+##### **Artículo 22.**Violencia intrafamiliar. El que maltrate física, síquica o sexualmente a cualquier miembro de su núcleo familiar, incurrirá en la prisión de uno (1) a dos (2) años.
+
+##### **Artículo 23.** Maltrato constitutivo de lesiones personales. El que mediante violencia física o síquica, trato cruel o intimidatorio o degradante, cause daño en el cuerpo o en la salud sicológica a un integrante de su grupo familiar, incurrirá en la pena privativa de la libertad prevista para el respectivo delito, aumentada de una tercera parte a la mitad.
+
+**Parágrafo.** Para los efectos de este artículo, obligar o inducir al consumo de substancias sicotrópicas a otra persona o consumirlas en presencia de menores, se considera trato degradante.
+
+##### **Artículo 24.** Maltrato mediante restricción a la libertad física. El que mediante la fuerza y sin causa razonable restrinja la libertad de locomoción a otra persona mayor de edad perteneciente a su grupo familiar, incurrirá en arresto de uno (1) a seis (6) meses y en multa de uno (1) a dieciséis (16) salarios mínimos mensuales, siempre y cuando este hecho no constituya delito sancionado con pena mayor.
+
+##### **Artículo 25.**Inexequible.
+
+##### **Artículo 26.** No procederá el beneficio de excarcelación ni la libertad condicional, cuando cualquiera de los delitos contemplados en esta ley se cometiere violación de una orden de protección.
+
+En la sentencia que declare una persona responsable de hecho punible cometido contra un miembro de su familia, se le impondrá la obligación de cumplir actividades de reeducación o readiestramiento.
+
+##### **Artículo 27.** Las penas para los delitos previstas en los artículos 276, 277, 279, 311 y 312 del Código Penal, se aumentará de una tercera parte a la mitad cuando el responsable sea integrante de la familia de la víctima.
+
+## TITULO VI
+
+**Política de protección de la familia**
+
+##### **Artículo 28.** El instituto Colombiano de Bienestar diseñará políticas, planes y programas para prevenir y erradicar la violencia intrafamiliar.
+
+Igualmente, las autoridades departamentales y municipales podrán conformar Consejos de Protección Familiar para adelantar estudios y actividades de prevención, educación, asistencia y tratamiento de los problemas de violencia intrafamiliar dentro de su jurisdicción.
+
+##### **Artículo 29.** El Instituto Colombiano de Bienestar Familiar deberá integrar un Banco de Datos sobre violencia intrafamiliar, para lo cual todas las autoridades encargadas de recibir las denuncias y tramitarlas, actualizarán semestralmente la información necesaria para adelantar investigaciones que contribuyan a la prevención y erradicación de la violencia intrafamiliar.
+
+##### **Artículo 30**. Los municipios que no hayan dado cumplimiento a lo previsto en el artículo 295 del Código del Menor, dispondrán de un año, contado a partir de la fecha de vigencia de la presente ley, para crear y poner en funcionamiento por lo menos una Comisaría de Familia que cuente con el equipo interdisciplinario del que habla el artículo 295, inciso 2º, del Código del Menor.
+
+**Parágrafo.**A partir de la vigencia de esta ley los Comisarios de Familia serán funcionarios de Carrera Administrativa.
+
+##### **Artículo 31.** La presente Ley rige a partir de su promulgación.
+
+**El Presidente del honorable Senado de la República,**
+
+**JULIO CESAR GUERRA TULENA**
+
+**El Secretario General del honorable Senado de la República,**
+
+**PEDRO PUMAREJO VEGA**
+
+**El Presidente de la Cámara de Representantes,**
+
+**RODRIGO RIVERA SALAZAR**
+
+**El Secretario General de la Cámara de Representantes,**
+
+**DIEGO VIVAS TAFUR**
+
+**REPUBLICA DE COLOMBIA - GOBIERNO NACIONAL**
+
+**Publíquese y ejecútese.**
+
+**Dada en Santa Fe de Bogotá, D. C., a 16 de julio de 1996.**
+
+**ERNESTO SAMPER PIZANO**
+
+**El Ministro de Justicia y del Derecho,**
+
+**Carlos Eduardo Medellín Becerra.**
+
+**La Ministra de Salud,**
+
+**María Teresa Forero de Saade.**

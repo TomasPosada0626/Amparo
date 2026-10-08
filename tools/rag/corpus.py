@@ -6,10 +6,15 @@ declara aca: se lee del frontmatter YAML que cada archivo de data/corpus/normas/
 ya trae verificado por quien armo el corpus. Declarar a mano una URL que el
 archivo ya trae seria una oportunidad de equivocarse sin ninguna ganancia.
 
-Alcance (decidido para M3): solo las normas que cubren las 9 categorias
-cotidianas de mayor frecuencia del dataset de M1. El corpus descargado tiene 17
-normas; se indexan 10. Las demas quedan declaradas en FUERA_DE_ALCANCE con su
-razon, para que la exclusion sea una decision visible y no un olvido.
+Alcance. En M3 se indexaron solo las normas de las 9 categorias cotidianas de
+mayor frecuencia (10 normas). La corrida del 2026-10-07 mostro que el eval set
+pregunta por 27 categorias y que las que no tienen norma dan context recall 0
+(docs/m3_cobertura_corpus.md), y el dataset de M1 v2 necesita contexto real para
+TODAS sus categorias tematicas. Desde el 2026-10-08 el alcance es toda categoria
+tematica del dataset que tenga su norma en el corpus; las que no la tienen
+quedan en CATEGORIAS_SIN_NORMA con la norma que falta. Lo que no se indexa queda
+en FUERA_DE_ALCANCE con su razon, para que la exclusion sea una decision visible
+y no un olvido.
 """
 from __future__ import annotations
 
@@ -28,10 +33,11 @@ PORTALES_OFICIALES = (
     "https://www.funcionpublica.gov.co/eva/gestornormativo/",
 )
 
-# Las 9 categorias cotidianas de mayor frecuencia del dataset de M1 (61-63
-# ejemplos cada una; las otras 15 tienen 51). Mismo criterio de priorizacion que
-# se uso para construir el dataset de fine-tuning.
+# Categorias tematicas del dataset de M1 que el corpus cubre con al menos una
+# norma. Hasta el 2026-10-07 eran solo las 9 de mayor frecuencia; ver el
+# docstring del modulo.
 CATEGORIAS_OBJETIVO = (
+    # Las 9 originales (61-63 ejemplos cada una en el dataset).
     "Salud / EPS",
     "Garantias de consumo",
     "Despido",
@@ -41,7 +47,57 @@ CATEGORIAS_OBJETIVO = (
     "Accidentes de transito",
     "Embargos",
     "Comparendos de transito",
+    # Agregadas el 2026-10-08.
+    "Acceso a informacion publica",
+    "Conciliacion prejudicial",
+    "Contratacion estatal y facturacion",
+    "Contratos empresariales (B2B)",
+    "Derecho administrativo general",
+    "Derecho ambiental sancionatorio",
+    "Derecho contractual general",
+    "Derecho de familia - alimentos",
+    "Educacion / debido proceso disciplinario",
+    "Licencias urbanisticas",
+    "Penal basico y derechos de las victimas",
+    "Pensiones y seguridad social",
+    "Prestamos informales y usura",
+    "Procedimiento civil - recursos",
+    "Propiedad intelectual - marcas",
+    "Propiedad y linderos",
+    "Violencia intrafamiliar y medidas de proteccion",
 )
+
+# Categorias tematicas que todavia no tienen su norma en el corpus, con la norma
+# que falta. El espejo de SUIN (data/corpus/normas/README.md) no trae leyes
+# posteriores a 2014 ni la Ley 142 de 1994, y la Decision 486 es norma andina,
+# no colombiana, asi que SUIN no la publica. Se cargan cuando alguien con acceso
+# a secretariasenado.gov.co las descargue.
+CATEGORIAS_SIN_NORMA: dict[str, str] = {
+    "Servicios publicos domiciliarios": (
+        "Ley 142 de 1994 (regimen de servicios publicos domiciliarios): no esta en el espejo"
+    ),
+}
+
+# Normas que cubririan mejor categorias que hoy solo quedan cubiertas en parte.
+# No bloquean el indice; quedan a la vista para la proxima carga.
+NORMAS_PENDIENTES: dict[str, str] = {
+    "Ley 142 de 1994": "Servicios publicos domiciliarios (hoy sin norma)",
+    "Ley 1801 de 2016": "Codigo de Policia: querellas policivas, Propiedad y linderos, Licencias urbanisticas",
+    "Ley 2220 de 2022": "Estatuto de conciliacion (la Ley 640 de 2001 esta derogada)",
+    "Ley 1751 de 2015": "Estatutaria de salud: Salud / EPS",
+    "Ley 1010 de 2006": "Acoso laboral: Relaciones laborales",
+    "Ley 2126 de 2021": "Comisarias de familia: Violencia intrafamiliar",
+    "Decision 486 de 2000 (CAN)": "Regimen comun de propiedad industrial: Propiedad intelectual - marcas",
+}
+
+# Categorias del eval set de M2 que no existen en el dataset de M1, y la
+# categoria del dataset (o el bloque transversal) que las cubre.
+EQUIVALENCIAS_EVAL_SET: dict[str, str] = {
+    "Derecho penal - denuncia": "Penal basico y derechos de las victimas",
+    "Derecho comercial": "Contratos empresariales (B2B)",
+    "Accion de tutela": "__transversal__",
+    "Derecho de peticion": "__transversal__",
+}
 
 # Categorias transversales: no son una categoria del dataset, sino los
 # mecanismos que casi toda respuesta recomienda como primer paso.
@@ -66,6 +122,15 @@ class NormaEnAlcance:
     categorias: tuple[str, ...]
     nombre_comun: str = ""
     nota: str = ""
+    # Si > 0, solo se indexan los primeros N articulos. Para archivos del espejo
+    # que, despues del articulado completo de la ley, transcriben otro texto con
+    # su propia numeracion (el proyecto de ley que reviso la Corte, p. ej.): ese
+    # texto se citaria como si fuera la ley.
+    articulos_propios: int = 0
+    # Fragmentos de otra norma intercalados en el archivo del espejo, como pares
+    # (texto donde empiezan, texto donde vuelve la norma). Se quitan al ingerir;
+    # si un marcador no aparece, la ingesta falla en vez de indexar el texto ajeno.
+    fragmentos_ajenos: tuple[tuple[str, str], ...] = ()
 
     @property
     def path(self):
@@ -84,7 +149,7 @@ NORMAS_EN_ALCANCE: list[NormaEnAlcance] = [
     ),
     NormaEnAlcance(
         filename="cpaca_ley_1437_2011.md",
-        categorias=(TRANSVERSAL,),
+        categorias=(TRANSVERSAL, "Derecho administrativo general", "Acceso a informacion publica"),
         nombre_comun="CPACA",
         nota=(
             "Trae el derecho de peticion vigente: la Ley 1755 de 2015 no existe "
@@ -101,7 +166,7 @@ NORMAS_EN_ALCANCE: list[NormaEnAlcance] = [
     # --- Una categoria cada una ---------------------------------------------
     NormaEnAlcance(
         filename="seguridad_social_ley_100_1993.md",
-        categorias=("Salud / EPS",),
+        categorias=("Salud / EPS", "Pensiones y seguridad social"),
         nombre_comun="Sistema de Seguridad Social Integral",
         nota=(
             "Es la norma que el baseline de M2 citaba mal (la invocaba para "
@@ -141,8 +206,137 @@ NORMAS_EN_ALCANCE: list[NormaEnAlcance] = [
     ),
     NormaEnAlcance(
         filename="codigo_general_proceso_ley_1564_2012.md",
-        categorias=("Embargos",),
+        categorias=("Embargos", "Procedimiento civil - recursos", "Conciliacion prejudicial"),
         nombre_comun="Codigo General del Proceso",
+        nota=(
+            "Conciliacion prejudicial queda cubierta solo en parte (audiencia y "
+            "requisito de procedibilidad): el estatuto vigente es la Ley 2220 de "
+            "2022, que no esta en el espejo."
+        ),
+    ),
+    # --- Agregadas el 2026-10-08 (docs/m3_cobertura_corpus.md) ---------------
+    NormaEnAlcance(
+        filename="codigo_comercio_decreto_410_1971.md",
+        categorias=("Contratos empresariales (B2B)", "Contratacion estatal y facturacion",
+                    "Prestamos informales y usura"),
+        nombre_comun="Codigo de Comercio",
+        nota=(
+            "Contratos mercantiles, factura (titulos valores) e intereses comerciales. "
+            "El espejo intercala, despues del articulo 751, los 6 articulos de la ley "
+            "de cheques fiscales numerados desde 1: se citarian como 'Codigo de "
+            "Comercio, articulo 1'."
+        ),
+        fragmentos_ajenos=(("Artículo 1°. Denomínanse cheques fiscales", "Sección IV. Bonos"),),
+    ),
+    NormaEnAlcance(
+        filename="codigo_civil_ley_84_1873.md",
+        categorias=("Derecho contractual general", "Derecho de familia - alimentos",
+                    "Propiedad y linderos", "Contratos empresariales (B2B)",
+                    "Prestamos informales y usura", "Accidentes de transito"),
+        nombre_comun="Codigo Civil",
+        nota=(
+            "Obligaciones y contratos, alimentos, bienes y servidumbres, mutuo y "
+            "responsabilidad extracontractual. En B2B el Codigo de Comercio remite al "
+            "Civil para lo que no regula; es la norma mas grande del corpus (unos "
+            "2600 articulos), asi que su efecto en la precision se mide en la proxima "
+            "corrida de S08. El espejo antepone al articulo 1 un 'Articulo 1' de un "
+            "decreto de estado de sitio (jueces de instruccion criminal), que se quita."
+        ),
+        fragmentos_ajenos=(("Artículo 1. Los Jueces de Instrucción Criminal", "CAPITULO 1º"),),
+    ),
+    NormaEnAlcance(
+        filename="codigo_penal_ley_599_2000.md",
+        categorias=("Penal basico y derechos de las victimas", "Prestamos informales y usura",
+                    "Derecho de familia - alimentos", "Violencia intrafamiliar y medidas de proteccion"),
+        nombre_comun="Codigo Penal",
+        nota="Usura, inasistencia alimentaria, violencia intrafamiliar y delitos frecuentes.",
+    ),
+    NormaEnAlcance(
+        filename="codigo_procedimiento_penal_ley_906_2004.md",
+        categorias=("Penal basico y derechos de las victimas",),
+        nombre_comun="Codigo de Procedimiento Penal",
+        nota="Denuncia, querella, derechos de las victimas.",
+    ),
+    NormaEnAlcance(
+        filename="codigo_infancia_adolescencia_ley_1098_2006.md",
+        categorias=("Derecho de familia - alimentos", "Violencia intrafamiliar y medidas de proteccion"),
+        nombre_comun="Codigo de la Infancia y la Adolescencia",
+    ),
+    NormaEnAlcance(
+        filename="ley_transparencia_acceso_info_ley_1712_2014.md",
+        categorias=("Acceso a informacion publica",),
+        nombre_comun="Ley de Transparencia",
+        articulos_propios=33,
+    ),
+    NormaEnAlcance(
+        filename="habeas_data_datos_personales_ley_1581_2012.md",
+        # Transversal y no "Reporte en centrales de riesgo": la Ley 1581 excluye
+        # los datos financieros que regula la Ley 1266.
+        categorias=(TRANSVERSAL,),
+        nombre_comun="Proteccion de datos personales",
+        articulos_propios=30,
+        nota=(
+            "Antes excluida por calidad: despues de sus 30 articulos el archivo del "
+            "espejo transcribe el proyecto de ley que reviso la Corte, con otra "
+            "numeracion. articulos_propios=30 indexa solo la ley."
+        ),
+    ),
+    NormaEnAlcance(
+        filename="contratacion_estatal_ley_80_1993.md",
+        categorias=("Contratacion estatal y facturacion",),
+        nombre_comun="Estatuto General de Contratacion de la Administracion Publica",
+    ),
+    NormaEnAlcance(
+        filename="contratacion_estatal_ley_1150_2007.md",
+        categorias=("Contratacion estatal y facturacion",),
+        nombre_comun="Eficiencia y transparencia en la contratacion estatal",
+    ),
+    NormaEnAlcance(
+        filename="sancionatorio_ambiental_ley_1333_2009.md",
+        categorias=("Derecho ambiental sancionatorio",),
+        nombre_comun="Procedimiento sancionatorio ambiental",
+    ),
+    NormaEnAlcance(
+        filename="ordenamiento_territorial_ley_388_1997.md",
+        categorias=("Licencias urbanisticas",),
+        nombre_comun="Ley de Ordenamiento Territorial",
+    ),
+    NormaEnAlcance(
+        filename="ley_general_educacion_ley_115_1994.md",
+        categorias=("Educacion / debido proceso disciplinario",),
+        nombre_comun="Ley General de Educacion",
+    ),
+    NormaEnAlcance(
+        filename="convivencia_escolar_ley_1620_2013.md",
+        categorias=("Educacion / debido proceso disciplinario",),
+        nombre_comun="Sistema Nacional de Convivencia Escolar",
+    ),
+    NormaEnAlcance(
+        filename="violencia_intrafamiliar_ley_294_1996.md",
+        categorias=("Violencia intrafamiliar y medidas de proteccion",),
+        nombre_comun="Violencia intrafamiliar",
+    ),
+    NormaEnAlcance(
+        filename="violencia_contra_la_mujer_ley_1257_2008.md",
+        categorias=("Violencia intrafamiliar y medidas de proteccion",),
+        nombre_comun="Violencia contra la mujer",
+    ),
+    NormaEnAlcance(
+        filename="observancia_propiedad_industrial_ley_1648_2013.md",
+        categorias=("Propiedad intelectual - marcas",),
+        nombre_comun="Observancia de la propiedad industrial",
+        nota="Cobertura parcial: el regimen de marcas es la Decision 486 de la CAN, que no esta.",
+    ),
+    NormaEnAlcance(
+        filename="competencia_desleal_ley_256_1996.md",
+        categorias=("Propiedad intelectual - marcas",),
+        nombre_comun="Competencia desleal",
+    ),
+    NormaEnAlcance(
+        filename="discapacidad_estabilidad_reforzada_ley_361_1997.md",
+        categorias=("Despido",),
+        nombre_comun="Integracion social de personas con discapacidad",
+        nota="Estabilidad laboral reforzada (despido de persona en situacion de discapacidad).",
     ),
 ]
 
@@ -150,22 +344,9 @@ NORMAS_EN_ALCANCE: list[NormaEnAlcance] = [
 # silencio seria indistinguible de un olvido; quien retome el trabajo (RAG
 # avanzado) necesita saber que ya estan disponibles y por que se dejaron fuera.
 FUERA_DE_ALCANCE: dict[str, str] = {
-    "codigo_civil_ley_84_1873.md": "fuera de las 9 categorias priorizadas",
-    "codigo_comercio_decreto_410_1971.md": "fuera de las 9 categorias priorizadas",
-    "codigo_penal_ley_599_2000.md": "fuera de las 9 categorias priorizadas",
-    "codigo_procedimiento_penal_ley_906_2004.md": "fuera de las 9 categorias priorizadas",
-    "codigo_infancia_adolescencia_ley_1098_2006.md": "fuera de las 9 categorias priorizadas",
-    "ley_transparencia_acceso_info_ley_1712_2014.md": (
-        "cubre 'Acceso a informacion publica', que no esta entre las 9 priorizadas"
-    ),
-    "habeas_data_datos_personales_ley_1581_2012.md": (
-        "EXCLUIDA POR CALIDAD, no por alcance: el archivo del espejo intercala "
-        "texto transcrito de otros instrumentos (p. ej. el articulo 27 de la "
-        "Convencion sobre los Derechos del Nino), que el chunker atribuiria a la "
-        "Ley 1581. Citar un articulo ajeno como si fuera de esta ley es "
-        "exactamente lo que el producto no puede hacer. 'Reporte en centrales de "
-        "riesgo' queda cubierto por la Ley 1266 de 2008, que si esta limpia."
-    ),
+    # Vacio desde el 2026-10-08: todas las normas descargadas cubren alguna
+    # categoria del dataset. La Ley 1581 se excluia por calidad; ahora entra con
+    # articulos_propios (ver su entrada).
 }
 
 
@@ -217,6 +398,8 @@ def metadata_de(norma: NormaEnAlcance) -> dict:
         "tipo": campos["rank"],
         "url_fuente": campos["source"],
         "vigente": campos["status"] in ESTADOS_VIGENTES,
+        "articulos_propios": norma.articulos_propios,
+        "fragmentos_ajenos": [list(par) for par in norma.fragmentos_ajenos],
     }
 
 
@@ -280,4 +463,6 @@ if __name__ == "__main__":
     for entrada in to_ingest_manifest():
         print(f"  [x] {entrada['fuente']}")
         print(f"      {entrada['url_fuente']}")
-    print(f"\nCategorias cubiertas: {len(categorias_cubiertas())} de 9 objetivo.")
+    print(f"\nCategorias cubiertas: {len(categorias_cubiertas())} de {len(CATEGORIAS_OBJETIVO)} objetivo.")
+    for categoria, falta in CATEGORIAS_SIN_NORMA.items():
+        print(f"  [ ] {categoria}: {falta}")

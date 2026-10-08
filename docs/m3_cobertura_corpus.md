@@ -73,3 +73,42 @@ faithfulness es 0.58 cuando el contexto sirve y 0.13 cuando no.
 
 Cambia `hash_indice` y las cifras dejan de ser comparables con la corrida del
 2026-10-07. Hay que recorrer S07, S08 y S10, en ese orden.
+
+## Corpus ampliado (2026-10-08) — problema 1
+
+El alcance pasa de 9 categorias a todas las tematicas del dataset que tienen su
+norma: **26 de 27**. Todavia **sin indice reconstruido**: se reconstruye una sola
+vez, junto con los cambios del problema 2, y entonces se recorren S07, S08 y S10.
+
+- 28 normas en alcance (antes 10): las 6 que ya estaban descargadas y excluidas
+  (Codigo Civil, Codigo de Comercio, Codigo Penal, Codigo de Procedimiento Penal,
+  Codigo de la Infancia, Ley 1712) mas la Ley 1581, que se excluia por calidad,
+  y 11 nuevas del mismo espejo (detalle en `data/corpus/normas/README.md`).
+- Chunks estimados: unos **10 100** (antes unos 3 400). El Codigo Civil y el
+  de Comercio aportan unos 3 900. Mas candidatos significa mas distractores:
+  medir en S08 si baja la precision en las categorias que ya andaban bien, y
+  considerar filtrar por norma o categoria al recuperar.
+- Texto ajeno quitado al ingerir: el proyecto de ley que transcriben la Ley 1712
+  y la Ley 1581, los cheques fiscales dentro del Codigo de Comercio y un decreto
+  de estado de sitio al inicio del Codigo Civil.
+- Bug del chunker que aparecio con el Codigo Civil: los grupos de articulos
+  cortos ("Derogado" x 20) se pasaban del presupuesto de 350 tokens. Corregido;
+  no cambia los chunks de las 10 normas anteriores.
+
+Las 8 categorias de recall 0 de la tabla del problema 1 quedan cubiertas:
+
+| Categoria | Norma |
+|---|---|
+| Derecho comercial | Codigo de Comercio |
+| Contratos empresariales (B2B) | Codigo de Comercio y Codigo Civil |
+| Contratacion estatal y facturacion | Ley 80, Ley 1150 y Codigo de Comercio (factura) |
+| Derecho ambiental sancionatorio | Ley 1333 |
+| Licencias urbanisticas | Ley 388 |
+| Propiedad intelectual - marcas | Ley 1648 y Ley 256 (parcial: falta la Decision 486) |
+| Educacion / debido proceso disciplinario | Ley 115 y Ley 1620 |
+| Derecho administrativo general | CPACA (ahora declarada; ver problema 2) |
+
+**Lo que falta**, porque el espejo no trae leyes posteriores a 2014 ni la Ley 142:
+la Ley 142 de 1994 (Servicios publicos domiciliarios queda sin norma), la Ley 1801
+de 2016, la Ley 2220 de 2022, la Ley 1751 de 2015, la Ley 1010 de 2006, la Ley
+2126 de 2021 y la Decision 486 de la CAN. Lista en `corpus.NORMAS_PENDIENTES`.

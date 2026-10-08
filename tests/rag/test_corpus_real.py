@@ -30,6 +30,25 @@ MINIMO_ARTICULOS = {
     "estatuto_consumidor_ley_1480_2011.md": 60,
     "codigo_nacional_transito_ley_769_2002.md": 140,
     "codigo_general_proceso_ley_1564_2012.md": 500,
+    # Agregadas el 2026-10-08.
+    "codigo_comercio_decreto_410_1971.md": 1800,
+    "codigo_civil_ley_84_1873.md": 2400,
+    "codigo_penal_ley_599_2000.md": 450,
+    "codigo_procedimiento_penal_ley_906_2004.md": 500,
+    "codigo_infancia_adolescencia_ley_1098_2006.md": 190,
+    "ley_transparencia_acceso_info_ley_1712_2014.md": 30,
+    "habeas_data_datos_personales_ley_1581_2012.md": 28,
+    "contratacion_estatal_ley_80_1993.md": 70,
+    "contratacion_estatal_ley_1150_2007.md": 28,
+    "sancionatorio_ambiental_ley_1333_2009.md": 60,
+    "ordenamiento_territorial_ley_388_1997.md": 120,
+    "ley_general_educacion_ley_115_1994.md": 200,
+    "convivencia_escolar_ley_1620_2013.md": 35,
+    "violencia_intrafamiliar_ley_294_1996.md": 28,
+    "violencia_contra_la_mujer_ley_1257_2008.md": 35,
+    "observancia_propiedad_industrial_ley_1648_2013.md": 4,
+    "competencia_desleal_ley_256_1996.md": 30,
+    "discapacidad_estabilidad_reforzada_ley_361_1997.md": 60,
 }
 
 _cache: dict[str, list] = {}
@@ -47,6 +66,8 @@ def chunks_de(filename: str) -> list:
             tipo=entrada["tipo"],
             url_fuente=entrada["url_fuente"],
             vigente=entrada["vigente"],
+            articulos_propios=entrada["articulos_propios"],
+            fragmentos_ajenos=entrada["fragmentos_ajenos"],
         )
         _cache[filename] = chunk.chunk_document(
             {

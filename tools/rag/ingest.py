@@ -142,6 +142,40 @@ def extract_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
 
 
+def recortar_al_articulado_propio(texto: str, n_articulos: int) -> str:
+    """Corta el texto justo antes del articulo n_articulos + 1.
+
+    Algunos archivos del espejo traen, despues del articulado completo de la ley,
+    la transcripcion del proyecto que reviso la Corte Constitucional, con su
+    propia numeracion desde el articulo 1. Sin el corte, ese texto se indexaria y
+    se citaria como si fuera la ley. Falla si el texto no tiene ni n_articulos
+    articulos: el numero declarado en el manifiesto estaria mal.
+    """
+    from tools.rag.chunk import ARTICLE_PATTERN
+
+    encabezados = list(ARTICLE_PATTERN.finditer(texto))
+    if len(encabezados) < n_articulos:
+        raise ValueError(
+            f"Se declararon {n_articulos} articulos propios y el texto tiene {len(encabezados)}"
+        )
+    if len(encabezados) == n_articulos:
+        return texto
+    return texto[: encabezados[n_articulos].start()].rstrip()
+
+
+def quitar_fragmentos_ajenos(texto: str, fragmentos) -> str:
+    """Quita del texto cada fragmento (inicio, fin): desde `inicio` hasta justo
+    antes de `fin`. Falla si un marcador no esta, para que un cambio en el
+    archivo no deje pasar el texto ajeno en silencio."""
+    for inicio, fin in fragmentos:
+        a = texto.find(inicio)
+        b = texto.find(fin, a + len(inicio)) if a >= 0 else -1
+        if a < 0 or b < 0:
+            raise ValueError(f"Fragmento ajeno no encontrado: {inicio!r} ... {fin!r}")
+        texto = texto[:a] + texto[b:]
+    return texto
+
+
 def ingest_document(
     path: Path,
     *,
@@ -149,17 +183,27 @@ def ingest_document(
     tipo: str,
     url_fuente: str,
     vigente: bool = True,
+    articulos_propios: int = 0,
+    fragmentos_ajenos=(),
 ) -> RawDocument:
-    """Ingesta un documento individual con su metadata de procedencia."""
+    """Ingesta un documento individual con su metadata de procedencia.
+
+    articulos_propios > 0: solo se conserva ese numero de articulos (ver
+    recortar_al_articulado_propio)."""
     if not url_fuente.strip():
         raise ValueError(
             f"{path.name}: no se ingiere un documento sin url_fuente verificada "
             f"(ver tools/rag/corpus.py y docs/m3_decisiones_rag.md, decision 1)."
         )
 
+    texto = extract_text(path)
+    if fragmentos_ajenos:
+        texto = quitar_fragmentos_ajenos(texto, fragmentos_ajenos)
+    if articulos_propios:
+        texto = recortar_al_articulado_propio(texto, articulos_propios)
     return RawDocument(
         doc_id=path.stem,
-        text=extract_text(path),
+        text=texto,
         fuente=fuente,
         tipo=tipo,
         url_fuente=url_fuente,
@@ -190,6 +234,8 @@ def ingest_corpus(
                 tipo=entry["tipo"],
                 url_fuente=entry["url_fuente"],
                 vigente=entry.get("vigente", True),
+                articulos_propios=entry.get("articulos_propios", 0),
+                fragmentos_ajenos=entry.get("fragmentos_ajenos", ()),
             )
         )
 
