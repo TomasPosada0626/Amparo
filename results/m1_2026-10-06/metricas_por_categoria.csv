@@ -1,0 +1,34 @@
+category,baseline,fine_tuned,n_val,interpretable
+Acceso a informacion publica,100.0,100.0,8,si
+Accidentes de transito,100.0,100.0,9,si
+Arriendo,100.0,100.0,9,si
+Comparendos de transito,89.0,100.0,9,si
+Conciliacion prejudicial,100.0,100.0,8,si
+Contratacion estatal y facturacion,100.0,100.0,8,si
+Contratos empresariales (B2B),100.0,100.0,8,si
+Derecho administrativo general,100.0,88.0,8,si
+Derecho ambiental sancionatorio,100.0,100.0,8,si
+Derecho contractual general,100.0,88.0,8,si
+Derecho de familia - alimentos,100.0,88.0,8,si
+Despido,100.0,100.0,9,si
+Educacion / debido proceso disciplinario,100.0,88.0,8,si
+Embargos,100.0,100.0,9,si
+Fuera del derecho colombiano,67.0,67.0,3,n muy chico
+Garantias de consumo,100.0,100.0,9,si
+Licencias urbanisticas,100.0,75.0,8,si
+Penal basico y derechos de las victimas,100.0,100.0,4,n muy chico
+Pensiones y seguridad social,88.0,100.0,8,si
+Peticiones de cita o plazo exacto,100.0,100.0,3,n muy chico
+Peticiones de conducta ilegitima,67.0,100.0,3,n muy chico
+Peticiones de garantia de resultado,100.0,100.0,3,n muy chico
+Preguntas ambiguas,33.0,67.0,3,n muy chico
+Prestamos informales y usura,88.0,100.0,8,si
+Procedimiento civil - recursos,100.0,75.0,8,si
+Propiedad intelectual - marcas,75.0,88.0,8,si
+Propiedad y linderos,100.0,100.0,8,si
+Relaciones laborales,100.0,89.0,9,si
+Reporte en centrales de riesgo,100.0,67.0,9,si
+Salud / EPS,100.0,100.0,9,si
+Servicios publicos domiciliarios,100.0,100.0,4,n muy chico
+Urgencia con ayuda inmediata,100.0,100.0,3,n muy chico
+Violencia intrafamiliar y medidas de proteccion,100.0,100.0,4,n muy chico

@@ -42,7 +42,7 @@ y evidencia medida.
 | Milestone | Tema | Estado | Artefactos |
 |---|---|:--:|---|
 | **M1** | Fine-tuning (LoRA sobre Qwen2.5-7B-Instruct) | ✅ | `data/dataset_legal.jsonl`, `colab/m1_finetune.ipynb` |
-| **M2** | Harness de evaluación (juez LLM, métricas, sesgos) | ✅ | `tools/evaluation/`, `results/m2_scorecard_2026-09-19.md` |
+| **M2** | Harness de evaluación (juez LLM, métricas, sesgos) | ✅ | `tools/evaluation/`, `results/m2_2026-10-06/` |
 | **M3** | RAG: ingenuo (S07) + avanzado (S08) + agéntico (S10) + DSPy | ✅ | `tools/rag/`, `docs/m3_decisiones_rag.md`, `results/m3_s08_busqueda_2026-09-27.md`, `results/m3_s10_rutas_2026-09-27.md` |
 
 ### Resultados de M2 (201 ejemplos de validación)
@@ -123,8 +123,7 @@ Amparo/
 │   │   ├── hybrid.py           #   BM25 + fusión RRF
 │   │   ├── rerank.py           #   reranking con cross-encoder
 │   │   ├── prompt_template.py  #   prompt aumentado de 4 partes
-│   │   ├── tools.py            #   retrieval como herramienta (function calling)
-│   │   ├── agentico.py         #   agente ReAct: buscar, leer articulo, calcular, plazos, verificar citas
+│   │   ├── verificacion.py     #   verificacion de citas: no entregar articulos ni sentencias que no se recuperaron
 │   │   ├── dspy_prompt.py      #   optimizacion del prompt con DSPy (extra S10)
 │   │   └── pipeline.py         #   orquesta las 7 etapas
 │   ├── evaluation/             # Harness de evaluación (M2)
@@ -209,10 +208,12 @@ pytest -q                      # toda la suite
    en Drive.
 2. **Consultar** — `colab/m3_s08_rag_avanzado.ipynb` carga el índice y compara las
    tres configuraciones de retrieval (denso / hybrid / hybrid + rerank).
-3. **Agentes y evaluación** — `colab/m3_s10_rag_agentico.ipynb` corre el tool use y
-   el agente ReAct, compara las tres rutas (una pasada / tool use / ReAct) sobre el
-   eval set, las evalúa con RAGAS (juez Groq) y las registra en W&B. Necesita los
-   secretos de Colab `GROQ_API_KEY` y `WANDB_API_KEY`.
+3. **Evaluación** — `colab/m3_s10_rag_agentico.ipynb` corre el RAG de una pasada
+   sobre el eval set, lo evalúa con RAGAS (juez Groq), mide la guardia de rutas y
+   lo registra en W&B. Necesita los secretos de Colab `GROQ_API_KEY` y
+   `WANDB_API_KEY`. Las rutas agénticas (tool use y ReAct) se retiraron el
+   2026-10-08: dos corridas mostraron que no se pagan
+   (`docs/m3_decisiones_rag.md`, sección 28).
 4. **Extra DSPy** — `colab/m3_s10_extra_dspy.ipynb` optimiza el prompt de generación
    (BootstrapFewShot y MIPROv2) y lo valida en el eval set con RAGAS.
 

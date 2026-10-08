@@ -18,7 +18,7 @@ def resultado(**overrides) -> SearchResult:
 def test_el_prompt_tiene_las_cuatro_partes_en_orden():
     prompt = prompt_template.build_augmented_prompt("¿Cuanto tardan en responder?", [resultado()])
 
-    pos_instruccion = prompt.index("Eres un asistente juridico")
+    pos_instruccion = prompt.index("Eres un asistente jurídico")
     pos_contexto = prompt.index("CONTEXTO:")
     pos_valvula = prompt.index(prompt_template.RESPUESTA_SIN_CONTEXTO)
     pos_pregunta = prompt.index("PREGUNTA DEL USUARIO:")
@@ -31,7 +31,10 @@ def test_la_instruccion_arranca_del_system_prompt_real_de_m1():
     fine-tuneado, el delta contra el scorecard de M2 dejaria de ser atribuible
     al RAG."""
     assert prompt_template.SYSTEM_PROMPT_M1 in prompt_template.INSTRUCCION
-    assert "No inventes normas" in prompt_template.INSTRUCCION
+    assert "no inventes normas" in prompt_template.INSTRUCCION
+    # El prompt de M1 ahora codifica tambien el anclaje al mecanismo legal y el
+    # lenguaje accesible (principios 3 y 4 de PRODUCT.md), no solo la prudencia.
+    assert "mecanismo legal aplicable" in prompt_template.INSTRUCCION
 
 
 def test_la_valvula_de_escape_esta_presente_incluso_cuando_si_hay_contexto():
@@ -111,3 +114,25 @@ def test_la_pregunta_del_usuario_va_tal_cual_sin_reformular():
     prompt = prompt_template.build_augmented_prompt(query, [])
 
     assert query in prompt
+
+
+def test_la_instruccion_del_rag_arranca_con_el_system_prompt_de_m1():
+    """S10-6: el adaptador se entreno con SYSTEM_PROMPT_M1 exacto. Si el RAG
+    responde con otro rol, usa el adaptador fuera de lo que aprendio (las rutas
+    agenticas, retiradas en C11, tenian un "Eres Amparo..." propio)."""
+    from tools.rag.prompt_template import INSTRUCCION, SYSTEM_PROMPT_M1
+
+    assert INSTRUCCION.startswith(SYSTEM_PROMPT_M1)
+
+
+def test_el_prompt_de_m1_de_la_libreria_rag_es_el_del_dataset():
+    """Si se desincroniza, el RAG genera con un rol distinto del que aprendio el
+    adaptador y el delta deja de ser atribuible al RAG."""
+    import json
+
+    from tools.evaluation import config as eval_config
+    from tools.rag.prompt_template import SYSTEM_PROMPT_M1
+
+    with open(eval_config.LOCAL_DATASET_PATH, encoding="utf-8") as f:
+        primero = json.loads(f.readline())
+    assert SYSTEM_PROMPT_M1 == primero["messages"][0]["content"]

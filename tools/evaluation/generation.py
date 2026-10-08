@@ -5,7 +5,7 @@ del notebook de Colab -- ver colab/m2_evaluacion.ipynb -- no en requirements.txt
 del repo, para no arriesgar romper el build de PyTorch con CUDA que Colab ya
 trae preinstalado). Las importaciones pesadas son perezosas (dentro de cada
 funcion) a proposito: asi este modulo SI es importable fuera de Colab (p. ej.
-por judge.py/bias.py para sus partes puras), aunque llamar a estas funciones
+por tests y por herramientas que no generan), aunque llamar a estas funciones
 sin torch/peft instalados sigue fallando -- eso es esperado, solo corren
 dentro de Colab.
 """
@@ -50,16 +50,6 @@ def attach_adapter(model, adapter_dir: str | Path):
     return model
 
 
-def detach_adapter(model):
-    """Quita las capas LoRA SIN fusionarlas (model.unload()) y devuelve el
-    modelo base original -- para reutilizarlo como juez independiente. NO usar
-    merge_and_unload(): eso horneria el fine-tuning en los pesos y arruinaria
-    la independencia del juez."""
-    model = model.unload()
-    model.eval()
-    return model
-
-
 # Marcas de fin de turno que quedan al decodificar SIN saltar tokens especiales.
 _FINES_DE_TURNO = ("<|im_end|>", "<|endoftext|>")
 
@@ -70,7 +60,8 @@ def run_messages_generation(
     messages: list[dict],
     max_new_tokens: int,
     tools: list[dict] | None = None,
-) -> str:
+    return_n_tokens: bool = False,
+):
     """Boilerplate compartido de generacion: apply_chat_template -> tokenize
     -> generate (greedy) -> decode, sobre una lista de mensajes ya armada
     (system + turnos previos + turno final). run_chat_generation (system +
@@ -83,8 +74,12 @@ def run_messages_generation(
     del modelo, que los presenta en el formato con el que Qwen2.5 fue entrenado
     para pedir herramientas (<tool_call>...</tool_call>). En ese caso se decodifica
     SIN saltar tokens especiales, para no perder las etiquetas <tool_call>, y se
-    limpian solo las marcas de fin de turno. Ver tools/rag/tools.py (seccion 26
-    de docs/m3_decisiones_rag.md)."""
+    limpian solo las marcas de fin de turno. Lo usaba el tool use de S10, retirado
+    el 2026-10-08 (C11, seccion 28 de docs/m3_decisiones_rag.md); queda por si M4
+    vuelve a necesitarlo.
+
+    return_n_tokens: devuelve (texto, tokens generados). Sirve para saber si la
+    respuesta se corto por max_new_tokens (ver generate_batch)."""
     import torch
 
     extra = {"tools": tools} if tools else {}
@@ -101,11 +96,13 @@ def run_messages_generation(
         )
     generated_ids = output_ids[0][inputs["input_ids"].shape[1]:]
     if not tools:
-        return tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
-    texto = tokenizer.decode(generated_ids, skip_special_tokens=False)
-    for marca in _FINES_DE_TURNO:
-        texto = texto.replace(marca, "")
-    return texto.strip()
+        texto = tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
+    else:
+        texto = tokenizer.decode(generated_ids, skip_special_tokens=False)
+        for marca in _FINES_DE_TURNO:
+            texto = texto.replace(marca, "")
+        texto = texto.strip()
+    return (texto, int(generated_ids.shape[0])) if return_n_tokens else texto
 
 
 def run_chat_generation(
@@ -114,14 +111,15 @@ def run_chat_generation(
     system_prompt: str,
     user_content: str,
     max_new_tokens: int,
-) -> str:
-    """Un solo turno (system + user). Usado tanto para generar respuestas del
-    asistente como para las llamadas del juez (judge.py, bias.py)."""
+    return_n_tokens: bool = False,
+):
+    """Un solo turno (system + user) con el modelo cargado en la GPU."""
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_content},
     ]
-    return run_messages_generation(model, tokenizer, messages, max_new_tokens)
+    return run_messages_generation(model, tokenizer, messages, max_new_tokens,
+                                   return_n_tokens=return_n_tokens)
 
 
 def generate_response(
@@ -130,8 +128,10 @@ def generate_response(
     system_prompt: str,
     query: str,
     max_new_tokens: int = config.MAX_NEW_TOKENS_GENERATION,
-) -> str:
-    return run_chat_generation(model, tokenizer, system_prompt, query, max_new_tokens)
+    return_n_tokens: bool = False,
+):
+    return run_chat_generation(model, tokenizer, system_prompt, query, max_new_tokens,
+                               return_n_tokens=return_n_tokens)
 
 
 @dataclass
@@ -143,6 +143,12 @@ class GenerationResult:
     generated: str
     label: str  # "baseline" | "fine_tuned"
     latency_s: float
+    # Tokens generados y si la respuesta se corto por max_new_tokens. En la
+    # corrida del 2026-10-02, con 300 tokens, 159 de las 213 respuestas del
+    # baseline terminaban a mitad de frase: el juez y las metricas contra la
+    # referencia castigaban al baseline por incompleto, no por incorrecto.
+    n_tokens: int = 0
+    cortada: bool = False
 
 
 def generate_batch(
@@ -169,8 +175,8 @@ def generate_batch(
         query = record["messages"][1]["content"]
         expected = record["messages"][2]["content"]
         start = time.perf_counter()
-        generated = generate_response(
-            model, tokenizer, system_prompt, query, max_new_tokens
+        generated, n_tokens = generate_response(
+            model, tokenizer, system_prompt, query, max_new_tokens, return_n_tokens=True
         )
         latency_s = time.perf_counter() - start
         result = GenerationResult(
@@ -181,6 +187,8 @@ def generate_batch(
             generated=generated,
             label=label,
             latency_s=latency_s,
+            n_tokens=n_tokens,
+            cortada=n_tokens >= max_new_tokens,
         )
         results.append(result)
         if on_result is not None:

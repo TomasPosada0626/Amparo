@@ -1,8 +1,17 @@
 # Datos privados (no deben subirse al repo)
 private/
 
-# Lista de trabajo de auditoria interna, no es un artefacto de entrega
+# Listas de trabajo de auditoria interna, no son artefactos de entrega
 AUDITORIA_PENDIENTES.md
+AUDITORIA_M1.md
+
+# Roadmaps de planeacion interna del equipo (reparto de tareas y fechas):
+# documentos de trabajo, no entregables. El patron cubre las versiones que
+# se vayan agregando, no solo el archivo de hoy.
+ROADMAP*.pdf
+# Revisiones de codigo y auditorias internas, mismo motivo.
+Revisi*n de c*digo*.pdf
+*auditor*a*.pdf
 
 # Borradores de la wiki (M2-M5): se editan localmente y solo se suben
 # a la wiki de GitHub cuando cada milestone este listo para entrega.
@@ -29,3 +38,8 @@ Thumbs.db
 # son textos de dominio publico). Lo que no se versiona es la salida generada
 # por el ingest, que se puede reconstruir con pipeline.build_index().
 data/rag_corpus_processed.jsonl
+
+# Carpeta de paso para traer archivos de Drive. Queda ahi el
+# adapter_model.safetensors (40 MB de pesos), que vive en Hugging Face y no en
+# el repo: sin esta regla, un "git add ." lo subiria.
+prueba/

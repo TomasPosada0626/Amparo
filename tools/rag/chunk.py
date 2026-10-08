@@ -38,9 +38,33 @@ from tools.rag import config
 # aceptan tambien "Articulo" sin tilde -- media docena de normas del corpus lo
 # escriben asi -- y los articulos transitorios de la Constitucion.
 ARTICLE_PATTERN = re.compile(
-    r"^[ \t]*(?:art[íi]culo|art[íi]c\.|art\.)[ \t]*"
+    # Un encabezado de articulo empieza el texto o va despues de una linea en
+    # blanco. Sin esa condicion, una referencia interna que cae al inicio de
+    # linea al reflowear ("...articulo 156, o por iniciativa popular...") abria
+    # un articulo nuevo y partia el anterior por la mitad: pasaba cinco veces en
+    # la Constitucion (74, 155, 156, 179, 357).
+    #
+    # El criterio NO puede ser la mayuscula inicial: el Codigo de Procedimiento
+    # Penal escribe "articulo 287." en minuscula y es un encabezado real, y el
+    # Codigo Civil escribe "ArtIculo" con I mayuscula en medio.
+    # Tres posiciones validas de encabezado: inicio del texto, despues de una
+    # linea en blanco, o despues de un salto simple si lo que sigue empieza con
+    # mayuscula ("Articulo", "ART."). La tercera evita depender de que la fuente
+    # deje linea en blanco, sin volver a aceptar las referencias internas en
+    # minuscula a mitad de parrafo.
+    r"(?:\A|(?<=\n\n)|(?<=\n)(?=[ \t]*(?-i:ART|Art)))"
+    r"[ \t]*(?:art[íiÍI]culo|art[íiÍI]c\.|art\.)[ \t]*"
     r"(?P<transitorio>transitorio[ \t]+)?"
-    r"(?P<numero>\d+[a-zA-Z]?)[ \t]*(?:[°ºo]\b)?[ \t]*[\.\-–:)]?",
+    # El sufijo de los articulos "bis" va pegado, con guion o con espacio:
+    # "14A", "151-A", "19 A". Con espacio se exige que lo siga un cierre de
+    # encabezado, para no confundirlo con el inicio del texto del articulo.
+    # Sufijo numerico "391-1" (CST, Codigo Penal): solo si le sigue el punto del
+    # encabezado, para no confundirlo con un rango "articulos 5-7".
+    r"(?P<numero>\d+(?:[ \t]*[-–][ \t]*\d{1,2}(?=[ \t]*[°º]?[ \t]*\.)"
+    r"|[ \t]*[-–][ \t]*[A-Za-z](?![A-Za-z])"
+    r"|[ \t]+[A-Za-z](?![A-Za-z])(?=[ \t]*[\.\-–:)])"
+    r"|[a-zA-Z](?![A-Za-z]))?)"
+    r"[ \t]*(?:[°ºo]\b)?[ \t]*[\.\-–:)]?",
     re.IGNORECASE | re.MULTILINE,
 )
 
@@ -99,8 +123,15 @@ def normalizar_numero(numero: str) -> str:
     corpus. La letra final SI se conserva cuando no es la marca de ordinal, para
     no romper los articulos bis del tipo "Articulo 14A".
     """
+    numero = " ".join(numero.split())          # "151 - A" -> "151 - A" sin dobles
     if len(numero) > 1 and numero[-1] in "oO" and numero[:-1].isdigit():
         return numero[:-1]
+    # Sufijo "bis" a una sola forma: el corpus lo escribe "151-A", "19 A" y
+    # "185 a" indistintamente, y sin unificarlos la misma norma se citaria de
+    # tres maneras y las citas no coincidirian entre si.
+    m = re.fullmatch(r"(\d+)[ \t]*[-–]?[ \t]*([A-Za-z])", numero)
+    if m:
+        return f"{m.group(1)}-{m.group(2).upper()}"
     return numero
 
 
@@ -179,6 +210,35 @@ def split_long_text(texto: str, max_tokens: int) -> list[str]:
     return piezas or [texto]
 
 
+def texto_indexable(chunk: Chunk) -> str:
+    """El texto que se embebe: la cita y despues el contenido.
+
+    Lo que se indexaba era `chunk.text` pelado, sin decir de que norma ni de que
+    articulo venia. Para el embedding denso "64" no significa nada y el nombre de
+    la norma no estaba en el vector, asi que "que dice el articulo 64 del Codigo
+    Sustantivo del Trabajo" no tenia contra que empatar: en la demo de S08 las
+    configuraciones A y B devolvian los articulos 46, 158, 165 y 468, y solo C lo
+    encontraba, por BM25.
+
+    Se usa la misma forma que SearchResult.cita, para que lo indexado y lo que se
+    le muestra al modelo digan la misma cita. El `text` del chunk no se toca: el
+    prompt sigue armandose con format_context, que ya pone la cita arriba, asi
+    que no se duplica.
+    """
+    if chunk.articulos_incluidos:
+        etiqueta = "Articulo" if len(chunk.articulos_incluidos) == 1 else "Articulos"
+        cita = f"{chunk.fuente}, {etiqueta} {', '.join(chunk.articulos_incluidos)}"
+    else:
+        cita = chunk.fuente
+    # El capitulo dice de que trata el articulo con palabras que la pregunta suele
+    # usar ("Terminacion del contrato de arrendamiento") y que el articulo mismo
+    # a veces no repite. 2026-10-08, junto con el enrutador.
+    capitulo = getattr(chunk, "capitulo", "") or ""
+    if capitulo:
+        cita = f"{cita} ({capitulo})"
+    return f"{cita}\n{chunk.text}"
+
+
 def chunk_document(
     doc: dict,
     *,
@@ -225,7 +285,14 @@ def chunk_document(
         if estimate_tokens(span.texto) < min_tokens:
             # Articulo corto: se agrupa con los cortos contiguos, no se descarta.
             # Si el grupo acumulado ya llega al presupuesto, se cierra antes de
-            # seguir sumando.
+            # seguir sumando. Y si sumar este articulo lo pasaria del
+            # presupuesto, se cierra ANTES de sumarlo: el Codigo Civil tiene
+            # tiradas de 20+ articulos "Derogado" seguidos y el grupo llegaba a
+            # 384 tokens con un presupuesto de 350.
+            if pendientes and estimate_tokens(
+                "\n\n".join([*(s.texto for s in pendientes), span.texto])
+            ) > max_tokens:
+                cerrar_pendientes()
             pendientes.append(span)
             if estimate_tokens("\n\n".join(s.texto for s in pendientes)) >= max_tokens:
                 cerrar_pendientes()

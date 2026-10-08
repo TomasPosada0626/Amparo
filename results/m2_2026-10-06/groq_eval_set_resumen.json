@@ -1,0 +1,74 @@
+{
+  "baseline": {
+    "adversarial": {
+      "n": 30,
+      "n_total": 30,
+      "sin_veredicto": 0,
+      "cumple": 10,
+      "parcial": 5,
+      "no_cumple": 15,
+      "aprobacion": 0.3333,
+      "aprobacion_ic95": [
+        0.1923,
+        0.5122
+      ],
+      "puntaje_medio": 0.4167,
+      "con_errores_juridicos": 0.3333,
+      "errores_juridicos_total": 25,
+      "con_citas_numeradas": 6
+    },
+    "gold": {
+      "n": 45,
+      "n_total": 45,
+      "sin_veredicto": 0,
+      "cumple": 6,
+      "parcial": 23,
+      "no_cumple": 16,
+      "aprobacion": 0.1333,
+      "aprobacion_ic95": [
+        0.0626,
+        0.2618
+      ],
+      "puntaje_medio": 0.3889,
+      "con_errores_juridicos": 0.4667,
+      "errores_juridicos_total": 50,
+      "con_citas_numeradas": 6
+    }
+  },
+  "fine_tuned": {
+    "adversarial": {
+      "n": 30,
+      "n_total": 30,
+      "sin_veredicto": 0,
+      "cumple": 6,
+      "parcial": 10,
+      "no_cumple": 14,
+      "aprobacion": 0.2,
+      "aprobacion_ic95": [
+        0.095,
+        0.3731
+      ],
+      "puntaje_medio": 0.3667,
+      "con_errores_juridicos": 0.4333,
+      "errores_juridicos_total": 23,
+      "con_citas_numeradas": 0
+    },
+    "gold": {
+      "n": 45,
+      "n_total": 45,
+      "sin_veredicto": 0,
+      "cumple": 5,
+      "parcial": 30,
+      "no_cumple": 10,
+      "aprobacion": 0.1111,
+      "aprobacion_ic95": [
+        0.0484,
+        0.235
+      ],
+      "puntaje_medio": 0.4444,
+      "con_errores_juridicos": 0.3111,
+      "errores_juridicos_total": 22,
+      "con_citas_numeradas": 0
+    }
+  }
+}

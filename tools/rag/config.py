@@ -69,7 +69,11 @@ RETRIEVAL_MIN_SCORE = 0.82
 
 # --- Generacion -------------------------------------------------------------
 BASE_MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"  # mismo que tools/evaluation/config.py
-MAX_NEW_TOKENS_GENERATION = 300
+# Mismo valor que tools/evaluation/config.py. Era 300, y con ese techo el
+# modelo base -- que escribe ~224 palabras -- salia cortado a mitad de frase,
+# igual que pasaba en M2 antes del 2026-10-04 (159 de 213 respuestas). Mientras
+# M2 generara con 900 y M3 con 300, sus cifras no eran comparables.
+MAX_NEW_TOKENS_GENERATION = 900
 
 # Ruta al adaptador LoRA de M1. Igual que en tools/evaluation/config.py, las
 # rutas de Drive son simples strings: no se tocan fuera de Colab, asi que este
@@ -92,6 +96,15 @@ LORA_ADAPTER_PATH: str | None = f"{DRIVE_ROOT}/amparo-lora-adapter"
 # configuracion corre el sistema.
 USE_HYBRID = False
 USE_RERANK = False
+
+# Enrutador por categoria (tools/rag/enrutador.py, 2026-10-08): antes de cortar
+# el top-k, sube al frente los candidatos de las normas de las categorias que el
+# clasificador le asigna a la pregunta. Para que tenga de donde elegir, la
+# busqueda trae ENRUTADOR_POOL candidatos en vez de top_k. Medido con BM25 sobre
+# los 45 gold etiquetados: acierto en el top-5 de 10 a 17. Con e5, medir en Colab
+# (tools/rag/benchmark_busqueda.py) antes de dar el numero por bueno.
+USE_ENRUTADOR = True
+ENRUTADOR_POOL = 300
 
 # Hybrid search -------------------------------------------------------------
 # Cuantos candidatos pide CADA recuperador (denso y BM25) antes de fusionar. Es

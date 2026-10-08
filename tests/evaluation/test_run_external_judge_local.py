@@ -50,3 +50,16 @@ def test_build_pairs_skips_ids_without_counterpart():
 def load_results_from_dicts(rows):
     from tools.evaluation.run_external_judge_local import LoadedResult
     return [LoadedResult(**{k: v for k, v in r.items() if k != "latency_s"}) for r in rows]
+
+
+def test_eval_set_se_califica_contra_criterio(tmp_path, monkeypatch):
+    from tools.evaluation import criterio, run_external_judge_local as local
+
+    monkeypatch.setattr(criterio, "generador_groq",
+                        lambda: (lambda s, u, m: '{"veredicto": "cumple", "errores_juridicos": []}'))
+    b, f = tmp_path / "b.jsonl", tmp_path / "f.jsonl"
+    _write_jsonl(b, [{**_row(9001, "resp b", "baseline")}])
+    _write_jsonl(f, [{**_row(9001, "resp f", "fine_tuned")}])
+    resumen = local.run_eval_set_judging(b, f, tmp_path)
+    assert resumen["fine_tuned"]["gold"]["cumple"] == 1
+    assert (tmp_path / "groq_eval_set_resultados.jsonl").exists()

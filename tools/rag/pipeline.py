@@ -17,7 +17,7 @@ from __future__ import annotations
 import time
 
 from tools.rag import config, corpus
-from tools.rag.chunk import chunk_corpus
+from tools.rag.chunk import chunk_corpus, texto_indexable
 from tools.rag.embed_store import embed_passages, get_store
 from tools.rag.ingest import ingest_corpus, save_processed
 from tools.rag.prompt_template import build_messages
@@ -25,6 +25,13 @@ from tools.rag.retrieve import retrieve
 
 # Cada cuantos chunks se reporta progreso al construir el indice.
 PROGRESO_CADA = 250
+
+
+# Tokens de la ultima generacion, para que to_eval_record pueda registrar si la
+# respuesta se corto. Es estado de modulo y no un valor de retorno porque
+# _generar_verificado puede llamar a generate dos veces (con la nota de
+# correccion) y solo cuenta la ultima.
+_ULTIMA_GENERACION: dict = {"n_tokens": 0, "cortada": False}
 
 
 # --- Indexacion (offline) ---------------------------------------------------
@@ -73,7 +80,9 @@ def build_index(manifest: list[dict] | None = None, *, save: bool = True):
     embeddings: list[list[float]] = []
     inicio = time.perf_counter()
     for i in range(0, len(chunks), PROGRESO_CADA):
-        lote = [c.text for c in chunks[i : i + PROGRESO_CADA]]
+        # Con la cita delante (RAG-6): el vector lleva la norma y el numero de
+        # articulo, para que una pregunta por un articulo concreto pueda empatar.
+        lote = [texto_indexable(c) for c in chunks[i : i + PROGRESO_CADA]]
         embeddings.extend(embed_passages(lote))
         hechos = len(embeddings)
         transcurrido = time.perf_counter() - inicio
@@ -201,7 +210,7 @@ def _generar_verificado(query, recuperados, *, use_lora, model_bundle, prompt_op
        de correccion; si insiste, escape por codigo.
 
     Devuelve (respuesta, verificacion) para auditar que hizo el codigo."""
-    from tools.rag.agentico import citas_no_verificables, nota_de_correccion
+    from tools.rag.verificacion import citas_no_verificables, nota_de_correccion
     from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO
 
     if not recuperados:
@@ -252,15 +261,19 @@ def to_eval_record(resultado: dict, registro: dict) -> dict:
         "retrieved_chunks": resultado["retrieved_chunks"],
         "n_retrieved": resultado["n_retrieved"],
         "used_lora": resultado["used_lora"],
+        # Cuantos tokens genero y si toco el techo (RAG-7). El scorecard de M2
+        # reporta lo mismo, asi que las dos mitades del proyecto se leen igual.
+        "n_tokens": resultado.get("n_tokens", _ULTIMA_GENERACION["n_tokens"]),
+        "cortada": resultado.get("cortada", _ULTIMA_GENERACION["cortada"]),
         # Sistema A/B/C que produjo esta respuesta. Se usan .get() con default
         # False para no romper si el resultado viene de un caller que todavia no
         # los setea (compatibilidad con el contrato S07). Ver
         # docs/m3_decisiones_rag.md.
         "used_hybrid": resultado.get("used_hybrid", False),
         "used_rerank": resultado.get("used_rerank", False),
-        # Ruta que genero la respuesta (S10): "una_pasada" (answer_query),
-        # "tool_use" (tools.responder_con_tools) o "react" (agentico.agente_react).
-        # La traza (vacia en una pasada) es la evidencia de los pasos del agente.
+        # Ruta que genero la respuesta: "una_pasada" o "una_pasada_dspy". Las
+        # rutas "tool_use" y "react" se retiraron el 2026-10-08 (C11); el campo
+        # y la traza (vacia) se conservan para leer las corridas anteriores.
         "sistema": resultado.get("sistema", "una_pasada"),
         "traza": resultado.get("traza", []),
         # Que hizo el codigo antes de entregar la respuesta (escape por codigo,
@@ -300,13 +313,20 @@ def generate(messages: list[dict], *, use_lora: bool = False, model_bundle=None)
     model, tokenizer = model_bundle if model_bundle else load_model(use_lora)
     system_prompt = next(m["content"] for m in messages if m["role"] == "system")
     user_content = next(m["content"] for m in messages if m["role"] == "user")
-    return generation.run_chat_generation(
+    texto, n_tokens = generation.run_chat_generation(
         model,
         tokenizer,
         system_prompt,
         user_content,
         config.MAX_NEW_TOKENS_GENERATION,
+        return_n_tokens=True,
     )
+    # Se guardan los tokens y si la respuesta toco el techo: sin eso no hay forma
+    # de saber cuales salieron cortadas, que es lo que invalidaba la comparacion
+    # cuando el limite era 300.
+    _ULTIMA_GENERACION["n_tokens"] = n_tokens
+    _ULTIMA_GENERACION["cortada"] = n_tokens >= config.MAX_NEW_TOKENS_GENERATION
+    return texto
 
 
 if __name__ == "__main__":

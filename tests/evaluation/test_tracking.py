@@ -52,13 +52,13 @@ def test_registrar_ruta_loguea_escalares_tabla_y_traza():
               "context_recall": 1.0, "answer_relevancy": 0.9, "escape": False}]
 
     url = tracking.registrar_ruta(
-        wb, sistema="react", resumen_ragas={"faithfulness": 1.0, "casos": 1, "context_recall": None},
+        wb, sistema="una_pasada_dspy", resumen_ragas={"faithfulness": 1.0, "casos": 1, "context_recall": None},
         escape={"escape_en_gold": 0.0}, latencia_s=4.2, filas_ragas=filas, records=records,
         config={"modelo": "qwen"}, entity="equipo", project="amparo-rag",
     )
 
-    assert url == "https://wandb.ai/x/react"
-    assert wb.runs[0]["entity"] == "equipo" and wb.runs[0]["config"]["sistema"] == "react"
+    assert url == "https://wandb.ai/x/una_pasada_dspy"
+    assert wb.runs[0]["entity"] == "equipo" and wb.runs[0]["config"]["sistema"] == "una_pasada_dspy"
     escalares = wb.logs[0]
     assert escalares["faithfulness"] == 1.0 and escalares["latencia_s_por_consulta"] == 4.2
     assert "context_recall" not in escalares            # los None no se loguean
@@ -77,9 +77,9 @@ def test_la_ruta_de_una_pasada_no_registra_traza():
 def test_comparativa_pone_las_rutas_lado_a_lado():
     wb = FakeWandb()
     tracking.registrar_comparativa(
-        wb, resumenes={"una_pasada": {"faithfulness": 0.7, "casos": 50}, "react": {"faithfulness": 0.9}},
-        escapes={"react": {"prudencia_en_adversariales": 1.0}}, latencias={"react": 9.1}, config={},
+        wb, resumenes={"una_pasada": {"faithfulness": 0.7, "casos": 50}, "una_pasada_dspy": {"faithfulness": 0.9}},
+        escapes={"una_pasada_dspy": {"prudencia_en_adversariales": 1.0}}, latencias={"una_pasada_dspy": 9.1}, config={},
     )
     tabla = wb.logs[0]["comparativa"]
-    assert [fila[0] for fila in tabla.data] == ["una_pasada", "react"]
+    assert [fila[0] for fila in tabla.data] == ["una_pasada", "una_pasada_dspy"]
     assert tabla.data[1][5] == 1.0 and tabla.data[1][8] == 9.1

@@ -1,0 +1,510 @@
+---
+title: "por medio de la cual se introducen medidas para la eficiencia y la transparencia en la Ley 80 de 1993 y se dictan otras disposiciones generales sobre la contratación con Recursos Públicos"
+identifier: "LEY-1150-2007"
+country: "co"
+rank: "ley"
+publication_date: "2007-07-16"
+last_updated: "2023-05-18"
+status: "in_force"
+source: "https://www.suin-juriscol.gov.co/viewDocument.asp?id=1674903"
+department: "CONGRESO DE COLOMBIA"
+document_status_raw: "Vigente"
+gazette_reference: "DIARIO OFICIAL. AÑO CXLIII. N. 46691. 16, JULIO, 2007. PÁG. 1."
+gazette_number: "46691"
+gazette_page: "1"
+gazette_pdf_page: "1"
+subtype: "LEY ORDINARIA"
+sector: "Planeación"
+entry_into_force: "2008-01-16"
+modification_count: "35"
+modification_summary: "Modificado (Modifíquese el literal l) al nuemral 4. ) [Artículo 353 LEY 2294 de 2023](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30046580#ver_30302874) · Adicionado (el literal o) al numeral 4. ) [Artículo 353 LEY 2294 de 2023](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30046580#ver_30302874) · Adicionado parcialmente (el literal j) ) [Artículo 54 LEY 2195 de 2022](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30043772#ver_30266183) · Modificado y adicionado (el literal l), m) y n) al numeral 4, y los parágrafos 8 y 9. ) [Artículo 2 LEY 2160 de 2021](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30043507#ver_30262304) · Adicionado parcialmente (literal k) al numeral cuarto ) [Artículo 82 LEY 2080 de 2021](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30040345#ver_30235431) · Modificado parcialmente (Numeral 5. ) [Artículo 30 LEY 2069 de 2020](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30040296#ver_30234253) · Modificado (parágrafo 7 ) [Artículo 1 LEY 2022 de 2020](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30039623#ver_30223091) · Adicionado parcialmente (Inciso al paràgrafo 5 ) [Artículo 5 DECRETO 537 de 2020](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30039101#ver_30216305) · Modificado parcialmente (parágrafo 5 ) [Artículo 41 LEY 1955 de 2019](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30036488#ver_30190124) · Decretada la nulidad (Parágrafo 7. ) [Artículo 4 LEY 1882 de 2018](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30034454#ver_30139514) · Modificado (numeral 3 ) [Artículo 219 DECRETO 19 de 2012](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1004430#ver_1004672) · Adicionado (numeral ) [Artículo 274 LEY 1450 de 2011](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1680917#ver_1681203) · Adicionado parcialmente (numeral 4, literal j ) [Artículo 125 LEY 1753 de 2015](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30019885#ver_30047867) · Modificado parcialmente (Parágrafo 6 ) [Artículo 88 LEY 1474 de 2011](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1681594#ver_1681684) · Modificado parcialmente (numeral 4 literal c) inciso 1 ) [Artículo 92 LEY 1474 de 2011](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1681594#ver_1681688) · Adicionado parcialmente [Artículo 94 LEY 1474 de 2011](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1681594#ver_1681690) · Modificado parcialmente (numeral 4 literal c) inciso 2 ) [Artículo 95 LEY 1474 de 2011](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1681594#ver_1681691) · Reglamentado (numeral 2 literal i ) [DECRETO 1965 de 2014](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1378207#ver_1378208) · Reglamentado parcialmente (numeral 2, literal e ) [DECRETO 4444 de 2008](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1785017#ver_1785018) · Derogado ((parágrafo 2) ) [Artículo 223 DECRETO 19 de 2012](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1004430#ver_30170374) · Modificado parcialmente (parágrafo 1 ) [Artículo 5 LEY 1882 de 2018](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30034454#ver_30139515) · Adicionado parcialmente (parágrafos 3°, 4° y 5° ) [Artículo 5 LEY 1882 de 2018](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30034454#ver_30139515) · Modificado parcialmente (numeral 2 ) [Artículo 88 LEY 1474 de 2011](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1681594#ver_1681684) · Derogado parcialmente (la expresión «Para el efecto será competente el Juez de lo Contencioso Administrativo en única instancia» del inciso 2º del numeral 6.3 ) [Artículo 87 LEY 2080 de 2021](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30040345#ver_30235436) · Modificado [Artículo 221 DECRETO 19 de 2012](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1004430#ver_1004674) · Adicionado parcialmente (parágrafo ) [Artículo 6 LEY 1882 de 2018](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30034454#ver_30139516) · Modificado [Artículo 34 LEY 2069 de 2020](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30040296#ver_30234257) · Adicionado (Parágrafo 4 ) [Artículo 3 LEY 2040 de 2020](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30039602#ver_30222848) · Modificado [Artículo 32 LEY 1450 de 2011](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1680917#ver_1680956) · Adicionado parcialmente (incisos ) [Artículo 53 LEY 2195 de 2022](https://www.suin-juriscol.gov.co/viewDocument.asp?id=30043772#ver_30266182) · Modificado [Artículo 93 LEY 1474 de 2011](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1681594#ver_1681689) · Derogado [Artículo 118 LEY 1563 de 2012](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1683448#ver_1683569) · Derogado [Artículo 276 LEY 1450 de 2011](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1680917#ver_1681205) · Derogado [Artículo 39 LEY 1508 de 2012](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1682473#ver_1682515)"
+---
+# por medio de la cual se introducen medidas para la eficiencia y la transparencia en la Ley 80 de 1993 y se dictan otras disposiciones generales sobre la contratación con Recursos Públicos
+
+**El Congreso de la República**
+
+**DECRETA:**
+
+##### **Artículo 1°. *Objeto.*** La presente ley tiene por objeto introducir modificaciones en la Ley 80 de 1993, así como dictar otras disposiciones generales aplicables a toda contratación con recursos públicos.
+
+**T I T U L O I**
+
+**DE LA EFICIENCIA Y DE LA TRANSPARENCIA**
+
+##### ***Artículo 2°.De las modalidades de selección.*** La escogencia del contratista se efectuará con arreglo a las modalidades de selección de licitación pública, selección abreviada, concurso de méritos y contratación directa, con base en las siguientes reglas:
+
+- 1. **Licitación pública**. La escogencia del contratista se efectuará por regla general a través de licitación pública, con las excepciones que se señalan en los numerales 2, 3 y 4 del presente artículo.
+
+Cuando la entidad estatal así lo determine, la oferta en un proceso de la licitación pública podrá ser presentada total o parcialmente de manera dinámica mediante subasta inversa, en las condiciones que fije el reglamento.
+
+- 2. **Selección abreviada*.*** La Selección abreviada corresponde a la modalidad de selección objetiva prevista para aquellos casos en que por las características del objeto a contratar, las circunstancias de la contratación o la cuantía o destinación del bien, obra o servicio, puedan adelantarse procesos simplificados para garantizar la eficiencia de la gestión contractual.
+
+El Gobierno Nacional reglamentará la materia.
+
+Serán causales de selección abreviada las siguientes:
+
+- a) La adquisición o suministro de bienes y servicios de características técnicas uniformes y de común utilización por parte de las entidades, que corresponden a aquellos que poseen las mismas especificaciones técnicas, con independencia de su diseño o de sus características descriptivas, y comparten patrones de desempeño y calidad objetivamente definidos.
+
+Para la adquisición de estos bienes y servicios las entidades deberán, siempre que el reglamento así lo señale, hacer uso de procedimientos de subasta inversa o de instrumentos de compra por catálogo derivados de la celebración de acuerdos marco de precios o de procedimientos de adquisición en bolsas de productos;
+
+- b) La contratación de menor cuantía. Se entenderá por menor cuantía los valores que a continuación se relacionan, determinados en función de los presupuestos anuales de las entidades públicas expresados en salarios mínimos legales mensuales.
+
+Para las entidades que tengan un presupuesto anual superior o igual a 1.200.000 salarios mínimos legales mensuales, la menor cuantía será hasta 1.000 salarios mínimos legales mensuales.
+
+Las que tengan un presupuesto anual superior o igual a 850.000 salarios mínimos legales mensuales e inferiores a 1.200.000 salarios mínimos legales mensuales, la menor cuantía será hasta 850 salarios mínimos legales mensuales.
+
+Las que tengan un presupuesto anual superior o igual a 400.000 salarios mínimos legales mensuales e inferior a 850.000 salarios mínimos legales mensuales, la menor cuantía será hasta 650 salarios mínimos legales mensuales.
+
+Las que tengan un presupuesto anual superior o igual a 120.000 salarios mínimos legales mensuales e inferior a 400.000 salarios mínimos legales mensuales, la menor cuantía será hasta 450 salarios mínimos legales mensuales.
+
+Las que tengan un presupuesto anual inferior a 120.000 salarios mínimos legales mensuales, la menor cuantía será hasta 280 salarios mínimos legales mensuales;
+
+- c) Sin perjuicio de lo dispuesto en la Ley 100 de 1993 y en la Ley 1122 de 2007, la celebración de contratos para la prestación de servicios de salud. El reglamento interno correspondiente fijará las garantías a cargo de los contratistas. Los pagos correspondientes se podrán hacer mediante encargos fiduciarios;
+
+- d) La contratación cuyo proceso de licitación pública haya sido declarado desierto; en cuyo caso la entidad deberá iniciar la selección abreviada dentro de los cuatro meses siguientes a la declaración de desierta del proceso inicial;
+
+- e) La enajenación de bienes del Estado, con excepción de aquellos a que se refiere la Ley 226 de 1995.
+
+En los procesos de enajenación de los bienes del Estado se podrán utilizar instrumentos de subasta y en general de todos aquellos mecanismos autorizados por el derecho privado, siempre y cuando en desarrollo del proceso de enajenación se garantice la transparencia, la eficiencia y la selección objetiva.
+
+En todo caso, para la venta de los bienes se debe tener como base el valor del avalúo comercial y ajustar dicho avalúo de acuerdo a los gastos asociados al tiempo de comercialización esperada, administración, impuestos y mantenimiento, para determinar el precio mínimo al que se debe enajenar el bien, de conformidad con la reglamentación que para el efecto expida el Gobierno Nacional.
+
+La enajenación de los bienes que formen parte del Fondo para la Rehabilitación, Inversión Social y Lucha contra el Crimen Organizado, Frisco, se hará por la Dirección Nacional de Estupefacientes, observando los principios del artículo 209 de la Constitución Política y la reglamentación que expida el Gobierno Nacional, teniendo en cuenta las recomendaciones que para el efecto imparta el Consejo Nacional de Estupefacientes.
+
+El Reglamento deberá determinar la forma de selección, a través de invitación pública de los profesionales inmobiliarios, que actuarán como promotores de las ventas, que a su vez, a efecto de avalúos de los bienes, se servirán de avaluadores debidamente inscritos en el Registro Nacional de Avaluadores y quienes responderán por sus actos solidariamente con los promotores.
+
+Las reglas y procedimientos que deberán atender la administración y los promotores y la publicidad del proceso deberán garantizar la libre concurrencia y oportunidad de quienes participen en el mismo.
+
+Los bienes serán enajenados a través de venta directa en sobre cerrado o en pública subasta. La adjudicación para la venta directa deberá hacerse en audiencia pública, en donde se conozcan las ofertas iniciales y se efectúe un segundo ofrecimiento, frente al cual se adjudicará el bien a quien oferte el mejor precio. En la subasta pública, de acuerdo con el reglamento definido para su realización, el bien será adjudicado al mejor postor.
+
+La venta implica la publicación previa de los bienes en un diario de amplia circulación nacional, con la determinación del precio base. El interesado en adquirir bienes deberá consignar al menos el 20% del valor base de venta para participar en la oferta;
+
+- f) Productos de origen o destinación agropecuarios que se ofrezcan en las bolsas de productos legalmente constituidas;
+
+- g) Los actos y contratos que tengan por objeto directo las actividades comerciales e industriales propias de las Empresas Industriales y Comerciales Estatales y de las Sociedades de Economía Mixta, con excepción de los contratos que a título enunciativo identifica el artículo 32 de la Ley 80 de 1993;
+
+- h) Los contratos de las entidades, a cuyo cargo se encuentre la ejecución de los programas de protección de personas amenazadas, programas de desmovilización y reincorporación a la vida civil de personas y grupos al margen de la ley, incluida la atención de los respectivos grupos familiares, programas de atención a población desplazada por la violencia, programas de protección de derechos humanos de grupos de personas habitantes de la calle, niños y niñas o jóvenes involucrados en grupos juveniles que hayan incurrido en conductas contra el patrimonio económico y sostengan enfrentamientos violentos de diferente tipo, y población en alto grado de vulnerabilidad con reconocido estado de exclusión que requieran capacitación, resocialización y preparación para el trabajo, incluidos los contratos fiduciarios que demanden;
+
+- i) La contratación de bienes y servicios que se requieran para la defensa y seguridad nacional.
+
+- j) Los bienes y servicios no uniformes de común utilización por parte de las entidades públicas, para lo cual la Agencia Nacional de Contratación Pública Colombia Compra Eficiente-podrá celebrar acuerdos marco de precios y demás instrumentos de agregación de demanda. Estos acuerdos marco de precios también serán de obligatorio uso de las entidades del Estado a las que se refiere el parágrafo 5° del artículo 2° de la presente ley, modificado por el artículo 41 de la ley 1955 de 2019.
+
+- **3. Concurso de méritos**. Corresponde a la modalidad prevista para la selección de consultores o proyectos, en la que se podrán utilizar sistemas de concurso abierto o de precalificación. En este último caso, la conformación de la lista de precalificados se hará mediante convocatoria pública, permitiéndose establecer listas limitadas de oferentes mediante resolución motivada, que se entenderá notificada en estrados a los interesados, en la audiencia pública de conformación de la lista, utilizando para el efecto, entre otros, criterios de experiencia, capacidad intelectual y de organización de los proponentes, según sea el caso.
+
+De conformidad con las condiciones que señale el reglamento, en desarrollo de estos procesos de selección, las propuestas técnicas o de proyectos podrán ser presentadas en forma anónima ante un jurado plural, impar deliberante y calificado.
+
+- 4. **Contratación directa.** La modalidad de selección de contratación directa, solamente procederá en los siguientes casos:
+
+- a) Urgencia manifiesta;
+
+- b) Contratación de empréstitos;
+
+- c) Contratos interadministrativos, siempre que las obligaciones derivadas del mismo tengan relación directa con el objeto de la entidad ejecutora señalado en la ley o en sus reglamentos.
+
+Se exceptúan los contratos de obra, suministro, prestación de servicios de evaluación de conformidad respecto de las normas o reglamentos técnicos, encargos fiduciarios y fiducia pública cuando las instituciones de educación superior públicas o las Sociedades de Economía Mixta con participación mayoritaria del Estado, o las personas jurídicas sin ánimo de lucro conformadas por la asociación de entidades públicas, o las federaciones de entidades territoriales sean las ejecutoras. Estos contratos podrán ser ejecutados por las mismas, siempre que participen en procesos de licitación pública o contratación abreviada de acuerdo con lo dispuesto por los numerales 1 y 2 del presente artículo.
+
+En aquellos eventos en que el régimen aplicable a la contratación de la entidad ejecutora no sea el de la Ley 80 de 1993, la ejecución de dichos contratos estará en todo caso sometida a esta ley, salvo que la entidad ejecutora desarrolle su actividad en competencia con el sector privado o cuando la ejecución del contrato interadministrativo tenga relación directa con el desarrollo de su actividad.
+
+En aquellos casos en que la entidad estatal ejecutora deba subcontratar algunas de las actividades derivadas del contrato principal, no podrá ni ella ni el subcontratista, contratar o vincular a las personas naturales o jurídicas que hayan participado en la elaboración de los estudios, diseños y proyectos que tengan relación directa con el objeto del contrato principal.
+
+Estarán exceptuados de la figura del contrato interadministrativo, los contratos de seguro de las entidades estatales;
+
+- d) La contratación de bienes y servicios en el sector Defensa y en el Departamento Administrativo de Seguridad, DAS, que necesiten reserva para su adquisición;
+
+- e) Los contratos para el desarrollo de actividades científicas y tecnológicas;
+
+- f) Los contratos de encargo fiduciario que celebren las entidades territoriales cuando inician el Acuerdo de Reestructuración de Pasivos a que se refieren las Leyes 550 de 1999, 617 de 2000 y las normas que las modifiquen o adicionen, siempre y cuando los celebren con entidades financieras del sector público;
+
+- g) Cuando no exista pluralidad de oferentes en el mercado;
+
+- h) Para la prestación de servicios profesionales y de apoyo a la gestión, o para la ejecución de trabajos artísticos que sólo puedan encomendarse a determinadas personas naturales;
+
+- i) El arrendamiento o adquisición de inmuebles.
+
+- j) La contratación de bienes y servicios de la Dirección Nacional de Inteligencia (DNI), que requieran reserva para su adquisición.
+
+- k) La selección de peritos expertos o asesores técnicos para presentar o contradecir el dictamen pericial en procesos judiciales.
+
+- l) Los contratos o convenios que las entidades estatales suscriban con los Cabildos Indígenas, las asociaciones de Cabildos Indígenas y/o Autoridades Tradicionales Indígenas, Consejos Indígenas y Organizaciones Indígenas con capacidad para contratar cuyo objeto esté relacionado con la ejecución de programas, planes y proyectos del plan de desarrollo relacionados con el fortalecimiento del gobierno propio, la identidad cultural, el ejercicio de la autonomía, la garantía de los derechos, satisfacción de necesidades y/o servicios públicos de los pueblos y comunidades indígenas. En el marco de dichos objetos se contemplará la ejecución de obras públicas que impliquen actividades de mantenimiento y/o mejoramiento de infraestructura social y de transporte, así como suministrar bienes y/o servicios para los que se acredite idoneidad, la cual deberá ser valorada teniendo en cuenta un enfoque diferencial.
+
+- m) Los contratos que las entidades estatales suscriban con los consejos comunitarios de las comunidades negras, regulados por la Ley 70 de 1993, que se encuentren incorporados por el Ministerio del Interior en el correspondiente Registro Público Único Nacional y que hayan cumplido con el deber de actualización de información en el mismo registro, cuyo objeto esté relacionado con el fortalecimiento del gobierno propio, la identidad étnica y cultural, el ejercicio de la autonomía, y/o la garantía de los derechos de los pueblos de las mismas comunidades.
+
+- n) Los contratos que las entidades estatales suscriban con las organizaciones de base de personas pertenecientes a poblaciones afrocolombianas, raizales y palenqueras o con las demás formas y expresiones organizativas, que cuenten con diez (10) años o más de haber sido incorporados por el Ministerio del Interior en el correspondiente Registro Público Único Nacional y que hayan cumplido con el deber de actualización de información en el mismo registro, cuyo objeto esté relacionado con el fortalecimiento de sus organizaciones, la identidad étnica y cultural, y/o la garantía de los derechos de las poblaciones de las mismas organizaciones.
+
+- *o) En situaciones de emergencia y desastres y dentro de sus territorios las Entidades Estatales comprarán de manera preferencial y directa productos agropecuarios a los pueblos y comunidades indígenas y a las comunidades negras, afrocolombianas, raizales y palenqueras, organizaciones y asociaciones campesinas, los cuales podrán ser donados al Fondo Nacional de Gestión del Riesgo de Desastres.*
+
+**5) Contratación mínima cuantía.** La contratación cuyo valor no excede del 10 por ciento de la menor cuantía de la entidad independientemente de su objeto, se efectuará de conformidad con las siguientes reglas: a) Se publicará una invitación, por un término no inferior a un día hábil, en la cual se señalará el objeto a contratar, el presupuesto destinado para tal fin, así como las condiciones técnicas exigidas; b) El término previsto en la invitación para presentar la oferta no podrá ser inferior a un día hábil; c) La entidad seleccionará, mediante comunicación de aceptación de la oferta, la propuesta con el menor precio, siempre y cuando cumpla con las condiciones exigidas; d) La comunicación de aceptación junto con la oferta constituye para todos los efectos el contrato celebrado, con base en lo cual se efectuará el respectivo registro presupuestal.
+
+**Parágrafo 1°**. Las particularidades del procedimiento aquí previsto, así como la posibilidad que tengan las entidades de realizar estas adquisiciones a MiPymes o establecimientos que correspondan a la definición de "gran almacén" señalada por la Superintendencia de Industria y Comercio, se determinarán en el reglamento que para el efecto expida el Gobierno Nacional.
+
+**Parágrafo 2°.** La contratación a que se refiere el presente artículo se realizará exclusivamente con las reglas en él contempladas y en su reglamentación. En particular no se aplicará lo previsto en la Ley 816 de 2003.
+
+**Parágrafo 1°.** La entidad deberá justificar de manera previa a la apertura del proceso de selección de que se trate, los fundamentos jurídicos que soportan la modalidad de selección que se propone adelantar.
+
+**Parágrafo 2°.** El procedimiento aplicable para la ejecución de cada una de las causales a que se refiere el numeral 2° del presente artículo, deberá observar los principios de transparencia, economía, responsabilidad y las siguientes reglas:
+
+- 1. Se dará publicidad a todos los procedimientos y actos.
+
+- 2. Para la selección a la que se refiere el literal b) del numeral 2° del presente artículo, será principio general la convocatoria pública y se podrán utilizar mecanismos de sorteo en audiencia pública, para definir el número de participantes en el proceso de selección correspondiente cuando el número de manifestaciones de interés sea superior a diez (10). Será responsabilidad del representante legal de la entidad estatal, adoptar las medidas necesarias con el propósito de garantizar la pulcritud del respectivo sorteo.
+
+- 3. Sin excepción, las ofertas presentadas dentro de cada uno de los procesos de selección, deberán ser evaluadas de manera objetiva, aplicando en forma exclusiva las reglas contenidas en los pliegos de condiciones o sus equivalentes. Para la selección a la que se refiere el literal a) del numeral 2° del presente artículo, no serán aplicables los artículos 2° y 3° de la Ley 816 de 2003.
+
+**Parágrafo 3°.** El Gobierno Nacional tendrá la facultad de estandarizar las condiciones generales de los pliegos de condiciones y los contratos de las entidades estatales, cuando se trate de la adquisición o suministro de bienes y servicios de características técnicas uniformes y de común utilización por parte de las entidades.
+
+**Parágrafo 4°.** La entidades estatales no podrán exigir el pago de valor alguno por el derecho a participar en un proceso de selección, razón por la cual no podrán ser objeto de cobro los pliegos de condiciones correspondientes.
+
+Respecto de la expedición de copias de estos documentos se seguirá lo dispuesto en el artículo 24 del Código Contencioso Administrativo.
+
+**Parágrafo 5°.** Los acuerdos marco de precios a que se refiere el in­ciso 2 del literal a) del numeral 2 del presente artículo, permitirán fijar las condiciones de oferta para la adquisición o suministro de bienes y servicios de características técnicas uniformes y de común utilización a las entidades estatales durante un período de tiempo determinado, en la forma, plazo y condiciones de entrega, calidad y garantía establecidas en el acuerdo.
+
+La selección de proveedores como consecuencia de la realización de un acuerdo marco de precios, le dará a las entidades estatales que suscriban el acuerdo, la posibilidad que mediante órdenes de compra directa, adquieran los bienes y servicios ofrecidos.
+
+En consecuencia, entre cada una de las entidades que formulen órde­nes directas de compra y el respectivo proveedor, se constituirá un con­trato en los términos y condiciones previstos en el respectivo acuerdo.
+
+El Gobierno nacional señalará la entidad o entidades que tendrán a su cargo el diseño, organización y celebración de los acuerdos marco de precios. El reglamento establecerá las condiciones bajo las cuales el uso de acuerdos marco de precios, se hará obligatorio para todas las entidades sometidas al Estatuto General de Contratación de la Adminis­tración Pública.
+
+Los Organismos Autónomos, las Ramas Legislativa y Judicial y las entidades territoriales en ausencia de un acuerdo marco de precios di­señado por la entidad que señale el Gobierno nacional, podrán diseñar, organizar y celebrar acuerdos marco de precios propios.
+
+Mecanismos de agregación de demanda de excepción. Durante la vigencia de la Emergencia Sanitaria declarada por el Ministerio de Salud y Protección Social, con ocasión de la pandemia derivada del Coronavirus COVID-19, la Agencia Nacional de Contratación Pública - Colombia Compra Eficiente, diseñará y organizará el proceso de contratación para los acuerdos marco de precios por contratación directa, durante el término de vigencia de la Emergencia Sanitaria declarada por el Ministerio de Salud y Protección Social, con ocasión de la pandemia derivada del Coronavirus COVID-19, con el fin de facilitar el abastecimiento de bienes y servicios relacionados directamente con la misma.
+
+En los acuerdos marco de precios vigentes directamente relacionados con la pandemia derivada del Coronavirus COVID-19, la Agencia Nacional de Contratación Pública - Colombia Compra Eficiente, podrá configurar catálogos de emergencia, conformados por proveedores preexistentes en esos Instrumentos de Agregación de Demanda, así como por nuevos proveedores, previa verificación de los requisitos habilitantes y de calificación del proceso de selección. Estos catálogos de emergencia estarán vigentes hasta el día en que culmine el estado de emergencia sanitaria.
+
+En las órdenes de compra que se suscriban en estos instrumentos de agregación de demanda se entenderá incorporadas las cláusulas excepcionales.
+
+**Parágrafo 6o.** El Gobierno Nacional podrá establecer procedimientos diferentes al interior de las diversas causales de selección abreviada, de manera que los mismos se acomoden a las particularidades de los objetos a contratar, sin perjuicio de la posibilidad de establecer procedimientos comunes. Lo propio podrá hacer en relación con el concurso de méritos.
+
+**Parágrafo 7** º. La Agencia Nacional de Contratación Pública Colombia Compra Eficiente o quien haga sus veces, adoptará documentos tipo que serán de obligatorio cumplimiento en la actividad contractual de todas las entidades sometidas al Estatuto General de Contratación de la Administración Pública.
+
+Dentro de estos documentos tipo, se establecerán los requisitos habilitantes, factores técnicos, económicos y otros factores de escogencia, así como aquellos requisitos que, previa justificación, representen buenas prácticas contractuales que procuren el adecuado desarrollo de los principios que rigen la contratación pública.
+
+Con el ánimo de promover la descentralización, el empleo local, el desarrollo, los servicios e industria local, en la adopción de los documentos tipo, se tendrá en cuenta las características propias de las regiones, la cuantía, el fomento de la economía local y la naturaleza y especialidad de la contratación. Para tal efecto se deberá llevar a cabo un proceso de capacitación para los municipios.
+
+La Agencia Nacional de Contratación Pública Colombia Compra Eficiente fijará un cronograma, y definirá en coordinación con las entidades técnicas o especializadas correspondientes el procedimiento para implementar gradualmente los documentos tipo, con el propósito de facilitar la incorporación de estos en el sistema de compra pública y deberá establecer el procedimiento para recibir y revisar comentarios de los interesados, así como un sistema para la revisión constante de los documentos tipo, que expida.
+
+En todo caso, serán de uso obligatorio los documentos tipo para los pliegos de condiciones de los procesos de selección de obras públicas, interventoría para las obras públicas interventoría para consultoría de estudios y diseños para obras públicas, consultoría en ingeniería para obras, que lleven a cabo todas las entidades sometidas al Estatuto General de Contratación de la Administración Pública, en los términos fijados mediante la reglamentación correspondiente.
+
+**Parágrafo Transitorio.** Hasta tanto el Gobierno Nacional no expidiere el reglamento respectivo, no se podrá hacer uso de la selección abreviada como modalidad de selección.
+
+**Parágrafo 8°.** La modalidad de contratación directa prevista en el numeral 4° de este artículo deberá sujetarse a lo dispuesto en la Ley 80 de 1993 y sus modificaciones, o en los regímenes especiales de contratación, que disponen los requisitos jurídicos, técnicos y financieros; en todo caso teniendo en cuenta los principios de transparencia, responsabilidad, selección objetiva, economía, celeridad, imparcialidad, publicidad, eficacia y eficiencia.
+
+**Parágrafo 9°.** La Fiscalía General de la Nación, la Contraloría General de la República, las Contralorías Territoriales, la Procuraduría General de la Nación y la Rama judicial, en el marco de sus competencias constitucionales y legales ejercerán el control judicial, disciplinario y fiscal, según corresponda, sobre los recursos públicos que se ejecuten a través de los contratos celebrados con cabildos indígenas, consejos comunitarios de las comunidades negras; organizaciones de base de comunidades negras, afrocolombianas, raizales y palenquera de los que trata el presente artículo; y los consorcios y uniones temporales y las demás personas naturales y jurídicas con capacidad para contratar, cualquiera sea la modalidad que se aplique a la correspondiente contratación.
+
+##### ***Artículo 3°.De la contratación pública electrónica.*** De conformidad con lo dispuesto en la Ley 527 de 1999, la sustanciación de las actuaciones, la expedición de los actos administrativos, los documentos, contratos y en general los actos derivados de la actividad precontractual y contractual, podrán tener lugar por medios electrónicos. Para el trámite, notificación y publicación de tales actos, podrán utilizarse soportes, medios y aplicaciones electrónicas. Los mecanismos e instrumentos por medio de los cuales las entidades cumplirán con las obligaciones de publicidad del proceso contractual serán señalados por el Gobierno Nacional.
+
+Lo anterior, sin perjuicio de las publicaciones previstas en el numeral 3 del artículo 30 de la Ley 80 de 1993.
+
+Con el fin de materializar los objetivos a que se refiere el inciso anterior, el Gobierno Nacional desarrollará el Sistema Electrónico para la Contratación Pública, Secop, el cual:
+
+- a) Dispondrá de las funcionalidades tecnológicas para realizar procesos de contratación electrónicos bajo los métodos de selección señalados en el artículo 2° de la presente ley según lo defina el reglamento;
+
+- b) Servirá de punto único de ingreso de información y de generación de reportes para las entidades estatales y la ciudadanía;
+
+- c) Contará con la información oficial de la contratación realizada con dineros públicos, para lo cual establecerá los patrones a que haya lugar y se encargará de su difusión a través de canales electrónicos y;
+
+- d) Integrará el Registro Unico Empresarial de las Cámaras de Comercio, el Diario Unico de Contratación Estatal y los demás sistemas que involucren la gestión contractual pública. Así mismo, se articulará con el Sistema de Información para la Vigilancia de la Contratación Estatal, SICE, creado por la Ley 598 de 2000, sin que este pierda su autonomía para el ejercicio del control fiscal a la contratación pública.
+
+**Parágrafo 1°.** En ningún caso la administración del Secop supondrá la creación de una nueva entidad.
+
+El Secop será administrado por el organismo que designe el Gobierno Nacional, sin perjuicio de la autonomía que respecto del SICE confiere la Ley 598 de 2000 a la Contraloría General de la República.
+
+##### ***Artículo 4°.De la distribución de riesgos en los contratos estatales.*** Los pliegos de condiciones o sus equivalentes deberán incluir la estimación, tipificación y asignación de los riesgos previsibles involucrados en la contratación.
+
+En las licitaciones públicas, los pliegos de condiciones de las entidades estatales deberán señalar el momento en el que, con anterioridad a la presentación de las ofertas, los oferentes y la entidad revisarán la asignación de riesgos con el fin de establecer su distribución definitiva.
+
+##### **Artículo 5°.*****De la selección objetiva**.* Es objetiva la selección en la cual la escogencia se haga al ofrecimiento más favorable a la entidad y a los fines que ella busca, sin tener en consideración factores de afecto o de interés y, en general, cualquier clase de motivación subjetiva. En consecuencia, los factores de escogencia y calificación que establezcan las entidades en los pliegos de condiciones o sus equivalentes, tendrán en cuenta los siguientes criterios:
+
+- 1. La capacidad jurídica y las condiciones de experiencia, capacidad financiera y de organización de los proponentes serán objeto de verificación de cumplimiento como requisitos habilitantes para la participación en el proceso de selección y no otorgarán puntaje, con excepción de lo previsto en el numeral 4 del presente artículo. La exigencia de tales condiciones debe ser adecuada y proporcional a la naturaleza del contrato a suscribir y a su valor. La verificación documental de las condiciones antes señaladas será efectuada por las Cámaras de Comercio de conformidad con lo establecido en el artículo 6° de la presente ley, de acuerdo con lo cual se expedirá la respectiva certificación.
+
+- 2. La oferta más favorable será aquella que, teniendo en cuenta los factores técnicos y económicos de escogencia y la ponderación precisa y detallada de los mismos contenida en los pliegos de condiciones o sus equivalentes, resulte ser la más ventajosa para la entidad, sin que la favorabilidad la constituyan factores diferentes a los contenidos en dichos documentos. En los contratos de obra pública, el menor plazo ofrecido no será objeto de evaluación. La entidad efectuará las comparaciones del caso mediante el cotejo de los ofrecimientos recibidos y la consulta de precios o condiciones del mercado y los estudios y deducciones de la entidad o de los organismos consultores o asesores designados para ello.
+
+En los procesos de selección en los que se tenga en cuenta los factores técnicos y económicos, la oferta más ventajosa será la que resulte de aplicar alguna de las siguientes alternativas:
+
+- a) La ponderación de los elementos de calidad y precio soportados en puntajes o fórmulas señaladas en el pliego de condiciones; o
+
+- b) La ponderación de los elementos de calidad y precio que representen la mejor relación de costo-beneficio para la entidad.
+
+- 3. Sin perjuicio de lo previsto en el numeral 1 del presente artículo, en los pliegos de condiciones para las contrataciones cuyo objeto sea la adquisición o suministro de bienes y servicios de características técnicas uniformes y común utilización, las entidades estatales incluirán como único factor de evaluación el menor precio ofrecido.
+
+- 4. En los procesos para la selección de consultores se hará uso de factores de calificación destinados a valorar los aspectos técnicos de la oferta o proyecto. De conformidad con las condiciones que señale el reglamento, se podrán utilizar criterios de experiencia específica del oferente y del equipo de trabajo, en el campo de que se trate.
+
+En ningún caso se podrá incluir el precio, como factor de escogencia para la selección de consultores.
+
+**Parágrafo 1°.** La ausencia de requisitos o la falta de documentos referentes a la futura contratación o al proponente, no necesarios para la comparación de las propuestas no servirán de título suficiente para el rechazo de los ofrecimientos hechos. En consecuencia, todos aquellos requisitos de la propuesta que no afecten la asignación de puntaje, deberán ser solicitados por las entidades estatales y deberán ser entregados por los proponentes hasta el término de traslado del informe de evaluación que corresponda a cada modalidad de selección, salvo lo dispuesto para el proceso de Mínima cuantía y para el proceso de selección a través del sistema de subasta. Serán rechazadas las ofertas de aquellos proponentes que no suministren la información y la documentación solicitada por la entidad estatal hasta el plazo anteriormente señalado.
+
+Durante el término otorgado para subsanar las ofertas, los proponentes no podrán acreditar circunstancias ocurridas con posterioridad al cierre del proceso.
+
+**Parágrafo 2°.** Las certificaciones de sistemas de gestión de calidad no serán objeto de calificación, ni podrán establecerse como documento habilitante para participar en licitaciones o concursos.
+
+**Parágrafo 3°.** La no entrega de la garantía de seriedad junto con la propuesta no será subsanable y será causal de rechazo de la misma.
+
+**Parágrafo 4°.** En aquellos procesos de selección en los que se utilice el mecanismo de subasta, los documentos referentes a la futura contratación o al proponente, no necesarios para la comparación de las propuestas, deberán ser solicitados hasta el momento previo a su realización.
+
+**Parágrafo 5°.** En los procesos de contratación, las entidades estatales deberán aceptar la experiencia adquirida por los proponentes a través de la ejecución de contratos con particulares.
+
+##### **Artículo 6. *De la verificación de las condiciones de los proponentes.***Todas las personas naturales o jurídicas nacionales o extranjeras domiciliadas o con sucursal en Colombia, que aspiren a celebrar contratos con las entidades estatales, se inscribirán en el Registro Unico de Proponentes del Registro Unico Empresarial de la Cámara de Comercio con jurisdicción en su domicilio principal.
+
+No se requerirá de este registro, ni de clasificación, en los casos de contratación directa; contratos para la prestación de servicios de salud; contratos de mínima cuantía; enajenación de bienes del Estado; contratos que tengan por objeto la adquisición de productos de origen o destinación agropecuaria que se ofrezcan en bolsas de productos legalmente constituidas; los actos y contratos que tengan por objeto directo las actividades comerciales e industriales propias de las empresas industriales y comerciales del Estado y las sociedades de economía mixta y los contratos de concesión de cualquier índole. En los casos anteriormente señalados, corresponderá a las entidades contratantes cumplir con la labor de verificación de las condiciones de los proponentes.
+
+En dicho registro constará la información relacionada con la experiencia, capacidad jurídica, financiera y de organización del proponente y su clasificación.
+
+- 6.1. Del proceso de inscripción en el Registro Único de Proponentes (RUP). Corresponderá a los proponentes inscribirse en el registro de conformidad con los documentos aportados. Las cámaras de comercio harán la verificación documental de la información presentada por los interesados al momento de inscribirse en el registro.
+
+El certificado de Registro Único de Proponentes será plena prueba de las circunstancias que en ella se hagan constar y que hayan sido verificadas por las Cámaras de Comercio. En tal sentido, la verificación de las condiciones establecidas en el numeral 1 del artículo 5 de la presente ley, se demostrará exclusivamente con el respectivo certificado del RUP en donde deberán constar dichas condiciones. En consecuencia, las entidades estatales en los procesos de contratación no podrán exigir, ni los proponentes aportar documentación que deba utilizarse para efectuar la inscripción en el registro.
+
+No obstante lo anterior, sólo en aquellos casos en que por las características del objeto a contratar se requiera la verificación de requisitos del proponente adicionales a los contenidos en el Registro, la entidad podrá hacer tal verificación en forma directa.
+
+Cuando la información presentada ante la Cámara de Comercio no sea suficiente, sea inconsistente o no contenga la totalidad de los elementos señalados en el reglamento para su existencia y validez, esta se abstendrá de realizar la inscripción, renovación o actualización que corresponda, sin perjuicio de las acciones legales a que haya lugar.
+
+La información deberá mantenerse actualizada y renovarse en la forma y con la periodicidad que señale el reglamento. La información contenida en el registro es pública y su consulta será gratuita.
+
+- 6.2. De la información sobre contratos, multas y sanciones a los inscritos. Las entidades estatales enviarán mensualmente a la Cámara de Comercio de su domicilio, la información concerniente a los contratos, su cuantía, cumplimiento, multas y sanciones relacionadas con los contratos que hayan sido adjudicados, los que se encuentren en ejecución y los ejecutados.
+
+Las condiciones de remisión de la información y los plazos de permanencia de la misma en el registro serán señalados por el Gobierno Nacional.
+
+El servidor público encargado de remitir la información, que incumpla esta obligación incurrirá en causal de mala conducta.
+
+- 6.3. De la impugnación de la inscripción en el Registro Único de Proponentes (RUP). Realizada la verificación a que se refiere el numeral 6.1 del presente artículo, la Cámara publicará el acto de inscripción, contra el cual cualquier persona podrá interponer recurso de reposición ante la respectiva Cámara de Comercio, durante los diez (10) días hábiles siguientes a la publicación, sin que para ello requiera demostrar interés alguno. Para que la impugnación sea admisible deberá prestarse caución bancaria o de compañía de seguros para garantizar los perjuicios que se puedan causar al inscrito. Contra la decisión que resuelva el recurso de reposición, no procederá apelación.
+
+En firme la inscripción, cualquier persona podrá demandar su nulidad en desarrollo de la acción prevista en el Código Contencioso Administrativo. Para el efecto será competente el Juez de lo Contencioso Administrativo en única instancia.
+
+La presentación de la demanda no suspenderá la inscripción, ni será causal de suspensión de los procesos de selección en curso en los que el proponente sea parte. El proceso se tramitará por el procedimiento ordinario a que se refiere el Código Contencioso Administrativo. Adoptada la decisión, la misma sólo tendrá efectos hacia el futuro.
+
+Cuando en desarrollo de un proceso de selección una entidad estatal advierta la existencia de posibles irregularidades en el contenido de la información del RUP, que puedan afectar el cumplimiento de los requisitos exigidos al proponente dentro del proceso de que se trate, podrá suspender el proceso de selección e impugnar ante la Cámara de Comercio la inscripción, para lo cual no estarán obligadas a prestar caución. Para el trámite y adopción de la decisión las Cámaras de Comercio tendrán un plazo de veinte (20) días. De no haberse adoptado una decisión en el término anterior, la entidad reanudará el proceso de selección de acuerdo con la información certificada en el RUP.
+
+En el evento en que la Cámara de Comercio establezca la existencia de graves inconsistencias se le cancelará la inscripción en el registro quedando en tal caso inhabilitado para contratar con las entidades estatales por el término de cinco (5) años, sin perjuicio de las acciones penales a que haya lugar. En caso de reincidencia la inhabilidad será permanente.
+
+Las mismas sanciones previstas en el inciso anterior se predicarán en el evento en que el Juez de lo Contencioso Administrativo declare la nulidad del acto de inscripción.
+
+La información contenida en el registro es pública y su consulta será gratuita.
+
+**Parágrafo 1.** Para poder participar en los procesos de selección de los contratos de obra, la capacidad residual del proponente o K de contratación deberá ser igual o superior al que la entidad haya establecido para el efecto en los pliegos de condiciones
+
+Para establecer la capacidad residual del proponente o K de contratación, se deberán considerar todos los contratos que tenga en ejecución el proponente al momento de presentar la oferta. El desarrollo y ejecución del contrato podrá dar lugar a que los valores que sean cancelados al contratista se consideren para establecer el real K de contratación, en cada oportunidad. El Gobierno Nacional reglamentará la materia
+
+**Parágrafo2.** El reglamento señalará las condiciones de verificación de la información a que se refiere el numeral 1 del artículo 5, a cargo de cada entidad contratante, para el caso de personas naturales extranjeras sin domicilio en el país o de personas jurídicas extranjeras que no tengan establecida sucursal en Colombia.
+
+El reglamento señalará de manera taxativa los documentos objeto de la verificación a que se refiere el numeral 1, del artículo 6.
+
+**Parágrafo 3.** El Gobierno Nacional fijará el monto de las tarifas que deban sufragarse en favor de las cámaras de comercio por concepto de la inscripción en el registro, así como por su renovación, modificación y actualización, y por las certificaciones que le sean solicitadas en relación con el mismo. Para tal efecto, el Gobierno deberá tener en cuenta el costo en que incurran las cámaras de comercio para la operación del registro, la expedición de certificados, y los trámites de impugnación.
+
+##### **Artículo 7°.*****De las garantías en la contratación*.** Los contratistas prestarán garantía única para el cumplimiento de las obligaciones surgidas del contrato. Los proponentes prestarán garantía de seriedad de los ofrecimientos hechos.
+
+Las garantías consistirán en pólizas expedidas por compañías de seguros legalmente autorizadas para funcionar en Colombia, en garantías bancarias y en general, en los demás mecanismos de cobertura del riesgo autorizados por el reglamento para el efecto. Tratándose de pólizas, las mismas no expirarán por falta de pago de la prima o por revocatoria unilateral. El Gobierno Nacional señalará las condiciones generales que deberán ser incluidas en las pólizas de cumplimiento de los contratos estatales.
+
+El Gobierno Nacional señalará los criterios que seguirán las entidades para la exigencia de garantías, las clases y niveles de amparo de los riesgos de los contratos, así como los casos en que por las características y complejidad del contrato a celebrar, la garantía pueda ser dividida teniendo en cuenta las etapas o riesgos relativos a la ejecución del respectivo contrato.
+
+El acaecimiento del siniestro que amparan las garantías será comunicado por la entidad pública al respectivo asegurador mediante la notificación del acto administrativo que así lo declare.
+
+Las garantías no serán obligatorias en los contratos de empréstito, en los interadministrativos, en los de seguro y en los contratos cuyo valor sea inferior al 10% de la menor cuantía a que se refiere esta ley, caso en el cual corresponderá a la entidad determinar la necesidad de exigirla, atendiendo a la naturaleza del objeto del contrato y a la forma de pago, así como en los demás que señale el reglamento.
+
+**Parágrafo Transitorio.** Durante el período que transcurra entre la entrada en vigencia de la reforma contenida en la presente ley y la expedición del decreto reglamentario a que se refiere este artículo, las entidades estatales continuarán aplicando las normas legales y reglamentarias vigentes.
+
+##### **Artículo 8°. *De la publicación de proyectos de pliegos de condiciones, y estudios previos.*** Con el propósito de suministrar al público en general la información que le permita formular observaciones a su contenido, las entidades publicarán los proyectos de pliegos de condiciones o sus equivalentes, en las condiciones que señale el reglamento. La información publicada debe ser veraz, responsable, ecuánime, suficiente y oportuna.
+
+La publicación de los proyectos de pliegos de condiciones o sus equivalentes no genera obligación para la entidad de dar apertura al proceso de selección.
+
+Junto con los proyectos de pliegos de condiciones se publicarán los estudios y documentos previos que sirvieron de base para su elaboración.
+
+Las Entidades deberán publicar las razones por las cuales se acogen o rechazan las observaciones a los proyectos de pliegos.
+
+**Parágrafo.** No es obligatorio contar con disponibilidad presupuestal para realizar la publicación del proyecto de Pliego de Condiciones.
+
+##### ***Artículo 9°.De la adjudicación.*** En el evento previsto en el artículo 273 de la Constitución Política y en general en los procesos de licitación pública, la adjudicación se hará de forma obligatoria en audiencia pública, mediante resolución motivada, que se entenderá notificada al proponente favorecido en dicha audiencia.
+
+Durante la misma audiencia, y previamente a la adopción de la decisión definitiva de adjudicación, los interesados podrán pronunciarse sobre la respuesta dada por la entidad contratante a las observaciones presentadas respecto de los informes de evaluación.
+
+El acto de adjudicación es irrevocable y obliga a la entidad y al adjudicatario. No obstante lo anterior, si dentro del plazo comprendido entre la adjudicación del contrato y la suscripción del mismo, sobreviene una inhabilidad o incompatibilidad o si se demuestra que el acto se obtuvo por medios ilegales, este podrá ser revocado, caso en el cual, la entidad podrá aplicar lo previsto en el inciso final del numeral 12 del artículo 30 de la Ley 80 de 1993.
+
+Sin perjuicio de las potestades a que se refiere el artículo 18 de la Ley 80 de 1993, en aquellos casos en que la entidad declare la caducidad del contrato y se encuentre pendiente de ejecución un porcentaje igual o superior al cincuenta por ciento (50%) del mismo, con excepción de los contratos de concesión, se podrá contratar al proponente calificado en el segundo lugar en el proceso de selección respectivo, previa revisión de las condiciones a que haya lugar.
+
+##### **Artículo 10.*****Tratamiento para las cooperativas y asociaciones de entidades territoriales*.** Las cooperativas, las asociaciones conformadas por entidades territoriales y en general los entes solidarios de carácter público estarán sometidos a las disposiciones del Estatuto General de Contratación de la Administración Pública. La celebración de contratos de entidades estatales con asociaciones o cooperativas de entidades territoriales y en general con entes solidarios, se someterá a los procesos de selección de que trata la presente ley, en los que participarán en igualdad de condiciones con los particulares.
+
+##### **Artículo 11.*****Del plazo para la liquidación de los contratos*.** La liquidación de los contratos se hará de mutuo acuerdo dentro del término fijado en los pliegos de condiciones o sus equivalentes, o dentro del que acuerden las partes para el efecto. De no existir tal término, la liquidación se realizará dentro de los cuatro (4) meses siguientes a la expiración del término previsto para la ejecución del contrato o a la expedición del acto administrativo que ordene la terminación, o a la fecha del acuerdo que la disponga.
+
+En aquellos casos en que el contratista no se presente a la liquidación previa notificación o convocatoria que le haga la entidad, o las partes no lleguen a un acuerdo sobre su contenido, la entidad tendrá la facultad de liquidar en forma unilateral dentro de los dos (2) meses siguientes, de conformidad con lo dispuesto en el artículo 136 del C. C. A.
+
+Si vencido el plazo anteriormente establecido no se ha realizado la liquidación, la misma podrá ser realizada en cualquier tiempo dentro de los dos años siguientes al vencimiento del término a que se refieren los incisos anteriores, de mutuo acuerdo o unilateralmente, sin perjuicio de lo previsto en el artículo 136 del C. C. A.
+
+Los contratistas tendrán derecho a efectuar salvedades a la liquidación por mutuo acuerdo, y en este evento la liquidación unilateral solo procederá en relación con los aspectos que no hayan sido objeto de acuerdo.
+
+**T I T U L O II**
+
+**DISPOSICIONES GENERALES PARA LA CONTRATACION CON RECURSOS PUBLICOS**
+
+##### ***Artículo 12.Promoción del desarrollo en la Contratación Pública.***De conformidad con lo dispuesto en los artículos 13, 333 Y 334 de la Constitución Política, el Gobierno Nacional definirá las condiciones y los montos de acuerdo con los compromisos internacionales vigentes, para que, en desarrollo de los Procesos de Contratación, las Entidades Estatales indistintamente de su régimen de contratación, los patrimonios autónomos constituidos por Entidades Estatales y los particulares que ejecuten recursos públicos, adopten en beneficio de las MiPymes, convocatorias limitadas a estas en las que, previo a la Resolución de apertura del proceso respectivo, se haya manifestado el interés de por lo menos dos (2) MiPymes.
+
+Asimismo, el reglamento podrá establecer condiciones preferenciales en favor de la oferta de bienes y. servicios producidos por las MiPymes respetando los montos y las condiciones contenidas en los compromisos internacionales vigentes, cuando sean aplicables.
+
+En todo caso, se deberá garantizar la satisfacción de las condiciones técnicas y económicas requeridas en el Proceso de Contratación.
+
+De igual forma, en los pliegos de condiciones dispondrán, de mecanismos que fomenten en la ejecución de los contratos estatales la provisión de bienes y servicios por población en pobreza extrema, desplazados por la violencia, personas en proceso de reintegración o reincorporación y, sujetos de especial protección constitucional en las condiciones que señale el reglamento; siempre que se garanticen las condiciones de calidad y cumplimiento del objeto contractual.
+
+**Parágrafo 1°**. En los Procesos de Contratación que se desarrollen con base en el primer inciso, las entidades podrán realizar las convocatorias limitadas que beneficien a las MiPymes del ámbito municipal o departamental correspondiente al de la ejecución del contrato.
+
+**Parágrafo 2°.** Sin perjuicio de lo dispuesto en los artículos 5 y 6 de la Ley 1150 de 2007, para que las Mipymes puedan participar en las convocatorias a las que se refiere este artículo, deberán acreditar como mínimo un año de existencia, para lo cual deberán presentar el certificado expedido por la cámara de comercio o por la autoridad que sea competente para dicha · acreditación.
+
+**Parágrafo 3°.** En la ejecución de los contratos a que se refiere el presente artículo, las entidades y los contratistas, deberán observar lo dispuesto en los artículos 90 a 95 de la Ley 418 de 1997 y las normas que la modifiquen, adicionen o subroguen
+
+##### **Artículo 13. Principios generales de la actividad contractual para entidades no sometidas al Estatuto General de Contratación de la Administración Pública.** Las entidades estatales que por disposición legal cuenten con un régimen contractual excepcional al del Estatuto General de Contratación de la Administración Pública, aplicarán en desarrollo de su actividad contractual, acorde con su régimen legal especial, los principios de la función administrativa y de la gestión fiscal de que tratan los artículos 209 y 267 de la Constitución Política, respectivamente según sea el caso y estarán sometidas al régimen de inhabilidades e incompatibilidades previsto legalmente para la contratación estatal.
+
+En desarrollo de los anteriores principios, deberán publicar los documentos relacionados con su actividad contractual en el Sistema Electrónico para la Contratación Pública (SECOP II) o la plataforma transaccional que haga sus veces. Para los efectos de este artículo, se entiende por actividad contractual los documentos, contratos, actos e información generada por oferentes, contratista, contratante, supervisor o interventor, tanto en la etapa precontractual, como en la contractual y la postcontractual.
+
+A partir de la entrada en vigencia de la presente Ley, se establecerá un periodo de transición de seis (6) meses, para que las entidades den cumplimiento efectivo a lo aquí establecido.
+
+##### **Artículo 14.**Las Empresas Industriales y Comerciales del Estado, las Sociedades de Economía Mixta en las que el Estado tenga participación superior al cincuenta por ciento (50%), sus filiales y las Sociedades entre Entidades Públicas con participación mayoritaria del Estado superior al cincuenta por ciento (50%), estarán sometidas al Estatuto General de Contratación de la Administración Pública, con excepción de aquellas que desarrollen actividades comerciales en competencia con el sector privado y/o público, nacional o internacional o en mercados regulados, caso en el cual se regirán por las disposiciones legales y reglamentarias aplicables a sus actividades económicas y comerciales, sin perjuicio de lo previsto en el artículo 13 de la presente ley. Se exceptúan los contratos de ciencia y tecnología, que se regirán por la Ley 29 de 1990 y las disposiciones normativas existentes.
+
+##### **Artículo 15. *Del Régimen Contractual de las Entidades Financieras Estatales.*** El parágrafo 1° del artículo 32 de la Ley 80 de 1993, quedará así:
+
+“Artículo 32.
+
+(...)
+
+“Parágrafo 1°. Los Contratos que celebren los Establecimientos de Crédito, las compañías de seguros y las demás entidades financieras de carácter estatal, no estarán sujetos a las disposiciones del Estatuto General de Contratación de la Administración Pública y se regirán por las disposiciones legales y reglamentarias aplicables a dichas actividades.
+
+En todo caso, su actividad contractual se someterá a lo dispuesto en el artículo 13 de la presente ley”.
+
+##### **Artículo 16.***De las Entidades exceptuadas en el sector Defensa.* Los contratos que celebren Satena, Indumil, El Hotel Tequendama, la Corporación de Ciencia y Tecnología para el desarrollo de la industria naval, marítima y fluvial –Cotecmar– y la Corporación de la Industria Aeronáutica Colombiana –CIAC–, no estarán sujetos a las disposiciones del Estatuto General de Contratación de la Administración Pública y se regirán por las disposiciones legales y reglamentarias aplicables a su actividad.
+
+En todo caso su actividad contractual se someterá a lo dispuesto en el artículo 13 de la presente ley.
+
+**T I T U L O III**
+
+**DISPOSICIONES VARIAS**
+
+##### ***Artículo 17.Del derecho al debido proceso.*** El debido proceso será un principio rector en materia sancionatoria de las actuaciones contractuales.
+
+En desarrollo de lo anterior y del deber de control y vigilancia sobre los contratos que corresponde a las entidades sometidas al Estatuto General de Contratación de la Administración Pública, tendrán la facultad de imponer las multas que hayan sido pactadas con el objeto de conminar al contratista a cumplir con sus obligaciones. Esta decisión deberá estar precedida de audiencia del afectado que deberá tener un procedimiento mínimo que garantice el derecho al debido proceso del contratista y procede sólo mientras se halle pendiente la ejecución de las obligaciones a cargo del contratista. Así mismo podrán declarar el incumplimiento con el propósito de hacer efectiva la cláusula penal pecuniaria incluida en el contrato.
+
+**Parágrafo.** La cláusula penal y las multas así impuestas, se harán efectivas directamente por las entidades estatales, pudiendo acudir para el efecto entre otros a los mecanismos de compensación de las sumas adeudadas al contratista, cobro de la garantía, o a cualquier otro medio para obtener el pago, incluyendo el de la jurisdicción coactiva.
+
+**Parágrafo transitorio.** Las facultades previstas en este artículo se entienden atribuidas respecto de las cláusulas de multas o cláusula penal pecuniaria pactadas en los contratos celebrados con anterioridad a la expedición de esta ley y en los que por autonomía de la voluntad de las partes se hubiese previsto la competencia de las entidades estatales para imponerlas y hacerlas efectivas.
+
+##### **Artículo 18.***De las inhabilidades para contratar.* Adiciónese un literal j) al numeral 1 y un inciso al parágrafo 1°, del artículo 8° de la Ley 80 de 1993, así:
+
+“Artículo 8°.
+
+(…)
+
+- j) Las personas naturales que hayan sido declaradas responsables judicialmente por la comisión de delitos de peculado, concusión, cohecho, prevaricato en todas sus modalidades y soborno transnacional, así como sus equivalentes en otras jurisdicciones. Esta inhabilidad se extenderá a las sociedades de que sean socias tales personas, con excepción de las sociedades anónimas abiertas”.
+
+Parágrafo 1°.
+
+(...)
+
+En las causales de inhabilidad por parentesco o por matrimonio, los vínculos desaparecen por muerte o por disolución del matrimonio.
+
+##### **Artículo 19.***Del derecho de turno. El artículo 4° de la Ley 80 de 1993, tendrá un numeral 10 del siguiente tenor.*
+
+“Artículo 4°.
+
+(…)
+
+“10. Respetarán el orden de presentación de los pagos por parte de los contratistas. Sólo por razones de interés público, el jefe de la entidad podrá modificar dicho orden dejando constancia de tal actuación.
+
+Para el efecto, las entidades deben llevar un registro de presentación por parte de los contratistas, de los documentos requeridos para hacer efectivos los pagos derivados de los contratos, de tal manera que estos puedan verificar el estricto respeto al derecho de turno. Dicho registro será público.
+
+Lo dispuesto en este numeral no se aplicará respecto de aquellos pagos cuyos soportes hayan sido presentados en forma incompleta o se encuentren pendientes del cumplimiento de requisitos previstos en el contrato del cual se derivan”.
+
+##### **Artículo 20.***De la contratación con organismos internacionales.* Los contratos o convenios financiados en su totalidad o en sumas iguales o superiores al cincuenta por ciento (50%) con fondos de los organismos de cooperación, asistencia o ayudas internacionales, podrán someterse a los reglamentos de tales entidades. En caso contrario, se someterán a los procedimientos establecidos en la Ley 80 de 1993. Los recursos de contrapartida vinculados a estas operaciones podrán tener el mismo tratamiento.
+
+Los contratos o convenios celebrados con personas extranjeras de derecho público u organismos de derecho internacional cuyo objeto sea el desarrollo de programas de promoción, prevención y atención en salud; contratos y convenios necesarios para la operación de la OIT; contratos y convenios que se ejecuten en desarrollo del sistema integrado de monitoreo de cultivos ilícitos; contratos y convenios para la operación del programa mundial de alimentos; contratos y convenios para el desarrollo de programas de apoyo educativo a población desplazada y vulnerable adelantados por la Unesco y la OIM; los contratos o convenios financiados con fondos de los organismos multilaterales de crédito y entes gubernamentales extranjeros, podrán someterse a los reglamentos de tales entidades.
+
+Las entidades estatales no podrán celebrar contratos o convenios para la administración o gerencia de sus recursos propios o de aquellos que les asignen los presupuestos públicos, con organismos de cooperación, asistencia o ayuda internacional.
+
+**Parágrafo 1°.** Los contratos o acuerdos celebrados con personas extranjeras de derecho público, podrán someterse a las reglas de tales organismos.
+
+**Parágrafo 2°.** Las entidades estatales tendrán la obligación de reportar la información a los organismos de control y al Secop relativa a la ejecución de los contratos a los que se refiere el presente artículo.
+
+**Parágrafo 3°.** En todo Proyecto de cooperación que involucre recursos estatales se deberán cuantificar en moneda nacional, los aportes en especie de la entidad, organización o persona cooperante, así como los del ente nacional colombiano. Las contralorías ejercerán el control fiscal sobre los proyectos y contratos celebrados con organismos multilaterales.
+
+##### **Artículo 21.***De la delegación y la desconcentración para contratar.* El artículo 12 de la Ley 80 de 1993, tendrá un inciso 2° y un parágrafo del siguiente tenor:
+
+(...)
+
+En ningún caso, los jefes y representantes legales de las entidades estatales quedarán exonerados por virtud de la delegación de sus deberes de control y vigilancia de la actividad precontractual y contractual.
+
+**Parágrafo.** Para los efectos de esta ley, se entiende por desconcentración la distribución adecuada del trabajo que realiza el jefe o representante legal de la entidad, sin que ello implique autonomía administrativa en su ejercicio. En consecuencia, contra las actividades cumplidas en virtud de la desconcentración administrativa no procederá ningún recurso”.
+
+##### **Artículo 22. Derogado**
+
+##### **Artículo 23.***De los aportes al Sistema de Seguridad Social*. El inciso segundo y el parágrafo 1° del artículo 41 de la Ley 80 quedarán así:
+
+“Artículo 41.
+
+(…)
+
+Para la ejecución se requerirá de la aprobación de la garantía y de la existencia de las disponibilidades presupuestales correspondientes, salvo que se trate de la contratación con recursos de vigencias fiscales futuras de conformidad con lo previsto en la ley orgánica del presupuesto. El proponente y el contratista deberán acreditar que se encuentran al día en el pago de aportes parafiscales relativos al Sistema de Seguridad Social Integral, así como los propios del Sena, ICBF y Cajas de Compensación Familiar, cuando corresponda.
+
+**Parágrafo 1°.** El requisito establecido en la parte final del inciso segundo de este artículo, deberá acreditarse para la realización de cada pago derivado del contrato estatal.
+
+El servidor público que sin justa causa no verifique el pago de los aportes a que se refiere el presente artículo, incurrirá en causal de mala conducta, que será sancionada con arreglo al régimen disciplinario vigente.
+
+##### **Artículo 24.***Del régimen contractual de las Corporaciones Autónomas Regionales.* La contratación de las Corporaciones Autónomas Regionales incluida la Corporación Autónoma Regional del Río Grande de la Magdalena, se someterá al Estatuto General de Contratación de la Administración Pública contenido en la Ley 80 de 1993 y en las demás normas que lo modifiquen, deroguen o adicionen.
+
+##### **Artículo 25.***De la inversión en fondos comunes ordinarios.* El inciso 4° del numeral 5 del artículo 32 de la Ley 80 de 1993, quedará así:
+
+“Artículo 32. *De los contratos estatales.*
+
+(…)
+
+La selección de las sociedades fiduciarias a contratar, sea pública o privada, se hará con rigurosa observancia del procedimiento de licitación o concurso previsto en esta ley. No obstante, los excedentes de tesorería de las entidades estatales, se podrán invertir directamente en fondos comunes ordinarios administrados por sociedades fiduciarias, sin necesidad de acudir a un proceso de licitación pública.
+
+##### **Artículo 26. Derogado**
+
+##### **Artículo 27.***De la prórroga de los contratos de concesión para la prestación de servicios de telecomunicaciones y de televisión.* El término de duración de las concesiones actuales y futuras para la prestación de los servicios y actividades de telecomunicaciones, incluidas las de televisión, será de diez (10) años prorrogables por lapsos iguales. En ningún caso habrá prórrogas automáticas ni gratuitas.
+
+##### **Artículo 28. Derogado**
+
+##### **Artículo 29.***Elementos que se deben cumplir en los contratos estatales de alumbrado público.* Todos los contratos en que los municipios o distritos entreguen en concesión la prestación del servicio de alumbrado público a terceros, deberán sujetarse en todo a la Ley 80 de 1993, contener las garantías exigidas en la misma, incluir la cláusula de reversión de toda la infraestructura administrada, construida o modernizada, hacer obligatoria la modernización del Sistema, incorporar en el modelo financiero y contener el plazo correspondiente en armonía con ese modelo financiero. Así mismo, tendrán una interventoría idónea. Se diferenciará claramente el contrato de operación, administración, modernización, y mantenimiento de aquel a través del cual se adquiera la energía eléctrica con destino al alumbrado público, pues este se regirá por las Leyes 142 y 143 de 1994. La Creg regulará el contrato y el costo de facturación y recaudo conjunto con el servicio de energía de la contribución creada por la Ley 97 de 1913 y 84 de 1915 con destino a la financiación de este servicio especial inherente a la energía. Los contratos vigentes a la fecha de la presente ley, deberán ajustarse a lo aquí previsto.
+
+##### **Artículo 30**. ***Inexequible***
+
+##### **Artículo 31.** *Régimen de Transición.* Los procesos de contratación en curso a la fecha en que entre a regir la presente ley, continuarán sujetos a las normas vigentes al momento de su iniciación. Los contratos o convenios a que se refiere el artículo 20 de la presente ley que se encuentren en ejecución al momento de su entrada en vigencia, continuarán rigiéndose por las normas vigentes al momento de su celebración hasta su liquidación, sin que sea posible adicionarlos ni prorrogarlos.
+
+##### **Artículo 32.** *Derogatoria.* A partir de la vigencia de la presente ley, quedan derogados los siguientes artículos de la Ley 80 de 1993: El parágrafo del artículo 2°; la expresión *“además de la obtención de utilidades cuya protección garantiza el Estado”* del inciso segundo del artículo 3°; el inciso 4° del artículo 13, el artículo 22; el numeral 1 y el parágrafo 1° del artículo 24; el inciso 2° del numeral 15, el numeral 19 y la expresión *“la exigencia de los diseños no regirán cuando el objeto de la contratación sea la de construcción o fabricación con diseños de los proponentes”* del inciso segundo numeral 12 del artículo 25, el artículo 29, el numeral 11 del artículo 30, el artículo 36, el parágrafo del artículo 39 y el inciso 1° del artículo 60, con excepción de la *expresión “Los contratos de tracto sucesivo, aquellos cuya ejecución o cumplimiento se prolonguen en el tiempo y los demás que lo requieran serán objeto de liquidación”* el artículo 61 y las expresiones *“concurso”* y *“términos de referencia”* incluidas a lo largo del texto de la Ley 80 de 1993, así como la *expresión: “Cuando el objeto del contrato consista en estudios o trabajos técnicos, intelectuales o especializados, el proceso de selección se llamará concurso y se efectuará también mediante invitación pública”.*
+
+También se derogan las siguientes disposiciones: El parágrafo 2° del artículo 50 de la Ley 789 de 2002, modificado por el artículo 1° de la Ley 828 de 2003, el artículo 66 de la Ley 454 de 1998, el literal d) del artículo 27 de la Ley 99 de 1993 y el artículo 19 Ley 161 de 1994. Igualmente se entienden derogadas las normas del Decreto 1900 de 1990 y de la Ley 182 de 1995 que contraríen lo dispuesto en esta ley.
+
+Las normas del Estatuto General de Contratación Pública preferirán a cualquiera otra sobre la materia, con excepción de aquellas de naturaleza estatutaria u orgánica. En consecuencia, la derogatoria de las normas del Estatuto General de Contratación Pública sólo podrán hacerse de manera expresa, mediante su precisa identificación.
+
+##### **Artículo 33.***Vigencia*. La presente ley empieza a regir seis (6) meses después de su promulgación, con excepción del artículo 6° que entrará a regir a los dieciocho (18) meses de su promulgación.
+
+**Parágrafo 1°.** En tanto no entre en vigor el artículo 6° de la presente ley las entidades podrán verificar la información de los proponentes a que se refiere el numeral 1 del artículo 5° de la presente ley.
+
+**Parágrafo 2°.** Los artículos 9° y 17 entrarán a regir una vez se promulgue la presente ley.
+
+**La Presidenta del honorable Senado de la República,**
+
+**Dilian Francisca Toro Torres.**
+
+**El Secretario General del honorable Senado de la República,**
+
+**Emilio Ramón Otero Dajud.**
+
+**El Presidente de la honorable Cámara de Representantes,**
+
+**Alfredo Ape cuello Baute.**
+
+**El Secretario General de la honorable Cámara de Representantes,**
+
+**Angelino Lizcano Rivera.**
+
+**REPUBLICA DE COLOMBIA – GOBIERNO NACIONAL.**
+
+**Publíquese y ejecútese.**
+
+**Dada en Bogotá, D. C., a 16 de julio de 2007.**
+
+**ÁLVARO URIBE VÉLEZ**
+
+**El Ministro del Interior y de Justicia,**
+
+**Carlos Holguín Sardi.**
+
+**El Ministro de Hacienda y Crédito Público,**
+
+**Oscar Iván Zuluaga Escobar.**
+
+**La Directora del Departamento Nacional de Planeación,**
+
+**Carolina Rentería.**

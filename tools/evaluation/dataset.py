@@ -51,3 +51,52 @@ def stratified_split(
     rng.shuffle(train_records)
     rng.shuffle(val_records)
     return train_records, val_records
+
+
+def load_records_v2(path: Path = config.PROJECT_ROOT / "data" / "dataset_v2.jsonl") -> list[dict]:
+    """Ejemplos de data/dataset_v2.jsonl (tools/dataset_v2.py); [] si no existe."""
+    if not path.exists():
+        return []
+    return load_records(path)
+
+
+def split_v2(
+    records_v2: list[dict],
+    records_m1: list[dict],
+    val_fraction: float = config.VAL_FRACTION,
+    seed: int = config.RANDOM_SEED,
+) -> tuple[list[dict], list[dict]]:
+    """Particion de data/dataset_v2.jsonl SIN mover el split de M1.
+
+    - Un ejemplo con pregunta base (`base_id`) cae del mismo lado que su base en
+      el split de M1: si la misma pregunta estuviera sin contexto en train y con
+      contexto en val, val mediria memoria.
+    - Uno sin base se reparte estratificado por (categoria, modo), con el mismo
+      metodo y semilla que stratified_split.
+    data/dataset_legal.jsonl se sigue partiendo con stratified_split, intacto:
+    asi la validacion de modo A es la misma de M2 del 2026-10-06."""
+    _, val_m1 = stratified_split(records_m1, val_fraction, seed)
+    ids_val = {r["id"] for r in val_m1}
+
+    train, val, sin_base = [], [], []
+    for r in records_v2:
+        if r.get("base_id") is None:
+            sin_base.append(r)
+        elif r["base_id"] in ids_val:
+            val.append(r)
+        else:
+            train.append(r)
+
+    rng = Random(seed)
+    grupos: dict = defaultdict(list)
+    for r in sin_base:
+        grupos[(r["category"], r.get("modo", ""))].append(r)
+    for _clave, items in sorted(grupos.items()):
+        items = items[:]
+        rng.shuffle(items)
+        n_val = round(len(items) * val_fraction)
+        val.extend(items[:n_val])
+        train.extend(items[n_val:])
+    train.sort(key=lambda r: r["id"])
+    val.sort(key=lambda r: r["id"])
+    return train, val

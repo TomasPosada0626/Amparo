@@ -1,1619 +1,1354 @@
 ---
-title: "Sobre Código Sustantivo del Trabajo"
+title: "Código Sustantivo del Trabajo"
 identifier: "DECRETO-2663-1950"
 country: "co"
 rank: "decreto"
 publication_date: "1950-09-09"
-last_updated: "2019-01-29"
+last_updated: "2026-10-08"
 status: "in_force"
-source: "https://www.suin-juriscol.gov.co/viewDocument.asp?id=1874133"
-department: "MINISTERIO DE GOBIERNO"
-document_status_raw: "Compilado"
-gazette_reference: "DIARIO OFICIAL. AÑO LXXXVII. N. 27407. 9, SEPTIEMBRE, 1950. PÁG. 1."
-gazette_number: "27407"
-gazette_page: "929"
-gazette_pdf_page: "1"
-subtype: "DECRETO LEGISLATIVO"
-sector: "Interior"
-entry_into_force: "1951-01-01"
-modification_count: "246"
-modification_summary: "Modificado [Artículo 2 DECRETO 3743 de 1950](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1535683#ver_1535689) · Derogado [Artículo 47 DECRETO 3743 de 1950](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1535683#ver_1535734) · Modificado [Artículo 1 DECRETO 2351 de 1965](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1440229#ver_1440234) · Modificado [Artículo 2 DECRETO 2351 de 1965](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1440229#ver_1440235) · Modificado [Artículo 3 DECRETO 2351 de 1965](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1440229#ver_1440236) · Modificado [Artículo 1 DECRETO 617 de 1954](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1130919#ver_1130922) · Modificado [Artículo 51 LEY 962 de 2005](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1671809#ver_30029283) · Modificado [Artículo 2 DECRETO 617 de 1954](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1130919#ver_1130923) · Modificado [Artículo 4 DECRETO 2351 de 1965](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1440229#ver_1440237) · Modificado [Artículo 5 DECRETO 2351 de 1965](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1440229#ver_1440238) · Modificado [Artículo 3 DECRETO 3743 de 1950](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1535683#ver_1535690) · Adicionado parcialmente (Numeral 10. ) [Artículo 1 LEY 1280 de 2009](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1676789#ver_1676792) · Adicionado [Artículo 10 LEY 20 de 1982](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1787111#ver_1787123) · Adicionado [Artículo 12 LEY 20 de 1982](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1787111#ver_1787125) · Modificado [Artículo 4 DECRETO 3743 de 1950](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1535683#ver_30110377) · Modificado [Artículo 6 DECRETO 2351 de 1965](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1440229#ver_1440239) · Modificado [Artículo 8 DECRETO 2351 de 1965](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1440229#ver_1440241) · Modificado [Artículo 8 DECRETO 2351 de 1965](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1440229#ver_30347464) · Modificado [Artículo 5 DECRETO 3743 de 1950](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1535683#ver_1535692) · Modificado [Artículo 28 LEY 789 de 2002](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1668469#ver_1668505) · Modificado [Artículo 29 LEY 789 de 2002](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1668469#ver_1668506) · Modificado [Artículo 29 LEY 789 de 2002](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1668469#ver_30375322) · Derogado [Artículo 65 LEY 1429 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1679908#ver_1679976) · Suprimido (las expresiones: \"...a distancias superiores de doscientos (200) kilómetros de su domicilio\", y \"y llevar la aprobación del correspondiente funcionario del trabajo o de la primera autoridad política del lugar en donde se realice el enganche\" ) [Artículo 53 LEY 962 de 2005](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1671809#ver_30029291) · Modificado [Artículo 3 DECRETO 617 de 1954](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1130919#ver_1130924) · Modificado [Artículo 1 DECRETO 3129 de 1956](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1515475#ver_1515480) · Modificado [Artículo 2 DECRETO 3129 de 1956](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1515475#ver_1515481) · Reformado [Artículo 2 LEY 11 de 1984](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1567564#ver_1567568) · Modificado [Artículo 3 DECRETO 3129 de 1956](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1515475#ver_1515482) · Modificado [Artículo 4 DECRETO 617 de 1954](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1130919#ver_1130925) · Modificado [Artículo 6 DECRETO 3743 de 1950](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1535683#ver_1535693) · Modificado [Artículo 10 DECRETO 2351 de 1965](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1440229#ver_1440243) · Modificado [Artículo 5 DECRETO 617 de 1954](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1130919#ver_1130926) · Modificado [Artículo 17 LEY 1429 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1679908#ver_1679927) · Modificado [Artículo 6 DECRETO 617 de 1954](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1130919#ver_1130927) · Modificado [Artículo 22 LEY 1429 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1679908#ver_1679932) · Reglamentado parcialmente (Numeral 2 ) [DECRETO 1174 de 1991](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1237713#ver_1237714) · Modificado [Artículo 18 LEY 1429 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1679908#ver_1679928) · Modificado [Artículo 19 LEY 1429 de 2010](https://www.suin-juriscol.gov.co/viewDocument.asp?id=1679908#ver_1679929)"
+source: "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=199983"
+converted_from: "data/corpus/pdf/Decreto_2663_de_1950.pdf"
+conversion_note: "Reemplaza el archivo del espejo de SUIN, que traia la numeracion original del Decreto 2663 (anterior a la codificacion del Decreto 3743 de 1950): su articulo 64 era el 62 oficial, su 161 el 160. Esta version usa la numeracion oficial y esta compilada hasta 2021 (jornada de 42 horas, Ley 2101), pero solo anota la Ley 2466 de 2025 en sus primeros articulos: no trae, p. ej., el nocturno desde las 7 p. m."
 ---
-# Sobre Código Sustantivo del Trabajo
+# Código Sustantivo del Trabajo
 
-**El Presidente de la República de Colombia,**
+## TITULO PRELIMINAR.
 
-en ejercicio de las facultades que le confiere el Artículo 121 de la Constitución Nacional, y
+PRINCIPIOS GENERALES
 
-**CONSIDERANDO:**
+ARTICULO 1. OBJETO. La finalidad primordial de este Código es la de lograr la justicia en las relaciones que surgen entre empleadores y trabajadores, dentro de un espíritu de coordinación económica y equilibrio social.
 
-Que según Decreto número 3518 de 1949, se declaró turbado el orden público y en estado de sitio todo el territorio de la República;
+ARTICULO 2. APLICACION TERRITORIAL. El presente Código rige en todo el territorio de la República para todos sus habitantes, sin consideración a su nacionalidad.
 
-Que según el Artículo 153 del Decreto 2158 de 1948, se autorizó al Gobierno para organizar una Comisión que elaborará una codificación de las disposiciones sustantivas del trabajo o que formulara un proyecto de Código sobre la materia;
+ARTICULO 3. RELACIONES QUE REGULA. El presente Código regula las relaciones de derecho individual y colectivo del trabajo de carácter particular. De igual forma regula las relaciones de derecho colectivo del sector público, salvo el derecho de negociación colectiva de empleados públicos que se regula conforme a norma especial (Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-055-99) (Mod Art 2 de la Ley 2466 de 2025)
 
-Que por Decretos números 693 y 1934 de 1950, se creó la Comisión Redactora del Código Sustantivo del Trabajo y se amplió su término de duración, Comisión que ha presentado al Gobierno el proyecto de Código que se adopta en el presente Decreto;
+ARTICULO 4. SERVIDORES PUBLICOS. Las relaciones de derecho individual del trabajo entre la administración pública y los empleados públicos no se rigen por este Código, sino por los estatutos especiales y las leyes que se dicten.
 
-Que es una necesidad inaplazable tener la República un estatuto orgánico de las disposiciones sustantivas del trabajo, que se encuentran en la actualidad dispersas en numerosas Leyes y decretos, lo que hace difícil su interpretación y cabal cumplimiento, porque muchos de esos preceptos son en veces contradictorios e inconexos;
+(Mod Art 3 de la Ley 2466 de 2025)
 
-Que es deber del Gobierno atender a la regulación normal de las relaciones laborales para mejor estar de las clases trabajadoras, con el fin de lograr la justicia social y el desarrollo de la economía nacional, a lo cual contribuye una acertada y completa legislación social, por cuanto el Derecho del Trabajo influye notablemente en el mantenimiento del orden público,
+ARTICULO 5. DEFINICION DE TRABAJO. El trabajo que regula este Código es toda actividad humana libre, ya sea material o intelectual, permanente o transitoria, que una persona natural ejecuta conscientemente al servicio de otra, y cualquiera que sea su finalidad, siempre que se efectúe en ejecución de un contrato de trabajo.
 
-**DECRETA:**
+ARTICULO 6. TRABAJO OCASIONAL. Trabajo ocasional, accidental o transitorio, es el de corta duración y no mayor de un mes, que se refiere a labores distintas de las actividades normales del {empleador}.
 
-**CODIGO DEL TRABAJO**
+ARTICULO 7. OBLIGATORIEDAD DEL TRABAJO. El trabajo es socialmente obligatorio.
 
-## **TITULO PRELIMINAR**
+ARTICULO 8. LIBERTAD DE TRABAJO. Nadie puede impedir el trabajo a los demás, ni que se dediquen a la profesión, industria o comercio que les plazca, siendo lícito su ejercicio, sino mediante resolución de autoridad competente encaminada a tutelar los derechos de los trabajadores o de la sociedad, en los casos que se prevean en la ley.
 
-**PRINCIPIOS GENERALES**
+ARTICULO 9. PROTECCION AL TRABAJO. El trabajo goza de la protección del Estado, en la forma prevista en la Constitución Nacional y las leyes. Los funcionarios públicos están obligados a prestar a los trabajadores una debida y oportuna protección para la garantía y eficacia de sus derechos, de acuerdo con sus atribuciones.
 
-**Objeto.**
+ARTICULO 10. IGUALDAD DE LOS TRABAJADORES Y LAS TRABAJADORAS. Todos los trabajadores y trabajadoras son iguales ante la ley, tienen la misma protección y garantías, en consecuencia, queda abolido cualquier tipo de distinción por razón del carácter intelectual o material de la labor, su forma o retribución, el género o sexo salvo las excepciones establecidas por la ley.
 
-**Artículo 1.** La finalidad primordial de este Código es la de lograr la justicia en las relaciones que surgen entre patronos y trabajadores, dentro de un espíritu de coordinación económica y equilibrio social.
+(Modificado por el Art. 2 de la Ley 1496 de 2011)
 
-**Aplicación territorial.**
+ARTICULO 11. DERECHO AL TRABAJO. Toda persona tiene derecho al trabajo y goza de libertad para escoger profesión u oficio, dentro de las normas prescritas por la Constitución y la Ley.
 
-**Artículo 2.** El presente Código rige en todo el territorio de la República para todos sus habitantes, sin consideración a su nacionalidad.
+ARTICULO 12. DERECHOS DE ASOCIACION Y HUELGA. El Estado colombiano garantiza los derechos de asociación y huelga, en los términos prescritos por la Constitución Nacional y las leyes.
 
-**Relaciones que regula**
+ARTICULO 13. MINIMO DE DERECHOS Y GARANTIAS. Las disposiciones de este Código contienen el mínimo de derechos y garantías consagradas en favor de los trabajadores. No produce efecto alguno cualquiera estipulación que afecte o desconozca este mínimo.
 
-**Artículo 3.** El presente Código regula las relaciones de Derecho Individual del Trabajo de carácter particular, y las de Derecho Colectivo del Trabajo, oficiales y particulares.
+ARTICULO 14. CARACTER DE ORDEN PÚBLICO. IRRENUNCIABILIDAD. Las disposiciones legales que regulan el trabajo humano son de orden público y, por consiguiente, los derechos y prerrogativas que ellas conceden son irrenunciables, salvo los casos expresamente exceptuados por la ley.
 
-**Servidores públicos**
+ARTICULO 15. VALIDEZ DE LA TRANSACCION. Es válida la transacción en los asuntos del trabajo, salvo cuando se trate de derechos ciertos e indiscutibles.
 
-**Artículo 4.** Las relaciones de Derecho Individual del Trabajo entre la Administración Pública y los trabajadores de ferrocarriles, empresas, obras públicas y demás servidores del Estado, no se rigen por esto Código, sino por los estatutos especiales que posteriormente se dicten.
+ARTICULO 16. EFECTO.
 
-**Definición de trabajo**
+1. Las normas sobre trabajo, por ser de orden público, producen efecto general inmediato, por lo cual se aplican también a los contratos de trabajo que estén vigentes o en curso en el momento en que dichas normas empiecen a regir, pero no tienen efecto retroactivo, esto es, no afectan situaciones definidas o consumadas conforme a leyes anteriores.
 
-**Artículo 5.** El trabajo que regula este Código es toda actividad humana libre, ya sea trabajo material o intelectual, permanente o transitoria, que una persona natural ejecuta conscientemente al servicio de otra, y cualquiera que sea su finalidad, siempre que se efectúe en ejecución de un contrato de trabajo.
+(Numeral 1 Declarado EXEQUIBLE, por los cargos analizados, por la Corte Constitucional mediante Sentencia C-177-05)
 
-**Trabajo ocasional.**
+2. Cuando una ley nueva establezca una prestación ya reconocida espontáneamente o por convención o fallo arbitral por el {empleador}, se pagará la más favorable al trabajador.
 
-**Artículo 6.** Trabajo ocasional, accidental o transitorio, es el de corta duración, y no mayor de un mes, que se refiere a labores distintas de las actividades normales del patrono.
+ARTICULO 17. ORGANOS DE CONTROL. La vigilancia del cumplimiento de las disposiciones sociales está encomendada a las autoridades administrativas del Trabajo.
 
-**Obligatoriedad del trabajo.**
+ARTICULO 18. NORMA GENERAL DE INTERPRETACION. Para la interpretación de este Código debe tomarse en cuenta su finalidad, expresada en el artículo 1.
 
-**Artículo 7.** El trabajo es socialmente obligatorio.
+ARTICULO 19. NORMAS DE APLICACION SUPLETORIA. Cuando no haya norma exactamente aplicable al caso controvertido, se aplican las que regulen casos o materias semejantes, los principios que se deriven de este Código, la jurisprudencia, la costumbre o el uso, la doctrina, los Convenios y Recomendaciones adoptados por la Organización y las Conferencias Internacionales del Trabajo, en cuanto no se opongan a las leyes sociales del país, los principios del derecho común que no sean contrarios a los del Derecho del Trabajo, todo dentro de un espíritu de equidad.
 
-**Libertad de trabajo.**
+(Aparte subrayado declarado CONDICIONALMENTE EXEQUIBLE por la Corte Constitucional mediante Sentencia C-401-05, el entendido de que (i) no exista convenio aplicable directamente, como fuente principal o prevalente, al caso controvertido, y (ii) el convenio que se aplique supletoriamente esté debidamente ratificado por Colombia)
 
-**Artículo 8.** Nadie puede impedir el trabajo a los demás, ni que se dediquen a la profesión, industria o comercio que les plazca, siendo lícito su ejercicio, sino mediante resolución de autoridad competente encaminada a tutelar los derechos de los trabajadores o los de la sociedad, en los casos que se prevean en la Ley.
+ARTICULO 20. CONFLICTOS DE LEYES. En caso de conflicto entre las leyes del trabajo y cualesquiera otras, prefieren aquéllas.
 
-**Protección al trabajo.**
+ARTICULO 21. NORMAS MÁS FAVORABLES. En caso de conflicto o duda sobre la aplicación de normas vigentes de trabajo, prevalece la más favorable al trabajador. La norma que se adopte debe aplicarse en su integridad.
 
-**Artículo 9.** El trabajo goza de la protección del Estado, en la forma prevista en la Constitución Nacional y las Leyes. Los funcionarios públicos están obligados a prestar a los trabajadores una debida y oportuna protección para la garantía y eficacia de sus derechos, de acuerdo con sus atribuciones.
+PRIMERA PARTE.
 
-**Igualdad de los trabajadores.**
+DERECHO INDIVIDUAL DEL TRABAJO.
 
-**Artículo 10.** Todos los trabajadores son iguales ante la Ley, tienen las misma protección y garantías, y, en consecuencia, queda abolida toda distinción jurídica entre los trabajadores por razón del carácter intelectual o material de la labor, su forma o retribución, salvo las excepciones establecidas por la Ley.
+## TITULO I.
 
-**Derecho al trabajo.**
+CONTRATO INDIVIDUAL DE TRABAJO.
 
-**Artículo 11.** Toda persona tiene derecho al trabajo y goza de libertad para escoger profesión u oficio, dentro de las normas prescritas por la Constitución y la Ley.
+## CAPITULO I.
 
-**Derechos de asociación y huelga.**
+DEFINICION Y NORMAS GENERALES.
 
-**Artículo 12.** El Estado colombiano garantiza los derechos de asociación y huelga, en los términos prescritos por la Constitución Nacional y las Leyes.
+ARTICULO 22. DEFINICION.
 
-**Mínimo de derechos y garantías.**
+1. Contrato de trabajo es aquel por el cual una persona natural se obliga a prestar un servicio personal a otra persona, natural o jurídica, bajo la continuada dependencia o subordinación de la segunda y mediante remuneración.
 
-**Artículo 13.** Las disposiciones de este Código contienen el mínimo de derechos y garantías consagrados en favor de los trabajadores. No produce efecto alguna cualquier estipulación que afecte o desconozca este mínimo.
+(Aparte subrayado declarado EXEQUIBLE por los cargos examinados, por la Corte Constitucional mediante Sentencia C-397-06)
 
-**Carácter de orden público Irrenunciabilidad.**
+2. Quien presta el servicio se denomina trabajador, quien lo recibe y remunera, {empleador}, y la remuneración, cualquiera que sea su forma, salario.
 
-**Artículo 14.** Las disposiciones legales que regulan el trabajo humano son de orden público y, por consiguiente, los derechos y prerrogativas que ellas conceden son irrenunciables, salvo los casos expresamente exceptuados por la Ley.
+ARTICULO 23. ELEMENTOS ESENCIALES.
 
-**Validez de la transacción.**
+1. Para que haya contrato de trabajo se requiere que concurran estos tres elementos esenciales:
 
-**Artículo 15.** Es válida la transacción en los asuntos del trabajo, salvo cuando se trate de derechos ciertos e indiscutibles.
+(Aparte subrayado declarado EXEQUIBLE por los cargos examinados, por la Corte Constitucional mediante Sentencia C-397-06 de 24 de mayo de 2006)
 
-**Efecto.**
+a) La actividad personal del trabajador, es decir, realizada por sí mismo;
 
-**Artículo 16.** Las normas sobre trabajo, por ser de orden público, producen efecto general inmediato, por lo cual se aplican también a los contratos de trabajo que estén vigentes o en curso en el momento en que dichas normas empiecen a regir, pero no tienen efecto retroactivo, esto es, no afectan situaciones definidas o consumadas conforme a Leyes anteriores.
+b) La continuada subordinación o dependencia del trabajador respecto del empleador, que faculta a éste para exigirle el cumplimiento de órdenes, en cualquier momento, en cuanto al modo, tiempo o cantidad de trabajo, e imponerle reglamentos, la cual debe mantenerse por todo el tiempo de duración del contrato. Todo ello sin que afecte el honor, la dignidad y los derechos mínimos del trabajador en concordancia con los tratados o convenios internacionales que sobre derechos humanos relativos a la materia obliguen al país; y ( Literal b) declarado EXEQUIBLE por los cargos examinados, por la Corte Constitucional mediante Sentencia C-397-06) (Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-386-00)
 
-**Órganos de control.**
+c) Un salario como retribución del servicio.
 
-**Artículo 17.** La vigilancia del cumplimiento de las disposiciones sociales está encomendada a las autoridades administrativas del Trabajo.
+(Mediante Sentencia C-1549-00 del 20 de noviembre de 2000, Magistrado Ponente Dra. Martha Victoria Sáchica Méndez, la Corte Constitucional se declaró INHIBIDA de fallar sobre este literal c. por demanda sobre omisión legislativa.)
 
-**Órganos de interpretación.**
+2. Una vez reunidos los tres elementos de que trata este artículo, se entiende que existe contrato de trabajo y no deja de serlo por razón del nombre que se le dé ni de otras condiciones o modalidades que se le agreguen.
 
-**Artículo 18.** La interpretación con autoridad de las Leyes sociales corresponde al legislador, y su aplicación e interpretación por vía de doctrina a los Jueces, por lo cual las autoridades administrativas no pueden ejercitar esas atribuciones absolviendo consultas, salvo en los casos expresamente autorizados,
+(Aparte subrayado declarado EXEQUIBLE por los cargos examinados, por la Corte Constitucional mediante Sentencia C-397-06) (Subrogado por el Art. 1 de la Ley 50 de 1990)
 
-**Norma general de interpretación.**
+ARTICULO 24. PRESUNCION. Se presume que toda relación de trabajo personal está regida por un contrato de trabajo.
 
-**Artículo 19.** Para la interpretación de este Código debe tomarse en cuenta su finalidad, expresada en el Artículo 1.
+(Modificado por el Art. 2 de la Ley 50 de 1990)
 
-**Normas de aplicación supletoria.**
+ARTICULO 25. CONCURRENCIA DE CONTRATOS. Aunque el contrato de trabajo se presente involucrado o en concurrencia con otro, u otros, no pierde su naturaleza, y le son aplicables, por tanto, las normas de este Código.
 
-**Artículo 20.** Cuando no haya norma exactamente aplicable al caso controvertido, se aplican la que regule casos o materias semejantes, los principios que se deriven de este Código, la jurisprudencia, la costumbre o el uso, la doctrina, los Convenios y Recomendaciones adoptados por la Organización y las Conferencias Internacionales del Trabajo, en cuanto no se opongan a las Leyes sociales del país, los principios del derecho común que no sean contrarios a los del Derecho del Trabajo, todo dentro de un espíritu de equidad.
+ARTICULO 26. COEXISTENCIA DE CONTRATOS. Un mismo trabajador puede celebrar contratos de trabajo con dos o más {empleadores}, salvo que se haya pactado la exclusividad de servicios en favor de uno solo.
 
-**Conflictos de Leyes.**
+ARTICULO 27. REMUNERACION DEL TRABAJO. Todo trabajo dependiente debe ser remunerado.
 
-**Artículo 21**. En caso de conflicto entre las Leyes del trabajo y cualesquiera otras, prefieren aquéllas.
+ARTICULO 28. UTILIDADES Y PÉRDIDAS. El trabajador puede participar de las utilidades o beneficios de su {empleador}, pero nunca asumir sus riesgos o pérdidas.
 
-**Normas más favorables.**
+## CAPITULO II.
 
-**Artículo 22.** En caso de conflicto o duda sobre la aplicación de normas vigentes de trabajo, prevalece la más favorable al trabajador. La norma que se adopte debe aplicarse en su integridad.
+CAPACIDAD PARA CONTRATAR.
 
-**PRIMERA PARTE**
+ARTICULO 29. CAPACIDAD. Tienen capacidad para celebrar el contrato individual de trabajo, todas las personas que hayan cumplido dieciocho (18) años de edad.
 
-**DERECHO INDIVIDUAL DEL TRABAJO**
+ARTICULO 30. INCAPACIDAD.
 
-## **TITULO I**
+1. Los menores de dieciocho (18) años necesitan autorización escrita de sus representantes legales, y, en defecto de éstos, del Inspector del Trabajo, o del Alcalde, o del Corregidor de Policía del lugar en donde deba cumplirse el contrato. La autorización debe concederse cuando, a juicio del funcionario, no haya perjuicio aparente físico ni moral para el menor, en ejercicio de la actividad de que se trate.
 
-**CONTRATO INDIVIDUAL DE TRABAJO**
+2. Concedida la autorización, el menor puede recibir directamente el salario y, llegado el caso, ejercitar las acciones legales pertinentes. (Derogado a partir de la vigencia del artículo 238 del Decreto Ley 2737 de 1989 (Código del Menor), según lo establece la Corte Constitucional en la Sentencia C-170-04)
 
-### **CAPITULO I**
+ARTICULO 31. TRABAJO SIN AUTORIZACION. Si se estableciere una relación de trabajo con un menor sin sujeción a lo preceptuado en el artículo anterior, el presunto {empleador} estará sujeto al cumplimiento de todas las obligaciones inherentes al contrato, pero el respectivo funcionario de trabajo puede, de oficio o a petición de parte, ordenar la cesación de la relación y sancionar al {empleador} con multas.
 
-**DEFINICIÓN Y NORMAS GENERALES**
+## CAPITULO III.
 
-Definición.
+REPRESENTANTES DEL {EMPLEADOR} Y SOLIDARIDAD.
 
-**Artículo 23.** 1. Contrato de trabajo es aquel por el cual una persona natural se obliga a prestar un servicio personal a otra persona, natural o jurídica, bajo la continuada dependencia o subordinación de la segunda y mediante remuneración.
+ARTICULO 32. REPRESENTANTES DEL {EMPLEADOR}. Son representantes del {empleador} y como tales lo obligan frente a sus trabajadores además de quienes tienen ese carácter según la ley, la convención o el reglamento de trabajo, las siguientes personas:
 
-- 2. Quien presta el servicio se denomina trabajador, quien lo recibe y remunera, patrono, y la remuneración, cualquiera que sea su forma, salario.
+a) Las que ejerzan funciones de dirección o administración, tales como directores, gerentes, administradores, síndicos o liquidadores, mayordomos y capitanes de barco, y quienes ejercitan actos de representación con la aquiescencia expresa o tácita del {empleador};
 
-**Elementos esenciales.**
+b) Los intermediarios.
 
-**Artículo 24.** 1. Para que haya contrato de trabajo se requiere que concurran estos tres elementos esenciales:
+(Modificado por el Art. 1 del Decreto 2351 de 1965)
 
-- a) La actividad personal del trabajador, es decir, realizada por sí mismo;
+ARTÍCULO 33. SUCURSALES.
 
-- b) La continuada subordinación o dependencia del trabajador respecto del patrono, que faculta a éste para exigirle el cumplimiento de órdenes, en cualquier momento, en cuanto al modo, tiempo o cantidad de trabajo, e imponerle reglamentos, la cual debe mantenerse por todo el tiempo de duración del contrato; y
+1) Los {empleadores} que tengan sucursales o agencias dependientes de su establecimiento en otros municipios distintos del domicilio principal, deben constituir públicamente en cada uno de ellos un apoderado, con la facultad de representarlos en juicios o controversias relacionados con los contratos de trabajo que se hayan ejecutado o deban ejecutarse el respectivo municipio.
 
-- c) Un salario como retribución del servicio.
+2) A falta de tal apoderado, se tendrán como hechas al {empleador} las notificaciones administrativas o judiciales que se hagan a quien dirija la correspondiente agencia o sucursal; y este será solidariamente responsable cuando omita darle al {empleador} aviso oportuno de tales notificaciones.
 
-- 2. Una vez reunidos los tres elementos de que trata este artículo, se entiende que existe contrato de trabajo y no deja de serlo por razón del nombre que se le de ni de otras condiciones o modalidades que se le agreguen.
+(Modificado por el Art. 2 del Decreto 2351 de 1965)
 
-**Presunción.**
+ARTICULO 34. CONTRATISTAS INDEPENDIENTES.
 
-**Artículo 25.** Se presume que toda relación de trabajo personal está regida por un contrato de trabajo.
+1) Son contratistas independientes y, por tanto, verdaderos {empleadores} y no representantes ni intermediarios, las personas naturales o jurídicas que contraten la ejecución de una o varias obras o la prestación de servicios en beneficios de terceros, por un precio determinado, asumiendo todos los riesgos, para realizarlos con sus propios medios y con libertad y autonomía técnica y directiva. Pero el beneficiario del trabajo o dueño de la obra, a menos que se trate de labores extrañas a las actividades normales de su empresa o negocio, será solidariamente responsable con el contratista por el valor de los salarios y de las prestaciones e indemnizaciones a que tengan derecho los trabajadores, solidaridad que no obsta para que el beneficiario estipule con el contratista las garantías del caso o para que repita contra él lo pagado a esos trabajadores.
 
-**Concurrencia de contratos.**
+(Aparte subrayado declarado EXEQUIBLE, por los cargos analizados, por la Corte Constitucional mediante Sentencia C-593-14)
 
-**Artículo 26.** Aunque el contrato de trabajo se presente involucrado o en concurrencia con otro u otros, no pierde su naturaleza, y le son aplicables, por tanto, las normas de este Código
+2) El beneficiario del trabajo o dueño de la obra, también será solidariamente responsable, en las condiciones fijadas en el inciso anterior, de las obligaciones de los subcontratistas frente a sus trabajadores, aún en el caso de que los contratistas no estén autorizados para contratar los servicios de subcontratistas.
 
-**Coexistencia de contratos.**
+(Modificado por el Art. 3 del Decreto 2351 de 1965)
 
-**Artículo 27.** Un mismo trabajador puede celebrar contratos de trabajo con dos o más patronos, salvo que se haya pactado la exclusividad de servicios en favor de uno solo.
+ARTICULO 35. SIMPLE INTERMEDIARIO.
 
-**Remuneración del trabajo.**
+1. Son simples intermediarios, las personas que contraten servicios de otras para ejecutar trabajos en beneficio y por cuenta exclusiva de un {empleador}.
 
-**Artículo 28.** Todo trabajo dependiente debe ser remunerado.
+2. Se consideran como simples intermediarios, aun cuando aparezcan como empresarios independientes, las personas que agrupan o coordinan los servicios de determinados trabajadores para la ejecución de trabajos en los cuales utilicen locales, equipos, maquinarias, herramientas u otros elementos de un {empleador} para el beneficio de éste y en actividades ordinarias inherentes o conexas del mismo.
 
-**Utilidades y pérdidas.**
+3. El que celebrare contrato de trabajo obrando como simple intermediario debe declarar esa calidad y manifestar el nombre del {empleador}. Si no lo hiciere así, responde solidariamente con el empleador de las obligaciones respectivas.
 
-**Artículo 29.** El trabajador puede participar de las utilidades o beneficios de su patrono, pero nunca asumir sus riesgos o pérdidas
+ARTICULO 36. RESPONSABILIDAD SOLIDARIA. Son solidariamente responsables de todas de las obligaciones que emanen del contrato de trabajo las sociedades de personas y sus miembros y éstos entre sí en relación con el objeto social y sólo hasta el límite de responsabilidad de cada socio, y los condueños o comuneros de una misma empresa entre sí, mientras permanezcan en indivisión.
 
-### CAPITULO II
+(Mediante Sentencia C-520-02 la Corte Constitucional se declaró INHIBIDA de fallar sobre los apartes subrayados de este artículo por ineptitud de la demanda.)
 
-CAPACIDAD PARA CONTRATAR
+## CAPITULO IV.
 
-**Capacidad.**
+MODALIDADES DEL CONTRATO.
 
-**Artículo 30.** Tienen capacidad para celebrar el contrato individual de trabajo, todas las personas que hayan cumplido diez y ocho (18) años de edad.
+(FORMA, CONTENIDO, DURACIÓN, REVISIÓN, SUSPENSIÓN Y PRUEBA DEL CONTRATO).
 
-**Incapacidad.**
+ARTICULO 37. FORMA. El contrato de trabajo puede ser verbal o escrito; para su validez no requiere forma especial alguna, salvo disposición expresa en contrario.
 
-**Artículo 31.** 1. Lo menores de diez y ocho (18) años necesitan autorización escrita de sus representantes legales, y, en defecto de éstos, del Inspector del Trabajo, o del Alcalde, o del Inspector o Corregidor de Policía del lugar en donde deba cumplirse el contrato. La autorización debe concederse cuando, a juicio del funcionario, no haya perjuicio aparente, físico ni moral, para el menor, en el ejercicio de la actividad de que se trate.
+ARTICULO 38. CONTRATO VERBAL. Cuando el contrato sea verbal, el {empleador} y el trabajador deben ponerse de acuerdo, al menos acerca de los siguientes puntos:
 
-- 2. Concedida la autorización, el menor puede recibir directamente el salario y, llegado el caso, ejercitar las acciones legales pertinentes.
+1. La índole del trabajo y el sitio en donde ha de realizarse;
 
-**Trabajo sin autorización.**
+2. La cuantía y forma de la remuneración, ya sea por unidad de tiempo, por obra ejecutada, por tarea, a destajo u otra cualquiera, y los períodos que regulen su pago;
 
-**Artículo 32.** Si se estableciere una relación de trabajo con un menor sin sujeción a lo preceptuado en el Artículo anterior, el presunto patrono está sujeto al cumplimiento de todas las obligaciones inherentes al contrato, pero el respectivo funcionario del Trabajo puede, de oficio o a petición de parte, ordenar la cesación de la relación y sancionar al patrono con multas.
+3. La duración del contrato.
 
-### CAPITULO III
+(Modificado por el Art. 1 del Decreto 617 de 1954)
 
-REPRESENTANTES DEL PATRONO Y SOLIDARIDAD
+ARTICULO 39. CONTRATO ESCRITO. El contrato de trabajo escrito se extiende en tantos ejemplares cuantos sean los interesados, destinándose uno para cada uno de ellos; está exento de impuestos de papel sellado y de timbre nacional y debe contener necesariamente, fuera de las cláusulas que las partes acuerden libremente, las siguientes: la identificación y domicilio de las partes; el lugar y la fecha de su celebración; el lugar en donde se haya contratado el trabajador y en donde haya de prestar el servicio; la naturaleza del trabajo; la cuantía de la remuneración, su forma y periodos de pago; la estimación de su valor, en caso de que haya suministros de habitación y alimentación como parte del salario; y la duración del contrato, su desahucio y terminación.
 
-**Representantes del patrono.**
+ARTICULO 40. CARNÉ. Las empresas podrán, a su juicio y como control de identificación del personal que le preste servicios en sus distintas modalidades, expedirles a sus trabajadores, contratistas y su personal y a los trabajadores en misión un carné en donde conste, según corresponda, el nombre del trabajador directo, con el número de cédula y el cargo. En tratándose de contratistas el de las personas autorizadas por este o del trabajador en misión, precisando en esos casos el nombre o razón social de la empresa contratista o de servicios temporal e igualmente la clase de actividad que desarrolle. El carné deberá estar firmado por persona autorizada para expedirlo.
 
-**Artículo 33.** Son representantes del patrono y como tales lo obligan frente a sus trabajadores, además de quienes tienen ese carácter según la Ley o los reglamentos de trabajo, las siguientes personas:
+PARÁGRAFO. La expedición del carné no requerirá aprobación por ninguna autoridad judicial o administrativa.
 
-- a) Los empleados al servicio del patrono que ejerzan funciones de dirección o administración, tales como directores, gerentes, administradores, mayordomos y capitanes de barco, y quienes ejerciten actos de representación con la aquiescencia expresa o tácita del patrono;
+(Modificado por el Art. 51 de la Ley 962 de 2005)
 
-- b) Los simples intermediarios,
+ARTICULO 41. REGISTRO DE INGRESO DE TRABAJADORES.
 
-**Sucursales.**
+1. Los {empleadores} que mantengan a su servicio cinco (5) o más trabajadores, y que no hubieren celebrado contrato escrito o no hubieren expedido el carnet, deben llevar un registro de ingreso de trabajadores, firmado por las dos partes, donde se consignarán al menos los siguientes puntos:
 
-**Artículo 34.** Los patronos que tengan establecimientos en varios Municipios del país deben constituir un apoderado en cada uno de ellos, con la facultad de representarlos en juicio o en controversias relacionadas con los contratos de trabajo que deban cumplirse en el respectivo Municipio.
+a). La especificación del trabajo y el sitio en donde ha de realizarse;
 
-**Contratistas independientes.**
+b). La cuantía y forma de la remuneración;
 
-**Artículo 35.** Son contratistas independientes y, por tanto, verdaderos patronos de sus trabajadores y no representantes ni simples intermediarios, las personas que contraten la ejecución de una o varias obras o labores en beneficio ajeno, por un precio determinado, asumiendo todo los riesgos, para realizarlas con sus propios medios y con libertad o autonomía técnica y directiva. Pero el beneficiario del trabajo, dueño de la obra o base industrial, a menos que se trate de labores extrañas a las actividades normales de su empresa o negocio, será solidariamente responsable con el contratista por el valor de los salarios y de las prestaciones e indemnizaciones a que tengan derecho los trabajadores, solidaridad que no obsta para que el beneficiario estipule con el contratista las garantías del caso o para que repita contra él lo pagado a esos trabajadores.
+c). La duración del contrato.
 
-**Simple intermediario.**
+2. Si durante la vigencia del contrato se modificaren alguna o algunas de las especificaciones antes dichas, estas modificaciones deben hacerse constar en registro separado con referencia a las anteriores. De estos registros debe expedirse copia a los trabajadores cuando lo soliciten. El registro de ingreso puede extenderse y firmarse en forma colectiva cuando se contratan a la vez varios trabajadores.
 
-**Artículo 36.** 1. Son simples intermediarios las personas que contratan servicios de otras para ejecutar trabajos en beneficio y por cuenta exclusiva de un patrono.
+ARTICULO 42. CERTIFICACION DEL CONTRATO. Cuando se ocupen menos de cinco (5) trabajadores y no se haya celebrado contrato escrito, los {empleadores}, a solicitud de lo trabajadores, bien directamente o por conducto de las autoridades administrativas del Trabajo, deben expedir una certificación del contrato en donde hagan constar, por lo menos: nombre de los contratantes, fecha inicial de la prestación del servicio, naturaleza del contrato y su duración. Si el {empleador} lo exige, al pie de la certificación se hará constar la declaración de conformidad del trabajador o de sus observaciones.
 
-- 2. Se consideran como simples intermediarios, aun cuando aparezcan como empresarios independientes, las personas que agrupan o coordinan los servicios de determinados trabajadores para la ejecución de trabajos en los cuales utilicen locales, equipos, maquinarias, herramientas u otros elementos de un patrono para beneficio de éste y en actividades ordinarias inherentes o conexas del mismo
+ARTICULO 43. CLAUSULAS INEFICACES. En los contratos de trabajo no producen ningún efecto las estipulaciones o condiciones que desmejoren la situación del trabajador en relación con lo que establezcan la legislación del trabajo, los respectivos fallos arbitrales, pactos, convenciones colectivas y reglamentos de trabajo y las que sean ilícitas o ilegales por cualquier aspecto; pero a pesar de la ineficacia de esas estipulaciones, todo trabajo ejecutado en virtud de ellas, que constituya por si mismo una actividad lícita, da derecho al trabajador para reclamar el pago de sus salarios y prestaciones legales por el tiempo que haya durado el servicio hasta que esa ineficacia se haya reconocido o declarado judicialmente.
 
-- 3. El que celebrare contrato de trabajo obrando como simple intermediario debe declarar esa calidad y manifestar el nombre del patrono. Si no lo hiciere así, responde solidariamente con el patrono de las obligaciones respectivas.
+ARTICULO 44. CLAUSULA DE NO CONCURRENCIA. La estipulación por medio de la cual un trabajador se obliga a no trabajar en determinada actividad o a no prestar sus servicios a los competidores de su {empleador}, una vez concluido su contrato de trabajo no produce efecto alguno. Sin embargo, es válida esta estipulación hasta por un año cuando se trate de trabajadores técnicos, industriales o agrícolas, en cuyo caso debe pactarse por el periodo de abstención, una indemnización, que en ningún caso puede ser inferior a la mitad del salario. (Aparte tachado declarado INEXEQUIBLE por la Corte Suprema de Justicia)
 
-**Responsabilidad solidaria.**
+ARTICULO 45. DURACION. El contrato de trabajo puede celebrarse por tiempo determinado, por el tiempo que dure la realización de una obra o labor determinada, por tiempo indefinido o para ejecutar un trabajo ocasional, accidental o transitorio.
 
-**Artículo 37.** Son solidariamente responsables de todas las obligaciones que emanen del contrato de trabajo las sociedades de personas y sus miembros y éstos entre sí en relación con el objeto social y sólo hasta el límite de la responsabilidad de cada socio, y los condueños o comuneros de una misma empresa entre sí, mientras permanezcan en indivisión.
+(La Corte Constitucional se declaró INHIBIDA de fallar sobre este artículo (parcial) por ineptitud de la demanda, mediante Sentencia C-667-16) (Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-016-98)
 
-### CAPITULO IV
+ARTICULO 46. CONTRATO A TERMINO FIJO. El contrato de trabajo a término fijo debe constar siempre por escrito y su duración no puede ser superior a tres años, pero es renovable indefinidamente.
 
-MODALIDADES DEL CONTRATO
+(Mediante Sentencia C-016-98 de 4 de febrero de 1998, Magistrado Ponente Dr. Fabio Morón Díaz, la Corte Constitucional declaró estese a lo resuelto en la Sentencia C-588-95) (Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-588-95)
 
-**(Forma, contenido, duración, revisión, suspensión y prueba del contrato)**
+1. Si antes de la fecha del vencimiento del término estipulado, ninguna de las partes avisare por escrito a la otra su determinación de no prorrogar el contrato, con una antelación no inferior a treinta (30) días, éste se entenderá renovado por un período igual al inicialmente pactado, y así sucesivamente.
 
-**Forma.**
+(Aparte subrayado declarado EXEQUIBLE por la Corte Suprema de Justicia, mediante la Sentencia 109 del 19 de septiembre de 1991)
 
-**Artículo 38.** El contrato de trabajo puede ser verbal o escrito; para su validez no requiere forma especial alguna, salvo disposición expresa en contrario.
+2. No obstante, si el término fijo es inferior a un (1) año, únicamente podrá prorrogarse sucesivamente el contrato hasta por tres (3) períodos iguales o inferiores, al cabo de los cuales el término de renovación no podrá ser inferior a un (1) año, y así sucesivamente. (Aparte subrayado declarado EXEQUIBLE por la Corte Suprema de Justicia, mediante la Sentencia 109 del 19 de septiembre de 1991)
 
-**Contrato verbal.**
+PARAGRAFO. En los contratos a término fijo inferior a un año, los trabajadores tendrán derecho al pago de vacaciones y prima de servicios en proporción al tiempo laborado cualquiera que éste sea.
 
-**Artículo 39.** Cuando el contrato sea verbal, el patrono y el trabajador deben ponerse de acuerdo, al menos acerca de los siguientes puntos:
+(Subrogado por el Art. 3 de la Ley 50 de 1990) (Modificado por el Art. 4 del Decreto 2351 de 1965) (Modificado por el artículo 2 del Decreto 617 de 1954)
 
-- 1. La índole del trabajo y el sitio en donde ha de realizarse;
+ARTICULO 47. DURACIÓN INDEFINIDA.
 
-- 2. La cuantía y forma de la remuneración, ya sea por unidad de tiempo, por obra ejecutada, por tarea, a destajo u otra cualquiera y los periodos que regulen su pago;
+1) El contrato de trabajo no estipulado a término fijo, o cuya duración no esté determinada por la de la obra, o la naturaleza de la labor contratada, o no se refiera a un trabajo ocasional o transitorio, será contrato a término indefinido.
 
-- 3. La duración del contrato, ya sea a prueba, a término indefinido, a término fijo o mientras dure la realización de una labor determinada
+2) El contrato a término indefinido tendrá vigencia mientras subsistan las causas que le dieron origen, y la materia del trabajo. Con todo, el trabajador podrá darlo por terminado mediante aviso escrito con antelación no inferior a treinta (30) días, para que el {empleador} lo reemplace. En caso de no dar aviso oportunamente o de cumplirlo solo parcialmente, se aplicará lo dispuesto en el artículo 8, numeral 7 del Decreto 2351 de 1965, 64 de este Código, para todo el tiempo, o para el lapso dejado de cumplir.
 
-**Contrato escrito.**
+(Modificado por el Art. 5 del Decreto 2351 de 1965)
 
-**Artículo 40.** El contrato de trabajo escrito se extiende en tantos ejemplares cuantos sean los interesados, destinándose uno para cada uno de ellos; está exento de impuestos de papel sellado y de. timbre nacional y debe contener necesariamente, fuera de las cláusulas que las partes acuerden libremente, las siguientes: la identificación y domicilio de las partes; el lugar y la fecha de su celebración; el lugar en donde se haya contratado el trabajador y en donde haya de prestarse el servicio; la naturaleza del trabajo; la cuantía de la remuneración, su forma y periodos de pago; la estimación de su valor, en caso de que haya suministros de habitación y de alimentación como parte del salario; y la duración del contrato, su desahucio y terminación
+ARTICULO 48. CLAUSULA DE RESERVA. En los contratos de duración indeterminada o sin fijación de término, las partes pueden reservarse la facultad de darlos por terminados en cualquier tiempo, mediante preaviso o desahucio notificado por escrito a la otra parte con un término no inferior a cuarenta y cinco (45) días, previa cancelación de todas las deudas, prestaciones e indemnizaciones a que haya lugar. El patrono puede prescindir del preaviso pagando los salarios correspondientes a cuarenta y cinco (45) días. La reserva de que se trata sólo es válida cuando se consigne por escrito en el contrato de trabajo.
 
-**Carnet.**
+(Derogado por el Decreto 2351 de 1965)
 
-**Artículo 41.** 1. El Ministerio del Trabajo puede prescribir como obligatorio en las empresas que juzgue conveniente, el empleo de un carnet o libreta que debe expedir el patrono a sus trabajadores al formalizar el contrato, según modelo que promulgará el mismo Ministerio y en el cual deben hacerse constar, únicamente, los nombres de las partes, la fecha de ingreso al trabajo, las sucesivas actividades u oficios que desempeñe el trabajador y las correspondientes remuneraciones.
+ARTICULO 49. PRORROGA. Salvo estipulación en contrario, el contrato celebrado por tiempo indefinido o sin fijación de término alguno, se entiende prorrogado en las mismas condiciones, por periodos iguales, es decir, de seis (6) en seis (6) meses, por el sólo hecho de continuar el trabajador prestando sus servicios al patrono con su consentimiento expreso o tácito después de la expiración del plazo presuntivo. La prórroga o plazo fijo del contrato celebrado por tiempo determinado debe constar por escrito; pero si extinguido el plazo inicialmente estipulado, el trabajador continuare prestando sus servicios al patrono, con su consentimiento, expreso o tácito, el contrato vencido se considera, por ese sólo hecho, prorrogado por periodos de seis (6) en seis (6) meses.
 
-- 2. Este documento puede aducirse como prueba del contrato y de sus condiciones.
+(Derogado por el Decreto 2351 de 1965)
 
-Registro de ingreso de trabajadores
+ARTICULO 50. REVISION. Todo contrato de trabajo es revisable cuando quiera que sobrevengan imprevisibles y graves alteraciones de la normalidad económica. Cuando no haya acuerdo entre las partes acerca de la existencia de tales alteraciones, corresponde a la justicia del Trabajo decidir sobre ella y, mientras tanto, el contrato sigue en todo su vigor.
 
-**Artículo 42.** 1. Los patronos que mantengan a su servicio cinco (5) o más trabajadores, y que no hubieren celebrado contrato escrito o no hubieren expedido el carnet, deben llevar un registro de ingreso de trabajadores, firmado por las dos partes, donde se consignarán al menos los siguientes puntos:
+ARTICULO 51. SUSPENSION. El contrato de trabajo se suspende:
 
-- a) La especificación del trabajo y el sitio en donde ha de realizarse;
+Por fuerza mayor o caso fortuito que temporalmente impida su ejecución.
 
-- b) La cuantía y forma de la remuneración;
+Por la muerte o la inhabilitación del empleador, cuando éste sea una persona natural y cuando ello traiga como consecuencia necesaria y directa la suspensión temporal del trabajo.
 
-- c) La duración del contrato.
+Por suspensión de actividades o clausura temporal de la empresa, establecimiento o negocio, en todo o en parte, hasta por ciento veinte (120) días por razones técnicas o económicas u otras independientes de la voluntad del empleador, mediante autorización previa del Ministerio de Trabajo y Seguridad Social. De la solicitud que se eleve al respecto el empleador deberá informar en forma simultánea, por escrito, a sus trabajadores.
 
-- 2. Si durante la vigencia del contrato se modificaren alguna o algunas de las especificaciones antes dichas, estas modificaciones deben hacerse constar en registro separado con referencia a las anteriores. De estos registros debe expedirse copia a los trabajadores cuando lo soliciten. El registro de ingreso puede extenderse y firmarse en forma colectiva cuando se contratan a la vez varios trabajadores.
+Por licencia o permiso temporal concedido por el empleador al trabajador o por suspensión disciplinaria.
 
-**Certificación del contrato.**
+Por ser llamado el trabajador a prestar el servicio militar. En este caso el empleador está obligado a conservar el puesto del trabajador hasta por {treinta (30) días} después de terminado el servicio. Dentro de este término el trabajador puede reincorporarse a sus tareas, cuando lo considere conveniente, y el empleador está obligado a admitirlo tan pronto como éste gestione su reincorporación.
 
-**Artículo 43.** Cuando se ocupen menos de cinco (5) trabajadores y no se haya celebrado contrato escrito, los patronos, a solicitud de los trabajadores, bien directamente o por conducto de las autoridades administrativas del Trabajo, deben expedir una certificación del contrato en donde hagan constar, por lo menos: nombres de los contratantes, fecha inicial de la prestación del servicio, naturaleza del contrato y su duración. Si el patrono lo exige, al pie de tal certificación se hará constar la declaración de conformidad del trabajador o sus observaciones.
+Por detención preventiva del trabajador o por arresto correccional que no exceda de ocho (8) días por cuya causa no justifique la extinción del contrato.
 
-**Cláusulas ineficaces.**
+Por huelga declarada en la forma prevista en la Ley.
 
-**Artículo 44**. En los contratos de trabajo no producen ningún efecto las estipulaciones o condiciones que desmejoren la situación del trabajador en relación con lo que establezcan la legislación del trabajo, los respectivos fallos arbítrales, pactos, convenciones colectivas y reglamentos de trabajo y las que sean ilícitas o ilegales por cualquier aspecto; pero a pesar de la ineficacia de esas estipulaciones, todo trabajo ejecutado en virtud de ellas, que constituya por sí mismo una actividad lícita, da derecho al trabajador para reclamar el pago de sus salarios y prestaciones legales por el tiempo que haya durado el servicio hasta que esa ineficacia se haya reconocido o declarado judicialmente.
+(Numeral 7. declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-1369-00, bajo el entendido de que la huelga suspende los contratos de trabajo por el tiempo que dure y, en consecuencia, el empleador no tiene la obligación de pagar salarios y demás derechos laborales durante este lapso. Pero habrá lugar al pago de salarios y prestaciones cuando ésta sea imputable al empleador, por desconocer derechos laborales legales o convencionales, jurídicamente exigibles. Y que en todo caso, le sea o no imputable la huelga deberá el empleador garantizar el derecho irrenunciable a la seguridad social de los trabajadores que participaron en el cese de actividades mediante el pago de los correspondientes aportes para salud y pensiones. Bajo cualquier otro entendimiento las referidas disposiciones son INEXEQUIBLES) (Numeral 7 declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-993-00,'bajo el entendido de que las consecuencias de la suspensión del contrato de trabajo durante la huelga sólo se predican cuando ésta sea imputable al empleador, por desconocer derechos laborales, legales o convencionales jurídicamente exigibles, y que éste debe, en todo caso, esto es, le sea o no imputable la huelga, garantizar el derecho irrenunciable a la seguridad social de los trabajadores que participaron en el cese de actividades, mediante el pago de los correspondientes aportes para salud y pensiones. Bajo cualquier otro entendimiento la referida disposición es INEXEQUIBLE) (Subrogado por el Art. 4 de la Ley 50 de 1990)
 
-**Cláusula de no concurrencia.**
+ARTICULO 52. REANUDACION DEL TRABAJO. Desaparecidas las causas de la suspensión temporal del trabajo, el {empleador} debe avisar a los trabajadores, en los casos de que tratan los tres (3) primeros ordinales del artículo anterior, la fecha de la reanudación del trabajo, mediante notificación personal o avisos publicados no menos de dos veces en un periódico de la localidad, y debe admitir a sus ocupaciones anteriores a todos los trabajadores que se presenten dentro de los tres (3) días siguientes a la notificación o aviso.
 
-**Artículo 45.** La estipulación por medio de la cual un trabajador se obliga a no trabajar en determinada actividad o a no prestar sus servicios a los competidores de su patrono, una vez concluido su contrato de trabajo no produce efecto alguno. Sin embargo, es válida esta estipulación hasta por un año cuando se trate de trabajadores técnicos, industriales o agrícolas, en cuyo caso debe pactarse, por el período de abstención, una indemnización que en ningún caso puede ser inferior a la mitad del salario.
+ARTICULO 53. EFECTOS DE LA SUSPENSION. Durante el período de las suspensiones contempladas en el artículo 51 se interrumpe para el trabajador la obligación de prestar el servicio prometido, y para el {empleador} la de pagar los salarios de esos lapsos, pero durante la suspensión corren a cargo del {empleador}, además de las obligaciones ya surgidas con anterioridad, las que le correspondan por muerte o por enfermedad de los trabajadores. Estos períodos de suspensión pueden descontarse por el {empleador} al liquidar vacaciones, cesantías y jubilaciones.
 
-**Duración.**
+(Declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-1369-00, bajo el entendido de que la huelga suspende los contratos de trabajo por el tiempo que dure y, en consecuencia, el empleador no tiene la obligación de pagar salarios y demás derechos laborales durante este lapso. Pero habrá lugar al pago de salarios y prestaciones cuando ésta sea imputable al empleador, por desconocer derechos laborales legales o convencionales, jurídicamente exigibles. Y que en todo caso, le sea o no imputable la huelga deberá el empleador garantizar el derecho irrenunciable a la seguridad social de los trabajadores que participaron en el cese de actividades mediante el pago de los correspondientes aportes para salud y pensiones. Bajo cualquier otro entendimiento las referidas disposiciones son INEXEQUIBLES.) (Declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-993-00, bajo el entendido de que las consecuencias de la suspensión del contrato de trabajo durante la huelga sólo se predican cuando ésta sea imputable al empleador, por desconocer derechos laborales, legales o convencionales jurídicamente exigibles, y que éste debe, en todo caso, esto es, le sea o no imputable la huelga, garantizar el derecho irrenunciable a la seguridad social de los trabajadores que participaron en el cese de actividades, mediante el pago de los correspondientes aportes para salud y pensiones. Bajo cualquier otro entendimiento la referida disposición es INEXEQUIBLE)
 
-**Artículo 46.** El contrato de trabajo puede celebrarse por tiempo determinado, por el tiempo que dure la realización de una obra o labor determinada, por tiempo indefinido o para ejecutar un trabajo ocasional, accidental o transitorio
+ARTICULO 54. PRUEBA DEL CONTRATO. La existencia y condiciones del contrato pueden acreditarse por los medios probatorios ordinarios.
 
-**Contrato por tiempo determinado.**
+## CAPITULO V.
 
-**Artículo 47.** El contrato celebrado por tiempo determinado debe constar siempre por escrito y su plazo no puede exceder de dos (2) años, pero es renovable indefinidamente.
+EJECUCION Y EFECTO DEL CONTRATO.
 
-**Plazo presuntivo.**
+ARTICULO 55. EJECUCION DE BUENA FE. El contrato de trabajo, como todos los contratos, deben ejecutarse de buena fe y, por consiguiente, obliga no sólo a lo que en él se expresa sino a todas las cosas que emanan precisamente de la naturaleza de la relación jurídica o que por la ley pertenecen a ella.
 
-**Artículo 48.** Los contratos cuya duración no haya sido expresamente estipulada o no resulte de la naturaleza de la obra o servicio que debe ejecutarse, se presumen celebrados por términos sucesivos de seis (6) en seis (6) meses.
+ARTICULO 56. OBLIGACIONES DE LAS PARTES EN GENERAL. De modo general, incumben al {empleador} obligaciones de protección y de seguridad para con los trabajadores, y a éstos obligaciones de obediencia y fidelidad para con el {empleador}.
 
-**Cláusula de reserva.**
+ARTICULO 57. OBLIGACIONES ESPECIALES DEL {EMPLEADOR}. Son obligaciones especiales del {empleador}:
 
-**Artículo 49.** En los contratos de duración indeterminada o sin fijación de término las partes pueden reservarse la facultad de darlos por terminados en cualquier tiempo, mediante preaviso o desahucio notificado por escrito a la otra parte con anterioridad no inferior a uno de los periodos que regulan los pagos del salario, previa cancelación de todas las deudas, prestaciones e indemnizaciones a que haya lugar. El patrono puede prescindir del preaviso pagando igual periodo. La reserva de que se trata sólo es válida cuando se consigne por escrito en el contrato o reglamento de trabajo, y se presume en el servicio doméstico.
+Poner a disposición de los trabajadores, salvo estipulación en contrario, los instrumentos adecuados y las materias primas necesarias para la realización de las labores.
 
-**Prórroga.**
+Procurar a los trabajadores locales apropiados y elementos adecuados de protección contra los accidentes y enfermedades profesionales en forma que se garanticen razonablemente la seguridad y la salud.
 
-**Artículo 50.** Salvo estipulación en contrario, el contrato celebrado por tiempo indefinido o sin fijación de término alguno, se entiende prorrogado en las mismas condiciones, por periodos iguales, es decir, de seis (6) en seis (6) meses, por el solo hecho de continuar el trabajador prestando sus servicios al patrono con su consentimiento expreso o tácito después de la expiración del plazo presuntivo. La prórroga a plazo fijo del contrato celebrado por tiempo determinado debe constar por escrito; pero si extinguido el plazo inicialmente estipulado, el trabajador continuare prestando sus servicios al patrono, con su consentimiento, expreso o tácito, el contrato vencido se considera, por ese solo hecho, prorrogado por periodos de seis (6) en seis (6) meses.
+Prestar inmediatamente los primeros auxilios en caso de accidente o de enfermedad. A este efecto en todo establecimiento, taller o fábrica que ocupe habitualmente más de diez (10) trabajadores, deberá mantenerse lo necesario, según reglamentación de las autoridades sanitarias. Pagar la remuneración pactada en las condiciones, períodos y lugares convenidos.
 
-**Revisión.**
+Guardar absoluto respeto a la dignidad personal del trabajador, a sus creencias y sentimientos.
 
-**Artículo 51.** Todo contrato de trabajo es revisable cuando quiera que sobrevengan imprevisibles y graves alteraciones de la normalidad económica. Cuando no haya acuerdo entre las partes acerca de la existencia de tales alteraciones, corresponde a la justicia del Trabajo decidir sobre ella y, mientras tanto, el contrato sigue en todo su vigor.
+Conceder al trabajador las licencias necesarias para el ejercicio del sufragio; para el desempeño de cargos oficiales transitorios de forzosa aceptación; en caso de grave calamidad doméstica debidamente comprobada; para desempeñar comisiones sindicales inherentes a la organización o para asistir al entierro de sus compañeros, siempre que avise con la debida oportunidad al {empleador} o a su representante y que, en los dos (2) últimos casos, el número de los que se ausenten no sea tal que perjudique el funcionamiento de la empresa. En el reglamento de trabajo se señalarán las condiciones para las licencias antedichas. Salvo convención en contrario, el tiempo empleado en estas licencias puede descontarse al trabajador o compensarse con tiempo igual de trabajo efectivo en horas distintas de su jornada ordinaria, a opción del {empleador}.
 
-**Suspensión.**
+(Aparte tachado INEXEQUIBLE, el resto del numeral CONDICIONALMENTE EXEQUIBLE) Dar al trabajador que lo solicite, a la expiración de contrato, una certificación en que consten el tiempo de servicio, la índole de la labor y el salario devengado; e igualmente, si el trabajador lo solicita, hacerle practicar examen sanitario y darle certificación sobre el particular, si al ingreso o durante la permanencia en el trabajo hubiere sido sometido a examen médico. Se considera que el trabajador, por su culpa, elude, dificulta o dilata el examen, cuando transcurrido cinco (5) días a partir de su retiro no se presenta donde el médico respectivo para la práctica del examen, a pesar de haber recibido la orden correspondiente.
 
-**Artículo 52.** El contrato de trabajo se suspende:
+Pagar al trabajador los gastos razonables de venida y de regreso, si para prestar sus servicios lo hizo cambiar de residencia, salvo si la terminación del contrato se origina por culpa o voluntad del trabajador. Si el trabajador prefiere radicarse en otro lugar, el {empleador} le debe costear su traslado hasta la concurrencia de los gastos que demandaría su regreso al lugar donde residía anteriormente. En los gastos de traslado del trabajador, se entienden comprendidos los de los familiares que con el convivieren; y Cumplir el reglamento y mantener el orden, la moralidad y el respeto a las leyes.
 
-- 1. Por fuerza mayor o caso fortuito que temporalmente impida su ejecución.
+al trabajador en caso de fallecimiento de su cónyuge, compañero o compañera permanente o de un familiar hasta el grado segundo de consanguinidad, primero de afinidad y primero civil, una licencia remunerada por luto de cinco (5) días hábiles, cualquiera sea su modalidad de contratación o de vinculación laboral. La grave calamidad doméstica no incluye la Licencia por Luto que trata este numeral. Este hecho deberá demostrarse mediante documento expedido por la autoridad competente, dentro de los treinta (30) días siguientes a su ocurrencia.
 
-- 2. Por la muerte o inhabilitación del patrono, cuando éste sea una persona natural y cuando ella traiga como consecuencia necesaria y directa la suspensión temporal del trabajo.
+(Aparte subrayado declarado EXEQUIBLE, en el entendido que también incluye a los parientes del trabajador en el segundo grado civil, por la Corte Constitucional mediante Sentencia C-892-12) (Numeral 10 adicionado por el Art. 1 de la Ley 1280 de 2009)
 
-- 3. Por suspensión de actividades o clausura temporal de la empresa, establecimiento o negocio, en todo o en parte, hasta por ciento veinte (120) días y por razones técnicas o económicas, independientes de la voluntad del patrono, siempre que se notifique a los trabajadores la fecha precisa de la suspensión o clausura temporal, con anticipación no inferior a un (1) mes, o pagándoles los salarios correspondientes a este período.
+PARÁGRAFO. Las EPS tendrán la obligación de prestar la asesoría psicológica a la familia.
 
-- 4. Por licencia o permiso temporal concedido por el patrono al trabajador o por suspensión disciplinaria.
+Conceder en forma oportuna a la trabajadora en estado de embarazo, la licencia remunerada consagrada en el numeral 1 del artículo 236, de forma tal que empiece a disfrutarla de manera obligatoria una (1) semana antes o dos (2) semanas antes de la fecha probable del parto, según decisión de la futura madre conforme al certificado médico a que se refiere el numeral 3 del citado artículo 236.
 
-- 5. Por ser llamado el trabajador a prestar servicio militar.
+(Numeral 11 adicionado por el Art. 3 de la Ley 1468 de 2011) Conceder la licencia de 10 días hábiles para el cuidado de la niñez, al padre, madre o quien detente la custodia y cuidado personal de los menores de edad que padezcan una enfermedad terminal o cuadro clínico severo derivado de un accidente grave y requieran un cuidado permanente; o requiera cuidados paliativos para el control del dolor y otros síntomas.
 
-En este caso el patrono está obligado a conservar el puesto al trabajador hasta treinta (30) días después de terminado el servicio. Dentro de esos treinta (30) días el trabajador puede reincorporarse a sus tareas, cuando lo considere conveniente, y el patrono está obligado a admitirlo tan pronto como éste gestione su reincorporación.
+(Numeral 12 adicionado por el Art. 4 de la Ley 2174 de 2021)
 
-- 6. Por detención preventiva del trabajador o por arrestos correccionales que no excedan de ocho (8) días y cuya causa no justifique la extinción del contrato.
+ARTICULO 58. OBLIGACIONES ESPECIALES DEL TRABAJADOR. Son obligaciones especiales del trabajador:
 
-- 7. Por huelga declarada en la forma prevenida por la Ley.
+Realizar personalmente la labor, en los términos estipulados; observar los preceptos del reglamento y acatar y cumplir las órdenes e instrucciones que de modo particular la impartan el empleador o sus representantes, según el orden jerárquico establecido. No comunicar con terceros, salvo la autorización expresa, las informaciones que tenga sobre su trabajo, especialmente sobre las cosas que sean de naturaleza reservada o cuya divulgación pueda ocasionar perjuicios al empleador, lo que no obsta para denunciar delitos comunes o violaciones del contrato o de las normas legales del trabajo ante las autoridades competentes.
 
-**Reanudación del trabajo.**
+Conservar y restituir un buen estado, salvo el deterioro natural, los instrumentos y útiles que le hayan sido facilitados y las materias primas sobrantes.
 
-**Artículo 53.** Desaparecidas las causas de la suspensión temporal del trabajo, y si esta suspensión excede de ocho (8) días, el patrono debe avisar a los trabajadores, en los casos de que tratan los tres primeros ordinales del Artículo anterior, la fecha de la reanudación del trabajo, mediante notificación personal o avisos publicados no menos de dos (2) veces en un periódico de la localidad, y debe admitir a sus ocupaciones anteriores a todos los trabajadores que se presenten dentro de los tres (3) días siguientes a la notificación o aviso.
+Guardar rigurosamente la moral en las relaciones con sus superiores y compañeros.
 
-**Efectos de la suspensión.**
+Comunicar oportunamente al empleador las observaciones que estime conducentes a evitarle daños y perjuicios.
 
-**Artículo 54.** Durante el período de las suspensiones contempladas en el artículo 52 se interrumpe para el trabajador la obligación de prestar el servicio prometido, y para el patrono la de pagar los salarios de esos lapsos, pero durante la suspensión corren a cargo del patrono, además de las obligaciones ya surgidas con anterioridad, las que le correspondan por muerte o por enfermedad de los trabajadores. Estos períodos de suspensión pueden descontarse por el patrono al liquidar vacaciones, cesantías y jubilaciones.
+Prestar la colaboración posible en casos de siniestro o de riesgo inminente que afecten o amenacen las personas o cosas de la empresa o establecimiento.
 
-**Prueba del contrato.**
+Observar con suma diligencia y cuidado las instrucciones y órdenes preventivas de accidentes o de enfermedades profesionales. La trabajadora en estado de embarazo debe empezar a disfrutar la licencia remunerada consagrada en el numeral 1 del artículo 236 , al menos una semana antes de la fecha probable del parto.
 
-**Artículo 55.** La existencia y condiciones del contrato de trabajo pueden acreditarse por los medios probatorios ordinarios.
+(Numeral 8 adicionado por el Art. 4 de la Ley 1468 de 2011)
 
-### CAPITULO V
+ARTICULO 59. PROHIBICIONES A LOS {EMPLEADORES}. Se prohíbe a los {empleadores}:
 
-EJECUCIÓN Y EFECTO DEL CONTRATO
+Deducir, retener o compensar suma alguna del monto de los salarios y prestaciones en dinero que corresponda a los trabajadores, sin autorización previa escrita de éstos para cada caso, o sin mandamiento judicial, con excepción de los siguientes:
 
-**Ejecución de buena fe.**
+a). Respeto de salarios, pueden hacerse deducciones, retenciones o compensaciones en los casos autorizados por los artículos 113, 150, 151, 152 y 400.
 
-**Artículo 56.** El contrato de trabajo, como todos los contratos, debe ejecutarse de buena fe y, por consiguiente, obliga no sólo a lo que en él se expresa sino a todas las cosas que emanan precisamente de la naturaleza de la relación jurídica o que por la Ley pertenecen a ella.
+b). Las cooperativas pueden ordenar retenciones hasta de un cincuenta por ciento (50%) de salarios y prestaciones, para cubrir sus créditos, en la forma y en los casos en que la ley las autorice.
 
-**Obligaciones de las partes en general.**
+c) En cuanto a pensiones de jubilación, los {empleadores} pueden retener el valor respectivo en los casos del artículo 274. (Literal c) declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-247-01) Obligar en cualquier forma a los trabajadores a comprar mercancías o víveres en almacenes o proveedurías que establezca el {empleador}. Exigir o aceptar dinero del trabajador como gratificación para que se le admita en el trabajo o por otro motivo cualquiera que se refiera a las condiciones de éste.
 
-**Artículo 57.** De modo general, incumben al patrono obligaciones de protección y de seguridad para con los trabajadores, y a éstos obligaciones de obediencia y fidelidad para con el patrono
+Limitar o presionar en cualquier forma a los trabajadores en el ejercicio de su derecho de asociación.
 
-**Obligaciones especiales del patrono.**
+Imponer a los trabajadores obligaciones de carácter religioso o político, o dificultarles o impedirles el ejercicio del derecho del sufragio. Hacer, autorizar, o tolerar propaganda política en los sitios de trabajo.
 
-**Artículo 58.** Son obligaciones especiales del patrono:
+Hacer o permitir todo género de rifas, colectas o suscripciones en los mismos sitios.
 
-- 1. Poner a disposición de los trabajadores, salvo estipulación en contrario, los instrumentos adecuados y las materias primas necesarias para la realización de las labores.
+Emplear en las certificaciones de que trata el ordinal 7o. del artículo 57 signos convencionales que tiendan a perjudicar a los interesados, o adoptar el sistema de "lista negra", cualquiera que sea la modalidad que utilicen, para que no se ocupe en otras empresas a los trabajadores que se separen o sean separados del servicio.
 
-- 2. Procurar a los trabajadores locales apropiados y elementos adecuados de protección contra los accidentes y enfermedades profesionales en forma que se garanticen razonablemente la seguridad y la salud.
+Ejecutar o autorizar cualquier acto que vulnere o restrinja los derechos de los trabajadores o que ofenda su dignidad. (Adicionado por el Art. 12 de la Ley 20 de 1982)
 
-- 3. Prestar inmediatamente los primeros auxilios en casos de accidente o de enfermedad. A este efecto en todo establecimiento, taller o fábrica que ocupe habitualmente más de diez (10) trabajadores, deberá mantenerse lo necesario, según reglamentación de las autoridades sanitarias.
+ARTICULO 60. PROHIBICIONES A LOS TRABAJADORES. Se prohíbe a los trabajadores:
 
-- 4. Pagar la remuneración pactada en las condiciones, períodos y lugares convenidos.
+Sustraer de la fábrica, taller o establecimiento, los útiles de trabajo y las materias primas o productos elaborados. Sin permiso del {empleador}. Presentarse al trabajo en estado de embriaguez o bajo la influencia de narcóticos o drogas enervantes.
 
-- 5. Guardar absoluto respeto a la dignidad personal del trabajador, a sus creencias y sentimientos.
+(Numeral 2 CONDICIONALMENTE EXEQUIBLE) Conservar armas de cualquier clase en el sitio del trabajo, a excepción de las que con autorización legal puedan llevar los celadores (D.2478/48). Faltar al trabajo sin justa causa de impedimento o sin permiso del {empleador}, excepto en los casos de huelga, en los cuales deben abandonar el lugar del trabajo.
 
-- 6. Conceder al trabajador las licencias necesarias para el ejercicio del sufragio; para el desempeño de cargos oficiales transitorios de forzosa aceptación; en caso de grave calamidad doméstica debidamente comprobada; para desempeñar comisiones sindicales inherentes a la organización o para asistir al entierro de sus compañeros, siempre que avise con la debida oportunidad al patrono o a su representante y que, en los dos (2) últimos casos, el número de los que se ausenten no sea tal que perjudique el funcionamiento de la empresa. En el reglamento de trabajo se señalarán las condiciones para las licencias antedichas. Salvo convención en contrario, el tiempo empleado en estas licencias puede descontarse al trabajador o compensarse con tiempo igual de trabajo efectivo en horas distintas de su jornada ordinaria, a opción del patrono.
+Disminuir intencionalmente el ritmo de ejecución del trabajo, suspender labores, promover suspensiones intempestivas del trabajo o excitar a su declaración o mantenimiento, sea que participe o no en ellas.
 
-- 7. Dar al trabajador que lo solicite, a la expiración del contrato, una certificación en que consten el tiempo de servicio, la índole de la labor y el salario devengado; e igualmente, si el trabajador lo solicita, hacerle practicar examen sanitario y darle certificación sobre el particular, si al ingreso o durante la permanencia en el trabajo hubiere sido sometido a examen médico. Se considera que el trabajador, por su culpa, elude, dificulta o dilata el examen, cuando transcurridos cinco (5) días a partir de su retiro no se presenta donde el médico respectivo para la práctica del examen, a pesar de haber recibido la orden correspondiente.
+Hacer colectas, rifas y suscripciones o cualquier clase de propaganda en los lugares de trabajo.
 
-- 8. Pagar al trabajador los gastos razonables de venida y regreso, si para prestar sus servicios lo hizo cambiar de residencia, salvo si la terminación del contrato se origina por culpa o voluntad del trabajador. Si el trabajador prefiere radicarse en otro lugar, el patrono le debe costear su traslado hasta la concurrencia de los gastos que demandaría su regreso al lugar en donde residía anteriormente. En los gastos de traslado del trabajador, se entienden comprendidos los de los familiares que con él convivieren; y
+Coartar la libertad para trabajar o no trabajar, o para afiliarse o no a un sindicato o permanecer en él o retirarse. Usar los útiles o herramientas suministradas por el {empleador} en objetos distintos del trabajo contratado.
 
-9ª Cumplir el reglamento y mantener el orden, la moralidad y el respeto a las Leyes.
+## CAPITULO VI.
 
-**Obligaciones especiales del trabajador.**
+TERMINACION DEL CONTRATO DE TRABAJO.
 
-**Artículo 59.** Son obligaciones especiales del trabajador:
+ARTICULO 61. TERMINACION DEL CONTRATO.
 
-- 1. Realizar personalmente la labor, en los términos estipulados; observar los preceptos del reglamento y acatar y cumplir las órdenes e instrucciones que de modo particular le impartan el patrono o sus representantes, según el orden jerárquico establecido.
+El contrato de trabajo termina:
 
-- 2. No comunicar con terceros, salvo autorización expresa, las informaciones que tenga sobre su trabajo, especialmente sobre las cosas que sean de naturaleza reservada o cuya divulgación pueda ocasionar perjuicios al patrono, lo que no obsta para denunciar delitos comunes o violaciones del contrato o de las normas legales del trabajo ante las autoridades competentes.
+a). Por muerte del trabajador;
 
-- 3. Conservar y restituir en buen estado, salvo el deterioro natural, los instrumentos y útiles que le hayan sido facilitados y las materias primas sobrantes.
+b). Por mutuo consentimiento;
 
-- 4. Guardar rigurosamente la moral en las relaciones con sus superiores y compañeros.
+c). Por expiración del plazo fijo pactado;
 
-- 5. Comunicar oportunamente al patrono las observaciones que estime conducentes a evitarle daños y perjuicios.
+(Literal c) declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-016-98) d). Por terminación de la obra o labor contratada;
 
-- 6. Prestar la colaboración posible en casos de siniestro o de riesgo inminente que afecten o amenacen las personas o las cosas de la empresa o establecimiento.
+e). Por liquidación o clausura definitiva de la empresa o establecimiento;
 
-- 7. Observar las medidas preventivas higiénicas prescritas por el médico del patrono o por las autoridades del ramo; y
+f). Por suspensión de actividades por parte del empleador durante más de ciento veinte (120) días;
 
-- 8. Observar con suma diligencia y cuidado las instrucciones y órdenes preventivas de accidentes o de enfermedades profesionales.
+g). Por sentencia ejecutoriada;
 
-**Prohibiciones a los patronos.**
+h). Por decisión unilateral en los casos de los artículos 7, del Decreto-ley 2351 de 1965, y 6 de esta ley;
 
-##### **Artículo 60.** Se prohíbe a los patronos:
+(Literal h) declarado EXEQUIBLE, sólo en los términos de la sentencia, por la Corte Constitucional mediante Sentencia C-1507-00) i). Por no regresar el trabajador a su empleo, al desaparecer las causas de la suspensión del contrato.
 
-- 1. Deducir, retener o compensar suma alguna del monto de los salarios y prestaciones en dinero que correspondan a los trabajadores, sin autorización previa escrita de éstos para cada caso, o sin mandamiento judicial, con excepción de los siguientes:
+En los casos contemplados en los literales e) y f) de este artículo, el empleador deberá solicitar el correspondiente permiso al Ministerio de Trabajo y Seguridad Social e informar por escrito a sus trabajadores de este hecho. El Ministerio de Trabajo y Seguridad Social resolverá lo relacionado con el permiso en un plazo de dos (2) meses. El cumplimiento injustificado de este término hará incurrir al funcionario responsable en causal de mala conducta sancionable con arreglo al régimen disciplinario vigente.
 
-- a) Respecto de salarios pueden hacerse deducciones, retenciones o compensaciones en los casos autorizados por los artículos 114, 151, 152, 153 Y 417.
+(Subrogado por el Art. 5 de la Ley 50 de 1990) (Modificado por el Art. 6 del Decreto 2351 de 1965)
 
-- b) Las cooperativas pueden ordenar retenciones hasta de un cincuenta por ciento (50%) de salarios y prestaciones, para cubrir sus créditos, en la forma y en los casos en que la Ley las autorice.
+ARTICULO 62. TERMINACION DEL CONTRATO POR JUSTA CAUSA. Son justas causas para dar por terminado unilateralmente el contrato de trabajo:
 
-- c) En cuanto a auxilios de cesantía y pensiones de jubilación, los patronos pueden retener el valor respectivo en los casos de los artículos 255 y 283.
+A). Por parte del {empleador}:
 
-- 2. Obligar en cualquier forma a los trabajadores a comprar mercancías o víveres en almacenes o proveedurías que establezca el patrono.
+El haber sufrido engaño por parte del trabajador, mediante la presentación de certificados falsos para su admisión o tendientes a obtener un provecho indebido.
 
-- 3. Exigir o aceptar dinero del trabajador como gratificación para que se le admita en el trabajo o por otro motivo cualquiera que se refiera a las condiciones de éste:
+Todo acto de violencia, injuria, malos tratamientos o grave indisciplina en que incurra el trabajador en sus labores, contra el {empleador}, los miembros de su familia, el personal directivo o los compañeros de trabajo.
 
-- 4. Limitar o presionar en cualquier forma a los trabajadores en el ejercicio de su derecho de asociación.
+Todo acto grave de violencia, injuria o malos tratamientos en que incurra el trabajador fuera del servicio, en contra del {empleador}, de los miembros de su familia o de sus representantes y socios, jefes de taller, vigilantes o celadores.
 
-- 5. Imponer a los trabajadores obligaciones de carácter religioso o político, o dificultarles o impedirles el ejercicio del derecho del sufragio.
+(Numeral 3 declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-299-98) Todo daño material causado intencionalmente a los edificios, obras, maquinarias y materias primas, instrumentos y demás objetos relacionados con el trabajo, y toda grave negligencia que ponga en peligro la seguridad de las personas o de las cosas.
 
-- 6. Hacer, autorizar o tolerar propaganda política en sitios del trabajo.
+Todo acto inmoral o delictuoso que el trabajador cometa en el taller, establecimiento o lugar de trabajo o en el desempeño de sus labores. (Aparte subrayado declarado EXEQUIBLE, por los cargos analizados, por la Corte Constitucional mediante Sentencia C-931-14) Cualquier violación grave de las obligaciones o prohibiciones especiales que incumben al trabajador de acuerdo con los artículos 58 y 60 del Código Sustantivo del Trabajo, o cualquier falta grave calificada como tal en pactos o convenciones colectivas, fallos arbitrales, contratos individuales o reglamentos.
 
-- 7. Hacer o permitir todo género de rifas, colectas o suscripciones en los mismos sitios.
+(La Corte Constitucional se declaró INHIBIDA de fallar sobre este numeral (parcial) por ineptitud de la demanda, mediante Sentencia C-148-18) La detención preventiva del trabajador por más de treinta (30) días, a menos que posteriormente sea absuelto; o el arresto correccional que exceda de ocho (8) días, o aun por tiempo menor, cuando la causa de la sanción sea suficiente por sí misma para justificar la extinción del contrato.
 
-- 8. Emplear en las certificaciones de que trata el ordinal 79 del Artículo 58, signos convencionales que tiendan a perjudicar a los interesados, o adoptar el sistema de "lista negra", cualquiera que sea la modalidad que utilicen, para que no se ocupe en otras empresas a los trabajadores que se separen o sean separados del servicio.
+(Mediante Sentencia C-079-96 del 29 la Corte Constitucional se declaró INHIBIDA de fallar sobre el aparte subrayado. Dentro de los considerandos la Corte dice: ''el arresto correccional”, fue eliminado al expedirse el Decreto 522 de 1971. En consecuencia, la alusión que del mismo hace la causal 7.(sic) carece de aplicabilidad en el momento) El que el trabajador revele los secretos técnicos o comerciales o dé a conocer asuntos de carácter reservado, con perjuicio de la empresa. El deficiente rendimiento en el trabajo en relación con la capacidad del trabajador y con el rendimiento promedio en labores análogas, cuando no se corrija en un plazo razonable a pesar del requerimiento del {empleador}.
 
-- 9. Ejecutar o autorizar cualquier acto que vulnere o restrinja los derechos de los trabajadores o que ofenda su dignidad.
+La sistemática inejecución, sin razones válidas, por parte del trabajador, de las obligaciones convencionales o legales. Todo vicio del trabajador que perturbe la disciplina del establecimiento.
 
-**Prohibiciones a los trabajadores.**
+La renuencia sistemática del trabajador a aceptar las medidas preventivas, profilácticas o curativas, prescritas por el médico del {empleador} o por las autoridades para evitar enfermedades o accidentes.
 
-**Artículo 61.** Se prohíbe a los trabajadores:
+La ineptitud del trabajador para realizar la labor encomendada.
 
-- 1. Sustraer de la fábrica, taller o establecimiento, útiles de trabajo y las materias primas o productos elaborados, sin permiso del patrono.
+El reconocimiento al trabajador de la pensión de la jubilación oinvalidez estando al servicio de la empresa.
 
-- 2. Presentarse al trabajo en estado de embriaguez o bajo la influencia de narcóticos o drogas enervantes.
+(Aparte subrayado CONDICIONALMENTE EXEQUIBLE, ver Sentencia C-1443-00) La enfermedad contagiosa o crónica del trabajador, que no tenga carácter de profesional, así como cualquiera otra enfermedad o lesión que lo incapacite para el trabajo, cuya curación no haya sido posible durante ciento ochenta (180) días. El despido por esta causa no podrá efectuarse sino al vencimiento de dicho lapso y no exime al {empleador} de las prestaciones e indemnizaciones legales y convencionales derivadas de la enfermedad.
 
-- 3. Conservar armas de cualquier clase en el sitio del trabajo, a excepción de las que con autorización legal puedan llevar los celadores.
+(Numeral declarado CONDICIONALMENTE EXEQUIBLE, por la Corte Constitucional mediante Sentencia C-200-19) En los casos de los numerales 9 a 15 de este artículo, para la terminación del contrato, el {empleador} deberá dar aviso al trabajador con anticipación no menor de quince (15) días.
 
-- 4. Faltar al trabajo sin justa causa de impedimento o sin permiso del patrono, excepto en los casos de huelga, en los cuales deben abandonar el lugar del trabajo.
+B). Por parte del trabajador:
 
-- 5. Disminuir intencionalmente el ritmo de ejecución del trabajo, suspender labores, promover suspensiones intempestivas del trabajo o excitar a su declaración o mantenimiento, sea que se participe o no en ellas.
+El haber sufrido engaño por parte del {empleador}, respecto de las condiciones de trabajo.
 
-- 6. Hacer colectas, rifas y suscripciones o cualquier clase de propaganda en los lugares de trabajo.
+Todo acto de violencia, malos tratamientos o amenazas graves inferidas por el {empleador} contra el trabajador o los miembros de su familia, dentro o fuera del servicio, o inferidas dentro del servicio por los parientes, representantes o dependientes del {empleador} con el consentimiento o la tolerancia de éste.
 
-- 7. Coartar la libertad para trabajar o no trabajar, o para afiliarse o no a un sindicato o permanecer en él o retirarse.
+Cualquier acto del {empleador} o de sus representantes que induzca al trabajador a cometer un acto ilícito o contrario a sus convicciones políticas o religiosas.
 
-- 8. Usar los útiles o herramientas suministrados por el patrono en objetos distintos del trabajo contratado.
+Todas las circunstancias que el trabajador no pueda prever al celebrar el contrato, y que pongan en peligro su seguridad o su salud, y que el {empleador} no se allane a modificar.
 
-### CAPITULO VI
+Todo perjuicio causado maliciosamente por el {empleador} al trabajador en la prestación del servicio.
 
-TERMINACIÓN DEL CONTRATO
+El incumplimiento sistemático sin razones válidas por parte del {empleador}, de sus obligaciones convencionales o legales. La exigencia del {empleador}, sin razones válidas, de la prestación de un servicio distinto, o en lugares diversos de aquél para el cual se le contrató, y Cualquier violación grave de las obligaciones o prohibiciones que incumben al empleador, de acuerdo con los artículos 57 y 59 del Código Sustantivo del Trabajo, o cualquier falta grave calificada como tal en pactos o convenciones colectivas, fallos arbitrales, contratos individuales o reglamentos.
 
-**Cuándo termina.**
+PARAGRAFO. La parte que termina unilateralmente el contrato de trabajo debe manifestar a la otra, en el momento de la extinción, la causal o motivo de esa determinación. Posteriormente no pueden alegarse válidamente causales o motivos distintos.
 
-##### **Artículo 62.** 1. El contrato de trabajo termina:
+(Modificado por el Art. 7 del Decreto 2351 de 1965)
 
-- a) Por expiración del plazo pactado o presuntivo;
+ARTICULO 63. TERMINACIÓN CON PREVIO AVISO. Son justas causas para dar por terminado, unilateralmente, el contrato de trabajo, con previo aviso dado por escrito a la otra parte, con antelación por lo menos igual al periodo que regule los pagos del salario, o mediante el pago de los salarios correspondientes a tal periodo:
 
-- b) Por la terminación de la obra o labor contratada
+A). Por parte del patrono:
 
-- c) Por mutuo consentimiento;
+La ineptitud plenamente comprobada del trabajador para prestar el servicio convenido;
 
-- d) Por muerte del trabajador;
+La sistemática inejecución, sin razones válidas, por parte del trabajador, de las obligaciones convencionales o legales. Todo vicio habitual del trabajador que perturbe la disciplina del establecimiento.
 
-- e) Por suspensión de actividades por parte del patrono durante más de ciento veinte (120) días;
+La renuencia sistemática del trabajador a aceptar las medidas preventivas, profilácticas o curativas, prescritas por el médico del patrono o por las autoridades para evitar enfermedades o accidentes;
 
-- f) Por liquidación o clausura definitiva de la empresa o establecimiento;
+La enfermedad contagiosa o crónica del trabajador, que no tenga el carácter de profesional, y cuya curación, según dictamen médico, no sea probable antes de seis (6) meses, así como cualquier otra enfermedad o lesión que incapacite para el trabajo por más de dicho lapso; pero el despido por esta causa no exime al patrono de las prestaciones e indemnizaciones legales y convencionales derivadas de la enfermedad, y Las demás que se hayan previsto, con esta modalidad, en el contrato, pacto o convención colectiva, fallo arbitral o reglamento. B). Por parte del trabajador:
 
-- g) Por decisión unilateral en los casos de los articulas 49, 63 y 64; y
+La inejecución por parte del patrono de sus obligaciones convencionales o legales de importancia;
 
-- h) Por sentencia de autoridad competente.
+La exigencia del patrono, sin razones válidas, de la prestación de un servicio distinto, o en lugares diversos de aquel para el cual se le contrató; y Las demás que se hayan previsto, con esta modalidad, en el contrato, pacto o convención colectiva, fallo arbitral o reglamento. (Subrogado por el Art. 7 del Decreto 2351 de 1965)
 
-- 2. En los casos contemplados en los ordinales e) y f) de este artículo, el patrono debe proceder en la misma forma prevista en el ordinal 39 del Artículo 52.
+ARTICULO 64. TERMINACION UNILATERAL DEL CONTRATO DE TRABAJO SIN JUSTA CAUSA. En todo contrato de trabajo va envuelta la condición resolutoria por incumplimiento de lo pactado, con indemnización de perjuicios a cargo de la parte responsable. Esta indemnización comprende el lucro cesante y el daño emergente.
 
-**Terminación sin previo aviso.**
+En caso de terminación unilateral del contrato de trabajo sin justa causa comprobada, por parte del empleador o si éste da lugar a la terminación unilateral por parte del trabajador por alguna de las justas causas contempladas en la ley, el primero deberá al segundo una indemnización en los términos que a continuación se señalan:
 
-**Artículo 63.** Son justas causas para dar por terminado, unilateralmente, el contrato de trabajo, sin previo aviso:
+En los contratos a término fijo, el valor de los salarios correspondientes al tiempo que faltare para cumplir el plazo estipulado del contrato; o el del lapso determinado por la duración de la obra o la labor contratada, caso en el cual la indemnización no será inferior a quince (15) días. En los contratos a término indefinido la indemnización se pagará así:
 
-A Por parte del patrono:
+a) Para trabajadores que devenguen un salario inferior a diez (10) salarios mínimos mensuales legales:
 
-- 1. El haber sufrido engaño por parte del trabajador, mediante presentación de certificados falsos para su admisión;
+Treinta (30) días de salario cuando el trabajador tuviere un tiempo de servicio no mayor de un (1) año.
 
-- 2. Todo acto de violencia, injurias, malos tratamientos o grave indisciplina, en que incurra el trabajador; durante sus labores, contra el patrono, los miembros de su familia, el personal directivo o los compañeros de trabajo;
+Si el trabajador tuviere más de un (1) año de servicio continuo se le pagarán veinte (20) días adicionales de salario sobre los treinta (30) básicos del numeral 1, por cada uno de los años de servicio subsiguientes al primero y proporcionalmente por fracción;
 
-- 3. Todo acto grave de violencia, injurias o malos tratamientos en que incurra el trabajador, fuera del servicio, en contra del patrono, de los miembros de su familia o de sus representantes y socios, o de jefes de taller, vigilantes o celadores.
+b) Para trabajadores que devenguen un salario igual o superior a diez (10), salarios mínimos legales mensuales.
 
-- 4. Todo daño material causado intencionalmente a los edificios, obras, maquinarias y materias primas, instrumentos y demás objetos relacionados con el trabajo, y toda grave negligencia que ponga en peligro la seguridad de las personas o de las cosas;
+Veinte (20) días de salario cuando el trabajador tuviere un tiempo de servicio no mayor de un (1) año.
 
-- 5. Todo acto inmoral o delictuoso que el trabajador cometa en el taller, establecimiento o lugar de trabajo, cuando sea debidamente comprobado ante autoridad competente;
+Si el trabajador tuviere más de un (1) año de servicio continuo, se le pagarán quince (15) días adicionales de salario sobre los veinte (20) días básicos del numeral 1 anterior, por cada uno de los años de servicio subsiguientes al primero y proporcionalmente por fracción.
 
-- 6. El que el trabajador revele los secretos técnicos o comerciales o dé a conocer asuntos de carácter reservado, con perjuicio de la empresa;
+PARÁGRAFO TRANSITORIO. Los trabajadores que al momento de entrar en vigencia la presente ley, tuvieren diez (10) o más años al servicio continuo del empleador, se les aplicará la tabla de indemnización establecida en los literales b), c) y d) del artículo 6 de la Ley 50 de 1990, exceptuando el parágrafo transitorio, el cual se aplica únicamente para los trabajadores que tenían diez (10) o más años el primero de enero de 1991.
 
-- 7. La detención preventiva del trabajador, por más de treinta (30) días, a menos que posteriormente sea absuelto; o el arresto correccional que exceda de ocho (8) días, o aun por un tiempo menor, cuando la causa de la sanción sea suficiente por sí misma para justificar la extinción del contrato;
+(Modificado por el Art. 28 de la Ley 789 de 2002) (Subrogado por el Art. 6 de la Ley 50 de 1990) (Modificado por el Art. 8 del Decreto 2351 de 1965)
 
-- 8. Cualquier violación grave de las obligaciones o prohibiciones especiales que incumben al trabajador, de acuerdo con los artículos 59 y 61, o cualquier falta grave calificada como tal en pactos o convenciones colectivas, fallos arbítrales, contratos individuales o reglamentos, siempre que el hecho esté debidamente comprobado y que en la aplicación de la sanción se observe el respectivo procedimiento reglamentario o convencional.
+ARTICULO 65. INDEMNIZACION POR FALTA DE PAGO.
 
-B Por parte del trabajador:
+Si a la terminación del contrato, el empleador no paga al trabajador los salarios y prestaciones debidas, salvo los casos de retención autorizados por la ley o convenidos por las partes, debe pagar al asalariado, como indemnización, una suma igual al último salario diario por cada día de retardo, hasta por veinticuatro (24) meses, o hasta cuando el pago se verifique si el período es menor. Si transcurridos veinticuatro (24) meses contados desde la fecha de terminación del contrato, el trabajador no ha iniciado su reclamación por la vía ordinaria o si presentara la demanda, no ha habido pronunciamiento judicial, el empleador deberá pagar al trabajador intereses moratorios a la tasa máxima de créditos de libre asignación certificados por la Superintendencia Bancaria, a partir de la iniciación del mes veinticinco (25) hasta cuando el pago se verifique. (Inciso declarado EXEQUIBLE, salvo el aparte tachado que se declara INEXEQUIBLE, por la Corte Constitucional mediante Sentencia C-781-03) Dichos intereses los pagará el empleador sobre las sumas adeudadas al trabajador por concepto de salarios y prestaciones en dinero. (Aparte subrayado declarado EXEQUIBLE, por los cargos estudiados, por la Corte Constitucional mediante Sentencia C-892-09) Si no hay acuerdo respecto del monto de la deuda, o si el trabajador se niega a recibir, el empleador cumple con sus obligaciones consignando ante el juez de trabajo y, en su defecto, ante la primera autoridad política del lugar, la suma que confiese deber, mientras la justicia de trabajo decide la controversia.
 
-- 1. El haber sufrido engaño por parte del patrono, respecto de las condiciones del trabajo;
+PARÁGRAFO 1. Para proceder a la terminación del contrato de trabajo establecido en el artículo 64 del Código Sustantivo del Trabajo, el empleador le deberá informar por escrito al trabajador, a la última dirección registrada, dentro de los sesenta (60) días siguientes a la terminación del contrato, el estado de pago de las cotizaciones de Seguridad Social y parafiscalidad sobre los salarios de los últimos tres meses anteriores a la terminación del contrato, adjuntando los comprobantes de pago que los certifiquen. Si el empleador no demuestra el pago de dichas cotizaciones, la terminación del contrato no producirá efecto. Sin embargo, el empleador podrá pagar las cotizaciones durante los sesenta (60) días siguientes, con los intereses de mora.
 
-- 2. Todo acto de violencia, malos tratamientos o amenazas graves, inferidos por el patrono contra el trabajador o los miembros de su familia, dentro o fuera del servicio, o inferidos dentro del servicio por los parientes, representantes o dependientes del patrono, con el consentimiento o la tolerancia de éste;
+PARÁGRAFO 2. Lo dispuesto en el inciso 1o. de este artículo solo se aplicará a los trabajadores que devenguen más de un (1) salario mínimo mensual vigente. Para los demás seguirá en plena vigencia lo dispuesto en el artículo 65 del Código Sustantivo de Trabajo vigente. (Modificado por el artículo 29 de la Ley 789 de 2002)
 
-- 3. Cualquier acto del patrono o de sus representantes, que induzca al trabajador a cometer un acto ilícito o contrario a sus convicciones políticas o religiosas;
+ARTICULO 66. MANIFESTACION DEL MOTIVO DE LA TERMINACION. La parte que termina unilateralmente el contrato de trabajo debe manifestar a la otra, en el momento de la extinción, la causal o motivo de esta determinación. Posteriormente no pueden alegarse válidamente causales o motivos distintos.
 
-- 4. Todas las circunstancias que el trabajador no pueda prever al celebrar el contrato y que pongan en peligro su seguridad o su salud, y que el patrono no se allane a modificar;
+(Modificado por el parágrafo del Art. 7 del Decreto 2351 de 1965)
 
-- 5. Todo perjuicio causado maliciosamente por el patrono al trabajador en la prestación del servicio;
+## CAPITULO VII
 
-- 6. Cualquier violación grave de las obligaciones o prohibiciones especiales que incumben al patrono de acuerdo con los artículos 58 y 60, o cualquier falta grave calificada como tal en pactos o convenciones colectivas, fallos arbítrales, contratos individuales o reglamentos, siempre que el hecho esté debidamente comprobado.
+SUSTITUCION DE EMPLEADORES
 
-**Terminación con previo aviso.**
+ARTICULO 67. DEFINICION. Se entiende por sustitución de {empleadores} todo cambio de un {empleador} por otro, por cualquier causa, siempre que subsista la identidad del establecimiento, es decir, en cuanto éste no sufra variaciones esenciales en el giro de sus actividades o negocios.
 
-**Artículo 64.** Son justas causas para dar por terminado, unilateralmente, el contrato de trabajo, con previo aviso dado por escrito a la otra parte, con antelación por lo menos igual al período que regule los pagos del salario, o mediante el pago de los salarios correspondientes a tal período:
+ARTICULO 68. MANTENIMIENTO DEL CONTRATO DE TRABAJO. La sola sustitución de {empleadores} no extingue, suspende ni modifica los contratos de trabajo existentes.
 
-- A) Por parte del patrono:
+ARTICULO 69. RESPONSABILIDAD DE LOS {EMPLEADORES}.
 
-- 1. La ineptitud plenamente comprobada del trabajador para prestar el servicio convenido;
+El antiguo y el nuevo {empleador} responden solidariamente las obligaciones que a la fecha de la sustitución sean exigibles a aquél, pero si el nuevo {empleador} las satisfaciere, puede repetir contra el antiguo.
 
-- 2. La sistemática inejecución, sin razones válidas, por parte del trabajador, de las obligaciones convencionales o legales;
+El nuevo {empleador} responde de las obligaciones que surjan con posterioridad a la sustitución.
 
-- 3. Todo vicio habitual del trabajador que perturbe la disciplina del establecimiento;
+En los casos de jubilación, cuyo derecho haya nacido con anterioridad a la sustitución, las pensiones mensuales que sean exigibles con posterioridad a esa sustitución deben ser cubiertas por el nuevo {empleador}, pero éste puede repetir contra el antiguo. El antiguo {empleador} puede acordar con todos o con cada uno de sus trabajadores el pago definitivo de sus cesantías por todo el tiempo servido hasta el momento de la sustitución, como si se tratara de retiro voluntario, sin que se entienda terminado el contrato de trabajo. Si no se celebrare el acuerdo antedicho, el antiguo {empleador} debe entregar al nuevo el valor total de las cesantías en la cuantía en que esta obligación fuere exigible suponiendo que los respectivos contratos hubieren de extinguirse por retiro voluntario en la fecha de sustitución, y de aquí en adelante queda a cargo exclusivo del nuevo {empleador} el pago de las cesantías que se vayan causando, aun cuando el antiguo {empleador} no cumpla con la obligación que se le impone en este inciso.
 
-- 4. La renuencia sistemática del trabajador a aceptar las medidas preventivas, profilácticas o curativas prescritas por el médico del patrono o por las autoridades para evitar enfermedades o accidentes;
+El nuevo {empleador} puede acordar con todos o cada uno de los trabajadores el pago definitivo de sus cesantías, por todo tiempo servido hasta el momento de la sustitución, en la misma forma y con los mismos efectos de que trata el inciso 4 del presente artículo.
 
-- 5. La enfermedad contagiosa o crónica del trabajador, que no tenga el carácter de profesional, y cuya curación, según dictamen médico, no sea probable antes de seis (6) meses, así como cualquiera otra enfermedad o lesión que incapacite para el trabajo por más de dicho lapso, y
+ARTICULO 70. ESTIPULACIONES ENTRE LOS {EMPLEADORES}. El antiguo y el nuevo {empleador} pueden acordar modificaciones de sus propias relaciones, pero los acuerdos no afectan los derechos consagrados en favor de los trabajadores en el artículo anterior.
 
-- 6. Las demás que se hayan previsto, con esta modalidad, en el contrato, pacto o convención colectiva, fallo arbitral o reglamento.
+## CAPITULO VIII
 
-- B) Por parte del trabajador:
+ENGANCHES COLECTIVOS.
 
-- 1. La inejecución por parte del patrono de sus obligaciones convencionales o legales de importancia;
+ARTICULO 71. DEFINICION. Por enganche colectivo se entiende la contratación conjunta de diez (10) o más trabajadores para que se trasladen de una región a otra a prestar servicios a un empleador.
 
-- 2. La exigencia del patrono, sin razones válidas, de la prestación de un servicio distinto o en lugares diversos de aquel para el cual se le contrató; y
+ARTICULO 72. ENGANCHE PARA EL EXTERIOR. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-- 3. Las demás que se hayan previsto, con esta modalidad, en el contrato, pacto o convención colectiva, fallo arbitral o reglamento.
+ARTICULO 73. GASTOS DE MOVILIZACION. Cuando los enganches se hagan para prestar servicios dentro del país, que impliquen movilización de los trabajadores a distancias mayores de doscientos (200) kilómetros de su domicilio, los contratos deben contar por escrito, estipular que los gastos de ida y regreso de los trabajadores serán exclusivamente a cargo del {empleador}, y llevar la aprobación del correspondiente funcionario del Trabajo o de la primera autoridad política del lugar en donde se realice el enganche.
 
-**Condición resolutoria.**
+(Apartes tachados suprimidos por el Art. 53 de la Ley 962 de 2005)
 
-**Artículo 65.** 1. En todo contrato de trabajo va envuelta la condición resolutoria por incumplimiento de lo pactado, con indemnización de perjuicios a cargo de la parte responsable. Esta indemnización comprende el daño emergente y el lucro cesante.
+## CAPITULO IX.
 
-- 2. En caso de que el patrono tenga que indemnizar perjuicios al trabajador, por ruptura unilateral e ilegal del contrato, el lucro cesante consiste en el monto de los salarios correspondientes al tiempo que faltare para cumplirse el plazo pactado o presuntivo
+TRABAJADORES COLOMBIANOS Y EXTRANJEROS.
 
-**Indemnización por falta de pago.**
+ARTICULO 74. PROPORCION E IGUALDAD DE CONDICIONES. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-**Artículo 66.** 1. Si a la terminación del contrato, el patrono no paga al trabajador los salarios y prestaciones debidos, salvo los casos de retención autorizados por la Ley o convenidos por las partes, debe pagar al asalariado, como indemnización, una suma igual al último salario diario por cada día de retardo.
+ARTICULO 75. AUTORIZACIONES PARA VARIAR LA PROPORCION. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-- 2. Si no hay acuerdo respecto del monto de la deuda, o si el trabajador se niega a recibir, el patrono cumple con sus obligaciones consignando ante el Juez del Trabajo y, en su defecto, ante la primera autoridad política del lugar, la suma que confiese deber, mientras la justicia del Trabajo decide la controversia.
+## TITULO II.
 
-- 3. En la misma sanción incurre el patrono cuando no haga practicar al trabajador el examen médico y no le expida el correspondiente certificado de salud de que trata el ordinal 7 del Artículo 58.
+PERIODO DE PRUEBA Y APRENDIZAJE.
 
-**Manifestación del motivo de la terminación.**
+## CAPITULO I.
 
-**Artículo 67.** 1. La parte que termina unilateralmente el contrato de trabajo debe manifestar a la otra en el momento de la extinción la causal o motivo que la mueve a tomar esa determinación, salvo en el caso de que exista cláusula de reserva conforme al Artículo 49.
+PERIODO DE PRUEBA.
 
-- 2. Posteriormente no pueden alegarse válidamente causales o motivos distintos.
+ARTICULO 76. DEFINICION. Período de prueba es la etapa inicial del contrato de trabajo que tiene por objeto, por parte del {empleador}, apreciar las aptitudes del trabajador, y por parte de éste, la conveniencia de las condiciones del trabajo.
 
-### CAPITULO VII
+ARTICULO 77. ESTIPULACION.
 
-SUSTITUCIÓN DE PATRONOS
+El período de prueba debe ser estipulado por escrito, y en caso contrario los servicios se entienden regulados por las normas generales del contrato de trabajo.
 
-**Definición.**
+(Numeral declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-028-19)
 
-**Artículo 68.** Se entiende por sustitución de patronos todo cambio de un patrono por otro, por cualquier causa, siempre que subsista la identidad del establecimiento, es decir, en cuanto éste no sufra variaciones esenciales en el giro de sus actividades o negocios.
+ARTICULO 78. DURACIÓN MÁXIMA. El período de prueba no puede exceder de dos (2) meses.
 
-**Mantenimiento del contrato de trabajo.**
+En los contratos de trabajo a término fijo cuya duración sea inferior a un (1) año el período de prueba no podrá ser superior a la quinta parte del término inicialmente pactado para el respectivo contrato, sin que pueda exceder de dos meses.
 
-**Artículo 69.** La sola sustitución de patronos no extingue, suspende ni modifica los contratos de trabajo existentes.
+Cuando entre un mismo empleador y trabajador se celebren contratos de trabajo sucesivos, no es válida la estipulación del período de prueba, salvo para el primer contrato.
 
-**Responsabilidad de los patronos**
+(Modificado por el Art. 7 de la Ley 50 de 1990.)
 
-**Artículo 70.** 1. El antiguo y el nuevo patrono responden solidariamente de las obligaciones que a la fecha de la sustitución sean exigibles a aquél, pero si el nuevo patrono las satisficiere, puede repetir contra el antiguo.
+ARTICULO 79. PRORROGA. Cuando el período de prueba se pacte por un plazo menor al de los límites máximos expresados, las partes pueden prorrogarlo antes de vencerse el período inicialmente estipulado, sin que el tiempo total de la prueba pueda exceder dichos límites. (Modificado por el Art. 8 de la Ley 50 de 1990
 
-- 2. El nuevo patrono responde de las obligaciones que surjan con posterioridad a la sustitución.
+ARTICULO 80. EFECTO JURIDICO.
 
-- 3. En los casos de jubilación, cuyo derecho haya nacido con anterioridad a la sustitución, las pensiones mensuales que sean exigibles con posterioridad a esa sustitución deben ser cubiertas por el nuevo patrono, pero éste puede repetir contra el antiguo.
+El período de prueba puede darse por terminado unilateralmente en cualquier momento, sin previo aviso.
 
-- 4. El antiguo patrono puede acordar con todos o cada uno de sus trabajadores el pago definitivo de sus cesantías por todo el tiempo servido hasta el momento de la sustitución, como si se tratara de retiro voluntario, sin que se entienda terminado el contrato de trabajo.
+Los trabajadores en período de prueba gozan de todas las prestaciones.
 
-- 5. Si no se celebrare el acuerdo antedicho, el antiguo patrono debe entregar al nuevo el valor total de las cesantías en la cuantía en que esta obligación fuere exigible suponiendo que los respectivos contratos hubieren de extinguirse por retiro voluntario en la fecha de la sustitución, y de aquí en adelante queda a cargo exclusivo del nuevo patrono el pago de las cesantías que se vayan causando, aun cuando el antiguo patrono no cumpla con la obligación que se le impone en este inciso.
+(Modificado por el Art. 3 del Decreto 617 de 1954)
 
-- 6. El nuevo patrono puede acordar con todos o cada uno de los trabajadores el pago definitivo de sus cesantías por todo el tiempo servido hasta el momento de la sustitución, en la misma forma y con los mismos efectos de que trata el inciso 4 del presente artículo.
+## CAPITULO II.
 
-**Parágrafo.** En los casos de empresas organizadas con base en contratos de concesión celebrados con el Estado, cuyos bienes revierten a éste, no se opera la sustitución de patronos, pero en este caso, para los efectos de la jubilación, se acumula el tiempo servido al antiguo y al nuevo patrono, y las pensiones mensuales deben ser cubiertas por el nuevo patrono, liquidadas en el momento de adquirirse la jubilación, y el nuevo patrono tendrá derecho a repetir del antiguo el valor que corresponda a éste en proporción al tiempo servido por el trabajador y de acuerdo con el salario que devengaba del mismo.
+CONTRATO DE APRENDIZAJE.
 
-**Estipulaciones entre los patronos.**
+ARTICULO 81. DEFINICION. Contrato de aprendizaje es aquel por el cual un empleado se obliga a prestar servicio a un empleador, a cambio de que éste le proporcione los medios para adquirir formación profesional metódica y completa del arte u oficio para cuyo desempeño ha sido contratado, por un tiempo determinado, y le pague el salario convenido.
 
-**Artículo 71.** El antiguo y el nuevo patrono pueden acordar modificaciones de sus propias relaciones, pero los acuerdos no afectan los derechos consagrados en favor de los trabajadores en el Artículo anterior.
+(Modificado por el Art. 1 de la Ley 188 de 1959)
 
-### CAPITULO VIII
+ARTICULO 82. CAPACIDAD. Pueden celebrar contrato de aprendizaje las personas mayores de 14 años que han completado sus estudios primarios, o demuestren poseer conocimientos equivalentes a ellos, en los mismos términos, y con las restricciones de que trata el Código del Trabajo.
 
-ENGANCHES COLECTIVOS
+(Modificado por el Art. 2 de la Ley 188 de 1959)
 
-**Definición.**
+ARTICULO 83. ESTIPULACIONES ESENCIALES. El contrato de aprendizaje debe contener, cuando menos, los siguientes puntos: Nombre de la empresa o empleador.
 
-**Artículo 72.** Por enganche colectivo se entiende la contratación conjunta de diez (l0) o más trabajadores para que se trasladen de una región a otra a prestar servicios a un patrono.
+Nombres, apellidos, edad y datos personales del aprendiz.
 
-Enganche para el Exterior.
+Oficio que es materia del aprendizaje, programa respectivo y duración del contrato.
 
-**Artículo 73.** 1. Cuando el servicio haya de prestarse fuera del país, los contratos deben extenderse por escrito, someterse a la aprobación del Ministerio del Trabajo y visarse por el Cónsul de la nación en donde deba ejecutarse el trabajo. Son requisitos para la aprobación de estos contratos los siguientes:
+Obligaciones del empleador y del aprendiz, y derechos de éste y aquél.
 
-- a) Deben ser de cargo exclusivo del patrono o contratista los gastos de transporte del trabajador, los de su familia y todos los que se originen en el cumplimiento de las disposiciones sobre migración;
+Salario del aprendiz y escala de aumentos durante el cumplimiento del contrato.
 
-- b) El patrono o contratista debe otorgar una caución bancaria o prendaría, a satisfacción del Ministerio del ramo, para garantizar que cubrirá por su exclusiva cuenta todos los gastos de repatriación del trabajador y de su familia, hasta el lugar de origen.
+Condiciones de trabajo, duración, vacaciones y períodos de estudios.
 
-- 2. La cancelación o devolución de la caución sólo puede hacerse una vez que el patrono o contratista compruebe haber cubierto dichos gastos o acredite la negativa de los trabajadores para volver al país, a la vez que el pago a éstos de todo lo que les hubiere adeudado por concepto de salarios, prestaciones e indemnizaciones a que tuvieren derecho.
+Cuantía y condiciones de la indemnización en caso de incumplimiento del contrato.
 
-**Gastos de movilización.**
+Firmas de los contratantes o de sus representantes.
 
-**Artículo 74.** Cuando los enganches se hagan para prestar servicios dentro del país, que impliquen movilización de los trabajadores a distancias mayores de doscientos (200) kilómetros de su domicilio, los contratos deben constar por escrito, estipular que los gastos de ida y regreso de los trabajadores serán exclusivamente a cargo del patrono, y llevar la aprobación del correspondiente funcionario del Trabajo o de la primera autoridad política del lugar en donde se realice el enganche.
+(Modificado por el Art. 3 de la Ley 188 de 1959)
 
-### CAPITULO IX
+ARTICULO 84. FORMA. El contrato de aprendizaje debe celebrarse por escrito, y en caso contrario los servicios se entienden regulados por las normas del contrato de trabajo.
 
-TRABAJADORES COLOMBIANOS Y EXTRANJEROS
+(Modificado por el Art. 4 de la Ley 188 de 1959)
 
-**Proporción e igualdad de condiciones.**
+ARTICULO 85. OBLIGACIONES ESPECIALES DEL APRENDIZ. Además de las obligaciones que se establecen en el Código de Trabajo, para todo empleado, el aprendiz tiene las siguientes:
 
-**Artículo 75.** 1. Todo patrono que tenga a su servicio más de diez (10) trabajadores debe ocupar colombianos en proporción no inferior al noventa por ciento (90%) del personal de trabajadores ordinarios, y no menos del ochenta por ciento (80%) del personal calificado o de especialistas o de dirección o confianza.
+Concurrir asiduamente tanto a los cursos, como a su trabajo, con diligencia y aplicación, sujetándose al régimen del aprendizaje y a las órdenes del empleador, y Procurar el mayor rendimiento en su estudio.
 
-- 2. Los trabajadores nacionales que desempeñen iguales funciones que los extranjeros, en una misma empresa o establecimiento, tienen derecho a exigir remuneración y condiciones iguales
+(Modificado por el Art. 6 de la Ley 188 de 1959)
 
-**Autorizaciones para variar la proporción,**
+ARTICULO 86. OBLIGACIONES ESPECIALES DEL EMPLEADOR. Además de las obligaciones establecidas en el Código del Trabajo, el empleador tiene las siguientes para con el aprendiz:
 
-**Artículo 76.** 1. El Ministerio del Trabaja puede disminuir la proporción anterior:
+Facilitar todos los medios al aprendiz para que reciba formación profesional metódica y completa del arte u oficio materia del contrato. Pagar al aprendiz el salario pactado según la escala establecida en el respectivo contrato, tanto en los períodos de trabajo como en los de enseñanza, y Cumplido satisfactoriamente el término del aprendizaje, preferirlo en igualdad de condiciones para llenar las vacantes que ocurran relativas a la profesión u oficio que hubiere aprendido.
 
-- a) Cuando se trate de personal estrictamente técnico e indispensable, y sólo por el tiempo necesario para preparar personal colombiano; y
+(Modificado por el Art. 7 de la Ley 188 de 1959)
 
-- b) Cuando se trate de inmigraciones promovidas o fomentadas por el Gobierno.
+ARTICULO 87. DURACION.
 
-- 2. Los patronos que necesiten ocupar trabajadores extranjeros en una proporción mayor a la autorizada por el Artículo anterior, acompañarán a su solicitud los documetos en que la funden. El Ministerio la dará a conocer con el fin de que el público, y en especial el personal colombiano del patrono peticionario, pueda ofrecer sus servicios.
+El contrato de aprendizaje no puede exceder de tres años de enseñanza y trabajo, alternados en períodos sucesivos e iguales, para ningún arte u oficio, y sólo podrá pactarse por el término no previsto para cada uno de ellos en las relaciones de oficios que serán publicados por el Ministerio del Trabajo.
 
-- 3. La autorización sólo se concederá por el tiempo necesario, a juicio del Ministerio, para preparar personal colombiano y mediante la obligación del peticionario de dar la enseñanza completa que se requiera con tal fin.
+El contrato de aprendizaje celebrado a término mayor del señalado para la formación del aprendiz en el oficio respectivo, se considerará, para todos los efectos legales, regido por la normas generales del contrato de trabajo en el lapso que exceda a la correspondiente duración del aprendizaje de ese oficio.
 
-## TITULO II
+El Ministerio de Trabajo publicara periódicamente la lista de las profesiones u oficios que requieran formación profesional metódica y completa, determinando los períodos máximos de duración de los respectivos contratos para cada uno de aquéllos.
 
-PERIODO DE PRUEBA Y APRENDIZAJE
+(Modificado por el Art. 9 de la Ley 188 de 1959)
 
-### CAPITULO I
+ARTICULO 88. EFECTO JURIDICO.
 
-PERIODO DE PRUEBA
+El término del contrato de aprendizaje empieza a correr a partir del día en que el aprendiz inicie la formación profesional metódica. Los primeros tres meses se presumen como período de prueba, durante los cuales se apreciarán, de una parte, las condiciones de adaptabilidad del aprendiz, sus aptitudes y cualidades personales; y de la otra, la conveniencia para éste (sic) de continuar el aprendizaje. El período de prueba a que se refiere este artículo se rige por las disposiciones generales del Código del Trabajo. Cuando el contrato de aprendizaje termine por cualquier causa, la empresa o el empleador deberá reemplazar al aprendiz o aprendices, para conservar la proporción que le haya sido señalada.
 
-**Definición.**
+En cuanto no se oponga a las disposiciones especiales de esta Ley, el contrato de aprendizaje se regirá por las del Código del Trabajo. (Modificado por el Art. 10 de la Ley 188 de 1959)
 
-##### **Artículo 77.** Período de prueba es la etapa inicial del contrato de trabajo que tiene por objeto, por parte del patrono, apreciar las aptitudes del trabajador, y por parte de éste, la conveniencia de las condiciones del trabajo
+## TITULO III.
 
-**Estipulación**
+CONTRATO DE TRABAJO CON DETERMINADOS TRABAJADORES.
 
-**Artículo 78.** 1. El período de prueba debe ser estipulado por escrito, y en caso contrario los servicios se entienden regulados por las normas generales del contrato de trabajo.
+## CAPITULO I.
 
-- 2. En el contrato de trabajo de los servidores domésticos se presumen como período de prueba los primeros quince (15) días de servicio.
+TRABAJO A DOMICILIO.
 
-**Duración máxima.**
+ARTICULO 89. CONTRATO DE TRABAJO. Hay contrato de trabajo con la persona que presta habitualmente servicios remunerados en su propio domicilio, sola o con la ayuda de miembros de su familia por cuenta de un {empleador}.
 
-**Artículo 79.** El período de prueba no puede exceder de dos (2) meses.
+ARTICULO 90. AUTORIZACION PREVIA. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-Prórroga.
+ARTICULO 91. LIBRO DE TRABAJADORES. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-**Artículo 80.** Cuando el período de prueba se pacte por un lapso menor al del límite máximo expresado, las partes pueden prorrogarlo antes de vencerse el período primitivamente estipulado y sin que el tiempo total de la prueba pueda exceder de dos (2) meses.
+ARTICULO 92. LIBRETA DE SALARIO. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-**Efecto jurídico.**
+ARTICULO 93. INFORMES. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-**Artículo 81**. 1. El período de prueba puede darse por terminado unilateralmente en cualquier momento, sin previo aviso.
+## CAPITULO II.
 
-- 2. Los trabajadores en período de prueba gozan de todas las prestaciones, excepto auxilio de cesantía.
+AGENTES COLOCADORES DE PÓLIZAS DE SEGUROS.
 
-### CAPITULO II
+ARTICULO 94. AGENTES COLOCADORES DE PÓLIZAS DE SEGUROS Y TÍTULOS DE CAPITALIZACIÓN. Son agentes colocadores de pólizas de seguros y títulos de capitalización las personas naturales que promuevan la celebración de contratos de seguro y capitalización y la renovación de los mismos en relación con una o varias compañías de seguros o sociedades de capitalización.
 
-CONTRATO DE APRENDIZAJE
+(Modificado por el Art. 9 de la Ley 50 de 1990) (Modificado por el Art. 1 del Decreto 3129 de 1956)
 
-**Definición.**
+ARTICULO 95. CLASES DE AGENTES. Los agentes colocadores de pólizas de seguros y títulos de capitalización podrán tener el carácter de dependientes o independientes.
 
-**Artículo 82.** Contrato de aprendizaje es aquel por el cual una persona natural se obliga a prestar servicio a otra persona, natural o jurídica, a cambio de que ésta le enseñe directamente o por medio de otra persona, una profesión, arte u oficio, por un tiempo determinado y le pague el salario convenido. Este salario puede consistir en dinero o en especie (alimentación, alojamiento, vestido), o en ambas cosas a la vez.
+(Modificado por el Art. 10 de la Ley 50 de 1990) (Modificado por el Art. 1 de la Ley 11 de 1984)
 
-**Capacidad.**
+ARTICULO 96. AGENTES DEPENDIENTES. Son agentes dependientes las personas que han celebrado contrato de trabajo para desarrollar esta labor, con una compañía de seguros o una sociedad de capitalización.
 
-**Artículo 83.** La capacidad para celebrar el contrato de aprendizaje se rige por el Artículo 30.
+PARAGRAFO TRANSITORIO. No obstante lo dispuesto en los artículos anteriores, las relaciones laborales que se hubieren configurado entre los agentes colocadores de pólizas de seguros y de títulos de capitalización y una o varias compañías de seguros o sociedades de capitalización, con anterioridad a la vigencia de la presente ley, continuarán rigiéndose por las normas bajo las cuales se establecieron. (Modificado por el Art. 11 de la Ley 50 de 1990) (Modificado por el Art. 2 de la Ley 11 de 1984)
 
-**Estipulaciones esenciales.**
+ARTICULO 97. AGENTES INDEPENDIENTES. Son agentes independientes las personas que, por sus propios medios, se dedican a la promoción de pólizas de seguros y títulos de capitalización, sin dependencia de la compañía de seguros o la sociedad de capitalización, en virtud de un contrato mercantil.
 
-**Artículo 84.** En el contrato de aprendizaje las partes deben ponerse de acuerdo, por lo menos, acerca de los siguientes puntos:
+En este evento no se podrán pactar cláusulas de exclusividad que le impidan al agente colocador celebrar contratos con varias compañías de seguros o sociedades de capitalización.
 
-- 1. La profesión, arte u oficio materia del aprendizaje, y los servicios que ha de prestar el aprendiz.
+(Modificado por el Art. 12 de la Ley 50 de 1990)
 
-- 2. El tiempo y lugar de enseñanza.
+ARTICULO 97A. COLOCADORES DE APUESTAS PERMANENTES. Los colocadores de apuestas permanentes, al igual que los agentes colocadores de pólizas de seguros y títulos de capitalización, podrán tener el carácter de dependientes o independientes. Son colocadores de apuestas dependientes los que han celebrado contratos de trabajo para desarrollar esa labor, con una empresa concesionaria. Son colocadores de apuestas independientes las personas que por sus propios medios se dediquen a la promoción o colocación de apuestas permanentes, sin dependencia de una empresa concesionaria, en virtud de un contrato mercantil. En este evento no se podrán pactar cláusulas de exclusividad.
 
-- 3. Las condiciones de manutención y alojamiento, cuando sean a cargo del patrono, y su valoración en dinero.
+PARAGRAFO. Los colocadores de apuestas permanentes que con anterioridad a la vigencia de la presente ley estuvieren vinculados mediante contrato de trabajo, mantendrán tal vinculación de idéntica naturaleza.
 
-**Forma.**
+(Adicionado por el Art. 13 de la Ley 50 de 1990)
 
-**Artículo 85.** El contrato de aprendizaje debe celebrarse por escrito, y en caso contrario los servicios se entienden regulados por las normas del contrato de trabajo.
+## CAPITULO III.
 
-**Obligaciones especiales del aprendiz.**
+REPRESENTANTES, AGENTES VIAJEROS Y AGENTES VENDEDORES.
 
-**Artículo 86.** Además de las obligaciones que en el artículo 59 se establecen para todo trabajador, el aprendiz tiene las siguientes:
+ARTICULO 98. CONTRATO DE TRABAJO. Hay contrato de trabajo con los representantes, agentes vendedores y agentes viajeros, cuando al servicio de personas determinadas, bajo su continuada dependencia y mediante remuneración se dediquen personalmente al ejercicio de su profesión y no constituyan por si mismos una empresa comercial. Esos trabajadores deben proveerse de una licencia para ejercer su profesión, que expedirá el Ministerio de Fomento .
 
-- 1. Prestar personalmente con todo cuidado y aplicación el trabajo convenido sujetándose a las órdenes, instrucciones y enseñanzas del maestro o del patrono.
+(Subrogado por el Art. 3 del Decreto 3129 de 1956)
 
-- 2. Ser leal y guardar respeto al patrono, al maestro, sus familiares, trabajadores y clientes del establecimiento.
+## CAPITULO IV.
 
-- 3. Guardar reserva absoluta sobre la vida privada del patrono, sus trabajadores y familiares.
+TRABAJADORES DE NOTARIAS PÚBLICAS Y OFICINAS DE REGISTRO DE INSTRUMENTOS PUBLICOS Y PRIVADOS.
 
-- 4. Procurar, la mayor economía para el patrono o maestro en el desempeño del trabajo.
+ARTICULO 99. Hay contrato de trabajo entre los trabajadores de las Notarías Públicas y Oficinas de Registro de Instrumentos Públicos y Privados y los Notarios y registradores. Estos trabajadores se consideran como particulares. .
 
-**Obligaciones especiales del patrono.**
+(Derogado por el Decreto Ley 59 de 1957)
 
-**Artículo 87.** Además de las obligaciones establecidas en el Artículo 58, el patrono tiene las siguientes para con el aprendiz:
+ARTICULO 100. RESPONSABILIDAD DE LOS NOTARIOS Y REGISTRADORES. Artículo derogado por el Decreto Ley 59 de 1957.
 
-- 1. Enseñarle la profesión, arte u. oficio a que se hubiere comprometido.
+## CAPITULO V.
 
-- 2. Concluido el aprendizaje, preferirlo en igualdad de condiciones para llenar las vacantes que ocurran relativas a la profesión, arte u oficio que hubiere aprendido.
+PROFESORES DE ESTABLECIMIENTOS PARTICULARES DE ENSEÑANZA.
 
-- 3. Otorgarle a la terminación del aprendizaje una certificación en la que se haga constar la duración de la enseñanza y los conocimientos y práctica adquiridos.
+ARTICULO 101. DURACION DEL CONTRATO DE TRABAJO. El contrato de trabajo con los profesores de establecimientos particulares de enseñanza se entiende celebrado por el año escolar, salvo estipulación por tiempo menor.
 
-**Duración.**
+(Declarado EXEQUIBLE salvo el aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-483-95)
 
-**Artículo 88.** 1. El contrato de aprendizaje no puede exceder de seis (6) meses, a menos que el respectivo Inspector del Trabaja autorice por escrito la ampliación de dicho término, pero en ningún caso la duración del aprendizaje puede pasar de un (1) año.
+ARTICULO 102. VACACIONES Y CESANTIAS.
 
-- 2. Cualquiera de las partes puede dar por terminado el contrato con previo aviso de siete (7) días. El patrono puede prescindir del previo aviso pagando igual período.
+Para el efecto de los derechos de vacaciones y cesantía, se entiende que el trabajo del año escolar equivale a trabajo en un año del calendario. Las vacaciones reglamentarias del respectivo establecimiento dentro del año escolar serán remuneradas y excluyen las vacaciones legales, en cuanto aquéllas excedan de quince (15) días.
 
-**Efecto jurídico.**
+(Modificado por el Art. 5 del Decreto 3743 de 1950)
 
-**Artículo 89.** 1. Los aprendices gozan de todas las prestaciones y están sometidos a todas las normas del contrato de trabajo, con la única salvedad de que no están amparados por las del salario mínimo.
+## CAPITULO VI.
 
-- 2. Para todos los efectos legales el contrato de trabajo se entiende iniciado desde que comienza el aprendizaje.
+CHOFERES DE SERVICIO FAMILIAR.
 
-## TITULO III
+ARTICULO 103. TERMINACION DEL CONTRATO.
 
-CONTRATO DE TRABAJO CON DETERMINADOS TRABAJADORES
+Al contrato de trabajo con los choferes de servicio familiar se le aplican las disposiciones establecidas para trabajadores domésticos, pero la cesantía, las vacaciones remuneradas y el auxilio en caso de enfermedad no profesional se les liquidaran en la forma ordinaria. Numeral derogado tácitamente Sentencia C-036-20.
 
-### CAPITULO I
+(Modificado por el Art. 4 del Decreto 617 de 1954)
 
-TRABAJO A DOMICILIO
+## TITULO IV.
 
-**Contrato de trabajo.**
+REGLAMENTO DE TRABAJO Y MANTENIMIENTO DEL ORDEN EN EL ESTABLECIMIENTO.
 
-**Artículo 90.** Hay contrato de trabajo con la persona que presta habitualmente servicios remunerados en su propio domicilio, sola o con la ayuda de miembros de su familia, por cuenta de un patrono,
+## CAPITULO I.
 
-**Autorización previa.**
+REGLAMENTO.
 
-**Artículo 91.** Todo patrono que quiera contratar trabajos a domicilio, debe previamente obtener la autorización del respectivo Inspector del Trabajo, o en su defecto, del Alcalde del lugar.
+ARTICULO 104. DEFINICION. Reglamento de trabajo es el conjunto de normas que determinan las condiciones a que deben sujetarse el {empleador} y sus trabajadores en la prestación del servicio.
 
-## **Libro de trabajadores.**
+ARTICULO 105. OBLIGACION DE ADOPTARLO.
 
-**Artículo 92.** Los patronos que den trabajo a domicilio deben llevar un libro autorizado y rubricado por el respectivo Inspector del Trabajo, o por la primera autoridad política donde no existiere este funcionario, en el que conste:
+Está obligado a tener un reglamento de trabajo todo {empleador} que ocupe más de cinco (5) trabajadores de carácter permanente en empresas comerciales, o más de diez (10) en empresas industriales, o más de veinte (20) en empresas agrícolas, ganaderas o forestales. En empresas mixtas, la obligación de tener un reglamento de trabajo existe cuando el {empleador} ocupe más de diez (10) trabajadores.
 
-- 1. Nombre y apellido de los trabajadores y domicilio en donde se ejecuta el trabajo;
+ARTICULO 106. ELABORACION. El {empleador} puede elaborar el reglamento sin intervención ajena, salvo lo dispuesto en pacto, convención colectiva, fallo arbitral o acuerdo con sus trabajadores.
 
-- 2. Cantidad y características del trabajo que se encargue cada vez;
+(Declarado EXEQUIBLE, por los cargos analizados por la Corte Constitucional mediante Sentencia C-934-04)
 
-- 3. Forma y monto de la retribución o salario; y
+ARTICULO 107. EFECTO JURIDICO. El reglamento hace parte del contrato individual de trabajo de cada uno de los trabajadores del respectivo establecimiento, salvo estipulación en contrario, que, sin embargo, sólo puede ser favorable al trabajador.
 
-- 4. Motivos o causas de la reducción o suspensión del trabajo.
+ARTICULO 108. CONTENIDO. El reglamento debe contener disposiciones normativas de los siguientes puntos:
 
-**Libreta de salario**
+Indicación del {empleador} y del establecimiento o lugares de trabajo comprendidos por el reglamento.
 
-**Artículo 93.** El patrono debe entregar gratuitamente al trabajador a domicilio que ocupe, una "libreta de salario" foliada y rubricada por el Inspector del Trabajo de su jurisdicción, y en su defecto por la primera autoridad política del lugar. En esta libreta, además de las anotaciones a que se refieren los numerales del Artículo anterior, se harán las siguientes:
+Condiciones de admisión, aprendizaje y período de prueba.
 
-- a) Valor y clase de los materiales que en cada ocasión se entreguen al trabajador, y la fecha de la entrega;
+Trabajadores accidentales o transitorios.
 
-- b) Fecha en que el trabajador entregue la obra terminada; y
+Horas de entrada y salida de los trabajadores; horas en que principia y termina cada turno si el trabajo se efectúa por equipos; tiempo destinado para las comidas y períodos de descanso durante la jornada.
 
-- c) Cuantía de los anticipos y salarios pagados.
+Horas extras y trabajo nocturno; su autorización, reconocimiento y pago.
 
-**Informes.**
+Días de descanso legalmente obligatorio; horas o días de descanso convencional o adicional; vacaciones remuneradas; permisos, especialmente lo relativo a desempeño de comisiones sindicales, asistencia al entierro de compañeros de trabajo y grave calamidad doméstica. Salario mínimo legal o convencional.
 
-**Artículo 94.** Los patronos que ocupen trabajadores a domicilio están obligados a suministrar a las autoridades administrativas del Trabajo todos los Informes que les soliciten, y en particular aquellos que se refieren a las condiciones de trabajo y a las tarifas de salarios pagadas al personal a su servicio.
+Lugar, día, hora de pagos y período que los regula.
 
-### CAPITULO II
+Tiempo y forma en que los trabajadores deben sujetarse a los servicios médicos que el {empleador} suministre.
 
-AGENTES COLOCADORES DE PÓLIZAS DE SEGUROS
+Prescripciones de orden y seguridad.
 
-**Contrato de trabajo.**
+Indicaciones para evitar que se realicen los riesgos profesionales e instrucciones, para prestar los primeros auxilios en caso de accidente. Orden jerárquico de los representantes del {empleador}, jefes de sección, capataces y vigilantes.
 
-**Artículo 95.** 1. Hay contrato de trabajo con los agentes colocadores de pólizas de seguros, que tengan carácter general o local, cuando dichos trabajadores se dedican personal y exclusivamente a esta labor en compañías de seguros, bajo su continuada dependencia, mediante remuneración y no constituyan por sí mismos una empresa comercial.
+Especificaciones de las labores que no deben ejecutar las mujeres y los menores de dieciséis (16) años*.
 
-- 2. No hay contrato de trabajo con los apoderados, representantes, gerentes distritales, directores, agentes y subagentes generales o locales, cualquiera que sea el nombre con que se les designe, y que bajo su responsabilidad y en consideración a una comisión o subvención organizan, manejan o dirigen los negocios de seguros de determinada compañía en todo el país o en determinada región, con libertad para dedicarse a otra u otras actividades y negocios, aun en el caso de que la compañía de la cual son apoderados, agentes, etc., les permita o les prohíba trabajar al servicio de otras compañías aseguradoras.
+(Aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-038-21) Normas especiales que se deben guardar en las diversas clases de labores, de acuerdo con la edad y el sexo de los trabajadores, con miras a conseguir la mayor higiene, regularidad y seguridad en el trabajo.
 
-**Presunción.**
+Obligaciones y prohibiciones especiales para el {empleador} y los trabajadores.
 
-**Artículo 96.** 1. Se presume que el agente colocador se ha dedicado exclusivamente y bajo continuada dependencia a la labor de colocación de pólizas, cuando produzca:
+Escala de faltas y procedimientos para su comprobación; escala de sanciones disciplinarias y forma de aplicación de ellas. La persona o personas ante quienes se deben presentar los reclamos del personal y tramitación de éstos, expresando que el trabajador o los trabajadores pueden asesorarse del sindicato respectivo.
 
-- a) En seguro de vida individual, un monto mínimo neto de setenta y cinco mil pesos ($75.000) de valor asegurado y un mínimo de diez y ocho (18) pólizas en el año, aceptadas y emitidas por la compañía, y cuya primera prima haya sido pagada.
+Prestaciones adicionales a las legalmente obligatorias, si existieren.
 
-- b) En seguros distintos del de vida individual, cuando haya ganado un mínimo de dos mil setecientos pesos ($ 2.700) de comisiones y colocado un mínimo de diez y ocho (18) pólizas nuevas en el año, aceptadas y emitidas por la compañía.
+Publicación y vigencia del reglamento.
 
-- 2. Se entiende por producción neta la correspondiente a seguros aprobados por la compañía aseguradora, y cuya prima anual haya sido íntegramente pagada, o la parte de tales seguros proporcional a la parte de prima pagada.
+ARTICULO 109. CLAUSULAS INEFICACES. No producen ningún efecto las cláusulas del reglamento que desmejoren las condiciones del trabajador en relación con lo establecido en las leyes, contratos individuales, pactos, convenciones colectivas o fallos arbitrales, los cuales sustituyen las disposiciones del reglamento en cuanto fueren más favorables al trabajador.
 
-**Colocadores que trabajan con varias compañías.**
+ARTICULO 110. NORMAS EXCLUIDAS. El reglamento no debe contener las reglas de orden meramente técnico o administrativo que formule el {empleador} para la ejecución de los trabajos, ni normas distintas de las mencionadas en el artículo 108.
 
-**Artículo 97.** Cuando un colocador de pólizas trabaje en dos (2) o más ramos del seguro, o para dos (2) o más compañías, con conocimiento de éstas, la producción, número de pólizas y comisiones en cada uno de los ramos, o en cada una de las compañías, se acumulan para el efecto de establecer si se ha cumplido con los requisitos señalados en el Artículo anterior. En tal caso, el cómputo se hace tomando en cuenta que setenta y cinco mil pesos ($75.000.00) de producción anual de seguros de vida individual equivalen a dos mil setecientos pesos ($ 2.700.00) de comisión anual en los otros seguros, y viceversa.
+ARTICULO 111. SANCIONES DISCIPLINARIAS. Las sanciones disciplinarias no pueden consistir en penas corporales, ni en medidas lesivas de la dignidad del trabajador.
 
-**Artículo 97A.** Adicionado.
+ARTICULO 112. SUSPENSION DEL TRABAJO. Cuando la sanción consista en suspensión del trabajo, ésta no puede exceder de ocho (8) días por la primera vez, ni de dos (2) meses en caso de reincidencia de cualquier grado.
 
-**Cómputo de la producción.**
+ARTICULO 113. MULTAS.
 
-**Artículo 98.** 1. Para computar la producción anual se toma en cuenta el año contado a partir de la fecha del contrato o del aniversario del mismo, salvo que se haya estipulado otra cosa.
+Las multas que se prevean, sólo puede causarse por retrasos o faltas al trabajo sin excusa suficiente; no puede exceder de la quinta (5a) parte del salario de un (1) día, y su importe se consigna en cuenta especial para dedicarse exclusivamente a premios o regalos para los trabajadores del establecimiento.
 
-- 2. Cuando un agente no trabaje como tal durante un año completo, se presume su dedicación exclusiva cuando haya producido durante el tiempo trabajado una suma proporcional al mínimo de producción anual fijado en el artículo 96.
+El {empleador} puede descontar las multas del valor de los salarios.
 
-### CAPITULO III
+La imposición de una multa no impide que el {empleador} prescinda del pago del salario correspondiente al tiempo dejado de trabajar. (Declarado EXEQUIBLE, por el cargo analizado, por la Corte Constitucional mediante Sentencia C-478-07)
 
-REPRESENTANTES, AGENTES VIAJEROS Y AGENTES VENDEDORES
+ARTICULO 114. SANCIONES NO PREVISTAS. El {empleador} no puede imponer a sus trabajadores sanciones no previstas en el reglamento, en pacto, en convención colectiva, en fallo arbitral o en contrato individual.
 
-**Contrato de trabajo.**
+ARTICULO 115. PROCEDIMIENTO PARA SANCIONES. Antes de aplicarse una sanción disciplinaria al {empleador}, debe dar oportunidad de ser oídos tanto al trabajador inculpado como a dos representantes del sindicato a que este pertenezca. No producirá efecto alguno la sanción disciplinaria que se imponga pretermitiendo este trámite.
 
-**Artículo 99.** Hay contrato de trabajo con los representantes, agentes vendedores y agentes viajeros, cuando al servicio de personas determinadas, bajo su continuada dependencia y mediante remuneración, se dediquen personalmente al ejercicio de su profesión, no constituyan por sí mismas una empresa comercial y tengan la licencia requerida por la Ley.
+(Modificado por el Art. 10 del Decreto 2351 de 1965)
 
-### CAPITULO IV
+ARTICULO 116. APROBACION Y PROCEDIMIENTO. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-TRABAJADORES DE NOTARIAS PÚBLICAS Y OFICINAS DE REGISTRO DE INSTRUMENTOS PÚBLICOS Y PRIVADOS
+ARTICULO 117. FORMA DE PRESENTACION. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-**Artículo 100.** Hay contrato de trabajo entre los trabajadores de las Notarías Públicas y Oficinas de Registro de Instrumentos Públicos y Privados y los Notarios y Registradores. Estos trabajadores se consideran como particulares.
+ARTICULO 118. INVESTIGACION. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-**Responsabilidad de los Notarios y Registradores.**
+ARTICULO 119. OBJECIONES. El Empleador publicará en cartelera de la empresa el Reglamento Interno de Trabajo y en la misma informará a los trabajadores, mediante circular interna, del contenido de dicho reglamento, fecha desde la cual entrará en aplicación. La organización sindical, si la hubiere, y los trabajadores no sindicalizados, podrán solicitar al empleador dentro de los quince (15) días hábiles siguientes los ajustes que estimen necesarios cuando consideren que sus cláusulas contravienen los artículos 106, 108, 111, 112 o 113 del Código Sustantivo del Trabajo.
 
-**Artículo 101.** 1. Los Notarios y Registradores responden de las prestaciones sociales que se causen durante sus períodos respectivos y deben pagarlas completamente al dejar sus cargos.
+Si no hubiere acuerdo el inspector del trabajo adelantará la investigación correspondiente, formulará objeciones si las hubiere y ordenará al empleador realizar las adiciones, modificaciones o supresiones conducentes, señalando como plazo máximo quince (15) días hábiles, al cabo de los cuales el empleador realizará los ajustes so pena de incurrir en multa equivalente a cinco (5) veces el salario mínimo legal mensual vigente. (Modificado por el Art. 17 de la Ley 1429 de 2010) (Subrogado por el Art. 5 del Decreto 617 de 1954)
 
-- 2. Antes de posesionarse, los Notarios y Registradores deben constituir caución, para garantizar el pago de las prestaciones sociales de sus trabajadores, ante el funcionario que deba darles posesión y en la cuantía que éste fije.
+ARTICULO 120. PUBLICACION. Una vez cumplida la obligación del artículo 12, el empleador debe publicar el reglamento del trabajo, mediante la fijación de dos (2) copias en caracteres legibles, en dos (2) sitios distintos. Si hubiere varios lugares de trabajo separados, la fijación debe hacerse en cada uno de ellos.
 
-### CAPITULO V
+(Modificado por el Art. 22 de la Ley 1429 de 2010)
 
-PROFESORES DE ESTABLECIMIENTOS PARTICULARES DE ENSEÑANZA
+ARTICULO 121. VIGENCIA. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-**Duración del contrato de trabajo.**
+ARTICULO 122. PRUEBA DE LA PUBLICACION. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-**Artículo 102**. El contrato de trabajo con los profesores de establecimientos particulares de enseñanza se entiende celebrado por el año escolar, salvo estipulación por tiempo menor.
+ARTICULO 123. PLAZO PARA LA PRESENTACION. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-**Vacaciones y cesantía.**
+ARTICULO 124. REVISION. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-**Artículo 103.** 1. Para el efecto de los derechos de vacaciones y cesantía, se entiende que el trabajo del año escolar equivale a trabajo en un año del calendario.
+ARTICULO 125. PROCEDIMIENTO DE REVISION. Artículo derogado por el parágrafo 3 del artículo 65 de la Ley 1429 de 2010.
 
-- 2. Las vacaciones reglamentarias del respectivo establecimiento dentro del año escolar serán remuneradas y no excluyen las vacaciones legales
+## CAPITULO II.
 
-### CAPITULO VI
+MANTENIMIENTO DEL ORDEN.
 
-CHÓFERES DE SERVICIO FAMILIAR
+ARTICULO 126. PROHIBICIONES. Los directores o trabajadores no pueden ser agentes de la autoridad pública en los establecimientos o lugares de trabajo, ni intervenir en la selección del personal de la policía, ni darle órdenes, ni suministrarle alojamiento o alimentación gratuitos, ni hacerle dádivas.
 
-**Artículo 104**. Al contrato de trabajo con los chóferes de servicio familiar se le aplican las disposiciones establecidas para trabajadores domésticos, pero la cesantía, las vacaciones remuneradas y el auxilio en caso de enfermedad no profesional se les liquidarán en la forma ordinaria.
+## TITULO V.
 
-## TITULO IV
+SALARIOS.
 
-REGLAMENTOS DE TRABAJO Y MANTENIMIENTO DEL ORDEN:
+## CAPITULO I.
 
-EN EL ESTABLECIMIENTO
+DISPOSICIONES GENERALES.
 
-### CAPITULO I
+ARTICULO 127. ELEMENTOS INTEGRANTES. Constituye salario no sólo la remuneración ordinaria, fija o variable, sino todo lo que recibe el trabajador en dinero o en especie como contraprestación directa del servicio, sea cualquiera la forma o denominación que se adopte, como primas, sobresueldos, bonificaciones habituales, valor del trabajo suplementario o de las horas extras, valor del trabajo en días de descanso obligatorio, porcentajes sobre ventas y comisiones.
 
-REGLAMENTO
+(Modificado por el Art. 14 del Ley 50 de 1990)
 
-**Definición.**
+ARTICULO 128. PAGOS QUE NO CONSTITUYEN SALARIOS. No constituyen salario las sumas que ocasionalmente y por mera liberalidad recibe el trabajador del empleador, como primas, bonificaciones o gratificaciones ocasionales, participación de utilidades, excedentes de las empresas de economía solidaria y lo que recibe en dinero o en especie no para su beneficio, ni para enriquecer su patrimonio, sino para desempeñar a cabalidad sus funciones, como gastos de representación, medios de transporte, elementos de trabajo y otros semejantes. Tampoco las prestaciones sociales de que tratan los títulos VIII y IX, ni los beneficios o auxilios habituales u ocasionales acordados convencional o contractualmente u otorgados en forma extralegal por el {empleador}, cuando las partes hayan dispuesto expresamente que no constituyen salario en dinero o en especie, tales como la alimentación, habitación o vestuario, las primas extralegales, de vacaciones, de servicios o de navidad.
 
-**Artículo 105.** Reglamento de trabajo es el conjunto de normas que determinan las condiciones a que deben sujetarse el patrono y sus trabajadores en la prestación del servicio.
+(Modificado por el Art. 15 del Ley 50 de 1990)
 
-**Obligación de adoptarlo.**
+ARTICULO 129. SALARIO EN ESPECIE.
 
-**Artículo 106.** 1. Está obligado a tener un reglamento de trabajo todo patrono que ocupe más de cinco (5) trabajadores de carácter permanente en empresas comerciales, o más de diez (10) en empresas industriales, o más de veinte (20) en empresas agrícolas, ganaderas o forestales.
+Constituye salario en especie toda aquella parte de la remuneración ordinaria y permanente que reciba el trabajador como contraprestación directa del servicio, tales como alimentación, habitación o vestuario que el {empleador} suministra al trabajador o a su familia, salvo la estipulación prevista en el artículo 15 de esta ley.
 
-- 2. En empresas mixtas, la obligación de tener un reglamento de trabajo existe cuando el patrono ocupe más de diez (10) trabajadores.
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional, mediante Sentencia No. C-521-95) El salario en especie debe valorarse expresamente en todo contrato de trabajo. A falta de estipulación o de acuerdo sobre su valor real se estimará pericialmente, sin que pueda llegar a constituir y conformar más del cincuenta por ciento (50%) de la totalidad del salario. No obstante, cuando un trabajador devengue el salario mínimo legal, el valor por el concepto de salario en especie no podrá exceder del treinta por ciento (30%).
 
-**Elaboración.**
+(Modificado por el Art. 16 del Ley 50 de 1990)
 
-**Artículo 107.** El patrono puede elaborar el reglamento sin intervención ajena, salvo lo dispuesto en pacto, convención colectiva, fallo arbitral o acuerdo con sus trabajadores.
+ARTICULO 130. VIATICOS.
 
-**Efecto jurídico.**
+Los viáticos permanentes constituyen salario en aquella parte destinada a proporcionar al trabajador manutención y alojamiento; pero no en lo que sólo tenga por finalidad proporcionar los medios de transporte o los gastos de representación.
 
-**Artículo 108.** El reglamento hace parte del contrato individual de trabajo de cada uno de los trabajadores del respectivo establecimiento, salvo estipulación en contrario, que, sin embargo, sólo puede ser favorable al trabajador.
+Siempre que se paguen debe especificarse el valor de cada uno de estos conceptos.
 
-**Contenido.**
+Los viáticos accidentales no constituyen salario en ningún caso. Son viáticos accidentales aquéllos que sólo se dan con motivo de un requerimiento extraordinario, no habitual o poco frecuente.
 
-**Artículo 109.** El reglamento debe contener disposiciones normativas de los siguientes puntos:
+(Modificado por el Art. 17 del Ley 50 de 1990)
 
-- 1. Indicación del patrono y del establecimiento o lugares de trabajo comprendidos por el reglamento.
+ARTICULO 131. PROPINAS.
 
-- 2. Condiciones de admisión, aprendizaje y período de prueba.
+Las propinas que recibe el trabajador no constituye salario.
 
-- 3. Trabajadores accidentales o transitorios.
+No puede pactarse como retribución del servicio prestado por el trabajador lo que éste reciba por propinas.
 
-- 4. Horas de entrada y salida de los trabajadores; horas en que principia y termina cada turno si el trabajo se efectúa por equipos; tiempo destinado para las comidas y períodos de descanso durante la jornada.
+ARTICULO 132. FORMAS Y LIBERTAD DE ESTIPULACION.
 
-- 5. Horas extras y trabajo nocturno; su autorización, reconocimiento y pago.
+El empleador y el trabajador pueden convenir libremente el salario en sus diversas modalidades como por unidad de tiempo, por obra, o a destajo y por tarea, etc., pero siempre respetando el salario mínimo legal o el fijado en los pactos, convenciones colectivas y fallos arbitrales. No obstante lo dispuesto en los artículos 13, 14, 16, 21 y 340 del Código Sustantivo del Trabajo y las normas concordantes con éstas, cuando el trabajador devengue un salario ordinario superior a diez (10) salarios mínimos legales mensuales, valdrá la estipulación escrita de un salario que además de retribuir el trabajo ordinario, compense de antemano el valor de prestaciones, recargos y beneficios tales como el correspondiente al trabajo nocturno, extraordinario o al dominical y festivo, el de primas legales, extralegales, las cesantías y sus intereses, subsidios y suministros en especie; y, en general, las que se incluyan en dicha estipulación, excepto las vacaciones.
 
-- 6. Días de descanso legalmente obligatorio; horas o días de descanso convencional o adicional; vacaciones remuneradas; permisos, especialmente en lo relativo a desempeño de comisiones sindicales, asistencia al entierro de compañeros de trabajo, y grave calamidad doméstica.
+En ningún caso el salario integral podrá ser inferior al monto de diez (10) salarios mínimos legales mensuales, más el factor prestacional correspondiente a la empresa que no podrá ser inferior al treinta por ciento (30%) de dicha cuantía. El monto del factor prestacional quedará exento del pago de retención en la fuente y de impuestos.
 
-- 7. Salario mínimo legal o convencional.
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-565-98) Este salario no estará exento de las cotizaciones a la seguridad social, ni de los aportes al SENA, ICBF y cajas de compensación familiar, pero en el caso de estas tres últimas entidades, los aportes se disminuirán en un treinta por ciento (30%).
 
-- 8. Lugar, día, hora de pagos y período que los regula.
+(Numeral 3. declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-988-99) El trabajador que desee acogerse a esta estipulación, recibirá la liquidación definitiva de su auxilio de cesantía y demás prestaciones sociales causadas hasta esa fecha, sin que por ello se entienda terminado su contrato de trabajo.
 
-- 9. Tiempo y forma en que los trabajadores deben sujetarse a los servicios médicos que el patrono suministre.
+(Modificado por el Art. 18 de la Ley 50 de 1990)
 
-- 10. Prescripciones de orden y seguridad.
+ARTICULO 133. JORNAL Y SUELDO. Se denomina jornal el salario estipulado por días, y sueldo el estipulado por períodos mayores.
 
-- 11. Indicaciones para evitar que se realicen los riesgos profesionales, e instrucciones para prestar los primeros auxilios en caso de accidente.
+ARTICULO 134. PERIODOS DE PAGO.
 
-- 12. Orden jerárquico de los representantes del patrono, jefes de sección, capataces y vigilantes.
+El salario en dinero debe pagarse por períodos iguales y vencidos, en moneda legal. El período de pago para los jornales no puede ser mayor de una semana, y para sueldos no mayor de un mes.
 
-- 13. Especificación de las labores que no deben ejecutar las mujeres y los menores de diez y seis (16) años.
+El pago del trabajo suplementario o de horas extras y el del recargo por trabajo nocturno debe efectuarse junto con el salario ordinario del período en que se han causado, o a más tardar con el salario del período siguiente.
 
-- 14. Normas especiales que se deben guardar en las diversas clases de labores, de acuerdo con la edad y el sexo de los trabajadores, con miras a conseguir la mayor higiene, regularidad y seguridad en el trabajo.
+ARTICULO 135. ESTIPULACION EN MONEDA EXTRANJERA. Cuando el salario se estipula en moneda o divisas extranjeras, el trabajador puede exigir el pago en su equivalente en moneda nacional colombiana, al tipo de cambio oficial del día en que debe efectuarse el pago.
 
-- 15. Obligaciones y prohibiciones especiales para el patrono y los trabajadores.
+ARTICULO 136. PROHIBICION DE TRUEQUE. Se prohíbe el pago del salario en mercancías, fichas u otros medios semejantes, a menos que se trate de una remuneración parcialmente suministrada en alojamiento, vestido y alimentación para el trabajador y su familia.
 
-- 16. Escala de faltas y procedimiento para su comprobación; escala de sanciones disciplinarias y forma de aplicación de ellas.
+ARTICULO 137. VENTA DE MERCANCIAS Y VIVERES POR PARTE DEL {EMPLEADOR}. Se prohíbe al {empleador} vender a sus trabajadores mercancías o víveres a menos que se cumpla con estas condiciones:
 
-- 17. La persona o personas ante quienes se deben presentar los reclamos del personal y tramitación de éstos, expresando que el trabajador o los trabajadores pueden asesorarse del sindicato respectivo.
+a). Libertad absoluta del trabajador para hacer sus compras donde quiera, y b). Publicidad de las condiciones de venta.
 
-l8. Prestaciones adicionales a las legalmente obligatorias, si existieren.
+ARTICULO 138. LUGAR Y TIEMPO DE PAGO.
 
-- 19. Publicación y vigencia del reglamento.
+Salvo convenio por escrito, el pago debe efectuarse en el lugar donde el trabajador presta sus servicios, durante el trabajo o inmediatamente después de que este cese.
 
-**Cláusulas ineficaces.**
+Queda prohibido y se tiene por no hecho, el pago que se haga en centros de vicios o en lugares de recreo, en expendios de mercancías o de bebidas alcohólicas, a no ser que se trate de trabajadores del establecimiento donde se hace el pago.
 
-**Artículo 110.** No producen ningún efecto las cláusulas del reglamento que desmejoren las condiciones del trabajador en relación con lo establecido en las Leyes, contratos individuales, pactos, convenciones colectivas o fallos arbítrales, los cuales sustituyen las disposiciones del reglamento en cuanto fueren más favorables al trabajador.
+ARTICULO 139. A QUIEN SE HACE EL PAGO. El salario se paga directamente al trabajador o a la persona que él autorice por escrito.
 
-**Normas excluidas.**
+ARTICULO 140. SALARIO SIN PRESTACION DEL SERVICIO. Durante la vigencia del contrato el trabajador tiene derecho a percibir el salario aun cuando no haya prestación del servicio por disposición o culpa del {empleador}.
 
-**Artículo 111.** El reglamento no debe contener las reglas de orden meramente técnico o administrativo que formule el patrono para la ejecución de los trabajos, ni normas distintas de las mencionadas en el Artículo 109.
+ARTICULO 141. SALARIOS BASICOS PARA PRESTACIONES. Solamente en pactos, convenciones colectivas y fallos arbitrales pueden estipularse salarios básicos fijos que sirvan para liquidar la remuneración correspondiente al descanso dominical, y las prestaciones proporcionales al salario, en los casos en que éste no sea fijo, como en el trabajo a destajo o por unidad de obra o por tarea.
 
-**Sanciones disciplinarias.**
+ARTICULO 142. IRRENUNCIABILIDAD Y PROHIBICION DE CEDERLO. El derecho al salario es irrenunciable y no se puede ceder en todo ni en parte, a título gratuito ni oneroso pero si puede servir de garantía hasta el límite y en los casos que determina la ley.
 
-**Artículo 112**. Las sanciones disciplinarias no pueden consistir en penas corporales, ni en medidas lesivas de la dignidad del trabajador.
+ARTICULO 143. A TRABAJO DE IGUAL VALOR, SALARIO IGUAL.
 
-**Suspensión del trabajo.**
+A trabajo igual desempeñado en puesto, jornada y condiciones de eficiencia también iguales, debe corresponder salario igual, comprendiendo en este todos los elementos a que se refiere el artículo 127.
 
-**Artículo 113.** Cuando la sanción consista en suspensión del trabajo, ésta no puede exceder de ocho (8) días por la primera vez, ni de dos (2) meses en caso de reincidencia de cualquier grado.
+No pueden establecerse diferencias en el salario por razones de edad, género, sexo nacionalidad, raza, religión, opinión política o actividades sindicales.
 
-**Multas.**
+Todo trato diferenciado en materia salarial o de remuneración, se presumirá injustificado hasta tanto el empleador demuestre factores objetivos de diferenciación.
 
-**Artículo 114**. 1. Las multas que se prevean, sólo pueden causarse por retrasos o faltas al trabajo sin excusa suficiente; no pueden exceder de la quinta (5) parte del salario de un (1) día, y su importe se consigna en cuenta especial para dedicarse exclusivamente a premios o regalos para los trabajadores del establecimiento,
+(Modificado por el Art. 7 de la Ley 1496 de 2011)
 
-2 El patrono puede descontar las multas del valor de los salarios.
+ARTICULO 144. FALTA DE ESTIPULACION. Cuando no se haya pactado expresamente salario, se debe el que ordinariamente se paga por la misma labor, y a falta de éste, el que se fijare tomando en cuenta la cantidad y calidad del trabajo, la aptitud del trabajador y las condiciones usuales de la región.
 
-- 3. La imposición de una multa no impide que el patrono prescinda del pago del salario correspondiente al tiempo dejado de trabajar.
+## CAPITULO II.
 
-**Sanciones no previstas.**
+SALARIO MINIMO.
 
-**Artículo 115.** El patrono no puede imponer a sus trabajadores sanciones no previstas en el reglamento, en pacto, en convención colectiva, en fallo arbitral o en el contrato individual.
+ARTICULO 145. DEFINICION. Salario mínimo es el que todo trabajador tiene derecho a percibir para subvenir a sus necesidades normales y a las de su familia, en el orden material, moral y cultural.
 
-**Procedimiento para imponer sanciones.**
+ARTICULO 146. FACTORES PARA FIJARLO.
 
-**Artículo 116.** Antes de aplicarse una sanción disciplinaria el patrono debe dar oportunidad de ser oídos, tanto al trabajador inculpado como a dos (2) representantes del sindicato a que éste pertenezca
+Para fijar el salario mínimo deben tomarse en cuenta el costo de la vida, las modalidades del trabajo, la capacidad económica de las empresas y {empleadores} y las condiciones de cada región y actividad.
 
-**Aprobación y procedimiento.**
+Para los trabajadores del campo el salario mínimo debe fijarse tomando en cuenta las facilidades que el empleador proporciona a sus trabajadores, en lo que se refiere a habitación, cultivos, combustibles y circunstancias análogas que disminuyen el costo de la vida. Las circunstancias de que algunos de los {empleadores} puedan estar obligados a suministrar a sus trabajadores alimentación y alojamiento, también debe tomarse en cuenta para la fijación del salario mínimo.
 
-**Artículo 117.** Todo reglamento de trabajo debe ser aprobado por el Departamento Nacional del Trabajo, según las siguientes reglas:
+ARTICULO 147. PROCEDIMIENTO DE FIJACION.
 
-- a) Los patronos que realicen sus actividades en la capital de la República o que tengan dependencias en varios Departamentos, deben presentar los proyectos de reglamento directamente al Departamento Nacional del Trabajo.
+El salario mínimo puede fijarse en pacto o convención colectiva o en fallo arbitral.
 
-- b) Los demás patronos deben presentar sus proyectos de reglamento a la respectiva Inspección del Trabajo para su remisión al Departamento Nacional.
+El Consejo Nacional Laboral, por consenso fijará salarios mínimos de carácter general o para cualquier región o actividad profesional, industrial, comercial, ganadera, agrícola o forestal de una región determinada. En caso de que no haya consenso en el Consejo Nacional Laboral, el Gobierno, por medio de decretos que regirán por el término que en ellos se indique, puede fijar dichos salarios.
 
-**Forma de presentación.**
+(Numeral 2 subrogado por el Art. 8 de la Ley 278 de 1996) Para quienes laboren jornadas inferiores a las máximas legales y devenguen el salario mínimo legal o convencional, éste regirá en proporción al número de horas efectivamente trabajadas, con excepción de la jornada especial de treinta seis horas previstas en el artículo siguiente. (Modificado por el Art. 19 de la Ley 50 de 1990)
 
-**Artículo 118.** 1. El patrono debe presentar el proyecto de reglamento de trabajo en tres (3) ejemplares, en papel común, firmado por él o su representante. Al pie de la firma debe indicarse la dirección del establecimiento o lugares de trabajo.
+ARTICULO 148. EFECTO JURIDICO. La fijación del salario mínimo modifica automáticamente los contratos de trabajo en que se haya estipulado un salario inferior.
 
-- 2. Cuando se trate de personas jurídicas debe comprobarse la existencia y representación, en la forma legal.
+## CAPITULO III.
 
-- 3. Si faltaren estos requisitos al proyecto, debe ser devuelto para que sean llenados.
+RETENCION, DEDUCCION Y COMPENSACION DE SALARIOS.
 
-- 4. Cuando en el establecimiento rijan pactos, convenciones colectivas, fallos arbítrales o acuerdos con los trabajadores, el patrono debe presentar, con el proyecto de reglamento, copias autenticadas de ellos.
+ARTICULO 149. DESCUENTOS PROHIBIDOS.
 
-**Investigación.**
+El empleador no puede deducir, retener o compensar suma alguna del salario, sin orden suscrita por el trabajador, para cada caso, o sin mandamiento judicial. Quedan especialmente comprendidos en esta prohibición los descuentos o compensaciones por concepto de uso o arrendamiento de locales, herramientas o útiles de trabajo; deudas del trabajador para con el empleador, sus socios, sus parientes o sus representantes; indemnización por daños ocasionados a los locales, máquinas, materias primas o productos elaborados o pérdidas o averías de elementos de trabajo; entrega de mercancías, provisión de alimentos y precio de alojamiento.
 
-**Artículo 119.** El Departamento Nacional del Trabajo, ya directamente o por medio de sus Inspectores, puede ordenar investigaciones y solicitar informes a los trabajadores o a su sindicato sobre cualquiera de las normas consignadas en el proyecto de reglamento.
+Tampoco se puede efectuar la retención o deducción sin mandamiento judicial, aunque exista orden escrita del trabajador, cuando quiera que se afecte el salario mínimo legal o convencional o la parte del salario declarada inembargable por la ley.
 
-**Objeciones.**
+Los empleadores quedarán obligados a efectuar oportunamente los descuentos autorizados por sus trabajadores que se ajusten a la ley. El empleador que incumpla lo anterior, será responsable de los perjuicios que dicho incumplimiento le ocasione al trabajador o al beneficiario del descuento.
 
-**Artículo 120. 1. El Departamento Nacional del Trabajo sólo puede hacer objeciones al reglamento sujeto a su aprobación, con fundamento en la Ley y por medio de resolución motivada, en la cual debe ordenar las adiciones, modificaciones o supresiones conducentes.**
+(Modificado por el Art. 18 de la Ley 1429 de 2010)
 
-- 2. Esta resolución se notifica de acuerdo con el procedimiento administrativo. El interesado puede pedir reposición, o apelar ante el Ministro del Trabajo, dentro de los tres (3) días siguientes a la notificación.
+ARTICULO 150. DESCUENTOS PERMITIDOS. Son permitidos los descuentos y retenciones por concepto de cuotas sindicales y de cooperativas y cajas de ahorros, autorizadas en forma legal; de cuotas con destino al seguro social obligatorio, de sanciones disciplinarias impuestas de conformidad con el reglamento del trabajo debidamente aprobado, y de la Contribución Solidaria a la Educación Superior para el Servicio de Apoyo para el Acceso y Permanencia de Beneficiarios Activos en Educación Superior (Contribución Sabes).
 
-- 3. El patrono debe devolver al Departamento Nacional del Trabajo el proyecto de reglamento corregido de acuerdo con las objeciones, dentro de los treinta (30) días siguientes a aquel en que la providencia quede en firme, y si no lo hace, el reglamento se estima aprobado con las observaciones contenidas en la resolución de objeciones, sirviendo de base para este efecto la copia que se deja en el archivo del mismo Departamento.
+(Modificado por el Art. 22 de la Ley 1911 de 2018)
 
-**Publicación.**
+ARTICULO 151. AUTORIZACION ESPECIAL. El empleador y su trabajador podrán acordar por escrito el otorgamiento de préstamos, anticipos, deducciones, retenciones o compensaciones del salario, señalando la cuota objeto de deducción o compensación y el plazo para la amortización gradual de la deuda.
 
-**Artículo 121.** 1. Dentro de los quince (15) días siguientes al de la notificación de la resolución aprobatoria del reglamento, o quince (15) días después de haber quedado en firme la resolución de objeciones, el patrono debe publicarlo en el lugar de trabajo, mediante la fijación de dos (2) copias en caracteres legibles, en dos (2) sitios distintos. Si hubiere varios lugares de trabajo separados, la fijación debe hacerse en cada uno de ellos.
+Cuando pese a existir el acuerdo, el empleador modifique las condiciones pactadas, el trabajador podrá acudir ante el inspector de trabajo a efecto de que exija su cumplimiento, so pena de la imposición de sanciones.
 
-- 2. Con el reglamento debe publicarse la resolución aprobatoria, o la de objeciones, en su caso.
+(Modificado por el Art. 19 de la Ley 1429 de 2010)
 
-**Vigencia.**
+ARTICULO 152. PRESTAMOS PARA VIVIENDAS. En los convenios sobre financiación de viviendas para trabajadores puede estipularse que el {empleador} prestamista queda autorizado para retener del salario de sus trabajadores deudores las cuotas que acuerden o que se prevean en los planos respectivos, como abono a intereses y capital, de las deudas contraídas para la adquisición de casa.
 
-**Artículo 122.** Aprobado el reglamento, entra a regir ocho (8) días después de su publicación hecha en la forma prescrita en el Artículo anterior.
+ARTICULO 153. INTERESES DE LOS PRESTAMOS. Fuera de los casos a que se refiere el artículo anterior, los préstamos o anticipos de salarios que haga el empleador al trabajador no puede devengar intereses.
 
-**Prueba de la publicación.**
+## CAPITULO IV.
 
-**Artículo 123.** 1. El patrono puede solicitar que el funcionario del Trabajo, o el Alcalde, donde no existe el primero, verifique y certifique la publicación del reglamento para que sirva de prueba de ese hecho, sin perjuicio de que pueda acreditarse la publicación por los medios probatorios ordinarios.
+EMBARGOS DE SALARIO.
 
-- 2. Respecto de cada trabajador en particular también sirve de prueba de la publicación el recibo firmado por él y del cual aparezca habérsele entregado una copia impresa del reglamento.
+ARTICULO 154. REGLA GENERAL. No es embargable el salario mínimo legal o convencional.
 
-**Plazo para la presentación.**
+(Modificado por el Art. 3 de la Ley 11 de 1984)
 
-**Artículo 124**. 1. Los patronos que al entrar en vigencia este Código tengan reglamento de trabajo aprobado deben presentar ante las autoridades administrativas del Trabajo las modificaciones que el presente estatuto haga necesarias, dentro de los tres (3) primeros meses de su vigencia.
+ARTICULO 155. EMBARGO PARCIAL DEL EXCEDENTE. El excedente del salario mínimo mensual solo es embargable en una quinta parte.
 
-- 2. Los patronos obligados a tener reglamento de trabajo, que carezcan de él, deben presentarlo al estudio y aprobación de las autoridades administrativas del Trabajo, a más tardar tres (3) meses después de entrar a regir este Código.
+ARTICULO 156. EXCEPCION A FAVOR DE COOPERATIVAS Y PENSIONES ALIMENTICIAS. Todo salario puede ser embargado hasta en un cincuenta por ciento (50%) en favor de cooperativas legalmente autorizadas, o para cubrir pensiones alimenticias que se deban de conformidad con los artículos 411 y concordantes del Código Civil.
 
-- 3. Todo patrono obligado a tener reglamento de trabajo que inicie actividades después de la vigencia de este estatuto, debe presentarlo ante las autoridades administrativas del Trabajo, a más tardar dentro de los tres (3) meses subsiguientes a esa iniciación.
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-589-95) (Modificado por el Art. 4 de la Ley 11 de 1984)
 
-- 4. Los patronos que no cumplan con la obligación que se les impone en este Artículo serán sancionados con multas por el Departamento Nacional del Trabajo.
+## CAPITULO V.
 
-**Revisión.**
+PRELACION DE LOS CREDITOS POR SALARIOS.
 
-**Artículo 125.** 1. Cuando nuevas disposiciones legales lo hagan necesario, el Departamento Nacional del Trabajo puede ordenar en cualquier momento, por medio de resolución motivada, que los patronos presenten para su aprobación y estudio determinadas reformas, modificaciones, supresiones o adiciones al reglamento ya aprobado. Si los patronos no cumplieren con esta resolución, dentro del término prudencial que ella fije, el Departamento Nacional del Trabajo les impondrá multas sucesivas hasta que cumplan lo ordenado.
+ARTICULO 157. PRELACION DE CREDITOS POR SALARIOS, PRESTACIONES SOCIALES E INDEMNIZACIONES LABORALES. Los créditos causados o exigibles de los trabajadores por concepto de salarios, las cesantías y demás prestaciones sociales e indemnizaciones laborales pertenecen a la primera clase que establece el artículo 2495 del Código Civil y tienen privilegio excluyente sobre todo los demás.
 
-- 2. Esta resolución puede ser dictada de oficio o a petición motivada de cualquier trabajador del establecimiento o de su sindicato.
+El juez civil que conozca del proceso de concurso de acreedores o de quiebra dispondrá el pago privilegiado y pronto de los créditos a los trabajadores afectados por la quiebra o insolvencia del {empleador}.
 
-**Procedimiento de revisión.**
+Cuando la quiebra imponga el despido de trabajadores, los salarios, prestaciones sociales e indemnizaciones se tendrán como gatos pagaderos con preferencia sobre los demás créditos.
 
-**Artículo 126.** Para la presentación, aprobación, publicación y vigencia de modificaciones del reglamento de trabajo rigen las normas de este Capítulo
+Los créditos laborales podrán demostrarse por cualquier medio de prueba autorizado por la ley y, cuando fuera necesario, producidos extrajuicio con intervención del juez laboral o del inspector de trabajo competentes.
 
-### CAPITULO II
+PARAGRAFO. En los procesos de quiebra o concordato los trabajadores podrán hacer valer sus derechos por sí mismos o por intermedio del Sindicato, Federación o Confederación a que pertenezcan, siempre de conformidad con las leyes vigentes.
 
-MANTENIMIENTO DEL ORDEN
+(Modificado por el Art. 36 de la Ley 50 de 1990.) (Modificado por el Art. 11 del Decreto 2351 de 1965)
 
-Prohibiciones
+## TITULO VI.
 
-**Artículo 127.** Los directores o trabajadores no pueden ser agentes de la autoridad pública en los establecimientos o lugares de trabajo, ni intervenir en la selección del personal de la Policía, ni darle órdenes, ni suministrarle alojamiento o alimentación gratuitos, ni hacerle dádivas.
+JORNADA DE TRABAJO.
 
-## TITULO V
+## CAPITULO I.
 
-SALARIOS
+DEFINICIONES.
 
-### CAPITULO I
+ARTICULO 158. JORNADA ORDINARIA. La jornada ordinaria de trabajo es la que convengan a las partes, o a falta de convenio, la máxima legal.
 
-DISPOSICIONES GENERALES
+ARTICULO 159. TRABAJO SUPLEMENTARIO. Trabajo suplementario o de horas extras es el que excede de la jornada ordinaria, y en todo caso el que excede de la máxima legal.
 
-**Elementos integrantes.**
+ARTICULO 160. TRABAJO ORDINARIO Y NOCTURNO.
 
-**Artículo 128.** Constituye salario no sólo la remuneración fija u ordinaria, sino todo lo que recibe el trabajador en dinero o en especie y que implique retribución de servicios, sea cualquiera la forma o denominación que se adopte, como las primas, sobresueldos, bonificaciones habituales, valor del trabajo suplementario o de las horas extras, valor de trabajo en días de descanso obligatorio, porcentajes sobre ventas, comisiones o participación de utilidades.
+Trabajo diurno es el que se realiza en el periodo comprendido entre las seis horas (6:00 a. m.) y las veintiún horas (9:00 p. m.). Trabajo nocturno es el que se realiza en el período comprendido entre las veintiún horas (9:00 p. m.) y las seis horas (6:00 a. m.). (Modificado por el Art. 1 de la Ley 1846 de 2017
 
-**Pagos que no constituyen salario.**
+## CAPITULO II.
 
-**Artículo 129.** No constituyen salario las sumas que ocasionalmente y por mera liberalidad recibe el trabajador del patrono, como las primas, bonificaciones y gratificaciones ocasionales, y lo que recibe en dinero o en especie no para su beneficio, ni para subvenir a sus necesidades, ni para enriquecer su patrimonio, sino para desempeñar a cabalidad sus funciones, como los gastos de representación, medios de transporte, elementos de trabajo, u otros semejantes, ni tampoco las prestaciones sociales de que tratan los Títulos VIII y IX.
+JORNADA MAXIMA.
 
-**Salario en especie.**
+ARTICULO 161. DURACION. La duración máxima de la jornada ordinaria de trabajo es de cuarenta y dos (42) horas a la semana, que podrán ser distribuidas, de común acuerdo, entre empleador y trabajador, en 5 o 6 días a la semana, garantizando siempre el día de descanso, salvo las siguientes excepciones:
 
-**Artículo 130.** 1. Es salario en especie la alimentación, habitación o vestuario que el patrono suministra al trabajador o a su familia, como parte de la retribución ordinaria del servicio.
+a) En las labores que sean especialmente insalubres o peligrosas, el Gobierno puede ordenar la reducción de la jornada de trabajo de acuerdo con dictámenes al respecto.
 
-- 2. El salario en especie debe valorarse expresamente en todo contrato de trabajo, y a falta de esta valoración se estimará pericialmente
+b) La duración máxima de la jornada laboral de los adolescentes autorizados para trabajar, se sujetará a las siguientes reglas: (Literal b) Modificado por el Art. 114 de la Ley 1098 de 2006)
 
-**Viáticos.**
+1. Los adolescentes mayores de 15 y menores de 17 años, sólo podrán trabajar en jornada diurna máxima de seis horas diarias y treinta horas a la semana y hasta las 6:00 de la tarde.
 
-**Artículo 131.** 1. Los viáticos constituyen salario en aquella parte destinada a proporcionar al trabajador manutención y alojamiento; pero no en lo que sólo tenga por finalidad proporcionar los medios de transporte o los gastos de representación.
+2. Los adolescentes mayores de diecisiete (17) años, sólo podrán trabajar en una jornada máxima de ocho horas diarias y 40 horas a la semana y hasta las 8:00 de la noche.
 
-- 2. Siempre que se paguen debe especificarse el valor de cada uno de estos conceptos.
+c) El empleador y el trabajador pueden acordar, temporal o indefinidamente, la organización de turnos de trabajo sucesivos, que permitan operar a la empresa o secciones de la misma sin solución de continuidad durante todos los días de la semana, siempre y cuando el respectivo turno no exceda de seis (6) horas al día y treinta y seis (36) a la semana.
 
-**Propinas.**
+En este caso no habrá lugar a recargo nocturno ni al previsto para el trabajo dominical o festivo, pero el trabajador devengará el salario correspondiente a la jornada ordinaria de trabajo, respetando siempre el mínimo legal o convencional y tendrá derecho a un día de descanso remunerado.
 
-**Artículo 132.** 1. Las propinas que recibe el trabajador no constituyen salario.
+d) El empleador y el trabajador podrán acordar que la jornada semanal de cuarenta y dos (42) horas se realice mediante jornadas diarias flexibles de trabajo, distribuidas en máximo seis días a la semana con un día de descanso obligatorio, que podrá coincidir con el día domingo. (Literal d) modificado por el Art. 2 de la Ley 1846 de 2017) Así, el número de horas de trabajo diario podrá distribuirse de manera variable durante la respectiva semana, teniendo como mínimo cuatro (4) horas continuas y máximo hasta nueve (9) horas diarias sin lugar a ningún recargo por trabajo suplementario, cuando el número de horas de trabajo no exceda el promedio de cuarenta y dos (42) horas semanales dentro de la Jornada Ordinaria, de conformidad con el artículo 160 de Código Sustantivo del Trabajo.
 
-- 2. No puede pactarse como retribución del servicio prestado por el trabajador lo que éste reciba por propinas
+PARÁGRAFO. El empleador no podrá aún con el consentimiento del trabajador, contratarlo para la ejecución de dos turnos en el mismo día, salvo en labores de supervisión, dirección, confianza o manejo.
 
-**Formas y libertad de estipulación.**
+(Modificado por el Art. 2 de la Ley 2101 de 2021) (Modificado por el Art. 20 de la Ley 50 de 1990) (Modificado por el Art. 1 de la Ley 6 de 1981)
 
-**Artículo 133.** El patrono y el trabajador pueden convenir libremente el salario en sus diversas modalidades, como por unidad de tiempo, por obra o a destajo y por tarea, etc., pero siempre respetando el salario mínimo legal o el fijado en los pactos, convenciones colectivas y fallos arbítrales.
+ARTICULO 162. EXCEPCIONES EN DETERMINADAS ACTIVIDADES.
 
-**Jornal y sueldo.**
+Quedan excluidos de la regulación sobre la jornada máxima legal de trabajo los siguientes trabajadores:
 
-**Artículo 134.** Se denomina jornal el salario estipulado por días, y sueldo el estipulado por períodos mayores.
+a). Los que desempeñan cargos de dirección, de confianza o de manejo;
 
-**Periodos de pago.**
+(Literal a) declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-372-98) b). Los servicios domésticos ya se trate de labores en los centros urbanos o en el campo;
 
-**Artículo 135.** 1. El salario en dinero debe pagarse por períodos iguales y vencidos, en moneda legal. El período de pago para los jornales no puede ser mayor de una semana, y para sueldos no mayor de un mes.
+(Literal b) declarado CONDICIONALMENTE EXEQUIBLE por la Corte Constitucional mediante Sentencia C-372-98) c). Los que ejerciten labores discontinuas o intermitentes y los de simple vigilancia, cuando residan en el lugar o sitio de trabajo; d). Las actividades no contempladas en el presente artículo sólo pueden exceder los límites señalados en el artículo anterior, mediante autorización expresa del Ministerio del Trabajo y de conformidad con los convenios internacionales del trabajo ratificados. En las autorizaciones que se concedan se determinará el número máximo de horas extraordinarias que pueden ser trabajadas, las que no podrán pasar de doce (12) semanales, y se exigirá al {empleador} llevar diariamente un registro de trabajo suplementario de cada trabajador, en el que se especifique: nombre de éste, edad, sexo, actividad desarrollada, número de horas laboradas, indicando si son diurnas o nocturnas, y la liquidación de la sobreremuneración correspondiente.
 
-- 2. El pago del trabajo suplementario o de horas extras y el del recargo por trabajo nocturno debe efectuarse junto con el del salario ordinario del período en que se han causado, o a más tardar con el salario del período siguiente
+El {empleador} está obligado a entregar al trabajador una relación de horas extras laboradas, con las mismas especificaciones anotadas en el
 
-**Estipulación en moneda extranjera.**
+## libro de registro.
 
-**Artículo 136.** Cuando el salario se estipula en moneda o divisas extranjeras, el trabajador puede exigir el pago en su equivalente en moneda nacional colombiana, al tipo de cambio oficial del día en que deba efectuarse el pago.
+(Literal d) derogado por el Art. 56 del Decreto 1393 de 1970) Las actividades no contempladas en el presente artículo sólo pueden exceder los límites señalados en el artículo anterior, mediante autorización expresa del Ministerio del Trabajo y de conformidad con los convenios internacionales del trabajo ratificados. En las autorizaciones que se concedan se determinará el número máximo de horas extraordinarias que pueden ser trabajadas, las que no podrán pasar de doce (12) semanales, y se exigirá al {empleador} llevar diariamente un registro de trabajo suplementario de cada trabajador, en el que se especifique: nombre de éste, edad, sexo, actividad desarrollada, número de horas laboradas, indicando si son diurnas o nocturnas, y la liquidación de la sobreremuneración correspondiente.
 
-**Prohibición del trueque.**
+El {empleador} está obligado a entregar al trabajador una relación de horas extras laboradas, con las mismas especificaciones anotadas en el
 
-**Artículo 137.** Se prohíbe el pago del salario en mercancías, fichas u otros medios semejantes, a menos que se trate de una remuneración parcialmente suministrada en alojamiento, vestido y alimentación para el trabajador y su familia.
+## libro de registro.
 
-**Venta de mercancías y víveres por parte del patrono.**
+(Numeral 2 modificado por el Art. 1 del Decreto 13 de 1967)
 
-**Artículo 138.** Se prohíbe al patrono vender a sus trabajadores mercancías o víveres, a menos que se cumpla con estas condiciones:
+ARTICULO 163. EXCEPCIONES EN CASOS ESPECIALES. El límite máximo de horas de trabajo previsto en el artículo 161 puede ser elevado por orden del {empleador} y sin permiso del Ministerio del Trabajo, por razón de fuerza mayor, caso fortuito, de amenazar u ocurrir algún accidente o cuando sean indispensables trabajos de urgencia que deban efectuarse en las máquinas o en la dotación de la empresa; pero únicamente se permite el trabajo en la medida necesaria para evitar que la marcha normal del establecimiento sufra una perturbación grave. El {empleador} debe anotar en un registro, ciñéndose a las indicaciones anotadas en el artículo anterior, las horas extraordinarias efectuadas de conformidad con el presente artículo.
 
-- a) Libertad absoluta del trabajador para hacer sus compras donde quiera; y,
+(Modificado por el Art. 2 del Decreto 13 de 1967) ARTICULO. DEDICACIÓN EXCLUSIVA EN DETERMINADAS ACTIVIDADES. En las empresas con más de cincuenta (50) trabajadores que laboren cuarenta y ocho (48) horas a la semana, éstos tendrán derecho a que dos (2) horas de dicha jornada, por cuenta del empleador, se dediquen exclusivamente a actividades recreativas, culturales, deportivas o de capacitación.
 
-- b) Publicidad de las condiciones de venta.
+(Adicionado por el Art. 21 de la Ley 50 de 1990)
 
-**Lugar y tiempo de pago.**
+ARTICULO 164. DESCANSO EN LA TARDE DEL SABADO. Pueden repartirse las cuarenta y ocho (48)* horas semanales de trabajo ampliando la jornada ordinaria hasta por dos (2) horas, por acuerdo entre las partes, pero con el fin exclusivo de permitir a los trabajadores el descanso durante todo el sábado. Esta ampliación no constituye trabajo suplementario o de horas extras.
 
-**Artículo 139.** 1. Salvo convenio por escrito, el pago debe efectuarse en el lugar donde el trabajador presta sus servicios, durante el trabajo o inmediatamente después de que éste cese.
+(Modificado por el Art. 23 del Ley 50 de 1990)
 
-- 2. Queda prohibido y se tiene por no hecho, el pago que se haga en centros de vicios o en lugares de recreo, en expendios de mercancías o de bebidas alcohólicas, a no ser que se trate de trabajadores del establecimiento donde se hace el pago.
+ARTICULO 165. TRABAJO POR TURNOS. Cuando la naturaleza de la labor no exija actividad continuada y se lleve a cabo por turnos de trabajadores, la duración de la jornada puede ampliarse en más de ocho (8) horas, o en más de cuarenta y ocho (48)* semanales, siempre que el promedio de las horas de trabajo calculado para un período que no exceda de tres (3) semanas, no pase de ocho (8) horas diarias ni de cuarenta y ocho (48) a la semana. Esta ampliación no constituye trabajo suplementario o de horas extras.
 
-**A quién se hace el pago.**
+ARTICULO 166. TRABAJO SIN SOLUCION DE CONTINUIDAD. También puede elevarse el límite máximo de horas de trabajo establecido en el artículo 161, en aquellas labores que por razón de su misma naturaleza necesiten ser atendidas sin solución de continuidad, por turnos sucesivos de trabajadores, pero en tales casos las horas de trabajo no pueden exceder de cincuenta y seis (56) por semana. (Modificado por el Art. 3 del Decreto 13 de 1967)
 
-**Artículo 140.** El salario se paga directamente al trabajador o a la persona que él autorice por escrito.
+ARTICULO 167. DISTRIBUCION DE LAS HORAS DE TRABAJO. Las horas de trabajo durante cada jornada deben distribuirse al menos en dos secciones, con un intermedio de descanso que se adapte racionalmente a la naturaleza del trabajo y a las necesidades de los trabajadores. El tiempo de este descanso no se computa en la jornada.
 
-**Salario sin prestación del servicio.**
+ARTICULO. LIMITE DEL TRABAJO SUPLEMENTARIO. En ningún caso las horas extras de trabajo, diurnas o nocturnas, podrán exceder de dos (2) horas diarias y doce (12) semanales. Cuando la jornada de trabajo se amplíe por acuerdos entre empleadores y trabajadores a diez (10) horas diarias, no se podrá en el mismo día laborar horas extras.
 
-**Artículo 141.** Durante la vigencia del contrato el trabajador tiene derecho a percibir el salario, aun cuando no haya prestación del servicio por disposición o culpa del patrono.
+(Adicionado por el Art. 22 de la Ley 50 de 1990)
 
-**Salarios básicos para prestaciones.**
+## CAPITULO III.
 
-**Artículo 142.** Solamente en pactos, convenciones colectivas y fallos arbítrales pueden estipularse salarios básicos fijos que sirvan para liquidar la remuneración correspondiente al descanso dominical y las prestaciones proporcionales al salario, en los casos en que éste no sea fijo, como en el trabajo a destajo o por unidad de obra o por tarea.
+REMUNERACION DEL TRABAJO NOCTURNO Y DEL SUPLEMENTARIO.
 
-**Irrenunciabilidad y prohibición de cederlo.**
+ARTICULO 168. TASAS Y LIQUIDACION DE RECARGOS.
 
-**Artículo 143.** El derecho al salario es irrenunciable y no se puede ceder en todo ni en parte, a título gratuito ni oneroso, pero si puede servir de garantía hasta el límite y en los casos que determina la Ley.
+El trabajo nocturno por el solo hecho de ser nocturno se remunera con un recargo del treinta y cinco por ciento (35%) sobre el valor del trabajo diurno, con excepción del caso de la jornada de treinta y seis (36) horas semanales previstas en el artículo 20 literal c) de esta ley. El trabajo extra diurno se remunera con un recargo del veinticinco por ciento (25%) sobre el valor del trabajo ordinario diurno. El trabajo extra nocturno se remunera con un recargo del setenta y cinco por ciento (75%) sobre el valor del trabajo ordinario diurno. Cada uno de los recargos antedichos se produce de manera exclusiva, es decir, sin acumularlo con algún otro.
 
-**A trabajo igual, salario igual.**
+(Modificado por el Art. 24 de la Ley 50 de 1990)
 
-**Artículo 144.** 1. A trabajo igual desempeñado en puesto, jornada y condiciones de eficiencia también iguales, debe corresponder salario igual, comprendiendo en éste todos los elementos a que se refiere el Artículo 128.
+ARTICULO 169. BASE DEL RECARGO NOCTURNO. Todo recargo o sobre-remuneración por concepto de trabajo nocturno se determina por el promedio de la misma o equivalente labor ejecutada durante el día. Si no existiere ninguna actividad del mismo establecimiento que fuere equiparable a la que se realice en la noche, las partes pueden pactar equitativamente un promedio convencional, o tomar como referencia actividades diurnas semejantes en otros establecimientos análogos de la misma región.
 
-- 2. No pueden establecerse diferencias en el salario por razones de edad, sexo, nacionalidad, raza, religión, opinión política o actividades sindicales.
+ARTICULO 170. SALARIO EN CASO DE TURNOS. Cuando el trabajo por equipos implique la rotación sucesiva de turnos diurnos y nocturnos, las partes pueden estipular salarios uniformes para el trabajo diurno y nocturno, siempre que estos salarios comparados con los de actividades idénticas o similares en horas diurnas compensen los recargos legales.
 
-**Falta de estipulación.**
+## CAPITULO VI.
 
-**Artículo 145.** Cuando no se haya pactado expresamente salario, se debe el que ordinariamente se paga por la misma labor, y a falta de éste, el que se fijare tomando en cuenta la cantidad y calidad del trabajo, la aptitud del trabajador y las condiciones usuales de la región.
+TRABAJO DE MENORES DE EDAD.
 
-### CAPITULO II
+ARTICULO 171. EDAD MINIMA.
 
-SALARIO MINIMO
+Los menores de catorce (14) años no pueden trabajar en las empresas industriales, ni en las empresas agrícolas cuando su labor en éstas les impida su asistencia a la escuela.
 
-Definición.
+Los menores de dieciocho (18) años no pueden trabajar durante la noche, excepto en empresas no industriales y en el servicio doméstico y siempre que el trabajo no sea peligroso para su salud o moralidad.
 
-**Artículo 146**. Salario mínimo es el que todo trabajador tiene derecho a percibir para subvenir a sus necesidades normales y a las de su familia, en el orden material, moral y cultural.
+Los menores de dieciocho (18) años no pueden trabajar como pañoleros o fogoneros, en los buques de transporte marítimo. Todo {empleador} debe llevar un registro de inscripción de todas las personas menores de dieciocho (18) años empleadas por él, en el que se indicará la fecha de nacimiento de las mismas.
 
-**Factores para fijarlo.**
+(Modificado por el Art. 4 del Decreto 13 de 1967)
 
-**Artículo 147.** 1. Para fijar el salario mínimo deben tomarse en cuenta el costo de la vida, las modalidades del trabajo, la capacidad económica de las empresas y patronos, y las condiciones de cada región y actividad.
+## TITULO VII.
 
-- 2. Para los trabajadores del campo el salario mínimo debe fijarse tomando en cuenta las facilidades que el patrono proporciona a sus trabajadores, en lo que se refiere a habitación, cultivos, combustibles y circunstancias análogas que disminuyen el costo de la vida.
+DESCANSOS OBLIGATORIOS.
 
-- 3. La circunstancia de que algunos patronos puedan estar obligados a suministrar a sus trabajadores alimentación y alojamiento, también debe tomarse en cuenta para la fijación del salario mínimo.
+## CAPITULO I.
 
-**Procedimiento de fijación.**
+DESCANSO DOMINICAL REMUNERADO.
 
-**Artículo 148.** 1. El salario mínimo puede fijarse en pacto o convención colectiva, o en fallo arbitral.
+ARTICULO 172. NORMA GENERAL. Salvo la excepción consagrada en el literal c) del artículo 20 de esta ley el empleador está obligado a dar descanso dominical remunerado a todos sus trabajadores. Este descanso tiene duración mínima de veinticuatro (24) horas. (Modificado por el Art. 25 de la Ley 50 de 1990)
 
-- 2. El Gobierno por medio de decretos que regirán por el término que en ellos se indique, puede fijar salarios mínimos de carácter general o para cualquier región o actividad profesional, industrial, comercial, ganadera, agrícola o forestal de una región determinada después de oír comisiones paritarias de patronos y trabajadores.
+ARTICULO 173. REMUNERACION.
 
-**Artículo 149.** La fijación del salario mínimo modifica automáticamente los contratos de trabajo en que se haya estipulado un salario inferior.
+El empleador debe remunerar el descanso dominical con el salario ordinario de un día, a los trabajadores que habiéndose obligado a prestar sus servicios en todos los días laborales de la semana, no falten al trabajo, o que, si faltan, lo hayan hecho por justa causa o por culpa o por disposición del empleador.
 
-### CAPITULO III
+Se entiende por justa causa el accidente, la enfermedad, la calamidad doméstica, la fuerza mayor y el caso fortuito. No tiene derecho a la remuneración del descanso dominical el trabajador que deba recibir por eso mismo día un auxilio o indemnización en dinero por enfermedad o accidente de trabajo.
 
-RETENCIÓN, DEDUCCIÓN Y COMPENSACIÓN DE SALARIOS
+Para los efectos de este artículo, los días de fiesta no interrumpen la continuidad y se computan como si en ellos se hubiera prestado el servicio por el trabajador.
 
-**Descuentos prohibidos.**
+Cuando la jornada de trabajo convenida por las partes, en días u horas, no implique la prestación de servicios en todos los días laborales de la semana, el trabajador tendrá derecho a la remuneración del descanso dominical en proporción al tiempo laborado.
 
-**Artículo 150.** 1. El patrono no puede deducir, retener o compensar suma alguna del salario, sin orden suscrita por el trabajador, para cada caso, o sin mandamiento judicial. Quedan especialmente comprendidos en esta prohibición los descuentos o compensaciones por concepto de uso o arrendamiento de locales, herramientas o útiles de trabajo; deudas del trabajador para con el patrono, sus socios, sus parientes o sus representantes; indemnización por daños ocasionados a los locales, máquinas, materias primas o productos elaborados, o pérdidas o averías de elementos de trabajo; avances o anticipos de salario; entrega de mercancías, provisión de alimentos, y precio de alojamiento. .
+(Modificado por el Art. 26 de la Ley 50 de 1990) (Declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-568-93)
 
-- 2. Tampoco se puede efectuar la retención o deducción sin mandamiento judicial, aunque exista orden escrita del trabajador, cuando quiera que se afecte el salario mínimo legal o convencional, o la parte de salario declarada inembargable por la Ley, o en cuanto el total de la deuda supere al monto del salario del trabajador en tres meses.
+ARTICULO 174. VALOR DE LA REMUNERACION.
 
-Descuentos permitidos
+Como remuneración del descanso, el trabajador a jornal debe recibir el salario ordinario sencillo, aún en el caso de que el descanso dominical coincida con una fecha que la ley señale también como descanso remunerado.
 
-**Artículo 151.** Son permitidos los descuentos y retenciones por concepto de cuotas sindicales y de cooperativas y cajas de ahorros, autorizadas en forma legal; de cuotas con destino al Seguro Social Obligatorio y de sanciones disciplinarias impuestas de conformidad con el reglamento de trabajo debidamente aprobado.
+En todo sueldo se entiende comprendido el pago del descanso en los días en que es legalmente obligatorio y remunerado.
 
-**Autorización especial.**
+ARTICULO 175. EXCEPCIONES.
 
-**Artículo 152.** Los Inspectores del Trabajo pueden autorizar por escrito, a solicitud conjunta del patrono y del trabajador, y previa calificación en cada caso, préstamos, anticipos, deducciones, retenciones, o compensaciones del salario, aunque haya de afectarse el salario mínimo o la parte inembargable, o aunque el total de la deuda supere al monto del salario en tres (3) meses. En la misma providencia en que autorice la operación, el funcionario debe fijar la cuota que pueda ser objeto de deducción o compensación por parte del patrono, y el plazo para la amortización gradual de la deuda.
+El trabajo durante los días de descanso obligatorio solamente se permite retribuyéndolo o dando un descanso compensatorio remunerado: a). En aquellas labores que no sean susceptibles de interrupción por naturaleza o por motivo de carácter técnico;
 
-**Préstamos para viviendas.**
+b). En las labores destinadas a satisfacer necesidades inaplazables, como los servicios públicos, el expendio y la preparación de drogas y alimentos;
 
-**Artículo 153**. En los convenios sobre financiación de viviendas para trabajadores puede estipularse que el patrono prestamista queda autorizado para retener del salario de sus trabajadores deudores las cuotas que acuerden o que se prevean en los planes respectivos, como abono a intereses y capital, de las deudas contraídas para la adquisición de casa.
+c). En las labores del servicio doméstico y de choferes particulares, y d). En el caso de la jornada de treinta y seis (36) horas semanales del artículo 20 literal c) de esta Ley en el cual el trabajador sólo tendrá derecho a un descanso compensatorio remunerado.
 
-**Intereses de los préstamos.**
+El gobierno nacional especificará las labores a que se refieren los ordinales a) y b) del ordinal 1. de este artículo. (Numeral 2 declarado EXEQUIBLE por la Corte Suprema de Justicia, mediante Sentencia No. 088 del 25 de julio de 1991) (Modificado por el Art. 27 de la Ley 50 de 1990) (Declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-568-93)
 
-**Artículo 154.** Fuera de los casos a que se refiere el Artículo anterior, los préstamos o anticipos de salarios que haga el patrono al trabajador no pueden devengar intereses.
+ARTICULO 176. SALARIOS VARIABLES. Cuando no se trate de salario fijo como en los casos de remuneración por tarea, a destajo, o por unidad de obra, el salario computable, para los efectos de la remuneración del descanso dominical, es el promedio de lo devengado por el trabajador en la semana inmediatamente anterior, tomando en cuenta solamente los días trabajados.
 
-### CAPITULO IV
+(Declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-568-93)
 
-EMBARGO DE SALARIOS
+## CAPITULO II.
 
-**Regla general.**
+DESCANSO REMUNERADO EN OTROS DIAS DE FIESTA.
 
-**Artículo 155.** No es embargable el salario mínimo legal o convencional, ni los primeros cien pesos ($100) del cómputo mensual de cualquier salario.
+ARTICULO 177. REMUNERACION.
 
-**Embargo parcial del excedente.**
+1.Todos los trabajadores, tanto del sector público como del sector privado, tienen derecho al descanso remunerado en los siguientes días de fiesta de carácter civil o religioso: Primero de enero, seis de enero, diecinueve de marzo, primero de mayo, veintinueve de junio, veinte de julio, siete de agosto, quince de agosto, doce de octubre, primero de noviembre, once de noviembre, ocho de diciembre y veinticinco de diciembre, además de los días jueves y viernes santos, Ascensión del Señor, Corpus Christi y Sagrado Corazón de Jesús.
 
-**Artículo 156.** El excedente de cien pesos ($100) del cómputo mensual de cualquier salario sólo es embargable en una quinta parte.
+2. Pero el descanso remunerado del seis de enero, diecinueve de marzo, veintinueve de junio, quince de agosto, doce de octubre, primero de noviembre, Ascensión del Señor, Corpus Christi y Sagrado Corazón de Jesús cuando no caigan en día lunes se trasladarán al lunes siguiente a dicho día.
 
-**Excepción a favor de cooperativas y pensiones alimenticias.**
+Cuando las mencionadas festividades caigan en domingo, el descanso remunerado, igualmente se trasladará al lunes.
 
-**Artículo 157.** Todo salario puede ser embargado hasta en un cincuenta por ciento (50%) en favor de cooperativas legalmente autorizadas, o para cubrir pensiones alimenticias que se deban de conformidad con los articulas 411 y concordantes del Código Civil
+3. Las prestaciones y derechos que para el trabajador origina el trabajo de los días festivos, se reconocerán en relación al día de descanso remunerado establecido en el inciso anterior.
 
-### CAPITULO V
+La remuneración correspondiente al descanso en los días festivos se liquidará como para el descanso dominical, pero sin que haya lugar a descuento alguno por falta al trabajo.
 
-PRELACION DE LOS CREDITOS POR SALARIOS
+(Modificado por los artículos 1 y 2 de la Ley 51 de 1983)
 
-**Clasificación.**
+ARTICULO 178. SUSPENSION DEL TRABAJO EN OTROS DIAS DE FIESTA. Cuando por motivos de cualquier fiesta no determinada en el artículo anterior el {empleador} suspendiere el trabajo, está obligado a pagar el salario de ese día, como si se hubiere realizado. No está obligado a pagarlo cuando hubiere mediado convenio expreso para la suspensión del trabajo o su compensación en otro día hábil, o cuando la suspensión o compensación estuviere prevista en reglamento, pacto, convención colectiva o fallo arbitral. Este trabajo compensatorio se remunera sin que se entienda como trabajo suplementario o de horas extras.
 
-**Artículo 158.** Los salarios pertenecen al grupo cuarto de los créditos de primera clase.
+## CAPITULO III.
 
-## TITULO VI
+TRABAJO DOMINICAL Y FESTIVO.
 
-JORNADA DE TRABAJO
+ARTICULO 179. TRABAJO DOMINICAL Y FESTIVO.
 
-### CAPITULO I
+El trabajo en domingo y festivos se remunerará con un recargo del setenta y cinco por ciento (75%) sobre el salario ordinario en proporción a las horas laboradas.
 
-DEFINICIONES
+Si con el domingo coincide otro día de descanso remunerado solo tendrá derecho el trabajador, si trabaja, al recargo establecido en el numeral anterior.
 
-**Jornada ordinaria.**
+Se exceptúa el caso de la jornada de treinta y seis (36) horas semanales previstas en el artículo 20 literal c) de la Ley 50 de 1990.
 
-**Artículo 159.** La jornada ordinaria de trabajo es la que convengan las partes, o a falta de convenio, la máxima legal.
+PARÁGRAFO 1. El trabajador podrá convenir con el empleador su día de descanso obligatorio el día sábado o domingo, que será reconocido en todos sus aspectos como descanso dominical obligatorio institucionalizado.
 
-**Trabajo suplementario.**
+Interprétese la expresión dominical contenida en el régimen laboral en este sentido exclusivamente para el efecto del descanso obligatorio. Las disposiciones contenidas en los artículos 25 y 26 se aplazarán en su aplicación frente a los contratos celebrados antes de la vigencia de la presente ley hasta el 1o. de abril del año 2003.
 
-**Artículo 160.** Trabajo suplementario o de horas extras es el que excede de la jornada ordinaria, y en todo caso el que excede de la máxima legal.
+PARÁGRAFO 2. Se entiende que el trabajo dominical es ocasional cuando el trabajador labora hasta dos domingos durante el mes calendario. Se entiende que el trabajo dominical es habitual cuando el trabajador labore tres o más domingos durante el mes calendario. (Modificado por el Art. 26 de la Ley 789 de 2002) (Modificado por el Art. 29 de la Ley 50 de 1990) (Modificado por el Art. 12 del Decreto 2351 de 1965)
 
-**Trabajo diurno y nocturno.**
+ARTICULO 180. TRABAJO EXCEPCIONAL. El trabajador que labore excepcionalmente el día de descanso obligatorio tiene derecho a un descanso compensatorio remunerado, o a una retribución en dinero, a su elección, en la forma prevista en el artículo anterior. Para el caso de la jornada de treinta y seis (36) semanales previstas en el artículo 20 literal c) de esta ley, el trabajador solo tendrá derecho a un descanso compensatorio remunerado cuando labore en domingo.
 
-**Artículo 161.** 1. Trabajo diurno es el comprendido entre las seis horas (6 am) y las diez y ocho (6 pm).
+(Modificado por el Art. 30 de la Ley 50 de 1990)
 
-- 2. Trabajo nocturno es el comprendido entre las diez y ocho horas (6 p. m.) y las seis (6 am).
+ARTICULO 181. DESCANSO COMPENSATORIO. El trabajador que labore habitualmente en día de descanso obligatorio tiene derecho a un descanso compensatorio remunerado, sin perjuicio de la retribución en dinero prevista en el artículo 180 del Código Sustantivo del Trabajo. En el caso de la jornada de treinta y seis (36) horas semanales previstas en el artículo 20 literal c) de esta ley , el trabajador solo tendrá derecho a un descanso compensatorio remunerado cuando labore en domingo.
 
-### CAPITULO II
+(Modificado por el Art. 31 de la Ley 50 de 1990)
 
-JORNADA MAXIMA
+ARTICULO 182. TECNICOS. Las personas que por sus conocimientos técnicos o por razón del trabajo que ejecutan no puede reemplazarse sin grave perjuicio para la empresa, deben trabajar los domingos y días de fiesta sin derecho al descanso compensatorio, pero su trabajo se remunera conforme al artículo 179.
 
-**Artículo 162.** La duración máxima legal de la jornada ordinaria de trabajo es de ocho (8) horas al día y de cuarenta y ocho (48) a la semana, salvo las excepciones que a continuación se enumeran:
+(Declarado EXEQUIBLE, salvo el aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-710-96)
 
-- a) En las labores agrícolas, ganaderas y forestales, la jornada máxima es de nueve (9) horas al día y de cincuenta y cuatro (54) a la semana.
+ARTICULO 183. FORMAS DEL DESCANSO COMPENSATORIO. El descanso semanal compensatorio puede darse en alguna de las siguientes formas: En otro día laborable de la semana siguiente, a todo el personal de un establecimiento, o por turnos.
 
-- b) En las actividades discontinuas o intermitentes y en las de simple vigilancia, la jornada ordinaria no puede exceder de doce (12) horas diarias.
+Desde el medio día o a las trece horas (1 p.m.) del domingo, hasta el medio día o a las trece horas (1 p.m.) del lunes.
 
-- c) En las labores que sean especialmente insalubres o peligrosas, el Gobierno puede ordenar la reducción de la jornada de trabajo de acuerdo con dictámenes al respecto.
+ARTICULO 184. LABORES NO SUSCEPTIBLES DE SUSPENSION. En los casos de labores que no puedan ser suspendidas, como los viajes fluviales o marítimos, cuando el personal no pueda tomar el descanso en el curso de una o más semanas, se acumulan los días de descanso en la semana siguiente a la terminación de las labores o se paga la correspondiente remuneración en dinero, a opción del trabajador.
 
-- d) En los trabajos autorizados para menores de diez y seis (16) años, las labores no pueden exceder de seis (6) horas diarias.
+ARTICULO 185. AVISO SOBRE TRABAJO DOMINICAL. Cuando se trate de trabajos habituales o permanentes en domingo, el {empleador} debe fijar un lugar público del establecimiento, con anticipación de doce (12) horas por lo menos, la relación del personal de trabajadores que por razones del servicio no puede disponer del descanso dominical. En esta relación se incluirán también el día y las horas de descanso compensatorio.
 
-**Excepciones en determinadas actividades.**
+ARTICULO 185A. LABORES AGROPECUARIAS. Los trabajadores de empresas agrícolas, forestales y ganaderas que ejecuten actividades no susceptibles de interrupción, deben de trabajar los domingos y días de fiesta, remunerándose su trabajo en la forma prevista en el artículo 179 y con derecho al descanso compensatorio.
 
-**Artículo 163.** l. Quedan excluidos de la regulación sobre jornada máxima legal de trabajo los siguientes trabajadores:
+(Adicionado por el Art. 28 de la Ley 50 de 1990)
 
-- a) Los que desempeñan cargos de dirección, de confianza o de manejo;
+## CAPITULO IV.
 
-- b) Los del servicio doméstico, ya se trate de labores en los centros urbanos o en el campo;
+VACACIONES ANUALES REMUNERADAS.
 
-- c) Los que ejerciten actividades discontinuas o intermitentes y los de simple vigilancia., cuando residan en el lugar o sitio del trabajo;
+ARTICULO 186. DURACION.
 
-- d) Los chóferes mecánicos que presten sus servicios en empresas de transportes de cualquier clase, sea cual fuere la forma de su remuneración.
+Los trabajadores que hubieren prestado sus servicios durante un año tienen derecho a quince (15) días hábiles consecutivos de vacaciones remuneradas.
 
-- 2. Las actividades no contempladas en el presente artículo sólo pueden exceder los límites señalados en el Artículo anterior, mediante autorización expresa del Ministerio del Trabajo, por conducto del Departamento Nacional o de una autoridad delegada, sin pasar de cuatro (4) horas diarias de trabajo suplementario
+Los profesionales y ayudantes que trabajan en establecimientos privados dedicados a la lucha contra la tuberculosis, y los ocupados en la aplicación de rayos X, tienen derecho a gozar de quince (15) días de vacaciones remuneradas por cada seis (6) meses de servicios prestados.
 
-**163A.** Adicionado.
+ARTICULO 187. EPOCA DE VACACIONES.
 
-**Excepciones en casos especiales.**
+La época de vacaciones debe ser señalada por el {empleador} a más tardar dentro del año subsiguiente, y ellas deben ser concedidas oficiosamente o a petición del trabajador, sin perjudicar el servicio y la efectividad del descanso.
 
-**Artículo 164.** El límite máximo de horas de trabajo previsto en el Artículo 162 puede ser elevado por orden del patrono y sin permiso de la autoridad, por razón de fuerza mayor, caso fortuito, de amenazar u ocurrir algún accidente o cuando sean indispensables trabajos de urgencia que deban efectuarse en las máquinas o en la dotación de la empresa; pero únicamente se permite el trabajo en la medida necesaria para evitar que la marcha normal del establecimiento sufra una perturbación grave.
+(Numeral 1) declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-710-96) El {empleador} tiene que dar a conocer con quince (15) días de anticipación, la fecha en que le concederá las vacaciones. (Numeral 2) declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-710-96) Todo {empleador} debe llevar un registro especial de vacaciones en que el anotará la fecha en que ha ingresado al establecimiento cada trabajador, la fecha en que toma sus vacaciones anuales y en que las termina y la remuneración recibida por las mismas. (Numeral 3 adicionado por el Art. 5 del Decreto 13 de 1967)
 
-**Descanso en la tarde del sábado.**
+ARTICULO 188. INTERRUPCION. Si se presenta interrupción justificada en el disfrute de las vacaciones, el trabajador no pierde el derecho a reanudarlas.
 
-**Artículo 165.** Pueden repartirse las cuarenta y ocho (48) horas semanales de trabajo ampliando la jornada ordinaria hasta por una hora, bien por acuerdo entre las partes o por disposición del reglamento de trabajo, pero con el fin exclusivo de permitir a los trabajadores el descanso en la tarde del sábado. Esta ampliación no constituye trabajo suplementario o de horas extras.
+ARTICULO 189. COMPENSACION EN DINERO DE LAS VACACIONES.
 
-**Trabajo por turnos.**
+Empleador y trabajador, podrán acordar por escrito, previa solicitud del trabajador, que se pague en dinero hasta la mitad de las vacaciones. (Numeral 1 modificado por el Art. 20 de la Ley 1429 de 2010) Cuando el contrato de trabajo termine sin que el trabajador hubiere disfrutado de vacaciones, la compensación de éstas en dinero procederá por año cumplido de servicio y proporcionalmente por fracción de año, siempre que este exceda de tres meses.
 
-**Artículo 166.** Cuando la naturaleza de la labor no exija actividad continuada y se lleve a cabo por turnos de trabajadores, la duración de la jornada puede ampliarse en más de ocho (8) horas, o en más de cuarenta y ocho (48) semanales, siempre que el promedio de las horas de trabajo calculado para un período que no exceda de tres (3) semanas, no pase de ocho (8) horas diarias ni de cuarenta y ocho (48) a la semana. Esta ampliación no constituye trabajo suplementario o de horas extras.
+(Numeral 2 derogado por el Art. 2 de la Ley 995 de 2005) (Numeral 2 modificado por el Art. 27 de la Ley 789 de 2002) Para la compensación de dinero de estas vacaciones, en el caso de los numerales anteriores, se tomará como base el último salario devengado por el trabajador.
 
-**Trabajo sin solución de continuidad.**
+(Modificado por el Art. 14 del Decreto 2351 de 1965) (Modificado por el Art. 7 del Decreto 617 de 1954)
 
-**Artículo 167.** También puede elevarse el límite máximo de horas de trabajo establecido en el Artículo 162, en aquellas labores que por razón de su misma naturaleza necesitan ser atendidas sin solución de continuidad, por turnos sucesivos de trabajadores, pero en tales casos las horas de trabajo no pueden exceder de cincuenta y seis (56) en los días hábiles de la semana
+ARTICULO 190. ACUMULACION.
 
-**Artículo 167A.** En ningún caso las horas extras de trabajo, diurnas o nocturnas, podrán exceder de dos (2) horas diarias y doce (12) semanales.
+En todo caso, el trabajador gozara anualmente, por lo menos de seis (6) días hábiles continuos de vacaciones, los que no son acumulables. Las partes pueden convenir en acumular los días restantes de vacaciones hasta por dos años.
 
-Cuando la jornada de trabajo se amplíe por acuerdo entre empleadores y trabajadores a diez (10) horas diarias, no se podrá en el mismo día laborar horas extras.
+La acumulación puede ser hasta por cuatro (4) años, cuando se trate de trabajadores técnicos, especializados, de confianza, de manejo o de extranjeros que presten sus servicios en lugares distintos a los de la residencia de sus familiares.
 
-(Artículo adicionado por el Art. 22, Ley 50 de 1990)
+Si el trabajador goza únicamente de seis (6) días de vacaciones en un año, se presume que acumula los días restantes de vacaciones a las posteriores, en términos del presente artículo.
 
-**Artículo 168.** Las horas de trabajo durante cada jornada deben distribuirse al menos en dos secciones, con un intermedio de descanso que se adapte racionalmente a la naturaleza del trabajo y a las necesidades de los trabajadores. El tiempo de este descanso no se computa en la jornada.
+(Modificado por el Art. 6 del Decreto 13 de 1967)
 
-### CAPITULO III
+ARTICULO 191. EMPLEADOS DE MANEJO. El empleado de manejo que hiciere uso de vacaciones puede dejar un reemplazo, bajo su responsabilidad solidaria, y previa aquiescencia del {empleador}. Si este último no aceptare al candidato indicado por el trabajador y llamare a otra persona a reemplazarlo, cesa por este hecho la responsabilidad del trabajador que se ausente en vacaciones.
 
-REMUNERACION DEL TRABAJO NOCTURNO Y DEL SUPLEMENTARIO,
+ARTICULO 192. REMUNERACION.
 
-**Tasas y liquidación de recargos.**
+Durante el período de vacaciones el trabajador recibirá el salario ordinario que esté devengando el día en que comience a disfrutar de ellas. En consecuencia, sólo se excluirán para la liquidación de vacaciones el valor del trabajo en días de descanso obligatorio y el valor del trabajo suplementario en horas extras.
 
-**Artículo 169.** l. El trabajo nocturno, por el solo hecho de ser nocturno, se remunera con un recargo del treinta y cinco por ciento (35%) sobre el valor del trabajo diurno.
+Cuando el salario sea variable las vacaciones se liquidaran con el promedio de lo devengado por el trabajador en el año inmediatamente anterior a la fecha en que se concedan.
 
-- 2. El trabajo extra diurno se remunera con un recargo del veinticinco por ciento (25%) sobre el valor del trabajo ordinario diurno.
+(Modificado por el Art. 8 del Decreto 617 de 1954)
 
-- 3. El trabajo extra nocturno se remunera con un recargo del setenta y cinco por ciento (75%) sobre el valor del trabajo ordinario diurno.
+## TITULO VIII.
 
-- 4. Cada uno de los recargos antedichos se produce de manera exclusiva, es decir, sin acumularlo con ninguno otro.
+PRESTACIONES PATRONALES COMUNES.
 
-**Base del recargo nocturno.**
+## CAPITULO I.
 
-**Artículo 170.** Todo recargo o sobre remuneración por concepto de trabajo nocturno se determina por el promedio de la misma o equivalente labor ejecutada durante el día. Si no existiere ninguna actividad del mismo establecimiento que fuere equiparable a la que se realice en la noche, las partes pueden pactar equitativamente un promedio convencional, o tomar como referencia actividades diurnas semejantes en otros establecimientos análogos de la misma región.
+DISPOSICIONES GENERALES.
 
-**Salario en caso de turnos.**
+ARTICULO 193. REGLA GENERAL.
 
-**Artículo 171.** Cuando el trabajo por equipos implique la rotación sucesiva de turnos diurnos y nocturnos, las partes pueden estipular salarios uniformes para el trabajo diurno y nocturno, siempre que estos salarios comparados con los de actividades idénticas o similares en horas diurnas compensen los recargos legales.
+Todo los {empleadores} están obligados a pagar las prestaciones establecidas en este Título, salvo las excepciones que en este mismo se consagran.
 
-### CAPITULO IV
+Estas prestaciones dejaran de estar a cargo de los empleadores cuando el riesgo de ellas sea asumido por el Instituto Colombiano de Seguros Sociales, de acuerdo con la ley y dentro de los reglamentos que dicte el mismo Instituto.
 
-TRABAJO DE MENORES DE EDAD
+ARTICULO 194. DEFINICION DE EMPRESAS.
 
-Prohibición del trabajo nocturno
+Se entiende como una sola empresa, toda unidad de explotación económica o las varias unidades dependientes económicamente de una misma persona natural o jurídica, que correspondan a actividades similares, conexas o complementarias y que tengan trabajadores a su servicio. En el caso de las personas jurídicas existirá unidad de empresa entre la principal y las filiales o subsidiarias en que aquella predomine económicamente, cuando, además, todas cumplan actividades similares, conexas o complementarias; pero los salarios y prestaciones extralegales que rijan en la principal al momento de declarase la unidad de empresa solamente se aplicarán en las filiales o subsidiarias cuando así lo estipule la respectiva convención colectiva de trabajo, o cuando la filial o subsidiaria esté localizada en una zona de condiciones económicas similares a las de la principal, a juicio del Ministerio o del juez del trabajo.
 
-**Artículo 172.** Prohíbase el trabajo nocturno de menores de diez y seis (16) años, con excepción del servicio doméstico.
+No obstante lo anterior, cuando una empresa establezca una nueva unidad de producción, planta o factoría para desarrollar actividades similares, conexas o complementarias del objeto social de las mismas, en función de fines tales como la descentralización industrial, las explotaciones, el interés social o la rehabilitación de una región deprimida, sólo podrá declararse la unidad de empresa entre aquellas y estas después de un plazo de gracia de diez (10) años de funcionamiento de las mismas. Para gozar de este beneficio el empleador requiere concepto previo y favorable del Ministerio de Desarrollo Económico.
 
-## TITULO VII
+El Ministerio de Trabajo y Seguridad Social, de oficio o a solicitud de parte y previa investigación administrativa del caso, podrá declarar la unidad de empresa de que trata el presente artículo, para lograr el cumplimiento de las leyes sociales. También podrá ser declarada judicialmente.
 
-DESCANSOS OBLIGATORIOS
+(Derogado por el Art. 75 de la Ley 550 de 1999) (Modificado por el Art. 32 de la Ley 50 de 1990) (Subrogado por el Art. 15 del Decreto 2351 de 19659
 
-### CAPITULO I
+ARTICULO 195. DEFINICION Y PRUEBA DEL CAPITAL DE LA EMPRESA.
 
-DESCANSO DOMINICAL REMUNERADO
+Para los efectos de este Código se entiende por capital de la empresa el valor del patrimonio gravable declarado en el año inmediatamente anterior según prueba que debe presentar el {empleador}. En caso de no presentarla se presume que tiene el capital necesario para pagar la totalidad de la prestación demandada.
 
-**Norma general.**
+El capital que se debe tomar en cuenta es el de la empresa y no el de la persona natural o jurídica a la cual pertenezca.
 
-**Artículo 173.** El patrono está obligado a dar descanso dominical remunerado a todos sus, trabajadores. Este descanso tiene una duración mínima de veinticuatro (24) horas.
+ARTICULO 196. COEXISTENCIA DE PRESTACIONES.
 
-**Remuneración.**
+La coexistencia de contratos de que trata el artículo 26 implica la coexistencia de prestaciones.
 
-**Artículo 174.** 1. El patrono debe remunerar el descanso dominical con el salario ordinario de un día a los trabajadores que habiéndose obligado a prestar sus servicios en todos los días laborables de la semana, no falten al trabajo, o que, si faltan, lo hayan hecho por justa causa o por culpa o disposición del patrono.
+Cuando un trabajador tenga derecho a que varios {empleadores} le concedan una prestación asistencial o en especie, estos {empleadores} tienen que suministrarla y costearla en proporción a los salarios que cada uno le pague al trabajador, y si uno solo de ellos la suministrare íntegramente, quedara subrogado en las acciones del trabajador contra los demás respecto de la parte o cuota que a éstos corresponda.
 
-- 2. Se entiende por justa causa el accidente, la enfermedad, la calamidad doméstica, la fuerza mayor y el caso fortuito.
+ARTICULO 197. TRABAJADORES DE JORNADA INCOMPLETA. Los trabajadores tienen derecho a las prestaciones y garantías que les correspondan, cualquiera que sea la duración de la jornada.
 
-- 3. No tiene derecho a la remuneración del descanso dominical el trabajador que deba recibir por ese mismo día un auxilio o indemnización en dinero por enfermedad o accidente de trabajo.
+ARTICULO 198. FRAUDE A LA LEY. Cuando una empresa fraccione o disminuya su capital o restrinja sin justa causa la nómina de los salarios, y adopte sistemas o se valga de otros recursos para eludir las prestaciones de sus trabajadores, el Ministerio de Trabajo puede declararla sujeta a las cargas correspondientes a su clasificación real, previo examen de los hechos.
 
-- 4. Para los efectos de este artículo, los días de fiesta no interrumpen la continuidad y se computan como si en ellos se hubiera prestado el servicio por el trabajador.
+## CAPITULO II.
 
-**Valor de la remuneración.**
+ACCIDENTES DE TRABAJO Y ENFERMEDADES.
 
-**Artículo 175.** 1. Como remuneración del descanso, el trabajador a jornal debe recibir el salario ordinario sencillo, aun en el caso de que el descanso dominical coincida con una fecha que la Ley señale también como de descanso remunerado.
+ARTICULO 199. DEFINICION DE ACCIDENTES. Se entiende por accidente de trabajo todo suceso imprevisto y repentino que sobrevenga por causa o con ocasión del trabajo y que produzca al trabajador una lesión orgánica o perturbación funcional permanente o pasajera, y que no haya sido provocado deliberadamente o por culpa grave de la víctima.
 
-- 2. En todo sueldo se entiende comprendido el pago del descanso en los días en que es legalmente obligatorio y remunerado.
+(Derogado por el Art. 98 del Decreto 1295 de 1994)
 
-**Excepciones.**
+ARTICULO 200. DEFINICION DE ENFERMEDAD PROFESIONAL.
 
-**Artículo 176.** 1. El trabajo solamente se permite durante los días de descanso obligatorio, retribuyéndolo o dando un descanso compensatorio remunerado:
+Se entiende por enfermedad profesional todo estado patológico que sobrevenga como consecuencia obligada de la clase de trabajo que desempeña el trabajador o del medio en que se ha visto obligado a trabajar, bien sea determinado por agentes físicos, químicos o biológicos. Las enfermedades endémicas y epidémicas de la región sólo se consideran como profesionales cuando se adquieren por los encargados de combatirlas por razón de su oficio.
 
-- a) En aquellas labores que no sean susceptibles de interrupción por su naturaleza o por motivos de carácter técnico;
+ARTICULO 201. TABLA DE ENFERMEDADES PROFESIONALES.
 
-- b) En labores destinadas a satisfacer necesidades inaplazables, como los servicios públicos, el expendio y la preparación de drogas y alimentos; y
+1. Se adopta la siguiente tabla de enfermedades profesionales:
 
-- c) En las labores del servicio doméstico y de chóferes particulares.
+(Tabla (Decreto 2566 de 2009) derogada por el Art. 5 del Decreto 1477 de 2014)
 
-- 2. El Gobierno especificará las labores a que se refieren los ordinales a) y b) del inciso 1 de este artículo.
+2. Esta tabla puede ser modificada o adicionada, en cualquier tiempo, por el Gobierno.
 
-- 3. El Gobierno puede prohibir o limitar el trabajo dominical en determinadas actividades que se desarrollan en las poblaciones más importantes, cualquiera que sea el número de trabajadores ocupados en cada establecimiento.
+(Derogado por el Art. 98 del Decreto 1295 de 1994)
 
-**Peluquerías y similares**
+ARTICULO 202. PRESUNCION DE ENFERMEDAD PROFESIONAL. Solamente las enfermedades contempladas en la Tabla adoptada en el artículo anterior se presumen profesionales.
 
-**Artículo 177.** Los establecimientos de barbería, manicuristas y sus similares, cualquiera que sea el número de sus operarios y que funcionen en las capitales de Departamento o en las ciudades de más de sesenta mil (60.000) habitantes, no pueden ser abiertos al público los domingos.
+ARTICULO 203. CONSECUENCIAS. Las consecuencias de los accidentes de trabajo y de las enfermedades profesionales, para los efectos de las prestaciones que se consagran en este Capítulo, son las siguientes:
 
-**Salarios variables.**
+Incapacidad temporal, cuando el trabajador no puede desempeñar su trabajo por algún tiempo.
 
-**Artículo 178.** Cuando no se trate de salario fijo, como en los casos de remuneración por tarea, a destajo, o por unidad de obra, el salario computable, para los efectos de la remuneración del descanso dominical, es el promedio de lo devengado por el trabajador en la semana inmediatamente anterior, tomando en cuenta solamente los días trabajados.
+Incapacidad permanente parcial, cuando el trabajador sufre una disminución definitiva pero apenas parcial en sus facultades. Incapacidad permanente total, cuando el trabajador queda inhabilitado para desempeñar cualquier clase de trabajo remunerativo. Gran invalidez, cuando el trabajador no solamente queda incapacitado para desempeñar cualquier clase de trabajo, sino que tiene que ser válido por otro para realizar las funciones esenciales de la vida.
 
-### CAPITULO II
+Muerte del trabajador.
 
-DESCANSO REMUNERADO EN OTROS DIAS DE FIESTA
+(Derogado por el artículo 98 del Decreto 1295 de 1994)
 
-**Días de fiesta. Su remuneración.**
+ARTICULO 204. PRESTACIONES. Los accidentes de trabajo y enfermedades profesionales dan lugar a las siguientes prestaciones: Asistencia médica, farmacéutica, quirúrgica y hospitalaria hasta, por el tiempo que se requiera sin exceder de dos (2) años, comprendidos los exámenes complementarios, como radiografías, consulta de especialistas, las prescripciones terapéuticas completas, como transfusiones y fisioterapia, y el suministro de aparatos de ortopedia y prótesis que sean necesarios.
 
-**Artículo 179.** 1. Todos los trabajadores tienen derecho al descanso remunerado en los siguientes días de fiesta de carácter civil o religioso:
+Además, a las siguientes en dinero, según el caso:
 
-Primero de enero,
+a) Mientras dure la incapacidad temporal, el trabajador tiene derecho a que se le pague el salario ordinario completo hasta por seis (6) meses.
 
-Primero de mayo,
+b) En caso de incapacidad permanente parcial, el trabajador tiene derecho a una suma de dinero en proporción al daño sufrido, no inferior a un mes ni superior a veintitrés meses de salario. Esta suma se fija en caso de accidente, de acuerdo con la Tabla de Valuación de Incapacidades que aparece adoptada en el artículo 211, y en caso de enfermedad profesional, de acuerdo con el grado de incapacidad. Las incapacidades de que trata este ordinal serán fijadas por el médico del patrono y, en caso de controversia, por los médicos de la Oficina Nacional de Medicina e Higiene Industrial y, en su defecto, por los médicos legistas.
 
-Veinte de julio,
+c) En caso de incapacidad permanente total el trabajador tiene derecho a una suma equivalente a veinticuatro meses de salario.
 
-Siete de agosto,
+d) En caso de gran invalidez el trabajador tiene derecho a una suma equivalente a treinta meses de salario.
 
-Doce de octubre,
-
-Once de noviembre, y
-
-Veinticinco de diciembre.
-
-- 2. La remuneración correspondiente al descanso en los días expresados se liquidará como para el descanso dominical, pero sin que haya lugar a descuento alguno por falas al trabajo.
-
-**Suspensión del trabajo en otros días de fiesta.**
-
-**Artículo 180.** Cuando por motivo de cualquier fiesta no determinada en el Artículo anterior el patrono suspendiere el trabajo; está obligado a pagar el salario de ese día como si se hubiere realizado. No está obligado a pagarlo cuando hubiere mediado convenio expreso para la suspensión del trabajo o su compensación en otro día hábil, o cuando la suspensión o compensación estuviere prevista en reglamento, pacto, convención colectiva o fallo arbitral. Este trabajo compensatorio se remunerará sin que se entienda como trabajo suplementario o de horas extras.
-
-### CAPITULO III
-
-TRABAJO DOMINICAL Y FESTIVO
-
-**Remuneración.**
-
-**Artículo 181.** La retribución del trabajo en domingo o días de fiesta de que trata este Título se fija de acuerdo con las siguientes reglas:
-
-- 1. Si el trabajador labora la jornada completa, se le paga salario doble.
-
-- 2. Si labora parte de la jornada, se le paga doblada la parte proporcional del salario.
-
-- 3. Si con el descanso dominical remunerado coincide una fecha que la Ley señale también como de descanso remunerado, el trabajador sólo tiene derecho a remuneración doble si trabaja
-
-**Trabajo excepcional.**
-
-**Artículo 182.** El trabajador que labore excepcionalmente el día de descanso obligatorio tiene derecho a un descanso compensatorio remunerado, o a una retribución en dinero, a su elección, en la forma prevista en el Artículo anterior.
-
-**Trabajo habitual.**
-
-**Artículo 183.** Los trabajadores que habitualmente tengan que trabajar el domingo; deben gozar de un descanso compensatorio remunerado
-
-**Técnicos.**
-
-**Artículo 184.** Las personas que por sus conocimientos técnicos o por razón del trabajo que ejecutan no pueden reemplazarse sin grave perjuicio para la empresa, deben trabajar los domingos y días de fiesta sin derecho al descanso compensatorio, pero su trabajo se remunera conforme al Artículo 181.
-
-**Formas del descanso compensatorio.**
-
-**Artículo 185.** El descanso semanal compensatorio puede darse en alguna de las siguientes formas:
-
-- 1. En otro día laborable de la semana siguiente, a todo el personal de un establecimiento, o por turnos.
-
-- 2. Desde el mediodía o a las trece horas (l pm) del domingo hasta el mediodía o a las trece horas (1 pm) del lunes.
-
-**Artículo 185A.** Los trabajadores de empresas agrícolas, forestales y ganaderas que ejecuten actividades no susceptibles de interrupción, deben trabajar los domingos y días de fiesta, remunerándose su trabajo en la forma prevista en el artículo 179 y con derecho al descanso compensatorio.
-
-(Adicionado por el Art. 28 de la Ley 50 de 1990.)
-
-**Artículo 186.** En los casos de labores que no puedan ser suspendidas, como los viajes fluviales o marítimos, cuando el personal no puede tomar el descanso en el curso de una o más semanas, se acumulan los días de descanso en la semana siguiente a la terminación de las labores o se paga la correspondiente remuneración en dinero, a opción del trabajador.
-
-**Aviso sobre trabajo dominical.**
-
-**Artículo 187.** Cuando se trate de trabajos habituales o permanentes en domingo, el patrono debe fijar en lugar público del establecimiento, con anticipación de doce (12) horas lo menos, la relación del personal de trabajadores que por razones del servicio no puede disponer del descanso dominical. En esta relación se incluirán también el día y las horas de descanso compensatorio.
-
-### CAPITULO IV
-
-VACACIONES ANUALES REMUNERADAS
-
-**Duración.**
-
-**Artículo 188.** 1. Los trabajadores que hubieren prestado sus servicios durante un (1) año tienen derecho a quince (15) días hábiles consecutivos de vacaciones remuneradas.
-
-- 2. Los profesionales y ayudantes que trabajan en establecimientos privados dedicados a la lucha contra la tuberculosis, y los ocupados en la aplicación de rayos X, tienen derecho a gozar de quince (15) días de vacaciones remuneradas por cada seis (6) meses de servicios prestados.
-
-**Época de vacaciones.**
-
-**Artículo 189.** l. La época de las vacaciones debe ser señalada por el patrono a más tardar dentro del año subsiguiente, y ellas deben ser concedidas oficiosamente o a petición del trabajador, sin perjudicar el servicio y la efectividad del descanso.
-
-- 2. El patrono tiene que dar a conocer al trabajador, con quince (15) días de anticipación, la fecha en que le concederá las vacaciones.
-
-**Interrupción.**
-
-**Artículo 190.** Si se presenta interrupción justificada en el disfrute de las vacaciones, el trabajador no pierde el derecho a reanudarlas.
-
-**Compensación en dinero.**
-
-**Artículo 191.** 1. Es prohibido compensar las vacaciones en dinero, pero el Ministerio del Trabajo puede autorizar que se pague en dinero hasta la mitad de las vacaciones, en casos especiales de perjuicio para la economía nacional o la industria.
-
-- 2. Cuando el contrato de trabajo termina sin haberse hecho uso de las vacaciones ya causadas, este derecho se compensa en dinero con la remuneración que debía haberse pagado por vacaciones en el momento de causarse.
-
-**Acumulación.**
-
-**Artículo 192.** 1. Las partes pueden convenir en acumular las vacaciones hasta por dos (2) años.
-
-- 2. La acumulación puede ser hasta por cuatro (4) años, cuando se trate de trabajadores técnicos, especializados, de confianza, de manejo, o de extranjeros que presten sus servicios en lugares distintos a los de la residencia de sus familiares.
-
-**Empleados de manejo.**
-
-**Artículo 193.** El empleado de manejo que hiciere uso de vacaciones puede dejar un reemplazo, bajo su responsabilidad solidaria, y previa aquiescencia del patrono. Si este último no aceptare al candidato indicado por el trabajador y llamare a otra persona a reemplazarlo, cesa por este hecho la responsabilidad del trabajador que se ausente en vacaciones.
-
-**Remuneración.**
-
-**Artículo 194.** 1. Cuando el salario no ha sufrido variaciones durante los tres meses anteriores al disfrute de las vacaciones, se toma en cuenta el salario ordinario del momento en que principien.
-
-- 2. Cuando el salario haya fluctuado en los tres (3) meses anteriores al disfrute de las vacaciones, se toma en cuenta el promedio del salario ordinario devengado en el año inmediatamente anterior.
-
-## TITULO VIII
-
-PRESTACIONES PATRONALES COMUNES
-
-### CAPITULO I
-
-DISPOSICIONES GENERALES
-
-**Regla general.**
-
-**Artículo 195.** l. Todos los patronos están obligados a pagar las prestaciones establecidas en este Título, salvo las excepciones que en el mismo se consagran.
-
-- 2. Estas prestaciones dejarán de estar a cargo de los patronos cuando el riesgo de ellas sea asumido por el Instituto Colombiano de Seguros Sociales, de acuerdo con la Ley y dentro de los reglamentos que dicte el mismo Instituto.
-
-**Definición de empresa.**
-
-**Artículo 196.** Para los efectos de este Código se entiende por empresa toda unidad de explotación económica o las varias unidades dependientes de una misma persona natural o jurídica, que correspondan a actividades económicas similares, conexas o complementarias, y tengan trabajadores a su servicio.
-
-**Definición y prueba del capital de la empresa.**
-
-**Artículo 197.** 1. Para los efectos de este Código se entiende por capital de la empresa el valor del patrimonio gravable declarado en el año inmediatamente anterior según prueba que debe presentar el patrono. En caso de no presentarla se presume que tiene el capital necesario para pagar la totalidad de la prestación demandada.
-
-- 2. El capital que se debe tomar en cuenta es el de la empresa, y no el de la persona natural o jurídica a la cual pertenezca.
-
-**Coexistencia de prestaciones.**
-
-**Artículo 198.** 1. La coexistencia de contratos de que trata el Artículo 27 implica la coexistencia de prestaciones.
-
-- 2. Cuando un trabajador tenga derecho a que varios patronos le concedan una prestación asistencial o en especie, estos patronos tienen que costearla en proporción a los salarios que cada uno le pague al trabajador, pero debe suministrarla aquel patrono que paga el salario más alto, pudiendo repetir contra los demás.
-
-**Trabajadores de jornada incompleta.**
-
-**Artículo 199.** Los trabajadores tienen derecho a las prestaciones y garantías que les correspondan, cualquiera que sea la duración de la jornada.
-
-**Fraude a la Ley.**
-
-**Artículo 200.** Cuando una empresa disminuya o fraccione su capital o restrinja sin justa causa la nómina de salarios, y adopte sistemas o se valga de otros recursos para eludir las prestaciones de sus trabajadores, el Ministerio del Trabajo puede declararla sujeta a las cargas correspondientes a su clasificación real, previo examen de los hechos.
-
-### **CAPITULO II**
-
-**ACCIDENTES DE TRABAJO Y ENFERMEDADES PROFESIONALES**
-
-Definición de accidente.
-
-**Artículo 201.** Se entiende por accidente de trabajo todo suceso imprevisto y repentino que sobrevenga por causa o con ocasión del trabajo y que produzca al trabajador una lesión orgánica o perturbación funcional permanente o pasajera, y que no haya sido provocado deliberadamente o por culpa de la víctima.
-
-Definición de enfermedad profesional.
-
-**Artículo 202.** 1. Se entiende por enfermedad profesional todo estado patológico que sobrevenga como consecuencia obligada de la clase de trabajo que desempeña el trabajador o del medio en que se ha visto obligado a trabajar, bien sea determinado por agentes físicos, químicos o biológicos.
-
-- 2. Las enfermedades endémicas y epidémicas de la región sólo se consideran como profesionales cuando se adquieren por los encargados de combatirlas por razón de su oficio.
-
-Tabla de Enfermedades Profesionales.
-
-**Artículo 203.** 1. Se adopta la siguiente Tabla de Enfermedades Profesionales:
-
-- 1. Carbón: veterinarios, matarifes, carniceros, cuidadores de ganado y curtidores.
-
-- 2. Actinomicosis: panaderos, molineros de trigo, cebada, avena y centeno, y agricultores.
-
-- 3. Tétanos: cuidadores de ganado y carniceros.
-
-- 4. Tuberculosis: médicos, enfermeras, mozos de anfiteatro, mineros, sopleteros, caldereros y fogoneros. Tuberculosis de origen traumático (pulmonares, articulares, etc.), debidamente comprobada.
-
-- 5. Antracosis: carboneros, fogoneros y mineros.
-
-- 6. Silicosis: mineros, marmoleros, vidrieros, canteros, caleros, afiladores, areneros y trabajadores en fábricas de cementos y cerámica.
-
-- 7. Siderosis: pulidores y torneros de hierro, herreros.
-
-- 8. Tabacosis: trabajadores en la industria del tabaco.
-
-- 9. Dermatitis: causadas por agentes físicos: frío: trabajadores en cámaras frías, etc.; calor: herreros, fundidores, trabajadores en vidrio, etc.; radiaciones solares, radiaciones eléctricas, radio.
-
-- 10. Otras dermatitis: manipuladores de pintura de colorantes vegetales a base de sales metálicas y de anilina: cocineras, lavaplatos, lavanderas, mineros, blanqueadores de ropa, fotógrafos, albañiles, canteros manipuladores del cemento, ebanistas, barnizadores, desengrasadores de trapo, bataneros, blanqueadores de tejidos por medio de vapores de azufre, curtidores de pieles en blanco, hiladores y colectores de lana, fabricantes de cloro por descomposición eléctrica del cloruro de sodio, manipuladores del petróleo y de la gasolina, manipuladores de la quina, tintoreros, panaderos y cosecheros de caña.
-
-- 11. Oftalmía eléctrica: trabajadores en soldadura autógena, electricistas.
-
-12, Otras oftalmías producidas: trabajadores en altas temperaturas, hojalateros, herreros, fogoneros, caldereros, etc.
-
-- 13. Esclerosis del oído medio: trituradores de minerales, talleres de mecánica, tractoristas, martilleros neumáticos.
-
-- 14. Intoxicaciones ocasionadas por:
-
-- a) Amoníaco: letrineros, mineros, fabricantes de hielo y estampadores;
-
-- b) Acido fIuorhídrico: grabadores;
-
-- c) Vapores clorosos: preparación de cloruro de calcio, trabajadores en el blanqueo, preparación del ácido clorhídrico, de cloruro, de la sosa;
-
-- d) Anhídrido sulfuroso: fabricantes de ácido sulfúrico, tintoreros, papeleros de colores y estampadores;
-
-- e) Oxido de carbono: caldereros, fundidores de minerales y mineros;
-
-- f) Arsénico (arsenicismo): obreros de las plantas de arsénico, de las fundiciones de minerales, tintoreros y demás manipuladores de arsénico;
-
-- g) Plomo (saturnismo): pintores que usan el albayalde, impresores, manipuladores del plomo y sus derivados, y linotipistas;
-
-- h) Mercurio (hidrargirismo): manipulación del mismo;
-
-- i) Vapores nitrosos: estampadores;
-
-- j) Sulfuro de carbono (sulfocarbonismo): vulcanizadores de caucho, extractores de grasas y aceites;
-
-- k) Ácido cianhídrico: mineros, fundidores de minerales, fotógrafos, tintoreros en azul;
-
-1) Carburos de hidrógeno: destilación de petróleo, preparación de barnices y todos los usos del petróleo y sus derivados;
-
-- m) Cromatos y bicromatos alcalinos: en las fábricas de tinta y en las tintorerías, en la fabricación de explosivos, pólvoras, fósforos suecos, en la industria textil para la impermeabilidad de los tejidos;
-
-- n) Fósforo (fosforismo): enfermedades causadas por el fósforo blanco y amarillo; caquexia fosforada, y necrosis;
-
-- o) Alquitrán, parafina: cáncer epitelial provocado por su manipulación.
-
-15 Enfermedades y lesiones producidas por los rayos X y las sustancias radioactivas: médicos, laboratoristas, enfermeros.
-
-16, Traumatismos: cáncer de origen traumático, tumores de origen traumático, psiconeurosis traumáticas (trabajadores que hayan sufrido traumatismo que originó la enfermedad, por causa o con ocasión del trabajo, siempre que dicho traumatismo no se le haya indemnizado como accidente de trabajo, o se le haya indemnizado sin tomar en cuenta la consecuencia patológica eventual).
-
-- 17. Higroma de la rodilla: trabajadores habitualmente hincados.
-
-- 18. Calambres profesionales: escribientes, telegrafistas, pianistas.
-
-- 2. Esta Tabla puede ser modificada o adicionada, en cualquier tiempo, por el Gobierno.
-
-Presunción de enfermedad profesional.
-
-**Artículo 204.** Solamente las enfermedades contempladas en la Tabla adoptada en el Artículo anterior se presumen profesionales.
-
-Consecuencias.
-
-**Artículo 205.** Las consecuencias de los accidentes de trabajo y de las enfermedades profesionales, para los efectos de las prestaciones que se consagran en este Capítulo, son las siguientes:
-
-- 1. Incapacidad temporal, cuando el trabajador no puede desempeñar su trabajo por algún tiempo.
-
-- 2. Incapacidad permanente parcial, cuando el trabajador sufre una disminución definitiva pero apenas parcial en sus facultades.
-
-- 3. Incapacidad permanente total, cuando el trabajador queda inhabilitado para desempeñar cualquier clase de trabajo remunerativo.
-
-- 4. Gran invalidez, cuando el trabajador no solamente queda incapacitado para desempeñar cualquier clase de trabajo, sino que tiene que ser válido por otro para realizar las funciones esenciales de la vida.
-
-- 5. Muerte del trabajador.
-
-Prestaciones.
-
-**Artículo 206.** Los accidentes de trabajo y enfermedades profesionales dan lugar a las siguientes prestaciones:
-
-- 1. Asistencia médica, farmacéutica, quirúrgica y hospitalaria hasta por seis (6) meses, comprendidos los exámenes complementarios, como radiografías, consulta de especialistas, las prescripciones terapéuticas completas, como transfusiones y fisioterapia, y el suministro de aparatos de ortopedia y prótesis que sean necesarios.
-
-- 2. Además, a las siguientes en dinero, según el caso:
-
-- a) En caso de Incapacidad temporal, el trabajador tiene derecho a que se le pague el setenta y cinco por ciento (75%) del salario ordinario, mientras dure esa incapacidad y hasta el límite de seis (6) meses.
-
-- b) En caso de Incapacidad permanente parcial, el trabajador tiene derecho a una suma de dinero en proporción al daño sufrido, no inferior a un (1) mes ni superior a veintitrés (23) meses de salario. Esta suma se fija en caso de accidente, de acuerdo con la Tabla de Valuación de Incapacidades que aparece adoptada en el Artículo 211, y en caso de enfermedad profesional, de acuerdo con el grado de incapacidad. Las incapacidades de que trata este ordinal serán fijadas por el médico del patrono y, en caso de controversia, por los médicos de la Oficina Nacional de Medicina e Higiene Industrial y, en su defecto, por los médicos legistas.
-
-- c) En caso de incapacidad permanente total el trabajador tiene derecho a una suma equivalente a veinticuatro (24) meses de salario.
-
-- d) En caso de gran invalidez el trabajador tiene derecho a una suma equivalente a treinta (30) meses de salario.
-
-- e) En caso de muerte se paga una suma equivalente a veinticuatro (24) meses de salario del trabajador a las personas que a continuación se indican y de acuerdo con la siguiente forma de distribución:
+e) En caso de muerte se paga una suma equivalente a veinticuatro meses de salario del trabajador, a las personas que a continuación se indican y de acuerdo con la siguiente forma de distribución:
 
 Si hubiere cónyuge e hijos legítimos y naturales, la mitad para el cónyuge y la otra mitad para los hijos, por partes iguales, teniendo en cuenta que cada uno de los hijos naturales lleva la mitad de lo que corresponde a cada uno de los hijos legítimos.
 
-Si no hubiere cónyuge, la suma se distribuye entre los hijos por partes iguales y teniendo en cuenta que cada uno de los naturales lleva la mitad de la porción de cada uno de los legítimos.
+Si no hubiere cónyuge la suma se distribuye entre los hijos por partes iguales y teniendo en cuenta que cada uno de los naturales lleva la mitad de la porción de cada uno de los legítimos.
 
 Si no hubiere cónyuge ni hijos naturales, la suma se divide por partes iguales entre los hijos legítimos.
 
@@ -1621,2482 +1356,2274 @@ Si no hubiere cónyuge ni hijos legítimos, la suma se divide por partes iguales
 
 Si no hubiere hijos legítimos ni naturales, la suma corresponde al cónyuge.
 
-Si no existiera ninguna de las personas a que se refieren los incisos anteriores, la suma se paga los ascendientes legítimos, por iguales partes; y si hubiere uno solo de ellos, a éste se paga toda la suma.
+Si no existiera ninguna de las personas a que se refieren los incisos anteriores, la suma se paga a los ascendientes legítimos, por partes; iguales y si hubiere uno solo de ellos, a éste se le paga toda la suma.
 
-A falta de alguna de las personas a que se refieren los incisos anteriores, la suma se paga a los padres naturales, por iguales partes; y si hubiere uno solo de ellos, a éste se paga toda la suma. .
+A falta de alguna de las personas a que se refieren los incisos anteriores, la suma se paga a los padres naturales, por iguales partes; y si hubiere uno solo de ellos, a éste se paga toda la suma.
 
 A falta de alguna de las personas a que se refieren los incisos anteriores, la suma se paga a quien probare que depende económicamente del trabajador fallecido, si además fuere menor de diez y ocho (18) años o estuviere incapacitado en forma permanente para trabajar. Si hubiere varias personas en estas circunstancias, la suma se divide entre ellas por partes iguales.
 
-Primeros auxilios.
+(Derogado por el artículo 98 del Decreto 1295 de 1994)
 
-**Artículo 207.** 1. El patrono debe prestar al accidentado los primeros auxilios, aun cuando el accidente sea debido a provocación deliberada o culpa grave de la víctima.
+ARTICULO 205. PRIMEROS AUXILIOS.
 
-- 2. Todo patrono debe tener en su establecimiento los medicamentos necesarios para las atenciones de urgencia en casos de accidente o ataque súbito de enfermedad, de acuerdo con la reglamentación que dicte la Oficina Nacional de Medicina e Higiene Industrial.
+El {empleador} debe prestar al accidentado los primeros auxilios, aun cuando el accidente sea debido a provocación deliberada o culpa grave de la víctima.
 
-Asistencia inmediata
+Todo {empleador} debe tener en su establecimiento los medicamentos necesarios para las atenciones de urgencias en casos de accidentes o ataque súbito de enfermedad, de acuerdo con la reglamentación que dicte la Oficina Nacional de Medicina e Higiene Industrial (Hoy División de Salud Ocupacional).
 
-**Artículo 208.** El patrono debe proporcionar sin demora al trabajador accidentado o que padezca enfermedad profesional, la asistencia médica y farmacéutica necesaria
+ARTICULO 206. ASISTENCIA INMEDIATA. El {empleador} debe proporcionar sin demora al trabajador accidentado o que padezca enfermedad profesional, la asistencia médica y farmacéutica necesaria.
 
-Contratación de la asistencia.
+ARTICULO 207. CONTRATACION DE LA ASISTENCIA.
 
-**Artículo 209.** 1. El patrono puede contratar libremente la asistencia médica que debe suministrar según lo dispuesto en este Capítulo, pero, en todo caso, con un médico graduado o facultado legalmente para ejercer su profesión.
+El {empleador} puede contratar libremente la asistencia médica que debe suministrar según lo dispuesto en este Capítulo, pero, en todo caso, con un médico graduado o facultado legalmente para ejercer su profesión.
 
-- 2. En caso de que con peligro para la vida del lesionado o enfermo y por culpa del patrono se retrase el suministro de la asistencia médica, farmacéutica, hospitalaria o quirúrgica del trabajador, aquél está obligado a pagar a éste una multa de diez pesos ($10) por cada día de retardo.
+En caso de que con peligro para la vida del lesionado o enfermo o por culpa del {empleador} se retrase el suministro de la asistencia médica, farmacéutica, hospitalaria o quirúrgica del trabajador, aquél está obligado a pagar a éste una multa equivalente a cinco (5) veces el salario mínimo diario más alto, por cada día de retardo.
 
-Oposición del trabajador a la asistencia.
+(Numeral 2 modificado por el Art. 5 de la Ley 11 de 1984)
 
-**Artículo 210.** El trabajador que sin justa causa se niegue a recibir la atención médica que le otorga el patrono, pierde el derecho a la prestación en dinero por la incapacidad que sobrevenga a consecuencia de esa negativa,
+ARTICULO 208. OPOSICION DEL TRABAJADOR A LA ASISTENCIA. El trabajador que sin justa causa se niegue a recibir la atención médica que le otorga el {empleador}, pierde el derecho a la prestación en dinero por la incapacidad que sobrevenga a consecuencia de esa negativa.
 
-Valuación de incapacidades permanentes de accidentes de trabajo.
+ARTICULO 209. VALUACION DE INCAPACIDADES PERMANENTES DE ACCIDENTES DE TRABAJO.
 
-**Artículo 211.** 1. Se adopta la siguiente Tabla de Valuación de Incapacidades resultantes de accidentes de trabajo:
+Se adopta la siguiente Tabla de Valuación de Incapacidades resultantes de accidentes de trabajo :
 
-Tabla de Valuación de Incapacidades producidas por accidentes de trabajo**.**
+TABLA DE VALUACION DE INCAPACIDADES PRODUCIDAS POR ACCIDENTES DE TRABAJO.
 
-GRUPO I Cabeza y cráneo.
+GRUPO I. Cabeza y cráneo.
 
-- 1. Cicatrices del rostro que ocasionan desfiguración facial y que alteran la presentación física personal se graduarán según la desfiguración, ya sea de carácter leve o levísimo, grave o gravísimo, desde un 2% hasta un 100%.
+1. Cicatrices del rostro que ocasionan desfiguración facial y que alteran la presentación física personal se graduarán según la desfiguración, ya sea de carácter leve o levísimo, grave o gravísimo, desde un 2% hasta un 100%.
 
-- 2. Lesiones extensas del cuero cabelludo, sin fractura del cráneo, acompañadas de pérdida de substancia: 3% a 8%.
+2. Lesiones extensas del cuero cabelludo, sin fractura del cráneo, acompañadas de pérdida de substancia : 3% a 8%.
 
-- 3. Pérdida total del cabello por desprendimiento del cuero cabelludo: 45%.
+3. Pérdida total del cabello por desprendimiento del cuero cabelludo : 45%.
 
-- 4. Pérdida de dos (2) a cuatro (4) piezas dentarias, una vez terminado el trabajo de prótesis dental que el patrono debe suministrar obligatoriamente: 3%.
+4. Pérdida de dos (2) a cuatro (4) piezas dentarias, una vez terminado el trabajo de prótesis dental que el patrono debe suministrar obligatoriamente : 3%.
 
-- 5. Pérdida de más de cuatro (4) piezas dentarias, una vez terminado el trabajo de prótesis que el patrono debe suministrar obligatoriamente: 8%.
+5. Pérdida de más de cuatro 84) piezas dentarias, una vez terminado el trabajo de prótesis que el patrono debe suministrar obligatoriamente : 8%.
 
-- 6. Perturbaciones de la masticación, consecutivas a lesiones traumáticas de los maxilares: 25%.
+6. Perturbaciones de la masticación, consecutivas a lesiones traumáticas de los maxilares : 25%.
 
-- 7. Pérdida del maxilar inferior: 70%
+7. Pérdida del maxilar inferior : 70%.
 
-- 8. Amputación, más o menos extensa, de la lengua, con entorpecimiento de la palabra y de la deglución: 55%.
+8. Amputación, mas o menos extensa, de la lengua, con entorpecimiento de la palabra y de la deglución : 55%.
 
-- 9. Trastornos de la fonación, por lesiones traumáticas de la laringe: de 35", a 55%.
+9. Trastornos de la fonación, por lesiones traumáticas de la laringe : de 35% a 55%.
 
-- 10. Sordera parcial unilateral de origen traumático, debidamente comprobada por médicos especialistas: de 4% a 10%.
+10. Sordera parcial unilateral de origen traumático, debidamente comprobada por médicos especialistas : de 4% a 10%.
 
-- 11. Sordera unilateral completa de origen traumático, debidamente comprobada por médicos especialistas: 80%.
+11. Sordera unilateral completa de origen traumático, debidamente comprobada por médicos especialistas : 80%.
 
-- 12. Sordera total bilateral de origen traumático, debidamente comprobada por médicos especialistas: 80%.
+12. Sordera total bilateral de origen traumático, debidamente comprobada por médicos especialistas : 80%.
 
-- 13. Deformación del pabellón auricular: de 3% a 8%.
+13. Deformación del pabellón auricular : de 3% a 8%.
 
-- 14. Deformación bilateral notoria de los pabellones auriculares o pérdida de uno de los pabellones auriculares: 20%.
+14. Deformación bilateral notoria de los pabellones auriculares o pérdida de uno o de los pabellones auriculares : 20%.
 
-- 15. Dificultad respiratoria ocasionada por lesiones traumáticas de los huesos nasales: 10%.
+15. Dificultad respiratoria ocasionada por lesiones traumáticas de los huesos nasales : 10%.
 
-- 16. Ptosis palpebral parcial, derecha o izquierda, de origen traumático: 15%.
+16. Ptosis palpebral parcial, derecha o izquierda, de origen traumático : 15%.
 
-- 17. Ptosis palpebral total, derecha o izquierda, de origen traumático: 45%
+17. Ptosis palpebral total, derecha o izquierda, de origen traumático : 45%.
 
-- 18. Imposibilidad de oclusión completa de los párpados por cicatrices retráctiles: de 25% a 55%.
+18. Imposibilidad de oclusión completa de los párpados por cicatrices retráctiles : de 25% a 55%.
 
-- 19. Disminución de la agudeza visual, de origen traumático, hasta de cuatro décimas (4/10), por un ojo: 10%,
+19 Disminución de la agudeza visual, de origen traumático hasta de cuatro décimas (4/10), por un ojo : 10%.
 
-- 20. Disminución de la agudeza visual, de origen traumático, de cuatro a ocho décimas (4/10 a 8/10/), por un ojo: 25%.
+20. Disminución de la agudeza visual de origen traumático, de cuatro o ocho décimas (4/10 a 8/10), por un ojo : 25%.
 
-- 21. Pérdida de la agudeza visual, de origen traumático, de más de ocho décimas (8/10), por un ojo o enucleación del órgano: 55%.
+21. Pérdida de la agudeza visual, de origen traumático, de más de ocho décimas (8/10), por un ojo o enucleación del órgano : 55%.
 
-- 22. Pérdida anatómica o funcional de un ojo y disminución de la agudeza visual por el otro, hasta ocho décimas (8/10): de 60% a 85%.
+22. Pérdida anatómica o funcional de un ojo y disminución de la agudeza visual por el otro, hasta ocho décimas (8/10) : de 60% a 85%.
 
-- 23. Ceguera total, de origen traumático, por anulación de la función, o por enucleación: 100%.
+23. Ceguera total, de origen traumático, por anulación de la función, o por enucleación : 100%.
 
-- 24. Pérdida parcial de la bóveda craneana, de origen traumático, según la extensión de las lesiones: 25% a 55%.
+24. Pérdida parcial de la bóveda craneana, de origen traumático, según la extensión de las lesiones. 25% a 55%. 25. Epilepsia consecutiva a grave traumatismo craneano, siempre que se compruebe la ausencia de antecedentes epilépticos : 80%.
 
-- 25. Epilepsia consecutiva a grave traumatismo craneano, siempre que se compruebe la ausencia de antecedentes epilépticos: 80%.
+25. Traumatismos cerebrales con sus consecuencias definitivas sobre el sistema nervioso o sobre los aparatos digestivo, de locomoción, etc. : de 80% a 100%.
 
-- 26. Traumatismos cerebrales con sus consecuencias definitivas sobre el sistema nervioso o sobre el aparato digestivo, de locomoción, etc: de 80% a 100%
+26. Hemiplejía derecha, de origen traumático y de causa nerviosa central : 85%.
 
-- 27. Hemiplejía izquierda, de origen traumático y de causa nerviosa central: 85%.
+27. Hemiplejía derecha de origen traumático y de causa nerviosa central : 93%.
 
-- 28. Hemiplejía derecha, de origen traumático y de causa nerviosa central: 93%,
+28. Rigidez del cuello por lesiones traumáticas irreparables de los músculos o cicatrices retráctiles locales : de 25% a 55%. 29.Trastornos mentales incurables, de origen traumático, debidamente comprobados por médicos especialistas : 100%.
 
-- 29. Rigidez del cuello por lesiones traumáticas irreparables de los músculos o cicatrices retráctiles locales: de 25% a 55%.
+GRUPO II. Tórax y tronco.
 
-- 30. Trastornos mentales incurables, de origen traumático, debidamente comprobados por médicos especialistas: 100%.
+1. Fractura de 1 a 4 costillas, con mala consolidación que ocasiona fenómenos dolorosos, pero sin complicaciones graves : 5%.
 
-GRUPO II Tórax y tronco.
+2. Fractura de varias costillas, con mala consolidación y complicaciones viscerales : 20% a 30%.
 
-- l. Fractura de 1 a 4 costillas, con mala consolidación, que ocasiona fenómenos dolorosos, pero sin complicaciones graves: 5%.
+3. Fractura mal consolidadas del omoplato izquierdo con repercusión sobre la fisiología muscular : 10% a 15%.
 
-- 2. Fractura de varias costillas, con mala consolidación y complicaciones viscerales: 20% a 30%.
+4. Fractura mal consolidada del omoplato derecho con repercusión sobre la fisiología muscular : 16% a 20%.
 
-- 3. Fractura mal consolidada del omóplato izquierdo con repercusión sobre la fisiología muscular: 10% a 15%.
+5. Fractura de algunas vértebras, con poca limitación del juego de la columna vertebral, sin repercusión apreciable sobre el sistema nervioso medular : 14% a 18%.
 
-- 4. Fractura mal consolidada del omóplato derecho con repercusión sobre la fisiología muscular: 16% a 20%.
+6. Fractura de algunas vértebras, con notoria desviación y limitación del juego de la columna : 29% a 33%.
 
-- 5. Fractura de algunas vértebras, con poca limitación del juego de la columna vertebral, sin repercusión apreciable sobre el sistema nervioso medular: 14% a 18%.
+7. Cicatrices graves retráctiles de la axila izquierda cuando dejan en aducción completa el brazo : 25%.
 
-- 6. Fractura de algunas vértebras, con notoria desviación y limitación del juego de la columna: 29% a 33%
+8. Cicatrices graves retráctiles de la axila derecha cuando dejan en aducción completa el brazo : 30%.
 
-- 7. Cicatrices graves retráctiles de la axila izquierda cuando dejan en aducción completa el brazo: 25%.
+9. Pérdida de una glándula mamaria , por lesiones de origen traumático, en mujeres menores de cuarenta y cinco años : 10%.
 
-- 8. Cicatrices graves retractiles de la axila derecha cuando dejan en aducción completa el brazo: 30%.
+10. Traumatismo de la columna vertebral con lesiones medulares que ocasionen lesiones viscerales y paraplejía : 100%.
 
-- 9. Pérdida de una glándula mamaria, por lesiones de origen traumático, en mujeres menores de cuarenta y cinco años: 10%.
+11. Fractura mal consolidada de los huesos de la pelvis sin repercusión grave sobre el juego de la articulación de la cadera y sin graves complicaciones sobre las vísceras pelvianas : 19% a 23%.
 
-- 10. Traumatismo de la columna vertebral con lesiones medulares que ocasionen lesiones viscerales y paraplejía: 100%.
+12. Anquilosis por osteoartritis traumática de la cadera derecha o izquierda, en buena posición : 24% a 28%.
 
-- 11. Fractura mal consolidada de los huesos de la pelvis sin repercusión grave sobre el juego de la articulación de la cadera, y sin graves complicaciones sobre las vísceras pelvianas: 19%: a 23%.
+13. Luxación irreductible de la cadera derecha o izquierda (tipo posterior no complicado), de origen traumático : 24% a 28%.
 
-12 Anquilosis por osteoartritis traumática de la cadera derecha o izquierda, en buena posición: 24% a 28%.
+14. Anquilosis de la articulación coxo-femoral derecha o izquierda, en mala posición, por osteoartritis traumática. 34% a 38%.
 
-- 13. Luxación irreductible de la cadera derecha o izquierda (tipo posterior no complicado), de origen traumático: 24% a 28%.
+15. Hernia epigástrica, operada (cuando se trate de accidente de trabajo, debidamente comprobado) : 3%.
 
-- 14. Anquilosis de la articulación coxo femoral derecha o izquierda, en mala posición, por osteoartritis traumática: 34% a 38%.
+16. Hernia inguinal derecha o izquierda, operada (cuando se trate de accidente de trabajo, debidamente comprobado) : 10%.
 
-- 15. Hernia epigástrica, operada (cuando se trate de accidente de trabajo, debidamente comprobado): 3%
+17. Pérdida del riñón derecho o izquierdo por amputación quirúrgica y de origen traumático : 35%.
 
-- 16. Hernia inguinal derecha o izquierda, operada (cuando se trate de accidente de trabajo, debidamente comprobado): 10%.
+18. Ruptura traumática de la uretra con estrechez consecutiva : 30%.
 
-- 17. Pérdida del riñón derecho o izquierdo por amputación quirúrgica y de origen traumático: 35%.
+19. Atrofia de un testículo, por orquitis traumática : 5%.
 
-- 18. Ruptura traumática de la uretra con estrechez consecutiva: 30%.
+20. Amputación de un testículo, por lesión traumática. 20%.
 
-- 19. Atrofia de un testículo, por orquitis traumática: 5%.
+21. Atrofia de ambos testículos, de origen traumático : 40%.
 
-- 20. Amputación de un testículo, por lesión traumática: 20%.
+22. Amputación de ambos testículos o del miembro viril, por lesión traumática, en individuos mayores de cuarenta y cinco años : 50%.
 
-- 21. Atrofia de ambos testículos, de origen traumático: 40%.
+23. Amputación de ambos testículos o del miembro viril, por lesiones traumáticas, en individuos menores de cuarenta y cinco años : 80%. GRUPO III. Miembro superior izquierdo.
 
-- 22. Amputación de ambos testículos o del miembro viril, por lesión traumática, en individuos mayores de cuarenta y cinco años: 50%.
+1. Pérdida anatómica o funcional de la falange ungueal de cualquier dedo de la mano izquierda, con excepción del pulgar : 2%. (La pérdida de un segmento de la falange ungueal solamente se asimilará a la pérdida total de la falange cuando comprenda la uña y las partes blandas y óseas).
 
-- 23. Amputación de ambos testículos o del miembro viril, por lesiones traumáticas, en individuos menores de cuarenta y cinco años: 80%.
+2. Pérdida anatómica o funcional de las dos (2) últimas falanges de cualquier dedo de la mano izquierda, con excepción del pulgar : 5%. (La pérdida anatómica o funcional de la falange ungueal solamente se asimilará a la pérdida total de la falange cuando comprenda la uña y las partes blandas y óseas).
 
-GRUPO III Miembro superior izquierdo.
+3. Pérdida anatómica o funcional de la falange ungueal del pulgar de la mano izquierda : 5%.
 
-- 1. Pérdida anatómica o funcional de la falange ungueal de cualquier dedo de la mano izquierda, con excepción del pulgar: 2%.
+(La pérdida anatómica o funcional de la falange ungueal solamente se asimilará a la pérdida total de la falange cuando comprenda la uña y las partes blandas y óseas).
 
-(La pérdida de un segmento de la falange ungueal solamente se asimilará a la pérdida total de la falange cuando comprenda la uña y las partes blandas y óseas).
+4. Pérdida anatómica o funcional de un dedo de la mano izquierda, con excepción del pulgar : 10%.
 
-2, Pérdida anatómica o funcional de las dos (2) últimas falanges de cualquier dedo de la mano izquierda, con excepción del pulgar: 5%.
+5. Pérdida anatómica o funcional de dos (2) dedos de la mano izquierda, con excepción del pulgar.15%.
 
-(La pérdida de un segmento de la falange ungueal solamente se asimilará a la pérdida total de la falange cuando comprenda la uña y las partes blandas y óseas).
+6. Pérdida anatómica o funcional de tres (3) dedos de la mano izquierda, con excepción del pulgar : 20%.
 
-- 3. Pérdida anatómica o funcional de la falange ungueal del pulgar de la mano izquierda: 5%.
+7. Pérdida anatómica o funcional de cuatro 84) dedos de la mano izquierda, con excepción del pulgar : 25%.
 
-(La pérdida de un segmento de la falange ungueal solamente se asimilará a la pérdida total de la falange cuando comprenda la uña y las partes blandas y óseas),
+8. Pérdida anatómica o funcional del pulgar de la mano izquierda : 15%.
 
-4 Pérdida anatómica o funcional de un dedo de la mano izquierda, con excepción del pulgar: 10%
+9. Pérdida anatómica o funcional del pulgar y de cualquier otro dedo de la mano izquierda : 25%.
 
-- 5. Pérdida anatómica o funcional de dos (2) dedos de la mano izquierda, con excepción del pulgar: 15%.
+10.Pérdida anatómica o funcional de todos los dedos de la mano izquierda : 40%.
 
-- 6. Pérdida anatómica o funcional de tres (3) dedos de la mano izquierda, con excepción del pulgar: 20%
+11. Anquilosis por artritis post-traumática de cualquiera de las articulares interfalangianas, o de las metacarpo-falangianas, de los dedos de la mano izquierda, con excepción del pulgar : 2%.
 
-- 7. Pérdida anatómica o funcional de cuatro (4) dedos de la mano izquierda, con excepción del pulgar: 25%.
+12. Luxación irreductible, metacarpo-falangiana, de cualquier dedo de la mano izquierda, con excepción del pulgar : 2%. 13 Fractura mal consolidada de cualquier metacarpiano de la mano izquierda, con repercusión sobre la fisiología del dedo correspondiente : 2%.
 
-- 8. Pérdida anatómica o funcional del pulgar de la mano izquierda: 15%.
+14. Fractura mal consolidada de varios metacarpianos izquierdos con leve repercusión sobre la fisiología de la mano. 10%.
 
-- 9. Pérdida anatómica o funcional del pulgar y de cualquier otro dedo de la mano izquierda: 25%.
+15. Fractura mal consolidada de varios metacarpianos izquierdos con grave repercusión sobre la fisiología de la mano : 20%.
 
-- 10. Pérdida anatómica o funcional de todos los dedos de la mano izquierda: 40%.
+16. Luxación irreductible metacarpo-flangiana del pulgar de la mano izquierda : 5%.
 
-- 11. Anquilosis por artritis post traumática de cualquiera de las articulaciones interfalangianas, o de las metacarpo falangianas, de los dedos de la mano izquierda con excepción del pulgar: 2%.
+17. Anquilosis por artritis post-traumática de la articulación interfalangiana o de la metacarpo-falangiana del pulgar de la mano izquierda : 5%.
 
-- 12. Luxación irreductible, metacarpo falangiana de cualquier dedo de la mano izquierda, con excepción del pulgar: 2%.
+18. Fractura defectuosamente consolidada de los huesos del puño izquierdo, sin anquilosis pero con alteración leve de la fisiología del puño o de la mano : 5%.
 
-- 13. Fractura mal consolidada de cualquier metacarpiano de la mano izquierda, con repercusión sobre la fisiología del dedo correspondiente: 2%
+19. Fractura, defectuosamente consolidada, de los huesos del antebrazo izquierdo, pero sin complicaciones graves sobre la fisiología del antebrazo del puño o de la mano. 5%.
 
-- 14. Fractura mal consolidada de varios metacarpianos izquierdos con leve repercusión sobre la fisiología de la mano: 10%.
+20. Enfermedad de Duputytren, benigna, de la mano izquierda. (Contracción de la aponeurosis palmar de origen traumático). 5%.
 
-- 15. Fractura mal consolidada de varios metacarpianos izquierdos con grave repercusión sobre la fisiología de la mano: 20%.
+21. Fractura mal consolidada de varios metacarpianos de la mano izquierda con leve alteración de la fisiología de la mano. 10%.
 
-- 16. Luxación irreductible metacarpo falangiana del pulgar de la mano izquierda: 5%.
+22. Fractura de Colles, mal consolidada, del antebrazo izquierdo : 10%.
 
-- 17. Anquilosis por artritis post traumática de la articulación interfalangiana o de la metacarpo falangiana del pulgar de la mano izquierda: 5%.
+23. Fractura mal consolidada de los huesos del codo izquierdo sin anquilosisi y con leve limitación del juego de la articulación. 10%.
 
-- 18. Fractura defectuosamente consolidada de los huesos del puño izquierdo, sin anquilosis pero con alteración leve de la fisiología del puño o de la mano: 5%,
+24. Fractura mal consolidada de la clavícula o de los huesos del hombro izquierdo, con repercusión leve sobre la fisiología de la articulación : 10%.
 
-- 19. Fractura, defectuosamente consolidada, de los huesos del antebrazo izquierdo, pero sin complicaciones graves sobre la fisiología del antebrazo del puño o de la mano: 5%.
+25. Luxación recidivante del hombro izquierdo, de origen traumático : 15%.
 
-- 20. Enfermedad de Dupuytren, benigna, de la mano Izquierda. (Contracción de la aponeurosis palmar de origen traumático): 5%.
+26. Fractura mal consolidada de los huesos del antebrazo izquierdo, con abolición de los movimientos de supinación y pronación : 10%.
 
-- 21. Fractura mal consolidada de varios metacarpianos de la mano izquierda con leve alteración de la fisiología de la mano: 10 %.
+27. Anquilosis por osteoartritis de la articulación del puño izquierdo : 15%.
 
-- 22. Fractura de Colles, mal consolidada, del antebrazo izquierdo: 10%.
+28. Limitación de los movimientos del codo izquierdo por luxación o fractura : 20%.
 
-- 23. Fractura mal consolidada de los huesos del codo izquierdo sin anquilosis, y con leve limitación del juego de la articulación: 10%.
+29. Parálisis de los nervios mediano o cubital izquierdos, producida por fracturas complicadas o por neuritis traumáticas, que ocasionan la parálisis de la región correspondiente de la mano : 25%.
 
-- 24. Fractura mal consolidada de la clavícula o de los huesos del hombro izquierdo, con repercusión leve sobre la fisiología de la articulación: 10%.
+30. Anquilosis del codo izquierdo, en buena posición : 25%.
 
-- 25. Luxación recidivante del hombro izquierdo, de origen traumático: 15%.
+Pseudo artrosis por fracturas de los huesos del antebrazo izquierdo : 25%.
 
-- 26. Fractura mal consolidada de los huesos del antebrazo izquierdo, con abolición de los movimientos de supinación y pronación: 10%.
+31. Parálisis de los nervios mediano y cubital izquierdos, producida por fracturas complicadas o por neuritis traumáticas, que ocasionan la parálisis de la mano : 30%.
 
-- 27. Anquilosis por osteoartritis de la articulación del puño izquierdo: 15%.
+32. Anquilosis de la articulación del codo izquierdo, en mala posición por osteoartritis traumática : 30%.
 
-- 28. Limitación de los movimientos del codo izquierdo por luxación o fractura: 20%.
+33. Anquilosis de la articulación del hombro izquierdo, por osteaoartritis traumática: 30%.
 
-- 29. Parálisis de los nervios mediano o cubital izquierdos, producida por fracturas complicadas o por neuritis traumáticas, que ocasionan la parálisis de la región correspondiente de la mano: 25%.
+34. Luxación irreductible del hombro izquierdo : 35%.
 
-- 30. Anquilosis del codo izquierdo, en buena posición: 25%.
+35. Pseudo artrosis por fractura del húmero izquierdo, 40%.
 
-- 31. Pseudo artrosis por fracturas de los huesos del antebrazo izquierdo: 25%.
+36. Pérdida anatómica, por amputación quirúrgica o traumática, por sección de la región palmar de la mano izquierda : 45%.
 
-- 32. Parálisis de los nervios mediano y cubital izquierdos, producida por fracturas complicadas o por neuritis traumáticas, que ocasionan la parálisis de la mano: 30%.
+37. Pérdida anatómica, por amputación quirúrgica o traumática de toda la mano izquierda : 50%.
 
-- 33. Anquilosis de la articulación del codo izquierdo, en mala posición, por osteoartritis traumática: 30%.
+38. Parálisis del nervio radial izquierdo, producida por neuritis traumática, luxación mal corregida del hombro, callos viciosos de las fracturas del húmero, que ocasionan la parálisis de la región correspondiente del antebrazo y de la mano : 50%.
 
-- 34. Anquilosis de la articulación del hombro izquierdo, por osteoartritis traumática: 30%.
+39. Amputación quirúrgica o traumática del antebrazo izquierdo, a nivel de su tercio medio : 55%.
 
-- 35. Luxación irreductible del hombro izquierdo: 35 %.
+40.Pérdida anatómica de la mano y todo el antebrazo izquierdo hasta el codo : 65%.
 
-- 36. Pseudo artrosis por fractura del húmero izquierdo, 40%.
+41. Pérdida anatómica de todo el miembro superior izquierdo : 75%.
 
-- 37. Pérdida anatómica, por amputación quirúrgica o traumática, por sección de la región palmar de la mano izquierda: 45%.
+GRUPO IV - Miembro superior derecho.
 
-- 38. Pérdida anatómica, por amputación quirúrgica o traumática, de toda la mano izquierda: 50%.
+1. Pérdida anatómica o funcional de la falange ungueal de cualquier dedo de la mano derecha, con excepción del pulgar : 4%. (La pérdida anatómica o funcional de la falange ungueal solamente se asimilará a la pérdida total de la falange cuando comprenda la uña y las partes blandas y óseas).
 
-- 39. Parálisis del nervio radial izquierdo, producida por neuritis traumática, luxación mal corregida del hombro, callos viciosos de las fracturas del húmero, que ocasionan la parálisis de la región correspondiente del antebrazo y de la mano: 50%.
+2. Pérdida anatómica o funcional de las dos (2) últimas falanges de cualquier dedo de la mano derecha, con excepción del pulgar : 10%. (La pérdida anatómica o funcional de la falange ungueal solamente se asimilará a la pérdida total de la falange cuando comprenda la uña y las partes blandas y óseas).
 
-- 40. Amputación quirúrgica o traumática del antebrazo izquierdo, a nivel de su tercio medio: 55%.
+3. Pérdida anatómica o funcional de la falange ungueal del pulgar de la mano derecha : 10%.
 
-- 41. Pérdida anatómica de la mano y todo el antebrazo izquierdo hasta el codo: 65 %. .
+(La pérdida anatómica o funcional de la falange ungueal solamente se asimilará a la pérdida total de la falange cuando comprenda la uña y las partes blandas y óseas).
 
-- 42. Pérdida anatómica de todo el miembro superior izquierdo: 75%.
+4. Pérdida anatómica o funcional de un dedo de la mano derecha, con excepción del pulgar : 15%.
 
-GRUPO IV - Miembro superior derecho**.**
+5. Pérdida anatómica o funcional de dos (2) dedos de la mano derecha, con excepción del pulgar : 20%.
 
-- 1. Pérdida anatómica o funcional de la falange ungueal de cualquier dedo de la mano derecha, con excepción del pulgar: 4 %.
+6. Pérdida anatómica o funcional de tres (3) dedos de la mano derecha, con excepción del pulgar : 25%.
 
-(La pérdida de un segmento de la falange ungueal solamente se asimilará a la pérdida total de la falange cuado comprenda la uña y las partes blandas y óseas).
+7. Pérdida anatómica o funcional de cuatro (4) dedos de la mano derecha, con excepción del pulgar. 35%.
 
-- 2. Pérdida anatómica o funcional de las dos (2) últimas falanges de cualquier dedo de la mano derecha, con excepción del pulgar: 10%.
+8. Pérdida anatómica o funcional del pulgar de la mano derecha : 25%.
 
-(La pérdida de un segmento de la falange ungueal solamente se asimilara a la pérdida total de la falange cuando comprenda la uña y las partes blandas y óseas).
+9. Pérdida anatómica o funcional del pulgar y de cualquier otro dedo de la mano derecha : 35%.
 
-- 3. Pérdida anatómica o funcional de la falange ungueal del pulgar de la mano derecha: 10%.
+10. Pérdida anatómica o funcional de todos los dedos de la mano derecha : 50%.
 
-(La pérdida de un segmento de la falange ungueal solamente se asimilará a la pérdida total de la falange cuando comprenda la uña y las partes blandas y óseas).
+11. Anquilosis por artritis post-traumática de cualquiera de las articulaciones interfalangianas o de las metacarpofalangianas de los dedos de los dedos de la mano derecha, con excepción del pulgar : 5%.
 
-- 4. Pérdida anatómica o funcional de un dedo de la mano derecha, con excepción del pulgar: 15%.
+12. Luxación irreductible metacarpo-falangiana de cualquier dedo de la mano derecha, con excepción del pulgar : 5%.
 
-- 5. Pérdida anatómica o funcional de dos (2) dedos de la mano derecha, con excepción del pulgar: 20%.
+13. Fractura mal consolidada de cualquier metacarpiano de la mano derecha, con repercusión sobre la fisiología del dedo correspondiente; 5%.
 
-- 6. Pérdida anatómica o funcional de tres (3) dedos de la mano derecha, con excepción del pulgar: 25%.
+14. Fractura mal consolidada de varios metacarpianos derechos, con leve repercusión sobre la fisiología de la mano : 15%.
 
-- 7. Pérdida anatómica o funcional de cuatro (4) dedos de la mano derecha, con excepción del pulgar: 35%.
+15. Fractura mal consolidada de varios metacarpianos derechos, con grave repercusión sobre la fisiología de la mano : 30%.
 
-- 8. Pérdida anatómica o funcional del pulgar de la mano derecha: 25%.
+16. Luxación irreductible metacarpo-falangiana del pulgar de la mano derecha : 10%.
 
-- 9. Pérdida anatómica o funcional del pulgar y de cualquier otro dedo de la mano derecha: 35 %.
+17. Anquilosis por artritis post-traumática de la articulación interfalangiana o de la metacarpo-falangiana del pulgar de la mano derecha : 10%.
 
-- 10. Pérdida anatómica o funcional de todos los dedos de la mano derecha: 50%.
+18. Fractura defectuosamente consolidada de los huesos del puño derecho, sin anquilosis pero con leve alteración de la fisiología del puño o de la mano : 10%.
 
-- 11. Anquilosis por artritis post traumática de cualquiera de las articulaciones interfalangianas o de las metacarpo falangianas de los dedos de la mano derecha, con excepción del pulgar: 5%.
+19. Fractura defectuosamente consolidada de los huesos del antebrazo derecho, pero sin complicaciones graves sobre la fisiología del antebrazo, del puño o de la mano : 15%.
 
-- 12. Luxación irreductible metacarpo falangiana de cualquier dedo de la mano derecha, con excepción del pulgar: 5%.
+20. Enfermedad de Dupuytren, benigna de la mano derecha. (Contracción de la aponeurosis palmar, de origen traumático). 10%.
 
-- 13. Fractura mal consolidada de cualquier metacarpiano de la mano derecha, con repercusión sobre la fisiología del dedo correspondiente: 5%.
+21. Fractura mal consolidada de varios metacarpianos de la mano derecha con leve alteración de la fisiología de la mano. 15%.
 
-- 14. Fractura mal consolidada de varios metacarpianos derechos, con leve repercusión sobre la fisiología de la mano: 15%.
+22. Fractura de Colles, mal consolidada, del antebrazo derecho : 18%.
 
-- 15. Fractura mal consolidada de varios metacarpianos derechos, con grave repercusión sobre la fisiología de la mano: 30%.
+23. Fractura mal consolidada de los huesos del codo derecho sin anquilosisi y con leve limitación del juego de la articulación. 20%.
 
-- 16. Luxación irreductible metacarpo falangiana del pulgar de la mano derecha: 10%.
+24. Fractura mal consolidada de la clavícula o de los huesos del hombro derecho, con repercusión leve sobre la fisiología de la articulación : 20%.
 
-- 17. Anquilosis por artritis post traumática de la articulación interfalangiana o de la metacarpo falangiana del pulgar de la mano derecha: 10%.
+25. Luxación recidivante del hombro derecho, de origen traumático : 18%.
 
-- 18. Fractura defectuosamente consolidada de los huesos del puño derecho, sin anquilosis pero con leve alteración de la fisiología del puño o de la mano: 10%.
+26. Fractura mal consolidada de los huesos del antebrazo derecho, con abolición de los movimientos de supinación y pronación : 24%.
 
-- 19. Fractura defectuosamente consolidada de los huesos del antebrazo derecho, pero sin complicaciones graves sobre la fisiología del antebrazo, del puño o de la mano: 15%.
+27. Anquilosis por osteoartritis de la articulación del puño derecho : 25%.
 
-- 20. Enfermedad de Dupuytren, benigna, de la mano derecha. (Contracción de la aponeurosis palmar, de origen traumático): 10%.
+28. Limitación de los movimientos del codo derecho por luxación o fractura : 30%.
 
-- 21. Fractura mal consolidada de varios metacarpianos de la mano derecha, con leve alteración de la fisiología de la mano: 15%.
+29. Parálisis de los nervios mediano o cubital derechos, producida por fracturas complicadas o por neuritis traumáticas, que ocasionan la parálisis de la región correspondiente de la mano : 35%.
 
-- 22. Fractura de Colles, mal consolidada, del antebrazo derecho: 18%.
+30. Anquilosis del codo derecho, en buena posición : 35%.
 
-- 23. Fractura mal consolidada de los huesos del codo derecho, sin anquilosis y con leve limitación del juego de la articulación: 20 %.
+31. Pseudo artrosis por fracturas de los huesos del antebrazo derecho : 38%.
 
-- 24. Fractura mal consolidada de la clavícula o de los huesos del hombro derecho, con repercusión leve sobre la fisiología de la articulación: 20%.
+32. Parálisis de los nervios mediano y cubital derechos, producida por fracturas complicadas o por neuritis traumáticas, que ocasionan la parálisis de la mano : 45%.
 
-- 25. Luxación recidivante del hombro derecho, de origen traumático: 18%.
+33. Anquilosis de la articulación del codo izquierdo, en mala posición por osteoartritis traumática : 45%.
 
-- 26. Fractura mal consolidada de los huesos del antebrazo derecho, con abolición de los movimientos de supinación y pronación: 24 %.
+34. Anquilosis de la articulación del hombro derecho, por osteaoartritis traumática : 30%.
 
-- 27. Anquilosis por osteoartritis de la articulación del puño derecho: 25%.
+35. Luxación irreductible del hombro derecho : 45%.
 
-- 28. Limitación de los movimientos del codo derecho, por luxación o fractura: 30%.
+36. Pseudo artrosis por fractura del húmero derecho, 50%.
 
-- 29. Parálisis de los nervios mediano o cubital derechos, producida por fracturas complicadas o por neuritis traumática que ocasionan la parálisis de la región correspondiente de la mano: 35%.
+37. Pérdida anatómica, por amputación quirúrgica o traumática, por sección de la región palmar de la mano derecha : 55%.
 
-- 30. Anquilosis del codo derecho, en buena posición: 35%.
+38. Pérdida anatómica, por amputación quirúrgica o traumática de toda la mano derecha : 59%.
 
-- 31. Pseudo artrosis, por fractura de los huesos del antebrazo derecho: 38%.
+39. Parálisis del nervio radial derecho, producida por neuritis traumática, luxación mal corregida del hombro, callos viciosos de las fracturas del húmero, que ocasionan la parálisis de la región correspondiente del antebrazo y de la mano : 60%.
 
-- 32. Parálisis de los nervios mediano y cubital derechos, producida por fracturas complicadas o por neuritis traumáticas, que ocasionan la parálisis de la mano: 45%.
+40. Amputación quirúrgica o traumática del antebrazo derecho, a nivel de su tercio medio :65%.
 
-- 33. Anquilosis de la articulación del codo derecho, en mala posición, por osteoartritis traumática: 45%.
+41. Pérdida anatómica de la mano y todo el antebrazo derechos hasta el codo : 75%.
 
-- 34. Anquilosis de la articulación del hombro derecho, por osteoartritis traumática: 45%.
+42. Pérdida anatómica de todo el miembro superior derecho : 80%.
 
-- 35. Luxación irreductible del hombro derecho: 45%.
+GRUPO V- Miembros inferiores :
 
-- 36. Pseudo artrosis por fractura del húmero derecho: 50%.
-
-- 37. Pérdida anatómica, por amputación quirúrgica o traumática, por sección de la región palmar de la mano derecha: 55%.
-
-- 38. Pérdida anatómica por amputación quirúrgica o traumática de toda la mano derecha: 59%.
-
-- 39. Parálisis del nervio radial derecho, producida por neuritis traumática, luxación mal corregida del hombro, callos viciosos de las fracturas del húmero, que ocasionan la parálisis de la región correspondiente del antebrazo y de la mano: 60%.
-
-- 40. Amputación quirúrgica o traumática del antebrazo derecho, a nivel del tercio medio: 65%.
-
-- 41. Pérdida anatómica de la mano y todo el antebrazo derechos, hasta el codo: 75%.
-
-- 42. Pérdida anatómica de todo el miembro superior derecho: 80%.
-
-GRUPO V Miembros inferiores.
-
-- 1. Pérdida anatómica de un artejo del pie derecho o izquierdo, con excepción del grueso artejo: 2%.
+1. Pérdida anatómica de un artejo del pie derecho o izquierdo, con excepción del grueso artejo : 2%.
 
 (La pérdida de un segmento de artejo solamente se asimilará a la pérdida total cuando comprenda la uña y las partes blandas y óseas).
 
-- 2. Pérdida anatómica de dos (2) artejos del pie derecho o izquierdo, con excepción del grueso artejo: 8 %.
+2. Pérdida anatómica de dos (2) artejos del pie derecho o izquierdo, con excepción del grueso artejo : 8%,
 
-- 3. Pérdida anatómica de tres (3) artejos del pie derecho o izquierdo, con excepción del grueso artejo: 12%.
+3. Pérdida anatómica de tres (3) artejos del pie derecho o izquierdo, con excepción del grueso artejo : 12%.
 
-- 4. Pérdida anatómica de cuatro (4) artejos del pie derecho o izquierdo, con excepción del grueso artejo: 18%.
+4. Pérdida anatómica de cuatro 84) artejos del pie derecho o izquierdo, con excepción del grueso artejo : 18%.
 
-- 5. Pérdida anatómica del grueso artejo del pie derecho o izquierdo: 5%.
+5. Pérdida anatómica del grueso artejo del pie derecho o izquierdo : 5%.
 
-- 6. Pérdida anatómica o funcional del grueso artejo y de cualquier otro artejo del pie derecho o izquierdo: 10%.
+6. Pérdida anatómica o funcional del grueso artejo y de cualquier otro artejo del pie derecho o izquierdo : 10%.
 
-- 7. Pérdida anatómica o funcional del grueso artejo y de dos (2) artejos más del pie derecho o izquierdo: 14%.
+7. Pérdida anatómica o funcional del grueso artejo y de dos (2) artejos más del pie derecho o izquierdo : 14%.
 
-- 8. Pérdida anatómica o funcional del grueso artejo y tres (3) artejos más del pie derecho o izquierdo: 19%.
+8. Pérdida anatómica o funcional del grueso artejo y tres (3) artejos más del pie derecho o izquierdo : 19%.
 
-- 9. Pérdida de cinco (5) artejos del pie derecho o izquierdo: 25%.
+9. Pérdida de cinco 85) artejos del pie derecho o izquierdo. 25%.
 
-- 10. Pérdida parcial del pie derecho o izquierdo, por amputación quirúrgica o traumática, a nivel de la articulación tarso metatarsiana: 35%.
+10. Pérdida parcial del pie derecho o izquierdo, por amputación quirúrgica o traumática, a nivel de la articulación tarso-metatarsiana : 35%.
 
-- 11. Pérdida parcial del pie derecho o izquierdo, por amputación quirúrgica o traumática, a nivel de la articulación mediotarsiana: 40%.
+11. Pérdida parcial del pie derecho o izquierdo, por amputación quirúrgica o traumática, a nivel de la articulación mediotarsiana : 40%.
 
-- 12. Pérdida anatómica completa del pie derecho o izquierdo: 50%.
+12. Pérdida anatómica completa del pie derecho o izquierdo. 50%.
 
-- 13. Disminución leve de los movimientos de la articulación del cuello del pie derecho o izquierdo, por fractura o artritis post traumática: 5%.
+13. Disminución leve de los movimientos de la articulación del cuello del pie derecho o izquierdo, por fractura o artritis post-traumática : 5%.
 
-- 14. Fractura de Dupuytren, defectuosamente consolidada, con repercusión leve sobre los movimientos del pie derecho o izquierdo: 5%.
+14. Fractura de Dupuytren, defectuosamente consolidada, con repercusión leve sobre los movimientos del pie derecho o izquierdo : 5%.
 
-- 15. Retracción incompleta del tendón de Aquiles, izquierdo o derecho: 5%.
+15. Retracción incompleta del tendón de Aquiles, izquierdo o derecho : 5%.
 
-- 16. Anquilosis por osteoartritis post traumática de la articulación del cuello del pie derecho o izquierdo: 15%.
+16. Anquilosis por osteartritis post-traumática de la articulación del cuello del pie derecho o izquierdo : 15%.
 
-- 17. Sección completa del tendón de Aquiles derecho o izquierdo: 25%.
+17. Sección completa del tendón de Aquiles derecho o izquierdo : 25%.
 
-- 18. Sección de los tendones de la pierna derecha o izquierda, con defectuosa posición del pie: 30%.
+18. Sección de los tendones de la pierna derecha o izquierda, con defectuosa posición del pie : 30%.
 
-- 19. Callo exuberante y doloroso de una fractura de los huesos de la pierna derecha o izquierda, sin lesiones articulares funcionales del pie: 5%.
+19. Callo exuberante y doloroso de una fractura de los huesos de la pierna derecha o izquierda, sin lesiones articulares funcionales del pie : 5%.
 
-- 20. Acortamiento de la pierna derecha o izquierda, de uno a cuatro centímetros, por fractura mal consolidada, sin lesiones articulares ni atrofia muscular marcada: 15%.
+20. Acortamiento de la pierna derecha o izquierda, de uno a cuatro centímetros , por fractura mal consolidada, sin lesiones articulares ni atrofia muscular marcada : 15%.
 
-- 21. Fractura mal consolidada de la pierna derecha o izquierda, con defectuosa posición del pie: 30%.
+21. Fractura mal consolidada de la pierna derecha o izquierda, con defectuosa posición del pie. 30%.
 
-- 22. Amputación quirúrgica o traumática de la pierna derecha o izquierda, sin interesar la rodilla: 55%.
+22. Amputación quirúrgica o traumática de la pierna derecha o izquierda, sin interesar la rodilla : 55%.
 
-- 23. Limitación de los movimientos de la rodilla derecha o izquierda, por luxación o fractura: 20%.
+23. Limitación de los movimientos de la rodilla derecha o izquierda, por luxación o fractura : 20%.
 
-- 24. Anquilosis por osteoartritis traumática de la rodilla derecha o izquierda, en buena posición: 30%.
+24. Anquilosis por osteoartritis traumática de la rodilla derecha o izquierda, en buena posición : 30%.
 
-- 25. Anquilosis de la rodilla derecha o izquierda, por osteoartritis traumática en mala posición: 45%.
+25. Anquilosis de la rodilla derecha o izquierda, por osteoartritis traumática en mala posición : 45%.
 
-- 26. Acortamiento de más de cuatro centímetros del miembro inferior derecho o izquierdo, por fractura consolidada en mala posición: 25%.
+26. Acortamiento de más de cuatro centímetros del miembro inferior derecho o izquierdo, por fractura consolidada en mala posición : 25%.
 
-- 27. Parálisis del nervio crural derecho o izquierdo, por sección o por neuritis traumática, que produce la parálisis de la región correspondiente del muslo y de la pierna: 35%.
+27. Parálisis del nervio crural derecho o izquierdo, por sección o por neuritis traumática, que produce la parálisis de la región correspondiente del muslo y de la pierna : 35%.
 
-- 28. Parálisis del nervio ciático, derecho o izquierdo, por sección o por neuritis traumática que produce la parálisis de la región correspondiente de la pierna y del pie: 45%.
+28. Parálisis del nervio ciático, derecho o izquierdo por sección o por neuritis traumática que produce la parálisis de la región correspondiente de la pierna y el pie. 45%.
 
-- 29. Pseudo artrosis del fémur derecho o izquierdo, consecutiva a una fractura: 45%.
+29. Pseudo artrosis del fémur derecho o izquierdo, consecutiva a una fractura : 45%.
 
-- 30. Pérdida anatómica del miembro inferior derecho o izquierdo, por amputación a nivel del tercio medio del muslo: 70%. .
+30. Pérdida anatómica del miembro inferior derecho o izquierdo, por amputación a nivel del tercio medio del muslo. 70%.
 
-- 31. Pérdida anatómica del miembro inferior derecho o izquierdo, por amputación completa: 80 %.
+31. Pérdida anatómica del miembro inferior derecho o izquierdo, por amputación completa. 80%.
 
-- 32. Pérdida anatómica de los dos miembros inferiores: 98%.
+32. Pérdida anatómica de los dos miembros inferiores : 98%.
 
-- 33. Pérdida anatómica de uno de los miembros inferiores y del miembro superior izquierdo: 96%.
+33. Pérdida anatómica de uno de los miembros inferiores y del miembro superior izquierdo : 95%.
 
-- 34. Pérdida anatómica de uno de los miembros inferiores y del miembro superior derecho: 100%.
+34. Pérdida anatómica de uno de los miembros inferiores y del miembro superior derecho : 100%.
 
-A los porcentajes de disminución de la capacidad laboral, anotados en los Grupos de la Tabla anterior, corresponderán las siguientes indemnizaciones:
+A los porcentajes de disminución de la capacidad laboral, anotados en los Grupos de la Tabla anterior, corresponderán las siguientes indemnizaciones :
 
-De 1% a 3% 1 mes.
+De 1% a 3% 1 mes De 4% a 8% 2 meses De 9% a 13% 3 meses. DE 14% a 18% 4 meses De 19% a 23% 5 meses De 24% a 28% 6 meses De 29% a 33% 7 meses De 34% a 39% 8 meses De 39% a 43% 9 meses De 44% a 48% 10 meses De 49% a 53% 11 meses De 54% a 58% 12 meses De 59% a 63% 13 meses De 64% a 68% 14 meses De 69% a 72% 15 meses De 73% a 75% 16 meses De 76% a 78% 17 meses De 79% a 81% 18 meses De 82% a 84% 19 meses De 85% a 87% 20 meses De 88% a 90% 21 meses De 91% a 93% 22 meses De 94% a 96% 23 meses De 97% a 100% 24 meses.
 
-De 4% a 8% 2 meses.
+2. Esta Tabla podrá ser modificada o adicionada, en cualquier tiempo por el Gobierno.
 
-De 9% a 13% 3 meses.
+(Subrogado por el Art. 1 del Decreto 776 de 1987)
 
-De 14% a 18% 4 meses.
+ARTICULO 210. APLICACION DE LA TABLA. En la aplicación de la Tabla adoptada en el artículo anterior se tendrán en cuenta las siguientes reglas:
 
-De 19% a 23% 5 meses.
+Cuando el trabajador padezca varias lesiones por causa de un accidente, que no estén clasificadas conjuntamente en ninguno de los grupos, se acumulan las prestaciones, pero sin que la cuantía total exceda de veintitrés (23) meses de salario.
 
-De 24% a 28% 6 meses.
+Cuando el accidentado compruebe ser zurdo, se invierten las anotaciones de la Tabla, en razón de esa circunstancia. Cuando la lesión o perturbación funcional tenga influencia especial sobre el oficio habitual del trabajador, la prestación puede ser aumentada, pero sin que la cuantía total exceda de veinticuatro (24) meses de salario, y el aumento se hará por los médicos de la Oficina Nacional de Medicina e Higiene Industrial, previo estudio del grado de alteración de la habilidad profesional del lesionado.
 
-De 29% a 33% 7 meses.
+ARTICULO 211. CASOS NO COMPRENDIDOS EN LA TABLA. Los casos no comprendidos en la Tabla adoptada en el artículo 211 serán calificados por los médicos de la Oficina Nacional de Medicina e Higiene Industrial, y en su defectos por los médicos legistas, teniendo en cuenta la analogía que puedan presentar con las lesiones clasificadas en la Tabla y la incapacidad real del lesionado.
 
-De 34% a 38% 8 meses.
+ARTICULO 212. PAGO DE LA PRESTACION POR MUERTE.
 
-De 39% a 43% 9 meses.
+La calidad de beneficiario de la prestación establecida en el ordinal e) del artículo 204 se demuestra mediante la prestación de las copias de las partidas eclesiásticas o registros civiles o de las pruebas supletorias que admite la ley, más una información sumaria de testigos que acrediten quienes son los únicos beneficiarios, declarándolos por su número y nombres precisos y la razón de serlo. Comprobada así dicha calidad y hecho el pago a quienes resulten beneficiarios, el {empleador} respectivo se considera exonerado de su obligación, y en caso de que posteriormente aparecieren otros beneficiarios, aquellos que hubieren recibido el valor de la prestación están solidariamente obligados a satisfacer a los nuevos beneficiarios las cuotas que les correspondan.
 
-De 44% a 48% 10 meses.
+Antes de hacerse el pago de la prestación el {empleador} que la hubiera reconocido debe dar aviso público, con treinta (30) días de anticipación, indicando el nombre del fallecido y de las personas que se hubieren acreditado como beneficiarios. Tal aviso debe darse en la prensa del lugar por dos (2) veces a lo menos, y en donde no existieren publicaciones periódicas, por medio de una nota al Alcalde del Municipio, quien la dará a conocer por bando en dos días de concurso. Este aviso tiene por objeto permitir que todo posible beneficiario se presente a reclamar.
 
-De 49% a 53% 11 meses.
+En el caso del último inciso del ordinal e) del artículo 204, la dependencia económica se acredita por los medios probatorios ordinarios.
 
-De 54% a 58% 12 meses.
+ARTICULO 213. MUERTE POSTERIOR AL ACCIDENTE O ENFERMEDAD.
 
-De 59% a 63% 13 meses.
+Cuando la muerte del trabajador ocurriere como consecuencia y efecto natural del accidente de trabajo o de la enfermedad profesional, dentro de los dos (2) años siguientes a la ocurrencia del accidente o al diagnóstico de la enfermedad, el {empleador} a cuyo servicio se realizó el riesgo debe pagar la prestación por muerte, pero las sumas que se hubieren pagado por razón de la incapacidad permanente, total o parcial, se descontarán de la prestación por muerte.
 
-De 64% a 68% 14 meses.
+Cuando el trabajador hubiere recibido indemnización por gran invalidez, no habrá lugar al pago de la prestación por muerte. No se aplica el inciso 1o., cuando el trabajador falleciere estando asegurado por cuenta de otra empresa.
 
-De 69% a 72% 15 meses.
+ARTICULO 214. SEGURO DE VIDA COMO PRESTACION POR MUERTE. En lugar de la prestación a que se refiere el ordinal e) del artículo 204, el patrono obligado al pago del seguro de vida colectivo solo deberá a los beneficiario de ese seguro, como prestación por la muerte del trabajador, el valor doblado del seguro de vida, sin exceder de 200 veces el salario mínimo mensual más alto. El patrono quedará así exento de toda otra protección por incapacidad o muerte por razón de accidente, enfermedad y seguro de vida.
 
-De 73% a 75% 16 meses.
+(Derogado por el Art. 98 del Decreto 1295 de 1994) (Modificado por el Art. 6 de la Ley 11 de 1984)
 
-De 76% a 78% 17 meses.
+ARTICULO 215. ESTADO ANTERIOR DE SALUD. La existencia de una entidad patológica anterior (idiosincrasia, taras, discrasias, intoxicaciones, enfermedades crónicas, etc.), no es causa para la disminución de la prestación.
 
-De 79% a 81% 18 meses.
+ARTICULO 216. CULPA DEL EMPLEADOR. Cuando exista culpa suficiente comprobada del {empleador} en la ocurrencia del accidente de trabajo o de la enfermedad profesional, está obligado a la indemnización total y ordinaria por perjuicios pero del monto de ella debe descontarse el valor de las prestaciones en dinero pagadas en razón de las normas consagradas en este Capítulo.
 
-De 82% a 84% 19 meses.
+ARTICULO 217. CALIFICACION DE INCAPACIDADES.
 
-De 85% a 87% 20 meses.
+Los facultativos contratados por los {empleadores} están obligados:
 
-De 88% a 90% 21 meses.
+a). Al realizarse el accidente, o al diagnosticarse la enfermedad profesional, a certificar si el trabajador queda o no incapacitado para continuar desempeñando sus labores, y b). Al terminar la atención médica, a calificar la incapacidad que pueda resultar.
 
-De 91% a 93% 22 meses.
+c). En caso de la muerte, a expedir el certificado de defunción dictaminado en él sobre la relación de causalidad entre la enfermedad profesional o accidente y la muerte.
 
-De 94% a 96% 23 meses
+Si el {empleador}, el trabajador, o las personas beneficiarias de la prestación no aceptaren la certificación médica de que se trata en el presente artículo, puede solicitar, sobre los puntos que rechazan, el dictamen de los médicos de la Oficina Nacional de Medicina e Higiene Industrial, o, en su defecto, de los médicos legistas. Tal dictamen es de obligatoria aceptación.
 
-De 97% a 100% 24 meses:
+ARTICULO 218. SALARIO BASE PARA LAS PRESTACIONES.
 
-- 2. Esta Tabla podrá ser modificada o adicionada, en cualquier tiempo, por el Gobierno
+Para el pago de las prestaciones en dinero establecido en este Capítulo, debe tomarse en cuenta el salario que tenga asignado el trabajador en el momento de realizarse el accidente o de diagnosticarse la enfermedad.
 
-Aplicación de la Tabla.
+Si el salario no fuere fijo, se toma en cuenta el promedio de lo devengado por el trabajador en el año de servicios anterior al accidente o la enfermedad, o todo el tiempo de trabajo si fuere menor.
 
-**Artículo 212.** En la aplicación de la Tabla adoptada en el Artículo anterior se tendrán en cuenta las siguientes reglas:
+ARTICULO 219. SEGURO POR RIESGOS PROFESIONALES. El {empleador} puede asegurar, íntegramente a su cargo, en una compañía de seguros, los riesgos por accidentes de trabajo y enfermedad profesional de sus trabajadores; pero en todo caso, el {empleador} es quien debe al trabajador o a sus beneficiarios las prestaciones que en este Capítulo se establecen.
 
-- 1. Cuando el trabajador padezca varias lesiones por causa de un accidente, que no estén clasificadas conjuntamente en ninguno de los grupos, se acumulan las prestaciones, pero sin que la cuantía total exceda de veintitrés (23) meses de salario.
+ARTICULO 220. AVISO AL JUEZ SOBRE LA OCURRENCIA DEL ACCIDENTE.
 
-- 2. Cuando el accidentado compruebe ser zurdo, se invierten las anotaciones de la Tabla, en razón de esa circunstancia.
+Para los efectos de información en la controversia a que pueda dar lugar el accidente, cualquiera que sean sus consecuencias, el {empleador} debe dar un aviso suscrito por él o quien lo represente, al juez del trabajo del lugar, o en su defecto al juez municipal, donde conste el día, hora y lugar del accidente, como se produjo, quienes lo presenciaron, el nombre de la víctima, el salario que devengaba el día del accidente y la descripción de la lesión o perturbación, firmada por el facultativo que asista al trabajador.
 
-- 3. Cuando la lesión o perturbación funcional tenga influencia especial sobre el oficio habitual del trabajador, la prestación puede ser aumentada, pero sin que la cuantía total exceda de veinticuatro (24) meses de salario, y el aumento se hará por los médicos de la Oficina Nacional de Medicina e Higiene Industrial, previo estudio del grado de alteración de la habilidad profesional del lesionado.
+La información de que se trata este artículo debe darse dentro de los ocho (8) días siguientes al de la ocurrencia del accidente.
 
-**C** asos no comprendidos en la Tabla.
+ARTICULO 221. AVISO QUE DEBE DAR EL ACCIDENTADO.
 
-**Artículo 213.** Los casos no comprendidos en la Tabla adoptada en el Artículo 211 serán calificados por los médicos de la Oficina Nacional de Medicina e Higiene Industrial, y en su defecto por los médicos legistas, teniendo en cuenta la analogía que puedan presentar con las lesiones clasificadas en la Tabla y la incapacidad real del lesionado
+Todo trabajador que sufra un accidente de trabajo está en la obligación de dar inmediatamente aviso al {empleador} o a su representante. El {empleador} no es responsable de la agravación de que se presente en las lesiones o perturbaciones, por razón de no haber dado el trabajador este aviso o haberlo demorado sin justa causa.
 
-Pago de la prestación por muerte.
+ARTICULO 222. REVISION DE LA CALIFICACION. Dentro de los tres (3) años subsiguientes a la ocurrencia del accidente o al diagnóstico de la enfermedad profesional, y en caso de incapacidad permanente parcial, el trabajador puede solicitar la revisión de la calificación de la incapacidad si ésta se ha agravado, a efecto de obtener el aumento de la prestación que corresponda al grado de agravación de la incapacidad primitivamente fijada.
 
-**Artículo 214.** 1. La calidad de beneficiario de la prestación establecida en el ordinal e) del Artículo 206 se demuestra mediante la presentación de las copias de las partidas eclesiásticas o registros civiles, o de las pruebas supletorias que admite la Ley, más una información sumaria de testigos que acrediten quiénes son los únicos beneficiarios, declarándolos por su número y nombres precisos y la razón de serlo. Comprobada así dicha calidad y hecho el pago a quienes resulten beneficiarios, el patrono respectivo se considera exonerado de su obligación, y en caso de que posteriormente aparecieren otros beneficiarios, aquellos que hubieren recibido el valor de la prestación están solidariamente obligados a satisfacer a los nuevos beneficiarios las cuotas que les correspondan.
+ARTICULO 223. EXONERACION DE PAGO.
 
-- 2. Antes de hacerse el pago de la prestación el patrono que la hubiere reconocido debe dar aviso público, con treinta (30) días de anticipación, indicando el nombre del fallecido y de las personas que se hubieren acreditado como beneficiarios. Tal aviso debe darse en la prensa del lugar, por dos (2) veces a lo menos, y en donde no existieren publicaciones periódicas, por medio de una nota al Alcalde del Municipio, quien la dará a conocer por bando en dos días de concurso. Este aviso tiene por objeto permitir que todo posible beneficiario se presente a reclamar.
+Las normas de este capítulo no se aplican:
 
-- 3. En el caso del último inciso del ordinal e) del artículo 206, la dependencia económica se acredita por los medios probatorios ordinarios.
+a). A la industria puramente familiar, que es aquella en la cual solo trabajan el jefe de familia, su cónyuge y sus descendientes. b). A los trabajadores accidentales o transitorios.
 
-Muerte posterior al accidente o enfermedad.
+(Literal derogado con la entrada en vigencia del Decreto 1295 de 1994, según lo dispone la Corte Constitucional en la Sentencia C-823-06) c). A los talleres de artesanos que, trabajando personalmente en su establecimiento, no ocupen más de cinco (5) trabajadores extraños a su familia. Si son seis (6) o más los trabajadores extraños a la familia del artesano, el taller entra en la clasificación de los artículos 224 a 226, según su capital.
 
-**Artículo 215.** 1. El patrono a cuyo servicio se realizó el riesgo debe pagar la prestación por muerte, cuando ésta ocurriere como consecuencia y efecto natural del accidente de trabajo o de la enfermedad profesional, dentro de los tres (3) años siguientes a la ocurrencia del accidente o al diagnóstico de la enfermedad profesional, pero las sumas que se hubieren pagado por razón de incapacidad permanente parcial o total se descuentan de la prestación por muerte.
+d). Al servicio doméstico.
 
-- 2. No se aplica el inciso anterior cuando el trabajador falleciere estando asegurado por cuenta de otra empresa.
+En las actividades mencionadas en el presente artículo, los {empleadores} sólo están en la obligación de prestar los primeros auxilios y suministrar el tratamiento y las medicinas de urgencia en caso de accidente de trabajo o ataque súbito de enfermedad profesional.
 
-Seguro de vida como prestación por muerte.
+ARTICULO 224. EMPRESAS DE CAPITAL INFERIOR A DIEZ MIL PESOS ($10,000). Las empresas de capital inferior a diez mil pesos ($ 10.000), no están obligadas por las normas de este Capítulo; pero en caso de accidente de trabajo o ataque súbito de enfermedad profesional, están en la obligación de prestar los primeros auxilios y suministrar el tratamiento y medicinas de urgencia, así como los medios necesarios para el traslado del trabajador al puesto de socorro, hospital o servicio médico más cercano. También están en la obligación de pagar las dos terceras (2/3) partes del salario en los casos de incapacidad temporal, hasta por tres (3) meses.
 
-**Artículo 216.** En lugar de la prestación a que se refiere el ordinal e) del Artículo 206, el patrono obligado al pago del seguro de vida colectivo sólo debe a los beneficiarios de ese seguro, como prestación por la muerte del trabajador, el valor doblado del seguro de vida, hasta un máximo de treinta y seis (36) meses de salario, sin exceder de veinticuatro mil pesos ($ 24.000), quedando así exento de toda otra prestación por incapacidad o muerte por razón de accidente, enfermedad y seguro de vida.
+ARTICULO 225. EMPRESAS DE CAPITAL MAYOR DE DIEZ MIL PESOS ($10,000) Y MENOS DE CINCUENTA MIL PESOS ($50,000). Las empresas de capital igual o superior a diez mil pesos ($ 10.000) y menor de cincuenta mil pesos ($ 50.000) no están obligadas por las normas de este
 
-Estado anterior de salud.
+Capítulo, pero en caso de accidente de trabajo o enfermedad profesional tienen las obligaciones establecidas en el artículo anterior y la de suministrar la asistencia de que trata el ordinal 1o. del artículo 206, hasta por seis (6) meses.
 
-**Artículo 217.** La existencia de una entidad patológica anterior (idiosincrasia, taras, discrasias, intoxicaciones, enfermedades crónicas, etc.) no es causa para la disminución de la prestación.
+ARTICULO 226. EMPRESAS DE CAPITAL MAYOR DE CINCUENTA MIL PESOS ($50,000) Y MENOR DE CIENTO VEITICINCO MIL PESOS ($125,000). Las
 
-Culpa del patrono.
+empresas cuyo capital sea o exceda de cincuenta mil pesos ($ 50.000), sin pasar de ciento veinticinco mil pesos ($ 125.000), están obligadas a las prestaciones completas de que tratan los ordinales 1 y 2, letra a) del artículo 206 y a las establecidas en el ordinal 2, letras b) a e) del mismo artículo, pero disminuidas en un cincuenta por ciento (50%). Esta disminución se aplica también en el caso del artículo 216.
 
-**Artículo 218.** Cuando exista culpa suficientemente comprobada del patrono en la ocurrencia del accidente de trabajo o de la enfermedad profesional, está obligado a la indemnización total y ordinaria por perjuicios, pero del monto de ella debe descontarse el valor de las prestaciones en dinero pagadas en razón de las normas consagradas en este Capítulo.
+## CAPITULO III.
 
-Calificación de incapacidades.
+AUXILIO MONETARIO POR ENFERMEDAD NO PROFESIONAL.
 
-**Artículo 219.** 1. Los facultativos contratados por los patronos están obligados:
+ARTICULO 227. VALOR DE AUXILIO. En caso de incapacidad comprobada para desempeñar sus labores, ocasionada por enfermedad no profesional, el trabajador tiene derecho a que el {empleador} le pague un auxilio monetario hasta por ciento ochenta (180) días, así: las dos terceras (2/3) partes del salario durante los primeros noventa (90) días y la mitad del salario por el tiempo restante. (Declarado CONDICIONALMENTE EXEQUIBLE por la Corte Constitucional mediante Sentencia C-543-07)
 
-- a) Al realizarse el accidente, o al diagnosticarse la enfermedad profesional, a certificar si el trabajador queda o no incapacitado para continuar desempeñando sus labores.
+ARTICULO 228. SALARIO VARIABLE. En caso del que el trabajador no devengue salario fijo, para pagar el auxilio por enfermedad a que se refiere este Capítulo se tiene como base el promedio de lo devengado en el año de servicio anterior a la fecha en cual empezó la incapacidad, o en todo el tiempo de servicios si no alcanzare a un (1) año.
 
-- b) Al terminar la atención médica, o cuando la incapacidad temporal se prolongue por más de seis meses, a calificar la incapacidad que pueda resultar.
+ARTICULO 229. EXCEPCIONES. Las normas de este Capítulo no se aplican:
 
-- c) En caso de muerte, a expedir el certificado de defunción, dictaminando en él sobre la relación de causalidad entre la enfermedad profesional o accidente y la muerte.
+a). A la industria puramente familiar.
 
-- 2. Si el patrono, el trabajador, o las personas beneficiarias de la prestación no aceptaren la certificación médica de que se trata en el presente artículo, pueden solicitar, sobre los puntos que rechazan, el dictamen de los médicos de la Oficina Nacional de Medicina e Higiene Industrial, el cual es de obligatoria aceptación.
+b). A los trabajadores accidentales o transitorios;
 
-Salario base para las prestaciones.
+(Literal b) derogado según lo expresa la Corte Constitucional en la Sentencia C-823-06) c). A los artesanos que, trabajando personalmente en su establecimiento, no ocupen más de cinco (5) trabajadores permanentes extraños a su familia, d). A los criados* domésticos, los cuales tienen derecho a la asistencia médica y farmacéutica corriente en caso de cualquier enfermedad y al pago íntegro de su salario en caso de incapacidad para desempeñar sus labores a consecuencia de enfermedad, todo hasta por un (1) mes. (Aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-1004-05)
 
-**Artículo 220.** 1. Para el pago de las prestaciones en dinero establecidas en este Capítulo, debe tomarse en cuenta el salario que tenga asignado el trabajador en el momento de realizarse el accidente o de diagnosticarse la enfermedad.
+## CAPITULO IV.
 
-- 2. Si el salario no fuere fijo, se toma en cuenta el promedio de lo devengado por el trabajador en el año de servicios anterior al accidente o a la enfermedad, o todo el tiempo de trabajo si fuere menor.
+CALZADO Y OBEROLES PARA TRABAJADORES.
 
-Seguro por riesgos profesionales.
+ARTICULO 230. SUMINISTRO DE CALZADO Y VESTIDO DE LABOR. Todo {empleador} que habitualmente ocupe uno (1) o más trabajadores permanentes, deberá suministrar cada cuatro (4) meses, en forma gratuita, un (1) par de zapatos y un (1) vestido de labor al trabajador, cuya remuneración mensual sea hasta dos (2) meses el salario mínimo más alto vigente. Tiene derecho a esta prestación el trabajador que en las fechas de entrega de calzado y vestido haya cumplido más de tres (3) meses al servicio del empleador.
 
-**Artículo 221.** El patrono puede asegurar, íntegramente a su cargo, en una compañía de seguros, los riesgos por accidentes de trabajo y enfermedad profesional de sus trabajadores; pero, en todo caso, el patrono es quien debe al trabajador o a sus beneficiarios las prestaciones que en este Capítulo se establecen
+(Modificado por el Art. 7 de la Ley 11 de 1984)
 
-Aviso al Juez sobre la ocurrencia del accidente.
+ARTICULO 231. CONSIDERACION DE HIJOS Y OTRAS PERSONAS. Al trabajador de remuneración superior a ciento veintiún pesos ($ 121) y que tenga hijos o personas a cuya subsistencia deba atender, según la ley, y atienda efectivamente, se le toma en cuenta la cantidad de siete pesos ($ 7) por cada uno de sus hijos o de tales personas, y esa suma se resta de su salario. Si la cantidad restante resultare inferior a ciento veintiún pesos ($ 121) mensuales, el trabajador disfruta de las prestaciones establecidas en el artículo anterior.
 
-**Artículo 222.** 1. Para los efectos de información en la controversia a que pueda dar lugar el accidente, cualquiera que sean sus consecuencias, el patrono debe dar un aviso suscrito por él o por quien lo represente, al Juez del Trabajo del lugar, o en su defecto al Juez Municipal, donde conste el día, hora y lugar del accidente, cómo se produjo, quiénes lo presenciaron, el nombre de la víctima, el salario que devengaba el día del accidente, y la descripción de la lesión o perturbación, firmada por el facultativo que asista al trabajador.
+(Derogado por el Art. 9 de la Ley 11 de 1984)
 
-- 2. La información de que trata este Artículo debe darse dentro de los ocho (8) días siguientes al de la ocurrencia del accidente.
+ARTICULO 232. FECHA DE ENTREGA. Los {empleadores} obligados a suministrar permanente calzado y vestido de labor a sus trabajadores harán entrega de dichos elementos en las siguientes fechas del calendario: 30 de abril, 31 de agosto y 20 de diciembre. (Modificado por el Art. 8 de la Ley 11 de 1984)
 
-Aviso que debe dar el accidentado
+ARTICULO 233. USO DEL CALZADO Y VESTIDO DE LABOR. El trabajador queda obligado a destinar a su uso en las labores contratadas el calzado y vestido que le suministre el {empleador}, y en el caso de que así no lo hiciere éste quedara eximido de hacerle el suministro en el período siguiente.
 
-**Artículo 223.** Todo trabajador que sufra un accidente de trabajo está en la obligación de dar inmediatamente aviso al patrono o a su representante. El patrono no es responsable de la agravación que se presente en lesiones o perturbaciones, por razón de no haber dado el trabajador este aviso o haberlo demorado sin justa causa.
+(Modificado por el Art. 10 de la Ley 11 de 1984)
 
-Revisión de la calificación.
+ARTICULO 234. PROHIBICION DE LA COMPENSACION EN DINERO. Queda prohibido a los {empleadores} pagar en dinero las prestaciones establecidas en este capítulo.
 
-**Artículo 224.** Dentro de los tres (3) años subsiguientes a la ocurrencia del accidente o al diagnóstico de la enfermedad profesional, y en caso de incapacidad permanente parcial, el trabajador puede solicitar la revisión de la calificación de la incapacidad si ésta se ha agravado, a efecto de obtener el aumento de la prestación que corresponda al grado de agravación de la incapacidad primitivamente fijada.
+(Declarado EXEQUIBLE, por las razones expuestas en la sentencia, por la Corte Constitucional mediante Sentencia C-710-96)
 
-Exoneración de pago.
+ARTICULO 235. REGLAMENTACION. El Ministerio del Trabajo reglamentara la forma como los {empleadores} deben cumplir con las prestaciones establecidas en este capítulo y la manera como deben acreditar ese cumplimiento.
 
-**Artículo 225.** 1. Las normas de este Capítulo no se aplican:
+## CAPITULO V.
 
-- a) A la industria puramente familiar, que es aquella en la cual sólo trabajan el jefe de la familia, su cónyuge y sus descendientes.
+PROTECCION A LA MATERNIDAD Y PROTECCION DE MENORES.
 
-- b) A los trabajadores accidentales o transitorios.
+ARTICULO 235A. PROTECCION A LA MATERNIDAD. La Maternidad gozará de la protección especial del Estado.
 
-- c) A los talleres de artesanos qué, trabajando personalmente en su establecimiento, no ocupen más de cinco (5) trabajadores extraños a su familia. Si son seis (6) o más los trabajadores extraños a la familia del artesano, el taller entra en la clasificación de los artículos 226 a 228, según su capital.
+(Adicionado por el Art. 33 de la Ley 50 de 1990)
 
-- d) Al servicio doméstico.
+ARTÍCULO 236. LICENCIA EN LA ÉPOCA DEL PARTO E INCENTIVOS PARA LA ADECUADA ATENCIÓN Y CUIDADO DEL RECIÉN NACIDO.
 
-- 2. En las actividades mencionadas en el presente artículo, los patronos sólo están en la obligación de prestar los primeros auxilios y suministrar el tratamiento y las medicinas de urgencia en caso de accidente de trabajo o ataque súbito de enfermedad profesional.
+Toda trabajadora en estado de embarazo tiene derecho a una licencia de dieciocho (18) semanas en la época de parto, remunerada con el salario que devengue al momento de iniciar su licencia.
 
-Empresas de capital inferior a diez mil pesos ($ 10.000).
+Si se tratare de un salario que no sea fijo como en el caso del trabajo a destajo o por tarea, se tomará en cuenta el salario promedio devengado por la trabajadora en el último año de servicio, o en todo el tiempo si fuere menor.
 
-Empresas de capital mayor de diez mil pesos ($ 10.000) y menor de cincuenta mil pesos ($50.000).
+Para los efectos de la licencia de que trata este artículo, la trabajadora debe presentar al empleador un certificado médico, en el cual debe constar:
 
-**Artículo 226.** Las empresas de capital inferior a diez mil pesos ($ 10.000) no están obligadas por las normas de este Capítulo; pero en caso de accidente de trabajo o ataque súbito de enfermedad profesional, están en la obligación de prestar los primeros auxilios y suministrar el tratamiento y medicinas de urgencia, así como los medios necesarios para el traslado del trabajador al puesto de socorro, hospital o servicio médico más cercano. También están en la obligación de pagar las dos terceras (2/3) partes del salario en los casos de incapacidad temporal, hasta por tres (3) meses.
+a) El estado de embarazo de la trabajadora;
 
-**Artículo 227.** Las empresas de capital igual o superior a diez mil pesos ($ 10.000) y menor de cincuenta mil pesos ($ 50.000) no están obligadas por las normas de este Capítulo, pero en caso de accidente de trabajo o enfermedad profesional tienen las obligaciones establecidas en el artículo anterior y la de suministrar la asistencia de que trata el ordinal 1 del Artículo 206, hasta por seis (6) meses.
+b) La indicación del día probable del parto, y
 
-Empresas de capital mayor de cincuenta mil pesos ($ 50.000) y menor de ciento veinticinco mil ($125.000).
+c) La indicación del día desde el cual debe empezar la licencia, teniendo en cuenta que, por lo menos, ha de iniciarse dos semanas antes del parto.
 
-**Artículo 228.** Las empresas cuyo capital sea o exceda de cincuenta mil pesos ($ 50.000), sin pasar de ciento veinticinco mil pesos ($125.000), están obligadas a las prestaciones completas de que tratan los ordinales 1 y 2, letra a) del Artículo 206 y a las establecidas en el ordinal 2, letras b) a e) del mismo artículo, pero disminuidas en un cincuenta por ciento (50%). Esta disminución se aplica también en el caso del Artículo 216.
+Los beneficios incluidos en este artículo, y el artículo 239 de la presente ley, no excluyen a los trabajadores del sector público. Todas las provisiones y garantías establecidas en la presente ley para la madre biológica se hacen extensivas en los mismos términos y en cuanto fuere procedente a la madre adoptante, o al padre que quede a cargo del recién nacido sin apoyo de la madre, sea por enfermedad, abandono o muerte, asimilando la fecha del parto a la de la entrega oficial del menor que se ha adoptado, o del que adquiere custodia justo después del nacimiento. En ese sentido, la licencia materna se extiende al padre en caso de fallecimiento, abandono o enfermedad de la madre, el empleador del padre del niño le concederá una licencia de duración equivalente al tiempo que falta para expirar el periodo de la licencia posterior al parto concedida a la madre.
 
-### **CAPITULO III**
+La licencia de maternidad para madres de niños prematuros, tendrá en cuenta la diferencia entre la fecha gestacional y el nacimiento a término, las cuales serán sumadas a las dieciocho (18) semanas que se establecen en la presente ley. Cuando se trate de madres con parto múltiple o madres de un hijo con discapacidad, la licencia se ampliará en dos semanas más.
 
-**AUXILIO MONETARIO POR ENFERMEDAD NO PROFESIONAL**
+La trabajadora que haga uso de la licencia en la época del parto tomará las dieciocho (18) semanas de licencia a las que tiene derecho, de la siguiente manera:
 
-Valor del auxilio.
+a) Licencia de maternidad preparto. Esta será de una (1) semana con anterioridad a la fecha probable del parto debidamente acreditada. Si por alguna razón médica la futura madre requiere una semana adicional previa al parto podrá gozar de las dos (2) semanas, con dieciséis (16) posparto. Si en caso diferente, por razón médica no puede tomar la semana previa al parto, podrá disfrutar las dieciocho (18) semanas en el posparto inmediato.
 
-**Artículo 229.** En caso de incapacidad comprobada para desempeñar sus labores, ocasionada por enfermedad no profesional, el trabajador tiene derecho a que el patrono le pague un auxilio monetario hasta por ciento ochenta (180) días, así: las dos terceras (2/3) partes del salario durante los primeros noventa (90) días, y la mitad del salario por el tiempo restante.
+b) Licencia de maternidad posparto. Esta licencia tendrá una duración normal de diecisiete (17) semanas contadas desde la fecha del parto, o de dieciséis (16) o dieciocho (18) semanas por decisión médica, de acuerdo con lo previsto en el literal anterior.
 
-Salario variable.
+PARÁGRAFO 1. De las dieciocho (18) semanas de licencia remunerada, la semana anterior al probable parto será de obligatorio goce a menos que el médico tratante prescriba algo diferente. La licencia remunerada de la que habla este artículo es incompatible con la licencia de calamidad doméstica y en caso de haberse solicitado esta última por el nacimiento de un hijo, estos días serán descontados de la misma.
 
-**Artículo 230.** En caso de que el trabajador no devengue salario fijo, para pagar el auxilio por enfermedad a que se refiere este Capítulo se tiene como base el promedio de lo devengado en el año de servicios anterior a la fecha en la cual empezó la incapacidad, o en todo el tiempo de servicios si no alcanzare a un (1) año.
+PARÁGRAFO 2. El padre tendrá derecho a dos (2) semanas de licencia remunerada de paternidad.
 
-Excepciones.
+La licencia remunerada de paternidad opera por los hijos nacidos del cónyuge o de la compañera permanente, así como para el padre adoptante.
 
-**Artículo 231.** Las normas de este Capítulo no se aplican:
+El único soporte válido para el otorgamiento de la licencia remunerada de paternidad es el Registro Civil de Nacimiento, el cual deberá presentarse a la EPS a más tardar dentro de los 30 días siguientes a la fecha del nacimiento del menor.
 
-- a) A la industria puramente familiar.
+La licencia remunerada de paternidad estará a cargo de la EPS y será reconocida proporcionalmente a las semanas cotizadas por el padre durante el periodo de gestación.
 
-- b) A los trabajadores accidentales o transitorios.
+La licencia de paternidad se ampliará en una (1) semana adicional por cada punto porcentual de disminución de la tasa de desempleo estructural comparada con su nivel al momento de la entrada en vigencia de la presente ley, sin que en ningún caso pueda superar las cinco (5) semanas.
 
-- c) A los artesanos que, trabajando personalmente en su establecimiento, no ocupen más de cinco (5) trabajadores permanentes extraños a su familia.
+La metodología de medición de la tasa de desempleo estructural será definida de manera conjunta por el Ministerio de Hacienda y Crédito Público, el Banco de la República y el Departamento Nacional de Planeación. La tasa de desempleo estructural será publicada en el mes de diciembre de cada año y constituirá la base para definir si se amplía o no la licencia para el año siguiente.
 
-- d) A los criados domésticos, los cuales tienen derecho a la asistencia médica y farmacéutica corriente en caso de cualquier enfermedad y al pago íntegro de su salario en caso de incapacidad para desempeñar sus labores a consecuencia de enfermedad, todo hasta por un (1) mes.
+Se autoriza al Gobierno nacional para que en el caso de los niños prematuros se aplique lo establecido en el presente parágrafo.
 
-### **CAPITULO IV**
+PARÁGRAFO 3. Para efectos de la aplicación del numeral quinto (5) del presente artículo, se deberá anexar al certificado de nacido vivo y la certificación expedida por el médico tratante en la cual se identifique diferencia entre la edad gestacional y el nacimiento a término, con el fin de determinar en cuántas semanas se debe ampliar la licencia de maternidad, o determinar la multiplicidad en el embarazo. El Ministerio de Salud reglamentará en un término no superior a seis (6) meses contados a partir de la expedición de la presente ley, lo concerniente al contenido de la certificación de que trata este parágrafo y fijará los criterios médicos a ser tenidos en cuenta por el médico tratante a efectos de expedirla.
 
-**CALZADO Y OVEROLES PARA TRABAJADORES**
+PARÁGRAFO 4. Licencia parental compartida. Los padres podrán distribuir libremente entre sí las últimas seis (6) semanas de la licencia de la madre, siempre y cuando cumplan las condiciones y requisitos dispuestos en este artículo. Esta licencia, en el caso de la madre, es independiente del permiso de lactancia.
 
-Suministro de calzado.
+La licencia parental compartida se regirá por las siguientes condiciones:
 
-**Artículo 232.** 1. Todo patrono que habitualmente ocupe uno o más trabajadores permanentes debe suministrar cada seis (6) meses, los días 30 de junio y 20 de diciembre, en forma gratuita, un par de zapatos de cuero o caucho, a todo trabajador cuya remuneración sea inferior a ciento veintiún pesos ($ 121) mensuales.
+El tiempo de licencia parental compartida se contará a partir de la fecha del parto. Salvo que el médico tratante haya determinado que la madre deba tomar entre una o dos (2) semanas de licencia previas a la fecha probable del parto o por determinación de la madre. La madre deberá tomar como mínimo las primeras doce (12) semanas después del parto, las cuales serán intransferibles. Las restantes seis (6) semanas podrán ser distribuidas entre la madre y el padre, de común acuerdo entre los dos. El tiempo de licencia del padre no podrá ser recortado en aplicación de esta figura.
 
-- 2. Tiene derecho a esta prestación el trabajador que al vencimiento de cada período semestral haya cumplido más de tres (3) meses al servicio del patrono.
+En ningún caso se podrán fragmentar, intercalar ni tomar de manera simultánea los períodos de licencia salvo por enfermedad posparto de la madre, debidamente certificada por el médico.
 
-**Artículo 233.** Al trabajador de remuneración superior a ciento veintiún pesos ($ 121) y que tenga hijos o personas a cuya subsistencia deba atender, según la Ley, y atienda efectivamente, se le toma en cuenta la cantidad de siete pesos ($ 7) por cada uno de sus hijos o de tales personas, y esa suma se resta de su salario. Si la cantidad restante resultare inferior a ciento veintiún pesos ($ 121) mensuales, el trabajador disfruta de las prestaciones establecidas en el Artículo anterior.
+La licencia parental compartida será remunerada con base en el salario de quien disfrute de la licencia por el período correspondiente. El pago de la misma estará a cargo del respectivo empleador o EPS, acorde con la normatividad vigente.
 
-Suministro de overoles.
+Para los efectos de la licencia de que trata este parágrafo, los beneficiarios deberán cumplir los siguientes requisitos: El único soporte válido para el otorgamiento de licencia compartida es el Registro Civil de Nacimiento, el cual deberá presentarse a la EPS a más tardar dentro de los 30 días siguientes a la fecha de nacimiento del menor.
 
-**Artículo 234.** Todo patrono que habitualmente ocupe uno o más trabajadores permanentes debe suministrar cada seis meses, los días 30 de junio y 20 de diciembre, en forma gratuita, un overol o vestido adecuado para el trabajo que desempeñe, a todo trabajador que se halle en las condiciones de salario a que se refieren los dos artículos anteriores.
+Debe existir mutuo acuerdo entre los padres acerca de la distribución de las semanas de licencia. Ambos padres deberán realizar un documento firmado explicando la distribución acordada y presentarla ante sus empleadores, en un término de treinta (30) días contados a partir del nacimiento del menor.
 
-Uso de los zapatos y overoles.
+El médico tratante debe autorizar por escrito el acuerdo de los padres, a fin de garantizar la salud de la madre y el recién nacido. Los padres deberán presentar ante el empleador un certificado médico, en el cual debe constar:
 
-**Artículo 235.** El trabajador queda obligado a destinar a su uso personal el calzado y los overoles que le suministre el patrono, y en el caso de que así no lo hiciere, éste quedará eximido de hacerle el suministro por el período semestral siguiente.
+a) El estado de embarazo de la mujer; o una constancia del nacimiento del menor.
 
-Prohibición de la compensación en dinero.
+b) La indicación del día probable del parto, o la fecha del nacimiento del menor.
 
-**Artículo 235A.** Adicionado.
+c) La indicación del día desde el cual empezarían las licencias de cada uno.
 
-**Artículo 236.** Queda prohibido a los patronos pagar en dinero las prestaciones establecidas en este Capítulo.
+d) La licencia parental compartida también se aplicará con respecto a los niños prematuros y adoptivos, teniendo en cuenta el presente artículo. La licencia parental compartida es aplicable también a los trabajadores del sector público. Para estos efectos, el Departamento Administrativo de la Función Pública reglamentará la materia dentro de los seis (6) meses siguientes a la sanción de la presente ley. No podrán optar por la licencia parental compartida, los padres que hayan sido condenados en los últimos cinco (5) años por los delitos contemplados en el Título IV delitos contra la libertad, integridad y formaciones sexuales; los padres condenados en los últimos dos (2) años; por los delitos contemplados en el Título VI contra la familia, Capítulo Primero “de la violencia intrafamiliar” y Capítulo Cuarto “de los delitos contra la asistencia alimentaria” de la Ley 599 de 2000 o los padres que tengan vigente una medida de protección en su contra, de acuerdo con el artículo 16 de la Ley 1257 de 2008, o la norma que lo modifique, sustituya o adicione.
 
-Reglamentación.
+PARÁGRAFO 5. Licencia parental flexible de tiempo parcial. La madre y/o padre podrán optar por una licencia parental flexible de tiempo parcial, en la cual, podrán cambiar un periodo determinado de su licencia de maternidad o de paternidad por un período de trabajo de medio tiempo, equivalente al doble del tiempo correspondiente al período de tiempo seleccionado. Esta licencia, en el caso de la madre, es independiente del permiso de lactancia.
 
-**Artículo 237.** El Ministerio del Trabajo reglamentará la forma como los patronos deben cumplir con las prestaciones establecidas en este Capítulo y la manera como deben acreditar ese cumplimiento.
+La licencia parental flexible de tiempo parcial se regirá por las siguientes condiciones:
 
-### **CAPITULO V**
+Los padres podrán usar esta figura antes de la semana dos (2) de su licencia de paternidad; las madres, a no antes de la semana trece (13) de su licencia de maternidad.
 
-**PROTECCION A LA MATERNIDAD Y PROTECCION DE MENORES**
+El tiempo de licencia parental flexible de tiempo parcial se contará a partir de la fecha del parto. Salvo que el médico tratante haya determinado que la madre deba tomar una o dos (2) semanas de licencia previas a la fecha probable del parto. Los periodos seleccionados para la licencia parental flexible no podrán interrumpirse y retomarse posteriormente. Deberán ser continuos, salvo aquellos casos en que medie acuerdo entre el empleador y el trabajador.
 
-Descanso remunerado en la época del parto.
+La licencia parental flexible de tiempo parcial será remunerada con base en el salario de quien disfrute de la licencia por el período correspondiente. El pago de la misma estará a cargo del respectivo empleador o EPS. El pago del salario por el tiempo parcial laborado se regirá acorde con la normatividad vigente.
 
-**Artículo 238.** 1. Toda trabajadora en estado de embarazo tiene derecho a una licencia de ocho semanas en la época del parto, remunerada con el salario que devengue al entrar a disfrutar del descanso.
+La licencia parental flexible de tiempo parcial también podrá ser utilizada por madres y/o padres que también hagan uso de la licencia parental compartida, observando las condiciones señaladas en este parágrafo, así como en el parágrafo 4 del presente artículo. Para los efectos de la licencia de la que trata este parágrafo, los beneficiarios deberán cumplir los siguientes requisitos: El único soporte válido para el otorgamiento de licencia parental flexible de tiempo parcial es el Registro Civil de Nacimiento, el cual deberá presentarse a la EPS a más tardar dentro de los 30 días siguientes a la fecha del nacimiento del menor.
 
-- 2. Si se tratare de un salario que no sea fijo, como en el caso de trabajo a destajo o por tarea, se toma en cuenta el salario promedio devengado por la trabajadora en el último año de servicios, o en todo el tiempo si fuere menor.
+Debe existir mutuo acuerdo entre los empleadores y los trabajadores. El acuerdo deberá ir acompañado de un certificado médico que dé cuenta de:
 
-- 3. Para los efectos de la licencia de que trata este artículo, la trabajadora debe presentar al patrono un certificado médico, en el cual debe constar:
+a) El estado de embarazo de la mujer; o constancia del nacimiento.
 
-- a) El estado de embarazo de la trabajadora;
+b) La indicación del día probable del parto, o indicación de fecha del parto y
 
-- b) La indicación del día probable del parto, y
+c) La indicación del día desde el cual empezaría la licencia correspondiente. Este acuerdo deberá consultarse con el empleador a más tardar dentro de los 30 días siguientes al nacimiento. El empleador deberá dar respuesta a la solicitud dentro de los cinco (5) hábiles siguientes a su presentación.
 
-- c) La indicación del día desde el cual debe empezar la licencia, teniendo en cuenta que, por lo menos, ha de iniciarse dos semanas antes del parto.
+La licencia parental flexible de tiempo parcial también se aplicará con respecto a los niños prematuros y adoptivos, teniendo en cuenta lo dispuesto en el presente artículo.
 
-Descanso remunerado en caso de aborto.
+La licencia parental flexible de tiempo parcial es aplicable también a los trabajadores del sector público. Para estos efectos, el Departamento Administrativo de la Función Pública, reglamentará la materia dentro de los seis (6) meses siguientes a la sanción de la presente ley. Superado este periodo de tiempo el Presidente de la República conservará su facultad reglamentaria.
 
-**Artículo 239.** 1. La trabajadora que en el curso del embarazo sufra un aborto o un parto prematuro no viable, tiene derecho a una licencia de dos a cuatro semanas, remunerada con el salario que devengaba en el momento de iniciarse el descanso. Si el parto es viable, se aplica lo establecido en el Artículo anterior.
+(Modificado por el Art. 2 de la Ley 2114 de 2021) (Modificado por el Art. 1 de la Ley 1822 de 2017) (Modificado por el Art. 1 de la Ley 1468 de 2011) (Modificado por el Art. 34 de la Ley 50 de 1990)
 
-- 2. Para disfrutar de la licencia de que trata este artículo, la trabajadora debe presentar al patrono un certificado médico sobre lo siguiente:
+ARTICULO 237. DESCANSO REMUNERADO EN CASO DE ABORTO.
 
-- a) La afirmación de que la trabajadora ha sufrido un aborto o un parto prematuro, indicando el día en que haya tenido lugar, y
+La trabajadora que en el curso del embarazo sufra un aborto o parto prematuro no viable, tiene derecho a una licencia de dos o cuatro semanas, remunerada con el salario que devengaba en el momento de iniciarse el descanso. Si el parto es viable, se aplica lo establecido en el artículo anterior.
 
-- b) La indicación del tiempo de reposo que necesita la trabajadora.
+Para disfrutar de la licencia de que trata este artículo, la trabajadora debe presentar al {empleador} un certificado médico sobre lo siguiente: a). La afirmación de que la trabajadora a sufrido un aborto o paro prematuro, indicando el día en que haya tenido lugar, y b). La indicación del tiempo de reposo que necesita la trabajadora.
 
-Descanso remunerado durante la lactancia.
+ARTICULO 238. DESCANSO REMUNERADO DURANTE LA LACTANCIA.
 
-**Artículo 240.** 1. El patrono está en la obligación de conceder la trabajadora dos descansos, de veinte (20) minutos cada uno, dentro de la jornada, para amamantar a su hijo, sin descuento alguno en el salario por dicho concepto, durante los primeros seis (6) meses de edad. .
+El empleador está en la obligación de conceder a la trabajadora dos (2) descansos, de treinta (30) minutos cada uno, dentro de la jornada para amamantar a su hijo, sin descuento alguno en el salario por dicho concepto, durante los primeros seis (ó) me5es de edad,- y una vez cumplido este periodo, un (1) descanso de treinta (30) minutos en los mismos términos hasta los dos (2) años de edad de/ menor: siempre y cuando se mantenga y manifieste una adecuada lactancia materno continua.
 
-- 2. El patrono está en la obligación de conceder más descansos que los establecidos en el inciso anterior si la trabajadora presentare certificado médico en el cual se expongan las razones que justifiquen ese mayor número de descansos.
+El empleador está en la obligación de conceder más descansos que los establecidos en el inciso anterior si lo trabajadora presenta certificado médico en el cual se expongan las razones que justifiquen ese mayor número de descansos.
 
-- 3. Para dar cumplimiento a la obligación consagrada en este artículo, los patronos deben establecer en un local contiguo a aquel en donde la mujer trabaja, una sala de lactancia o un lugar apropiado para guardar al niño.
+Para dar cumplimiento a la obligación consagrada en este artículo, los empleadores deben establecer en un local contiguo a aquel en donde la mujer trabaja, una sala de lactancia o un lugar apropiado para guardar al niño.
 
-- 4. Los patronos pueden contratar con las instituciones de protección infantil el servicio de que trata el inciso anterior.
+Los empleadores pueden contratar con las instituciones de protección infantil el inciso anterior.
 
-Prohibición de despedir.
+*jurisprudencia* (Modificado por el Art. 6 de la Ley 2306 de 2023)
 
-**Artículo 241.** 1. Ninguna trabajadora puede ser despedida por motivo de embarazo o lactancia.
+ARTÍCULO 239. PROHIBICIÓN DE DESPIDO.
 
-- 2. Se presume que el despido se ha efectuado por motivo de embarazo o lactancia, cuando ha tenido lugar dentro del período del embarazo o dentro de los tres meses posteriores al parto, y sin la autorización de las autoridades de que trata el Artículo siguiente.
+Ninguna trabajadora podrá ser despedida por motivo de embarazo o lactancia sin la autorización previa del Ministerio de Trabajo que avale una justa causa.
 
-- 3. La trabajadora despedida sin autorización de la autoridad tiene derecho al pago de una indemnización equivalente a los salarios de sesenta días, fuera de las indemnizaciones y prestaciones a que hubiere lugar de acuerdo con el contrato de trabajo y, además, al pago de las ocho (8) semanas de descanso remunerado de que trata este Capítulo, si no lo ha tomado.
+(Numeral 1 declarado CONDICIONALMENTE EXEQUIBLE por la Corte Constitucional mediante Sentencia C-005-17) Se presume el despido efectuado por motivo de embarazo o lactancia, cuando este haya tenido lugar dentro del período de embarazo y/o dentro de las dieciocho (18) semanas posteriores al parto.
 
-Permiso para despedir.
+(Numeral 2 modificado por el Art. 1 de la Ley 2141 de 2021) Las trabajadoras de que trata el numeral uno (1) de este artículo, que sean despedidas sin autorización de las autoridades competentes, tendrán derecho al pago adicional de una indemnización igual a sesenta (60) días de trabajo, fuera de las indemnizaciones y prestaciones a que hubiere lugar de acuerdo con su contrato de trabajo.
 
-**Artículo 242.** 1. Para poder despedir a una trabajadora durante el período del embarazo o los tres meses posteriores al parto, el patrono necesita la autorización del Inspector del Trabajo, o del Alcalde Municipal en los lugares en donde no existiere aquel funcionario.
+Esta misma indemnización se aplicará en el caso del despido de un trabajador cuya cónyuge, pareja o compañera permanente se encuentre en estado de embarazo o dentro de las dieciocho (18) semanas posteriores al parto y no tenga un empleo formal, fuera de las indemnizaciones y prestaciones a que hubiere lugar de acuerdo con el contrato de trabajo.
 
-- 2. El permiso de que trata este Artículo sólo puede concederse con fundamento en alguna de las causas que tiene el patrono para dar por terminado el contrato de trabajo y que se enumeran en los artículos 63 y 64. Antes de resolver, el funcionario debe oír a la trabajadora y practicar todas las pruebas conducentes solicitadas por las partes.
+(Numeral 3 modificado por el Art. 1 de la Ley 2141 de 2021) En el caso de la mujer trabajadora que por alguna razón excepcional no disfrute de la semana preparto obligatoria, y/o de algunas de las diecisiete (17) semanas de descanso, tendrá derecho al pago de las semanas que no gozó de licencia. En caso de parto múltiple tendrá el derecho al pago de dos (2) semanas adicionales y, en caso de que el hijo sea prematuro, al pago de la diferencia de tiempo entre la fecha del alumbramiento y el nacimiento a término.
 
-- 3. Cuando sea un Alcalde Municipal quien conozca de la solicitud de permiso, su providencia tiene carácter provisional y debe ser revisada por el Inspector del Trabajo residente en el lugar más cercano.
+Se prohíbe el despido de todo trabajador cuya cónyuge, pareja o compañera permanente se encuentre en estado de embarazo o dentro de las dieciocho (18) semanas posteriores al parto y no tenga un empleo formal. Esta prohibición se activará con la notificación al empleador del estado de embarazo de la cónyuge, pareja o compañera permanente, y una declaración, que se entiende presentada bajo la gravedad del juramento, de que ella carece de un empleo. La notificación podrá hacerse verbalmente o por escrito. En ambos casos el trabajador tendrá hasta un (1) mes para adjuntar la prueba que acredite el estado de embarazo de su cónyuge o compañera permanente. Para tal efecto, serán válidos los certificados médicos o los resultados de exámenes realizados en laboratorios clínicos avalados y vigilados por las autoridades competentes. Numeral 5 adicionado por el artículo 1 de la Ley 2141 de 2021) (Modificado por el Art. 2 de la Ley 1822 de 2017) (Modificado por el Art. 2 de la Ley 1468 de 2011) (Modificado por el Art. 35 de la Ley 50 de 1990)
 
-Conservación del puesto.
+ARTICULO 240. PERMISO PARA DESPEDIR.
 
-**Artículo 243.** El patrono está obligado a conservar el puesto a la trabajadora que esté disfrutando de los descansos remunerados de que trata este Capítulo, o que se encuentre incapacitada por enfermedad relacionada con el embarazo
+Para poder despedir a una trabajadora durante el período de embarazo o a las dieciocho (18) semanas posteriores al parto, el empleador necesita la autorización del Inspector del Trabajo, o del Alcalde Municipal en los lugares en donde no existiere aquel funcionario. La misma autorización se requerirá para despedir al trabajador cuya cónyuge, pareja o compañera permanente se encuentre en estado de embarazo y no tenga un empleo formal, adjuntando prueba que así lo acredite o que se encuentre afiliada como beneficiaria en el Sistema de Seguridad Social en Salud.
 
-Trabajos prohibidos.
+(Numeral 1 modificado por el Art. 2 de la Ley 2141 de 2021) El permiso de que trata este artículo sólo puede concederse con el fundamento en alguna de las causas que tiene el {empleador} para dar por terminado el contrato de trabajo y que se enumeran en los artículo 62 y 63. Antes de resolver, el funcionario debe oír a la trabajadora y practicar todas las pruebas conducentes solicitadas por las partes.
 
-**Artículo 244.** Queda prohibido emplear mujeres embarazadas y menores de diez y seis años en trabajos peligrosos, insalubres, o que requieran grandes esfuerzos. Igualmente queda prohibido emplear mujeres embarazadas en los trabajos nocturnos que se prolonguen por más de cinco (5) horas.
+Cuando sea un Alcalde Municipal quien conozca de la solicitud de permiso, su providencia tiene carácter provisional y debe ser revisada por el Inspector del Trabajo residente en el lugar más cercano.
 
-**Artículo 245.** En caso de que el patrono no cumpla con la obligación de otorgar los descansos remunerados de que tratan los artículos 238 y 239, la trabajadora tiene derecho, como indemnización, al doble de la remuneración de los descansos no concedidos.
+(Numeral 3 declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-710-96)
 
-Certificados médicos.
+ARTICULO 241. NULIDAD DEL DESPIDO.
 
-**Artículo 246.** A solicitud de la trabajadora interesada, los certificados médicos necesarios según este Capítulo deben ser expedidos gratuitamente por los médicos de la Oficina Nacional de Medicina e Higiene Industrial y por los de todas las entidades de Higiene, de carácter oficial.
+El empleador está obligado a conservar el puesto a la trabajadora que esté disfrutando de los descansos remunerados de que trata este
 
-Salas cunas.
+## capítulo, o de licencia por enfermedad motivada por el embarazo o parto.
 
-**Artículo 247.** 1. En las empresas en donde presten servicios más de cincuenta (50) trabajadoras, el patrono está en la obligación de fundar y sostener una sala cuna destinada a los hijos menores de dos (2) años de dichas trabajadoras.
+No producirá efecto alguno el despido que el empleador comunique a la trabajadora en tales períodos, o en tal forma que, al hacer uso del preaviso, éste expire durante los descansos o licencias mencionados.
 
-- 2. Los patronos de distintas fábricas pueden asociarse para establecer salas cunas centrales.
+(Modificado por el Art. 8 del Decreto 13 de 1967)
 
-- 3. Las salas cunas de que trata este Artículo deben tener servicio médico y enfermera permanente para el cuidado y alimentación de los niños, y están bajo la vigilancia de los Ministerios del Trabajo e Higiene, a los cuales deben rendir todos los informes que les sean solicitados.
+ARTÍCULO 241A. MEDIDAS ANTIDISCRIMINATORIAS EN MATERIA LABORAL.
 
-- 4. Los patronos pueden celebrar contratos con los centros de Protección Infantil de carácter oficial, para que presten a los hijos de sus trabajadoras los servicios de que trata este artículo.
+Pruebas de embarazo. La exigencia de la práctica de pruebas de embarazo queda prohibida como requisito obligatorio para el acceso o permanencia en cualquier actividad laboral. La prueba de embarazo solo podrá solicitarse, con consentimiento previo de la trabajadora, en los casos en los que el trabajo a desempeñar implique riesgos reales o potenciales que puedan incidir negativamente en el desarrollo normal del embarazo.
 
-Cómputo del número de trabajadoras.
+Se presume que toda exigencia de ordenar la práctica de una prueba de embarazo para acceso o permanencia en cualquier actividad laboral tiene carácter discriminatorio. Esta presunción admite prueba en contrario, pero se invertirá la carga de la prueba a favor de la mujer y será el empleador o contratante quien deba desvirtuar la conducta discriminatoria y demostrar que existen riesgos reales o potenciales que puedan incidir negativamente en el desarrollo normal del embarazo.
 
-**Artículo 248.** Para el cómputo del número de trabajadoras de que trata el Artículo anterior se tomará en cuenta el total de las que presten sus servicios en una misma empresa, aun cuando el trabajo se desarrolle en distintos establecimientos o locales de un mismo lugar.
+El empleador, al enlistar las evaluaciones médicas preocupacionales o de preingreso, deberá dejar constancia que, en estas, no se incluye una prueba de embarazo. Cuando las evaluaciones médicas pre ocupacionales o de pre ingreso involucren exámenes de sangre, la candidata podrá seleccionar el centro médico o laboratorio en dónde realizar dichos exámenes. En todo caso, el centro médico o laboratorio que se escoja deberá ser reconocido por el Ministerio de Salud y Protección Social.
 
-### **CAPITULO VI**
+El empleador que ordene la realización de una prueba de embarazo en contra de lo establecido en el presente artículo, se le impondrá una multa de hasta dos mil cuatrocientos cincuenta y cinco (2455) Unidades de Valor Tributario (UVT) de conformidad con la reglamentación que sobre la materia haga el Ministerio del Trabajo. La trabajadora que haya sido obligada a la realización de una prueba de embarazo en contra de lo establecido en este artículo deberá ser contratada para el cargo al cual aspiraba.
 
-**GASTOS DE ENTIERRO DEL TRABAJADOR**
+Entrevistas de trabajo. La realización de preguntas relacionadas con planes y reproductivos queda prohibida en las entrevistas laborales y se presumirá como una práctica discriminatoria.
 
-Regla general.
+El empleador que realice preguntas discriminatorias en contra de lo establecido en el presente artículo, se le impondrá una multa de hasta dos mil cuatrocientos cincuenta y cinco (2455) Unidades de Valor Tributario (UVT), de conformidad con la reglamentación que sobre la materia haga el Ministerio del Trabajo.
 
-**Artículo 249.** Todo patrono está obligado a pagar los gastos de entierro de cualquiera de sus trabajadores hasta una suma equivalente al salario del último mes. Este precepto no se aplica a los trabajadores accidentales o transitorios.
+(Adicionado por el Art. 3 de la Ley 2114 de 2021)
 
-Salario variable.
+ARTICULO 242. TRABAJOS PROHIBIDOS.
 
-**Artículo 250.** En caso de que el trabajador no tuviere salario fijo se aplica la norma del Artículo 230.
+Las mujeres, sin distinción de edad, no pueden ser empleadas durante la noche en ninguna empresa industrial, salvo que se trate de una empresa en que estén empleados únicamente los miembros de una misma familia.
 
-### **CAPITULO VII**
+(Numeral 1 declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-622-97) Queda prohibido emplear a los menores de dieciocho (18) años y a las mujeresen trabajos de pintura industrial que entrañen el empleo de la cerusa, de sulfato de plomo o de cualquier otro producto que contenga dichos pigmentos.
 
-**AUXILIO DE CESANTIA**
+(Expresión subrayada declarada EXEQUIBLE por la Corte Constitucional mediante Sentencia C-139-18) Las mujeres, sin distinción de edad, y los menores de diez y ocho (18) años no pueden ser empleados en trabajos subterráneos de las minas o que requieran grandes esfuerzos (Aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-586-16) (Modificado por el Art. 9 del Decreto 13 de 1967)
 
-Regla general.
+ARTICULO 243. INCUMPLIMIENTO. En caso de que el empleador no cumpla con la obligación de otorgar los descansos remunerados de que tratan los artículos 236 y 237, la trabajadora tiene derecho, como indemnización, al doble de la remuneración de los descansos no concedidos.
 
-**Artículo 251.** 1. Todo patrono está obligado a pagar a sus trabajadores, y a las demás personas que se indican en este Capítulo, al terminar el contrato de trabajo, como auxilio de cesantía, un mes de salario por cada año de servicios, y proporcionalmente por fracciones de año, que se presten con posterioridad a la vigencia de este Código, salvo las excepciones que se establecen a continuación.
+ARTICULO 244. CERTIFICADOS MEDICOS. A solicitud de la trabajadora interesada, los certificados médicos necesarios según este capítulo deben ser expedidos gratuitamente por los médicos de la Oficina Nacional de Medicina e Higiene Industrial y por los de todas las entidades de Higiene, de carácter oficial.
 
-- 2. Cada tres (3) años de servicios prestados dentro de un mismo contrato de trabajo, el trabajador adquiere el derecho al auxilio de cesantía correspondiente a este período, pero sólo puede exigir en ese momento su pago, en los casos de los artículos 258, inciso 3, y 260.
+ARTICULO 245. SALA CUNAS.
 
-- 3. La cesantía de cada período trienal no se pierde aunque en los tres (3) años subsiguientes el trabajador incurra en causal que determine la pérdida del derecho a cesantía conforme al Artículo siguiente.
+En las empresas en donde presten servicios más de cincuenta (50) trabajadoras, el patrono está en la obligación de fundar y sostener una salacuna destinada a los hijos menores de dos (2) años de dichas trabajadoras. Los patronos de distintas fábricas pueden asociarse para establecer salas-cunas centrales.
 
-Pérdida del derecho.
+Las salas-cunas de que trata este artículo deben tener servicio médico y enfermera permanente para el cuidado y alimentación de los niños y están bajo la vigilancia de los Ministerios de Trabajo e Higiene, a los cuales deben rendir todos los informes que les sean solicitados. Los patronos pueden celebrar contratos con los centros de Protección Infantil de carácter oficial, para que presten a los hijos de sus trabajadoras los servicios de que trata este artículo.
 
-**Artículo 252.** Cuando el contrato de trabajo termina por decisión unilateral del patrono con fundamento en alguna de las causales que se enumeran en el Artículo 63 y en las causales 2, 3 y 4 del Artículo 64, el trabajador pierde el derecho al auxilio de cesantía correspondiente al último lapso anterior a tres (3) años.
+(Derogado por el Art. 11 de la Ley 27 de 1974)
 
-Excepciones a la regla general.
+ARTICULO 246. COMPUTO DE NUMERO DE TRABAJADORAS. Para el cómputo del número de trabajadoras de que trata el artículo anterior se tomará en cuenta el total de las que presten sus servicios en una misma empresa, aun cuando el trabajo se desarrolle en distintos establecimientos o locales de un mismo lugar.
 
-**Artículo 253.** El Artículo 251 no se aplica:
+(Derogado por el Art. 11 de la Ley 27 de 1974)
 
-- a) A la industria puramente familiar.
+## CAPITULO VI.
 
-- b) A los trabajadores accidentales o transitorios.
+GASTOS DE ENTIERRO DEL TRABAJADOR.
 
-- c) A los artesanos que, trabajando personalmente en su establecimiento, no ocupen más de cinco (5) trabajadores permanentes extraños a su familia.
+ARTICULO 247. REGLA GENERAL. Todo {empleador} está obligado a pagar los gastos de entierro de cualquiera de sus trabajadores hasta una suma equivalente al salario del último mes. Este precepto no se aplica a los trabajadores accidentales o transitorios. (Aparte tachado derogado según lo dispuesto por la Corte Constitucional en la Sentencia C-823-06)
 
-Cesantía restringida.
+ARTICULO 248. SALARIO VARIABLE. En caso de que el trabajador no tuviere salario fijo se aplica la norma del artículo 228.
 
-**Artículo 254.** Los criados domésticos, los trabajadores de empresas industriales o comerciales de capital inferior a veinticinco mil pesos ($ 25.000) y los trabajadores de empresas agrícolas, ganaderas o forestales de capital inferior a ochenta mil pesos ($80.000), tienen derecho a un auxilio de cesantía equivalente a quince (15) días de salario por cada año de servicios, y proporcionalmente por fracciones de año; pero en lo demás quedan sujetos a las normas sobre este auxilio.
+## CAPITULO VII.
 
-Retención.
+AUXILIO DE CESANTIA.
 
-**Artículo 255.** En caso de delitos contra el patrono o contra los directores o trabajadores del establecimiento por causa o con ocasión del trabajo, así como en el caso de graves daños causados al patrono o al establecimiento, el patrono puede retener el correspondiente auxilio de cesantía hasta que la justicia decida sobre la indemnización que el trabajador deba pagar, a la cual se aplica en primer término el auxilio retenido.
+ARTICULO 249. REGLA GENERAL. Todo {empleador} está obligado a pagar a sus trabajadores, y a las demás personas que se indican en este
 
-Salario base de liquidación.
+Capítulo, al terminar el contrato de trabajo, como auxilio de cesantía, un mes de salario por cada año de servicios y proporcionalmente por fracción de año.
 
-**Artículo 256.** 1. Para liquidar el auxilio de cesantía se toma como base el promedio mensual de lo devengado por el trabajador como salario, en el último año de servicio o en todo el tiempo de trabajo si fuere menor.
+ARTICULO 250. PERDIDA DEL DERECHO.
 
-- 2. Cuando el salario fijo se hubiere mejorado en los tres (3) últimos meses, se toma este salario fijo más el promedio mensual de todo lo demás devengado como salario en el último año, o en todo e tiempo de trabajo si fuere menor.
+El trabajador perderá el derecho de auxilio de cesantías cuando el contrato de trabajo termina por alguna de las siguientes causas: a). Todo acto delictuoso cometido contra el {empleador} o sus parientes dentro del segundo grado de consanguinidad y primero en afinidad, o el personal directivo de la empresa;
 
-- 3. El promedio mensual a que se refiere este Artículo se obtiene sumando lo devengado por el trabajador en los últimos trescientos sesenta y cinco (365) días de servicio, o en todo el tiempo si fuere menor, dividiendo en seguida esas sumas por trescientos sesenta y cinco (365) en el primer caso, o por él número de días de todo el tiempo de servicio en el segundo, y, finalmente, se multiplica el resultado por treinta (30).
+b). Todo daño material grave causado intencionalmente a los edificios, obras, maquinaria y materias primas, instrumentos y demás objetos relacionados con el trabajo, c). El que el trabajador revele los secretos técnicos o comerciales o dé a conocer asuntos de carácter reservado, con perjuicio grave para la empresa.
 
-Prohibición de pagos parciales.
+En estos casos el {empleador} podrá abstenerse de efectuar el pago correspondiente hasta que la justicia decida.
 
-**Artículo 257.** Se prohíbe a los patronos efectuar pagos parciales del auxilio de cesantía antes de la terminación del contrato de trabajo, salvo en los casos expresamente autorizados, y si los efectuaren perderán las sumas pagadas, sin que puedan repetir lo pagado.
+(Declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-710-96)
 
-Excepciones de la regla anterior.
+ARTICULO 251. EXCEPCIONES A LA REGLA GENERAL. El artículo 249 no se aplica:
 
-**Artículo 258.** 1. No obstante lo dispuesto en el Artículo anterior, los trabajadores tienen derecho a que se les pague definitivamente su auxilio de cesantía, por todo el tiempo de servicios prestados, aun antes de la terminación del contrato de trabajo y sin que por ello se produzca su extinción, siempre y cuando hayan prestado sus servicios a un mismo patrono durante seis (6) años o más.
+a). A la industria puramente familiar;
 
-- 2. Después de efectuado el pago parcial y definitivo del auxilio de cesantía de conformidad con el inciso 1 de este artículo, el trabajador vuelve a adquirir el derecho al pago de esta prestación, en los mismos términos, cada vez que tenga seis (6) o más años de servicio prestado al mismo patrono.
+b). A los trabajadores accidentales o transitorios.
 
-- 3. En todo caso, las partes pueden acordar el pago parcial y definitivo del auxilio de cesantía, cuando el trabajador cumpla un periodo de tres (3) años de servicio.
+(Literal b) declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-432-20) c). A los artesanos que, trabajando personalmente en su establecimiento, no ocupen más de cinco (5) trabajadores permanentes extraños a su familia.
 
-- 4. El pago del auxilio de cesantía que se haga de conformidad con este Artículo no está sujeto a posterior revisión, salvo en los casos de error, siendo entendido que por el tiempo que comprenda esa liquidación, el patrono queda exonerado de toda obligación para con el trabajador en cuanto a cesantía
+(Literal c) declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-432-20)
 
-Trabajadores llamados a filas.
+ARTICULO 252. CESANTIA RESTRINGIDA.
 
-**Artículo 259.** Los trabajadores que entren a prestar servicio militar, por llamamiento ordinario o en virtud de convocatoria de reservas, tienen derecho a que se les liquide y pague parcial y definitivamente el auxilio de cesantía, cualquiera que sea el tiempo de trabajo y sin que se extinga su contrato conforme a lo dispuesto en el ordinal 5 del Artículo 52.
+Los trabajadores del servicio doméstico, los de empresas industriales de capital inferior a veinte mil pesos ($20.000) y los de empresas agrícolas, ganaderas o forestales de capital inferior a sesenta mil pesos ($60.000) tienen derecho a un auxilio de cesantía equivalente a quince (15) días de salario por cada año de servicios y proporcionalmente por fracciones de año; pero en lo demás quedan sujetos a las normas sobre este auxilio.
 
-Financiación de viviendas.
+(Aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-051-95) Para la liquidación de cesantía de los trabajadores del servicio doméstico solo se computará el salario que reciban en dinero. (Aparte tachado declarado INEXEQUIBLE y CONDICIONALMENTE exequible el resto del numeral por la Corte Constitucional mediante Sentencia C-310-07) El tiempo servido antes del primero (1) de enero de 1951 por todos aquellos trabajadores que tuvieron restringido el derecho de cesantía en virtud de la legislación vigente hasta esa fecha, se liquidará de acuerdo con dicha legislación.
 
-**Artículo 260.** 1. Los patronos pueden hacer préstamos a sus trabajadores sobre el auxilio de cesantía o anticipos de ese mismo auxilio con destino a la adquisición de vivienda con su terreno, o a la de terreno solamente, o a la construcción de vivienda o a su refacción, o a la liberación de gravámenes hipotecarios sobre su casa o lote.
+ARTICULO 253. SALARIO BASE PARA LA LIQUIDACION DE LA CESANTIA.
 
-- 2. Los trabajadores tienen derecho a exigir el pago parcial y definitivo de la cesantía que se liquide conforme al Artículo 263, para los fines indicados en el inciso anterior.
+Para liquidar el auxilio de Cesantía se toma como base el último salario mensual devengado por el trabajador, siempre que no haya tenido variación en los tres (3) últimos meses. En el caso contrario y en el de los salarios variables, se tomará como base el promedio de lo devengado en el último año de servicios o en todo el tiempo servido si fuere menor de un año.
 
-- 3. El patrono puede transferir a terceros los créditos a que se refiere el inciso 1 de este artículo, con las garantías que a su favor haya establecido el trabajador.
+Para el tiempo de servicios anterior al treinta y uno (31) de diciembre de mil novecientos sesenta y dos (1962) se aplicarán las normas vigentes hasta esta fecha.
 
-- 4. Los préstamos, anticipos y pagos a que se refiere este artículo, deben ser aprobados por el respectivo Inspector del Trabajo, y en su defecto por el Alcalde Municipal, con conocimiento de causa y previa demostración de que van a ser dedicados a los fines que en el inciso 1 se enumeran.
+(Modificado por el Art. 17 del Decreto 2351 de 1965)
 
-Patrimonio de familia.
+ARTICULO 254. PROHIBICION DE PAGOS PARCIALES. Se prohíbe a los empleadores efectuar pagos parciales del auxilio de cesantías antes de la terminación del contrato de trabajo, salvo en los casos expresamente autorizados, y si los efectuaren perderán las sumas pagadas, sin que puedan repetir lo pagado.
 
-**Artículo 261.** Las casas de habitación adquiridas por el trabajador con el auxilio de cesantía, en todo o en parte, no constituyen por ese solo hecho patrimonio familiar inembargable.
+ARTICULO 255. TRABAJADORES LLAMADOS A FILAS. Los trabajadores que entren a prestar servicio militar, por llamamiento ordinario o en virtud de convocatoria de reservas, tienen derecho a que se les liquide y pague parcial y definitivamente el auxilio de cesantía, cualquiera que sea el tiempo de trabajo y sin que se extinga su contrato conforme a lo dispuesto en el ordinal 5o. del artículo 51.
 
-Muerte del trabajador.
+ARTICULO 256. FINANCIACION DE VIVIENDAS.
 
-**Artículo 262.** Cuando el trabajador muera sin que se le haya pagado el valor del auxilio trienal de cesantía, ya consolidado, de que trata el Artículo 251, dicho auxilio se pagará a las personas enumeradas en el ordinal e) del Artículo 206, en el orden de exclusión y preferencia que allí se indica y previa la presentación de pruebas y publicación de avisos establecidos en el Artículo 214.
+Los trabajadores individualmente, podrán exigir el pago parcial de su auxilio de cesantía para la adquisición, construcción, mejora o liberación de bienes raíces destinados a su vivienda, siempre que dicho pago se efectúe por un valor no mayor del requerido para tales efectos. Los {empleadores} pueden hacer préstamos a sus trabajadores sobre el auxilio de cesantía para los mismos fines.
 
-Liquidación especial por servicios anteriores a este Código.
+Los préstamos, anticipos y pagos a que se refieren los numerales anteriores se aprobarán y pagarán directamente por el empleador cuando el trabajador pertenezca al régimen tradicional de cesantías, y por los fondos cuando el trabajador pertenezca al régimen de cesantía previsto en la Ley 50 de 1990 y la Ley 91 de 1989, que hace referencia al Fondo de Prestaciones Sociales del Magisterio, previa solicitud por escrito del trabajador, demostrando además, que estas van a ser invertidas para los fines indicados en dichos numerales.
 
-**Artículo 263.** Respecto al auxilio de cesantía por trabajo anterior a la vigencia de este Código se procederá a hacer una liquidación especial según las siguientes reglas:
+(Numeral 3 modificado por el Art. 21 de la Ley 1429 de 2010.) Formulada la solicitud de pago parcial de cesantías por el trabajador con el lleno de los requisitos legales exigidos, el empleador o el fondo privado de cesantías, según el caso, deberá aprobar y pagar el valor solicitado dentro del término máximo de cinco (5) días hábiles. Vencido este plazo sin que se haya realizado el pago, el trabajador solicitará la intervención del Ministerio de la Protección Social, para que ordene al empleador o al fondo privado realizar el pago correspondiente, so pena de incurrir en la imposición de multas.
 
-- 1. Todo patrono debe liquidar la cesantía de todos sus trabajadores el día anterior a aquel en que entre en vigencia el presente Código; como si en ese día se hubiesen extinguido todos los contratos de trabajo por retiro voluntario del trabajador, y aplicando en cada caso el estatuto o estatutos que en ese momento correspondan.
+Los {empleadores} podrán realizar planes de vivienda, directamente o contratándolos con entidades oficiales, semioficiales o privadas, en beneficio de los trabajadores beneficiarios. En este caso, se requerirá el consentimiento de estos y la aprobación previa del Ministerio de Trabajo.
 
-- 2. La liquidación de cesantía de los trabajadores del servicio doméstico también debe efectuarse aún por lapsos inferiores a cinco años de trabajo, estimando sus contratos como terminados por despido injustificado.
+Los trabajadores, podrán, igualmente, exigir el pago parcial de sus auxilios de cesantía para realizar planes de vivienda que deberán ser contratados con entidades oficiales, semioficiales o privadas, previa aprobación del Ministerio de Trabajo.
 
-- 3. Esta liquidación no pone fin a los contratos de trabajo existentes, ni hace exigible en es momento la suma determinada como cesantía, la que se pagará a la terminación del respectivo contrato o antes cuando lo acuerden las partes o en los casos del Artículo 260.
+Aprobado el plan general de vivienda a que se refieren los numerales 4o. y 5o. de este artículo, no se requerirá nueva autorización para cada préstamo, pago o liquidación parciales.
 
-## **TITULO IX**
+(Modificado por el Art. 18 del Decreto 2351 de 1965)
 
-**PRESTACIONES PATRONALES ESPECIALES**
+ARTICULO 257. PATRIMONIO DE FAMILIA. Las casas de habitación adquiridas por el trabajador antes o dentro de la vigencia de este código, con el auxilio de cesantía, en todo o en parte, no constituyen por ese solo hecho patrimonio familiar inembargable.
 
-### **CAPITULO I**
+ARTICULO 258. MUERTE DEL TRABAJADOR. El auxilio de cesantía en caso de muerte del trabajador no excluye el seguro de vida obligatorio y cuando aquél no exceda del equivalente a cincuenta (50) veces el salario mínimo mensual más alto, se pagara directamente por el {empleador} de acuerdo con el procedimiento establecido en el artículo 212 del Código Sustantivo del Trabajo.
 
-**INTRODUCCION**
+(Modificado por el Art. 11 de la Ley 11 de 1984)
 
-Regla general.
+## TITULO IX.
 
-**Artículo 264.** 1. Los patronos o empresas que se determinan en el presente Título deben pagar a los trabajadores, además de las prestaciones comunes, las especiales que aquí se establecen y conforme a la reglamentación de cada una de ellas en su respectivo Capítulo. .
+PRESTACIONES PATRONALES ESPECIALES.
 
-- 2. Las pensiones de jubilación, el auxilio de invalidez y el seguro de vida colectivo obligatorio dejarán de estar a cargo de los patrones cuando el riesgo correspondiente sea asumido por el Instituto Colombiano de Seguros Sociales, de acuerdo con la Ley y dentro de los reglamentos que dicte el mismo Instituto.
+## CAPITULO I.
 
-### **CAPITULO II**
+INTRODUCCION.
 
-**PENSION DE JUBILACIÓN**
+ARTICULO 259. REGLA GENERAL.
 
-Derecho a la pensión.
+Los {empleadores} o empresas que se determinan en el presente Título deben pagar a los trabajadores, además de las prestaciones comunes, las especiales que aquí se establecen y conforme a la reglamentación de cada una de ellas en su respectivo capítulo. Las pensiones de jubilación, el auxilio de invalidez y el seguro de vida colectivo obligatorio dejaran de estar a cargo de los {empleadores} cuando el riesgo correspondiente sea asumido por el Instituto de los Seguros Sociales, de acuerdo con la ley y dentro de los reglamentos que dicte el mismo Instituto.
 
-**Artículo 265.** 1. Todo trabajador que preste servicios a una misma empresa de capital de ochocientos mil pesos ($ 800.000) o superior, que llegue o haya llegado a los cincuenta y cinco (55) años de edad, si es varón, o a los cincuenta (50) años si es mujer, después de veinte (20) años de servicios continuos o discontinuos, anteriores o posteriores a la vigencia de este Código, y que carezca de medios suficientes para su congrua subsistencia, tiene derecho a una pensión mensual vitalicia de jubilación o pensión de vejez.
+## CAPITULO II.
 
-- 2. El trabajador que se retire o sea retirado del servicio sin haber cumplido la edad expresada tiene derecho a la pensión al llegar a dicha edad, siempre que haya cumplido el requisito de los veinte (20) años de servicios.
+PENSION DE JUBILACION.
 
-Congrua subsistencia.
+ARTICULO 260. DERECHO A LA PENSION. . El texto derogado continuo vigente para los trabajadores sometidos al régimen de transición creado por el artículo 36 de la Ley 100.
 
-**Artículo 266.** 1. Se entiende que el trabajador dispone de medios suficientes para su congrua subsistencia cuando deriva o llega a derivar renta de su propio peculio o por su propia actividad en cuantía igual o mayor a la de la pensión de jubilación que le corresponda o llegara a corresponderle. En estos casos el trabajador no tiene derecho a la pensión o puede suspenderse su pago hasta cuando se demuestre que los motivos de la suspensión han desaparecido
+Todo trabajador que preste servicios a una misma empresa de capital de ochocientos mil pesos ($ 800.000) o superior, que llegue o haya llegado a los cincuenta y cinco (55) años de edad, si es varón, o a los cincuenta (50) años si es mujer, después de veinte (20) años de servicios continuos o discontinuos, anteriores o posteriores a la vigencia de este Código, tiene derecho a una pensión mensual vitalicia de jubilación o pensión de vejez, equivalente al setenta y cinco por ciento (75%) del promedio de los salarios devengados en el último año de servicio. (Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-862-06) El trabajador que se retire o sea retirado del servicio sin haber cumplido la edad expresada tiene derecho a la pensión al llegar a dicha edad, siempre que haya cumplido el requisito de los veinte (20) años de servicio.
 
-- 2. No se toma en cuenta para los efectos de este Artículo el solo uso o goce de la casa propia del trabajador.
+(Numeral 2 declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-862-06) (Derogado por el Art. 289 de la Ley 100 de 1993)
 
-Congelación del salario base.
+ARTICULO 261. CONGELACION DEL SALARIO BASE.
 
-**Artículo 267.** Si después de veinte (20) años de servicios continuos o discontinuos, se mantiene, prorroga o renueva el respectivo contrato de trabajo, las modificaciones que tenga el salario durante el periodo posterior no se toman en cuenta para el cómputo de la pensión de jubilación, sino solamente para efectos de la liquidación de la cesantía correspondiente
+Se entiende que el trabajador dispone de medios suficientes para su congrua subsistencia cuando deriva o llega a derivar renta de su propio peculio o por su propia actividad en cuantía igual o mayor a la de la pensión de jubilación que le corresponda o llegara a corresponderle. En estos casos el trabajador no tiene derecho a la pensión o puede suspenderse su pago hasta cuando se demuestre que los motivos de la suspensión han desaparecido.
 
-Valor.
+No se toma en cuenta para los efectos de este artículo el solo uso o goce de la casa propia del trabajador.
 
-**Artículo 268.** 1. La pensión de jubilación o vejez consiste en un porcentaje del promedio mensual del salario devengado por el trabajador en los seis (6) últimos años, de acuerdo con la siguiente tabla:
+(Derogado por el Art. 289 de la Ley 100 de 1993) (Derogado por el Art. 14 de la Ley 171 de 1961)
 
-Tabla para liquidar la pensión de jubilación o vejez.
+ARTICULO 262. DESDE CUANDO SE DEBE. Si después de veinte (20) años de servicios continuos o discontinuos, se mantiene prórroga o renueva el respectivo contrato de trabajo, las modificaciones que tenga el salario durante el período posterior no se toman en cuenta para el cómputo de la pensión de jubilación, sino solamente para efectos de la liquidación de la cesantía correspondiente.
 
-A un salario promedio mensual hasta de $ 100 corresponde el 85% como pensión mensual.
+(Derogado por el Art. 14 de la Ley 171 de 1961)
 
-A un salario promedio mensual excedente de $ 100 hasta $ 300, corresponde el 80% como pensión mensual.
+ARTICULO 263. PROCEDIMIENTO. Las empresas obligadas a pagar jubilación deben señalar en reglamento especial el procedimiento para obtener el reconocimiento de la pensión y las condiciones exigidas por este Código para tener derecho a ella.
 
-A un salario promedio mensual excedente de $ 300 hasta $ 500, corresponde el 70% como pensión mensual.
+ARTICULO 264. ARCHIVOS DE LAS EMPRESAS.
 
-A un salario promedio mensual excedente de $ 500 hasta $ 800, corresponde el 60% como pensión mensual.
+Las empresas obligadas al pago de la jubilación deben conservar en sus archivos los datos que permitan establecer de manera precisa el tiempo de servicio de sus trabajadores y los salarios devengados.
 
-A un salario promedio mensual excedente de $ 800 hasta $ 1.000, corresponde el 55% como pensión mensual.
+Cuando los archivos hayan desaparecido o cuando no sea posible probar con ellos el tiempo de servicio o el salario, es admisible para aprobarlos cualquiera otra prueba reconocida por la ley, la que debe producirse ante el juez del Trabajo competente, a solicitud escrita del interesado y con intervención de la empresa respectiva.
 
-A un salarial promedio mensual excedente de $ 1.000 hasta $ 1.500, corresponde el 45% como pensión mensual.
+ARTICULO 265. PRUEBA DE LA SUPERVIVENCIA. La empresa puede exigir, para hacer el pago de la pensión, la presentación personal del jubilado, a menos que se halle imposibilitado por enfermedad debidamente comprobada, o que se encuentre en lugar distinto del domicilio de la empresa, en cuyo caso puede exigir previamente que se compruebe la supervivencia del jubilado, acreditada por un certificado del Alcalde del Municipio donde resida.
 
-A un salario promedio mensual excedente de $ 1.500 corresponde el 35% como pensión mensual.
+ARTICULO 266. CONCURRENCIA DE JUBILACIÓN Y CESANTÍA. La pensión de jubilación y el auxilio de cesantía son compatibles. En consecuencia, el derecho a disfrutar de la pensión de jubilación, cuando se cumplan los requisitos para la prestación, no excluye el derecho del trabajador a que se le pague el auxilio de cesantía por el tiempo servido.
 
-- 2. La pensión mensual vitalicia de jubilación o vejez no podrá en ningún caso ser inferior a sesenta pesos ($ 60) ni exceder de seiscientos pesos ($600).
+(Modificado por el Art. 20 del Decreto 2351 de 1965)
 
-Desde cuándo se debe.
+ARTICULO 267. PENSION-SANCION.
 
-**Artículo 269.** La pensión vitalicia de jubilación se debe desde la fecha en que el trabajador la solicite, siempre que en esa fecha reúna los requisitos del Artículo 265. Si la solicitud la hace cuando esté al servicio de la empresa sólo se deberá la pensión desde el día de su retiro.
+El trabajador no afiliado al Sistema General de Pensiones por omisión del empleador, que sin justa causa sea despedido después de haber laborado para el mismo empleador durante diez (10) años o más y menos de quince (15) años, continuos o discontinuos, anteriores o posteriores a la vigencia de la presente ley, tendrá derecho a que dicho empleador lo pensione desde la fecha de su despido, si para entonces tiene cumplidos sesenta (60) años de edad si es hombre, o cincuenta y cinco (55) años de edad si es mujer, o desde la fecha en que cumpla esa edad con posterioridad al despido.
 
-Procedimiento.
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-372-98) Si el retiro se produce por despido sin justa causa después de quince (15) años de servicios, la pensión se pagará cuando el trabajador despedido cumpla cincuenta y cinco (55) años de edad si es hombre, o cincuenta (50) años de edad si es mujer, o desde la fecha del despido, si ya los hubiere cumplido.
 
-**Artículo 270.** Las empresas obligadas a pagar jubilación deben señalar en reglamento especial el procedimiento para obtener el reconocimiento de la pensión, las condiciones exigidas por este Código para tener derecho a ella y la tabla que en este mismo estatuto se fija para determinar su monto.
+La cuantía de la pensión será directamente proporcional al tiempo de servicios respecto de la que le habría correspondido al trabajador en caso de reunir todos los requisitos para acceder a la pensión de vejez en el régimen de prima media con presentación definida y se liquidará con base en el promedio devengado en los últimos diez (10) años de servicios, actualizado con base en la variación del índice de precios al consumidor certificada por el DANE.
 
-Archivos de las empresas.
+PARAGRAFO 1. Lo dispuesto en el presente artículo se aplicará exclusivamente a los servidores públicos que tengan la calidad de trabajadores oficiales y a los trabajadores del sector privado.
 
-**Artículo 271.** 1. Las empresas obligadas al pago de la jubilación deben conservar en sus archivos los datos que permitan establecer de manera precisa el tiempo de servicio de sus trabajadores, y los salarios devengados.
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-372-98)
 
-- 2. Cuando los archivos hayan desaparecido o cuando no sea posible probar con ellos el tiempo de servicio o el salario, es admisible para probarlos cualquiera otra prueba reconocida por la Ley, la que debe producirse ante el Juez del Trabajo competente, a solicitud escrita del interesado y con intervención de la empresa respectiva.
+PARAGRAFO 2. Las pensiones de que trata el siguiente artículo podrán ser conmutadas con el Instituto de Seguros Sociales.
 
-Prueba de la supervivencia.
+PARAGRAFO 3. A partir del 1. de enero del año 2014 las edades a que se refiere el presente artículo, se reajustarán a sesenta y dos (62) años si es hombre y cincuenta y siete (57) años si es mujer, cuando el despido se produce después de haber laborado para el mismo empleador durante diez (10) años o más y menos de quince (15) años, y a sesenta (60) años si es hombre y cincuenta y cinco (55) años si es mujer, cuando el despido se produce después de quince (15) años de dichos servicios.
 
-**Artículo 272.** La empresa puede exigir, para hacer el pago de la pensión, la presentación personal. del jubilado, a menos que se halle imposibilitado por enfermedad debidamente comprobada, o que se encuentre en lugar distinto del domicilio de la empresa, en cuyo caso puede exigirse previamente que se compruebe la supervivencia del jubilado, acreditada por un certificado del Alcalde del Municipio donde resida.
+(Parágrafo 3 declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-410-94) (Parágrafo 3 declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-126-95) (Modificado por el Art. 133 de la Ley 100 de 1993) (Subrogado por el Art. 37 de la Ley 50 de 1990) (Derogado por el Art. 14 de la Ley 171 de 1961)
 
-Incompatibilidad con trabajos remunerados.
+ARTICULO 268. FERROVIARIOS. Lo dispuesto en este Capítulo no se aplica a los trabajadores ferroviarios que en cuanto a jubilación se regirán por el estatuto especial que posteriormente se dicte. Mientras tanto, continúan rigiendo las disposiciones vigentes en la actualidad. (Derogado por el Art. 289 de la Ley 100 de 1993)
 
-**Artículo 273.** El pago de la pensión de jubilación es incompatible con la prestación de servicios personales a otro patrono y con el desempeño de empleos o cargos públicos remunerados. Si no obstante, se presta el servicio, el pago de la pensión debe suspenderse por todo el tiempo que ese nuevo trabajo dure. .
+ARTICULO 269. RADIOPERADORES
 
-Concurrencia con cesantía.
+Los Operadores de radio, de cable y similares que presten servicios a los patronos de que trata este Capítulo, tienen derecho a la pensión de jubilación, aquí regulada, después de veinte (20) años continuos o discontinuos de trabajo, cualquiera que sea su edad. La calidad de similares de que trata el numeral 1 de este artículo, será declarada, en cada caso, por la Oficina Nacional de Medicina e Higiene Industrial del Ministerio del Trabajo.
 
-**Artículo 274.** 1. La pensión de jubilación y la cesantía de períodos consolidados no son incompatibles.
+(Derogado por el Art. 289 de la Ley 100 de 1993)
 
-- 2. Cuando se haya hecho anticipos, liquidaciones parciales o préstamos, que correspondan a períodos no consolidados, en el momento del retiro del trabajador, éste debe devolver la suma recibida por esos conceptos en cuotas mensuales equivalentes al veinte por ciento (20%) de cada pensión mensual.
+ARTICULO 270. OTRAS EXCEPCIONES. Lo dispuesto en el artículo anterior se aplica a los aviadores de empresas comerciales, a los trabajadores de empresas mineras que presten sus servicios en socavones, y a los dedicados a labores que realicen a temperaturas anormales. (Derogado por el Art. 289 de la Ley 100 de 1993)
 
-Pensión después de quince (15) años de servicio.
+ARTICULO 271. PENSION CON QUINCE (15) AÑOS DE SERVICIO Y CINCUENTA (50) AÑOS DE EDAD. Los trabajadores que hayan servido no menos de quince (15) años continuos en las actividades indicadas en los dos artículos anteriores, tienen derecho a la jubilación al llegar a los cincuenta (50) años de edad, siempre que en esa fecha se encuentren al servicio de la respectiva empresa.
 
-**Artículo 275.** 1. Todo trabajador comprendido por este Capítulo que sea despedido sin justa causa después de quince (15) años de servicios continuos o discontinuos, anteriores o posteriores a la vigencia de este Código, tiene derecho a que su patrono le pague una pensión mensual vitalicia equivalente al setenta y cinco por ciento (75%) de la pensión de jubilación que le hubiere correspondido en caso de reunir todos los requisitos para gozar de esta última.
+(Derogado por el Art. 289 de la Ley 100 de 1993)
 
-- 2. Esta pensión especial principia a pagarse cuando el trabajador despedido llegue a los cincuenta (50) años de edad, pero su derecho a ella debe reclamarlo dentro del término de un (1) año contado a partir del despido
+ARTICULO 272. EXCEPCION ESPECIAL.
 
-Ferroviarios.
+Los profesionales y ayudantes de establecimientos particulares dedicados al tratamiento de la tuberculosis tienen derecho a la pensión de jubilación cumplir quince (15) años de servicios continuos, cualquiera que sea su edad.
 
-**Artículo 276.** Lo dispuesto en este Capítulo no se aplica a los trabajadores ferroviarios que en cuanto a jubilación se regirán por el estatuto especial que posteriormente se dicte. Mientras tanto, continúan rigiendo las disposiciones vigentes en la .actualidad.
+Si el servicio ha sido discontinuo la pensión se reconoce después de haber completado veinte (20) años de servicio y cincuenta (50) años de edad.
 
-Trabajadores bancarios.
+(Derogado por el Art. 289 de la Ley 100 de 1993)
 
-**Artículo 277.** Los servicios prestados a distintas empresas bancarias se acumularán para el cómputo del tiempo en relación con la jubilación en dichas empresas, y el pago de la pensión correspondiente se distribuirá entre éstas en proporción al tiempo servido y al salario o remuneración devengados en cada una.
+ARTICULO 273. NOCION DE CONTINUIDAD. La continuidad o discontinuidad a que aluden los artículos 269, 270, 271 y 272, no se refiere al contrato de trabajo si no a la actividad o profesión de que se trate.
 
-Radiooperadores.
+(Derogado la Ley 100 de 1993)
 
-**Artículo 278.** Los radiooperadores que presten servicios a los patronos de que trata este Capítulo tienen derecho a la pensión de jubilación aquí regulada, después de veinte (20) años continuos o discontinuos de trabajo, cualquiera que sea su edad, pero los servicios en dicho lapso deben haber sido prestados en la actividad de operador de radio exclusivamente
+ARTICULO 274. SUSPENSION Y RETENCION. El pago de la pensión puede suspenderse, y retenerse las sumas que correspondan, en los casos de delitos contra el {empleador} o contra los directores o trabajadores del establecimiento, por causa o con ocasión del trabajo, así como en los casos de graves daños causados al {empleador}, establecimiento o empresa, hasta que la justicia decida sobre la indemnización que el trabajador debe pagar, a la cual se le aplicará en primer término el valor de las pensiones causadas y que se causen, hasta su cancelación total. (Declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-247-01)
 
-Otras excepciones.
+ARTICULO 275. PENSION EN CASO DE MUERTE.
 
-**Artículo 279.** Lo dispuesto en el Artículo anterior se aplica a los aviadores de empresas comerciales, a los trabajadores de empresas mineras de socavón, y a los dedicados a labores que requieran altas temperaturas, como trabajadores de calderas, fundidores y trabajadores de soldadura tanto eléctrica como autógena.
+Fallecido un trabajador jubilado, su cónyuge y sus hijos menores de diez y ocho (18) años tendrán derecho a recibir la mitad de la respectiva pensión durante dos (2) años contados desde la fecha del fallecimiento, cuando el trabajador haya adquirido el derecho dentro de las normas de este Código, lo esté disfrutando en el momento de la muerte, y siempre que aquellas personas no dispongan de medios suficientes para su congrua subsistencia.
 
-Pensión con quince (15) años de servicio y cincuenta (50) años de edad.
+Esta pensión se distribuye así : en concurrencia de viuda con hijos, la primera recibe una mitad y los segundos la otra mitad; si hay hijos naturales, cada uno de éstos lleva la mitad de la cuota de uno legítimo; a falta de hijos todo corresponde al cónyuge, y en defecto de éste, todo corresponde a los hijos.
 
-##### **Artículo 280.** Los trabajadores que hayan servido no menos de quince (15) años continuos en las actividades indicadas en los dos artículos anteriores, tienen derecho a la jubilación al llegar a los cincuenta (50) años de edad, siempre que en esa fecha se encuentran al servicio de la respectiva empresa.
+A falta de cónyuge y de hijos, tienen derecho por mitades, a la pensión de que trata este artículo, los padres o los hermanos inválidos o las hermanas solteras del fallecido, siempre que no disfruten de medios suficientes para su congrua subsistencia y hayan dependido exclusivamente del jubilado.
 
-**Artículo 281.** 1. Los profesionales y ayudantes de establecimientos particulares dedicados al tratamiento de la tuberculosis tienen derecho a la pensión de jubilación al cumplir quince (15) años de servicios continuos, cualquiera que sea su edad.
+La cuota del grupo que falte pasa al otro, y el beneficiario único de un grupo lleva todo lo de éste.
 
-- 2. Si el servicio ha sido discontinuo la pensión se reconoce después de haber completado veinte (20) años de servicio y cincuenta (50) años de edad.
+Los beneficiarios de que trata este artículo gozarán de este derecho con la sola comprobación del parentesco mediante las copias de las respectivas partidas civiles o eclesiásticas y la prueba sumaria de que llenan los demás requisitos.
 
-Noción de continuidad.
+(Subrogado por La ley 100 de 1993) (Modificado por la Ley 171 de 1961)
 
-**Artículo 282.** La continuidad o discontinuidad a que aluden los artículos 278, 279, 280 y 281, no se refiere al contrato de trabajo sino a la actividad o profesión de que se trate.
+ARTICULO 276. SEGUROS. Autorizase a las empresas obligadas al pago de la jubilación de que trata este Capítulo para que contraten el pago de las pensiones de jubilación con compañías aseguradoras de reconocida solvencia, establecidas en el país y aceptadas por la Superintendencia Bancaria, pero la responsabilidad de esta obligación queda, en todo caso a cargo del respectivo {empleador}.
 
-Suspensión y retención.
+## CAPITULO III.
 
-**Artículo 283.** El pago de la pensión puede suspenderse, y retenerse las sumas que correspondan, en los casos de delitos contra el patrono o contra los directores o trabajadores del establecimiento, por causa o con ocasión del trabajo, así como en los casos de graves daños causados al patrono, establecimiento o empresa, hasta que la justicia decida sobre la indemnización que el trabajador debe pagar, a. la cual se aplicará en primer término el valor de las pensiones causadas y que se causen, hasta su cancelación total.
+AUXILIO POR ENFERMEDAD NO PROFESIONAL E INVALIDEZ.
 
-Pensión en caso de muerte.
+ARTICULO 277. DERECHO AL AUXILIO POR ENFERMEDAD NO PROFESIONAL. Todo trabajador que preste servicios a una empresa de capital de (800.000) o superior, que sufra una incapacidad para desempeñar sus labores por causa de enfermedad no profesional, tendrá derecho, además del auxilio monetario establecido en el artículo 227, a la asistencia médica, farmacéutica, quirúrgica y hospitalaria necesaria, hasta por seis (6) meses.
 
-**Artículo 284.** 1. La viuda y los hijos menores de diez y ocho (18) años de los jubilados que fallezcan tienen derecho a recibir la mitad de la respectiva pensión durante dos (2) años, contados desde la fecha del fallecimiento, cuando el trabajador haya adquirido el derecho dentro de las normas de este Código, lo esté disfrutando en el momento de la muerte, y siempre que aquellas personas no dispongan de medios suficientes para su congrua subsistencia.
+(Subrogado por La ley 100 de 1993)
 
-- 2. Esta pensión se distribuye así: en concurrencia de viuda con hijos, la primera recibe una mitad y los segundos la otra mitad; si hay hijos naturales, cada uno de éstos empresa de transportes de cualquier clase, sea cual fuere lleva la mitad de la cuota de uno legítimo; a falta de hijos todo corresponde a la viuda, y en defecto de ésta todo corresponde a los hijos.
+ARTICULO 278. AUXILIO DE INVALIDEZ.
 
-- 3. A falta de viuda y de huérfanos, tienen derecho por mitades, a la pensión de que trata este artículo, los padres o los hermanos inválidos o las hermanas solteras del fallecido, siempre que no disfruten de medios suficientes para su congrua subsistencia y hayan dependido exclusivamente del jubilado.
+Si como consecuencia de la enfermedad no profesional o por lesión distinta de accidente de trabajo o por debilitamiento de las condiciones físicas o intelectuales, no provocados intencionalmente le sobrevine al trabajador una invalidez que lo incapacite para procurarse una remuneración mayor de un tercio de la que estuviere devengado, tendrá derecho, además, a las siguientes presentaciones en dinero: a). En caso de invalidez permanente parcial, a una suma de uno (1) a diez (10) meses de salario que graduará el médico al calificar la invalidez; b). En caso de invalidez permanente total, tendrá derecho a una pensión mensual de invalidez equivalente a la mitad del salario promedio mensual del último año, hasta por treinta meses (30) meses y mientras la invalidez subsista.
 
-- 4. La cuota del grupo que falte pasa al otro, y el beneficiario único de un grupo lleva todo lo de éste.
+c). En caso de gran invalidez, el trabajador tendrá derecho, a una pensión mensual de invalidez equivalente a la de jubilación o vejez, durante treinta (30) meses.
 
-- 5. Los beneficiarios de que trata este Artículo gozarán de este derecho con la sola comprobación del parentesco mediante las copias de las respectivas partidas civiles o eclesiásticas y la prueba sumaria de que llenan los demás requisitos.
+Si el trabajador tuviere más de cincuenta y cinco (55) años de edad o los cumpliere durante la invalidez y tuviere más de quince (15) años de servicios continuos o discontinuos en la misma empresa, la pensión de invalidez se convertirá en pensión de jubilación o vejez. (Subrogado por La ley 100 de 1993)
 
-Seguros.
+ARTICULO 279. VALOR DE LA PENSION. El monto mensual de la pensión de vejez, correspondiente a las primeras 1000 semanas de cotización, será equivalente al 65% del ingreso base de liquidación. Por cada 50 semanas adicionales a las 1000 hasta las 1200 semanas, este porcentaje se incrementará en un 2%, llegando a este tiempo de cotización al 73% del ingreso base de liquidación. Por cada 50 semanas adicionales a las 1200 hasta las 1400, este porcentaje se incrementará en 3% en lugar del 2%, hasta completar un monto máximo del 85% del ingreso base de liquidación.
 
-**Artículo 285.** Autorizase a las empresas obligadas al pago de la jubilación de que trata este Capítulo para que contraten el pago de las pensiones de jubilación con compañías aseguradoras de reconocida solvencia, establecidas en el país y aceptadas por la Superintendencia Bancaria, pero la responsabilidad de esta obligación queda, en todo caso, a cargo del respectivo patrono.
+El valor total de la pensión no podrá ser superior al 85% del ingreso base de liquidación, ni inferior a la pensión mínima de que trata el artículo siguiente.
 
-### **CAPITULO III**
+(Modificado por el Art. 34 de la Ley 100 de 1993) (Modificado por la Ley 171 de 1961)
 
-**AUXILIO DE INVALIDEZ**
+ARTICULO 280. DECLARATORIA Y CALIFICACION. Para la declaratoria de invalidez y su calificación se procede en la misma forma que para los casos de enfermedades profesionales en lo pertinente.
 
-Derecho al auxilio.
+(Subrogado por La ley 100 de 1993)
 
-**Artículo 286.** Todo trabajador que preste servicios a una misma empresa de capital de ochocientos mil pesos ($ 800.000) o superior, durante quince (15) años o más, continuos o discontinuos anteriores o posteriores a la vigencia de este Código, que sea declarado inválido, tiene derecho a un auxilio de invalidez según las disposiciones siguientes, siempre que los tres (3) últimos años de servicio sean continuos.
+ARTICULO 281. PAGO DE LA PENSION.
 
-Definición.
+La pensión de invalidez se paga provisionalmente durante el primer año de incapacidad, pudiendo examinarse periódicamente al inválido con el fin de descubrir las incapacidades en evolución, evitar la simulación y controlar su permanencia. Vencido ese año se practicará examen médico y cesará la pensión si el inválido ha recuperado más de la tercera parte de su primitiva capacidad de ganancia.
 
-**Artículo 287.** Se entiende por inválido, para los efectos del auxilio consagrado en el Artículo anterior, el trabajador que por enfermedad no profesional o por lesión distinta de accidente de trabajo o por debilitamiento de las condiciones físicas o intelectuales, no provocados intencionalmente, se encuentre incapacitado para procurarse una remuneración mayor de un tercio (1/3) de la que estuviere devengando al sobrevenirle la invalidez.
+Sin embargo, puede cancelarse la pensión en cualquier tiempo en que se demuestre que el inválido ha recuperado más de la tercera parte de su primitiva capacidad de ganancia.
 
-Clasificación.
+(Subrogado por La ley 100 de 1993)
 
-**Artículo 288.** La invalidez puede ser temporal o permanente, como en los casos de accidente de trabajo y enfermedad profesional, según los cuatro (4) primeros ordinales del Artículo 205.
+ARTICULO 282. TRATAMIENTO OBLIGATORIO.
 
-Prestaciones.
+Es obligatorio para el trabajador el tratamiento médico prescrito, especialmente el quirúrgico, cuando de acuerdo con la apreciación médica conduzca a la curación.
 
-**Artículo 289.** 1. El auxilio de Invalidez consiste:
+La renuncia injustificada a cumplir con las prescripciones médicas priva del auxilio correspondiente.
 
-- 1. En asistencia médica, farmacéutica, quirúrgica y hospitalaria, en la forma prevista en el ordinal 1 del Artículo 206.
+(Subrogado por La ley 100 de 1993)
 
-- 2. Además, en las siguientes prestaciones en dinero, según el caso:
+ARTICULO 283. RECUPERACION O REEDUCACION.
 
-- a) En caso de invalidez temporal, dos terceras (2/3) partes del salario ordinario mientras dure esa incapacidad y hasta por seis (6) meses
+La empresa puede procurar la recuperación o reeducación de sus trabajadores inválidos, a su costo, a fin de habilitarlos para desempeñar oficios compatibles con su categoría anterior en la misma empresa, con su estado de salud y con sus fuerzas y aptitudes y para obtener una remuneración igual a la de ocupaciones semejantes en la misma empresa o en la región.
 
-- b) En caso de invalidez permanente parcial, una suma de uno a diez (1 a 10) meses de salario, que graduará el médico al calificar la invalidez.
+El suministro de aparato de ortopedia y prótesis sólo es obligatorio cuando conduzca, según dictamen médico, a la recuperación o reeducación total o parcial del trabajador.
 
-- c) En caso de invalidez permanente total, sin que el trabajador haya llegado a los cincuenta (50) años de edad, tendrá derecho a una pensión mensual de invalidez equivalente a la mitad del salario promedio mensual del último año, hasta por treinta (30) meses y mientras la invalidez subsista.
+Si lograda la recuperación o reeducación, según dictamen médico, el interesado se niega a trabajar en la empresa, en las condiciones establecidas en el inciso 1o., o si se opone a la recuperación o reeducación, se extingue el derecho al auxilio de invalidez. (Subrogado por La ley 100 de 1993)
 
-- d) En caso de gran invalidez, el trabajador tiene derecho a una pensión mensual de invalidez equivalente a la de jubilación o vejez, cualquiera que sea su edad, durante treinta (30) meses. Si cumpliere cincuenta y cinco (55) años de edad dentro de este tiempo, la pensión se convertirá en pensión de jubilación o vejez.
+ARTICULO 284. IMCOMPATIBILIDAD CON EL AUXILIO POR ENFERMEDAD. Al declararse por el médico el estado de invalidez, cesan las prestaciones por enfermedad y empezarán a pagarse las correspondientes al auxilio de invalidez.
 
-- 2. Si al sobrevenir la invalidez hubiere llegado o pasare de los cincuenta (50) años de edad, la pensión mensual de invalidez será igual a la de jubilación o vejez, cualquiera que sea su edad, durante treinta (30) meses. Si cumpliere cincuenta y cinco (55) años de edad, dentro de este tiempo, la pensión se convertirá en pensión de jubilación o vejez.
+(Subrogado por La ley 100 de 1993)
 
-Valor de la pensión.
+## CAPITULO IV.
 
-**Artículo 290.** La pensión mensual de invalidez no podrá en ningún caso ser inferior a sesenta pesos ($ 60) ni exceder de seiscientos pesos ($ 600).
+ESCUELAS Y ESPECIALIZACION.
 
-Declaratoria y calificación.
+ARTICULO 285. ESCUELAS PRIMARIAS. Las empresas de capital de ochocientos mil pesos (800.000) o superior, están obligadas a establecer y sostener escuelas primarias para los hijos de sus trabajadores cuando los lugares de los trabajos estén situados a más de dos (2) kilómetros de las poblaciones en donde funcionen las escuelas oficiales y siempre que en dichos sitios hayan al menos veinte (20) de esos niños en edad escolar.
 
-**Artículo 291.** Para la declaratoria de invalidez y su calificación se procede en la misma forma que para los casos de enfermedades profesionales en lo pertinente.
+ARTICULO 286. ESTUDIOS DE ESPECIALIZACION TECNICA. Las empresas de que trata el artículo anterior están obligadas a costear permanentemente estudios de especialización técnica relacionados con su actividad característica, en establecimientos nacionales o extranjeros, a sus trabajadores o a los hijos de éstos a razón de uno por cada quinientos (500) trabajadores o fracción superior a doscientos cincuenta (250).
 
-Pago de la pensión.
+ARTICULO 287. ESCUELAS DE ALFABETIZACION. Toda empresa está obligada a establecer y sostener una escuela de alfabetización por cada cuarenta (40) niños, hijos de sus trabajadores.
 
-**Artículo 292.** 1. La pensión de invalidez se paga provisionalmente durante el primer año de incapacidad, pudiendo examinarse periódicamente al inválido con el fin de descubrir las incapacidades en evolución, evitar la simulación y controlar su permanencia. Vencido ese año se practicará examen médico y cesará la pensión si el inválido ha recuperado más de la tercera parte de su primitiva capacidad de ganancia.
+ARTICULO 288. REGLAMENTACION. El gobierno dictará las medidas necesarias para el cumplimiento de las disposiciones del presente Capítulo.
 
-2 Sin embargo, puede cancelarse la pensión en cualquier tiempo en que se demuestre que el inválido ha recuperado más de la tercera parte de su primitiva capacidad de ganancia.
+## CAPITULO V.
 
-Tratamiento obligatorio.
+SEGURO DE VIDA COLECTIVO OBLIGATORIO.
 
-**Artículo 293.** 1. Es obligatorio para el inválido el tratamiento prescrito, especialmente el quirúrgico, cuando de acuerdo con la apreciación médica conduzca a la curación.
+ARTICULO 289. EMPRESAS OBLIGADAS. Toda empresa de carácter permanente debe efectuar a su cargo el seguro de vida colectivo de todos sus trabajadores, excepto de los ocasionales o transitorios, y cubrir el riesgo de la muerte sea cualquiera la causa que la produzca. (Derogado según lo dispuesto por la Corte Constitucional en la Sentencia C-823-06)
 
-- 2. La renuencia injustificada a cumplir con las prescripciones médicas priva del auxilio de invalidez.
+ARTICULO 290. NOMINA. Para los efectos del artículo anterior, se toma en cuenta el promedio mensual de la nómina de salarios en el año anterior al fallecimiento del trabajador, y en caso de lapso menor de actividades de la empresa, el promedio mensual de salarios en ese tiempo. (Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-Recuperación o reeducación.
+ARTICULO 291. CARACTER PERMANENTE. Se entiende que una empresa tiene carácter permanente cuando su finalidad es la de desarrollar actividades estables o de larga duración, cuando menos por un tiempo no inferior a un (1) año.
 
-**Artículo 294.** 1. La empresa puede procurar la recuperación o reeducación de sus trabajadores inválidos, a su costo, a fin de habilitarlos para desempeñar oficios compatibles con su categoría anterior en la misma empresa, con su estado de salud y con sus fuerzas y aptitudes y para obtener una remuneración igual a la de ocupaciones semejantes en la misma empresa o en la región.
+(Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-- 2. El suministro de aparato de ortopedia y prótesis sólo es obligatorio cuando conduzca, según dictamen médico, a la recuperación o reeducación total o parcial del trabajador.
+ARTICULO 292. VALOR. Los {empleadores} obligados al pago del seguro de vida de sus trabajadores, de acuerdo con las disposiciones legales vigentes, mientras el instituto de Seguros Sociales asume este riesgo, pagarán por este concepto a los beneficiarios del asegurado: a). Un (1) mes de salario por cada año de servicios, continuos o discontinuos, liquidado en la misma forma que el auxilio de cesantía, sin que el valor del seguro sea inferior a doce (12) meses del salario, ni exceda de cien (100) veces el salario mínimo mensual más alto, b). Si la muerte del trabajador ocurre por causa de accidente de trabajo o de enfermedad profesional, el valor del seguro será el doble de lo previsto en el literal anterior, pero sin exceder de doscientas (200) veces el salario mínimo mensual más alto.
 
-- 3. Si lograda la recuperación o reeducación, según dictamen médico, el interesado se niega a trabajar en la empresa, en las condiciones establecidas en el inciso 1, o si se opone a la recuperación o reeducación, se extingue el derecho al auxilio de invalidez.
+(Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06) (Modificado por el Art. 13 de la Ley 11 de 1984) (Modificado por el artículo 22 de Decreto 2351 de 1965)
 
-Incompatibilidad con el auxilio por enfermedad.
+ARTICULO 293. BENEFICIARIOS.
 
-**Artículo 295.** Al declararse por el médico el estado de invalidez, cesan las prestaciones por enfermedad y empezarán a pagarse las correspondientes al auxilio de invalidez.
+Son beneficiarios forzosos del seguro de vida el cónyuge, los hijos legítimos y naturales, y los padres legítimos o naturales del trabajador fallecido, en el orden y proporción establecidos en el ordinal e) del artículo204.
 
-Incompatibilidad con cesantía y jubilación.
+Si no concurriere ninguno de los beneficiarios forzosos, el seguro se pagará al beneficiario o beneficiarios que el trabajador haya designado, y, en su defecto, a quien probare que dependía económicamente del trabajador fallecido, si además fuere menor de dieciocho (18) años o estuviere incapacitado en forma permanente para trabajar. Si hubiere varias personas en estas circunstancias, la indemnización se dividirá entre ellas, por partes iguales. A falta de cualquiera de las personas antes indicadas, el seguro se pagará a quien corresponda conforme a las reglas de la sucesión intestada establecidas en el Código Civil. (Libro III, Título II del Código Civil).
 
-**Artículo 296.** La pensión de invalidez excluye la cesantía de periodos no consolidados y la pensión de jubilación.
+(Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06) (Modificado por el Art. 11 del Decreto 617 de 1954)
 
-Congrua subsistencia.
+ARTICULO 294. DEMOSTRACION DEL CARACTER DEL BENEFICIARIO Y PAGO DEL SEGURO. La demostración del carácter de beneficiario y el pago del seguro se harán en la siguiente forma:
 
-**Artículo 297.** El auxilio de invalidez en dinero no se debe cuando el inválido disponga de medios suficientes para su congrua subsistencia, como se prevé para la jubilación en el Artículo 266.
+El carácter de beneficiario del seguro se acreditará mediante la presentación de las copias de las respectivas partidas eclesiásticas o de los registros civiles que acreditan el parentesco, o con las pruebas supletorias que admite la ley, más una información sumaria de testigos que demuestre quiénes son los únicos beneficiarios, declarándolos por su número y nombre y la razón de serlo.
 
-### **CAPITULO IV**
+Si se trata de beneficiarios designados libremente, se acreditará su carácter de tales con la designación que hubiere hecho al asegurado, según el artículo 299, y con una información sumaria de testigos que establezca la inexistencia de beneficiarios forzosos. En el caso de beneficiarios por razón de dependencia económica del asegurado, su edad se acreditará con las copias de las partidas eclesiásticas o civiles o con las pruebas supletorias legales, y su dependencia económica del asegurado fallecido, con una información sumaria de testigos.
 
-**ESCUELAS Y ESPECIALIZACION**
+Establecida la calidad de beneficiario, por cualquiera de los medios indicados en este artículo, la empresa dará un aviso público en el que conste el nombre del trabajador fallecido y el de las personas que se hayan presentado a reclamar el valor del seguro y la calidad en que lo hacen, con el fin de permitir que todo posible beneficiario se presente a reclamar.
 
-Escuelas primarias.
+Este aviso debe darse en uno de los periódicos del domicilio de la empresa por dos (2) veces a lo menos, o en donde no existieren publicaciones periódicas, por medio de una nota dirigida al Alcalde Municipal, quien la dará a conocer por bando en dos (2) días de concurso. Treinta (30) días después de la fecha del segundo aviso sin que dentro de éste término se hubieren presentado otros reclamantes ni controversias sobre derecho al aseguro, la empresa pagará su valor a quienes hayan acreditado se carácter de beneficiarios, quedando exonerada de la obligación.
 
-**Artículo 298.** Las empresas de capital de ochocientos mil pesos ($ 800.000) o superior, están obligadas a establecer y sostener escuelas primarias para los hijos de sus trabajadores cuando los lugares de los trabajos estén situados a más de dos (2) kilómetros de las poblaciones en donde funcionen las escuelas oficiales y siempre que en dichos sitios haya al menos veinte (20) de esos niños en edad escolar.
+En caso de que posteriormente aparecieren otros beneficiarios, quienes hubieren recibido el valor del seguro están obligados a satisfacer a los nuevos beneficiarios las cuotas que les correspondan.
 
-Estudios de especialización técnica.
+(Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-**Artículo 299.** Las empresas de que trata el Artículo anterior están obligadas a costear permanentemente estudio de especialización técnica relacionados con su actividad característica, en establecimientos nacionales o extranjeros, a sus trabajadores o a los hijos de éstos, a razón de uno por cada quinientos (500) trabajadores o fracción superior a doscientos cincuenta (250).
+ARTICULO 295. CONTROVERSIAS ENTRE BENEFICIARIOS. Cuando durante el término del aviso o emplazamiento que la empresa debe efectuar para hacer el pago, según el artículo anterior, se suscitaren controversias acerca del derecho de los reclamantes, promovidas por personas que acrediten ser beneficiarios del seguro, la empresa sólo estará obligada a hacer el pago cuando se le presente en copia debidamente autenticada la sentencia judicial definitiva que haya decidido a quién corresponde el valor del seguro.
 
-Escuelas de alfabetización.
+(Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-**Artículo 300.** Toda empresa está obligada a establecer y sostener una escuela de alfabetización por cada cuarenta (40) niños, hijos de sus trabajadores.
+ARTICULO 296. CAUSAS DE EXCLUSION. No tiene derecho al seguro los descendientes del trabajador, desheredados conforme a la ley civil, ni la viuda que haya dado lugar al divorcio o que antes del pago del seguro haya pasado a otras nupcias.
 
-Reglamentación.
+(Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-**Artículo 301.** El Gobierno dictará las medidas necesarias para el cumplimiento de las disposiciones del presente Capítulo.
+ARTICULO 297. COEXISTENCIA DE SEGUROS. Si el trabajador fallecido figurare como asegurado por dos (2) o más empresas, sin que existan varios contratos de trabajo, sólo aquella en donde prestaba sus servicios al tiempo de la muerte o la última en donde los prestó, está obligada al pago del seguro.
 
-### **CAPITULO V.**
+(Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-**SEGURO DE VIDA COLECTIVO OBLIGATORIO**
+ARTICULO 298. CESACION DEL SEGURO. A la terminación del contrato de trabajo cesa la obligación del seguro, salvo en los casos siguientes: a). Si el contrato termina por el despido injusto o estando afectado el trabajador de enfermedad no profesional, la obligación de reconocer y pagar el seguro se extiende hasta tres (3) meses después de la extinción del contrato, y b). Si termina por accidente de trabajo o estando el trabajador afectado de enfermedad profesional, el seguro se extiende hasta seis (6) meses después de la terminación.
 
-Empresas obligadas.
+(Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-**Artículo 302.** Toda empresa de carácter permanente que tenga una nómina de salario de mil pesos ($ 1.000) mensuales o mayor, debe efectuar a su cargo el seguro de vida colectivo de todos sus trabajadores, excepto de los ocasionales o transitorios, y cubrir el riesgo de la muerte sea cualquiera la causa que la produzca.
+ARTICULO 299. DESIGNACION DE BENEFICIARIOS.
 
-Nómina.
+Cuando su trabajador entre al servicio de una empresa de las obligadas al seguro de vida y tenga derecho a esta prestación, debe indicar por escrito y ante testigos el nombre o los nombres de los beneficiarios forzosos del seguro, según el artículo 293, y en defecto de éstos, el de la persona o personas a quienes designe voluntariamente y la proporción en que los instituye.
 
-**Artículo 303.** Para los efectos del Artículo anterior se toma en cuenta el promedio mensual de la nómina de salarios en el año anterior al fallecimiento del trabajador, y en caso de lapso menor de actividades de la empresa, el promedio mensual de salarios en ese tiempo.
+El asegurado puede cambiar el beneficiario o beneficiarios no forzosos, en cualquier momento, antes de la terminación del contrato de trabajo. (Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-Carácter permanente.
+ARTICULO 300. LA EMPRESA COMO ASEGURADORA.
 
-**Artículo 304.** Se entiende que una empresa tiene carácter permanente cuando su finalidad es la de desarrollar actividades estables o de larga duración, cuando menos por un tiempo no inferior a un (1) año.
+Las empresas que estén obligadas al seguro de vida sus trabajadores pueden asumir el carácter de aseguradoras de todos ellos cuando su capital no sea inferior a cien mil pesos ($100.000) y siempre que obtengan permiso previo del Ministerio del Trabajo. Este permiso sólo se concederá después de una información completa acerca de la capacidad financiera y la seriedad de la empresa y una vez que ésta otorgue caución ante la autoridad administrativa del trabajo y por el monto que el Ministerio del ramo señale, para responder por el pago de los seguros que deban cubrirse. La resolución que concede el permiso se publicará en el Diario Oficial, dentro de los noventa (90) días siguientes, y sólo surte efecto a partir de esa publicación.
 
-Valor.
+Las empresas que estén autorizadas para asumir el carácter de aseguradoras de sus trabajadores, tienen la obligación de permitir a las autoridades del trabajo la revisión de las cuentas relativas al pago de seguros debidos, y, si omiten el pago oportuno de uno de éstos, se les suspenderá la autorización correspondiente, además de la imposición de las sanciones pecuniarias a que haya lugar de acuerdo con este Código, y, en caso necesario, el Ministerio del Trabajo les hará efectiva la caución constituida.
 
-**Artículo 305.** El valor del seguro de cada trabajador es igual a un (1) mes de salario por cada año de servicios, continuos o discontinuos, anteriores o posteriores a la vigencia de este Código, liquidado en la misma forma como se liquida el valor del auxilio de cesantía, sin que sea inferior en ningún caso a doce (12) meses de salario ni superior a veinticuatro (24) meses, ni exceda de doce mil pesos ($ 12.000), salvo en el caso de muerte por accidente de trabajo o enfermedad profesional de que trata el Artículo 216.
+(Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-Beneficiarios.
+ARTICULO 301. SUSTITUCION DE PERMISOS ANTERIORES. Las empresas que al entrar en vigencia este Código tengan autorización para asumir el carácter de asegurados de sus trabajadores, deben presentar solicitud de nuevo permiso dentro de los seis (6) primeros meses de esa vigencia, para poder continuar con tal carácter. Si no formularen esta solicitud, el Ministerio del Trabajo puede declarar cancelado el permiso. (Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-**Artículo 306.** Son beneficiarios forzosos del seguro de vida la viuda y los hijos menores de diez y ocho (18) años del trabajador fallecido, y, a falta de viuda y huérfanos, los padres y los hermanos menores de diez y ocho (18) años, siempre que hubieren dependido exclusivamente de! asegurado, todo de acuerdo con las siguientes reglas:
+ARTICULO 302. SEGUROS EN COMPAÑIAS. Salvo en los casos en que la empresa obligada al seguro esté autorizada para asumirlo directamente, su pago se contratará en una compañía de seguros y a favor de la empresa que esté obligada a esta prestación, pero ocurrida la muerte de uno de los asegurados el valor del seguro se pagará directamente por la empresa al beneficiario o a los beneficiarios, la cual cobrará de la compañía de seguro el valor correspondiente.
 
-- 1. La viuda recibirá una mitad del seguro y los hijos legítimos y naturales, la otra mitad, concurriendo cada uno de estos últimos con la mitad de la cuota de uno legítimo. Si no hubiere viuda, el seguro corresponderá a los hijos, legítimos y naturales, en la proporción indicada. Si no hubiere hijos menores de diez y ocho (18) años, llevará el valor del seguro la viuda.
+(Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-- 2. A falta de viuda e hijos, el seguro se dividirá por partes iguales entre los padres legítimos o naturales y los hermanos legítimos menores de diez y ocho (18) años, siempre que hubieren dependido económicamente y de modo exclusivo del asegurado.
+ARTICULO 303. CERTIFICADO.
 
-- 3. Si no concurriere ninguno de los beneficiarios forzosos, el seguro se pagará al beneficiario o beneficiarios que el trabajador haya designado, y, en su defecto, a quien probare que dependía económicamente del trabajador fallecido, si además fuere menor de diez y ocho (18) años o estuviere incapacitado en forma permanente para trabajar. Si hubiere varias personas en estas circunstancias, la indemnización se dividirá entre ellas por partes iguales.
+Las empresas que estén obligadas al pago del seguro deben expedir a cada uno de sus trabajadores un certificado sobre lo siguiente: 1). Fecha de su expedición.
 
-Demostración del carácter de beneficiario y pago del seguro
+2). La obligación de pagar el seguro.
 
-**Artículo 307.** La demostración del carácter de beneficiario y el pago del seguro se harán en la siguiente forma:
+3). Si la empresa está debidamente autorizada para constituirse en aseguradora, el número y fecha de la resolución administrativa correspondiente, o, en caso contrario, el nombre de la compañía aseguradora y el número y fecha de la póliza colectiva. 4). Nombre del trabajador asegurado y fecha de su ingreso a la empresa, expresando claramente día, mes y año.
 
-- 1. El carácter de beneficiario del seguro se acreditará mediante la presentación de las copias de las respectivas partidas eclesiásticas o de los registros civiles que acreditan el parentesco, o con las pruebas supletorias que admite la Ley, más una información sumaria de testigos que demuestre quiénes son los únicos beneficiarios, declarándolos por su número y nombre y la razón de serlo.
+5). Bases para liquidación del seguro de acuerdo con el artículo 292.
 
-- 2. Si se trata de beneficiarios designados libremente, se acreditará su carácter de tales con la designación que hubiere hecho el asegurado, según el Artículo 312, y con una información sumaria de testigos que establezca la inexistencia de beneficiarios forzosos.
+6). Nombre del beneficiario o de los beneficiarios forzosos o, a falta de éstos, de quienes designe el trabajador, indicando las cuotas o proporción que señale a cada uno cuando los beneficiarios designados libremente sean varios, y además, el nombre o los nombres de quienes dependan económicamente del asegurado y que se encuentren en las condiciones de que trata el artículo 293en su último inciso. Si no se expresare por el trabajador el nombre el nombre de los beneficiarios o de alguno de alguno de ellos, así se hará constar en el certificado. 7). Prohibición de negociar o ceder el seguro sin perjuicio de su pignoración para la financiación de vivienda, como se establece en el artículo siguiente.
 
-- 3. En caso de beneficiarios por razón de dependencia económica del asegurado, su edad se acreditará con las copias de las partidas eclesiásticas o civiles o con las pruebas supletorias legales, y su dependencia económica del asegurado fallecido, con una información sumaria de testigos.
+8). Extinción del seguro a la terminación del contrato, salvo en los casos y por el tiempo señalado en el artículo 298. Este certificado se extiende al papel común, se firma por {empleador} o su representante, el asegurado y los testigos, en dos (2) ejemplares, uno para la empresa y el otro para el asegurado, y no está sujeto a impuesto de timbre nacional.
 
-- 4. Establecida la calidad de beneficiario, por cualquiera de los medios indicados en este artículo, la empresa dará un aviso público en el que conste el nombre del trabajador fallecido y el de las personas que se hayan presentado a reclamar el valor del seguro y la calidad en que lo hacen, con el fin de permitir que todo posible beneficiario se presente a reclamar.
+(Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-- 5. Este aviso debe darse en uno de los periódicos del domicilio de la empresa por dos (2) veces a lo menos, o en donde no existieren publicaciones periódicas, por medio de una nota dirigida al Alcalde Municipal, quien la dará a conocer por bando en dos (2) días de concurso.
+ARTICULO 304. PIGNORACION PARA VIVIENDA. El trabajador puede dar su seguro de vida en garantía de préstamos que le otorgue la empresa para financiación de su vivienda, y en este caso se aplicarán también las disposiciones del artículo256.
 
-- 6. Treinta (30) días después de la fecha del segundo aviso sin que dentro de este término se hubieren presentado otros reclamantes ni controversias sobre derecho al seguro, la empresa pagará su valor a quienes hayan acreditado su carácter de beneficiarios, quedando exonerada de la obligación.
+(Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-- 7. En caso de que posteriormente aparecieren otros beneficiarios, quienes hubieren recibido el valor del seguro están obligados a satisfacer a los nuevos beneficiarios las cuotas que les correspondan,
+ARTICULO 305. MUERTE POR ACCIDENTE O ENFERMEDAD PROFESIONAL. En caso de que un trabajador con derecho al seguro de vida fallezca por enfermedad profesional o accidente de trabajo, se pagará exclusivamente la suma determinada en el artículo 214. (Seguro colectivo derogado como consecuencia de la regulación integral de la seguridad social efectuada por la Ley 100 de 1993. Ver Sentencia de la Corte Constitucional C-823-06)
 
-Controversias entre beneficiarios.
+## CAPITULO VI.
 
-**Artículo 308.** Cuando durante el término del aviso o emplazamiento que la empresa debe efectuar para hacer el pago, según el Artículo anterior, se suscitaren controversias acerca del derecho de los reclamantes, promovidas por personas que acrediten ser beneficiarios del seguro, la empresa sólo estará obligada a. hacer el pago cuando se le presente en copia debidamente autenticada la sentencia judicial definitiva que haya decidido a quién corresponde el valor del seguro.
+PRIMA DE SERVICIOS.
 
-Causas de exclusión.
+ARTÍCULO 306. DE LA PRIMA DE SERVICIOS A FAVOR DE TODO EMPLEADO. El empleador está obligado a pagar a su empleado o empleados, la prestación social denominada prima de servicios que corresponderá a 30 días de salario por año, el cual se reconocerá en dos pagos, así: la mitad máximo el 30 de junio y la otra mitad a más tardar los primeros veinte días de diciembre. Su reconocimiento se hará por todo el semestre trabajado o proporcionalmente al tiempo trabajado.
 
-**Artículo 309.** No tienen derecho al seguro los descendientes del trabajador, desheredados conforme a la Ley civil, ni la viuda que haya dado lugar al divorcio o que antes del pago del seguro haya pasado a otras nupcias
+(Modificado por el Art. 1 de la Ley 1788 de 2016)
 
-Coexistencia de seguros.
+PARÁGRAFO. Se incluye en esta prestación económica a los trabajadores del servicio doméstico, choferes de servicio familiar, trabajadores por días o trabajadores de fincas y en general, a los trabajadores contemplados en el Título III del presente código o quienes cumplan con las condiciones de empleado dependiente.
 
-**Artículo 310.** Si un trabajador fallecido figurare como asegurado por dos (2) o más empresas, sin que coexistan varios contratos de trabajo, sólo aquella en donde prestaba sus servicios al tiempo de la muerte o la última en donde los prestó está obligada al pago del seguro.
+ARTICULO 307. CARACTER JURIDICO. La prima anual no es salario, ni se computará como factor del salario en ningún caso. (Declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-710-96)
 
-Cesación del seguro.
+ARTICULO 308. PRIMAS CONVENCIONALES Y REGLAMENTARIAS. Las empresas que por pactos, convenciones colectivas, fallos arbitrales o reglamentos de trabajos estén obligadas a conocer a sus trabajadores primas anuales o primas de navidad, tendrán derecho a que el valor de estas primas, se impute a la obligación de que trata el presente capítulo, pero si la prima de servicios fuere mayor deberán pagar el complemento.
 
-**Artículo 311.** A la terminación del contrato de trabajo cesa la obligación del seguro, salvo en los casos siguientes:
+## CAPITULO VII.
 
-- a) Si el contrato termina por despido injusto o estando afectado el trabajador de enfermedad no profesional, la obligación de reconocer y pagar el seguro se extiende hasta tres (3) meses después de la extinción del contrato; y
+TRABAJADORES DE LA CONSTRUCCION.
 
-- b) Si termina por accidente de trabajo o estando el trabajador afectado de enfermedad profesional, el seguro se extiende hasta seis (6) meses después de la terminación
+ARTICULO 309. DEFINICIONES. Para los efectos del presente capítulo se entiende por obras o actividades de construcción las que tiene por objeto construir cualquier clase de casas o edificios y las inherentes a esa construcción, excepto su conservación o reparación; y por valor de la obra o actividad, el valor de su presupuesto o de su costo total estimado pericialmente.
 
-Designación de beneficiarios
+ARTICULO 310. CESANTIA Y VACACIONES. A los trabajadores de obras o actividades de construcción cuyo valor exceda de diez ($10.000) se les reconocerá el auxilio de cesantía y las vacaciones, así:
 
-**Artículo 312.** 1. Cuando un trabajador entre al servicio de una empresa de las obligadas al seguro de vida y tenga derecho a esta prestación, debe indicar por escrito y ante testigos el nombre o los nombres de los beneficiarios forzosos del seguro, según el Artículo 303, y, en defecto de éstos, el de la persona o personas a quienes designe voluntariamente y la proporción en que los instituye.
+a). El auxilio de cesantía por todo el tiempo servido, a razón de tres (3) días de salario por cada mes completo de trabajo, siempre que se haya servido siquiera un mes, y debe pagarse a la terminación del contrato por cualquier causa, y b). Las vacaciones remuneradas de quince (15) días hábiles y consecutivos por cada año de servicios, y proporcionalmente por fracciones de año, cuando se haya trabajado por lo menos un (1) mes.
 
-- 2. El asegurado puede cambiar el beneficiario o beneficiarios no forzosos, en cualquier momento, antes de la terminación del contrato de trabajo.
+ARTICULO 311. ASISTENCIA MÉDICA. Los trabajadores de que trata el artículo anterior gozarán de asistencia médica, farmacéutica, quirúrgica y hospitalaria por enfermedad no profesional que ocurra durante la ejecución del contrato de trabajo, hasta por tres (3) meses, además del auxilio monetario correspondiente. Esta asistencia sólo se debe desde cuando la prescriba el médico del {empleador} o empresa, y, en su defecto, un médico oficial.
 
-La empresa como aseguradora.
+ARTICULO 312. EMPRESAS CONSTRUCTORAS. Los trabajadores de empresas constructoras gozan de los derechos consagrados en el presente
 
-**Artículo 313.** 1. Las empresas que estén obligadas al seguro de vida de sus trabajadores pueden asumir el carácter de aseguradoras de todos ellos cuando su capital no sea inferior a cien mil pesos ($100.000.) y siempre que obtengan permiso previo del Ministerio de Trabajo.
+## capítulo, sea cual fuere el valor de la obra o actividad.
 
-- 2. Este permiso sólo se concederá después de una información completa acerca de la capacidad financiera y la seriedad de la empresa y una vez que esta otorgue caución ante la autoridad administrativa del Trabajo y por el monto que el Ministerio del ramo señale, para responder por el pago de los seguros que deban cubrirse. La resolución que concede el permiso se publicará en el Diario Oficial, dentro de los noventa (90) días siguientes, y sólo surte efecto a partir de esa publicación.
+ARTICULO 313. SUSPENSION DEL TRABAJO POR LLUVIA.
 
-- 3. Las empresas que estén autorizadas para asumir el carácter de aseguradoras de sus trabajadores, tienen la obligación de permitir a las autoridades del Trabajo la revisión de las cuentas relativas al pago de seguros debidos, y, si omiten el pago oportuno de uno de éstos, se les suspenderá la autorización correspondiente, además de la imposición de las sanciones pecuniarias a que haya lugar de acuerdo con este Código, y, en caso necesario, el Ministerio del Trabajo les hará efectiva la caución constituida.
+1). Debe suspenderse el trabajo a la intemperie en las obras o labores de construcción en casos de lluvia que impliquen peligro para la salud del trabajador, salvo en las que no sean susceptibles de interrupción a juicio del {empleador}, empresario o contratista. 2). La suspensión del trabajo de que trata este artículo no da lugar a reducción de salario, pero puede exigirse trabajo bajo cubierta durante este tiempo o compensación posterior del tiempo perdido, sin exceder el límite máximo de horas semanales fijado en este Código y sin que esta compensación constituya trabajo suplementario o de horas extras.
 
-Sustitución de permisos anteriores
+## CAPITULO VIII.
 
-**Artículo 314.** Las empresas que al entrar en vigencia este Código tengan autorización para asumir el carácter de aseguradoras de sus trabajadores, deben presentar solicitud de nuevo permiso dentro de los seis (6) primeros meses de esa vigencia, para poder continuar con tal carácter. Si no formularen esta solicitud, el Ministerio del trabajo puede declarar cancelado el permiso.
+TRABAJADORES DE EMPRESAS DE PETROLEOS.
 
-Seguro en compañías
+ARTICULO 314. CAMPO DE APLICACION. Las disposiciones del presente capítulo obligan a las empresas de petróleos solamente en los trabajos que se realicen en lugares alejados de centros urbanos.
 
-**Artículo 315.** Salvo en los casos en que la empresa obligada al seguro esté autorizada para asumirlo directamente, su pago se contratará en una compañía de seguros y a favor de la empresa que esté obligada a esta prestación, pero ocurrida la muerte de uno de los asegurados el valor del seguro se pagará directamente por la empresa al beneficiario o a los beneficiarios, la cual cobrará de la compañía de seguros el valor correspondiente.
+ARTICULO 315. HABITACIONES Y SANEAMIENTO.
 
-Certificado
+1. En los lugares de exploración y explotación de petróleo el {empleador} está en la obligación construir habitaciones para sus trabajadores, con carácter transitorio o permanente según la actividad que se desarrolló, y de acuerdo con los preceptos higiénicos que dicte la Oficina Nacional de Medicinas e Higiene Industrial del Ministerio del Trabajo, tomando en cuenta las condiciones especiales que exijan el clima y el suelo de cada región y la profilaxis de las enfermedades endémicas y epidémicas.
 
-**Artículo 316.** 1. Las empresas que estén obligadas al pago del seguro deben expedir a cada uno de sus trabajadores un certificado sobre lo siguiente:
+2. Esta obligación comprende también el saneamiento del suelo en los lugares en donde sea necesario.
 
-- 1. Fecha de su expedición.
+ARTICULO 316. ALIMENTACION. COSTO DE VIDA. Las empresas de petróleo deben suministrar a sus trabajadores, en los lugares de exploración y explotación, alimentación sana y suficiente, o el salario que sea necesario para obtenerla, de acuerdo con su precio en cada región. La alimentación que se suministre en especie se computará como parte del salario y su valor se estimará en los contratos de trabajo, en las libretas o certificados que expida el {empleador}.
 
-- 2. La obligación de pagar el seguro.
+ARTICULO 317. ASISTENCIA MEDICA. Las mismas empresas están obligadas a sostener un médico en ejercicio legal de la profesión, si el número de sus trabajadores, durante un período mayor de un mes, no pasa de cuatrocientos (400) y uno más por cada cuatrocientos (400) trabajadores o fracción mayor de doscientos (200).
 
-- 3. Si la empresa está debidamente autorizada para constituirse en aseguradora, el número y fecha de la resolución administrativa correspondiente, o, en caso contrario, el nombre de la compañía aseguradora y el número y fecha de la póliza colectiva.
+ARTICULO 318. HOSPITALES E HIGIENE.
 
-- 4. Nombre del trabajador asegurado y fecha de su ingreso a la empresa, expresando claramente día, mes y año.
+Las empresas constituirán en los centros permanentes de labores uno (1) o varios hospitales, de acuerdo con el número de trabajadores y de familiares inscritos, con dotación de elementos modernos de cirugía, laboratorios, rayos X y farmacia, con provisión suficiente de drogas para atender las necesidades de los enfermos que se presenten, y con servicio aislado para enfermos infectocontagiosos.
 
-- 5. Bases para la liquidación del seguro de acuerdo con el Artículo 305.
+Los médicos organizarán los servicios del consultorio externo, puestos profilácticos y de socorro, de laboratorio y farmacia, y estudiarán la naturaleza de las afecciones dominantes.
 
-- 6. Nombre de los beneficiarios forzosos, o a falta de éstos, de quienes designe el trabajador, indicando las cuotas o proporción que señale a cada uno cuando los beneficiarios designados libremente sean varios, y además, el nombre o los nombres de quienes dependan económicamente del asegurado y que se encuentren en las condiciones de que trata el Artículo 306 en su último inciso. Si no se expresare por el trabajador el nombre de los beneficiarios o de alguno de ellos, así se hará constar en el certificado.
+Estos hospitales quedan sujetos a la inspección periódica del Ministerio del Trabajo, por conducto de la Oficina Nacional de Medicina e Higiene Industrial .
 
-- 7. Prohibición de negociar o ceder el seguro sin perjuicio de su pignoración para la financiación de vivienda, como se establece en el Artículo siguiente.
+En dichos establecimientos se llevarán libros de estadística, en los que se anotará el movimiento completo de los enfermos, diagnósticos, tratamientos, operaciones que se practiquen, etc. Copias de tales estadísticas se enviarán mensualmente al Ministerio expresado y por el mismo conducto, según los modelos que se prescriban.
 
-- 8. Extinción del seguro a la terminación del contrato, salvo en los casos y por el tiempo señalados en el Artículo 311.
+ARTICULO 319. HOSPITALIZACION. Las empresas están obligadas a hospitalizar a todos los trabajadores que lo necesiten.
 
-- 2. Este certificado se extiende en papel común, se firma por el patrono o su representante, el asegurado y los testigos en dos (2) ejemplares, uno (1) para la empresa y el otro para el asegurado, y no está sujeto a impuestos de timbre nacional.
+ARTICULO 320. ENFERMOS NO HOSPITALIZADOS. Los médicos de las empresas atenderán a los trabajadores enfermos que no requieren hospitalización, en los consultorios externos, en los puestos de socorro o en el domicilio de los enfermos, de acuerdo con la reglamentación que establezca la dirección científica de la empresa, basada en las necesidades del servicio.
 
-Pignoración para vivienda
+ARTICULO 321. MEDIDAS PROFILACTICAS.
 
-**Artículo 317.** El trabajador puede dar su seguro de vida en garantía de préstamos que le otorgue la empresa para la financiación de su vivienda, y en este caso se aplicarán también las disposiciones del Artículo 260.
+Las empresas, por conducto de los médicos y demás personal sanitario, pondrán en práctica las medidas profilácticas ordenadas por el Ministerio del Trabajo, Oficina Nacional de Medicina e Higiene Industrial, para combatir el paludismo, anemia tropical, disentería, pian y demás endemias tropicales, y las enfermedades llamadas sociales, y para evitar por los medios científicos modernos la viruela, la fiebre amarilla, la difteria, la fiebre tifoidea, y demás enfermedades evitables por la vacunación.
 
-Muerte por accidente o enfermedad profesional.
+Con el fin de evitar que ingresen a trabajar individuos que padezcan enfermedades infecto-contagiosas, se practicará por cuenta de la compañía un examen médico, clínico y de laboratorio, a todo el personal que haya de ser contratado. El estado de salud del trabajador, al tiempo del examen de admisión, se hará constar en formulario especial, y una copia de tal constancia se dará al trabajador y otra se enviará al Ministerio mencionado.
 
-**Artículo 318.** En caso de que un trabajador con derecho al seguro de vida fallezca por enfermedad profesional o accidente de trabajo, se pagará exclusivamente la suma determinada en el Artículo 216.
+ARTICULO 322. NEGATIVA AL TRATAMIENTO. En caso de que el incapacitado se niegue, sin motivo justificado, a someterse a las prescripciones médicas, o cuando insistiere en la violación de los reglamentos de higiene de la empresa, puede darse por terminado su contrato sin derecho a la indemnización por incapacidad ni al auxilio en metálico de enfermedad, y sólo mediante el pago de sus prestaciones sociales.
 
-Incompatibilidad con cesantía.
+ARTICULO 323. ENFERMEDADES VENEREAS. En los casos de enfermedades venéreas en estado agudo, de trabajadores de empresas de petróleos, no hay derecho al auxilio monetario de que trata el artículo 227.
 
-**Artículo 319.** El seguro de vida es incompatible con el auxilio de cesantía de períodos no consolidados.
+(Declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-065-05)
 
-### **CAPITULO VI**
+ARTICULO 324. COMISIONES DE CONCILIACION Y ARBITRAJE. En las empresas en donde existan comisiones de conciliación y arbitraje, la determinación y clasificación de una incapacidad se hará con base en el dictamen del médico industrial asesor de la comisión.
 
-**PRIMA DE SERVICIOS**
+ARTICULO 325. CENTROS MIXTOS DE SALUD. Las empresas de petróleos pueden celebrar contratos con el Ministerio de Higiene para el establecimiento de centros mixtos de salud, en las regiones en donde tengan establecidos trabajos, y bajo la responsabilidad de tales centros quedarán prestándose los servicios de sanidad y de asistencia de que trata el presente capítulo.
 
-Principio general.
+## CAPITULO IX.
 
-**Artículo 320.** 1. Toda empresa de carácter permanente está obligada a pagar a cada uno de sus trabajadores, excepto a los ocasionales o transitorios, como prestación especial, una prima de servicios, así:
+TRABAJADORES DE LA ZONA BANANERA.
 
-- a) Las de capital de doscientos mil pesos ($ 200.000) o superior, un mes de salario, pagadero por semestres del calendario, en la siguiente forma: una quincena el último día de junio y otra quincena en los primeros veinte (20) días de diciembre, a quienes hubieren trabajado o trabajaren todo el respectivo semestre, o proporcionalmente al tiempo trabajado, siempre que hubieren servido por lo menos la mitad del semestre respectivo y no hubieren sido despedidos por justa causa.
+ARTICULO 326. ASISTENCIA MÉDICA.
 
-- b) Las de capital menor de doscientos mil pesos ($ 200.000), quince (15) días de salario, pagadero en la siguiente forma: una semana el último día de junio y otra semana en los primeros veinte (20) días de diciembre, pagadero por semestres del calendario, a quienes hubieren trabajado o trabajaren todo el respectivo semestre; o proporcionalmente al tiempo trabajado, siempre que hubieren servido por lo menos la mitad del semestre respectivo y no hubieren sido despedidos por justa causa.
+Toda empresa agrícola de la zona bananera del departamento del Magdalena que tenga a su servicio más de cinco (5) trabajadores de carácter permanente tiene como obligación especial la de suministrar asistencia médica, quirúrgica, hospitalaria y farmacéutica, en caso de enfermedad no profesional, y hasta por seis (6) meses, cuando su capital exceda de doscientos mil pesos ($200.000), y hasta por tres (3) meses, cuando su capital sea igual o inferior a esa suma.
 
-- 2. Esta prima de servicios sustituye la participación de utilidades y la prima de beneficios que estableció la legislación anterior.
+Para estos efectos, las empresas pueden celebrar contratos con el Ministerio de Higiene (Hoy Ministerio de Salud) sobre el establecimiento de centros mixtos de salud.
 
-Carácter jurídico.
+## CAPITULO X.
 
-**Artículo 321.** La prima anual no es salario, ni se computará como factor del salario en ningún caso.
+TRABAJADORES DE EMPRESAS MINERAS E INDUSTRIALES DEL CHOCO.
 
-Primas convencionales y reglamentarias.
+ARTICULO 327. ASISTENCIA MÉDICA. Las empresas mineras e industriales del departamento del Chocó tienen como obligación especial la de suministrar a sus trabajadores asistencia médica, farmacéutica, quirúrgica y hospitalaria en caso de enfermedad no profesional, hasta por seis (6) meses, cuando su capital exceda de doscientos mil pesos ($200.000), y hasta por tres (3) meses, cuando su capital sea igual o inferior a esa suma, debiendo tener un médico en ejercicio legal de la profesión por cada doscientos (200) trabajadores, o fracción no inferior a cincuenta (50).
 
-**Artículo 322.** Las empresas que por pactos, convenciones colectivas, fallos arbítrales o reglamentos de trabajo estén obligadas a reconocer a sus trabajadores primas anuales o primas de navidad, tendrán derecho a que el valor de estas primas se impute a la obligación de que trata el presente Capítulo, pero si la prima de servicios fuere mayor deberán pagar el complemento.
+ARTICULO 328. INCAPACIDAD. Transcurrido el término de la asistencia médica que si dispone en el artículo anterior, y pagado e auxilio monetario por enfermedad no profesional, las empresas de que trata este capítulo y cuyo capital exceda de doscientos mil pesos ($200.000) no pueden despedir al trabajador que siga incapacitado si no reconociéndole una indemnización equivalente a dos (2) mensualidades de su salario, más los gastos de transporte al próximo centro poblado en donde haya médico y hospital oficial.
 
-### **CAPITULO VII**
+## CAPITULO XI.
 
-**TRABAJADORES DE LA CONSTRUCCIÓN**
+TRABAJADORES DE MINAS DE ORO, PLATA Y PLATINO.
 
-Definiciones.
+ARTICULO 329. DEFINICION. Para los efectos de este capítulo se entiende que es empresa minera toda explotación de mineral de oro, plata y platino.
 
-**Artículo 323.** Para los efectos del presente Capítulo se entiende por obras o actividades de construcción las que tienen por objeto construir cualquier clase de casas o edificios y las inherentes a esa construcción, excepto su conservación o reparación; y por valor de la obra o actividad, el valor de su presupuesto o de su costo total estimado pericialmente.
+ARTICULO 330. PERIODOS DE PAGO. Las empresas mineras tienen libertad para señalar los períodos de pago de acuerdo con las circunstancias de lugar, tiempo y recursos con que cuenta para la explotación.
 
-Cesantía y vacaciones.
+ARTICULO 331. PREVENCION DE ENFERMEDADES. Toda empresa minera debe suministrar, a juicio del médico, preventivos y curativos del paludismo y tratamiento especial a los trabajadores atacados de endemias tropicales.
 
-**Artículo 324.** A los trabajadores de obras o actividades de construcción cuyo valor exceda de diez mil pesos ($ 10.000) se les reconocerá el auxilio de cesantía y las vacaciones, así:
+ARTICULO 332. HIGIENE. Las empresas mineras tienen las obligaciones que sobre higiene del personal y de los campamentos y seguridad de los trabajadores prescriba el Ministerio del Trabajo.
 
-- a) El auxilio de cesantía por todo el tiempo servido, a razón de tres (3) días de salario por cada mes completo de trabajo, siempre que se haya servido siquiera un mes, y debe pagarse a la terminación del contrato por cualquier causa.
+ARTICULO 333. ACTIVIDADES DISCONTINUAS, INTERMITENTES Y DE SIMPLE VIGILANCIA. Para los efectos del ordinal b) del artículo 161, y del ordinal c) del artículo 162, se entiende que ejercitan actividades discontinuas o intermitentes o de simple vigilancia en las minas, según el caso, los siguientes trabajadores:
 
-- b) Las vacaciones remuneradas de quince (15) días hábiles y consecutivos por cada año de servicios, y proporcionalmente por fracciones de año, cuando se haya trabajado por lo menos un (1) mes.
+En todas las minas:
 
-Asistencia médica.
+a). Los encargados de las plantas eléctricas;
 
-**Artículo 325.** Los trabajadores de que trata el Artículo anterior gozarán de asistencia médica, farmacéutica, quirúrgica y hospitalaria por enfermedad no profesional que ocurra durante la ejecución del contrato de trabajo, hasta par tres (3) meses, además del auxilio monetario correspondiente. Esta asistencia sólo se debe desde cuando la prescriba el médico del patrono o empresa, y, en su defecto, un médico oficial.
+b). Los vigilantes y capataces de cuadrillas;
 
-Empresas constructoras.
+c). Los gariteros, sirvientes*, pajes, cuidanderos, caseros, arrieros, conductores de vehículos y ayudantes, y (Expresiones “amos”, “criados” y “sirvientes” del artículo 2349 del Código Civil fueron declaradas INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-1235-05) d). Los acequieros y los que se ocupan en el sostenimiento de los acueductos que sirven para abastecer de agua a las maquinarias; En las minas de aluvión:
 
-**Artículo 326.** Los trabajadores de empresas constructoras gozan de los derechos consagrados en el presente Capítulo, sea cual fuere el valor de la obra o actividad.
+a). Los ocupados en el manejo de elevadores hidráulicos y bombas centrífugas;
 
-Suspensión del trabajo por lluvia.
+b). Los que se ocupen en el manejo de motores hidráulicos y bombas centrífugas;
 
-**Artículo 327.** 1. Debe suspenderse el trabajo a la intemperie en las obras o labores de construcción en casos de lluvia que impliquen peligro para la salud del trabajador, salvo en las que no sean susceptibles de interrupción a juicio del patrono, empresario o contratista.
+c). Los encargados de las bombas en los apagues;
 
-- 2. La suspensión de trabajo de que trata este Artículo no da lugar a reducción de salario, pero puede exigirse trabajo bajo cubierta durante ese tiempo o compensación posterior del tiempo perdido, sin exceder el límite máximo de horas semanales fijado en este Código y sin que esta compensación constituya trabajo suplementario o de horas extras.
+d). Los encargados del canalón.
 
-### **CAPITULO VIII**
+e). En las dragas, todos aquellos cuya labor requiere conocimientos técnicos especiales.
 
-**TRABAJADORES DE EMPRESAS DE PETROLEOS**
+En las minas de veta:
 
-Definición.
+a). Los encargados de las plantas de cianuración, flotación, amalgamación, tostión y fundición;
 
-**Artículo 328.** Se entiende por empresa de petróleos la que tiene por objeto la exploración y explotación de yacimientos o depósitos de hidrocarburos y sus derivados, comprendiéndose en esta última actividad la distribución, transporte y expendio de dichos productos.
+b). Los molineros, y c). Los encargados de los motores, de las bombas, de los malacates y de las grúas.
 
-Habitaciones y saneamiento.
+## CAPITULO XII.
 
-**Artículo 329.** 1. Toda empresa de petróleos está en la obligación de construir habitaciones para sus trabajadores de acuerdo con los preceptos higiénicos que dicte el Ministerio del Trabajo, tomando en cuenta las condiciones especiales que exijan el clima y el suelo de cada región y la profilaxis de las enfermedades endémicas y epidémicas.
+TRABAJADORES DE EMPRESAS AGRICOLAS GANADERAS Y FORESTALES.
 
-- 2. Esta obligación comprende también el saneamiento del suelo en los lugares en donde sea necesario.
+ARTICULO 334. ALOJAMIENTO Y MEDICAMENTOS. Las empresas agrícolas, ganaderas o forestales que ocupen quince (15) o más trabajadores que residan en ellas, están obligados a suministrarles alojamiento adecuado, a destinar un local para la asistencia de enfermos y a proveerlos de los medicamentos o medios terapéuticos de urgencia.
 
-Alimentación. Costo de la vida.
+ARTICULO 335. ENFERMEDADES TROPICALES. Las empresas agrícolas, ganaderas o forestales, de climas templados y calientes, están especialmente obligadas a combatir las enfermedades tropicales, por todos los medios curativos y profilácticos.
 
-**Artículo 330.** 1. Las empresas de petróleos deben suministrar a sus trabajadores residentes en los lugares de exploración y explotación, excepto a los urbanos, alimentación sana y suficiente que se computará como parte del salario. En los contratos de trabajo, en las libretas y en los certificados que expida el patrono se estimará su valor para los efectos correspondientes.
+ARTICULO 336. REGLAMENTACION. Los ministerios de trabajo e higiene* dictarán las medidas conducentes para el cumplimiento de los dos artículos anteriores
 
-Los trabajadores urbanos de esas empresas tienen derecho a que el salario se fije o reajuste tomando en cuenta el costo de la vida en la región y la índole del trabajo, de modo que puedan proporcionarse una alimentación sana y suficiente, para lo cual pueden pedir la intervención del Inspector del Trabajo respectivo.
+ARTICULO 337. LOCAL PARA ESCUELA. Las empresas agrícolas, ganaderas o forestales en donde hubiere veinte (20) o más niños en edad escolar, hijos de sus trabajadores, tienen la obligación de suministrar local apropiado para establecer una escuela.
 
-Asistencia médica.
+## CAPITULO XIII.
 
-**Artículo 331.** 1. Las empresas de petróleos están obligadas a sostener un médico en ejercicio legal de la profesión, si el número de sus trabajadores no pasa de cuatrocientos (400), y uno (1) más por cada cuatrocientos (400) trabajadores o fracción mayor de doscientos (200).
+EMPLEADORES SIN CARACTER DE EMPRESA.
 
-- 2. Las empresas que estuvieren obligadas a prestar atención médica a los familiares o personas que dependen económicamente de los trabajadores, deben sostener un médico en ejercicio legal de la profesión por cada ochocientas (800) personas inscritas como tales.
+ARTICULO 338. PRESTACIONES SOCIALES.
 
-- 3. Se entiende que una persona depende económicamente del trabajador cuando deriva exclusivamente de éste su subsistencia y vive con él bajo un mismo techo.
+Los {empleadores} que ejecutan actividades sin ánimo de lucro quedan sujetos a las normas del presente Código; pero para los efectos de las prestaciones sociales a que están obligados, el Gobierno puede efectuar la clasificación de estos {empleadores} y señalar la proporción o cuantía de dichas prestaciones.
 
-Hospitales e higiene.
+Lo dispuesto en este artículo no será aplicable a aquellas personas que, de acuerdo con el Concordato, están sometidas a la legislación canónica.
 
-**Artículo 332.** 1. Las empresas construirán en los centros permanentes de labores uno (1) o varios hospitales, de acuerdo con el número de trabajadores y de familiares inscritos, con dotación de elementos modernos de cirugía, laboratorios, rayos X y farmacia, con provisión suficiente de drogas para atender las necesidades de los enfermos que se presenten, y con servicio aislado para enfermos infecto contagiosos.
+(Apartes tachados declarados INEXEQUIBLES por la Corte Constitucional mediante Sentencia C-051-95)
 
-- 2. Los médicos organizarán los servicios del consultorio externo, puestos profilácticos y de socorro, de laboratorio y farmacia, y estudiarán la naturaleza de las afecciones dominantes.
+ARTICULO 339. COOPERATIVAS. Las sociedades cooperativas deben a sus trabajadores las mismas prestaciones que las empresas; y se tendrá como capital para graduarlas el valor de su patrimonio, según certificación de la Superintendencia del ramo.
 
-- 3. Estos hospitales quedan sujetos a la inspección periódica del Ministerio del Trabajo, por conducto de la Oficina Nacional de Medicina e Higiene Industrial.
+## TITULO X.
 
-- 4. En dichos establecimientos se llevarán libros de estadística, en los que se anotará el movimiento completo de los enfermos, diagnósticos, tratamientos, operaciones que se practiquen, etc. Copia de tales estadísticas se enviarán mensualmente al Ministerio expresado y por el mismo conducto, según los modelos que se prescriban.
+NORMAS PROTECTORAS DE LAS PRESTACIONES.
 
-Hospitalización.
+## CAPITULO I.
 
-**Artículo 333.** Las empresas están obligadas a hospitalizar a todos los trabajadores que lo necesiten.
+IRRENUNCIABILIDAD.
 
-Enfermos no hospitalizados.
+ARTICULO 340. PRINCIPIO GENERAL Y EXCEPCIONES. Las prestaciones sociales establecidas en este código, ya sean eventuales o causadas, son irrenunciables. Se exceptúan de esta regla:
 
-**Artículo 334.** Los médicos de las empresas atenderán a los trabajadores enfermos que no requieran hospitalización, en los consultorios externos, en los puestos de socorro o en el domicilio de los enfermos, de acuerdo con la reglamentación que establezca la dirección científica de la empresa, basada en las necesidades del servicio.
+a). El seguro de vida obligatorio de los trabajadores mayores de cincuenta (50) años de edad, los cuales quedan con la facultad de renunciarlo cuando vayan a ingresar al servicio del {empleador}. Si hubieren cumplido o cumplieren esa edad estando al servicio del establecimiento o {empleador}, no procede esta renuncia, b). Las de aquellos riesgos que sean precisamente consecuencia de invalidez o enfermedad existente en el momento en que el trabajador entra al servicio del {empleador}.
 
-Medidas profilácticas.
+ARTICULO 341. DEFINICION Y CLASIFICACION DE INVALIDEZ Y ENFERMEDAD.
 
-**Artículo 335.** 1. Las empresas, por conducto de los médicos y demás personal sanitario, pondrán en práctica las medidas profilácticas ordenadas por el Ministerio del Trabajo, Oficina Nacional de Medicina e Higiene Industrial, para combatir el paludismo, anemia tropical, disentería, pian y demás endemias tropicales, y las enfermedades llamadas sociales, y para evitar por los medios científicos modernos la viruela, la fiebre amarilla, la difteria, la fiebre tifoidea, y demás enfermedades evitables por la vacunación.
+Para los efectos del ordinal b) del artículo anterior se entiende por inválidos o enfermos los trabajadores con perturbaciones o deficiencias orgánicas, fisiológicas o psicológicas, pero que están todavía en condiciones de desarrollar alguna capacidad de trabajo. Para los fines de la renuncia de las indemnizaciones que debían percibir, estos inválidos y enfermos se clasifican en las siguientes categorías: a). Trabajadores con perturbaciones o deficiencias orgánicas, fisiológicas o psicológicas, corregibles o curables por tratamientos adecuados y que afectan transitoriamente su capacidad de trabajo; y b). Trabajadores con perturbaciones o deficiencias orgánicas, fisiológicas o psicológicas definitivas, pero que están todavía en condiciones de desarrollar alguna capacidad de trabajo.
 
-- 2. Con el fin de evitar que ingresen a trabajar individuos que padezcan enfermedades infecto contagiosas, se practicará por cuenta de la compañía un examen médico, clínico y de laboratorio, a todo el personal que haya de ser contratado. El estado de salud del trabajador, al tiempo del examen de admisión, se hará constar en formulario especial, y una copia de tal constancia se dará al trabajador y otra se enviará al Ministerio mencionado.
+Los médicos de la Oficina Nacional de Medicina e Higiene Industrial del Ministerio del Trabajo harán, en cada caso particular, la clasificación respectiva de la invalidez o enfermedad del trabajador, y autorizarán las renuncias a que hubiere lugar.
 
-Prestaciones en caso de incapacidad.
+Sin estos requisitos, las renuncias no producen ningún efecto.
 
-**Artículo 336.** 1. En caso de incapacidad para trabajar por enfermedad no profesional, o por lesión distinta de accidente de trabajo, según dictamen médico, las empresas de petróleos tienen las siguientes obligaciones:
+ARTICULO 342. PRESTACIONES RENUNCIABLES.
 
-- a) Prestar a sus trabajadores atención médica completa hasta por seis (6) meses, sin que puedan despedirlos dentro de ese periodo mientras la atención médica sea necesaria; y
+Los trabajadores comprendidos en el ordinal a) del inciso 2. del artículo anterior, pueden renunciar a los auxilios por enfermedad no profesional establecidos en los artículos 227 y 277, a los cuales tendrían derecho al producirse su incapacidad para el trabajo como consecuencia de la perturbación o deficiencia que originó la renuncia.
 
-- b) Pagarles dentro de ese tiempo el auxilio monetario por enfermedad de que trata el Artículo 229.
+Los trabajadores comprendidos en el ordinal b) del inciso 2. del mismo artículo anterior, pueden renunciar a los auxilios por enfermedad no profesional y por accidente de trabajo que se produzcan como consecuencia directa de la perturbación o deficiencia que originó la renuncia, y al seguro de vida colectivo obligatorio, en caso de muerte ocurrida por la misma causa.
 
-- 2. Si vencidos estos seis (6) meses, el trabajador permaneciere incapacitado y requiriere la continuación del tratamiento, las empresas pueden optar entre una de estas alternativas:
+Todos los trabajadores de que trata el artículo anterior pueden renunciar al auxilio de invalidez establecido en el artículo 278.
 
-a. Continuar prestando al trabajador la atención médica, sin auxilio en dinero, por todo el tiempo que los médicos la consideren necesaria para la curación y recapacitación del trabajador; o
+ARTICULO 343. PROHIBICION DE CEDERLAS. No produce ningún efecto la cesión que haga el trabajador de sus prestaciones.
 
-b. Dar por terminado el contrato de trabajo, mediante el pago de las prestaciones sociales correspondientes hasta ese momento, más una indemnización de dos (2) meses de salario como mínimo, y de doce (12) como máximo, de acuerdo con el grado de incapacidad real del paciente, según el dictamen y la fijación que haga el médico.
+## CAPITULO II.
 
-- c. La incapacidad de que trata este Artículo es la ocurrida durante la vigencia del contrato de trabajo, de modo que las deficiencias orgánicas que haya presentado el trabajador al ingresar a la empresa y que se hayan hecho constar en el examen médico de admisión, no darán derecho a indemnización sino exclusivamente a asistencia médica cuando se agraven al servicio de la empresa.
+INEMBARGABILIDAD.
 
-Negativa al tratamiento.
+ARTICULO 344. PRINCIPIO Y EXCEPCIONES.
 
-**Artículo 337.** En caso de que el incapacitado se niegue, sin motivo justificado, a someterse a las prescripciones médicas, o cuando insistiere en la violación de los reglamentos de higiene de la empresa, puede darse por terminado su contrato de trabajo sin derecho a la indemnización de incapacidad ni al auxilio en metálico de enfermedad, y sólo mediante el pago de sus prestaciones sociales.
+Son inembargables las prestaciones sociales, cualquiera que sea su cuantía.
 
-Enfermedades venéreas.
+Exceptúanse de lo dispuesto en el inciso anterior los créditos a favor de las cooperativas legalmente autorizadasy los provenientes de las pensiones alimenticias a que se refieren los artículos 411 y Concordantes del Código Civil, pero el monto del embargo o retención no puede exceder del cincuenta por ciento (50%) del valor de la prestación respectiva.
 
-**Artículo 338.** 1. En los casos de enfermedades venéreas en estado agudo, de trabajadores de empresas de petróleos, no hay derecho al auxilio monetario de que trata el ordinal b) del inciso 1 del Artículo 336.
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-710-96)
 
-- 2. En ningún caso de enfermedades venéreas hay lugar a la indemnización de que trata el numeral 2 del inciso 2 del Artículo 336.
+## CAPITULO III.
 
-Comisiones de conciliación y arbitraje.
+PRELACION DE CREDITOS.
 
-**Artículo 339.** En las empresas en donde existan comisiones de conciliación y arbitraje, la determinación y clasificación de una incapacidad se hará con base en el dictamen del médico industrial asesor de la comisión.
+ARTICULO 345. PRELACION DE CREDITOS POR SALARIOS, PRESTACIONES SOCIALES E INDEMNIZACIONES LABORALES. Los créditos causados o exigibles de los trabajadores por concepto de salarios, la cesantía y demás prestaciones sociales e indemnizaciones laborales pertenecen a la primera clase que establece el artículo 2495 del Código Civil y tienen privilegio excluyente sobre todos los demás. El juez civil que conozca del proceso de concurso de acreedores o de quiebra dispondrá el pago privilegiado y pronto de los créditos a los trabajadores afectados por la quiebra o insolvencia del {empleador}.
 
-Incompatibilidad con el auxilio de invalidez.
+Cuando la quiebra imponga el despido de trabajadores, los salarios, prestaciones sociales e indemnizaciones se tendrán como gastos pagaderos con preferencia sobre los demás créditos.
 
-**Artículo 340.** El auxilio de invalidez de que trata el Capítulo III del presente Título y el de incapacidad para trabajadores de empresas de petróleos regulados en este Capítulo, son incompatibles, pero el trabajador puede optar por el que estime más favorable.
+Los créditos laborales podrán demostrar por cualesquier medio de prueba autorizado por la ley y, cuando fuera necesario, producidos extrajuicio con intervención del juez laboral o de inspector de trabajo competentes.
 
-Centros Mixtos de Salud.
+PARAGRAFO. En los procesos de quiebra o concordato los trabajadores podrán hacer valer sus derechos por sí mismos o por intermedio del Sindicato, Federación o Confederación a que pertenezcan, siempre de conformidad con las leyes vigentes.
 
-**Artículo 341.** Las empresas de petróleos pueden celebrar contratos con el Ministerio de Higiene para el establecimiento de Centros Mixtos de Salud en las regiones en donde tengan establecidos trabajos, y bajo la responsabilidad de tales Centros quedarán prestándose los servicios, de sanidad y de asistencia de que trata el presente Capítulo.
+(Modificado por el Art. 36 de la Ley 50 de 1990)
 
-### **CAPITULO IX**
+## CAPITULO IV.
 
-**TRABAJADORES DE LA ZONA BANANERA**
+EXENCION DE IMPUESTOS.
 
-Asistencia médica.
+ARTICULO 346. NORMA GENERAL. Las sumas que reciban los trabajadores por concepto de prestaciones sociales están exentas de todo impuesto.
 
-**Artículo 342.** 1. Toda empresa agrícola de la Zona Bananera del Departamento del Magdalena que tenga a su servicio más de cinco (5) trabajadores de carácter permanente tiene como obligación especial la de suministrar asistencia médica, quirúrgica, hospitalaria y farmacéutica, en caso de enfermedad no profesional, y hasta por seis (6) meses, cuando su capital exceda de doscientos mil pesos ($ 200.000), y hasta por tres (3) meses, cuando su capital sea igual o inferior a esa suma.
+(Derogado tácitamente por el Art. 35 de la Ley 75 de 1986)
 
-- 2. Para estos efectos, las empresas pueden celebrar contratos con el Ministerio de Higiene sobre el establecimiento de Centros Mixtos de Salud.
+ARTICULO 347. CAUSAHABIENTES O BENEFICIARIOS. Las sumas que reciban los causahabientes o beneficiarios de trabajadores por concepto de prestaciones sociales están exentas de todo impuesto cuando no excedan de cinco mil pesos ($ 5.000). Cuando excedieren de este límite, el gravamen recaerá sobre el exceso.
 
-### **CAPITULO X**
+(Derogado tácitamente por el Art. 35 de la Ley 75 de 1986)
 
-**TRABAJADORES DE EMPRESAS MINERAS E INDUSTRIALES DEL CHOCO**
+## TITULO XI.
 
-Asistencia médica.
+HIGIENE Y SEGURIDAD EN EL TRABAJO.
 
-**Artículo 343.** Las empresas mineras e industriales del Departamento del Chocó tienen como obligación especial la de suministrar a sus trabajadores asistencia médica, farmacéutica, quirúrgica y hospitalaria en caso de enfermedad no profesional, hasta por seis (6) meses, cuando su capital exceda de doscientos mil pesos ($ 200.000), y hasta por tres (3) meses, cuando su capital sea igual o inferior a esa suma, debiendo tener un médico en ejercicio legal de la profesión por cada doscientos (200) trabajadores, o fracción no inferior a cincuenta (50).
+## CAPITULO I.
 
-Incapacidad.
+UNICO.
 
-**Artículo 344.** Transcurrido el término de la asistencia médica que se dispone en el Artículo anterior, y pagado el auxilio monetario por enfermedad no profesional, las empresas de que trata este Capítulo y cuyo capital exceda de doscientos mil pesos ($200.000) no pueden despedir al trabajador que siga incapacitado sino reconociéndole una indemnización equivalente a dos (2) mensualidades de su salario, más los gastos de transporte al próximo centro poblado en donde haya médico y hospital oficial.
+ARTICULO 348. MEDIDAS DE HIGIENE Y SEGURIDAD. Todo {empleador} o empresa están obligados a suministrar y acondicionar locales y equipos de trabajo que garanticen la seguridad y salud de los trabajadores; a hacer practicar los exámenes médicos a su personal y adoptar las medidas de higiene y seguridad indispensables para la protección de la vida, la salud y la moralidad de los trabajadores a su servicio; de conformidad con la reglamentación que sobre el particular establezca el Ministerio del Trabajo.
 
-### **CAPITULO XI**
+(Modificado por el Art. 10 de Decreto 13 de 1967)
 
-**TRABAJADORES DE MINAS DE ORO, PLATA Y PLATINO**
+ARTICULO 349. REGLAMENTO DE HIGIENE Y SEGURIDAD. empleadores que tengan a su servicio diez (10) o más trabajadores permanentes deben elaborar un reglamento especial de higiene y seguridad, a más tardar dentro de los tres (3) meses siguientes a la iniciación de labores, si se trata de un nuevo establecimiento. El Ministerio de la Protección Social vigilará el cumplimiento de esta disposición. (Modificado por el Art. 55 de la Ley 962 de 2005)
 
-Definición.
+ARTICULO 350. CONTENIDO DEL REGLAMENTO. El reglamento especial que se prescribe en el artículo anterior debe contener, por lo menos, disposiciones normativas sobre los siguientes puntos:
 
-**Artículo 345.** Para los efectos de este Capítulo se entiende que es empresa minera toda explotación de minerales de oro, plata y platino.
+Protección e higiene personal de los trabajadores.
 
-Períodos de pago.
+Prevención de accidentes y enfermedades.
 
-**Artículo 346.** Las empresas mineras tienen libertad para señalar los períodos de pago de acuerdo con las circunstancias de lugar, tiempo y recursos con que se cuente para la explotación.
+Servicio médico, sanidad del establecimiento, y salacunas en su caso.
 
-Prevención de enfermedades.
+Prohibición de facilitar alojamiento en edificios de industrias peligrosas o insalubres.
 
-**Artículo 347.** Toda empresa minera debe suministrar, a juicio del médico, preventivo y curativo del paludismo y tratamiento especial a los trabajadores atacados de endemias tropicales.
+Provisión de sillas para trabajadores de tiendas, boticas, fábricas, talleres y establecimientos similares.
 
-Higiene.
+Cuando se trate de trabajos con soldadura eléctrica, las condiciones que deben reunir los locales y los elementos de protección para los trabajadores.
 
-**Artículo 348.** Las empresas mineras tienen las obligaciones que sobre higiene del personal y de los campamentos y seguridad de los trabajadores prescriba el Ministerio del Trabajo.
+Normas especiales, cuando se trate de empresas mineras y petroleras.
 
-Actividades discontinuas, intermitentes y de simple vigilancia.
+Medidas de seguridad en las empresas de energía eléctrica, en los depósitos de explosivos de materias inflamantes y demás elementos peligrosos.
 
-**Artículo 349.** Para los efectos del ordinal b) del Artículo 162 y del ordinal c) del Artículo 163, se entiende que ejercitan actividades discontinuas o intermitentes o de simple vigilancia en las minas, según el caso, los siguientes trabajadores:
+Higiene en las empresas agrícolas, ganaderas y forestales.
 
-- 1. En todas las minas:
+ARTICULO 351. PUBLICACION. Una vez aprobado el reglamento de conformidad con el artículo 349, el {empleador} debe mantenerlo fijado en dos (2) lugares visibles del local del trabajo.
 
-- a) Los encargados de las plantas eléctricas.
+ARTICULO 352. VIGILANCIA Y SANCIONES. Corresponde al Ministerio del Trabajo, por conducto de la Oficina Nacional de Medicina e Higiene Industrial, velar por el cumplimiento de las disposiciones de este capítulo, atender las reclamaciones de empleadores y obreros sobre transgresión de sus reglas, prevenir a los remisos, y, en caso de reincidencia o negligencia, imponer sanciones, teniendo en cuenta la capacidad económica del transgresor y la naturaleza de la falta cometida.
 
-- b) Los vigilantes y capataces de cuadrillas.
+SEGUNDA PARTE.
 
-- c) Los gariteros, sirvientes, pajes, cuidanderos, caseros, arrieros, conductores de vehículos y ayudantes.
+DERECHO COLECTIVO DEL TRABAJO.
 
-- d) Los acequieros y los que se ocupan en el sostenimiento de los acueductos que sirven para abastecer de agua a las maquinarias.
+## TITULO I.
 
-- 2. En las minas de aluvión:
+SINDICATOS.
 
-- a) Los ocupados en el manejo de elevadores hidráulicos y bombas centrífugas.
+## CAPITULO I.
 
-- b) Los que se ocupan en el manejo de motores hidráulicos y bombas centrífugas.
+DISPOSICIONES GENERALES.
 
-- c) Los encargados de las bombas en los apagues.
+ARTICULO 353. DERECHOS DE ASOCIACION.
 
-- d) Los encargados del canalón.
+De acuerdo con el artículo 39 de la Constitución Política los empleadores y los trabajadores tienen el derecho de asociarse libremente en defensa de sus intereses, formando asociaciones profesionales o sindicatos; estos poseen el derecho de unirse o federarse entre sí. Las asociaciones profesionales o sindicatos deben ajustarse en el ejercicio de sus derechos y cumplimiento de sus deberes, a las normas de este
 
-- e) En las dragas, todos aquellos cuya labor requiere conocimientos técnicos especiales.
+## título y están sometidos a la inspección y vigilancia del Gobierno, en cuanto concierne al orden público.
 
-3 En las minas de veta:
+Los trabajadores y empleadores, sin autorización previa, tienen el derecho de constituir las organizaciones que estimen convenientes, así como el de afiliarse a éstas con la sola condición de observar los estatutos de las mismas.
 
-- a) Los encargados de las plantas de cianuración, flotación, amalgamación, tostión y fundición.
+(Modificado por el Art. 1 de la Ley 584 de 2000)
 
-- b) Los molineros.
+ARTICULO 354. PROTECCION DEL DERECHO DE ASOCIACION.
 
-- c) Los encargados de los motores, de las bombas, de los malacates y de las grúas.
+En los términos del artículo 292 del Código Penal queda prohibido a toda persona atentar contra el derecho de asociación sindical. Toda persona que atente en cualquier forma contra el derecho de asociación sindical será castigada cada vez con una multa equivalente al monto de cinco (5) a cien (100) veces el salario mínimo mensual más alto vigente, que le será impuesta por el respectivo funcionario administrativo del trabajo. Sin perjuicio de las sanciones penales a que haya lugar.
 
-### **CAPITULO XII**
+Considéranse como actos atentatorios contra el derecho de asociación sindical, por parte del empleador:
 
-**TRABAJADORES DE EMPRESAS AGRÍCOLAS, GANADERAS O FORESTALES**
+a). Obstruir o dificultar la afiliación de su personal a una organización sindical de las protegidas por la ley, mediante dádivas o promesas, o condicionar a esa circunstancia la obtención o conservación del empleo o el reconocimiento de mejoras o beneficios;
 
-Alojamiento y medicamentos.
+b) Despedir, suspender o modificar las condiciones de trabajo de los trabajadores en razón de sus actividades encaminadas a la fundación de las organizaciones sindicales;
 
-**Artículo 350.** Las empresas agrícolas, ganaderas o forestales que ocupen quince (15) o más trabajadores que residan en ellas, están obligadas a suministrarles alojamiento adecuado, a destinar un local para asistencia de enfermos y a proveerles los medicamentos o medios terapéuticos de urgencia.
+c). Negarse a negociar con las organizaciones sindicales que hubieren presentado sus peticiones de acuerdo con los procedimientos legales; d). Despedir, suspender o modificar las condiciones de trabajo de su personal sindicalizado, con el objeto de impedir o difundir el ejercicio del derecho de asociación, y e). Adoptar medidas de represión contra los trabajadores por haber acusado, testimoniado o intervenido en las investigaciones administrativas tendientes a comprobar la violación de esta norma.
 
-Enfermedades tropicales.
+(Modificado por el Art. 39 del Ley 50 de 1990)
 
-**Artículo 351.** Las empresas agrícolas, ganaderas o forestales, de climas templados y calientes, están especialmente obligadas a combatir las enfermedades tropicales, por todos los medios curativos y profilácticos.
+ARTICULO 355. ACTIVIDADES LUCRATIVAS. Los sindicatos no pueden tener por objeto la explotación de negocios o actividades con fines de lucro.
 
-Reglamentación.
+ARTICULO 356. SINDICATOS DE TRABAJADORES. Los sindicatos de trabajadores se clasifican así:
 
-**Artículo 352.** Los Ministerios del Trabajo e Higiene dictarán las medidas conducentes para el cumplimiento de los dos artículos anteriores.
+a). De empresa, si están formados por individuos de varias profesiones, oficios o especialidades, que prestan sus servicios en una misma empresa, establecimiento o institución;
 
-Local para escuela.
+b). De industria o por rama de actividad económica, si están formados por individuos que prestan sus servicios en varias empresas de la misma industria o rama de actividad económica;
 
-**Artículo 353.** Las empresas agrícolas, ganaderas o forestales en donde hubiere veinte (20) o más niños en edad escolar, hijos de sus trabajadores, tienen la obligación de suministrar local apropiado para establecer una escuela
+c). Gremiales, si están formados por individuos de una misma profesión, oficio o especialidad, d). De oficios varios, si están formados por trabajadores de diversas profesiones, disímiles o inconexas. Estos últimos sólo pueden formarse en los lugares donde no haya trabajadores de una misma actividad, profesión u oficio en número mínimo requerido para formar uno gremial, y solo mientras subsista esta circunstancia.
 
-### **CAPITULO XIII**
+(Modificado por el Art. 40 del Ley 50 de 1990)
 
-**TRABAJADORES DE EMPRESAS BANCARIAS**
+ARTICULO 357. SINDICATOS DE BASE. Representación sindical.
 
-Asistencia médica.
+En una misma empresa no pueden coexistir dos o más sindicatos de base. Si por cualquier motivo llegaren a coexistir subsistirá el que tenga mayor número de afiliados, el cual debe admitir al personal de los demás sin hacerles más gravosas sus condiciones de admisión. (Numeral 1 declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-567-00) Cuando en una misma empresa coexistiere un sindicato de base con uno gremial o de industria, la representación de los trabajadores, para todos los efectos de la contratación colectiva, corresponderá al sindicato que agrupe a la mayoría de los trabajadores de dicha empresa. (Numeral 2 declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-063-08) Si ninguno de los sindicatos agrupa a la mayoría de los trabajadores de la empresa, la representación corresponderá conjuntamente a todos ellos. El gobierno reglamentará la forma y modalidades de esta representación.
 
-**Artículo 354.** Las empresas bancarias tienen como obligación especial la de suministrar a sus trabajadores asistencia médica, quirúrgica, farmacéutica y hospitalaria en caso de enfermedad no profesional, hasta por seis (6) meses.
+(Numeral 3 declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-567-00) (Subrogado por el Art. 26 del Decreto 2351 de 1965)
 
-### **CAPITULO XIV**
+ARTICULO 358. LIBERTAD DE AFILIACION. Los sindicatos son organizaciones de libre ingreso y retiro de los trabajadores. En los estatutos se reglamentará la coparticipación en instituciones de beneficio mutuo que hubiere establecido el sindicato con aportes de sus miembros. (Modificado por el Art. 2 de la Ley 584 de 2000.)
 
-**PATRONOS SIN CARÁCTER DE EMPRESA**
+## CAPITULO II.
 
-Prestaciones sociales.
+ORGANIZACION.
 
-**Artículo 355.** 1. Los patronos que ejerciten actividades sin ánimo de lucro, es decir, que no tengan el carácter de empresas, están sujetos a las normas del presente Código; pero en cuanto a las prestaciones de que tratan los Títulos VIII y IX sólo están obligados al pago de las siguientes: accidente de trabajo, enfermedad profesional, auxilio monetario por enfermedad no profesional, auxilio de cesantía y gastos de entierro.
+ARTICULO 359. NUMERO MINIMO DE AFILIADOS. Todo sindicato de trabajadores necesita para constituirse o subsistir un número no inferior a veinticinco (25) afiliados; y todo sindicato patronal no menos de cinco (5) {empleadores} independientes entre sí.
 
-- 2. Estas prestaciones se deben en su totalidad sin limitaciones de ninguna clase. No obstante, el Gobierno puede efectuar la clasificación de estos patronos y señalar la proporción o porcentaje de las prestaciones a su cargo.
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-201-02)
 
-Cooperativas.
+ARTICULO 360. AFILIACION A VARIOS SINDICATOS.
 
-**Artículo 356.** Las sociedades cooperativas deben a sus trabajadores las mismas prestaciones que las empresas; y se tendrá como capital para graduarlas el valor de su patrimonio, según certificación de la Superintendencia del ramo.
+ARTICULO 361. FUNDACION.
 
-## **TITULO X**
+De la reunión inicial de constitución de cualquier sindicato los iniciadores deben suscribir un "acta de fundación" donde se expresen los nombres de todos ellos, sus documentos de identificación, la actividad que ejerzan y que los vincule, el nombre y objeto de la asociación. En la misma o en sucesivas reuniones se discutirán y aprobarán los estatutos de la asociación y se designará el personal directivo, todo lo cual se hará constar en el acta o actas que se suscriban.
 
-**NORMAS PROTECTORAS DE LAS PRESTACIONES**
+(Modificado por el Art. 41 de la Ley 50 de 1990) (Declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-621-08)
 
-### **CAPITULO I**
+ARTICULO 362. ESTATUTOS. Toda organización sindical tiene el derecho de realizar libremente sus estatutos y reglamentos administrativos. Dichos estatutos contendrán, por lo menos, lo siguiente:
 
-**IRRENUNCIABILIDAD**
+La denominación del sindicato y su domicilio.
 
-Principio general y excepciones.
+Su objeto.
 
-**Artículo 357.** Las prestaciones sociales establecidas en este Código, ya sean eventuales o causadas, son irrenunciables. Se exceptúan de esta regla:
+Condiciones de admisión.
 
-- a) El seguro de vida obligatorio de los trabajadores mayores de cincuenta (50) años de edad, los cuales quedan con la facultad de renunciarlo cuando vayan a ingresar al servicio del patrono. Si hubieren cumplido o cumplieren esa edad estando al servicio del establecimiento o patrono, no procede esta renuncia.
+(Numeral 3, modificado por el artículo 3 de la Ley 584 de 2000) Obligaciones y derechos de los asociados.
 
-- b) Las de aquellos riesgos que sean precisamente consecuencia de invalidez o enfermedad existente en el momento en que el trabajador entra al servicio del patrono.
+Número, denominación, período y funciones de los miembros de la directiva central y de las seccionales en su caso; modo de integrarlas o elegirlas, reglamento de sus reuniones y causales y procedimientos de remoción.
 
-Definición y clasificación de invalidez y enfermedad.
+Organización de las comisiones reglamentarias y accidentales.
 
-**Artículo 358.** 1. Para los efectos del ordinal b) del Artículo anterior se entienden por inválidos o enfermos los trabajadores con perturbaciones o deficiencias orgánicas, fisiológicas o psicológicas, pero que están todavía en condiciones de desarrollar alguna capacidad de trabajo.
+Cuantía y periodicidad de las cuotas ordinarias y su forma de pago.
 
-- 2. Para los fines de la de la renuncia de las indemnizaciones que debían recibir, estos inválidos y enfermos se clasifican en las siguientes categorías:
+Procedimiento para decretar y cobrar cuotas extraordinarias.
 
-- a) Trabajadores con perturbaciones o deficiencias orgánicas, fisiológicas o psicológicas, corregibles o curables por tratamientos adecuados y que afectan transitoriamente su capacidad de trabajo; y
+Sanciones disciplinarias y motivos y procedimiento de expulsión, con audiencia, en todo caso, de los inculpados.
 
-- b) Trabajadores con perturbaciones o deficiencias orgánicas, fisiológicas o psicológicas definitivas, pero que están todavía en condiciones de desarrollar alguna capacidad de trabajo.
+Épocas de celebración de asambleas generales ordinarias y de asambleas de delegatarios, en su caso; reglamento de las sesiones, quórum, debates y votaciones.
 
-- 3. Los médicos de la Oficina Nacional de Medicina e Higiene Industrial del Ministerio del Trabajo harán, en cada caso particular, la clasificación respectiva de la invalidez o enfermedad del trabajador, y autorizarán las renuncias a que hubiere lugar.
+Reglas para la administración de los bienes y fondos sindicales, para la expedición y ejecución de los presupuestos y presentación de balances y expedición de finiquitos.
 
-- 4. Sin estos requisitos, las renuncias no producen ningún efecto.
+Normas para la liquidación del sindicato.
 
-Prestaciones renunciables.
+(Modificado por el Art. 42 de la Ley 50 de 1990)
 
-**Artículo 359**.1.Los trabajadores comprendidos en el ordinal a) del inciso 2 del artículo anterior, pueden renunciar a los auxilios por enfermedad no profesional establecidos en los artículos 229 y 286, a los cuales tendrían derecho al producirse su incapacidad para el trabajo como consecuencia de la perturbación o deficiencia que originó la renuncia.
+ARTICULO 363. NOTIFICACION. Una vez realizada la asamblea de constitución, el sindicato de trabajadores comunicará por escrito al respectivo empleador y al inspector del trabajo, y en su defecto, al alcalde del lugar, la constitución del sindicato, con la declaración de los nombres e identificación de cada uno de los fundadores. El inspector o alcalde a su vez, pasarán igual comunicación al empleador inmediatamente. (Modificado por el Art. 43 de la Ley 50 de 1990)
 
-"2. Los trabajadores comprendidos en el ordinal b) del inciso 2 del mismo artículo anterior, pueden renunciar a los auxilios por enfermedad no profesional y por accidente de trabajo que se produzca como consecuencia directa de la perturbación o deficiencia que originó la renuncia, y al seguro de vida colectivo obligatorio, en casi de muerte ocurrida por la misma causa.
+## CAPITULO III.
 
-"3. Todos los trabajadores de que trata el artículo anterior pueden renunciar al auxilio de invalidez establecido en el artículo 287".
+PERSONERIA JURIDICA.
 
-**Artículo 360.** No produce ningún efecto la cesión que haga el trabajador de sus prestaciones.
+ARTICULO 364. PERSONERIA JURIDICA. Toda organización sindical de trabajadores por el solo hecho de su fundación, y a partir de la fecha de la asamblea constitutiva, goza de personería jurídica.
 
-### **CAPITULO II**
+(Modificado por el Art. 44 de la Ley 50 de 1990)
 
-**INEMBARGABILIDAD**
+ARTICULO 365. REGISTRO SINDICAL. Todo sindicato de trabajadores deberá inscribirse en el registro que para tales efectos lleve el Ministerio de Trabajo y Seguridad Social.
 
-Principio y excepciones.
+Dentro de los cinco (5) días hábiles siguientes a la fecha de la asamblea de fundación, el sindicato presentará ante el Ministerio de Trabajo y Seguridad Social, solicitud escrita de inscripción en el registro sindical, acompañándola de los siguientes documentos:
 
-**Artículo 361.** 1. Son inembargables las prestaciones sociales, cualquiera que sea su cuantía.
+a) Copia del acta de fundación, suscrita por los asistentes con indicación de su documento de identidad;
 
-- 2. Exceptúense de lo dispuesto en el inciso anterior los créditos a favor de las cooperativas legalmente autorizadas y los provenientes de las pensiones alimenticias a que se refieren los artículos 411 y concordantes del Código Civil; pero el monto del embargo o retención no puede exceder del cincuenta por ciento (50%) del valor de la prestación respectiva.
+b) Copia del acta de elección de la junta directiva, con los mismos requisitos del ordinal anterior;
 
-### **CAPITULO III**
+c) Copia del acta de la asamblea en que fueron aprobados los estatutos;
 
-**PRELACION DE CRÉDITOS**
+d) Un (1) ejemplar de los estatutos del sindicato, autenticados por el secretario de la junta directiva;
 
-Clasificación.
+e) Nómina de la junta directiva y documento de identidad.
 
-**Artículo 362.** Las prestaciones sociales pertenecen al grupo cuarto de los créditos de primera clase.
+(Literal e) modificado por el artículo 4 de la Ley 584 de 2000)
 
-### **CAPITULO IV**
+f) Nómina completa del personal de afiliados con su correspondiente documento de identidad.
 
-**EXENCIÓN DE IMPUESTOS**
+(Literal f) modificado por el artículo 4 de la Ley 584 de 2000)
 
-Norma general.
+g) Los documentos de que trata los apartes a), b) y c) pueden estar reunidos en un solo texto o acta.
 
-**Artículo 363.** Las sumas que reciban los trabajadores por concepto de prestaciones sociales están exentas de todo impuesto.
+(Literal g) modificado por el artículo 4 de la Ley 584 de 2000) (Modificado por el Art. 45 de la Ley 50 de 1990)
 
-Causahabientes o beneficiarios.
+ARTICULO 366. TRAMITACION.
 
-**Artículo 364.** Las sumas que reciban los causahabientes o beneficiarios de trabajadores por concepto de prestaciones sociales están exentas de todo impuesto cuando no excedan de cinco mil pesos ($5.000). Cuando excedieren de este límite, el gravamen recaerá sobre el exceso.
+1) Recibida la solicitud de inscripción, el ministerio del trabajo y seguridad social, dispone de un término máximo e improrrogable de quince (15) días hábiles, contados a partir de la fecha de su presentación, para admitir, formular objeciones o negar la inscripción en el registro sindical.
 
-## **TITULO XI**
+2) En caso de que la solicitud no reúna los requisitos de que trata el artículo anterior, el Ministerio de Trabajo y Seguridad Social formulara por escrito a los interesados las objeciones a que haya lugar, para que se efectúen las correcciones necesarias.
 
-**HIGIENE Y SEGURIDAD EN EL TRABAJO**
+En éste evento el Ministerio de Trabajo dispone de diez (10) días hábiles contados a partir de la fecha de presentación de la solicitud corregida, para resolver sobre la misma.
 
-Locales y equipos.
+3) Vencidos los términos de que tratan los numerales anteriores, sin que el Ministerio del Trabajo y Seguridad Social se pronuncié sobre la solicitud formulada, la organización sindical quedará automáticamente inscrita en el registro correspondiente.
 
-**Artículo 365.** Todo patrono o empresa está obligado a suministrar y acondicionar locales y equipos de trabajo que garanticen la seguridad y la salud de los trabajadores, de conformidad con las normas que sobre el particular establezca la Oficina Nacional de Medicina e Higiene Industrial del Ministerio del Trabajo.
+4) Son causales para negar la inscripción en el registro sindical únicamente las siguientes:
 
-Reglamento de higiene y seguridad.
+a) Cuando los estatutos de la organización sindical sean contrarios a la Constitución Nacional, la Ley o las buenas costumbres; (Aparte tachado declarado INEXEQUIBLE)
 
-**Artículo 366.** Los patronos que tengan a su servicio diez (10) o más trabajadores permanentes deben elaborar un reglamento especial de higiene y seguridad, y someterlo a la revisión y aprobación de la Oficina Nacional de Medicina e Higiene Industrial del Ministerio del Trabajo, a más tardar dentro de los tres (3) meses siguientes a la vigencia de este Código, o dentro de los tres (3) meses siguientes a la iniciación de las labores, si se trata de un nuevo establecimiento.
+b) Cuando la organización sindical se constituya con un número de miembros inferior al exigido por la ley,
 
-Contenido del reglamento.
+c) Cuando se trate de la inscripción de un nuevo sindicato de empresa, en una donde ya existiera organización de esta misma clase. Literal
 
-**Artículo 367.** El reglamento especial que se prescribe en el Artículo anterior debe contener, por lo menos, disposiciones normativas sobre los siguientes puntos:
+INEXEQUIBLE
 
-- 1. Protección e higiene personal de los trabajadores.
+PARAGRAFO. El incumplimiento injustificado de los términos previstos en el presente artículo hará incurrir al funcionario responsable en causal de mala conducta sancionable con arreglo al régimen disciplinario vigente.
 
-- 2. Prevención de accidentes y enfermedades.
+(Modificado por el Art. 46 de la Ley 50 de 1990)
 
-- 3. Servicio médico, sanidad del establecimiento, y salas cunas en su caso.
+ARTICULO 367. PUBLICACION. El acto administrativo por el cual se inscriba en el registro una organización sindical, deberá ser publicado por cuenta de ésta una sola vez en un diario de amplia circulación nacional, dentro de los diez (10) días siguientes a su ejecutoria. Un ejemplar del diario deberá ser depositado dentro de los cinco (5) días hábiles siguientes en el registro sindical del Ministerio del Trabajo y Seguridad Social. (Modificado por el Art. 47 de la Ley 50 de 1990)
 
-- 4. Prohibición de facilitar alojamiento en edificios de industrias peligrosas o insalubres.
+ARTICULO 368. PUBLICACION. El acto administrativo por el cual se inscriba en el registro una organización sindical, deberá ser publicado por cuenta de ésta una sola vez en un diario de amplia circulación nacional, dentro de los diez (10) días siguientes a su ejecutoria. Un ejemplar del diario deberá ser depositado dentro de los cinco (5) días hábiles siguientes en el registro sindical del Ministerio del Trabajo y Seguridad Social. (Modificado por el Art. 47 de la Ley 50 de 1990)
 
-- 5. Provisión de sillas para trabajadores de tiendas, boticas, fábricas, talleres y establecimientos similares.
+ARTICULO 369. MODIFICACION DE LOS ESTATUTOS. Toda modificación a los estatutos debe ser aprobada por la asamblea general del sindicato y remitida, para efectos del registro correspondiente, al Ministerio de Trabajo y Seguridad Social, dentro de los cinco (5) días hábiles siguientes a la fecha de su aprobación, con copia del acta de la reunión donde se haga constar las reformas introducidas y firmadas por todos los asistentes. Para el registro, se seguirá en lo pertinente, el trámite previsto en el artículo 366 de éste Código.
 
-- 6. Cuando se trate de trabajos con soldadura eléctrica, las condiciones que deben reunir los locales y los elementos de protección para los trabajadores.
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00) (Modificado por el Art. 48 de la Ley 50 de 1990)
 
-- 7. Normas especiales, cuando se trate de empresas mineras y petroleras.
+ARTICULO 370. VALIDEZ DE LA MODIFICACION. Ninguna modificación de los estatutos sindicales tiene validez ni comenzará a regir, mientras no se efectúe su depósito por parte de la organización sindical, ante el Ministerio del Trabajo y Seguridad Social.
 
-- 8. Medidas de seguridad en las empresas de energía eléctrica, en los depósitos de explosivos de materias inflamantes y demás elementos peligrosos.
+(Apartes tachados declarados INEXEQUIBLES, por la Corte Constitucional mediante Sentencia C-465-08) (Modificado por el Art. 5 de la Ley 584 de 2000) (Modificado por el Art. 49 de la Ley 50 de 1990)
 
-- 9. Higiene en las empresas agrícolas, ganaderas y forestales.
+ARTICULO 371. CAMBIOS EN LA JUNTA DIRECTIVA. Cualquier cambio, total o parcial, en la Junta Directiva de un sindicato debe ser comunicado en los mismos términos indicados en el artículo 363. Mientras no se llene este requisito el cambio no surte ningún efecto. (Declarado CONDICIONALMENTE EXEQUIBLE, por el cargo analizado, por la Corte Constitucional mediante Sentencia C-465-08)
 
-Publicación.
+ARTICULO 372. EFECTO JURIDICO DE LA INSCRIPCION.
 
-**Artículo 368.** Una vez aprobado el reglamento de conformidad con el Artículo 366, el patrono debe mantenerlo fijado en dos (2) lugares visibles del local del trabajo.
+Ningún sindicato puede actuar como tal, ni ejercer las funciones que la ley y sus respectivos estatutos le señalen, ni ejercitar los derechos que le correspondan, mientras no se haya inscrito el acta de constitución ante el Ministerio de Trabajo y Seguridad Social y sólo durante la vigencia de esta inscripción.
 
-Vigilancia, sanciones.
+(Inciso declarado CONDICIONALMENTE EXEQUIBLE por la Corte Constitucional mediante Sentencia C-695-08) En los municipios donde no exista Oficina del Ministerio del Trabajo y Seguridad Social, la inscripción se hará ante el alcalde, quien tendrá la responsabilidad de enviar la documentación a la oficina del ministerio del municipio más cercano, dentro de las veinticuatro (24) horas siguientes. A partir de la inscripción se surten los efectos legales.
 
-**Artículo 369.** Corresponde al Ministerio del Trabajo, por conducto de la Oficina Nacional de Medicina e Higiene Industrial, velar por el cumplimiento de las disposiciones de este Capítulo, atender las reclamaciones de patronos y obreros sobre la trasgresión de sus reglas, prevenir a los remisos, y, en caso de reincidencia o negligencia, imponer sanciones, teniendo en cuenta la capacidad económica del trasgresor y la naturaleza de la falta cometida.
+(Modificado por el artículo 6 de la Ley 584 de 2000) (Modificado por el Art. 49 de la Ley 50 de 1990)
 
-**SEGUNDA PARTE**
+## CAPITULO IV.
 
-**DERECHO COLECTIVO DEL TRABAJO**
+FACULTADES Y FUNCIONES SINDICALES.
 
-## **TÍTULO I**
+ARTICULO 373. FUNCIONES EN GENERAL. Son funciones principales de todos los sindicatos:
 
-**SINDICATOS**
+1). Estudiar las características de la respectiva profesión y los salarios, prestaciones, honorarios, sistemas de protección o de prevención de accidentes y demás condiciones de trabajo referentes a sus asociados para procurar su mejoramiento y su defensa.
 
-### **CAPITULO I**
+2). Propulsar el acercamiento de {empleadores} y trabajadores sobre las bases de justicia, de mutuo respeto y de subordinación a la ley, y colaborar en el perfeccionamiento de los métodos peculiares de la respectiva actividad y en el incremento de la economía general. 3). Celebrar convenciones colectivas y contratos sindicales; garantizar su cumplimiento por parte de sus afiliados y ejercer los derechos y acciones que de ellos nazcan.
 
-**DISPOSICIONES GENERALES**
+4). Asesorar a sus asociados en la defensa de los derechos emanados de un contrato de trabajo o de la actividad profesional correspondiente, y representarlos ante las autoridades administrativas, ante los {empleadores} y ante terceros.
 
-Derecho de asociación.
+5). Representar en juicio o ante cualesquiera autoridades u organismos los intereses económicos comunes o generales de los agremiados o de la profesión respectiva, y representar esos mismos intereses ante los {empleadores} y terceros en caso de conflictos colectivos que no hayan podido resolverse por arreglo directo, procurando la conciliación.
 
-**Artículo 370.** 1. De acuerdo con el Artículo 12, el Estado garantiza a los patronos, a los trabajadores y a todo el que ejerza una actividad independiente, el derecho de asociarse libremente en defensa de sus intereses, formando asociaciones profesionales o sindicatos, y a éstos el derecho de unirse o de federarse entre sí.
+6). Promover la educación técnica y general de sus miembros;
 
-- 2. Los sindicatos deben ajustarse, en el ejercicio de sus derechos y cumplimiento de sus deberes, a las normas de este Título, y están sometidos a la inspección y vigilancia del Gobierno en cuanto concierne al orden público y en particular en los casos que aquí se establecen.
+7). Prestar socorro a sus afiliados en caso de desocupación, enfermedad, invalidez o calamidad;
 
-Protección del derecho de asociación.
+8). Promover la creación y fomentar el desarrollo de cooperativas, cajas de ahorros, préstamos y auxilios mutuos, escuelas, bibliotecas, institutos técnicos o de habilitación profesional, oficinas de colocación, hospitales, campos de experimentación o de deportes y demás organismos adecuados a los fines profesionales, culturales, de solidaridad y previsión contemplados en los estatutos; 9). Servir de intermediarios para la adquisición y distribución entre sus afiliados de artículos de consumo, materias primas y elementos de trabajo a precio de costo; y 10). Adquirir a cualquier título y poseer los bienes inmuebles y muebles que requieran para el ejercicio de sus actividades.
 
-**Artículo 371.** 1. En los términos del Artículo 309 del Código Penal, queda prohibido a teda persona atentar contra el derecho de asociación sindical.
+ARTICULO 374. OTRAS FUNCIONES. Corresponde también a los sindicatos:
 
-- 2. Toda persona que por medio de violencias o amenazas atente en cualquier forma contra el derecho de libre asociación sindical, será castigada con una multa de doscientos a dos mil pesos ($200 a $2.000), que le será impuesta por el respectivo funcionario administrativo del Trabajo, previa comprobación completa de los hechos. En caso de sobrevenir condenación penal con sanción pecuniaria, se devolverá la multa que se prevé en este inciso.
+1). Designar de entre sus propios afiliados las comisiones de reclamos permanentes o transitorias, y los delegados del sindicato en las comisiones disciplinarias que se acuerden.
 
-Actividades lucrativas.
+(Aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00) 2). Presentar pliegos de peticiones relativos a las condiciones de trabajo o a las diferencias con los {empleadores}, cualquiera que sea su origen y que no estén sometidas por la ley o la convención a un procedimiento distinto, o que no hayan podido ser resueltas por otros medios. 3). Adelantar la tramitación legal de los pliegos de peticiones, designar y autorizar a los afiliados que deban negociarlos y nombrar los conciliadores y árbitros a que haya lugar, y (Aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00) 4). Declarar la huelga de acuerdo con los preceptos de la Ley.
 
-**Artículo 372.** Los sindicatos no pueden tener por objeto la explotación de negocios o actividades con fines de lucro.
+(Numeral 4) declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-271-99)
 
-Sindicatos de trabajadores, clasificación.
+ARTICULO 375. ATENCION POR PARTE DE LAS AUTORIDADES Y {EMPLEADORES}. Las funciones señaladas en los artículos anteriores y que deban ejercerse ante las autoridades y los {empleadores} implican para éstos la obligación correlativa de entender oportunamente a los representantes del sindicato, sus apoderados y voceros.
 
-**Artículo 373.** Los sindicatos de trabajadores se clasifican así:
+ARTICULO 376. ATRIBUCIONES EXCLUSIVAS DE LA ASAMBLEA. Son de atribución exclusiva de la asamblea general los siguientes actos: La modificación de estatutos, la fusión con otros sindicatos; la afiliación a federaciones o confederaciones y el retiro de ellas; la sustitución en propiedad de los directores que llegaren a faltar y la destitución de cualquier director; la expulsión de cualquier afiliado; la fijación de cuotas extraordinarias; la aprobación del presupuesto general; la determinación de la cuantía de la caución del tesorero; la asignación de los sueldos; la aprobación de todo gasto mayor de un equivalente a diez (10) veces el salario mínimo mensual más alto; la adopción de pliegos de peticiones que deberán presentarse a los {empleadores} a más tardar dos (2) meses después; la designación de negociadores; la elección de conciliadores* y de árbitros; la votación de la huelga en los casos de la ley y la disolución o liquidación del sindicato. (Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00)
 
-- a) De base, si están formados por individuos de varias profesiones, oficios o especialidades, que prestan sus servicios en una misma empresa, establecimiento o institución.
+PARAGRAFO. Cuando en el conflicto colectivo esté comprometido un sindicato de industria o gremial que agrupe más de la mitad de los trabajadores de la empresa, éstos integrarán la asamblea para adoptar pliegos de peticiones, designar negociadores y asesores y optar por la declaratoria de huelga o someter el conflicto a la decisión arbitral.
 
-- b) De industrias, si están formados por individuos que prestan sus servicios en varias empresas de una misma rama industrial.
+(Parágrafo declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00) (Modificado por el Art. 16 de la Ley 11 de 1984) (Declarado EXEQUIBLE, por los cargos analizados, por la Corte Constitucional mediante Sentencia C-674-08)
 
-- c) Gremiales, si están formados por individuos de una misma profesión, oficio o especialidad.
+ARTICULO 377. PRUEBA DEL CUMPLIMIENTO DE DISPOSICIONES LEGALES O ESTATUTARIAS. El cumplimiento de la norma consignada en el artículo que antecede, así como el de las demás disposiciones legales o estatutarias que requieren un procedimiento especial o una mayoría determinada, se acredita con la copia de la parte pertinente del acta de la respectiva reunión.
 
-- d) De oficios varios, si están formados por trabajadores de diversas profesiones, disímiles o inconexas. Estos últimos sólo pueden formarse en los lugares donde no haya trabajadores de una misma actividad, profesión u oficio en el número mínimo requerido para formar uno gremial, y sólo mientras subsiste esta circunstancia.
+## CAPITULO V.
 
-Sindicatos de base.
+PROHIBICIONES Y SANCIONES.
 
-**Artículo 374.** A los sindicatos de base corresponde, de preferencia, la representación de sus afiliados en todas las relaciones de trabajo; la presentación de pliegos de peticiones; la designación de comisiones disciplinarias o de reclamos y la de negociadores, de entre sus propios miembros; el nombramiento de conciliadores y de árbitros en su caso; y la celebración de contratos sindicales y de convenciones colectivas de trabajo, para cuyo concierto deben ser consultados los intereses de las respectivas actividades de los asociados. Por lo mismo, dentro de una misma empresa, institución o establecimiento no pueden coexistir dos (2) o más sindicatos de trabajadores; y si por cualquier motivo llegaren a coexistir, subsistirá el que tenga mayor número de afiliados, el cual debe admitir el personal de los demás sin hacerles más gravosas sus condiciones de admisión.
+ARTICULO 378. LIBERTAD DE TRABAJO. Los sindicatos no pueden coartar directa o indirectamente la libertad de trabajo.
 
-Libertad de afiliación, altos empleados.
+ARTICULO 379. PROHIBICIONES. Es prohibido a los sindicatos de todo orden:
 
-**Artículo 375.** 1. Los sindicatos son asociaciones de libre ingreso y retiro de los trabajadores. En los estatutos se reglamentarán las condiciones y restricciones de admisión, la devolución de cuotas o aportes a los afiliados en caso de retiro voluntario o de expulsión, así como la coparticipación en instituciones de beneficio mutuo que hubiere establecido el sindicato con aportes de sus miembros.
+a) Intervenir en la política partidista o en asuntos religiosos, haciéndose representar en convenciones o directorios políticos o en congresos o congregaciones confesionales, subvencionando partidos políticos o cultos religiosos o lanzando oficialmente candidaturas a cargos de elección popular, todo expulsión por causales previstas en los estatutos y plena ello sin menoscabo de los derechos políticos ni de la libertad de conciencia, de cultos, de reunión o de expresión que corresponden a cada uno de los asociados en particular.
 
-- 2. Los estatutos pueden restringir la admisión de altos empleados en los sindicatos de base.
+(Literal a) derogado por el Art. 116 de la Ley 50 de 1990)
 
-### **CAPITULO II**
+b) Compeler directa o indirectamente a los trabajadores a ingresar en el sindicato o a retirarse de él, salvo los casos de expulsión por causales previstas en los estatutos y plenamente comprobadas;
 
-**ORGANIZACIÓN**
+c) Aplicar cualesquiera fondos o bienes sociales a fines diversos de los que constituyen el objeto de la asociación o que, aún para éstos fines, impliquen gastos o inversiones que no hayan sido debidamente autorizados en la forma prevista en la ley o en los estatutos;
 
-Número mínimo de afiliados.
+d) Efectuar operaciones comerciales de cualquier naturaleza, sea que se realicen con los trabajadores o con terceros; (Literal d) derogado por el Art. 7 de la Ley 584 de 2000) (Literal d) declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00)
 
-**Artículo 376.** Todo sindicato de trabajadores necesita para constituirse o subsistir un número no inferior a veinticinco (25) afiliados; y todo sindicato patronal no menos de cinco (5) patronos independientes entre sí.
+e) Promover cualesquiera cesaciones o paros en el trabajo, excepto en los casos de huelga declarada de conformidad con la ley y de huelga imputable al empleador, por incumplimiento de las obligaciones salariales con sus trabajadores.
 
-Afiliación a varios sindicatos.
+(Aparte tachado INEXEQUIBLE modificado por el artículo 7 de la Ley 584 de 2000)
 
-**Artículo 377.** Se prohíbe ser miembro a la vez de varios sindicatos de la misma clase o actividad.
+f) promover o apoyar campañas o movimientos tendientes a desconocer de hecho en forma colectiva, o particularmente por los afiliados, los preceptos legales o los actos de autoridad legítima;
 
-Fundación.
+g) Promover o patrocinar el desconocimiento de hecho, sin alegar a razones o fundamentos de ninguna naturaleza, de normas convencionales o contractuales que obliguen a los afiliados, y
 
-**Artículo 378. 1. De la reunión inicial de constitución de cualquier sindicato los iniciadores deben levantar una "acta de fundación" donde se expresen los nombres de todos ellos, sus documentos de identificación, su residencia, la actividad que ejerzan y que los vincule, el nombre y objeto de la asociación.**
+h) Ordenar, recomendar o patrocinar cualesquiera actos de violencia frente a las autoridades o en perjuicio de los {empleadores} o de terceras personas.
 
-- 2. En la misma o en sucesivas reuniones se discutirán y aprobarán los estatutos de la asociación, y se designará el personal directivo provisional, que debe estar formado por lo menos, por un Presidente, un Vicepresidente y un Secretario. También se designarán provisionalmente un Tesorero y un Fiscal. Dichos Presidente y Secretario quedarán encargados de hacer todas las gestiones conducentes al reconocimiento de la personería jurídica de la asociación.
+ARTICULO 380. SANCIONES.
 
-**Estatutos.**
+1). Cualquier violación de las normas del presente título, será sancionada así:
 
-**Artículo 379.** Los estatutos deben expresar:
+a) Si la violación es imputable al sindicato mismo, por constituir una actuación de sus directivas, y la infracción o hecho que la origina no se hubiere consumado, el Ministerio de Trabajo y Seguridad Social prevendrá al sindicato para que revoque su determinación dentro del término prudencial que fije;
 
-- 1. La denominación del sindicato y su domicilio.
+b) Si la infracción ya se hubiere cumplido, o sí hecha la prevención anterior no se atendiere, el Ministerio de Trabajo y Seguridad Social procederá a imponer multas equivalentes al monto de una (1) a cincuenta (50) veces el salario mínimo mensual más alto vigente,
 
-- 2. Su objeto.
+c) Si a pesar de la multa, el sindicato persistiere en la violación, el Ministerio de Trabajo y Seguridad Social podrá solicitar de la Justicia de Trabajo la disolución y liquidación del sindicato, y la cancelación de la inscripción en el registro sindical respectivo. 2). Las solicitudes de disolución, liquidación y cancelación de la inscripción en el registro sindical, se formularán ante el juez del trabajo del domicilio del sindicato o, en su defecto, del circuito civil y se tramitarán conforme al procedimiento sumario que se señala a continuación:
 
-- 3. Condiciones y restricciones de admisión.
+a) La solicitud que eleve el Ministerio de Trabajo y Seguridad Social deberá expresar los motivos invocados, una relación de los hechos y las pruebas que se pretendan hacer valer;
 
-- 4. Obligaciones y derechos de los asociados.
+b) Recibida la solicitud el juez, a más tardar el día siguiente, ordenará correr traslado de ella a la organización sindical, mediante providencia que se notificará personalmente;
 
-- 5. Número, denominación, período y funciones de los miembros de la Directiva Central y de las Seccionales en su caso; modo de integrarlas o elegirlas, reglamento de sus reuniones y causales y procedimiento de remoción.
+c) Si no se pudiere hacer la notificación personal, dentro de los cinco (5) días siguientes, el juez enviará comunicación escrita al domicilio de la organización sindical, anexando constancia del envío al expediente;
 
-- 6. Organización de las comisiones reglamentarias y accidentales.
+d) Si al cabo de cinco (5) días del envío de la anterior comunicación no se pudiere hacer la notificación personal, se fijará edicto en lugar público del respectivo despacho, por término de cinco (5) días cumplidos los cuales se entenderá surtida la notificación;
 
-- 7. Cuantía y periodicidad de las cuotas ordinarias y su forma de pago.
+e) El sindicato, a partir de la notificación, dispone de un término de cinco (5) días para contestar la demanda y presentar las pruebas que se consideren pertinentes;
 
-- 8. Procedimiento para decretar y cobrar cuotas extraordinarias.
+f) Vencido el término anterior el juez decidirá teniendo en cuenta los elementos de juicio de que disponga dentro de los cinco (5) días siguientes, y
 
-- 9. Sanciones disciplinarias y motivos y procedimiento de expulsión, con audiencia, en todo caso, de los inculpados.
+g) La decisión del juez será apelable, en el efecto suspensivo, para ante el respectivo Tribunal Superior del Distrito Judicial, el cual deberá decidir de plano dentro de los cinco (5) días siguientes al en que sea recibido el expediente. Contra la decisión del Tribunal no cabe ningún recurso. (Aparte subrayado declarado EXEQUIBLE por la Corte Suprema de Justicia, mediante Sentencia No. 115 del 26 de septiembre de 1991) 3). Todo miembro de la directiva de un sindicato que haya originado como sanción la disolución de éste, podrá ser privado del derecho de asociación sindical en cualquier carácter, hasta por el término de tres (3) años, según la apreciación del juez en la respectiva providencia o fallo que imponga la disolución y en la cual serán declarados nominalmente tales responsables.
 
-- 10. Épocas de celebración de asambleas generales ordinarias y de asambleas de delegatarios, en su caso; reglamento de las sesiones; quórum; debates y votaciones.
+(Numeral 3) derogado por el artículo 8 de la Ley 584 de 2000) (Subrogado por el Art. 52 de la Ley 50 de 1990.)
 
-- 11. Reglas para la administración de los bienes y fondos sindicales; para la expedición y ejecución de los presupuestos y presentación de balances y expedición de finiquitos.
+ARTICULO 381. SANCIONES A LOS DIRECTORES. Si el acto u omisión constitutivo de la transgresión es imputable a alguno de los directores o afiliados de un sindicato, y lo hayan ejecutado invocando su carácter de tales, el funcionario administrativo del Trabajo, previa comprobación que por sí mismo haga del hecho, requerirá al sindicato para que aplique al responsable o a los responsables las sanciones disciplinarias previstas en los estatutos. Vencido el término señalado en el requerimiento, que no será mayor de un (1) mes, sin que haya impuesto las sanciones, se entenderá que hay violación directa del sindicato para los efectos del artículo anterior.
 
-- 12. Normas para la liquidación del sindicato.
+## CAPITULO VI.
 
-- 13. Las demás prescripciones que se estimen necesarias para su funcionamiento.
+REGIMEN INTERNO.
 
-Notificación.
+ARTICULO 382. NOMBRE SOCIAL. Ningún sindicato puede usar como nombre social uno que induzca a error o confusión con otro sindicato existente, ni un calificativo peculiar de cualquier partido político o religión, ni llamarse "federación o confederación". Todo sindicato patronal debe indicar, en su nombre social, la calidad de tal.
 
-**Artículo 380. El Presidente y el Secretario provisionales de todo sindicato de trabajadores en formación deben notificar al respectivo patrono y al Inspector del Trabajo, y en su defecto, al Alcalde del lugar, por comunicación escrita, la voluntad del grupo de constituirse en sindicato, con la declaración de los nombres y datos de identificación de cada uno de los fundadores y de los miembros de la Junta Directiva provisional, clase y objeto de la asociación, y, en su caso, la empresa, establecimiento o institución donde trabajen. El Inspector o Alcalde, a su vez, pasará igual comunicación al patrono inmediatamente.**
+ARTICULO 383. EDAD MINIMA. Pueden ser miembros de un sindicato todos los trabajadores mayores de catorce (14) años. (Artículo declarado CONDICIONALMENTE EXEQUIBLE por la Corte Constitucional mediante Sentencia C-1188-059)
 
-### **CAPITULO III**
+ARTICULO 384. NACIONALIDAD. No puede funcionar sindicato alguno cuyo personal no esté compuesto, por lo menos en sus dos terceras (2/3) partes, por ciudadanos colombianos. Cualquiera que sea la forma de dirección del sindicato, ningún extranjero es elegible para los cargos directivos.
 
-**PERSONERÍA JURÍDICA**
+(Derogado por el Art. 9 de la Ley 584 de 2000)
 
-Solicitud.
+ARTICULO 385. REUNIONES DE LA ASAMBLEA. La asamblea general debe reunirse por lo menos cada seis (6) meses.
 
-**Artículo 381. 1. Para el reconocimiento de la personería jurídica, veinte (20) de los fundadores, cuando menos, por sí o mediante apoderado especial, deben elevar al Ministerio del Trabajo, por conducto del Departamento Nacional de Supervigilancia Sindical, la solicitud correspondiente, acompañándola de los siguientes documentos, todo en papel común:**
+(Declarado EXEQUIBLE, por los cargos analizados, por la Corte Constitucional mediante Sentencia C-674-08)
 
-- a) Copia del acta de fundación, con las firmas autógrafas de los asistentes y la anotación de sus respectivas cédulas, o de quienes firmen por ellos.
+ARTICULO 386. QUORUM DE LA ASAMBLEA. Ninguna asamblea general puede actuar válidamente sin el quórum estatutario, que no será inferior a la mitad más uno (1) de los afiliados; además, solamente se computarán los votos de los socios presentes.
 
-- b) Copia del acta de la elección de la Junta Directiva provisional, con los mismos requisitos del ordinal anterior.
+(Declarado EXEQUIBLE, por los cargos analizados, por la Corte Constitucional mediante Sentencia C-674-08)
 
-- c) Copia del acta de la reunión en que fueron aprobados los estatutos.
+ARTICULO 387. REPRESENTACION DE LOS SOCIOS EN LA ASAMBLEA. Cuando por la naturaleza misma de las actividades o profesión de los afiliados, o por la distribución geográfica o el excesivo número de ellos, resulte impracticable lo dispuesto en el artículo anterior, pueden admitirse en los estatutos otros sistemas que garanticen la representación de los afiliados en la asamblea.
 
-- d) Poder de quien solicite el reconocimiento de la personería jurídica, cuando la solicitud no sea suscrita por veinte (20) asociados directamente. El poder debe ser presentado personalmente por no menos de veinte (20) poderdantes, para su autenticación, ante autoridad competente.
+(Declarado EXEQUIBLE, por los cargos analizados, por la Corte Constitucional mediante Sentencia C-674-08)
 
-- e) Dos copias del acta de fundación, autenticadas por el Secretario provisional.
+ARTICULO 388. CONDICIONES PARA LOS MIEMBROS DE LA JUNTA DIRECTIVA. Además de las condiciones que se exijan en los estatutos, para ser miembro de la junta directiva de un sindicato, se debe ser miembro de la organización sindical; la falta de esta condición invalida la elección. En ningún caso la junta directiva podrá estar conformada en su mayoría por personas extranjeras.
 
-- f) Tres (3) ejemplares de los estatutos del sindicato, autenticados por el Secretario provisional.
+(Inciso 2 declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-311-07) (Modificado por el Art. 10 de la Ley 584 de 2000)
 
-- g) Nómina de la Junta Directiva provisional, por triplicado, con indicación de la nacionalidad, la profesión u oficio, el documento de identidad y el domicilio de cada director.
+ARTICULO 389. EMPLEADOS DIRECTIVOS. No pueden formar parte de la junta directiva de un sindicato, ni ser designados funcionarios del mismo, los afiliados que representen al empleador frente a sus trabajadores, ni los altos empleados directivos de las empresas. Es nula la elección que recaiga en uno de tales afiliados, y el que, debidamente electo, entre después a desempeñar alguno de los empleos referidos, dejará ipso facto vacante su cargo sindical.
 
-- h) Nómina completa, del personal de afiliados, por triplicado, con especificación de la nacionalidad, sexo y profesión u oficio de cada uno de ellos.
+(Modificado por el Art. 53 de la Ley 50 de 1990)
 
-- i) Certificación del correspondiente Inspector del Trabajo sobre la inexistencia de otro sindicato, si se trata de un sindicato de base que pueda considerarse paralelo; sobre la calidad de patronos o de trabajadores de los fundadores, en relación con la industria o actividad de que se trate o de su calidad de profesionales del ramo del sindicato; sobre la antigüedad, si fuere del caso, de los directores provisionales en el ejercicio de la correspondiente actividad, y sobre las demás circunstancias que estime conducentes. En los lugares en donde no haya Inspección del Trabajo, la certificación debe ser expedida por la primera autoridad política y refrendada por el Inspector del Trabajo más cercano.
+ARTICULO 390. PERIODO DE DIRECTIVAS.
 
-- 2. Los documentos de que tratan los apartes a), b) y c) pueden estar reunidos en un solo texto o acta.
+El período de las directivas sindicales no puede ser menor de seis meses, con excepción de la directiva provisional, cuyo mandato no puede prolongarse por más de treinta (30) días, contados desde la publicación oficial del reconocimiento de la personería jurídica, pero el mismo personal puede ser elegido para el período reglamentario. Esto no limita la libertad del sindicato para remover, en los casos previstos en los estatutos, a cualesquiera miembros de la Junta Directiva, ni la de estos para renunciar sus cargos; los suplentes entran a reemplazarlos por el resto del período.
 
-**Tramitación.**
+Si dentro de los treinta (30) días de que habla este artículo, la junta provisional no convocare a asamblea general para la elección de la primera junta reglamentaria, un número no menor de quince (15) afiliados puede hacer la convocatoria.
 
-**Artículo 382.** Recibida la solicitud por el Departamento Nacional de Supervigilancia Sindical, éste dispone de un término máximo de quince (15) días para revisar la documentación acompañada, examinar los estatutos y formular a los interesados las observaciones pertinentes.
+(Declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00)
 
-Reconocimiento.
+ARTICULO 391. ELECCION DE DIRECTIVAS.
 
-**Artículo 383.** 1. El Ministerio del Trabajo reconocerá la personería jurídica, salvo el caso de que los estatutos del sindicato sean contrarios a la Constitución, a las Leyes o a las buenas costumbres o contravenga disposiciones especiales de este Código.
+La elección de directivas sindicales se hará por votación secreta, en papeleta escrita y aplicando el sistema de cuociente electoral para asegurar la representación de las minorías, so pena de nulidad.
 
-- 2. El Ministerio, dentro de los quince (15) días siguientes al recibo del expediente, dictará la resolución sobre reconocimiento o denegación de la personería jurídica, indicando en el segundo caso las razones de orden legal o las disposiciones de este Código que determinen la negativa.
+(Aparte subrayado declarado EXEQUIBLE y aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-466-08) La junta directiva, una vez instalada, procederá a elegir sus dignatarios. En todo caso, el cargo de fiscal del sindicato corresponderá a la fracción mayoritaria de las minoritarias.
 
-Publicación de la resolución.
+(Aparte subrayado declarado EXEQUIBLE, por los cargos analizados, por la Corte Constitucional mediante Sentencia C-471-20) (Numeral 2) modificado por el Art. 54 de Ley 50 de 1990)
 
-**Artículo 384.** La resolución sobre reconocimiento de la personería jurídica del sindicato debe ser publicada por cuenta de éste, una sola vez, en el Diario Oficial, y surte sus efectos quince (15) días después de la publicación.
+ARTICULO 391-1. DIRECTIVAS SECCIONALES. Todo sindicato podrá prever en sus estatutos la creación de Subdirectivas Seccionales, en aquellos municipios distintos al de su domicilio principal y en el que tenga un número no inferior a veinticinco (25) miembros. Igualmente se podrá prever la creación de Comités Seccionales en aquellos municipios distintos al del domicilio principal o el domicilio de la subdirectiva y en el que se tenga un número de afiliados no inferior a doce (12) miembros. No podrá haber más de una subdirectiva o comité por municipio. (Adicionado por el Art. 55 de la Ley 50 de 1990) (Apartes en letra cursiva declarados EXEQUIBLES por la Corte Constitucional mediante Sentencia C-043-06) (Apartes subrayados declarados EXEQUIBLES por la Corte Suprema de Justicia, mediante Sentencia No. 115 del 26 de septiembre de 1991)
 
-Presentación del "Diario Oficial".
+ARTICULO 392. CONSTANCIA EN EL ACTA, VOTACION SECRETA. Tanto en las reuniones de la asamblea general como de la Junta Directiva, cualquiera de los miembros tiene derecho a pedir que se hagan constar en el acta los nombres de los que estén presente en el momento de tomarse una determinación, y a pedir que la votación sea secreta. La no aceptación de una u otra solicitud vicia de nulidad el acto o votación. (Artículo declarado EXEQUIBLE, por los cargos analizados y en los términos de la parte motiva de la sentencia, por la Corte Constitucional mediante Sentencia C-542-08)
 
-**Artículo 385.** Es obligación de todo sindicato, tan pronto como sea publicada la resolución que le reconoce su personería jurídica, remitir al Departamento Nacional de Supervigilancia Sindical un ejemplar del Diario Oficial en que aparezca la publicación correspondiente.
+ARTICULO 393. LIBROS.
 
-Modificación de los estatutos.
+Todo sindicato debe abrir, tan pronto como se haya suscrito el acta de fundación y se haya suscrito el acta de fundación y se haya posesionado la Junta Directiva provisional, por lo menos los siguientes libros: de afiliación; de actas de la asamblea general; de actas de la junta directiva; de inventarios y balances; y de ingresos y de egresos. Estos libros serán previamente registrados por el Inspector del Trabajo respectivo y foliados y rubricados por el mismo en cada una de sus páginas.
 
-**Artículo 386.** Toda modificación a los estatutos debe ser aprobada por la asamblea general del sindicato y remitida al Ministerio del Trabajo, Departamento Nacional de Supervigilancia Sindical, con tres (3) copias del acta de la reunión donde se hagan constar las reformas introducidas firmadas por todos los asistentes. El Departamento Nacional de Supervigilancia Sindical emitirá concepto en los quince (15) días siguientes, y dentro de un término igual, el Ministerio aprobará u objetará la reforma, indicando en el segundo caso las razones de orden legal.
+En todos los libros que deben llevar los sindicatos se prohíbe arrancar, sustituir o adicionar hojas, hacer enmendaduras, entre renglonaduras, raspaduras o tachaduras; cualquier omisión o error debe enmendarse mediante anotación posterior. Toda infracción a estas normas acarreará al responsable una multa por un monto equivalente al de un (1) día hasta un (1) mes de salario mínimo mensual más alto, que impondrá el Inspector de Trabajo en favor del sindicato y además, la mitad de la misma sanción, también en favor del sindicato, a cada uno de los directores y funcionarios sindicales que habiendo conocido la infracción no la hayan castigado sindicalmente o no la hayan denunciado al Inspector del Trabajo, sin perjuicio de las sanciones penales a que haya lugar.
 
-Validez de la modificación.
+(Modificado por el Art. 18 de la Ley 11 de 1984)
 
-**Artículo 387.** Ninguna modificación de los estatutos sindicales tiene validez sin la aprobación del Ministerio del Trabajo; una vez aprobada se harán las anotaciones del caso en los respectivos expedientes
+ARTICULO 394. PRESUPUESTO. El sindicato, en asamblea general, votará el presupuesto de gastos para períodos no mayores de un (1) año y sin autorización expresa de la misma asamblea no podrá hacerse ninguna erogación que no esté contemplada en dicho presupuesto. Sin perjuicio de las prohibiciones o de los requisitos adicionales que los estatutos prevean, todo gasto que exceda del equivalente al salario mínimo mensual más alto, con excepción de los sueldos asignados en el presupuesto, requiere la aprobación previa de la Junta Directiva, los que excedan del equivalente a cuatro (4) veces el salario mínimo más alto, sin pasar del equivalente a diez (10) veces el salario mínimo más alto y no estén previstos en el presupuesto, necesitan, además la refrendación expresa de la Asamblea General, con el voto de la mayoría absoluta de los afiliados; y los que excedan del equivalente a diez (10) veces el salario mínimo mensual más alto aunque estén previstos en el presupuesto, la refrendación de la asamblea general, por las dos terceras partes (2/3) de los votos de los afiliados. Estas normas no se aplican para gastos que ocasionen las huelgas declaradas por el sindicato, cualquiera que sea su cuantía.
 
-Cambios en la Junta Directiva.
+(Modificado por el Art. 19 de la Ley 11 de 1984) (Aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00)
 
-**Artículo 388.** Cualquier cambio, total o parcial, en la Junta Directiva de un sindicato debe ser comunicado en los mismos términos indicados en el Artículo 380. Mientras no se llene este requisito el cambio no surte ningún electo.
+ARTICULO 395. CAUCION DEL TESORERO. El Tesorero de todo sindicato debe prestar en favor de éste una caución para garantizar el manejo de los fondos. La cuantía y forma de la misma serán señaladas por la asamblea general, y una copia del documento en que ella conste será depositada en el Departamento Nacional de Supervigilancia Sindical.
 
-Efecto jurídico de la personería.
+(Artículo declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00)
 
-**Artículo 389.** Ningún sindicato puede actuar como tal, ni ejercer las funciones que la Ley y sus respectivos estatutos le señalen, ni ejercitar los derechos que le correspondan, mientras no tenga el reconocimiento de su personería jurídica y sólo durante la vigencia de este reconocimiento.
+ARTICULO 396. DEPOSITO DE LOS FONDOS. Los fondos de todo sindicato deben mantenerse en algún banco o caja de ahorros, salvo la cantidad para gastos cotidianos menores que autoricen los estatutos y que no puede exceder en ningún caso del equivalente al salario mínimo mensual más alto. Todo giro y toda orden de pago deben estar necesariamente autorizados por las firmas conjuntas del Presidente, Tesorero y el Fiscal. (Modificado por el Art. 20 de la Ley 11 de 1984) (Artículo declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00)
 
-### **CAPITULO IV**
+ARTICULO 397. CONTABILIDAD. La contabilidad de los sindicatos se rige por las normas que al efecto dicte el Departamento nacional de Supervigilancia Sindical, además de las reglas peculiares que los estatutos prescriban o que sus directivas acuerden. (Derogado por el Art. 116 de la Ley 50 de 1990) (Modificado por el Art. 18 de Ley 11 de 1984)
 
-**FACULTADES Y FUNCIONES SINDICALES**
+ARTICULO 398. EXPULSION DE MIEMBROS. El sindicato puede expulsar de la asociación a uno o más de sus miembros, pero la expulsión debe ser decretada por la mayoría absoluta de los asociados.
 
-Funciones en general.
+(Artículo declarado CONDICIONALMENTE EXEQUIBLE por la Corte Constitucional mediante Sentencia C-466-08)
 
-**Artículo 390.** Son funciones principales de todos los sindicatos:
+ARTICULO 399. SEPARACION DE MIEMBROS. Todo sindicato decretará la separación del socio que voluntariamente deje de ejercer durante un año la profesión u oficio cuya defensa y mejoramiento persigue la asociación.
 
-- 1. Estudiar las características de la respectiva profesión y los salarios, prestaciones, horarios, sistemas de protección o de prevención de accidentes y demás condiciones de trabajo referentes a sus asociados para procurar su mejoramiento y su defensa;
+(Artículo declarado CONDICIONALMENTE EXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00)
 
-- 2. Propulsar el acercamiento de patronos y trabajadores sobre bases de justicia, de mutuo respeto y de subordinación a la Ley, y colaborar en el perfeccionamiento de los métodos peculiares de la respectiva actividad y en el incremento de la economía general;
+ARTICULO 400. RETENCION DE CUOTAS SINDICALES
 
-- 3. Celebrar convenciones colectivas y contratos sindicales; garantizar su cumplimiento por parte de sus afiliados y ejercer los derechos y acciones que de ellos nazcan;
+Toda asociación sindical de trabajadores tiene derecho a solicitar con el voto de las dos terceras partes de sus miembros, que los (empleadores) respectivos deduzcan de los salarios de los trabajadores afiliados y pongan a la disposición del sindicato, el valor de las cuotas ordinarias o extraordinarias con que aquellos deben contribuir. La retención de las cuotas extraordinarias requiere copia autenticada del acta de la asamblea sindical en que fueron aprobadas. Para la retención de las cuotas ordinarias bastará que el secretario y el fiscaldel sindicato comuniquen certificadamente al (empleador) su valor y la nómina de sus afiliados.
 
-- 4. Asesorar a sus asociados en la defensa de los derechos emanados de un contrato de trabajo o de la actividad profesional correspondiente, y representarlos ante las autoridades administrativas, ante los patronos y ante terceros;
+(Aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00. El aparte subrayado fue declarado
 
-- 5. Representar en juicio o ante cualesquiera autoridades u organismos los intereses económicos comunes o generales de los agremiados o de la profesión respectiva, y representar esos mismos intereses ante los patronos y terceros en caso de conflictos colectivos que no hayan podido resolverse por arreglo directo, procurando la conciliación;
+EXEQUIBLE.)
 
-- 6. Promover la educación técnica y general de sus miembros;
+Cesará la retención de cuotas sindicales a un trabajador a partir del momento en que aquél, o el sindicato, comunique por escrito al {empleador} el hecho de la renuncia o expulsión; quedando a salvo el derecho del sindicato en caso de información falsa del trabajador. Previa comunicación escrita y firmada por el presidente, el fiscal y el tesorerode la federación, confederación o central sindical, el empleador deberá retener y entregar las cuotas federales y confederales que el sindicato esté obligado a pagar a esos organismos de segundo y tercer grado a los cuales está afiliado. Para tal efecto se deberán adjuntar los estatutos y constancia de afiliación del sindicato emitida por la respectiva federación, confederación o central sindical.
 
-- 7. Prestar socorro a sus afiliados en caso de desocupación, enfermedad, invalidez o calamidad;
+(Numeral 3 modificado por el Art. 11 de la Ley 584 de 2000) (Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00) (Subrogado por el Art. 23 del Decreto 2351 de 1965.)
 
-- 8. Promover la creación y fomentar el desarrollo de cooperativas, cajas de ahorros, préstamos y auxilios mutuos, escuelas, bibliotecas, institutos técnicos o de habilitación profesional, oficinas de colocación, hospitales, campos de experimentación o de deportes y demás organismos adecuados a. los fines profesionales, culturales, de solidaridad y previsión contemplados en los estatutos;
+## CAPITULO VII.
 
-- 9. Servir de intermediarios para la adquisición y distribución entre sus afiliados de artículos de consumo, materias primas y elementos de trabajo a precio de costo; y
+DISOLUCION Y LIQUIDACION.
 
-- 10. Adquirir a cualquier título y poseer los bienes inmuebles y muebles que requieran para el ejercicio de sus actividades.
+ARTICULO 401. CASOS DE DISOLUCION. Un sindicato o una federación o confederación de sindicatos solamente se disuelven:
 
-Otras funciones.
+a) Por cumplirse cualquiera de los eventos previstos en los estatutos para este efecto;
 
-**Artículo 391.** Corresponde también a los sindicatos:
+b) Por acuerdo, cuando menos, de las dos terceras (2/3) partes de los miembros de la organización, adoptado en asamblea general y acreditado con las firmas de los asistentes;
 
-- 1. Designar de entre sus propios afiliados las comisiones de reclamos permanentes o transitorios, y los delegados del sindicato en las comisiones disciplinarias que se acuerden;
+c) Por sentencia judicial, y
 
-- 2. Presentar pliegos de peticiones relativos a las condiciones de trabajo o a las diferencias con los patronos, cualquiera que sea su origen y que no estén sometidas por la Ley o la convención a un procedimiento distinto, o que no hayan podido ser resueltas por otros medios;
+d) Por reducción de los afiliados a un número inferior a veinticinco (25), cuando se trate de sindicatos de trabajadores. (Literal d) declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-201-02)
 
-- 3. Adelantar la tramitación legal de los pliegos de peticiones, designar y autorizar a los afiliados que deban negociarlos y nombrar los conciliadores y árbitros a que haya lugar; y
+e) En el evento de que el sindicato, federación o confederación se encontrare incurso en una de las causales de disolución, el Ministerio de Trabajo y Seguridad Social o quien demuestre tener interés jurídico, podrá solicitar ante el juez laboral respectivo, la disolución y la liquidación del sindicato y la cancelación de la inscripción en el registro sindical. Al efecto se seguirá en lo pertinente el procedimiento previsto en el artículo 52 de esta ley.
 
-- 4. Declarar la huelga de acuerdo con los preceptos de la Ley.
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-201-02) (Literal e) adicionado por el Art. 56 de la Ley 50 de 1990)
 
-Atención por parte de las autoridades y patronos.
+ARTICULO 402. LIQUIDACION.
 
-**Artículo 391A.** Adicionado.
+Al disolverse un sindicato, federación o confederación, el liquidador designado por los afiliados o por el juez aplicará los fondos existentes, el producto de los bienes que fuere indispensable enajenar, y el valor de los créditos que recaude, en primer término el pago de las deudas del sindicato, federación o confederación, incluyendo los gastos de la liquidación. Del remanente se reembolsará a los miembros activos las sumas que hubieren aportado como cotizaciones ordinarias, previa deducción de sus deudas para con el sindicato, federación o confederación, o, si no alcanzare, se les distribuirá a prorrata de sus respectivos aportes por dicho concepto. En ningún caso ni por ningún motivo puede un afiliado recibir más del monto de sus cuotas ordinarias aportadas.
 
-**Artículo 392.** Las funciones señaladas en los dos artículos anteriores y que deban ejercerse ante las autoridades y los patronos implican para éstos la obligación correlativa de atender oportunamente a los representantes del sindicato, sus apoderados y voceros.
+Cuando se trate de disolución de un sindicato y este hubiere estado afiliado a una federación o confederación, el liquidador debe admitir la intervención simplemente consultiva de un delegado de ella en sus actuaciones.
 
-Atribuciones exclusivas de la asamblea.
+ARTICULO 403. ADJUDICACION DEL REMANENTE. Lo que quedare del haber común, una vez pagadas las deudas y hechos los reembolsos, se adjudicará por el liquidador a la organización sindical designada para ello en los estatutos o por la asamblea general; si ninguna hubiere sido designada así, se le adjudicará al instituto de beneficencia o de utilidad social que señale el Gobierno.
 
-**Artículo 393.** Son de atribución exclusiva de la asamblea general los siguientes actos: la modificación de los estatutos; la fusión con otros sindicatos; la afiliación a federaciones o confederaciones y el retiro de ellas; la sustitución en propiedad de los directores que llegaren a faltar, y la destitución de cualquier director; la expulsión de cualquier afiliado; la fijación de cuotas extraordinarias; la aprobación del presupuesto general; la determinación de la cuantía de la caución del Tesorero; la asignación de los sueldos; la aprobación de todo gasto mayor de mil pesos ($1.000); la adopción de pliegos de peticiones que deberán presentarse a los patronos a más tardar dos meses después; la designación de negociadores; la elección de conciliadores y de árbitros; la votación de la huelga en los casos de la Ley, y la disolución o liquidación del sindicato.
+ARTICULO 404. APROBACION OFICIAL. La liquidación debe ser sometida a la aprobación del Juez que la haya ordenado, y en los demás casos, a la del Departamento Nacional de Supervigilancia Sindical, debiendo expedir el finiquito al liquidador, cuando sea el caso. (Artículo declarado EXEQUIBLE, salvo el aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00)
 
-Prueba del cumplimiento de disposiciones legales o estatutarias.
+## CAPITULO VIII.
 
-**Artículo 394.** El cumplimiento de la norma consignada en el Artículo que antecede, así como el de las demás disposiciones legales o estatutarias que requieran un procedimiento especial o una mayoría determinada, se acredita con la copia de la parte pertinente del acta de la respectiva reunión.
+FUERO SINDICAL.
 
-### **CAPITULO V**
+ARTICULO 405. DEFINICION. Se denomina "fuero sindical" la garantía de que gozan algunos trabajadores de no ser despedidos, ni desmejorados en sus condiciones de trabajo, ni trasladados a otros establecimientos de la misma empresa o a un municipio distinto, sin justa causa, previamente calificada por el juez del trabajo.
 
-**PROHIBICIONES Y SANCIONES**
+(Modificado por el Art. 1 del Decreto 204 de 1957) (Modificado por el Art. 2 del Decreto 616 de 1954) (Artículo declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-201-02)
 
-Libertad de trabajo.
+ARTICULO 406. TRABAJADORES AMPARADOS POR EL FUERO SINDICAL. Están amparados por el fuero sindical:
 
-**Artículo 395.** Los sindicatos no pueden coartar directa o indirectamente la libertad de trabajo.
+a) Los fundadores de un sindicato, desde el día de su constitución hasta dos (2) meses después de la inscripción en el registro sindical, sin exceder de seis (6) meses;
 
-Prohibiciones.
+b) Los trabajadores que, con anterioridad a la inscripción en el registro sindical, ingresen al sindicato, para quienes el amparo rige por el mismo tiempo que para los fundadores;
 
-**Artículo 396.** Es prohibido a los sindicatos de todo orden:
+c) Los miembros de la junta directiva y subdirectivas de todo sindicato, federación o confederación de sindicatos, sin pasar de cinco (5) principales y cinco (5) suplentes, y los miembros de los comités seccionales, sin pasar de un (1) principal y un (1) suplente. Este amparo se hará efectivo por el tiempo que dure el mandato y seis (6) meses más;
 
-- a) Intervenir en la política partidista o en asuntos religiosos, haciéndose representar en convenciones o directorios políticos o en congresos o congregaciones confesionales, subvencionando partidos políticos o cultos religiosos o lanzando oficialmente candidaturas a cargos de elección popular, todo expulsión por causales previstas en los estatutos y plena ello sin menoscabo de los derechos políticos ni de la libertad de conciencia, de cultos, de reunión o de expresión que corresponden a cada uno de los asociados en particular;
+d) Dos (2) de los miembros de la comisión estatutaria de reclamos, que designen los sindicatos, las federaciones o confederaciones sindicales, por el mismo período de la junta directiva y por seis (6) meses más, sin que pueda existir en una empresa más de una (1) comisión estatutaria de reclamos. Esta comisión será designada por la organización sindical que agrupe el mayor número de trabajadores.
 
-- b) Compeler directa o indirectamente a los trabajadores a ingresar en el sindicato o a retirarse de él, salvo los casos de mente comprobadas;
+(Aparte tachado declarado INEXEQUIBLE y aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-201-02)
 
-- c) Aplicar cualesquiera fondos o bienes sociales a fines diversos de los que constituyen el objeto de la asociación o que, aun para esos fines, impliquen gastos o inversiones que no hayan sido debidamente autorizados en la forma prevista en la Ley o en los estatutos;
+PARAGRAFO 1. Gozan de la garantía del fuero sindical, en los términos de este artículo, los servidores públicos, exceptuando aquellos servidores que ejerzan jurisdicción, autoridad civil, política o cargos de dirección o administración.
 
-- d) Efectuar operaciones comerciales de cualquier naturaleza, sea que se realicen con los trabajadores o con terceros;
+PARAGRAFO 2. Para todos los efectos legales y procesales la calidad del fuero sindical se demuestra con la copia del certificado de inscripción de la junta directiva y/o comité ejecutivo, o con la copia de la comunicación al empleador.
 
-- e) Promover cualesquiera cesaciones o paros en el trabajo, excepto en los casos de huelga declarada de conformidad con la Ley;
+(Modificado por el Art. 12 de la Ley 584 de 2000) (Modificado por el Art. 57 de Ley 50 de 1990) (Modificado por el Art. 24 del Decreto 2351 de 1965)
 
-- f) Promover o apoyar campañas o movimientos tendientes a desconocer de hecho en forma colectiva, o particularmente por los afiliados, los preceptos legales o los actos de autoridad legítima;
+ARTICULO 407. MIEMBROS DE LA JUNTA DIRECTIVA AMPARADOS.
 
-- g) Promover o patrocinar el desconocimiento de hecho, sin alegar razones o fundamentos de ninguna naturaleza, de normas convencionales o contractuales que obliguen a los afiliados; y
+Cuando la directiva se componga de más de cinco (5) principales y más de cinco (5) suplentes, el amparo solo se extiende a los cinco (5) primeros principales y a los cinco (5) primeros suplentes que figuren en la lista que el sindicato pase al {empleador}. La designación de toda junta directiva o cualquier cambio que ocurra en su composición debe notificarse al {empleador} en la forma prevista en los artículos 363 y 371. En caso de cambio, el antiguo miembro continúa gozando del fuero durante los tres (3) meses subsiguientes, a menos que la sustitución se produzca por renuncia voluntaria del cargo sindical antes de vencerse la mitad del periodo estatutario o por sanción disciplinaria impuesta por el sindicato, en cuyos casos el fuero cesa ipso facto para el sustituido.
 
-- h) Ordenar, recomendar o patrocinar cualesquiera actos de violencia frente a las autoridades o en perjuicio de los patronos o de terceras personas.
+En los casos de fusión de dos o más organizaciones sindicales, siguen gozando de fuero los anteriores directores que no queden incorporados en la Junta Directiva renovada con motivo de la fusión, hasta tres (3) meses después de que ésta se realice.
 
-Sanciones.
+ARTICULO 408. CONTENIDO DE LA SENTENCIA. El Juez negará el permiso que hubiere solicitado el {empleador} para despedir a un trabajador amparado por el fuero sindical, o para desmejorarlo, o para trasladarlo, si no comprobare la existencia de una justa causa. (Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-201-02) Si en el caso de que trata el inciso primero del artículo 118 del Código Procesal del Trabajo se comprobare que el trabajador fue despedido sin sujeción a las normas que regulan el fuero sindical, se ordenará su reintegro y se condenará al {empleador} a pagarle, a título de indemnización, los salarios dejados de percibir por causa del despido.
 
-**Artículo 397.** 1. Cualquier violación de las normas del presente Titulo será sancionada así:
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-201-02) Igualmente, en los casos a que se refiere el inciso tercero del mismo artículo, se ordenará la restitución del trabajador al lugar donde antes prestaba sus servicios o a sus anteriores condiciones de trabajo, y se condenará al {empleador} a pagarle las correspondientes indemnizaciones.
 
-- 1. Si la violación es imputable al sindicato mismo, por constituir una actuación de sus directivas, y la infracción o hecho que la origina no se hubiere consumado, el Ministerio del Trabajo prevendrá al sindicato para que revoque su determinación dentro del término prudencial que fije;
+(Modificado por el Art. 7 del Decreto 204 de 1957) (Modificado por el Art.3 del Decreto 616 de 1954)
 
-- 2. Si la infracción ya se hubiere cumplido, o si hecha la prevención anterior no se atendiere, el Ministerio del Trabajo procederá, previa la suficiente comprobación, a imponer la
+ARTICULO 409. EXCEPCIONES. No gozan del fuero sindical:
 
-- a) Multas hasta de quinientos pesos ($500), en primera sanción o las sanciones siguientes, en su orden, así: término;
+Los trabajadores que sean empleados públicos de acuerdo con el artículo 5o. del Código de Régimen Político y Municipal. Los trabajadores oficiales y particulares que desempeñen puestos de dirección, de confianza o de manejo.
 
-- b) Si a pesar de la multa el sindicato persistiere en la violación, podrá suspender en sus cargos sindicales a los miembros responsables de la directiva, mientras se mantenga la trasgresión;
+(Artículo declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-593-93)
 
-- c) En caso de que la violación continúe, sin que haya sido operante la sanción, podrá disponer la suspensión de la personería del sindicato por el tiempo que la trasgresión subsista; y
+ARTICULO 410. JUSTAS CAUSAS DEL DESPIDO. Son justas causas para que el Juez autorice el despido de un trabajador amparado por el fuero:
 
-- d) En último término, podrá solicitar de la justicia del Trabajo la cancelación de la personería, la disolución y liquidación del sindicato.
+a) La liquidación o clausura definitiva de las empresa o establecimiento y la suspensión total o parcial de actividades por parte del {empleador} durante más de ciento veinte (120) días, y
 
-- 2. Las solicitudes de cancelación de personerías, disolución y liquidación de sindicatos, se formularán ante el Juez del Trabajo del domicilio del sindicato o del Circuito Civil, en su defecto, de acuerdo con el Artículo 13 del Código Procesal del Trabajo, y se tramitarán conforme al procedimiento ordinario señalado en el Capítulo XIV de ese Código, de acuerdo con lo dispuesto en el Artículo 144 del mismo.
+b) Las causales enumeradas en los artículos 62 y 63 del Código Sustantivo del Trabajo para dar por terminado el contrato. (Modificado por el Art. 8 del Decreto 204 de 1957) (Modificado por el Art.10 del Decreto 616 de 1954)
 
-- 3. Las suspensiones de que tratan los ordinales b) y c) del presente Artículo se levantarán tan pronto como cese la infracción que les dio origen.
+ARTICULO 411. TERMINACION DEL CONTRATO SIN PREVIA CALIFICACION JUDICIAL. La terminación del contrato de trabajo por la realización de la obra contratada, por la ejecución del trabajo accidental, ocasional o transitorio, por mutuo consentimiento o por sentencia de autoridad competente, no requiere previa calificación judicial de la causa en ningún caso.
 
-- 4. Todo miembro de la directiva de un sindicato que haya originado como sanción la disolución de éste, podrá ser privado del derecho de asociación sindical en cualquier carácter, hasta por el término de tres (3) años, según la apreciación del Juez en la respectiva providencia o fallo que imponga la disolución y en la cual serán declarados nominalmente tales responsables
+(Modificado por el Art. 9 del Decreto 204 de 1957) (Modificado por el Art.11 del Decreto 616 de 1954)
 
-Sanciones a los directores.
+ARTICULO 412. SUSPENSION DEL CONTRATO DE TRABAJO. Las simples suspensiones del contrato de trabajo no requieren intervención judicial. (Modificado por el Art. 10 del Decreto 204 de 1957) (Modificado por el Art. 12 del Decreto 616 de 1954)
 
-**Artículo 398.** Si el acto u omisión constitutivo de la trasgresión es imputable a alguno o algunos de los directores o afiliados de un sindicato, y lo hayan ejecutado invocando su carácter de tales, el funcionario administrativo del Trabajo, previa comprobación que por si mismo haga del hecho, requerirá al sindicato para que aplique al responsable o a los responsables las sanciones disciplinarlas previstas en los estatutos. Vencido el término señalado en el requerimiento, que no será mayor de un (1) mes, sin que haya impuesto las sanciones, se entenderá que hay violación directa del sindicato para los efectos del Artículo anterior
+ARTICULO 413. SANCIONES DISCIPLINARIAS. El fuero sindical no impide aplicar al trabajador que de él goce, las sanciones disciplinarias distintas del despido en los términos del respectivo reglamento de trabajo.
 
-### **CAPITULO VI**
+## CAPITULO IX.
 
-**RÉGIMEN INTERNO**
+TRABAJADORES OFICIALES.
 
-Nombre social.
+ARTICULO 414. DERECHO DE ASOCIACION. El derecho de asociación en sindicatos se extiende a los trabajadores de todo servicio oficial, con excepción de los miembros del Ejército Nacional y de los cuerpos o fuerzas de policía de cualquier orden, pero los sindicatos de empleados públicos tienen sólo las siguientes funciones:
 
-**Artículo 399.** Ningún sindicato puede usar como nombre social uno que induzca a error o confusión con otro sindicato existente, ni un calificativo peculiar de cualquier partido político o religión, ni llamarse "federación" o "confederación". Todo sindicato patronal debe indicar, en su nombre social, la calidad de tal.
+Estudiar las características de la respectiva profesión y las condiciones de trabajo de sus asociados.
 
-Edad mínima.
+Asesorar a sus miembros en la defensa de sus derechos como empleados públicos, especialmente los relacionados con la carrera administrativa. Representar en juicio o ante las autoridades los intereses económicos comunes o generales de los agremiados, o de la profesión respectiva. Presentar a los respectivos jefes de la administración memoriales respetuosos que contengan solicitudes que interesen a todos sus afiliados en general, o reclamaciones relativas al tratamiento de que haya sido objeto cualquiera de éstos en particular, o sugestiones encaminadas a mejorar la organización administrativa o los métodos de trabajo.
 
-**Artículo 400.** Pueden ser miembros de un sindicato todos los trabajadores mayores de catorce (14) años.
+Promover la educación técnica y general de sus miembros.
 
-Nacionalidad.
+Prestar socorro a sus afiliados en caso de desocupación, de enfermedad, invalidez o calamidad.
 
-**Artículo 401.** No puede funcionar sindicato alguno cuyo personal no esté compuesto, por lo menos en sus dos terceras (2/3) partes, por ciudadanos colombianos. Cualquiera que sea la forma de dirección del sindicato, ningún extranjero es elegible para los cargos directivos
+Promover la creación, el fomento o subvención de cooperativas, cajas de ahorro, de préstamos y de auxilios mutuos, escuelas, bibliotecas, institutos técnicos o de habilitación profesional, oficinas de colocación, hospitales, campos de experimentación o de deporte y demás organismos adecuados a los fines profesionales, culturales, de solidaridad y de previsión, contemplados en los estatutos. Adquirir a cualquier título y poseer los bienes inmuebles y muebles que requieran para el ejercicio de sus actividades. y Está permitido a los empleados oficiales constituir organizaciones sindicales mixtas, integradas por trabajadores oficiales y empleados públicos, las cuales, para el ejercicio de sus funciones, actuarán teniendo en cuenta las limitaciones consagradas por la ley respecto al nexo jurídico de sus afiliados para con la administración.
 
-Reuniones de la asamblea.
+(Numeral 9 adicionado por el Art. 58 de la Ley 50 de 1990)
 
-**Artículo 402.** La asamblea general debe reunirse por lo menos cada seis (6) meses.
+ARTICULO 415. ATENCION POR PARTE DE LAS AUTORIDADES. Las funciones señaladas en los apartes 3o y 4o del artículo anterior implican para las autoridades, y especialmente para los superiores jerárquicos de los asociados, la obligación correlativa de recibir oportunamente a los representantes del sindicato y de procurar la adecuada solución a sus solicitudes.
 
-Quórum de la asamblea.
+ARTICULO 416. LIMITACION DE LAS FUNCIONES. Los sindicatos de empleados públicos no pueden presentar pliegos de peticiones ni celebrar convenciones colectivas, pero los sindicatos de los demás trabajadores oficiales tienen todas las atribuciones de los otros sindicatos de trabajadores, y sus pliegos de peticiones se tramitarán en los mismos términos que los demás, aun cuando no puedan declarar o hacer huelga. (Aparte subrayado declarado CONDICIONALMENTE EXEQUIBLE por la Corte Constitucional mediante Sentencia C-1234-05) (Artículo declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-110-94)
 
-**Artículo 403.** Ninguna asamblea general puede actuar válidamente sin el quórum estatutario, que no será inferior a la mitad más uno (1) de los afiliados; además, solamente se computarán los votos de los socios presentes.
+ARTICULO 416A. Las organizaciones sindicales de los servidores públicos tienen derecho a que las entidades públicas les concedan permisos sindicales para que, quienes sean designados por ellas, puedan atender las responsabilidades que se desprenden del derecho fundamental de asociación y libertad sindical. El Gobierno Nacional reglamentará la materia, en concertación con los representantes de las centrales sindicales. (Adicionado por el Art. 13 de la Ley 584 de 2000)
 
-Representación de socios en la asamblea.
+## CAPITULO X.
 
-**Artículo 404.** Cuando por la naturaleza misma de las actividades o profesión de los afiliados, o por la distribución geográfica o el excesivo número de ellos, resulte impracticable lo dispuesto en el Artículo anterior, pueden admitirse en los estatutos otros sistemas que garanticen la representación de los afiliados en la asamblea.
+FEDERACIONES Y CONFEDERACIONES.
 
-Requisitos para los miembros de la Junta Directiva.
+ARTICULO 417. DERECHO DE FEDERACION.
 
-**Artículo 405.** 1. Para ser miembro de la Junta Directiva de un sindicato, tanto de la provisional como de las reglamentarias, deben reunirse los siguientes requisitos, además de los que exijan los estatutos respectivos:
+Todos los sindicatos tienen, sin limitación alguna, la facultad de unirse o coaligarse en federaciones locales, regionales, nacionales, profesionales o industriales, y éstas en confederaciones. Las federaciones y confederaciones tienen derecho al reconocimiento de personería jurídica propia y las mismas atribuciones de los sindicatos, salvo la declaración de huelga, que compete privativamente, cuando la ley la autoriza, a los sindicatos respectivos o grupos de trabajadores directa o indirectamente interesados.
 
-- a) Ser colombiano;
+(Aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00. El aparte subrayado fue declarado
 
-- b) Ser miembro del sindicato;
+EXEQUIBLE.)
 
-- c) Estar ejerciendo normalmente, es decir, no en forma ocasional, o a prueba, o como aprendiz, en el momento de la elección, la actividad, profesión u oficio característicos del sindicato y haberlo ejercido normalmente por más de seis (6) meses en el año anterior;
+Las confederaciones pueden afiliar sindicatos, si sus estatutos lo permiten.
 
-- d) Saber leer y escribir;
+ARTICULO 418. FUNCIONES ADICIONALES. En los estatutos respectivos de las federaciones y confederaciones pueden atribuirse a éstas las funciones de tribunal de apelación contra cualquier medida disciplinaria adoptada por una de las organizaciones afiliadas; la de dirimir las controversias que se susciten entre los miembros de un sindicato afiliado por razón de las decisiones que se adopten, y la de resolver las diferencias que ocurran entre dos o más de las organizaciones federadas.
 
-- e) Tener cédula de ciudadanía o tarjeta de identidad, según el caso, y
+ARTICULO 419. AUTORIZACION A LOS FUNDADORES. Para la constitución de cualquier federación o confederación de sindicatos, los representantes de éstos que suscriban el acta de fundación deben estar expresamente facultados por las respectivas asambleas generales.
 
-- f) No haber sido condenado a sufrir pena aflictiva a menos que haya sido rehabilitado, ni estar llamado a juicio por delitos comunes en el momento de la elección.
+ARTICULO 420. ACTA DE FUNDACION. El acta de fundación debe indicar el nombre y domicilio de cada organización afiliada, el número y la fecha de la resolución de reconocimiento de su personería jurídica, el número y la fecha del Diario Oficial en que tal resolución fue publicada, los nombres y cédulas de los miembros de la Directiva provisional, y, si fuere el caso, la empresa o empresas en donde estos últimos trabajan.
 
-- 2. La falta de cualquiera de estos requisitos invalida la elección; pero las interrupciones en el ejercicio normal de la actividad, profesión u oficio de que trata el aparte c) no invalidarán la elección cuando hayan sido ocasionadas por la necesidad de atender a funciones sindicales.
+ARTICULO 421. FUERO SINDICAL. Para los efectos del fuero sindical, los avisos se darán en la misma forma prescrita en los artículos 363 y 371.
 
-Empleados directivos.
+ARTICULO 422. JUNTA DIRECTIVA. Para ser miembro del comité ejecutivo y/o la junta directiva de una organización de segundo o tercer grado, además de las condiciones que se exijan en los estatutos, se debe ser miembro activo de una de las organizaciones afiliadas; la falta de esta condición invalida la elección.
 
-**Artículo 406.** No pueden formar parte de la Junta Directiva de un sindicato de base, ni ser designados funcionarios del sindicato, los afiliados que, por razón de sus cargos en la empresa, representen al patrono o tengan funciones de dirección o de confianza personal o puedan fácilmente ejercer una indebida coacción sobre sus compañeros. Dentro de este número se cuentan los gerentes, subgerentes, administradores, jefes de personal, secretarios privados de la Junta Directiva, la gerencia o la administración, directores de departamentos (ingeniero jefe, médico jefe, asesor jurídico, directores técnicos, etc.), y otros empleados semejantes. Es nula la elección que recaiga en uno de tales afiliados, y el que, debidamente electo, entre después a desempeñar alguno de los empleos referidos, dejará ipso facto vacante su cargo sindical.
+En ningún caso el comité ejecutivo y/o la junta directiva podrán estar conformada en su mayoría por personas extranjeras. (Inciso 2 declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-311-07) La condición de ser miembro activo de una de las organizaciones referidas en el primer inciso del presente artículo, no se toma en cuenta cuando se compruebe debidamente que el trabajador está amenazado, despedido o perseguido debido a su actividad sindical, lo cual deberá ser declarado por la mayoría absoluta de la asamblea general o el congreso que haga la elección.
 
-Período de directivas.
+(Modificado por el Art. 14 de la Ley 584 de 2000)
 
-**Artículo 407.** 1. El período de las directivas sindicales no puede ser menor de seis meses, con excepción de la directiva provisional, cuyo mandato no puede prolongarse por más de treinta (30) días, contados desde la publicación oficial del reconocimiento de la personería jurídica, pero el mismo personal puede ser elegido para el período reglamentario. Esto no limita la libertad del sindicato para remover, en los casos previstos en los estatutos, a cualesquiera miembros de la Junta Directiva, ni la de éstos para renunciar sus cargos; los suplentes entran a reemplazarlos por el resto del período.
+ARTICULO 423. REGISTRO SINDICAL. Para la inscripción en el registro sindical de una federación o confederación se procederá en la misma forma que para los sindicatos, en lo pertinente.
 
-- 2. Si dentro de los treinta (30) días de que habla este artículo, la junta provisional no convocare a asamblea general para la elección de la primera junta reglamentaria, un número no menor de quince (15) afiliados puede hacer la convocación.
+(Modificado por el Art. 59 de la Ley 50 de 19909
 
-Elección de directivas.
+ARTICULO 424. DIRECTIVA PROVISIONAL. La directiva provisional de una federación o confederación sindical ejercerá el mandato hasta la primera reunión posterior al reconocimiento de su personería, que celebre la asamblea general.
 
-**Artículo 408.** Cuando la elección de una directiva sindical no pueda acogerse por unanimidad, es forzoso elegirla por votación secreta en papeleta escrita y aplicando el sistema del cuociente electoral para asegurar la representación de las minorías, so pena de nulidad.
+(Artículo declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00)
 
-Constancia en el acta, votación secreta.
+ARTICULO 425. ESTATUTOS. Las organizaciones de trabajadores de segundo y tercer grado tienen el derecho de redactar libremente sus estatutos y reglamentos administrativos.
 
-**Artículo 409.** Tanto en las reuniones de la asamblea general como de la Junta Directiva, cualquiera de los miembros tiene derecho a pedir que se hagan constar en el acta los nombres de los que estén presentes en el momento de tomarse una determinación, y a pedir que la votación sea secreta. La no aceptación de una u otra solicitud vicia de nulidad el acto o votación.
+Dichos estatutos contendrán, por lo menos:
 
-Libros.
+El período de las directivas o comités ejecutivos reglamentarios y las modalidades de su elección, la integración de los mismos, el quórum y la periodicidad de las reuniones, de las asambleas y/o congresos, la vigencia de los presupuestos y los requisitos para la validez de los gastos. (Modificado por el Art. 15 de la Ley 584 de 2000)
 
-**Artículo 410.** 1. Todo sindicato debe abrir, tan pronto como se haya suscrito el acta de fundación y se haya posesionado la Junta Directiva provisional, por lo menos los siguientes libros: de afiliación; de actas de la asamblea general; de actas de la Junta Directiva; de inventarios y balances; y de ingresos y egresos. Estos libros serán previamente registrados por el Inspector del Trabajo respectivo y foliados y rubricados por el mismo en cada una de sus páginas.
+ARTICULO 426. ASESORIA POR ASOCIACIONES SUPERIORES. Toda Organización sindical de segundo o tercer grado puede asesorar a sus organizaciones afiliadas ante los respectivos {empleadores} en la tramitación de sus conflictos, y también ante las autoridades o ante terceros respecto de cualesquiera reclamaciones.
 
-- 2. En todos los libros que deben llevar los sindicatos se prohíbe arrancar, sustituir o adicionar hojas, hacer enmendaduras, entrerrenglonaduras, raspaduras o tachaduras; cualquiera omisión o error debe enmendarse mediante anotación posterior. Toda infracción a estas normas acarreará al responsable una multa de dos pesos ($2) a cincuenta pesos ($50), que impondrá el Inspector del Trabajo en favor del sindicato, y además, la mitad de la misma sanción, también en favor del sindicato, a cada uno de los directores y funcionarios sindicales que habiendo conocido la infracción no la hayan castigado sindicalmente o no la hayan denunciado al Inspector del Trabajo.
+## CAPITULO XI.
 
-Presupuesto.
+DISPOSICIONES FINALES.
 
-**Artículo 411.** El sindicato, en asamblea general, votará el presupuesto de gastos para períodos no mayores de un año, y sin autorización expresa de la misma asamblea no puede hacerse ninguna erogación que no esté contemplada en dicho presupuesto. Sin perjuicio de las prohibiciones o de los requisitos adicionales que los estatutos prevean, todo gasto que exceda de cincuenta pesos ($50), con excepción de los sueldos asignados en el presupuesto, requiere la aprobación previa de la Junta Directiva; los que excedan de doscientos pesos ($200), sin pasar de un mil pesos ($ 1.000), y no estén previstos en el presupuesto, necesitan, además, la refrendación expresa de la asamblea general, con el voto de la mayoría absoluta de los afiliados; y los que excedan d e un mil pesos ($ 1.000), aunque estén previstos en el presupuesto, la refrendación de la asamblea general, por las dos terceras (2/3) partes de los votos de los afiliados. Estas normas no se aplican para gastos que ocasionen las huelgas declaradas por el sindicato, cualquiera que sea su cuantía.
+ARTICULO 427. INFORMES PARA EL MINISTERIO. Toda organización sindical debe presentar semestralmente al Ministerio del Trabajo, Departamento Nacional de Supervigilancia Sindical, una relación detallada de sus ingresos y egresos, y someterse a la inspección y control de esa autoridad en cuanto al cumplimiento de las normas estatutarias sobre el particular, pero desde la presentación de un pliego de peticiones y siempre que se dé aviso al Ministerio, remitiéndole copia del pliego por conducto del respectivo Inspector del Trabajo, se suspenderá este control financiero, hasta la terminación del conflicto, cuando deberá rendirse al funcionario dicho una cuenta detallada del movimiento de fondos durante el conflicto.
 
-Caución del Tesorero.
+(Derogado por el Art. 116 de la Ley 50 de 1990)
 
-**Artículo 412.** El Tesorero de todo sindicato debe prestar en favor de éste una caución para garantizar el manejo de los fondos. La cuantía y forma de la misma serán señaladas por la asamblea general, y una copia del documento en que ella conste será depositada en el Departamento Nacional de Supervigilancia Sindical
+ARTICULO 428. CONGRESOS SINDICALES. El Ministerio del Trabajo propiciará la reunión de congresos sindicales, de acuerdo con la reglamentación que estime conveniente.
 
-Depósito de los fondos.
+## TITULO II.
 
-**Artículo 413. Los fondos de todo sindicato deben mantenerse en algún banco o caja de ahorros, salvo la cantidad para gastos cuotidianos menores que autoricen los estatutos y que no puede exceder en ningún caso de cincuenta pesos ($ 50). Todo giro y toda orden de pago deben estar necesariamente autorizados por las firmas conjuntas del Presidente, el Tesorero y el Fiscal.**
+CONFLICTOS COLECTIVOS DE TRABAJO.
 
-**Contabilidad.**
+## CAPITULO I.
 
-**Artículo 414.** La contabilidad de los sindicatos se rige por las normas que al efecto dicte el Departamento Nacional de Supervigilancia Sindical, además de las reglas peculiares que los estatutos prescriban o que sus directivas acuerden.
+DISPOSICIONES GENERALES.
 
-Expulsión de miembros.
+ARTICULO 429. DEFINICION DE HUELGA. Se entiende por huelga la suspensión colectiva temporal y pacífica del trabajo, efectuada por los trabajadores de un establecimiento o empresa con fines económicos y profesionales propuestos a sus {empleadores} y previos los trámites establecidos en el presente título.
 
-**Artículo 415.** El sindicato puede expulsar de la asociación a uno o más de sus miembros, pero la expulsión debe ser decretada por la mayoría absoluta de los asociados.
+(Aparte subrayado declarado CONDICIONALMENTE EXEQUIBLE, por la Corte Constitucional mediante Sentencia C-858-08)
 
-Separación de miembros.
+ARTICULO 430. PROHIBICION DE HUELGA EN LOS SERVICIOS PUBLICOS. De conformidad con la Constitución Nacional, está prohibida la huelga en los servicios públicos.
 
-**Artículo 416.** Todo sindicato decretará la separación del socio que voluntariamente deje de ejercer durante un año la profesión u oficio cuya defensa y mejoramiento persigue la asociación
+(Inciso 1 declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-473-94) Para este efecto se considera como servicio público, toda actividad organizada que tienda a satisfacer necesidades de interés general en forma regular y continua, de acuerdo con un régimen jurídico especial, bien que se realice por el Estado, directa o indirectamente, o por personas privadas.
 
-**Artículo 416A. Adicionado.**
+Constituyen, por tanto, servicio público, entre otras, las siguientes actividades:
 
-Retención de cuotas sindicales.
+a) Las que se prestan en cualquiera de las ramas del poder público;
 
-**Artículo 417. 1. Toda asociación sindical de trabajadores tiene derecho a solicitar, con el voto de las dos terceras (2/3) partes de sus miembros, que los patronos respectivos deduzcan de los salarios de los trabajadores afiliados y pongan a la disposición del sindicato, el valor de las cuotas ordinarias o extraordinarias con que aquéllos deben contribuir, pero la retención de las cuotas extraordinarias debe ser autorizada por los trabajadores mismos, por escrito. Si los trabajadores, en cualquier momento y por razón de retiro del sindicato o de expulsión de él, cesaren en su obligación de pagar las cuotas, deben dar aviso de ello por escrito al patrono, y desde ese aviso en adelante el patrono dejará de deducirlas aunque no haya recibido información del sindicato, quedando a salvo el derecho de éste, en caso de información falsa del trabajador.**
+b) Las de empresas de transporte por tierra, agua y aire; y de acueducto, energía eléctrica y telecomunicaciones;
 
-- 2. Para que haya lugar a la deducción de cuotas ordinarias, el sindicato debe entregar a la empresa los siguientes documentos:
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-450-95)
 
-- a) Copia de lo pertinente del acta de la asamblea general del sindicato en que haya sido autorizada la retención por el voto de las dos terceras (2/3) partes del número total de afiliados; la copia del acta debe estar acompañada de la lista de todos los concurrentes;
+c) Las de establecimientos de asistencia social, de caridad y de beneficencia;
 
-- b) Nómina, por duplicado, certificada por el Presidente, el Secretario y el Fiscal del sindicato, de todos los afiliados cuyas inscripciones aparezcan vigentes en la época de la autorización, a los cuales se les hará la retención, aunque hayan votado contra dicha autorización o expresen su voluntad de que no se les siga reteniendo;
+(Literal c) declarado CONDICIONALMENTE EXEQUIBLE por la Corte Constitucional mediante Sentencia C-122-12)
 
-- c) Para quienes ingresen al sindicato posteriormente, boletines de altas, certificados en la forma indicada en el aparte anterior.
+d) Las de establecimientos de asistencia social, de caridad y de beneficencia;
 
-### **CAPITULO VII**
+e) Las de plantas de leche, plazas de mercado, mataderos y de todos los organismos de distribución de estos establecimientos, sean ellos oficiales o privados;
 
-**DISOLUCIÓN Y LIQUIDACIÓN**
+(Literal e) declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-075-97)
 
-Casos de disolución.
+f) Las de todos los servicios de la higiene y aseo de las poblaciones;
 
-**Artículo 418.** Un sindicato o una federación o confederación de sindicatos solamente se disuelve:
+g) Las de explotación, elaboración y distribución de sal;
 
-- a) Por cumplirse cualquiera de los eventos previstos en los estatutos para este efecto;
+(Literal g) declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-691-08)
 
-- b) Por acuerdo, cuando menos, de las dos terceras (2/3) partes de los miembros de la organización, adoptado en asamblea general y acreditado con las firmas de los asistentes;
+h) Las de explotación, refinación, transporte y distribución de petróleo y sus derivados, cuando estén destinadas al abastecimiento normal de combustibles del país, a juicio del gobierno, e (Literal h) declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-796-14) (Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-450-95)
 
-- c) Por sentencia judicial; y
+i) Cualesquiera otras que a juicio del Gobierno interesen a la seguridad, sanidad, enseñanza y a la vida económica o social del pueblo. EL Gobierno decidirá de las actividades de qué trata este ordinal, previo concepto que solicite al Consejo de Estado.
 
-- d) Por reducción de los afiliados a un número inferior a veinticinco (25), cuando se trate de sindicatos de trabajadores.
+(Derogado por el numeral 4 del Art. 3 de la Ley 48 de 1968) (Modificado por el Art. 1 del Decreto 753 de 1956)
 
-Liquidación.
+ARTICULO 431. REQUISITOS.
 
-**Artículo 419.** 1. Al disolverse un sindicato, federación o confederación, el liquidador designado por los afiliados o por el Juez aplicará los fondos existentes, el producto de los bienes que fuere indispensable enajenar, y el valor de los créditos que recaude, en primer término al pago de las deudas del sindicato, federación o confederación, incluyendo los gastos de la liquidación. Del remanente se reembolsará a los miembros activos las sumas que hubieren aportado como cotizaciones ordinarias, previa deducción de sus deudas para con el sindicato, federación o confederación, o, si no alcanzare, se les distribuirá a prorrata de sus respectivos aportes por dicho concepto. En ningún caso ni por ningún motivo puede un afiliado recibir más del monto de sus cuotas ordinarias aportadas.
+No puede efectuarse una suspensión colectiva de trabajo, cualquiera que sea su origen, sin que antes se hayan cumplido los procedimientos que regulan los artículos siguientes.
 
-- 2. Cuando se trate de disolución de un sindicato y éste hubiere estado afiliado a una federación o confederación, el liquidador debe admitir la intervención simplemente consultiva de un delegado de ella en sus actuaciones
+La reanudación de los trabajos implica la terminación de la huelga, y no podrá efectuarse nueva suspensión de labores, mientras no se cumplan los expresados requisitos.
 
-Adjudicación del remanente.
+## CAPITULO II.
 
-**Artículo 420.** Lo que quedare del haber común, una vez pagadas las deudas y hechos los reembolsos, se adjudicará por el liquidador a la organización sindical designada para ello en los estatutos o por la asamblea general; si ninguna hubiere sido designada así, se le adjudicará al instituto de beneficencia o de utilidad social que señale el Gobierno
+ARREGLO DIRECTO.
 
-Aprobación oficial.
+ARTICULO 432. DELEGADOS.
 
-**Artículo 421.** La liquidación debe ser sometida a la aprobación del Juez que la haya ordenado, y en los demás casos, a la del Departamento Nacional de Supervigilancia Sindical, debiendo expedir el finiquito al liquidador, cuando sea el caso.
+Siempre que se presente un conflicto colectivo que pueda dar por resultado la suspensión del trabajo, o que deba ser solucionado mediante el arbitramento obligatorio, el respectivo sindicato o los trabajadores nombrarán una delegación de tres (3) de entre ellos para que presente al (empleador), o a quien lo represente, el pliego de las peticiones que formulan.
 
-### **CAPITULO VIII**
+(Aparte subrayado declarado EXEQUIBLE, por los cargos analizados, por la Corte Constitucional mediante Sentencia C-330-12) (Aparte tachado declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00. El resto del artículo fue declarado
 
-**FUERO SINDICAL**
+EXEQUIBLE.)
 
-Definición.
+Tales delegados deben ser mayores de edad, trabajadores actuales de la empresa o establecimiento, y que hayan estado al servicio de éste por más de seis (6) meses, o por todo el tiempo que hubiere funcionado el establecimiento cuando fuere menor de seis (6) meses, tratándose de negociaciones colectivas de sindicatos de empresa. En los demás casos el delegado deberá ser trabajador del gremio o de la industria o rama de actividad económica respectivamente según sea el caso.
 
-**Artículo 422.** Se denomina "fuero sindical" la garantía de que gozan algunos trabajadores de no ser despedidos, trasladados, ni desmejorados en sus condiciones de trabajo, sin justa causa, previamente calificada por el Juez del Trabajo.
+(Numeral 2 modificado por el Art. 16 de la Ley 584 de 2000) (Numeral 2 declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-797-00)
 
-Trabajadores amparados.
+ARTICULO 433. INICIACION DE CONVERSACIONES.
 
-**Artículo 423.** Están amparados por el fuero sindical:
+El {empleador} o la representante, están en la obligación de recibir a los delegados de los trabajadores dentro de las veinticuatro horas siguientes a la presentación oportuna del pliego de peticiones para iniciar conversaciones. Si la persona a quién se presentare el pliego considerare que no está autorizada para resolver sobre él debe hacerse autorizar o dar traslado al {empleador} dentro de las veinticuatro horas siguientes a la presentación del pliego, avisándolo así a los trabajadores. En todo caso, la iniciación de las conversaciones en la etapa de arreglo directo no puede diferirse por más de cinco (5) días hábiles a partir de la presentación del pliego.
 
-- a) Los fundadores de un sindicato, desde el día de la notificación prevista en el Artículo 380, hasta quince (15) días después de la publicación, en el Diario Oficial, del reconocimiento de la personería jurídica, sin pasar de tres (3) meses;
+El {empleador} que se niegue o eluda iniciar las conversaciones de arreglo directo dentro del término señalado será sancionado por las autoridades del trabajo con multas equivalentes al monto de cinco (5) a diez (10) veces el salario mínimo mensual más alto por cada día de mora, a favor del Servicio Nacional de Aprendizaje SENA. Para interponer los recursos legales contra las resoluciones de multa, el interesado deberá consignar previamente su valor a órdenes de dicho establecimiento.
 
-- b) Los trabajadores distintos de los fundadores que con anterioridad a la concesión de la personería jurídica ingresen al sindicato en formación, para quienes el amparo rige por el mismo tiempo que para los fundadores;
+(Numeral 2 modificado por el Art. 21 de la Ley 11 de 1984) (Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-741-13 ) (Modificado por el Art. 27 del Decreto 2351 de 1965)
 
-- c) Los miembros de la Junta Directiva Central de todo sindicato, federación y confederación de sindicatos, sin pasar de cinco (5) principales y cinco (5) suplentes, y los miembros de las subdirectivas o comités seccionales de los sindicatos previstos en los respectivos estatutos, y que actúen en Municipio distinto de la sede de la Directiva Central sin pasar del mismo número, sin que pueda existir más de una subdirectiva o comité seccional en cada Municipio. Este amparo se hará efectivo desde cuando sea notificada la elección en la forma prevista en los artículos 380 y 388, por el tiempo que dure el mandato y tres (3) meses más.
+ARTICULO 434. DURACION DE LAS CONVERSACIONES. Las conversaciones de negociación de los pliegos de peticiones en esta etapa de arreglo directo durarán veinte (20) días calendario, prorrogables de común acuerdo entre las partes, hasta por veinte (20) días calendario adicionales. (Inciso 1 declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-466-08)
 
-Miembros de la Junta Directiva amparados.
+PARAGRAFO 1. Si al término de la etapa de arreglo directo persistieren diferencias sobre alguno o algunos de los puntos del pliego, las partes suscribirán un acta final que registre los acuerdos y dejarán las constancias expresas sobre las diferencias que subsistan.
 
-**Artículo 424.** 1. Cuando la directiva se componga de más de cinco (5) principales y más de cinco (5) suplentes, el amparo sólo se extiende a los cinco (5) primeros principales y a los cinco (5) primeros suplentes que figuren en la lista que el sindicato pase al patrono.
+PARAGRAFO 2. Durante esta etapa podrán participar en forma directa en la mesa de negociaciones, como asesores, hasta dos (2) representantes de las asociaciones sindicales de segundo o tercer grado.
 
-- 2. La designación de toda junta directiva o cualquier cambio que ocurra en su composición debe notificarse al patrono en la forma prevista en los artículos 380 y 388. En caso de cambio, el antiguo miembro continúa gozando del fuero durante los tres (3) meses subsiguientes, a menos que la sustitución se produzca por renuncia voluntaria del cargo sindical antes de vencerse la mitad del período estatutario o por sanción disciplinaria impuesta por el sindicato, en cuyos casos el fuero cesa ipso facto para el sustituido.
+(Aparte subrayado del parágrafo 2 declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-018-15) (Modificado por el Art. 60 de la Ley 50 de 1990) (Modificado por el Art. 1 de Ley 39 de 1985) (Modificado por el Art. 28 del Decreto 2351 de 1965)
 
-- 3. En los casos de fusión de dos o más organizaciones sindicales, siguen gozando del fuero los anteriores directores que no queden incorporados en la Junta Directiva renovada con motivo de la fusión, hasta tres (3) meses después de que ésta se realice.
+ARTICULO 435. ACUERDO. Los negociadores de los pliegos de peticiones deberán estar investidos de plenos poderes, que se presumen, para celebrar y suscribir en nombre de las partes que representan los Acuerdos a que lleguen en la etapa de arreglo directo, los cuales no son susceptibles de replanteamiento o modificaciones en las etapas posteriores del conflicto colectivo.
 
-Suspensión y despido de trabajadores amparados.
+Si se llegare a un Acuerdo total o parcial sobre el pliego de peticiones, se firmará la respectiva convención colectiva o el pacto entre los trabajadores no sindicalizados y el {empleador}, y se enviará una copia al Ministerio de Trabajo y Seguridad Social por conducto del inspector respectivo.
 
-**Artículo 425.** 1. El patrono puede suspender provisionalmente a cualquier trabajador amparado por el fuero, por justa causa, siempre que llene estos requisitos: que en el término de la distancia y dos (2) días hábiles más, a partir del día de la suspensión, presente solicitud de autorización para el despido definitivo, ante el respectivo Juez del Trabajo; y que, con dicha solicitud, deposite el valor de quince (15) días de salario del trabajador suspendido, como caución inicial que puede ser aumentada por estimación del Juez, para garantizar que pagará al trabajador los salarios correspondientes al periodo de la suspensión, si no prospera la autorización de despido definitivo.
+Los Acuerdos que se produzcan en la primera etapa del Trámite de negociación se harán constar en Actas que deberán ser suscritas a medida que avancen las conversaciones y que tendrán carácter definitivo.
 
-- 2. El Juez, previo el trámite previsto en el Código Procesal del Trabajo, autorizará el despido definitivo si se comprobare la justa causa invocada por el patrono. Si lo negare, declarará en la sentencia la obligación alternativa del patrono prevista en el Artículo 116 del Código Procesal del Trabajo, pero con la modificación de que la indemnización especial equivalente a seis meses de salario allí ordenada se pagará al sindicato respectivo, sin perjuicio de los derechos que correspondan al trabajador por los salarios y prestaciones sociales considerando el caso como de despido injusto.
+(Modificado por el Art. 2 de Ley 39 de 1985)
 
-- 3. Las disposiciones anteriores rigen en lo pertinente cuando se pide permiso para despedir al trabajador sin que se le haya suspendido provisionalmente.
+ARTICULO 436. DESACUERDO. Si no se llegare a un arreglo directo en todo o en parte, se hará constar así en acta final que suscribirán las partes, en la cual se expresará el estado en que quedaron las conversaciones sobre el pliego de peticiones y se indicará con toda precisión cuáles fueron los acuerdos parciales sobre los puntos del pliego y cuáles en los que no se produjo arreglo alguno.
 
-Excepciones.
+Copia de esta acta final se entregará al día siguiente al Ministerio de Trabajo y Seguridad Social.
 
-**Artículo 426.** No gozan del fuero sindical:
+(Modificado por el Art. 3 de Ley 39 de 1985)
 
-- 1. Los trabajadores que sean empleados públicos de acuerdo con el Artículo 5 del Código de Régimen Político y Municipal;
+## CAPITULO III.
 
-- 2. Los trabajadores oficiales y particulares que desempeñen puestos de dirección, de confianza o de manejo.
+MEDIACION.
 
-Justas causas del despido.
+ARTICULO 437. MEDIACION. Al día siguiente de concluida la etapa arreglo directo, el conflicto colectivo de Trabajo entrará en la Etapa de Mediación, que consiste en la intervención obligatoria del Ministerio de Trabajo, dirigida a procurar la solución del mismo. Ministerio de Trabajo y Seguridad Social tendrá la obligación perentoria de intervenir, directa y oficialmente, a través de funcionarios idóneos y experimentados en la materia.
 
-**Artículo 427.** Son justas causas para que el Juez autorice el despido de un trabajador amparado por el fuero:
+Para que la intervención del Ministerio sea realmente eficaz, el funcionario designado estará investido de facultades para mediar entre las partes en conflicto, con la obligación de presentar fórmulas de solución suficientemente motivadas y claras que puedan ser rechazadas o aceptadas. (Derogado por el Art. 116 de la Ley 50 de 1990) (Modificado por el Art. 4 de Ley 39 de 1985) (Subrogado por el Art. 29 del Decreto 2351 de 1965) ARTICULOS 438. INICIACION DE LABORES. Una vez aceptado su cargo, los conciliadores deben entrar a actuar dentro de las veinticuatro (24) horas siguientes a su aceptación y convocarán inmediatamente a los delegados o representantes de los trabajadores y del establecimiento o empresa para que les suministre todos los datos e informes necesarios para el desempeño de su cometido.
 
-- a) La expiración del plazo determinado o presuntivo del contrato de trabajo;
+(Derogado por el Art. 116 de la Ley 50 de 1990) (Modificado por el Art. 5 de Ley 39 de 1985) ARTICULOS 439. REPRESENTANTES DE LAS PARTES. Pueden ser representantes de los trabajadores los mismos delegados que hubieren actuado en la etapa de arreglo directo. El patrono será representado por tres (3) delegados suyos, entre los cuales puede estar el jefe o director del establecimiento. Los representantes de una y otra parte deben ser conocedores de los negocios de que se trata y estar provistos de suficientes poderes para firmar cualquier convención colectiva o pacto que se celebre, salvo que convengan en hacerlo ad-referéndum. (Derogado por el Art. 116 de la Ley 50 de 1990) ARTICULOS 440. OBLIGACIONES DE LOS REPRESENTANTES. Los Representantes tienen la obligación de presentarse ante el Ministerio de Trabajo y Seguridad Social, cada vez que éste lo solicite, salvo excusa justificada, y, suministrarán todas las informaciones pertinentes al conflicto o que conduzcan a su solución.
 
-- b) La liquidación o clausura definitiva de la empresa o establecimiento y la suspensión total o parcial de actividades por parte del patrono durante mas de ciento veinte (120) días, y
+Las informaciones que tuvieren carácter confidencial deberán ser mantenidas en forma reservada al público a menos que exista previa autorización de quien los haya suministrado.
 
-- c) Todas aquellas que permitan al patrono dar por terminado unilateralmente el contrato de trabajo de acuerdo con la Ley.
+El Ministerio de Trabajo sancionará con multa de diez mil pesos ($ 10.000.00) a cien mil pesos ($ 100.000.00) en favor del Instituto de los Seguros Sociales a aquella de las partes en conflicto que se niegue a suministrar o demore el suministro de los datos o informaciones que aquél solicite en ejercicio de la función de mediación, y, mientras la parte sancionada no haga la consignación de la multa a órdenes del citado Instituto, del podrá ser oída ni se le dará trámite a los recursos legales interpuestos por ella.
 
-Terminación del contrato sin previa calificación judicial.
+(Derogado por el Art. 116 de la Ley 50 de 1990) (Modificado por el Art. 6 de Ley 39 de 1985) ARTICULOS 441. DURACION DE LA MEDIACION. La mediación tendrá una duración máxima de diez (10) días hábiles, improrrogables, que comenzarán a contarse a partir del día siguiente al de la terminación de la Etapa de Arreglo Directo, momento a partir del cual el Ministerio de Trabajo y Seguridad Social procederá a convocar a las partes para que procedan a reiniciar las negociaciones sobre los puntos no solucionados en la Etapa de Arreglo Directo.
 
-**Artículo 428.** La terminación del contrato de trabajo por la realización de la obra contratada, por la ejecución del trabajo accidental, ocasional o transitorio, por mutuo consentimiento o por sentencia de autoridad competente, no requiere previa calificación judicial de la causa en ningún caso.
+(Derogado por el Art. 116 de la Ley 50 de 1990) (Modificado por el Art. 7 de Ley 39 de 1985) (Subrogado por el Art. 30 del Decreto 2351 de 1965) ARTICULOS 442. DIFERENCIAS PERSISTENTES. Si al término del período de la mediación persistieren diferencias sobre alguno o algunos de los puntos del pliego, las partes y los funcionarios que hayan intervenido en esta etapa deberán suscribir un acta final que registre los acuerdos a que hubieren llegado y dejarán las constancias expresas sobre las diferencias que subsistan.
 
-Suspensión del contrato de trabajo.
+PARAGRAFO. Los términos señalados para las Etapas de 'Acuerdo Directo' y de 'Mediación', se contarán conforme a lo que prescribe el artículo 62 del Código de Régimen Político y Municipal.
 
-**Artículo 429.** Las simples suspensiones del contrato de trabajo no requieren intervención Judicial.
+(Derogado por el Art. 116 de la Ley 50 de 1990) (Modificado por el Art. 7 de Ley 39 de 1985)
 
-Sanciones disciplinarias.
+ARTICULO 443. COPIAS. De todos los nombramientos, actas, convenciones y pactos se entregarán copias a las partes y al Inspector del Trabajo, y en defecto de éste al Alcalde Municipal respectivo, para su remisión al Ministerio del Trabajo.
 
-**Artículo 430.** El fuero sindical no impide aplicar al trabajador que de él goce, las sanciones disciplinarias distintas del despido en los términos del respectivo reglamento de trabajo
+## CAPITULO IV.
 
-### **CAPITULO IX**
+DECLARATORIA Y DESARROLLO DE LA HUELGA.
 
-**TRABAJADORES OFICIALES**
+ARTICULO 444. DECISION DE LOS TRABAJADORES. Concluida la etapa de arreglo directo sin que las partes hubieren logrado un acuerdo total sobre el diferendo laboral, los trabajadores podrán optar por la declaratoria de huelga o por someter sus diferencias a la decisión de un Tribunal de Arbitramento.
 
-Derecho de asociación.
+La huelga o la solicitud de arbitramento serán decididas dentro de los diez (10) días hábiles siguientes a la terminación de la etapa de arreglo directo, mediante votación secreta, personal e indelegable, por la mayoría absoluta de los trabajadores de la empresa, o de la asamblea general de los afiliados al sindicato o sindicatos que agrupen más de la mitad de aquellos trabajadores.
 
-**Artículo 431.** El derecho de asociación en sindicatos se extiende a los trabajadores de todo el servicio oficial, con excepción de los miembros del Ejército Nacional y de los cuerpos o fuerzas de policía de cualquier orden, pero los sindicatos de empleados públicos tienen sólo las siguientes funciones:
+(Aparte subrayado 'solicitud de arbitramento serán decididas' así como el texto final subrayado 'por la mayoría... trabajadores' declarados EXEQUIBLES, por los cargos analizados, por la Corte Constitucional mediante Sentencia C-330-12) (El aparte 'dentro de los diez (10) días hábiles siguientes a la terminación de la etapa de arreglo directo', en letra itálica y subrayado, declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-696-08) (Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-085-95) Para este efecto, si los afiliados al sindicato o sindicatos mayoritarios o los demás trabajadores de la empresa, laboran en más de un municipio, se celebrarán asambleas en cada uno de ellos, en las cuales se ejercerá la votación en la forma prevista en este artículo y, el resultado final de ésta lo constituirá la sumatoria de los votos emitidos en cada una de las asambleas.
 
-- 1. Estudiar las características de la respectiva profesión y
+(Inciso 3 declarado EXEQUIBLE por la Corte Suprema de Justicia, mediante Sentencia 115 del 26 de septiembre de 1991) Antes de celebrarse la asamblea o asambleas, las organizaciones sindicales interesadas o los trabajadores, podrán dar aviso a las autoridades del trabajo sobre la celebración de las mismas, con el único fin de que puedan presenciar y comprobar la votación.
 
-- 2. Asesorar a sus miembros en la defensa de sus derechos como empleados públicos, especialmente los relacionados con la carrera administrativa;
+(Inciso 4 modificado por el Art. 17 de la Ley 584 de 2000) (Modificado por el Art. 61 de la Ley 50 de 1990) (Modificado por el Art. 9 de Ley 39 de 1985) (Modificado por el Art. 31 del Decreto 2351 de 1965)
 
-- 3. Representar en juicio o ante las autoridades los intereses económicos comunes o generales de los agremiados, o de la profesión respectiva;
+ARTICULO 445. DESARROLLO DE LA HUELGA.
 
-- 4. Presentar a los respectivos jefes de la administración memoriales respetuosos que contengan solicitudes que interesen a todos sus afiliados en general, o reclamaciones relativas al tratamiento de que haya sido objeto cualquiera de éstos en particular, o sugestiones encaminadas a mejorar la organización administrativa o los métodos de trabajo;
+La cesación colectiva del trabajo, cuando los trabajadores optaren por la huelga, sólo podrá efectuarse transcurridos dos (2) días hábiles a su declaración y no más de diez (10) días hábiles después.
 
-- 5. Promover la educación técnica y general de sus miembros;
+(Aparte subrayado declarado EXEQUIBLE por la Corte Suprema de Justicia, mediante Sentencia 115 del 26 de septiembre de 1991) Durante el desarrollo de la huelga, la mayoría de los trabajadores de la empresao la asamblea general del sindicato o sindicatos que agrupen más de la mitad de aquellos trabajadores, podrán determinar someter el diferendo a la decisión de un Tribunal de Arbitramento. (Numeral 2 declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-330-12) (Apartes subrayados declarados EXEQUIBLES por la Corte Constitucional mediante Sentencia C-085-95) Dentro del término señalado en este artículo las partes si así lo acordaren, podrán adelantar negociaciones directamente o con la intervención del Ministerio de Trabajo y Seguridad Social.
 
-- 6. Prestar socorro a sus afiliados en caso de desocupación, de enfermedad, invalidez o calamidad;
+(Modificado por el Art. 62 de la Ley 50 de 1990) (Modificado por el Art. 10 de Ley 39 de 1985) (Modificado por el Art. 32 del Decreto 2351 de 1965)
 
-- 7. Promover la creación, el fomento o subvención de cooperativas, cajas de ahorro, de préstamos y de auxilios mutuos, escuelas, bibliotecas, institutos técnicos o de. habilitación profesional, oficinas de colocación, hospitales, campos de experimentación o de deporte y demás organismos adecuados a los fines profesionales, culturales, de solidaridad y de previsión, contemplados en los estatutos; y
+ARTICULO 446. FORMA DE LA HUELGA. Cumplidos los procedimientos previos de arreglo directo y conciliación*, si el sindicato o grupo de trabajadores no sindicalizados declare la huelga, ésta debe efectuarse en forma ordenada y pacífica.
 
-- 8. Adquirir a cualquier título y poseer los bienes inmuebles y muebles que requieran para el ejercicio de sus actividades.
+ARTICULO 447. COMITES DE HUELGA. Los directores del movimiento pueden constituir "Comités de Huelga" que sirvan de agentes de información de los trabajadores y de comunicación con los {empleadores} o con sus representantes.
 
-Atención por parte de las autoridades.
+ARTICULO 448. FUNCIONES DE LAS AUTORIDADES.
 
-**Artículo 432.** Las funciones señaladas en los apartes 3 y 4 del Artículo anterior implican para las autoridades, y especialmente para los superiores jerárquicos de los asociados, la obligación correlativa de recibir oportunamente a los representantes del sindicato y de procurar la adecuada solución a sus solicitudes.
+Durante el desarrollo de la huelga, las autoridades policivas tienen a su cargo la vigilancia del curso pacífico del movimiento y ejercerán de modo permanente la acción que les corresponda, a fin de evitar que los huelguistas, los empleadores, o cualesquiera personas en conexión con ellos excedan las finalidades jurídicas de la huelga, o intenten aprovecharla para promover desórdenes o cometer infracciones o delitos. Mientras la mayoríade los trabajadores de la empresapersista en la huelga, las autoridades garantizarán el ejercicio de este derecho y no autorizarán ni patrocinarán el ingreso al trabajo de grupos minoritarios de trabajadores aunque estos manifiesten su deseo de hacerlo. (Apartes subrayados declarados EXEQUIBLES por la Corte Constitucional mediante Sentencia C-085-95) Declarada la huelga, el sindicato o sindicatos que agrupen la mayoría de los trabajadores de la empresa o, en defecto de estos, de los trabajadores en asamblea general, podrán someter a votación la totalidad de los trabajadores de la empresa, si desean o no, sujetar las diferencias persistentes a fallo arbitral. Si la mayoría absolutade ellos optare por el tribunal, no se suspenderá el trabajo o se reanudará dentro de un término máximo de tres (3) días hábiles de hallarse suspendido.
 
-Limitación de las funciones.
+(Numeral 3 modificado por el Art. 18 de la Ley 584 de 2000) Cuando una huelga se prolongue por sesenta (60) días calendario, sin que las partes encuentren fórmula de solución al conflicto que dio origen a la misma, el empleador y los trabajadores durante los tres (3) días hábiles siguientes, podrán convenir cualquier mecanismo de composición, conciliación o arbitraje para poner término a las diferencias.
 
-**Artículo 433.** Los sindicatos de empleados públicos no pueden presentar pliegos de peticiones ni celebrar convenciones colectivas, pero los sindicatos de los demás trabajadores oficiales tienen todas las atribuciones de los otros sindicatos de trabajadores, y sus pliegos de peticiones se tramitarán en los mismos términos que los demás, aun cuando no pueden declarar o hacer huelga
+Si en este lapso las partes no pudieren convenir un arreglo o establecer un mecanismo alternativo de composición para la solución del conflicto que les distancia, de oficio o a petición de parte, intervendrá una subcomisión de la Comisión de Concertación de Políticas Salariales y Laborales, al tenor de lo dispuesto en el artículo 9 de la Ley 278 de 1996.
 
-Derecho de federación.
+(Numeral 4 modificado por el Art. 1 de la Ley 1210 de 2008) Esta subcomisión ejercerá sus buenos oficios durante un término máximo de cinco (5) días hábiles contados a partir del día hábil siguiente al vencimiento del término de los tres (3) días hábiles de que trate este artículo. Dicho término será perentorio y correrá aun cuando la comisión no intervenga. Si vencidos los cinco (5) días hábiles no es posible llegar a una solución definitiva, ambas partes solicitarán al Ministerio de la Protección Social la convocatoria del tribunal de arbitramento. Efectuada la convocatoria del Tribunal de Arbitramento los trabajadores tendrán la obligación de reanudar el trabajo dentro de un término máximo de tres (3) días hábiles.
 
-**Artículo 434.** 1. Todos los sindicatos tienen, sin limitación alguna, la facultad de unirse o coaligarse en federaciones locales, regionales, nacionales, profesionales o industriales y éstas en confederaciones. Las federaciones y confederaciones tienen derecho al reconocimiento de personería jurídica propia y las mismas atribuciones de los sindicatos, salvo la declaración de huelgas, que compete privativamente, cuando la Ley la autoriza, a los sindicatos respectivos o grupos de trabajadores directa o indirectamente interesados.
+Sin perjuicio de lo anterior la comisión permanente de concertación de políticas salariales y laborales, podrá ejercer la función indicada en el artículo 9 de la Ley 278 de 1996.
 
-- 2. Las confederaciones pueden afiliar sindicatos, si sus estatutos lo permiten.
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-330-12)
 
-Funciones adicionales.
+PARÁGRAFO 1. La Comisión Nacional de Concertación de Políticas Laborales y Salariales designará tres (3) de sus miembros (uno del Gobierno, uno de los trabajadores y uno de los empleadores) quienes integrarán la subcomisión encargada de intervenir para facilitar la solución de los conflictos laborales. La labor de estas personas será ad honorem.
 
-**Artículo 435.** En los estatutos respectivos de las federaciones y confederaciones pueden atribuirse a éstas las funciones de tribunal de apelación contra cualquier medida disciplinaria adoptada por una de las organizaciones afiliadas; la de dirimir las controversias que se susciten entre los miembros de un sindicato afiliado por razón de las decisiones que se adopten; y la de resolver las diferencias que ocurran entre dos o más de las organizaciones federadas.
+PARÁGRAFO 2. Si una huelga, en razón de su naturaleza o magnitud, afecta de manera grave la salud, la seguridad, el orden público o la economía en todo o en parte de la población, el Presidente de la República, previo concepto favorable de la Sala Laboral de la Corte Suprema de Justicia, puede ordenar en cualquier momento la cesación de la huelga y que los diferendos que la provocaron sean sometidos a fallo arbitral. En caso de vacancia judicial, el concepto previo corresponde al Procurador General de la Nación. En ambas circunstancias, el concepto debe ser expedido dentro de los tres (3) días siguientes a la solicitud.
 
-Autorización a los fundadores.
+(Parágrafo 2 declarado INEXEQUIBLE por la Corte Constitucional mediante Sentencia C-349-09) (Modificado por el Art. 63 de la Ley 50 de 1990) (Modificado por el Art. 33 del Decreto 2351 de 1965)
 
-**Artículo 436.** Para la constitución de cualquier federación o confederación de sindicatos, los representantes de éstos que suscriban el acta de fundación deben estar expresamente facultados por las respectivas asambleas generales.
+ARTICULO 449. EFECTOS JURIDICOS DE LA HUELGA. La huelga sólo suspende los contratos de trabajo por el tiempo que dure. El empleador no puede celebrar entretanto nuevos contratos de trabajo para la reanudación de los servicios suspendidos, salvo en aquellas dependencias cuyo funcionamiento sea indispensable a juicio del respectivo inspector de trabajo, para evitar graves perjuicios a la seguridad y conservación de los talleres, locales, equipos, maquinarias o elementos básicos y para la ejecución de las labores tendientes a la conservación de cultivos, así como para el mantenimiento de semovientes, y solamente en el caso de que los huelguistas no autoricen el trabajo del personal necesario de estas dependencias.
 
-Acta de fundación.
+PARAGRAFO. El Inspector de Trabajo deberá pronunciarse sobre las solicitudes del inciso anterior en un término no mayor a cuarenta y ocho (48) horas, contados a partir de su presentación.
 
-**Artículo 437.** El acta de fundación debe indicar el nombre y domicilio de cada organización afiliada, el número y la fecha de la resolución de reconocimiento de su personería jurídica, el número y la fecha del Diario Oficial en que tal resolución fue publicada, los nombres y cédulas de los miembros de la Directiva provisional, y, si fuere el caso, la empresa o empresas en donde estos últimos trabajan.
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-1369-00) (Modificado por el Art. 64 de la Ley 50 de 1990)
 
-Fuero sindical.
+## CAPITULO V.
 
-**Artículo 438.** Para los efectos del fuero sindical, los avisos se darán en la misma forma prescrita en los artículos 380 y 388.
+SUSPENSION COLECTIVA ILEGAL DEL TRABAJO.
 
-Junta Directiva.
+ARTICULO 450. CASOS DE ILEGALIDAD Y SANCIONES.
 
-**Artículo 439.** 1. Para ser miembro de la Junta Directiva de una federación o confederación de sindicatos, tanto de la provisional como de las reglamentarias, deben reunirse los siguientes requisitos, además de los que se exijan en los estatutos respectivos:
+La suspensión colectiva del trabajo es ilegal en cualquiera de los siguientes casos:
 
-- a) Ser colombiano;
+a) Cuando se trate de un servicio público;
 
-- b) Ser miembro activo de una cualquiera de las organizaciones asociadas;
+(Literal a) declarado EXEQUIBLE por la Corte Constitucional, mediante Sentencia C-473-94)
 
-- c) Estar ejerciendo normalmente, en el momento de la elección, la actividad, profesión u oficio característicos de su sindicato, y haberlo ejercido normalmente por más de un año, con anterioridad;
+b) Cuando persiga fines distintos de los profesionales o económicos;
 
-- d) Saber leer y escribir;
+(Literal b) declarado CONDICIONALMENTE EXEQUIBLE, por la Corte Constitucional mediante Sentencia C-858-08)
 
-- e) Tener cédula de ciudadanía o tarjeta de identidad, según el caso; y
+c) Cuando no se haya cumplido previamente el procedimiento del arreglo directo;
 
-- f) No haber sido condenado a sufrir pena aflictiva, a menos que haya sido rehabilitado, ni estar llamado a juicio por delitos comunes en el momento de la elección.
+(Literal c) declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-085-95)
 
-- 2. La falta de cualquiera de estos requisitos produce el efecto previsto en el inciso 2 del Artículo 405.
+d) Cuando no se haya sido declarada por la asamblea general de los trabajadores en los términos previstos en la presente ley;
 
-- 3. Las condiciones exigidas en los apartes b) y c) del inciso 1 no se toman en cuenta cuando el retiro del sindicato, o la interrupción en el ejercicio de la profesión, o la extinción del contrato de trabajo en una empresa determinada, o el cambio de oficio hayan sido ocasionados por razón de funciones, comisiones o actividades sindicales, lo cual debe ser declarado por la asamblea que haga la elección. Tampoco se toman en cuenta las suspensiones legales del contrato de trabajo.
+e) Cuando se efectuare antes de los dos (2) días o después de diez (10) días hábiles a la declaratoria de huelga;
 
-Personería jurídica.
+(Literal e) declarado EXEQUIBLE por la Corte Suprema de Justicia, mediante Sentencia 115 del 26 de septiembre de 1991,)
 
-**Artículo 440.** Para el reconocimiento de la personería jurídica de una federación o confederación se procederá en la misma forma que para la de sindicatos, en lo pertinente.
+f) Cuando no se limite a la suspensión pacífica del trabajo, y
 
-Directiva provisional.
+g) Cuando se promueva con el propósito de exigir a las autoridades la ejecución de algún acto reservado a la determinación de ellas. Declarada la ilegalidad de una suspensión o paro del trabajo, el empleador queda en libertad de despedir por tal motivo a quienes hubieren intervenido o participado en él, y respecto a los trabajadores amparados por el fuero el despido no requerirá calificación judicial. (Numeral 2 declarado EXEQUIBLE por la Corte Suprema de Justicia, mediante Sentencia 115 del 26 de septiembre de 1991) El Ministerio de Trabajo y Seguridad Social, el Ministerio Público o el empleador afectado, podrán solicitar a la justicia laboral la suspensión o cancelación de la personería jurídica del sindicato, conforme al procedimiento señalado en el artículo 52 de esta ley. Las sanciones a que se refiere el inciso anterior no excluyen la acción del empleador contra los responsables para la indemnización de los perjuicios que se le hayan causado.
 
-**Artículo 441.** La directiva provisional de una federación o confederación sindical ejercerá el mandato hasta la primera reunión posterior al reconocimiento de su personería, que celebre la asamblea general.
+(Modificado por el Art. 65 de la Ley 50 de 1990)
 
-Estatutos.
+ARTICULO 451. DECLARACION DE ILEGALIDAD.
 
-**Artículo 442.** El período de las directivas o comités ejecutivos reglamentarios y las modalidades de su elección, la integración de los mismos, el quórum y la periodicidad de las reuniones ordinarias de las asambleas, la vigencia de los presupuestos y los requisitos para la validez de los gastos, se rigen por las disposiciones de los estatutos federales o confedérales aprobados por el Ministerio del Trabajo.
+La legalidad o ilegalidad de una suspensión o paro colectivo del trabajo será declarada judicialmente mediante trámite preferente. En primera instancia, conocerá la Sala Laboral del Tribunal Superior competente. Contra la decisión procederá el recurso de apelación que se concederá en el efecto suspensivo y se tramitará ante la Sala Laboral de la Corte Suprema de Justicia. La providencia respectiva deberá cumplirse una vez quede ejecutoriada.
 
-Asesoría por asociaciones superiores.
+La reanudación de actividades no será óbice para que el Tribunal profiera la declaratoria de la legalidad o ilegalidad correspondiente. En la calificación de suspensión o paro colectivo de trabajo por las causales c) y d) del artículo anterior, no se toman en cuenta las irregularidades adjetivas de trámite en que se haya podido incurrir.
 
-**Artículo 443.** Toda organización sindical de segundo o tercer grado puede asesorar a sus organizaciones afiliadas ante los respectivos patronos en la tramitación de sus conflictos, y también ante las autoridades o ante terceros respecto de cualesquiera reclamaciones.
+(Modificado por el Art. 2 de la Ley 1210 de 2008) (Artículo declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-432-96)
 
-### **CAPITULO XI**
+## CAPITULO VI.
 
-**DISPOSICIONES FINALES**
+ARBITRAMENTO.
 
-Informes para el Ministerio.
+ARTICULO 452. PROCEDENCIA DEL ARBITRAMENTO.
 
-**Artículo 444.** Toda organización sindical debe presentar semestralmente al Ministerio del Trabajo, Departamento Nacional de Supervigilancia Sindical, una relación detallada de sus ingresos y egresos, y someterse a la inspección y control de esa autoridad en cuanto al cumplimiento de las normas estatutarias sobre el particular, pero desde la presentación de un pliego de peticiones y siempre que se dé aviso al Ministerio, remitiéndole copia del pliego por conducto del respectivo Inspector del Trabajo, se suspenderá este control financiero, hasta la terminación del conflicto, cuando deberá rendirse al funcionario dicho una cuenta detallada del movimiento de fondos durante el conflicto.
+Serán sometidos a arbitramento obligatorio:
 
-Congresos sindicales.
+a) Los conflictos colectivos de trabajo que se presenten en los servicios públicos esenciales y que no hubieren podido resolverse mediante arreglo directo;
 
-**Artículo 445.** El Ministerio del Trabajo propiciará la reunión de congresos sindicales de acuerdo con la reglamentación que estime conveniente.
+(Literal a) declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-330-12)
 
-## **TITULO II**
+b) Los conflictos colectivos del trabajo en que los trabajadores optaren por el arbitramento, conforme a lo establecido en el artículo 444 de este Código;
 
-**CONFLICTOS COLECTIVOS DE TRABAJO**
+(Literal b) declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-330-12)
 
-### **CAPITULO I**
+c) Los conflictos colectivos del trabajo de sindicatos minoritarios, siempre y cuando la mayoría absoluta de los trabajadores de la empresa no hayan optado por la huelga cuando esta sea procedente.
 
-**DISPOSICIONES GENERALES**
+Los conflictos colectivos en otras empresas podrán ser sometidos a arbitramento voluntario por acuerdo de las partes. (Modificado por el Art. 19 de la Ley 584 de 2000) (Modificado por el Art. 34 del Decreto 2351 de 1965)
 
-Definición de huelga.
+ARTICULO 453. TRIBUNALES ESPECIALES. El tribunal de arbitramento obligatorio se compondrá de tres miembros, designados así: uno por parte de la empresa, otro por el sindicato o sindicatos a que estén afiliados más de la mitad de los trabajadores, o en defecto de éstos por los trabajadores, en asamblea general, y el tercero de común acuerdo por dichos dos árbitros, en caso de que los dos árbitros no se pongan de acuerdo para elegir el tercero, dentro de las cuarenta y ocho (48) horas siguientes a su posesión, dicho arbitro será designado por el Ministerio del Trabajo de lista integrada por la sala laboral de la Corte Suprema de Justicia. La Sala Laboral de la Corte Suprema de Justicia integrará dicha lista para períodos de dos años con doscientos ciudadanos colombianos, residentes en los distintos Departamentos del país, que sean abogados titulados, especialistas en derecho laboral o expertos en la situación económica y social del país y de reconocida honorabilidad. (Modificado por el numeral 3 del Art. 3 de la Ley 48 de 1968) (Modificado el Art. 1 del Decreto 525 de 1956) (Modificado por el Art. 36 del Decreto 2351 de 1965)
 
-**Artículo 446.** Se entiende por huelga la suspensión colectiva, temporal y pacífica del trabajo, efectuada por los trabajadores de un establecimiento o empresa, con fines económicos y profesionales propuestos a sus patronos y previos los trámites establecidos en el presente Titulo.
+ARTICULO 454. PERSONAS QUE NO PUEDEN SER ARBITROS.
 
-Prohibición de huelga en los servicios públicos.
+No pueden ser miembros de Tribunales de Arbitramento las personas que directa o indirectamente hubieren intervenido en representación de las partes en los períodos o etapas de arreglo directo o de conciliación.
 
-**Artículo 447.** De conformidad con la Constitución Nacional, está prohibida la huelga en los servicios públicos. Para este efecto se consideran como tales:
+Esta prohibición se hace extensiva a los empleados, representantes, apoderados o abogados permanentes de las partes, y en general a toda persona ligada a ellas por cualquier vínculo de dependencia.
 
-- a) Los que se presten en cualquiera de las Ramas del Poder Público;
+ARTICULO 455. TRIBUNALES VOLUNTARIOS.
 
-- b) Los de las empresas de transporte por tierra, agua y aire; y de las de acueducto, de energía eléctrica y de telecomunicaciones;
+El arbitramento voluntario se regula por lo dispuesto en los Capítulos Vl, Vll y Vlll del presente Título, pero el árbitro tercero será designado por los de las partes, y a falta de acuerdo, por el Ministerio del Trabajo.
 
-- c) Los de establecimientos sanitarios de toda clase, tales como hospitales y clínicas;
+Cuando una diferencia se someta a la decisión de un Tribunal de Arbitramento voluntario, no puede haber suspensión colectiva del trabajo.
 
-- d) Los de establecimientos de asistencia social, los de caridad y los de beneficencia;
+## CAPITULO VII.
 
-- e) Los de plantas de leche, plazas de mercado, mataderos y de todos los organismos de distribución de estos establecimientos, sean ellos oficiales o privados;
+PROCEDIMIENTO ARBITRAL.
 
-- f) Todos los servicios de la higiene y aseo de las poblaciones;
+ARTICULO 456. QUORUM. Los Tribunales de Arbitramento de que trata este Capítulo no pueden deliberar sino con la asistencia plena de sus miembros.
 
-- g) Los de empresas de oleoductos;
+ARTICULO 457. FACULTADES DEL TRIBUNAL. Los Tribunales de Arbitramento de que trata este Capítulo pueden solicitar de las partes o de sus representantes, todas las informaciones y datos que estimen necesarios para ilustrar su juicio, ordenar inspecciones oculares, interrogar a las partes y recibir declaraciones.
 
-- h) Los de explotación de minas o yacimientos de la Nación, los de empresas de petróleos y los de todos los organismos de distribución de estas empresas.
+ARTICULO 458. DECISION. Los árbitros deben decidir sobre los puntos respecto de los cuales no se haya producido acuerdo entre las partes en las etapas de arreglo directo y de conciliación, y su fallo no puede afectar derechos o facultades de las partes reconocidas por la Constitución Nacional, por las leyes o por normas convencionales vigentes.
 
-Requisitos.
+ARTICULO 459. TERMINO PARA FALLAR. Los árbitros proferirán el fallo dentro del término de diez (10) días, contados desde la integración del tribunal. Las partes podrán ampliar este plazo.
 
-**Artículo 448.** No puede efectuarse una suspensión colectiva del trabajo, cualquiera que sea su origen, sin que antes se hayan cumplido los procedimientos que regulan los artículos siguientes.
+ARTICULO 460. NOTIFICACION. El fallo arbitral se notificará a las partes personalmente o por medio de comunicación escrita.
 
-### **CAPITULO II**
+ARTICULO 461. EFECTO JURIDICO Y VIGENCIA DE LOS FALLOS.
 
-**ARREGLO DIRECTO**
+El fallo arbitral pone fin al conflicto y tiene el carácter de convención colectiva en cuanto a las condiciones de trabajo. La vigencia del fallo arbitral no puede exceder de dos (2) años.
 
-Delegados.
+No puede haber suspensión colectiva de trabajo durante el tiempo en que rija el fallo arbitral.
 
-**Artículo 449.** 1. Siempre que se presente un conflicto colectivo que pueda dar por resultado la suspensión del trabajo, o que deba ser solucionado mediante el arbitramento obligatorio, el respectivo sindicato o los trabajadores nombrarán una delegación de tres (3) de entre ellos para que presente al patrono, o a quién lo represente, el pliego de las peticiones que formulan.
+## CAPITULO VIII.
 
-- 2. Tales delegados deben ser colombianos, mayores de edad, trabajadores actuales de la empresa o establecimiento; y que hayan estado al servicio de éste por más de seis (6) meses, o por todo el tiempo que hubiere funcionado el establecimiento cuando fuere menor de seis (6) meses.
+DISPOSICIONES COMUNES A LOS CAPITULOS ANTERIORES.
 
-Iniciación de conversaciones.
+ARTICULO 462. RESPONSABILIDAD PENAL. El hecho de terminar la huelga por arreglo entre las partes o por decisión arbitral no exime de responsabilidad por los delitos cometidos durante ella.
 
-**Artículo 450.** El dueño del establecimiento o empresa o su representante, están en la obligación de recibir la delegación de los trabajadores dentro de las veinticuatro (24) horas siguientes a la presentación oportuna del pliego de peticiones, para iniciar conversaciones. Si la persona a quien se presentare el pliego considerare que no está autorizada para resolver sobre él, debe hacerse autorizar o dar traslado al patrono dentro de las veinticuatro (24) horas siguientes a la presentación del pliego, avisando así a los trabajadores.
+ARTICULO 463. PERSONAS QUE NO PUEDEN INTERVENIR. No pueden ser representantes o voceros de los trabajadores ni de los {empleadores}, ni conciliadores*, ni miembros de tribunales de arbitramento, individuos condenados a sufrir pena aflictiva que no hubieren sido rehabilidados. (Aparte tachado declarado INEXEQUIBLE y aparte subrayado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-691-08)
 
-En todo caso, la iniciación de las conversaciones en la etapa de arreglo directo no puede diferirse por más de cinco (5) días hábiles a partir de 1a presentación del pliego.
+## CAPITULO IX.
 
-Duración de las conversaciones.
+CIERRE DE EMPRESAS.
 
-**Artículo 451.** Las conversaciones de arreglo directo pueden desarrollarse por el término que deseen las partes; pero si los trabajadores lo exigieren, debe dárseles respuesta concreta sobre todas y cada una de sus peticiones a más tardar dentro de los diez (10) días siguientes a la iniciación de las conversaciones.
+ARTICULO 464. EMPRESAS DE SERVICIOS PUBLICOS. Las empresas de servicios públicos que no dependan directa ni indirectamente del Estado no pueden suspender ni paralizar labores sino mediante permiso del Gobierno o dándole aviso a éste, con seis meses de anticipación cuando menos, a fin de que puedan tomarse oportunamente las providencias que aseguren la continuidad del servicio.
 
-Acuerdo.
+ARTICULO 465. INTERVENCION DEL GOBIERNO. En cualquier caso en que se presentare, de hecho, la suspensión de los servicios en algunas de las empresas a que se refiere el artículo anterior, el Gobierno queda autorizado para asumir su dirección y tomar todas las providencias necesarias para restablecer los servicios suspendidos y garantizar su mantenimiento.
 
-**Artículo 452.** Si se llegare a un acuerdo total o parcial sobre el pliego de peticiones, se firmará la respectiva convención colectiva o el pacto entre los trabajadores no sindicalizados y el patrono, y se enviará una copia al Ministerio del Trabajo por conducto del Inspector de Trabajo respectivo.
+ARTICULO 466. EMPRESAS QUE NO SON DE SERVICIO PÚBLICO. Las empresas que no sean de servicio público no pueden clausurar labores, total o parcialmente, en forma definitiva o temporal, sin previa autorización del Ministerio de Trabajo y Seguridad Social, salvo fuerza mayor o caso fortuito, y sin perjuicio de las indemnizaciones a que haya lugar por razón de contratos de trabajo concertados por un tiempo mayor. Para tal efecto la empresa deberá presentar la correspondiente solicitud y en forma simultánea informar por escrito a sus trabajadores tal hecho. La suspensión de actividades o clausura temporal de la empresa, establecimiento o negocio, en todo o en parte, hasta por ciento veinte (120) días, suspende los contratos de trabajo. Cuando la empresa reanudare actividades deberá admitir de preferencia al personal licenciado, en condiciones no inferiores a las que disfrutaba en el momento de la clausura. Para tal efecto, deberá avisar a los trabajadores la fecha de reanudación de labores. Los trabajadores que debidamente avisados no se presenten dentro de los tres (3) días siguientes, perderán este derecho preferencial.
 
-Desacuerdo.
+PARAGRAFO. El Ministerio de Trabajo y Seguridad Social resolverá lo relacionado con la solicitud en un plazo no mayor de dos meses. El incumplimiento injustificado de este término hará incurrir al funcionario responsable en causal de mala conducta, sancionable con arreglo al régimen disciplinario vigente.
 
-**Artículo 453.** Si no se llegare a un arreglo directo, en todo o en parte, se hará constar así en el acta, y las diferencias serán sometidas al proceso de conciliación de que se trata en seguida.
+(Modificado por el Art. 66 de la Ley 50 de 1990)
 
-### **CAPITULO III**
+## TITULO III.
 
-**CONCILIACION**
+CONVENCIONES PACTOS COLECTIVOS Y CONTRATOS SINDICALES.
 
-Conciliadores.
+## CAPITULO I.
 
-**Artículo 454.** 1. Las peticiones de los trabajadores, o la parte de ellas sobre las cuales no se hubiere logrado un arreglo directo, serán sometidas a la mediación de un conciliador designado de común acuerdo por las dos partes, o de sendos conciliadores designados por ellas.
+CONVENCIONES COLECTIVAS.
 
-- 2. Dichos conciliadores deben ser personas conocedoras de las actividades de la empresa o establecimiento, colombianos y mayores de edad, y su designación debe hacerse dentro de las veinticuatro (24) horas siguientes a la firma del acta que ponga fin al arreglo directo, avisándose este nombramiento por escrito, recíprocamente y al Inspector del Trabajo respectivo.
+ARTICULO 467. DEFINICION. Convención colectiva de trabajo es la que se celebra entre uno o varios {empleadores} o asociaciones patronales, por una parte, y uno o varios sindicatos o federaciones sindicales de trabajadores, por la otra, para fijar las condiciones que regirán los contratos de trabajo durante su vigencia.
 
-- 3. Los conciliadores deben manifestar dentro de las veinticuatro (24) horas siguientes a su designación si aceptan o no el cargo. En caso de que no acepten, la parte respectiva procederá inmediatamente a nombrar el reemplazo.
+(Artículo declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-201-02)
 
-Iniciación de labores.
+ARTICULO 468. CONTENIDO. Además de las estipulaciones que las partes acuerden en relación con las condiciones generales de trabajo, en la convención colectiva se indicarán la empresa o establecimiento, industria y oficios que comprenda, el lugar o lugares donde ha de regir la fecha en que entrará en vigor, el plazo de duración y las causas y modalidades de su prórroga, su desahucio o denuncia y la responsabilidad que su incumplimiento entrañe.
 
-**Artículo 455.** Una vez aceptado su cargo, los conciliadores deben entrar a actuar dentro de las veinticuatro (24) horas siguientes a su aceptación, y convocarán inmediatamente a los delegados o representantes de los trabajadores y del establecimiento o empresa para que les suministre todos los datos e informes necesarios para el desempeño de su cometido.
+ARTICULO 469. FORMA. La convención colectiva debe celebrarse por escrito y se extenderá en tantos ejemplares cuantas sean las partes y uno más, que se depositará necesariamente en el Departamento Nacional de Trabajo, a más tardar dentro de los quince (15) días siguientes al de su firma. Sin el cumplimiento de todos estos requisitos la convención no produce ningún efecto.
 
-Representantes de las partes.
+ARTICULO 470. CAMPO DE APLICACIÓN. Las convenciones colectivas entre {empleadores} y sindicatos cuyo número de afiliados no exceda de la tercera parte del total de los trabajadores de la empresa, solamente son aplicables a los miembros del sindicato que las haya celebrado, y a quienes adhieran a ellas o ingresen posteriormente al sindicato.
 
-**Artículo 456.** Pueden ser representantes de los trabajadores los mismos delegados que hubieren actuado en la etapa de arreglo directo. El patrono será representado por tres (3) delegados suyos, entre los cuales puede estar el jefe o director del establecimiento. Los representantes de una y otra parte deben ser conocedores de los negocios de que se trata y estar provistos de suficientes poderes para firmar cualquier convención colectiva o pacto que se celebre, salvo que convengan en hacerlo ad referéndum.
+(Modificado por el Art. 37 del Decreto 2351 de 1965) (Modificado por el Art. 2 del Decreto 18 de 1958) (Artículo declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-710-96)
 
-Obligaciones de los representantes.
+ARTICULO 471. EXTENSION A TERCEROS.
 
-**Artículo 457.** Los representantes tienen la obligación de presentarse ante el conciliador o conciliadores, cada vez que éstos lo soliciten, salvo excusa justificada, y de suministrarles todas las informaciones pertinentes al conflicto o conducentes a su solución. Las informaciones que tuvieren carácter de confidenciales deben ser mantenidas con ese carácter sin que los conciliadores puedan hacer uso público de ellas sin previa autorización de quien se las haya suministrado.
+Cuando en la convención colectiva sea parte un sindicato cuyos afiliados excedan de la tercera parte del total de los trabajadores de la empresa, las normas de la convención se extienden a todos los trabajadores de la misma, sean o no sindicalizados.
 
-Función de los conciliadores.
+Lo dispuesto en este artículo se aplica también cuando el número de afiliados al sindicato llegare a exceder del límite indicado, con posterioridad a la firma de la convención.
 
-**Artículo 458.** La función de los conciliadores es la de procurar un arreglo equitativo consultando el mutuo interés de patronos y trabajadores, y su encargo terminará diez (10) días después de que entren a actuar, salvo prórroga que les concedan las partes.
+(Modificado por el Art. 38 del Decreto 2351 de 1965) (Modificado por el Art. 2 del Decreto 18 de 1958)
 
-Terminación de la conciliación.
+ARTICULO 472. EXTENSION POR ACTO GUBERNAMENTAL.
 
-**Artículo 459.** 1. Las proposiciones, insinuaciones o dictámenes de los conciliadores no obligan a las partes. Si se llegare a un acuerdo, se firmará la convención colectiva o el pacto según el caso.
+Cuando hayan convenciones colectivas que comprendan más de las dos terceras partes de los trabajadores de una rama industrial en una determinada región económica, el Gobierno puede hacerlas extensivas, en todo o en parte, a las demás empresas de la misma industria de esa región, que sean de igual o semejante capacidad técnica y económica, pero siempre que en dichas empresas no existan convenciones que consagren mejores condiciones para los trabajadores.
 
-- 2. Si la conciliación no concluyere en un acuerdo, así se hará constar en un acta que firmarán los conciliadores.
+Para los fines a que se refiere el inciso anterior, el Gobierno puede dividir el país en regiones económicas y catalogar las empresas de igual o semejante capacidad técnica y económica de cada rama industrial.
 
-Copias.
+ARTICULO 473. SEPARACION DEL EMPLEADOR DEL SINDICATO PATRONAL. Si firmada una convención colectiva el {empleador} se separa del sindicato patronal que la celebró, continúa, sin embargo, obligado al cumplimiento de esa convención.
 
-**Artículo 460.** De todos los nombramientos, actas, convenciones y pactos se entregarán copias a las partes y al Inspector del Trabajo, y en defecto de éste al Alcalde Municipal respectivo, para su remisión al Ministerio del Trabajo
+ARTICULO 474. DISOLUCION DEL SINDICATO CONTRATANTE. Si es disuelto el sindicato que hubiere celebrado una convención, ésta continúa rigiendo los derechos y obligaciones del {empleador} y los trabajadores.
 
-### **CAPITULO IV**
+(Artículo declarado EXEQUIBLE, por los cargos analizados, por la Corte Constitucional mediante Sentencia C-902-03)
 
-**DECLARATORIA Y DESARROLLO DE LA HUELGA**
+ARTICULO 475. ACCIONES DE LOS SINDICATOS. Los sindicatos que sean parte de una convención colectiva tienen acción para exigir su cumplimiento o el pago de daños y perjuicios.
 
-**Artículo 461.** La declaración de la huelga requiere que sea aprobada en votación secreta por la mayoría absoluta de los trabajadores de la empresa o establecimiento o de la asamblea general del sindicato de base a que estén afiliados más de la mitad de aquellos trabajadores.
+ARTICULO 476. ACCIONES DE LOS TRABAJADORES. Los trabajadores obligados por una convención colectiva tienen acción para exigir su cumplimiento o el pago de daños y perjuicios, siempre que el incumplimiento les ocasione un perjuicio individual. Los trabajadores pueden delegar el ejercicio de esta acción en su sindicato.
 
-Abandono del lugar del trabajo.
+ARTICULO 477. PLAZO PRESUNTIVO. Cuando la duración de la convención colectiva no haya sido expresamente estipulada o no resulte de la naturaleza de la obra o trabajo, se presume celebrada por términos sucesivos de seis (6) en seis (6) meses.
 
-**Artículo 462.** Una vez declarada la huelga los trabajadores deben abandonar el lugar del trabajo.
+ARTICULO 478. PRORROGA AUTOMATICA. A menos que se hayan pactado normas diferentes en la convención colectiva, si dentro de los sesenta (60) días inmediatamente anteriores a la expiración de su término, las partes o una de ellas no hubieren hecho manifestación escrita de su expresa voluntad de darla por terminada, la convención se entiende prorrogada por períodos sucesivos de seis en seis meses, que se contarán desde la fecha señalada para su terminación.
 
-Forma de la huelga.
+(Artículo declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-902-03) (Artículo declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-1050-01)
 
-**Artículo 463.** Cumplidos los procedimientos previos de arreglo directo y conciliación, si el sindicato o grupo de trabajadores no sindicalizados declarare la huelga, ésta debe efectuarse en forma ordenada y pacífica.
+ARTICULO 479. DENUNCIA.
 
-Comités de huelga.
+Para que sea válida la manifestación escrita de dar por terminada una convención colectiva de trabajo, si se hace por una de las partes, o por ambas separadamente, debe presentarse por triplicado ante el Inspector del Trabajo del lugar, y en su defecto, ante el Alcalde, funcionarios que le pondrán la nota respectiva de presentación, señalando el lugar, la fecha y la hora de la misma. El original de la denuncia será entregado al destinatario por dicho funcionario, y las copias serán destinadas para el Departamento Nacional de Trabajo y para el denunciante de la convención.
 
-**Artículo 464.** Los directores del movimiento pueden constituir "Comités de Huelga" que sirvan de agentes de información de los trabajadores y de comunicación con los patronos o sus representantes.
+Formulada así la denuncia de la convención colectiva, ésta continuará vigente hasta tanto se firme una nueva convención. (Modificado por el Art. 14 del Decreto 616 de 1954) (Artículo declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-902-03) (Artículo declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-1050-01)
 
-Funciones de las autoridades.
+ARTICULO 480. REVISION. Las convenciones colectivas son revisables cuando quiera que sobrevengan imprevisibles y graves alteraciones de la normalidad económica. Cuando no haya acuerdo entre las partes acerca de la revisión fundada en tales alteraciones, corresponde a la justicia del Trabajo decidir sobre ellas; y entretanto estas convenciones siguen en todo su vigor.
 
-**Artículo 465.** Durante el desarrollo de una huelga, las autoridades policivas tienen a su cargo la vigilancia del curso pacífico del movimiento y ejercerán de modo permanente la acción preventiva y represiva que les corresponda, a fin de evitar que los huelguistas o cualesquiera personas en conexión con ellos, excedan en cualquier sentido las finalidades jurídicas de la huelga, o intenten aprovecharla para promover desórdenes o cometer infracciones o delitos.
+## CAPITULO II.
 
-Efectos jurídicos de las huelgas.
+PACTOS COLECTIVOS.
 
-**Artículo 466.** La huelga sólo suspende los contratos de trabajo por el tiempo que dure. El patrono no puede celebrar entre tanto nuevos contratos de trabajo para la reanudación de los servicios suspendidos, salvo en aquellas dependencias cuyo funcionamiento sea indispensable a juicio del respectivo Inspector del Trabajo, para evitar graves perjuicios a la seguridad y conservación de los talleres, locales, equipos, maquinarias o elementos básicos, y solamente en el caso de que los huelguistas no autoricen el trabajo del personal necesario de esas dependencias.
+ARTICULO 481. CELEBRACION Y EFECTOS. Los pactos entre empleadores y trabajadores no sindicalizados se rigen por las disposiciones establecidas en los Títulos II y III, Capítulo I, Parte Segunda del Código Sustantivo del Trabajo, pero solamente son aplicables a quienes los hayan suscrito o adhieran posteriormente a ellos.
 
-### **CAPITULO V**
+(Modificado por el Art. 69 de la Ley 50 de 1990) ARTÍCULO. PROHIBICIÓN. Cuando el sindicato o sindicatos agrupen más de la tercera parte de los trabajadores de una empresa, ésta no podrá suscribir pactos colectivos o prorrogar los que tenga vigentes.
 
-**SUSPENSIÓN COLECTIVA ILEGAL DEL TRABAJO**
+(Adicionado por el Art. 70 de la Ley 50 de 1990) (Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-1491-00)
 
-Casos de ilegalidad.
+## CAPITULO III.
 
-**Artículo 467.** La suspensión colectiva del trabajo es ilegal en cualquiera de los siguientes casos:
+CONTRATOS SINDICALES.
 
-- a) Cuando se trata de un servicio público;
+ARTICULO 482. DEFINICION. Se entiende por contrato sindical el que celebren uno o varios sindicatos de trabajadores con uno o varios {empleadores} o sindicatos patronales para la prestación de servicios o la ejecución de una obra por medio de sus afiliados. Uno de los ejemplares del contrato sindical debe depositarse, en todo caso, en el Ministerio de Trabajo, a más tardar quince (15) días después de su firma. La duración, la revisión y la extinción del contrato sindical se rigen por las normas del contrato individual de trabajo.
 
-- b) Cuando su objeto sea ilícito, es decir, cuando persiga fines distintos de los profesionales o económicos;
+ARTICULO 483. RESPONSABILIDAD. El sindicato de trabajadores que haya suscrito un contrato sindical, responde tanto por las obligaciones directas que surjan del mismo como por el cumplimiento de las que se estipulen para sus afiliados, salvo en los casos de simple suspensión del contrato, previstos por la ley o la convención, y tiene personería para ejercer tanto los derechos y acciones que le correspondan directamente, como las que correspondan a cada uno de sus afiliados. Para estos efectos, cada una de las partes contratantes debe constituir caución suficiente; si no se constituyere, se entiende que el patrimonio de cada contratante responde de las respectivas obligaciones.
 
-- c) Cuando no se hayan cumplido previamente los procedimientos de arreglo directo y de conciliación en forma legal, o
+ARTICULO 484. DISOLUCION DEL SINDICATO. En caso de disolución del sindicato de trabajadores que haya sido parte de un contrato sindical, los trabajadores continuarán prestando sus servicios en las condiciones estipuladas, mientras dure la vigencia del contrato. La caución que haya prestado el sindicato disuelto subsistirá para garantizar las obligaciones de los respectivos trabajadores.
 
-- d) Cuando haya sido declarada con violación de lo dispuesto en el Artículo 461.
+TERCERA PARTE.
 
-Declaratoria de ilegalidad.
+VIGILANCIA, CONTROL Y DISPOSICIONES FINALES.
 
-**Artículo 468.** 1. La declaratoria de ilegalidad de una suspensión colectiva del trabajo será proferida en la forma y mediante el procedimiento de que trata la Sección IV del Capítulo XVI del Código Procesal del Trabajo.
+## TITULO I.
 
-- 2. En la calificación de suspensiones colectivas del trabajo por las causales c) y d) del Artículo anterior, no se toman en cuenta las irregularidades adjetivas de trámite en que se haya podido incurrir.
+VIGILANCIA Y CONTROL.
 
-### **CAPITULO VI**
+ARTICULO 485. AUTORIDADES QUE LOS EJERCITAN. La vigilancia y el control del cumplimiento de las normas de éste Código y demás disposiciones sociales se ejercerán por el Ministerio del Trabajo en la forma como el Gobierno, o el mismo Ministerio, lo determinen.
 
-**ARBITRAMENTO**
+ARTICULO 486. ATRIBUCIONES Y SANCIONES.
 
-Procedencia del arbitramento.
+Los funcionarios del Ministerio de Trabajo podrán hacer comparecer a sus respectivos despachos a los empleadores, para exigirles las informaciones pertinentes a su misión, la exhibición de libros, registros, planillas y demás documentos, la obtención de copias o extractos de los mismos. Así mismo, podrán entrar sin previo aviso, y en cualquier momento mediante su identificación como tales, en toda empresa con el mismo fin y ordenar las medidas preventivas que consideren necesarias, asesorándose de peritos como lo crean conveniente para impedir que se violen las disposiciones relativas a las condiciones de trabajo y a la protección de los trabajadores en el ejercicio de su profesión y del derecho de libre asociación sindical. Tales medidas tendrán aplicación inmediata sin perjuicio de los recursos y acciones legales consignadas en ellos. Dichos funcionarios no quedan facultados, sin embargo, para declarar derechos individuales ni definir controversias cuya decisión esté atribuida a los jueces, aunque sí para actuar en esos casos como conciliadores.
 
-**Artículo 469.** 1. Los conflictos colectivos del trabajo que se presenten en los servicios públicos, y que no hubieren podido resolverse mediante arreglo directo o por conciliación, serán sometidos al arbitramento obligatorio.
+Los funcionarios del Ministerio del Trabajo y Seguridad Social tendrán las mismas facultades previstas en el presente numeral respecto de trabajadores, directivos o afiliados a las organizaciones sindicales, siempre y cuando medie solicitud de parte del sindicato y/o de las organizaciones de segundo y tercer grado a las cuales se encuentra afiliada la organización sindical.
 
-- 2. Los conflictos colectivos en otras empresas o establecimientos pueden ser sometidos al arbitramento, por acuerdo de las partes.
+(Numeral 1 modificado por el Art. 20 de la Ley 584 de 2000) (Aparte subrayado del texto modificado por la ley 584 de 2000 declarado EXEQUIBLE, por los cargos analizados, por la Corte Constitucional mediante Sentencia C-449-05) Los funcionarios del Ministerio del Trabajo y Seguridad Social que indique el Gobierno, tendrán el carácter de autoridades de policía para lo relacionado con la vigilancia y control de que trata el numeral anterior y están facultados para imponer cada vez multas equivalentes al monto de uno (1) a cinco mil (5.000) veces el salario mínimo mensual vigente según la gravedad de la infracción y mientras esta subsista, sin perjuicio de las demás sanciones contempladas en la normatividad vigente. Esta multa se destinará al Servicio Nacional de Aprendizaje, SENA. La imposición de multas, de otras sanciones o de otras medidas propias de su función como autoridades de policía laboral por parte de los funcionarios del Ministerio del Trabajo que cumplan funciones de inspección, vigilancia y control, no implican en ningún caso, la declaratoria de derechos individuales o definición de controversias.
 
-Tribunales especiales.
+(Numeral 2 modificado por el Art. 7 de la Ley 1610 de 2013) (Numeral 2 modificado por el Art. 97 de la Ley 50 de 1990) (Numeral 2 modificado por el artículo 24 de Ley 11 de 1984) Las resoluciones de multas que impongan los funcionarios del Ministerio del Trabajo prestarán mérito ejecutivo. De estas ejecuciones conocerán los jueces del trabajo conforme al procedimiento especial de que trata el capítulo 16 del Código de Procedimiento del Trabajo. (Subrogado por el Art. 41 del Decreto 2351 de 1965) (Modificado por el Art. 12 del Decreto 617 de 1954)
 
-**Artículo 470.** 1. El Tribunal Especial de Arbitramento en los conflictos colectivos en los cuales el arbitramento es obligatorio, se compone de tres (3) miembros, designados así: uno por cada una de las partes y el tercero por el Ministerio del Trabajo.
+ARTICULO 487. FUNCIONARIOS DE INSTRUCCION. El Jefe del Departamento de Supervigilancia Sindical y los Inspectores del Trabajo que intervengan en asuntos de competencia de este departamento, tendrán el carácter de funcionarios de instrucción para efectos de las investigaciones de actividades ilícitas de los organismos sindicales.
 
-- 2. El decreto de convocatoria del Tribunal de Arbitramento será dictado por el Ministerio del Trabajo, dentro de los cinco (5) días siguientes a la terminación de la etapa conciliatoria, y en él será señalado el término dentro del cual las partes deben nombrar sus árbitros. El del Ministerio será designado inmediatamente después de que las partes nombren los suyos.
+## TITULO II.
 
-- 3. Los árbitros disponen de dos (2) días para aceptar, tomar posesión y entrar en funciones. La renuencia de cualquiera de las partes para designar árbitros dará derecho al Ministerio del Trabajo para hacerlo. En caso de falta, renuncia o impedimento de alguno de los árbitros se procederá a reemplazarlo en la misma forma como se hizo la designación.
+DISPOSICIONES FINALES.
 
-- 4. Los honorarios del árbitro tercero, que designe el Ministerio del Trabajo, serán fijados y pagados por el Gobierno, y también los del árbitro designado por los trabajadores, cuando así lo solicite el sindicato respectivo.
+## CAPITULO I.
 
-Personas que no pueden ser árbitros.
+PRESCRIPCION DE ACCIONES.
 
-**Artículo 471.** 1. No pueden ser miembros de Tribunales de Arbitramento las personas que directa o indirectamente hubieren intervenido en representación de las partes en los períodos o etapas de arreglo directo o de conciliación.
+ARTICULO 488. REGLA GENERAL. Las acciones correspondientes a los derechos regulados en este código prescriben en tres (3) años, que se cuentan desde que la respectiva obligación se haya hecho exigible, salvo en los casos de prescripciones especiales establecidas en el Código Procesal del Trabajo o en el presente estatuto.
 
-- 2. Esta prohibición se hace extensiva a los empleados, representantes, apoderados oabogados permanentes de las partes, y en general a toda persona ligada a ellas por cualquier vínculo de dependencia.
+ARTICULO 489. INTERRUPCION DE LA PRESCRIPCION. El simple reclamo escrito del trabajador, recibido por el {empleador}, acerca de un derecho debidamente determinado, interrumpe la prescripción por una sola vez, la cual principia a contarse de nuevo a partir del reclamo y por un lapso igual al señalado para la prescripción correspondiente.
 
-Tribunales voluntarios.
+(Aparte subrayado declarado EXEQUIBLE por la Corte Constitucional mediante Sentencia C-412-97)
 
-**Artículo 472.** 1. El arbitramento voluntario se regula por lo dispuesto en los Capítulos VI, VII y VIII del presente Título, pero el árbitro tercero será designado por los de las partes, y a falta de acuerdo, por el Ministerio del Trabajo.
+## CAPITULO II.
 
-- *2.* Cuando una diferencia se someta a la decisión de un Tribunal de Arbitramento voluntario, no puede haber suspensión colectiva del trabajo.
+VIGENCIA DE ESTE CODIGO.
 
-### **CAPITULO VII**
+ARTICULO 490. FECHA DE VIGENCIA. El presente Código principia a regir el día primero (1o) de enero del año de mil novecientos cincuenta y uno (1951).
 
-**PROCEDIMIENTO ARBITRAL**
+ARTICULO 491. DISPOSICIONES SUSPENDIDAS.
 
-Quórum.
+Desde la fecha en que principie la vigencia de este Código, quedan suspendidas todas las leyes, decretos, resoluciones y demás preceptos anteriores de carácter nacional, reguladores de las materias contempladas en éste Código, en cuanto han venido rigiendo los derechos individual y colectivo de trabajo entre {empleadores} y trabajadores particulares y los del derecho colectivo de trabajo entre la Administración Pública y sus servidores.
 
-**Artículo 473.** Los Tribunales de Arbitramento de que trata este Capítulo no pueden deliberar sino con la asistencia plena de sus miembros.
+Suspéndanse los artículos 121, 122, 123, 124, 125, 126, 127, 128 y 129 del Decreto 2158 de 1948, adoptado como Ley por el Decreto 4133 de 1948.
 
-Facultades del Tribunal.
+ARTICULO 492. DISPOSICIONES NO SUSPENDIDAS. Quedan vigentes las normas que regulan el salario mínimo, el seguro social obligatorio y el derecho individual del trabajo en cuanto se refiere a los trabajadores oficiales.
 
-**Artículo 474.** Los Tribunales de Arbitramento de que trata este Capítulo pueden solicitar de las partes o de sus representantes, todas las informaciones y datos que estimen necesarios para ilustrar su juicio, ordenar inspecciones oculares, interrogar a las partes y recibir declaraciones.
+COMUNIQUESE Y PUBLIQUESE.
 
-Decisión.
-
-**Artículo 475.** Los árbitros deben decidir sobre los puntos del pliego de peticiones respecto de los cuales no se haya producido acuerdo entre las partes en las etapas de arreglo directo y conciliación, y su fallo no puede afectar derechos o facultades de las partes reconocidos por la Constitución Nacional, por las Leyes o por normas convencionales vigentes.
-
-Término para fallar.
-
-**Artículo 476.** Los árbitros proferirán el fallo dentro del término de diez (l0) días, contados desde la integración del tribunal. Las partes podrán ampliar este plazo.
-
-**Artículo 477.** El fallo arbitral se notificará a las partes personalmente o por medio de comunicación escrita.
-
-Efecto jurídico y vigencia de los fallos.
-
-**Artículo 478.** 1. El fallo arbitral pone fin al conflicto y tiene el carácter de convención colectiva en cuanto a las condiciones de trabajo.
-
-- 2. La vigencia del fallo arbitral no puede exceder de dos (2) años.
-
-- 3. No puede haber suspensión colectiva del trabajo durante el tiempo en que rija el fallo arbitral.
-
-### **CAPITULO VIII**
-
-**DISPOSICIONES COMUNES A LOS CAPITULOS ANTERIORES**
-
-Responsabilidad penal.
-
-**Artículo 479.** El hecho de terminar la huelga por arreglo entre las partes o por decisión arbitral no exime de responsabilidad por los delitos cometidos durante ella.
-
-Personas que no pueden intervenir.
-
-**Artículo 480.** No pueden ser representantes o voceros de los trabajadores ni de los patronos, ni conciliadores, ni miembros de tribunales de arbitramento, individuos condenados a sufrir pena aflictiva que no hubieren sido rehabilitados.
-
-### **CAPITULO IX**
-
-**CIERRE DE EMPRESAS**
-
-Empresas de servicios públicos.
-
-**Artículo 481.** Las empresas de servicios públicos que no dependan directa ni indirectamente del Estado no pueden suspender ni paralizar labores sino mediante permiso del Gobierno o dándole aviso a éste, con seis meses de anticipación cuando menos, a fin de que puedan tomarse oportunamente las providencias que aseguren la continuidad del servicio.
-
-Intervención del Gobierno.
-
-**Artículo 481A.** Adicionado.
-
-**Artículo 482.** En cualquier caso en que se presentare, de hecho, la suspensión de los servicios en algunas de las empresas a que se refiere el Artículo anterior, el Gobierno queda autorizado para asumir su dirección y tomar todas las providencias necesarias para restablecer los servicios suspendidos y garantizar su mantenimiento.
-
-## **TITULO III**
-
-**CONVENCIONES Y PACTOS COLECTIVOS, CONTRATOS SINDICALES**
-
-Empresas que no son de servicio público.
-
-**Artículo 483.** Las empresas que no sean de servicio público no pueden clausurar sus labores sino mediante aviso a los trabajadores con no menos de un (1) mes de antelación, salvo fuerza mayor o caso fortuito, y sin perjuicio de las indemnizaciones a que haya lugar por razón de contratos de trabajo concertados por un tiempo mayor. Si la empresa clausurada reanudare actividades dentro de los ciento veinte (120) días siguientes, deberá admitir de preferencia el personal licenciado, en condiciones no inferiores a las de que disfrutaba en el momento de la clausura. Los trabajadores que, debidamente avisados, no se presentaren dentro del tercer día, perderán este derecho preferencial.
-
-Definición.
-
-**Artículo 484.** Convención colectiva de trabajo es la que se celebra entre uno o varios patronos o asociaciones patronales, por una parte, y uno o varios sindicatos o federaciones sindicales de trabajadores, por la otra, para fijar las condiciones que regirán los contratos de trabajo durante su vigencia.
-
-Contenido.
-
-**Artículo 485.** Además de las estipulaciones que las partes acuerden en relación con las condiciones generales del trabajo, en la convención colectiva se indicarán la empresa o establecimiento, industria y oficios que comprenda, el lugar o lugares en donde ha de regir, la fecha en que entrará en vigor, el plazo de duración y las causas y modalidades de su prórroga, su desahucio o denuncia, y la responsabilidad que su incumplimiento entrañe.
-
-Forma.
-
-**Artículo 486.** La convención colectiva debe celebrarse por escrito y se extenderá en tantos ejemplares cuantas sean las partes y uno más que se depositará necesariamente en el Departamento Nacional del Trabajo, a más tardar dentro de los quince (15) días siguientes al de su firma. Sin el cumplimiento de todos estos requisitos la convención no produce ningún efecto.
-
-Campo de aplicación.
-
-**Artículo 487.** Las convenciones colectivas entre patronos y sindicatos cuyo número de afiliados no exceda del límite indicado en el Artículo siguiente, solamente son aplicables a los miembros del organismo sindical que las haya celebrado, y a quienes adhieran a ellas o ingresen posteriormente al sindicato.
-
-Extensión a terceros.
-
-**Artículo 488.** 1. Cuando en la convención colectiva sea parte un sindicato o agrupación de sindicatos cuyos afiliados excedan a la tercera parte del total de los trabajadores de las empresas o establecimientos respectivos, las normas de la convención se extienden a todas las personas, sean o no sindicalizadas, que trabajen o lleguen a trabajar en ellos.
-
-- 2. Lo dispuesto en el inciso 1 rige también cuando el número de afiliados del sindicato o sindicatos llegue a exceder del límite indicado.
-
-Extensión por acto gubernamental.
-
-**Artículo 489.** 1. Cuando haya convenciones colectivas que comprendan más de las dos terceras partes de los trabajadores de una rama industrial en una determinada región económica, el Gobierno puede hacerlas extensivas, en todo o en parte, a las demás empresas de la misma industria de esa región, que sean de igual o semejante capacidad técnica y económica, pero siempre que en dichas empresas no existan convenciones que consagren mejores condiciones para los trabajadores.
-
-- 2. Para los fines a que se refiere el inciso anterior, el Gobierno puede dividir el país en regiones económicas y catalogar las empresas de igual o semejante capacidad técnica y económica de cada rama industrial.
-
-Separación del patrono del sindicato patronal.
-
-**Artículo 490.** Si firmada una convención colectiva el patrono se separa del sindicato patronal que la celebró, continúa, sin embargo, obligado al cumplimiento de esa convención.
-
-Disolución del sindicato contratante
-
-**Artículo 491.** Si es disuelto el sindicato que hubiere celebrado una convención, ésta continúa rigiendo los derechos y obligaciones del patrono y los trabajadores.
-
-Acciones de los sindicatos.
-
-**Artículo 492.** Los sindicatos que sean parte de una convención colectiva tienen acción para exigir su cumplimiento o el pago de daños y perjuicios.
-
-Acciones de los trabajadores.
-
-**Artículo 493.** Los trabajadores obligados por una convención colectiva tienen acción para exigir su cumplimiento o el pago de daños y perjuicios siempre que el incumplimiento les ocasione un perjuicio individual. Los trabajadores pueden delegar el ejercicio de esta acción en su sindicato.
-
-Plazo presuntivo.
-
-**Artículo 494.** Cuando la duración de la convención colectiva no haya sido expresamente estipulada o no resulte de la naturaleza de la obra o trabajo, se presume celebrada por términos sucesivos de seis meses en seis meses
-
-Prórroga automática.
-
-**Artículo 495.** A menos que se hayan pactado normas diferentes en la convención colectiva, si dentro de los sesenta (60) días inmediatamente anteriores a la expiración de su término, las partes o una de ellas no hubieren hecho manifestación escrita de su expresa voluntad de darla por terminada, la convención se entiende prorrogada por períodos sucesivos de seis en seis meses, que se contarán desde la fecha señalada para su terminación.
-
-Denuncia.
-
-**Artículo 496.** 1. Para que sea válida la manifestación escrita de dar por terminada una convención colectiva de trabajo, si se hace por una de las partes, o por ambas separadamente, debe presentarse por triplicado ante el Inspector del Trabajo del lugar, y en su defecto ante el Alcalde, funcionarios que le pondrán la nota respectiva de presentación, señalando el lugar, la fecha y la hora de la misma. El original de la denuncia será entregado al destinatario por dicho funcionario, *y* las copias serán destinadas para el Departamento Nacional del Trabajo y para el denunciante de la convención.
-
-- 2. Formulada así la denuncia de la convención colectiva, esta terminará a la expiración del respectivo plazo.
-
-Revisión.
-
-**Artículo 497.** Las convenciones colectivas son revisables cuando quiera que sobrevengan imprevisibles y graves alteraciones de la normalidad económica. Cuando no haya acuerdo entre las partes acerca de la revisión fundada en tales alteraciones, corresponde a la justicia del Trabajo decidir sobre ellas; y entre tanto estas convenciones siguen en todo su vigor.
-
-### **CAPITULO II**
-
-**PACTOS COLECTIVOS**
-
-Celebración y efectos.
-
-**Artículo 498.** Los pactos entre patronos y trabajadores no sindicalizados se rigen por las disposiciones establecidas para las convenciones colectivas, pero solamente son aplicables a quienes los hayan celebrado o adhieran posteriormente a ellos.
-
-### **CAPITULO III**
-
-**CONTRATOS SINDICALES**
-
-Definición.
-
-**Artículo 499.** Se entiende por contrato sindical el que celebren uno o varios sindicatos de trabajadores con uno o varios patronos o sindicatos patronales para la prestación de servicios o la ejecución de una obra por medio de sus afiliados. Uno de los ejemplares del contrato sindical debe depositarse en todo caso en el Ministerio del Trabajo, a más tardar quince (15) días después de su firma. La duración, la revisión y la extinción del contrato sindical se rigen por las normas del contrato individual de trabajo.
-
-Responsabilidad.
-
-**Artículo 500.** El sindicato de trabajadores que haya suscrito un contrato sindical, responde tanto por las obligaciones directas que surjan del mismo como por el cumplimiento de las que se estipulen para sus afiliados, salvo en los casos de simple suspensión del contrato, previstos por la Ley o la convención, y tiene personería para ejercer tanto los derechos y acciones que le correspondan directamente, como los que le correspondan a cada uno de sus afiliados. Para estos efectos, cada una de las partes contratantes debe constituir caución suficiente; si no se constituyere, se entiende que el patrimonio de cada contratante responde de las respectivas obligaciones.
-
-Disolución del sindicato.
-
-**Artículo 501.** En caso de disolución del sindicato de trabajadores que haya sido parte de un contrato sindical, los trabajadores continuarán prestando sus servicios en las condiciones estipuladas, mientras dure la vigencia del contrato. La caución que haya prestado el sindicato disuelto subsistirá para garantizar las obligaciones de los respectivos trabajadores.
-
-**TERCERA PARTE**
-
-## **TITULO I**
-
-**VIGILANCIA Y CONTROL**
-
-Autoridades que los ejercitan.
-
-**Artículo 502.** La vigilancia y el control del cumplimiento de las normas de este Código y demás disposiciones sociales se ejercerán por el Ministerio del Trabajo en la forma como el Gobierno, o el mismo Ministerio, lo determinen.
-
-Sanciones y procedimiento.
-
-**Artículo 503.** Los Jefes de Departamento, Inspectores, Visitadores y Jefes de Sección del Ministerio del Trabajo, quedan investidos del carácter de Jefe de Policía para todo lo relacionado con la vigilancia y control de que trata el Artículo anterior, y, en consecuencia, están expresamente facultados para imponer multas desde cincuenta pesos ($50) hasta dos mil pesos ($2.000), según los casos, a quienes desobedezcan o traten de burlar las providencias que ellos dicten en ejercicio de dichas atribuciones y con sujeción a los procedimientos administrativos ordinarios.
-
-Funcionarios de instrucción.
-
-**Artículo 504.** El Jefe del Departamento de Supervigilancia Sindical y los Inspectores del Trabajo que intervengan en asuntos de competencia de este Departamento, tendrán el carácter de funcionarios de instrucción para los efectos de las investigaciones de actividades ilícitas de los organismos sindicales.
-
-## **TITULO II**
-
-**DISPOSICIONES FINALES**
-
-### **CAPITULO I**
-
-**PRESCRIPCIÓN DE ACCIONES**
-
-Regla general.
-
-**Artículo 505.** Las acciones correspondientes a los derechos regulados en este Código prescriben en tres (3) años, que se cuentan desde que la respectiva obligación se haya hecho exigible, salvo en los casos de prescripciones especiales establecidas en el Código Procesal del Trabajo o en el presente estatuto.
-
-Interrupción de la prescripción
-
-**Artículo 506.** El simple reclamo escrito del trabajador, recibido por el patrono, acerca de un derecho debidamente determinado, interrumpe la prescripción por una sola vez, la cual principia a contarse de nuevo a partir del reclamo y por un lapso igual al señalado para la prescripción correspondiente.
-
-### **CAPITULO II**
-
-**VIGENCIA DE ESTE CODIGO**
-
-Fecha de vigencia
-
-**Artículo 507.** El presente Código principia a regir el día primero (1) de enero del año de mil novecientos cincuenta y uno (1951).
-
-Disposiciones suspendidas.
-
-**Artículo 508.** Desde la fecha en que principie la vigencia de este Código, quedan suspendidas todas las Leyes, decretos, resoluciones y demás preceptos anteriores de carácter nacional, reguladores de las materias contempladas en este Código, en cuanto han venido rigiendo los derechos individual y colectivo de trabajo entre patronos y trabajadores particulares y los del derecho colectivo de trabajo entre la Administración Pública y sus servidores.
-
-Disposiciones no suspendidas.
-
-**Artículo 509.** Quedan vigentes las normas que regulan el salario mínimo, el seguro social obligatorio, y el derecho individual del trabajo en cuanto se refiere a los trabajadores oficiales.
-
-**Dado en Bogotá, a cinco de agosto de mil novecientos cincuenta.**
-
-**MARIANO OSPINA PEREZ.**
-
-**El Ministro de Gobierno, Luís Ignacio Andrade.- El Ministro de Relaciones Exteriores-Evaristo Sourdis.-El Ministro de Justicia, Pedro Manuel Arenas.-El Ministro de Hacienda y Crédito Público, Hernán Jaramillo Ocampo.-El Ministro de Guerra, Roberto Urdaneta Arbeláez.-El Ministro de Agricultura y Ganadería, Juan Guillermo Restrepo Jaramillo.-El Ministro del trabajo, Víctor G. Ricardo.-El Ministro de Higiene, Jorge E. Caveller.-El Ministro de Comercio e Industria Cesar Tulio Delgado. -El Ministro de Minas y Petróleos, José Elías Del Hierro.- El Ministro de Educación Nacional, Manuel Mosquera Garcés.-El Ministro de Correos y Telégrafos, general Gustavo Rojas Pinilla.-El Ministro de Obras Públicas, Víctor Archila Briceño.**
+Dado en Bogotá a los 05 días del mes de agosto de 1950

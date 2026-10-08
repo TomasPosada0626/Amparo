@@ -25,20 +25,50 @@ pura de RRF.
 from __future__ import annotations
 
 import re
+import unicodedata
 
 from tools.rag import config
 from tools.rag.embed_store import SearchResult, VectorStore, embed_query, metadata_to_result
 
-# Tokenizacion para BM25: minusculas + palabras alfanumericas. Deliberadamente
-# simple (no stemming, no stopwords): en dominio legal los "terminos raros" que
-# BM25 debe premiar son justo numeros y nombres propios ("1480", "habeas"), que
-# no conviene alterar. Se mantiene \w+ con unicode para no perder tildes ni la ñ.
+# Tokenizacion para BM25: minusculas, sin tildes y palabras alfanumericas.
+# Deliberadamente simple (no stemming, no stopwords): en dominio legal los
+# "terminos raros" que BM25 debe premiar son justo numeros y nombres propios
+# ("1480", "habeas"), que no conviene alterar.
+#
+# Las tildes SI se quitan, en los dos lados. Antes no, con el argumento de "no
+# perder tildes ni la ñ", pero el razonamiento fallaba por un lado que no se
+# habia mirado: el corpus viene con tildes y las preguntas vienen sin ellas,
+# porque asi escribe la gente desde el celular -- y asi estan escritas a
+# proposito en el dataset de M1 y en el eval set. El termino nunca empataba.
+# Medido sobre el eval set, 37 de las 75 preguntas perdian al menos una palabra
+# ("peticion", "credito", "nomina", "liquidacion"), y es la causa de que
+# "Me despidieron sin pagarme la liquidacion" trajera articulos del Codigo
+# General del Proceso en vez de los laborales.
+#
+# La ñ se conserva: NFD la descompone en "n" + marca combinante, asi que
+# quitarla sin mas confundiria "año" con "ano", que en texto legal importa. Se
+# recompone antes de filtrar las marcas.
 _TOKEN_PATTERN = re.compile(r"\w+", re.UNICODE)
+
+_N_CON_TILDE = "\u0303"      # marca combinante de la ñ
+
+
+def _sin_tildes(texto: str) -> str:
+    descompuesto = unicodedata.normalize("NFD", texto)
+    conservado = "".join(
+        c for c in descompuesto
+        if unicodedata.category(c) != "Mn" or c == _N_CON_TILDE
+    )
+    return unicodedata.normalize("NFC", conservado)
 
 
 def tokenize(text: str) -> list[str]:
-    """Texto -> lista de tokens en minuscula, para BM25."""
-    return _TOKEN_PATTERN.findall(text.lower())
+    """Texto -> tokens en minuscula y sin tildes, para BM25.
+
+    Se aplica igual al indexar y al consultar: si solo se normalizara un lado,
+    el problema seria el mismo al reves.
+    """
+    return _TOKEN_PATTERN.findall(_sin_tildes(text.lower()))
 
 
 class BM25Index:
@@ -175,4 +205,35 @@ def hybrid_search(
     """
     denso = store.search(embed_query(query), top_k=top_n)
     lexico = bm25.search(query, top_n=top_n)
-    return reciprocal_rank_fusion([denso, lexico], top_k=top_k)
+    fusionados = reciprocal_rank_fusion([denso, lexico], top_k=len(denso) + len(lexico))
+    return promover_referencias_exactas(fusionados, query)[:top_k]
+
+
+def promover_referencias_exactas(
+    resultados: list[SearchResult], query: str
+) -> list[SearchResult]:
+    """Sube al frente los chunks cuyo articulo cita la consulta explicitamente.
+
+    Por que hace falta. El RRF no puede hacerlo solo: un chunk presente en las
+    dos listas suma 1/(k+1) dos veces y uno de solo BM25, aunque quede primero,
+    suma 1/(k+1) una vez -- 0.0328 contra 0.0164 con k=60. Como el denso casi
+    siempre aporta cinco chunks que tambien estan en la lexica, el candidato
+    lexico puro nunca entraba al top-5, y ese es justo el caso para el que
+    existe la busqueda hibrida: "que dice el articulo 64 del Codigo Sustantivo
+    del Trabajo".
+
+    La condicion no se inventa aqui: es la misma de
+    retrieve.es_referencia_exacta, que ya exige que la consulta cite ese numero
+    y, cuando nombra una norma, que el chunk sea de esa norma. Asi el articulo
+    64 del Codigo General del Proceso no se promueve ante una pregunta sobre el
+    Codigo Sustantivo del Trabajo.
+
+    Entre las promovidas se respeta el orden que traian del RRF, y las demas
+    quedan detras tambien en su orden: no se reordena nada mas.
+    """
+    from tools.rag.retrieve import es_referencia_exacta   # perezoso: evita ciclo
+
+    exactas, resto = [], []
+    for r in resultados:
+        (exactas if es_referencia_exacta(r, query) else resto).append(r)
+    return exactas + resto

@@ -16,48 +16,56 @@ def test_length_bias_correlation_no_relationship_or_short_input():
     assert bias.length_bias_correlation([1, 2], [10]) == {"pearson_r": None, "n": 2}
 
 
-def test_normalize_judge_score_and_similarity():
-    assert bias.normalize_judge_score(1) == 0.0
-    assert bias.normalize_judge_score(5) == 1.0
-    assert bias.normalize_judge_score(3) == pytest.approx(0.5)
-    assert bias.normalize_similarity(0) == 0.0
-    assert bias.normalize_similarity(100) == 1.0
-    assert bias.normalize_similarity(50) == pytest.approx(0.5)
+def _reporte(*pares):
+    detalles = [{"id": i, "verdict_normal": a, "verdict_swapped": b} for i, (a, b) in enumerate(pares)]
+    return bias.PositionBiasReport(n_pairs=len(pares), n_flipped=0, n_tied_or_unparsed=0,
+                                   flip_rate_pct=0.0, details=detalles)
 
 
-def test_self_preference_gap_no_divergence_when_signals_agree():
-    # El juez y la similitud ven exactamente la misma mejora normalizada.
-    report = bias.self_preference_gap(
-        judge_baseline=[2, 2, 2],
-        judge_finetuned=[4, 4, 4],
-        sim_baseline=[25, 25, 25],
-        sim_finetuned=[75, 75, 75],
+def test_veredicto_consistente_solo_cuenta_victorias_en_los_dos_ordenes():
+    rep = _reporte(
+        ("fine_tuned", "fine_tuned"),   # gana en los dos ordenes
+        ("baseline", "baseline"),
+        ("fine_tuned", "baseline"),     # cambia con el orden: sesgo de posicion
+        ("empate", "fine_tuned"),       # el juez no se decide
+        ("empate", "empate"),
+        (None, "fine_tuned"),           # sin respuesta en una pasada
     )
-    # judge_gap = (4-1)/4 - (2-1)/4 = 0.75 - 0.25 = 0.5
-    # similarity_gap = 0.75 - 0.25 = 0.5
-    assert report.judge_gap == pytest.approx(0.5)
-    assert report.similarity_gap == pytest.approx(0.5)
-    assert report.divergence == pytest.approx(0.0)
-    assert report.flagged is False
+    assert rep.veredicto_consistente() == {
+        "fine_tuned": 1, "baseline": 1, "empate": 2, "inconsistente": 1, "sin_veredicto": 1}
 
 
-def test_self_preference_gap_flags_large_divergence():
-    report = bias.self_preference_gap(
-        judge_baseline=[1, 1, 1],
-        judge_finetuned=[5, 5, 5],
-        sim_baseline=[50, 50, 50],
-        sim_finetuned=[52, 52, 52],
-    )
-    # judge_gap = 1.0 - 0.0 = 1.0 ; similarity_gap = 0.52 - 0.50 = 0.02
-    assert report.judge_gap == pytest.approx(1.0)
-    assert report.similarity_gap == pytest.approx(0.02)
-    assert report.divergence == pytest.approx(0.98)
-    assert report.flagged is True
+def test_tasa_de_victoria_sobre_pares_decididos():
+    rep = _reporte(*([("fine_tuned", "fine_tuned")] * 3 + [("baseline", "baseline")] + [("a", "b")]))
+    t = rep.tasa_victoria()
+    assert t["fine_tuned"] == 3 and t["decididos"] == 4
+    assert t["tasa"] == pytest.approx(0.75)
+    assert t["ic95"][0] < 0.75 < t["ic95"][1]
 
 
-def test_judge_vs_similarity_correlation():
-    result = bias.judge_vs_similarity_correlation([1, 2, 3], [10, 20, 30])
-    assert result["pearson_r"] == pytest.approx(1.0)
+def test_tasa_de_victoria_sin_pares_decididos():
+    assert _reporte(("empate", "empate")).tasa_victoria()["tasa"] is None
+
+
+def test_todos_los_pares_cuando_no_hay_muestra():
+    """sample_size=None juzga los 231 pares, no una muestra de 30."""
+    llamadas = []
+
+    def fake(system, user, max_tokens):
+        llamadas.append(user)
+        return '{"veredicto": "A", "confianza": 3}'
+
+    pares = [(i, f"q{i}", f"b{i}", f"f{i}") for i in range(50)]
+    rep = bias._run_position_bias_probe_core(fake, pares, sample_size=None, seed=42, progress_every=0,
+                                             max_tokens=10, log_prefix="t")
+    assert rep.n_pairs == 50 and len(llamadas) == 100
+    # "A" en los dos ordenes = baseline primero y fine-tuned despues: gana distinto -> inconsistente.
+    assert rep.veredicto_consistente()["inconsistente"] == 50
+
+
+def test_el_prompt_comparativo_pide_ignorar_orden_y_largo():
+    p = bias.PAIRWISE_JUDGE_SYSTEM_PROMPT.lower()
+    assert "orden" in p and "larga" in p
 
 
 def test_build_pairwise_prompt_contains_both_responses():

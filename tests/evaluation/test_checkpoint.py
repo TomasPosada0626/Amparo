@@ -63,3 +63,134 @@ def test_skips_already_done_pairs_in_position_bias_probe(tmp_path):
     )
     assert len(calls) == 0
     assert report2.details == report1.details
+
+
+# --- Huella de contenido (corrida M2 del 2026-10-02) -----------------------------
+# El checkpoint se reusaba por id: el sondeo de Groq y los puntajes del eval set
+# salieron de una corrida anterior, con otros textos. Ahora solo se reusa si el
+# contenido calificado es exactamente el mismo.
+
+from dataclasses import dataclass
+
+from tools.evaluation.checkpoint import huella
+
+
+@dataclass
+class _Fila:
+    id: int
+    query: str
+    expected: str
+    generated: str
+
+
+def test_huella_cambia_con_cualquier_texto_y_con_el_orden():
+    base = huella("q", "ref", "resp")
+    assert base == huella("q", "ref", "resp")
+    assert base != huella("q", "ref", "resp distinta")
+    assert base != huella("q", "resp", "ref")
+
+
+def test_load_checkpoint_con_huellas_descarta_otro_texto_y_entradas_viejas(tmp_path):
+    path = tmp_path / "ckpt.jsonl"
+    append_checkpoint(path, {"id": 1, "huella": huella("a"), "x": 1})
+    append_checkpoint(path, {"id": 2, "huella": huella("viejo"), "x": 2})
+    append_checkpoint(path, {"id": 3, "x": 3})            # formato anterior, sin huella
+
+    done = load_checkpoint(path, {1: huella("a"), 2: huella("nuevo"), 3: huella("c")})
+    assert set(done) == {1}
+
+
+def test_juez_recalifica_si_la_respuesta_cambio(tmp_path, monkeypatch):
+    from tools.evaluation import external_judge, judge
+
+    llamadas = []
+
+    def fake_score(query, reference, candidate):
+        llamadas.append(candidate)
+        return judge.parse_judge_output(
+            '{"correccion_juridica": 4, "prudencia": 4, "claridad_utilidad": 4, "concision": 4}')
+
+    monkeypatch.setattr(external_judge, "score_response", fake_score)
+    path = tmp_path / "juez.jsonl"
+    external_judge.score_batch([_Fila(1, "q", "ref", "resp A"), _Fila(2, "q2", "ref2", "resp B")],
+                               progress_every=0, checkpoint_path=path)
+    assert llamadas == ["resp A", "resp B"]
+
+    llamadas.clear()
+    puntajes = external_judge.score_batch([_Fila(1, "q", "ref", "resp A"), _Fila(2, "q2", "ref2", "OTRA")],
+                                          progress_every=0, checkpoint_path=path)
+    assert llamadas == ["OTRA"]                          # la 1 se reusa, la 2 se vuelve a calificar
+    assert [p.composite for p in puntajes] == [4.0, 4.0]
+
+
+def test_juez_recalifica_si_cambio_el_prompt(tmp_path, monkeypatch):
+    """Un puntaje dado con la rubrica anterior no se reusa con la nueva."""
+    from tools.evaluation import external_judge, judge
+
+    llamadas = []
+    monkeypatch.setattr(external_judge, "score_response", lambda q, r, c: llamadas.append(c) or
+                        judge.parse_judge_output('{"correccion_juridica": 4, "prudencia": 4, '
+                                                 '"claridad_utilidad": 4, "concision": 4}'))
+    path = tmp_path / "juez.jsonl"
+    external_judge.score_batch([_Fila(1, "q", "ref", "resp")], progress_every=0, checkpoint_path=path)
+    monkeypatch.setattr(external_judge, "JUDGE_PROMPT_VERSION", "otra")
+    external_judge.score_batch([_Fila(1, "q", "ref", "resp")], progress_every=0, checkpoint_path=path)
+    assert llamadas == ["resp", "resp"]
+
+
+def test_juez_externo_no_reusa_checkpoint_de_otra_corrida(tmp_path, monkeypatch):
+    from tools.evaluation import external_judge, judge
+
+    path = tmp_path / "groq.jsonl"
+    append_checkpoint(path, {"id": 1, "correccion_juridica": 1, "prudencia": 1, "claridad_utilidad": 1,
+                             "concision": 1, "justificacion": "", "composite": 1.0, "parse_ok": True,
+                             "raw_output": ""})        # entrada vieja, sin huella
+    monkeypatch.setattr(external_judge, "score_response", lambda q, r, c: judge.parse_judge_output(
+        '{"correccion_juridica": 5, "prudencia": 5, "claridad_utilidad": 5, "concision": 5}'))
+
+    puntajes = external_judge.score_batch([_Fila(1, "q", "ref", "resp")], progress_every=0, checkpoint_path=path)
+    assert puntajes[0].composite == 5.0
+
+
+def test_sondeo_de_posicion_vuelve_a_juzgar_si_cambian_los_textos(tmp_path):
+    from tools.evaluation.bias import _run_position_bias_probe_core
+
+    path = tmp_path / "pos.jsonl"
+    llamadas = []
+
+    def fake(system_prompt, user_content, max_tokens):
+        llamadas.append(user_content)
+        return '{"veredicto": "A", "confianza": 5}'
+
+    kw = dict(sample_size=1, seed=42, progress_every=0, max_tokens=50, log_prefix="t", checkpoint_path=path)
+    _run_position_bias_probe_core(fake, [(1, "q", "base", "ft")], **kw)
+    llamadas.clear()
+    _run_position_bias_probe_core(fake, [(1, "q", "base", "ft NUEVO")], **kw)
+    assert len(llamadas) == 2
+
+
+def test_juez_externo_no_guarda_las_llamadas_sin_respuesta(tmp_path, monkeypatch):
+    """Sin respuesta de Groq (cupo agotado) no se guarda: si se guardara, el
+    fallo quedaria 'resuelto' para siempre y nunca se reintentaria."""
+    from tools.evaluation import external_judge
+
+    path = tmp_path / "groq.jsonl"
+    monkeypatch.setattr(external_judge, "call_groq", lambda s, u, m: "")
+    external_judge.score_batch([_Fila(1, "q", "ref", "resp")], progress_every=0, checkpoint_path=path)
+    assert not path.exists()
+
+
+def test_linea_cortada_del_checkpoint_se_ignora(tmp_path):
+    path = tmp_path / "c.jsonl"
+    append_checkpoint(path, {"id": 1, "huella": huella("a")})
+    with open(path, "a", encoding="utf-8") as f:
+        f.write('{"id": 2, "huel')          # Colab se desconecto escribiendo
+    assert set(load_checkpoint(path, {1: huella("a"), 2: huella("b")})) == {1}
+
+
+def test_winner_counts_cuenta_los_pares_sin_veredicto():
+    from tools.evaluation.bias import PositionBiasReport
+
+    r = PositionBiasReport(2, 0, 1, 0.0, [{"id": 1, "verdict_normal": "baseline", "verdict_swapped": None},
+                                           {"id": 2, "verdict_normal": "baseline", "verdict_swapped": "baseline"}])
+    assert r.winner_counts() == {"baseline": 3, "sin_veredicto": 1}

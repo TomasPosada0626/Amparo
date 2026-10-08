@@ -12,6 +12,10 @@ Documento de decisiones del sistema RAG de Amparo. Cubre las tres partes de M3:
   optimización del prompt con DSPy (extra), los hallazgos de la corrida real de
   S08 con sus correcciones (sección 25) y el de la corrida real de S10: el modelo
   no usaba las herramientas (sección 26).
+- **Sección 28 (2026-10-08): las rutas agénticas se retiran.** Tool use y ReAct
+  no se pagaron en dos corridas; el sistema que se entrega es el RAG de una
+  pasada con retrieval denso. Las secciones 15 y 18-27 quedan como registro de
+  lo que se probó; su código está en la historia de git (commit `071c878`).
 
 Mismo estándar de documentación que M1/M2: **decisión + justificación +
 evidencia**, no solo qué se eligió.
@@ -23,9 +27,9 @@ Fecha: 2026-09-21 (Parte I) · 2026-09-24 (Parte II) · código:
 [`colab/m3_s10_rag_agentico.ipynb`](../colab/m3_s10_rag_agentico.ipynb) (S10)
 
 > **Por qué este RAG existe.** El M2 midió que el modelo fine-tuneado llega a
-> **100% de cumplimiento de "no inventa citas"** en los 201 ejemplos de
-> validación ([scorecard](../results/m2_scorecard_2026-09-19.md)), frente a
-> 73.6% del baseline. Pero ese 100% es "aprendió a no citar", no "aprende a
+> **100% de respuestas sin citas numeradas** en los 231 ejemplos de
+> validación ([scorecard](../results/m2_2026-10-06/scorecard.md)), frente a
+> 87.4% del modelo base. Pero ese 100% es "aprendió a no citar", no "aprende a
 > citar bien": en el eval set adversarial el modelo cede y cita cuando se le
 > presiona por un número de artículo, sin tener de dónde verificarlo. Este RAG
 > es la pieza que convierte eso en "cita correctamente porque tiene de dónde
@@ -1481,9 +1485,116 @@ volver a correr; lo de abajo se trabaja en M4):
     norma y el artículo del contexto (hoy el LoRA cita en 12 % de las gold),
     responder lo que se pregunta con lo del contexto y no completar de memoria
     (faithfulness 0.61), y decir qué hacer si no se cumple la norma (la tutela).
-  - Revisar los prompts de las rutas agénticas (`SYSTEM_TOOLS`, `SYSTEM_REACT`) con
+  - (Retirado por C11, sección 28.) Revisar los prompts de las rutas agénticas con
     ejemplos de uso de herramientas, junto con el reentrenamiento del adaptador.
 - **Corpus.** Reemplazar el CST de 1950 por la versión vigente compilada y
   reconstruir el índice (sección 9); revisar la Ley 100; decidir si se indexan
   las normas que ya están en `data/corpus/normas` y no en `NORMAS_EN_ALCANCE`
   (Código Penal, Código Civil, Código de Comercio, etc.).
+
+## 28. Decisión C11 (2026-10-08): se retiran las rutas agénticas
+
+**Decisión.** Amparo responde con el RAG de una pasada (`pipeline.answer_query`)
+y retrieval denso (`config.USE_HYBRID = USE_RERANK = False`). Se borran el tool
+use (`tools/rag/tools.py`), el agente ReAct (`tools/rag/agentico.py`), sus tests y
+las fases 2-3 de `colab/m3_s10_rag_agentico.ipynb`. Lo último que tenía ese
+código es el commit `071c878`; para reproducir las corridas de S10 del 27-09 y el
+07-10, `git checkout 071c878`.
+
+**Evidencia.** Dos corridas independientes, sobre eval sets distintos:
+
+| Corrida | Ruta | s/consulta | ¿El modelo decidió buscar? | Resultado |
+|---|---|---|---|---|
+| 2026-09-27 (56 casos) | tool use | — | 0.1 llamadas por pregunta; 53 de 56 sin contexto | respondió de memoria |
+| 2026-10-07 (75 casos) | una pasada | 5.7 | — | faith 0.38, a.rel **0.76** |
+| 2026-10-07 | tool use | 12.4 | 0 de 75 (las 75 búsquedas las forzó el código) | faith 0.31 |
+| 2026-10-07 | ReAct | 12.4 | 0 de 75 | faith 0.40, a.rel 0.66, escapa el doble en gold, única con citas no respaldadas |
+
+La capacidad que justifica un agente, decidir cuándo y qué buscar, no se ejerció
+ni una vez. Lo que hacía el agente lo hacía la red de seguridad del código, que
+es una búsqueda forzada: una pasada con 2.2 veces la latencia. El context recall
+(0.32-0.35) es el mismo en las tres porque comparten la búsqueda, y ese es el
+cuello de botella (sección 25 y `docs/m3_cobertura_corpus.md`), no la ruta.
+
+**Hybrid y rerank, apagados.** En la fase 5b del 07-10 (RAGAS, 45 gold) el denso
+puro ganó en context recall (0.39 contra 0.37 y 0.34) y faithfulness (0.42
+contra 0.39 y 0.38), y el reranker se desploma en preguntas compuestas (recall
+0.11 en las 19 nuevas). Los defaults de `config.py` ya eran `False`; el notebook
+de S10 ya no los fuerza a `True` y lee la configuración de `config.py`. El código
+de hybrid y rerank se queda: S08 los compara, y es el experimento que sostiene
+esta decisión.
+
+**Qué se conserva.** La verificación de citas nació en el agente pero la usa la
+ruta que se entrega (sección 19): `citas_no_verificables`, `nota_de_correccion`,
+`es_prudente` y las funciones que las sostienen se movieron a
+`tools/rag/verificacion.py`, con sus tests (`tests/rag/test_verificacion.py`).
+También la usan DSPy, `ragas_metrics` y el piso de la hybrid search
+(`retrieve.es_referencia_exacta`). Los campos `sistema` y `traza` del registro de
+evaluación se mantienen para poder leer las corridas viejas.
+
+**Lo que se pierde, y por qué no importa hoy.** La calculadora y `calcular_plazo`
+resolvían preguntas compuestas ("pago 1.200.000 y el IPC fue 5,2 %") que la una
+pasada deja a la memoria del modelo. Pero el modelo nunca las pidió por sí mismo,
+y cuando las usó fue con datos inventados (sección 27). El dataset v2 de M1
+(`tools/dataset_v2.py`) tampoco incluye ejemplos de herramientas, por la misma
+razón: el modelo aprende a responder con los fragmentos que se le dan, que es lo
+que ve en M3/M4.
+
+**Para M4.** Si una pregunta compuesta resulta frecuente en uso real, la cuenta
+se puede hacer en el backend con reglas, después de recuperar la norma, sin que
+el modelo tenga que decidir llamar una herramienta.
+
+## 29. Busqueda v2 (2026-10-08): por que no traia el articulo, y que se cambio
+
+**Diagnostico.** En la corrida de S08 del 2026-10-07, 19 de los 45 gold tenian
+context recall 0. Mirando caso por caso que trajo la busqueda:
+
+1. **La norma no estaba** (11 de 19): acoso laboral, cheques, registro
+   mercantil, colegios, contratacion estatal, ruido, marcas, licencias, B2B,
+   salud estatutaria. Resuelto al ampliar el corpus a 36 normas y las 27
+   categorias (`docs/m3_cobertura_corpus.md`).
+2. **Articulos que el chunker no veia.** La Constitucion trae 107 saltos de
+   pagina (`\f`) pegados al "Articulo N." que abre la pagina; el chunker no los
+   reconocia como encabezado y el articulo quedaba dentro del anterior. El 23
+   (derecho de peticion) no se podia citar. Corregido en
+   `ingest.sin_saltos_de_pagina`; la Constitucion pasa a tener sus 380 articulos.
+   Tambien los de sufijo numerico ("391-1" en el CST, "269-1" en el Penal).
+3. **El CST del espejo tenia otra numeracion.** Es el Decreto 2663 con la
+   numeracion original, anterior a la codificacion del Decreto 3743 de 1950: su
+   articulo 64 era el 62 oficial (justas causas), su 161 el 160 (y decia que el
+   trabajo diurno iba hasta las 6 p. m.). Toda cita del CST salia con el numero
+   corrido. Reemplazado por la version compilada de Funcion Publica (numeracion
+   oficial, actualizada hasta 2021; ver `data/corpus/normas/README.md`). Le
+   falta la reforma laboral (Ley 2466 de 2025).
+4. **La norma correcta compite con 35.** El coseno de e5 entre una pregunta
+   coloquial y cualquier articulo cae entre 0.82 y 0.86; una pregunta de salud
+   trae articulos del CST y del CPACA. Y con el piso en 0.82, 5 gold se
+   quedaban sin ningun contexto.
+
+**Que se cambio para el punto 4: enrutador por categoria**
+(`tools/rag/enrutador.py`). Un clasificador lineal entrenado con las 1 536
+preguntas etiquetadas del dataset de M1 le pone categoria a la pregunta (77 %
+de acierto en el top-1 sobre los 43 gold con categoria tematica, 84 % en el
+top-3), y la busqueda sube al frente los candidatos de las normas de sus 2
+categorias mas probables mas las transversales. No borra los demas: si el
+clasificador se equivoca, siguen detras. `config.USE_ENRUTADOR = True`.
+
+**Como se mide, sin juez.** `data/eval_set_articulos.json` etiqueta los
+articulos que responden cada gold (pendiente de revision juridica), y
+`tools/rag/benchmark_busqueda.py` cuenta los aciertos en el top-k:
+
+| Busqueda (local, BM25) | acierto@1 | @3 | @5 | @10 | MRR |
+|---|---|---|---|---|---|
+| BM25 | 0.11 | 0.18 | 0.22 | 0.31 | 0.16 |
+| BM25 + enrutador | 0.13 | 0.31 | 0.33 | 0.49 | 0.24 |
+
+Con e5 se mide en `colab/m3_busqueda_v2.ipynb` (Hugging Face no es alcanzable
+desde el entorno donde se escribio esto). Ese notebook tambien barre el piso de
+la valvula y regenera el dataset v2 con el contexto real. **Pendiente:** fijar
+`RETRIEVAL_MIN_SCORE` y confirmar `USE_ENRUTADOR` con esa tabla.
+
+Ademas, cada chunk se embebe con su capitulo (`chunk.texto_indexable`): "CAPITULO
+VII Terminacion del contrato de arrendamiento" dice de que trata el articulo con
+palabras que la pregunta usa. En BM25 no ayudo (los capitulos del espejo suelen
+ser "CAPITULO 2") y no se aplico.
+

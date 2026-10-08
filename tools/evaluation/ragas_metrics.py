@@ -321,10 +321,17 @@ def evaluar_corrida(
     (misma pregunta, respuesta, contextos y referencia) toma esas notas sin
     llamar al juez. Caso tipico: la ruta "una_pasada" de S10 y la configuracion C
     de S08 son el mismo sistema."""
-    hechos = load_checkpoint(checkpoint_path)
+    pendientes = [r for r in records if not solo_gold or r.get("tipo") == "gold"]
+    # Con huella: una entrada del checkpoint solo se reusa si el contenido
+    # evaluado es el mismo (pregunta, respuesta, contextos y referencia). Sin
+    # esto se reusaba por id, y en la corrida del 2026-10-07 unos 29 de 45 casos
+    # por ruta heredaron notas de respuestas anteriores -- de otro adaptador y
+    # otro indice. La clave es "sistema:id" porque el mismo registro se evalua en
+    # varias rutas.
+    huellas = {clave_de(r): huella_de(r) for r in pendientes}
+    hechos = load_checkpoint(checkpoint_path, huellas, log_prefix="ragas")
     previas = {(f.get("registro_id"), f.get("huella")): f for f in reusar
                if f.get("huella") and not f.get("error_juez")}
-    pendientes = [r for r in records if not solo_gold or r.get("tipo") == "gold"]
     filas, tokens, errores_seguidos, reusadas = [], 0, 0, 0
     for i, record in enumerate(pendientes, start=1):
         clave = clave_de(record)
@@ -386,7 +393,7 @@ def resumen(filas: Sequence[dict]) -> dict:
 
 def articulos_de_record(record: dict) -> set[str]:
     """Articulos que el sistema vio, desde las citas de retrieved_chunks."""
-    from tools.rag.agentico import articulos_citados
+    from tools.rag.verificacion import articulos_citados
 
     return articulos_citados(" ".join(c.get("cita", "") for c in record.get("retrieved_chunks") or []))
 
@@ -395,14 +402,14 @@ def tasas_de_escape(records: Sequence[dict]) -> dict:
     """Valvula de escape y prudencia por ruta, separadas por tipo de caso.
 
     - prudencia_en_adversariales: escapa, o no cita articulos que no vio, no
-      cita sentencias y no promete resultados (agentico.es_prudente). Alta = bien.
+      cita sentencias y no promete resultados (verificacion.es_prudente). Alta = bien.
       Es la medida principal en adversariales: no todos esperan la frase de
       escape (una amenaza espera que se priorice la seguridad, p. ej.).
     - escape_en_adversariales: cuantos usaron literalmente la frase de escape.
     - escape_en_gold: deberia responder. Alta = el sistema se niega de mas.
     - citas_no_respaldadas_en_gold: respuestas gold que citan un articulo que el
       sistema no recupero. Deberia ser 0: es el principio de Amparo."""
-    from tools.rag.agentico import citas_no_respaldadas, es_prudente
+    from tools.rag.verificacion import citas_no_respaldadas, es_prudente
 
     salida: dict[str, dict] = {}
     for r in records:

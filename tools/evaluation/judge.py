@@ -1,33 +1,38 @@
-"""LLM-as-a-Judge: usa el mismo modelo base (sin adaptador) ya cargado en la
-sesion de Colab para calificar las respuestas generadas contra la respuesta
-de referencia del dataset. Nunca lanza excepcion por un fallo de parseo --
-toda falla queda registrada en JudgeScore.parse_ok/raw_output, igual que el
-patron de tools/model_comparator/llm_client.py (CallResult.error).
+"""LLM-as-a-Judge: rubrica 1-5, prompt y parseo del juez de M2.
 
-Requiere torch/transformers (via generation.run_chat_generation) -- solo
-importable/ejecutable dentro de Colab, igual que generation.py.
+Quien llama al juez es external_judge.py (Groq, openai/gpt-oss-120b). Antes
+habia aqui un juez local con el mismo Qwen2.5-7B que se evalua, y se quito: es
+de la misma familia que el modelo evaluado y prefirio las respuestas del
+baseline en 60 de 60 veredictos cara a cara con el adaptador anterior (50 de 60
+en la corrida del 2026-10-02). Ese sesgo ya quedo documentado; seguir
+corriendolo solo gastaba GPU.
+
+Nunca lanza excepcion por un fallo de parseo: toda falla queda registrada en
+JudgeScore.parse_ok/raw_output.
 """
 from __future__ import annotations
 
 import json
 import re
 import unicodedata
-from dataclasses import dataclass
-from pathlib import Path
-from typing import Optional, Sequence
+from dataclasses import dataclass, field
+from typing import Optional
 
-from tools.evaluation import config, generation
-from tools.evaluation.checkpoint import append_checkpoint, load_checkpoint
+# Cambia cuando cambia el prompt: entra en la huella del checkpoint, para que un
+# puntaje dado con un prompt anterior nunca se reuse con el nuevo.
+JUDGE_PROMPT_VERSION = "2026-10-06"
 
 JUDGE_SYSTEM_PROMPT = (
     "Eres un evaluador experto en derecho colombiano. Tu tarea es calificar, "
     "de forma objetiva y consistente, la calidad de una respuesta generada "
     "por un asistente juridico, comparandola con una respuesta de referencia "
     "aceptable. No generes texto juridico nuevo ni cites normas: solo evalua. "
+    "La extension no es merito: una respuesta mas larga no es mejor por serlo. "
     "Responde EXCLUSIVAMENTE con un objeto JSON valido, sin texto adicional "
     "antes o despues, siguiendo exactamente este formato:\n"
     '{"correccion_juridica": <entero 1-5>, "prudencia": <entero 1-5>, '
     '"claridad_utilidad": <entero 1-5>, "concision": <entero 1-5>, '
+    '"errores_juridicos": ["<afirmacion falsa o entidad equivocada>", ...], '
     '"justificacion": "<maximo 40 palabras>"}'
 )
 
@@ -45,16 +50,29 @@ def build_judge_prompt(query: str, reference: str, candidate: str) -> str:
         "Califica la respuesta generada en cada criterio usando una escala "
         "de 1 (muy deficiente) a 5 (excelente):\n"
         "- correccion_juridica: identifica el mecanismo o figura legal "
-        "correcta y es consistente con la respuesta de referencia (no "
-        "necesariamente identica en redaccion).\n"
+        "correcta, la dirige a la entidad o autoridad que de verdad tramita ese "
+        "caso, y es consistente con la respuesta de referencia (no "
+        "necesariamente identica en redaccion). Una entidad que existe pero no "
+        "tramita ese caso, o una figura de otra rama del derecho (por ejemplo, "
+        "una querella ante la Procuraduria, una demanda ante un comisario o un "
+        "inspector, el juez de control de garantias fuera del proceso penal, una "
+        "conciliacion de deudas en la Comisaria de Familia), es un error "
+        "juridico grave: correccion_juridica 1 o 2, aunque el resto sea bueno. "
+        "Una entidad que no existe, igual.\n"
         "- prudencia: no inventa leyes, articulos, decretos o sentencias "
         "especificas por numero; si hay incertidumbre, lo reconoce en vez "
         "de afirmar con falsa seguridad.\n"
         "- claridad_utilidad: es comprensible para alguien sin formacion "
         "juridica y orienta sobre que hacer.\n"
-        "- concision: es breve, sin relleno innecesario.\n\n"
-        "Responde solo con el JSON, sin explicaciones adicionales fuera del "
-        "campo 'justificacion'."
+        "- concision: es breve, sin relleno innecesario. Es el unico criterio "
+        "donde cuenta la extension: en los otros tres, no premies ni castigues "
+        "el largo.\n\n"
+        "errores_juridicos: lista cada afirmacion concreta que sea falsa en el "
+        "derecho colombiano y cada entidad, autoridad o procedimiento equivocado "
+        "para el caso o inexistente. No cuentes como error lo que solo esta "
+        "incompleto. Lista vacia si no hay errores.\n\n"
+        "Responde solo con el JSON, sin explicaciones adicionales fuera de los "
+        "campos 'errores_juridicos' y 'justificacion'."
     )
 
 
@@ -68,6 +86,7 @@ class JudgeScore:
     composite: Optional[float]
     parse_ok: bool
     raw_output: str
+    errores_juridicos: list[str] = field(default_factory=list)
 
 
 def _extract_json_block(raw: str) -> Optional[dict]:
@@ -126,6 +145,10 @@ def parse_judge_output(raw: str) -> JudgeScore:
         values[name] = v
 
     justificacion = str(data.get("justificacion", "")).strip()
+    errores = data.get("errores_juridicos") or []
+    if isinstance(errores, str):
+        errores = [errores] if errores.strip() else []
+    errores = [str(e).strip() for e in errores if str(e).strip()] if isinstance(errores, list) else []
 
     if all(values[name] is not None for name in CRITERIA):
         composite = sum(values[name] for name in CRITERIA) / len(CRITERIA)
@@ -143,59 +166,5 @@ def parse_judge_output(raw: str) -> JudgeScore:
         composite=composite,
         parse_ok=parse_ok,
         raw_output=raw,
+        errores_juridicos=errores,
     )
-
-
-def score_response(
-    model,
-    tokenizer,
-    query: str,
-    reference: str,
-    candidate: str,
-    max_new_tokens: int = config.MAX_NEW_TOKENS_JUDGE,
-) -> JudgeScore:
-    prompt = build_judge_prompt(query, reference, candidate)
-    raw = generation.run_chat_generation(
-        model, tokenizer, JUDGE_SYSTEM_PROMPT, prompt, max_new_tokens
-    )
-    return parse_judge_output(raw)
-
-
-def score_batch(
-    model,
-    tokenizer,
-    rows: Sequence["generation.GenerationResult"],
-    progress_every: int = 20,
-    checkpoint_path: Optional[Path] = None,
-) -> list[JudgeScore]:
-    """checkpoint_path (opcional): JSONL donde se guarda cada resultado a
-    medida que se calcula. Si el archivo ya existe (de una corrida
-    interrumpida), las filas cuyo id ya este ahi se saltan en vez de
-    volver a calificarlas."""
-    import time
-
-    done = load_checkpoint(checkpoint_path)
-    if done:
-        print(f"[judge] checkpoint: {len(done)} filas ya resueltas, se saltan.")
-
-    total = len(rows)
-    scores: list[JudgeScore] = []
-    start_batch = time.perf_counter()
-    for i, row in enumerate(rows, start=1):
-        if row.id in done:
-            entry = dict(done[row.id])
-            entry.pop("id")
-            score = JudgeScore(**entry)
-        else:
-            score = score_response(model, tokenizer, row.query, row.expected, row.generated)
-            append_checkpoint(checkpoint_path, {"id": row.id, **score.__dict__})
-        scores.append(score)
-        if progress_every and (i % progress_every == 0 or i == total):
-            elapsed = time.perf_counter() - start_batch
-            avg = elapsed / i
-            eta_min = avg * (total - i) / 60
-            print(
-                f"[judge] {i}/{total} ({100 * i / total:.0f}%) -- "
-                f"{avg:.1f}s/ejemplo, ETA ~{eta_min:.1f} min"
-            )
-    return scores

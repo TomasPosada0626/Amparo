@@ -1,0 +1,47 @@
+{
+  "git_commit": "9aa992ab51e2535757abd22cc5a544e4cd38eaa1",
+  "timestamp": "2026-10-07T18:02:54+00:00",
+  "modulo": "s07",
+  "use_lora": false,
+  "base_model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "adapter_dir": "/content/drive/MyDrive/Colab Notebooks/Amparo/amparo-lora-adapter",
+  "hash_adaptador": "130d8f65b6e34746",
+  "hash_indice": "4269a04083d935fd",
+  "hash_metadata_indice": "81f6c66fd9c12c58",
+  "hash_corpus": "3f6f4abfd257aa18",
+  "hash_dataset": "5139e86a34de9d24",
+  "hash_eval_set": "a5151999c2095d00",
+  "n_chunks": 3420,
+  "n_eval_set": 75,
+  "retrieval": {
+    "embedding_model_id": "intfloat/multilingual-e5-base",
+    "top_k": 5,
+    "retrieval_min_score": 0.82,
+    "max_tokens_per_chunk": 350,
+    "min_tokens_per_chunk": 40,
+    "max_new_tokens_generation": 900
+  },
+  "hardware": "(no registrado: la celda del manifiesto no se ejecuto en la corrida)",
+  "reconstruccion": {
+    "nota": "El manifiesto se genero el 2026-10-08, no durante la corrida: la celda no se ejecuto el 2026-10-07. Los hashes SI corresponden a la corrida -- ni el indice, ni el corpus, ni el dataset, ni el eval set, ni el adaptador cambiaron entre ambas fechas, y coinciden con los que declararon S08 y S10.",
+    "git_commit": "9aa992a era HEAD a las 12:15 local del 2026-10-07; S07 escribio su jsonl a las 13:02. Los commits 1b4bf96 y 73822d6 son de las 14:20 y 14:22, posteriores a la corrida.",
+    "timestamp": "Hora en que S07 escribio rag_eval_base_2026-10-07_180254.jsonl.",
+    "use_lora": "S07 corrio con el modelo base (USE_LORA = False); S08 y S10 con el adaptador.",
+    "sesion_de_regeneracion": {
+      "generado": "2026-10-08T13:34:50.277266+00:00",
+      "git_commit": "1311b28e5bad1b60ba41f7a883ac67337b08e0fa",
+      "hardware": "NVIDIA A100-SXM4-40GB, 40960 MiB",
+      "library_versions": {
+        "transformers": "5.18.0",
+        "peft": "0.21.1",
+        "torch": "2.11.0+cu130",
+        "accelerate": "1.15.0",
+        "bitsandbytes": "not-installed",
+        "sentence-transformers": "5.7.0",
+        "faiss-cpu": "1.15.1",
+        "rank_bm25": "0.2.2",
+        "dspy": "not-installed"
+      }
+    }
+  }
+}

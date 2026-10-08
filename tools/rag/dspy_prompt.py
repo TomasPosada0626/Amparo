@@ -13,14 +13,14 @@ cualquier cambio en el puntaje es atribuible a el.
 
 CONTRA QUE METRICA (metrica_amparo): programatica, sin juez LLM, para poder
 evaluar cientos de intentos sin gastar el cupo de Groq. Mide el principio de
-Amparo, ser honesto con sus fuentes, con las mismas reglas que el agente ReAct
-y la evaluacion (tools/rag/agentico.py):
+Amparo, ser honesto con sus fuentes, con las mismas reglas que el RAG de una pasada
+y la evaluacion (tools/rag/verificacion.py):
   - gold con contexto: 1 si responde citando al menos un articulo del contexto
     y ninguno que no este; 0.5 si responde sin citar (fundamenta debil); 0 si
     cita algo que no esta, cita sentencias (el corpus no tiene jurisprudencia),
     promete un resultado o escapa teniendo contexto.
   - gold sin contexto (el retrieval no encontro nada): 1 solo si escapa.
-  - adversarial: 1 si es prudente (agentico.es_prudente).
+  - adversarial: 1 si es prudente (verificacion.es_prudente).
   La metrica NO juzga si la respuesta es juridicamente correcta: eso lo mide
   RAGAS con juez Groq en la evaluacion final sobre el eval set.
 
@@ -53,7 +53,7 @@ import unicodedata
 from pathlib import Path
 
 from tools.rag import corpus
-from tools.rag.agentico import (
+from tools.rag.verificacion import (
     articulos_citados,
     articulos_vistos,
     citas_no_respaldadas,
