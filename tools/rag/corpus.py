@@ -65,29 +65,25 @@ CATEGORIAS_OBJETIVO = (
     "Propiedad intelectual - marcas",
     "Propiedad y linderos",
     "Violencia intrafamiliar y medidas de proteccion",
+    # Agregada el 2026-10-08 con la Ley 142 (convertida de PDF, tools/corpus_pdf.py).
+    "Servicios publicos domiciliarios",
 )
 
 # Categorias tematicas que todavia no tienen su norma en el corpus, con la norma
-# que falta. El espejo de SUIN (data/corpus/normas/README.md) no trae leyes
-# posteriores a 2014 ni la Ley 142 de 1994, y la Decision 486 es norma andina,
-# no colombiana, asi que SUIN no la publica. Se cargan cuando alguien con acceso
-# a secretariasenado.gov.co las descargue.
-CATEGORIAS_SIN_NORMA: dict[str, str] = {
-    "Servicios publicos domiciliarios": (
-        "Ley 142 de 1994 (regimen de servicios publicos domiciliarios): no esta en el espejo"
-    ),
-}
+# que falta. Vacio desde el 2026-10-08: las normas que el espejo de SUIN no trae
+# (Ley 142, posteriores a 2014, Decision 486) se convirtieron de PDF con
+# tools/corpus_pdf.py y las 27 categorias tematicas tienen norma.
+CATEGORIAS_SIN_NORMA: dict[str, str] = {}
 
-# Normas que cubririan mejor categorias que hoy solo quedan cubiertas en parte.
-# No bloquean el indice; quedan a la vista para la proxima carga.
+# Normas que cubririan mejor categorias que hoy solo quedan cubiertas en parte,
+# o que estan desactualizadas. No bloquean el indice; quedan a la vista.
 NORMAS_PENDIENTES: dict[str, str] = {
-    "Ley 142 de 1994": "Servicios publicos domiciliarios (hoy sin norma)",
-    "Ley 1801 de 2016": "Codigo de Policia: querellas policivas, Propiedad y linderos, Licencias urbanisticas",
-    "Ley 2220 de 2022": "Estatuto de conciliacion (la Ley 640 de 2001 esta derogada)",
-    "Ley 1751 de 2015": "Estatutaria de salud: Salud / EPS",
-    "Ley 1010 de 2006": "Acoso laboral: Relaciones laborales",
-    "Ley 2126 de 2021": "Comisarias de familia: Violencia intrafamiliar",
-    "Decision 486 de 2000 (CAN)": "Regimen comun de propiedad industrial: Propiedad intelectual - marcas",
+    "Codigo Sustantivo del Trabajo vigente (con la Ley 2466 de 2025)": (
+        "El archivo del espejo es de 2019 y no trae la reforma laboral: p. ej. su "
+        "articulo 160 dice que el trabajo diurno va hasta las 9 p. m., y desde el "
+        "25-12-2025 el nocturno empieza a las 7 p. m. Despido / Relaciones laborales."
+    ),
+    "Ley 1123 de 2007": "Codigo disciplinario del abogado: quejas contra abogados (sin categoria hoy)",
 }
 
 # Categorias del eval set de M2 que no existen en el dataset de M1, y la
@@ -103,7 +99,7 @@ EQUIVALENCIAS_EVAL_SET: dict[str, str] = {
 # mecanismos que casi toda respuesta recomienda como primer paso.
 TRANSVERSAL = "__transversal__"
 
-TIPOS_VALIDOS = ("constitucion", "ley", "decreto", "codigo", "sentencia", "resolucion")
+TIPOS_VALIDOS = ("constitucion", "ley", "decreto", "codigo", "sentencia", "resolucion", "decision")
 
 # Estados de vigencia del frontmatter que se consideran norma viva.
 ESTADOS_VIGENTES = ("in_force",)
@@ -209,9 +205,8 @@ NORMAS_EN_ALCANCE: list[NormaEnAlcance] = [
         categorias=("Embargos", "Procedimiento civil - recursos", "Conciliacion prejudicial"),
         nombre_comun="Codigo General del Proceso",
         nota=(
-            "Conciliacion prejudicial queda cubierta solo en parte (audiencia y "
-            "requisito de procedibilidad): el estatuto vigente es la Ley 2220 de "
-            "2022, que no esta en el espejo."
+            "Audiencia y requisito de procedibilidad. El estatuto de conciliacion "
+            "vigente es la Ley 2220 de 2022 (ver su entrada)."
         ),
     ),
     # --- Agregadas el 2026-10-08 (docs/m3_cobertura_corpus.md) ---------------
@@ -325,7 +320,7 @@ NORMAS_EN_ALCANCE: list[NormaEnAlcance] = [
         filename="observancia_propiedad_industrial_ley_1648_2013.md",
         categorias=("Propiedad intelectual - marcas",),
         nombre_comun="Observancia de la propiedad industrial",
-        nota="Cobertura parcial: el regimen de marcas es la Decision 486 de la CAN, que no esta.",
+        nota="Medidas en frontera y observancia; el regimen de marcas es la Decision 486 (ver su entrada).",
     ),
     NormaEnAlcance(
         filename="competencia_desleal_ley_256_1996.md",
@@ -337,6 +332,61 @@ NORMAS_EN_ALCANCE: list[NormaEnAlcance] = [
         categorias=("Despido",),
         nombre_comun="Integracion social de personas con discapacidad",
         nota="Estabilidad laboral reforzada (despido de persona en situacion de discapacidad).",
+    ),
+    # --- Convertidas de PDF el 2026-10-08 (tools/corpus_pdf.py) ---------------
+    # No estan en el espejo de SUIN (nada posterior a 2014, y la Ley 142 falta).
+    # Texto de la version compilada del Gestor Normativo de Funcion Publica,
+    # descargada el 2026-10-08, salvo la Decision 486 (texto de la CAN) y la Ley
+    # 2452 (texto sancionado, sin modificaciones). Los PDF quedan en
+    # data/corpus/pdf/.
+    NormaEnAlcance(
+        filename="servicios_publicos_domiciliarios_ley_142_1994.md",
+        categorias=("Servicios publicos domiciliarios",),
+        nombre_comun="Regimen de servicios publicos domiciliarios",
+        nota="Contrato de condiciones uniformes, facturacion, reclamos y recursos ante la empresa y la Superservicios.",
+    ),
+    NormaEnAlcance(
+        filename="estatuto_conciliacion_ley_2220_2022.md",
+        categorias=("Conciliacion prejudicial",),
+        nombre_comun="Estatuto de Conciliacion",
+        nota=(
+            "Deroga la Ley 640 de 2001. Sus articulos 73 a 77 transcriben articulos del "
+            "Codigo de Policia que modifican; van entre comillas para que no se citen "
+            "como articulos de esta ley."
+        ),
+    ),
+    NormaEnAlcance(
+        filename="estatutaria_salud_ley_1751_2015.md",
+        categorias=("Salud / EPS",),
+        nombre_comun="Ley Estatutaria de Salud",
+    ),
+    NormaEnAlcance(
+        filename="acoso_laboral_ley_1010_2006.md",
+        categorias=("Relaciones laborales", "Despido"),
+        nombre_comun="Ley de Acoso Laboral",
+    ),
+    NormaEnAlcance(
+        filename="comisarias_de_familia_ley_2126_2021.md",
+        categorias=("Violencia intrafamiliar y medidas de proteccion", "Derecho de familia - alimentos"),
+        nombre_comun="Comisarias de Familia",
+    ),
+    NormaEnAlcance(
+        filename="propiedad_industrial_decision_486_2000.md",
+        categorias=("Propiedad intelectual - marcas",),
+        nombre_comun="Regimen Comun sobre Propiedad Industrial, CAN",
+        nota="Norma comunitaria andina, de aplicacion directa en Colombia: registro y nulidad de marcas, patentes.",
+    ),
+    NormaEnAlcance(
+        filename="codigo_policia_convivencia_ley_1801_2016.md",
+        categorias=("Propiedad y linderos", "Licencias urbanisticas"),
+        nombre_comun="Codigo Nacional de Seguridad y Convivencia Ciudadana",
+        nota="Querellas policivas (perturbacion de la posesion, ruido entre vecinos), comportamientos urbanisticos.",
+    ),
+    NormaEnAlcance(
+        filename="codigo_procesal_trabajo_ley_2452_2025.md",
+        categorias=("Despido", "Relaciones laborales", "Pensiones y seguridad social"),
+        nombre_comun="Codigo Procesal del Trabajo y de la Seguridad Social",
+        nota="Rige desde el 2026-04-02 y reemplaza el Decreto Ley 2158 de 1948: como se demanda ante el juez laboral.",
     ),
 ]
 

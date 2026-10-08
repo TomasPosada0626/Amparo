@@ -168,15 +168,38 @@ def test_todas_las_normas_indexadas_estan_vigentes():
     assert all(e["vigente"] for e in corpus.to_ingest_manifest())
 
 
-def test_las_urls_apuntan_a_suin_juriscol_salvo_la_constitucion():
+def test_las_urls_apuntan_a_suin_juriscol_salvo_la_constitucion_y_las_convertidas():
     """El resto del corpus viene del espejo de SUIN-Juriscol; la Constitucion
     viene de un PDF aportado por el usuario y su procedencia es una descripcion,
-    no una URL (ver data/corpus/normas/README.md y la decision 1)."""
+    no una URL (ver data/corpus/normas/README.md y la decision 1). Las normas
+    convertidas de PDF (tools/corpus_pdf.py) citan la pagina de donde salio su
+    texto: el Gestor Normativo de Funcion Publica, WIPO Lex (Decision 486) o el
+    regimen legal de Bogota (Ley 2452)."""
+    from tools import corpus_pdf
+
+    convertidas = {f.destino: f.source for f in corpus_pdf.FUENTES}
     for entrada in corpus.to_ingest_manifest():
         if entrada["filename"] == "constitucion_politica_1991.md":
             assert "Georgetown" in entrada["url_fuente"]
+        elif entrada["filename"] in convertidas:
+            assert entrada["url_fuente"] == convertidas[entrada["filename"]]
+            assert entrada["url_fuente"].startswith(("https://www.funcionpublica.gov.co/",
+                                                     "https://www.wipo.int/",
+                                                     "https://www.alcaldiabogota.gov.co/"))
         else:
             assert "suin-juriscol.gov.co" in entrada["url_fuente"], entrada["filename"]
+
+
+def test_la_conversion_de_pdf_esta_al_dia():
+    """Los .md convertidos son exactamente lo que produce tools/corpus_pdf.py
+    sobre los PDF de data/corpus/pdf/: nadie los edito a mano."""
+    import shutil
+
+    from tools import corpus_pdf
+
+    if shutil.which("pdftotext") is None:
+        pytest.skip("pdftotext (poppler-utils) no esta instalado")
+    assert corpus_pdf.main(["--check"]) == 0
 
 
 # --- limpieza de texto ajeno ----------------------------------------------------

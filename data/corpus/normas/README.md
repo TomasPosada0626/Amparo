@@ -27,7 +27,7 @@ el Título II de derecho de petición tal como lo sustituyó la Ley 1755 de 2015
 una respuesta de producción, verificar contra la fuente oficial (`suin-juriscol.gov.co` o
 `secretariasenado.gov.co`) cuando haya acceso a internet sin restricciones.
 
-## Archivos incluidos (28)
+## Archivos incluidos (36)
 
 Los primeros 17 se descargaron el 2026-09-21. Los 11 de la sección "Agregadas el
 2026-10-08" vienen del repositorio upstream del mismo espejo.
@@ -93,6 +93,41 @@ original con expresiones que la Corte Constitucional declaró inexequibles (por 
 "legítimos" y "naturales" en el art. 411). Antes de citar un artículo del Código Civil en
 producción, verificarlo contra la fuente oficial.
 
+## Convertidas de PDF (2026-10-08)
+
+El espejo no trae leyes posteriores a 2014, ni la Ley 142 de 1994, ni la Decisión 486 (norma
+andina, no la publica SUIN). Estas 8 se descargaron en PDF el 2026-10-08 y se convirtieron con
+`python -m tools.corpus_pdf` (necesita `pdftotext`, de poppler-utils). Los PDF originales están
+en `data/corpus/pdf/`; `tests/rag/test_corpus.py` comprueba que los `.md` son exactamente lo que
+produce el conversor, y `tests/rag/test_corpus_real.py` que cada una tenga todos sus artículos.
+
+| Archivo | Norma | Fuente del texto | Artículos |
+|---|---|---|---|
+| `servicios_publicos_domiciliarios_ley_142_1994.md` | Ley 142 de 1994 | Gestor Normativo (Función Pública), compilada | 189 |
+| `estatuto_conciliacion_ley_2220_2022.md` | Ley 2220 de 2022 | Gestor Normativo, compilada | 146 |
+| `estatutaria_salud_ley_1751_2015.md` | Ley 1751 de 2015 | Gestor Normativo, compilada | 26 |
+| `acoso_laboral_ley_1010_2006.md` | Ley 1010 de 2006 | Gestor Normativo, compilada | 19 |
+| `comisarias_de_familia_ley_2126_2021.md` | Ley 2126 de 2021 | Gestor Normativo, compilada | 48 |
+| `codigo_policia_convivencia_ley_1801_2016.md` | Ley 1801 de 2016 | Gestor Normativo, compilada | 243 (+6 bis) |
+| `propiedad_industrial_decision_486_2000.md` | Decisión 486 de 2000 (CAN) | Texto de la Comunidad Andina; ficha en WIPO Lex | 280 |
+| `codigo_procesal_trabajo_ley_2452_2025.md` | Ley 2452 de 2025 | Texto sancionado (D.O. 53077); rige desde el 2026-04-02 | 331 |
+
+Lo que hace el conversor, y por qué:
+
+- Quita el encabezado, el pie y el aviso que Función Pública repite en cada página, las
+  remisiones "Ver Concepto…", el índice de la Ley 2452 y las firmas.
+- Reconstruye los párrafos (el PDF corta cada línea) y deja cada artículo al inicio de párrafo.
+- **Artículos de otra ley transcritos.** Una ley que modifica otra copia el artículo modificado
+  ("ARTÍCULO 74. Modifíquese el artículo 232 de la Ley 1801…, el cual quedará así: ARTÍCULO 232…").
+  Sin tratarlo, el chunker lo tomaría como el artículo 232 de la Ley 2220. El conversor lo
+  detecta porque rompe la numeración propia y le antepone una comilla; queda dentro del
+  artículo que lo modifica. Pasa en la Ley 2220 (7) y en la Ley 2126 (2).
+- **Tablas del Código de Policía.** Cada comportamiento tiene una tabla "numeral → medida
+  correctiva". Sin `-layout`, pdftotext saca todos los numerales y después todas las medidas, y
+  se pierde cuál va con cuál. El conversor las rearma: "Numeral 3: Multa General tipo 3".
+- Se conservan las notas de vigencia ("Modificado por…", "declarado EXEQUIBLE…"). El texto que el
+  PDF subraya como inexequible pierde el subrayado; la nota que lo explica queda.
+
 ## Constitución Política de 1991
 
 No estaba en el espejo de GitHub (SUIN-Juriscol no la indexa con el mismo esquema ley/decreto
@@ -108,14 +143,10 @@ antes de citar un artículo en producción.
 
 - Ley 1755 de 2015 como archivo independiente: no existe en el espejo, pero su contenido vigente
   ya está incorporado dentro de `cpaca_ley_1437_2011.md` (Título II).
-- El espejo no trae leyes posteriores a 2014 ni la Ley 142 de 1994, y la Decisión 486 de la CAN
-  no es norma colombiana, así que SUIN no la publica. Faltan, y hay que traerlas de
-  `secretariasenado.gov.co` (como la Constitución, en PDF o HTML):
-  - Ley 142 de 1994 (servicios públicos domiciliarios): hoy la categoría queda sin norma.
-  - Ley 1801 de 2016 (Código de Policía): querellas policivas, linderos, licencias.
-  - Ley 2220 de 2022 (estatuto de conciliación; la Ley 640 de 2001 está derogada).
-  - Ley 1751 de 2015 (estatutaria de salud).
-  - Ley 1010 de 2006 (acoso laboral).
-  - Ley 2126 de 2021 (comisarías de familia).
-  - Decisión 486 de 2000 de la CAN (régimen de propiedad industrial: marcas).
-  La lista vive también en `tools/rag/corpus.py` (`NORMAS_PENDIENTES`).
+- **Código Sustantivo del Trabajo desactualizado.** El archivo del espejo es de 2019 y no trae
+  la reforma laboral (Ley 2466 de 2025): por ejemplo, su artículo 160 dice que el trabajo diurno
+  va hasta las 9 p. m., y desde el 25 de diciembre de 2025 el nocturno empieza a las 7 p. m. El
+  PDF de Función Pública del 2026-10-08 tampoco sirve: solo actualiza los primeros artículos.
+  Hace falta una versión compilada completa (Secretaría del Senado).
+- Ley 1123 de 2007 (código disciplinario del abogado): disponible en PDF, sin categoría todavía.
+- La lista vive también en `tools/rag/corpus.py` (`NORMAS_PENDIENTES`).

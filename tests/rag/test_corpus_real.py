@@ -49,6 +49,16 @@ MINIMO_ARTICULOS = {
     "observancia_propiedad_industrial_ley_1648_2013.md": 4,
     "competencia_desleal_ley_256_1996.md": 30,
     "discapacidad_estabilidad_reforzada_ley_361_1997.md": 60,
+    # Convertidas de PDF el 2026-10-08 (tools/corpus_pdf.py). El minimo es el
+    # numero exacto de articulos de cada una: si la conversion pierde uno, falla.
+    "servicios_publicos_domiciliarios_ley_142_1994.md": 189,
+    "estatuto_conciliacion_ley_2220_2022.md": 146,
+    "estatutaria_salud_ley_1751_2015.md": 26,
+    "acoso_laboral_ley_1010_2006.md": 19,
+    "comisarias_de_familia_ley_2126_2021.md": 48,
+    "propiedad_industrial_decision_486_2000.md": 280,
+    "codigo_policia_convivencia_ley_1801_2016.md": 243,
+    "codigo_procesal_trabajo_ley_2452_2025.md": 331,
 }
 
 _cache: dict[str, list] = {}

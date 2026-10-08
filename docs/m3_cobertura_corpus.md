@@ -112,3 +112,33 @@ Las 8 categorias de recall 0 de la tabla del problema 1 quedan cubiertas:
 la Ley 142 de 1994 (Servicios publicos domiciliarios queda sin norma), la Ley 1801
 de 2016, la Ley 2220 de 2022, la Ley 1751 de 2015, la Ley 1010 de 2006, la Ley
 2126 de 2021 y la Decision 486 de la CAN. Lista en `corpus.NORMAS_PENDIENTES`.
+
+## Las 7 que faltaban, convertidas de PDF (2026-10-08)
+
+Con la Ley 142, la Ley 1801, la Ley 2220, la Ley 1751, la Ley 1010, la Ley 2126 y
+la Decision 486 (mas la Ley 2452 de 2025, el nuevo Codigo Procesal del Trabajo)
+el corpus cubre **las 27 categorias tematicas**. Se bajaron en PDF y se
+convirtieron con `tools/corpus_pdf.py` (detalle en `data/corpus/normas/README.md`).
+
+- 36 normas en alcance; **unos 11 900 chunks** (antes unos 10 100). Las 8 nuevas
+  aportan unos 1 800.
+- Servicios publicos domiciliarios deja de estar sin norma (`CATEGORIAS_SIN_NORMA`
+  queda vacio).
+- Conciliacion prejudicial pasa de cobertura parcial (CGP) al estatuto vigente.
+- Propiedad intelectual - marcas tiene ahora el regimen de marcas (Decision 486).
+
+| Categoria | Normas que se suman |
+|---|---|
+| Servicios publicos domiciliarios | Ley 142 de 1994 |
+| Conciliacion prejudicial | Ley 2220 de 2022 |
+| Salud / EPS | Ley 1751 de 2015 |
+| Relaciones laborales / Despido | Ley 1010 de 2006, Ley 2452 de 2025 |
+| Pensiones y seguridad social | Ley 2452 de 2025 |
+| Violencia intrafamiliar / Familia - alimentos | Ley 2126 de 2021 |
+| Propiedad intelectual - marcas | Decision 486 de 2000 |
+| Propiedad y linderos / Licencias urbanisticas | Ley 1801 de 2016 |
+
+**Sigue pendiente:** el Codigo Sustantivo del Trabajo del espejo es de 2019 y no
+trae la reforma laboral (Ley 2466 de 2025). Es el mayor riesgo de dato vencido del
+corpus, porque Despido y Relaciones laborales son de las categorias mas frecuentes.
+
