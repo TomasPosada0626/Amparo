@@ -13,6 +13,7 @@ import subprocess
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from importlib import metadata as importlib_metadata
+from pathlib import Path
 from typing import Optional, Sequence
 
 from tools.evaluation import config, domain_metric, entity_metric, metrics_classic, rutas
@@ -41,6 +42,15 @@ class RunManifest:
     library_versions: dict[str, str] = field(default_factory=dict)
     hardware: str = ""
     timestamp: str = ""
+    # Huellas de los insumos, con el mismo algoritmo que M3 (tools/rag/manifiesto).
+    # Sin esto, dos corridas que dicen la misma fecha pueden haber medido sobre
+    # un adaptador distinto y no hay como saberlo: el adaptador de Drive ya se
+    # sobrescribio una vez (6 de octubre) y las corridas anteriores quedaron sin
+    # forma de reproducirse. Opcionales: una corrida fuera de Colab no tiene el
+    # adaptador a mano, y un campo en None dice "no se pudo registrar".
+    hash_adaptador: Optional[str] = None
+    hash_dataset: Optional[str] = None
+    hash_eval_set: Optional[str] = None
 
 
 def _git_commit() -> str:
@@ -62,6 +72,26 @@ def _library_versions() -> dict[str, str]:
     return versions
 
 
+def _huellas(adapter_dir: str) -> dict:
+    """Huellas del adaptador, el dataset y el eval set.
+
+    Import perezoso de tools.rag.manifiesto: ese modulo importa _git_commit de
+    aqui, asi que importarlo arriba cerraria el ciclo. Nunca lanza -- un
+    manifiesto describe la corrida, no puede tumbarla.
+    """
+    try:
+        from tools.rag.manifiesto import huella_archivo
+    except Exception:                                   # pragma: no cover
+        return {}
+    from tools.evaluation import eval_set as _eval_set
+
+    return {
+        "hash_adaptador": huella_archivo(Path(adapter_dir) / "adapter_model.safetensors"),
+        "hash_dataset": huella_archivo(config.LOCAL_DATASET_PATH),
+        "hash_eval_set": huella_archivo(_eval_set.EVAL_SET_PATH),
+    }
+
+
 def build_manifest(
     n_val: int, hardware: str = "", adapter_dir: str = config.DRIVE_ADAPTER_DIR
 ) -> RunManifest:
@@ -75,6 +105,7 @@ def build_manifest(
         library_versions=_library_versions(),
         hardware=hardware,
         timestamp=datetime.now(timezone.utc).isoformat(),
+        **_huellas(adapter_dir),
     )
 
 

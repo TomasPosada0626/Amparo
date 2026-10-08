@@ -109,3 +109,44 @@ def test_reanalizar_respeta_la_columna_cortada_real(tmp_path):
     ruta = tmp_path / "metricas_por_registro.csv"
     scorecard.export_csv(ruta, rows)
     assert scorecard.csv_tiene_columna(ruta, "cortada")
+
+
+# --- Huellas en el manifiesto de M2 -----------------------------------------
+# M2 nacio con un manifiesto sin huellas: declaraba fecha y commit, pero no con
+# que adaptador ni sobre que eval set se midio. Eso dejo la corrida del
+# 2026-10-06 sin forma de probar que uso el adaptador vigente -- solo se puede
+# inferir por la hora. Estas pruebas fijan que las huellas esten y que sean las
+# mismas que calcula M3, para que las cifras de los dos modulos se puedan cruzar.
+
+def test_build_manifest_incluye_huellas_de_los_insumos():
+    from tools.evaluation.pipeline import build_manifest
+
+    m = build_manifest(n_val=10)
+
+    assert hasattr(m, "hash_dataset")
+    assert hasattr(m, "hash_eval_set")
+    assert hasattr(m, "hash_adaptador")
+
+
+def test_la_huella_del_eval_set_es_la_misma_que_calcula_m3():
+    """Si M2 y M3 hashearan distinto, declarar 'el mismo eval set' no probaria
+    nada: el punto de la huella es poder cruzar los dos modulos."""
+    from tools.evaluation import eval_set
+    from tools.evaluation.pipeline import build_manifest
+    from tools.rag.manifiesto import huella_archivo
+
+    m = build_manifest(n_val=10)
+
+    assert m.hash_eval_set == huella_archivo(eval_set.EVAL_SET_PATH)
+
+
+def test_el_manifiesto_no_se_cae_si_el_adaptador_no_esta():
+    """Fuera de Colab la ruta de Drive no existe. Un campo en None dice 'no se
+    pudo registrar', que es informacion; una excepcion tumbaria la corrida por
+    un dato accesorio."""
+    from tools.evaluation.pipeline import build_manifest
+
+    m = build_manifest(n_val=10, adapter_dir="/ruta/que/no/existe")
+
+    assert m.hash_adaptador is None
+    assert m.hash_eval_set is not None
