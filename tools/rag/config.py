@@ -103,7 +103,12 @@ USE_RERANK = False
 # busqueda trae ENRUTADOR_POOL candidatos en vez de top_k. Medido con BM25 sobre
 # los 45 gold etiquetados: acierto en el top-5 de 10 a 17. Con e5, medir en Colab
 # (tools/rag/benchmark_busqueda.py) antes de dar el numero por bueno.
-USE_ENRUTADOR = True
+# Por defecto FALSE, como USE_HYBRID y USE_RERANK: la configuracion A tiene que
+# seguir siendo denso puro para que la corrida con el corpus nuevo se pueda
+# comparar contra la del 2026-10-07. Encendido por defecto, A dejaba de ser la
+# linea base y no habria como separar cuanto aporto el corpus de cuanto el
+# enrutador. Se enciende en el benchmark, que mide con y sin.
+USE_ENRUTADOR = False
 ENRUTADOR_POOL = 300
 
 # Hybrid search -------------------------------------------------------------

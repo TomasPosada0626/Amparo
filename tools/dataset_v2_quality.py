@@ -71,7 +71,10 @@ def _articulo_normalizado(numero: str) -> str:
     return normalizar_numero(re.sub(r"\s+", "", numero)).upper()
 
 
-_MISMA_NORMA = re.compile(r"\b(?:la misma (?:ley|norma)|esa (?:ley|norma)|el mismo (?:codigo|decreto)|ese (?:codigo|decreto))\b")
+# "del mismo codigo" no entraba: en "del", el "el" va pegado y el  no engancha,
+# mientras que "de la misma ley" si pasa porque ahi el "la" queda suelto. La
+# anafora mas natural en espanol juridico es justo la que fallaba.
+_MISMA_NORMA = re.compile(r"\b(?:la misma (?:ley|norma)|esa (?:ley|norma)|(?:el|del) mismo (?:codigo|decreto)|ese (?:codigo|decreto))\b")
 
 
 # Ejemplo de v2 -> caso del eval set que el TF-IDF marca parecido, revisado a mano:

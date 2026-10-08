@@ -151,8 +151,12 @@ _QUEDARA_ASI = re.compile(r"quedar[aá]n?\s+as[ií]\s*[:.]?\s*$", re.IGNORECASE)
 
 def _texto_pdf(path: Path, layout: bool = False) -> list[str]:
     opciones = ["-layout"] if layout else []
+    # encoding explicito: a pdftotext ya se le pide UTF-8 con -enc, pero text=True
+    # decodifica con el default de la plataforma, que en Windows es cp1252 y revienta
+    # con la primera tilde. El --check del corpus fallaba solo ahi.
     salida = subprocess.run(["pdftotext", *opciones, "-enc", "UTF-8", str(path), "-"],
-                            check=True, capture_output=True, text=True).stdout
+                            check=True, capture_output=True, text=True,
+                            encoding="utf-8").stdout
     return [unicodedata.normalize("NFKC", p) for p in salida.split("\f")]
 
 
