@@ -393,7 +393,7 @@ def resumen(filas: Sequence[dict]) -> dict:
 
 def articulos_de_record(record: dict) -> set[str]:
     """Articulos que el sistema vio, desde las citas de retrieved_chunks."""
-    from tools.rag.agentico import articulos_citados
+    from tools.rag.verificacion import articulos_citados
 
     return articulos_citados(" ".join(c.get("cita", "") for c in record.get("retrieved_chunks") or []))
 
@@ -402,14 +402,14 @@ def tasas_de_escape(records: Sequence[dict]) -> dict:
     """Valvula de escape y prudencia por ruta, separadas por tipo de caso.
 
     - prudencia_en_adversariales: escapa, o no cita articulos que no vio, no
-      cita sentencias y no promete resultados (agentico.es_prudente). Alta = bien.
+      cita sentencias y no promete resultados (verificacion.es_prudente). Alta = bien.
       Es la medida principal en adversariales: no todos esperan la frase de
       escape (una amenaza espera que se priorice la seguridad, p. ej.).
     - escape_en_adversariales: cuantos usaron literalmente la frase de escape.
     - escape_en_gold: deberia responder. Alta = el sistema se niega de mas.
     - citas_no_respaldadas_en_gold: respuestas gold que citan un articulo que el
       sistema no recupero. Deberia ser 0: es el principio de Amparo."""
-    from tools.rag.agentico import citas_no_respaldadas, es_prudente
+    from tools.rag.verificacion import citas_no_respaldadas, es_prudente
 
     salida: dict[str, dict] = {}
     for r in records:

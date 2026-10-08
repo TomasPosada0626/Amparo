@@ -28,9 +28,9 @@ PROGRESO_CADA = 250
 
 
 # Tokens de la ultima generacion, para que to_eval_record pueda registrar si la
-# respuesta se corto. Es estado de modulo y no un valor de retorno porque las
-# tres rutas (una pasada, tool use, ReAct) llaman a generate por caminos
-# distintos y cambiar sus firmas tocaria mucho mas de lo que el dato justifica.
+# respuesta se corto. Es estado de modulo y no un valor de retorno porque
+# _generar_verificado puede llamar a generate dos veces (con la nota de
+# correccion) y solo cuenta la ultima.
 _ULTIMA_GENERACION: dict = {"n_tokens": 0, "cortada": False}
 
 
@@ -210,7 +210,7 @@ def _generar_verificado(query, recuperados, *, use_lora, model_bundle, prompt_op
        de correccion; si insiste, escape por codigo.
 
     Devuelve (respuesta, verificacion) para auditar que hizo el codigo."""
-    from tools.rag.agentico import citas_no_verificables, nota_de_correccion
+    from tools.rag.verificacion import citas_no_verificables, nota_de_correccion
     from tools.rag.prompt_template import RESPUESTA_ESCAPE_POR_CODIGO
 
     if not recuperados:
@@ -271,9 +271,9 @@ def to_eval_record(resultado: dict, registro: dict) -> dict:
         # docs/m3_decisiones_rag.md.
         "used_hybrid": resultado.get("used_hybrid", False),
         "used_rerank": resultado.get("used_rerank", False),
-        # Ruta que genero la respuesta (S10): "una_pasada" (answer_query),
-        # "tool_use" (tools.responder_con_tools) o "react" (agentico.agente_react).
-        # La traza (vacia en una pasada) es la evidencia de los pasos del agente.
+        # Ruta que genero la respuesta: "una_pasada" o "una_pasada_dspy". Las
+        # rutas "tool_use" y "react" se retiraron el 2026-10-08 (C11); el campo
+        # y la traza (vacia) se conservan para leer las corridas anteriores.
         "sistema": resultado.get("sistema", "una_pasada"),
         "traza": resultado.get("traza", []),
         # Que hizo el codigo antes de entregar la respuesta (escape por codigo,

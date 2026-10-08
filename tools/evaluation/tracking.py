@@ -1,16 +1,17 @@
 """Seguimiento de corridas en Weights & Biases (M3 · S10, extra de W&B).
 
 Los numeros de RAGAS, la tasa de escape y la latencia se pierden si solo se
-miran en pantalla. Cada ruta del RAG (una pasada, tool use, ReAct) se registra
-como una corrida de W&B en el mismo proyecto, con:
+miran en pantalla. Cada sistema del RAG (una pasada, una pasada con el prompt de
+DSPy, las busquedas A/B/C de S08) se registra como una corrida de W&B en el mismo
+proyecto, con:
 
   - sus promedios (las cuatro metricas RAGAS, tasas de escape, latencia, tokens
     del juez) como escalares comparables entre corridas;
   - una tabla por caso (pregunta, respuesta, metricas), para ver DONDE falla;
-  - la traza del agente (paso, pensamiento, accion, observacion) en las rutas
-    agenticas: si una respuesta sale mal, dice en que paso se torcio.
+  - la traza paso a paso, si el registro la trae (la traian las rutas agenticas,
+    retiradas el 2026-10-08 por C11; se conserva para leer corridas viejas).
 
-Y una corrida "comparativa" con las tres rutas lado a lado.
+Y una corrida "comparativa" con los sistemas lado a lado.
 
 Credenciales: la API key NUNCA va en el codigo ni en el repo. Se lee de la
 variable de entorno WANDB_API_KEY (en Colab, de los secretos del notebook). Si

@@ -74,8 +74,9 @@ def run_messages_generation(
     del modelo, que los presenta en el formato con el que Qwen2.5 fue entrenado
     para pedir herramientas (<tool_call>...</tool_call>). En ese caso se decodifica
     SIN saltar tokens especiales, para no perder las etiquetas <tool_call>, y se
-    limpian solo las marcas de fin de turno. Ver tools/rag/tools.py (seccion 26
-    de docs/m3_decisiones_rag.md).
+    limpian solo las marcas de fin de turno. Lo usaba el tool use de S10, retirado
+    el 2026-10-08 (C11, seccion 28 de docs/m3_decisiones_rag.md); queda por si M4
+    vuelve a necesitarlo.
 
     return_n_tokens: devuelve (texto, tokens generados). Sirve para saber si la
     respuesta se corto por max_new_tokens (ver generate_batch)."""

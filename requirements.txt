@@ -31,6 +31,3 @@ faiss-cpu>=1.8.0
 # razon que e5 y bert-score). Ver docs/m3_decisiones_rag.md.
 rank_bm25>=0.2.2
 
-# tools/rag (M3 -- RAG agentico, S10). Festivos de Colombia (Ley Emiliani) para
-# la herramienta calcular_plazo del agente ReAct. Python puro, sin torch.
-holidays>=0.50

@@ -13,7 +13,7 @@ from tools.evaluation import ragas_metrics as rm
 
 def record(**over):
     base = {
-        "id": 9001, "tipo": "gold", "category": "Arriendo", "sistema": "react",
+        "id": 9001, "tipo": "gold", "category": "Arriendo", "sistema": "una_pasada_dspy",
         "question": "¿cuanto me pueden subir el arriendo?",
         "answer": "Segun la Ley 820 de 2003, Articulo 20, hasta el 100% del IPC.",
         "contexts": ["Articulo 20. Reajuste del canon...", "Articulo 21. Incumplimiento..."],
@@ -104,7 +104,7 @@ def test_evaluar_caso_calcula_las_cuatro_metricas():
     assert fila["context_precision"] == 1.0
     assert fila["context_recall"] == 1.0
     assert fila["answer_relevancy"] == pytest.approx(1.0, abs=1e-3)
-    assert fila["id"] == "react:9001"
+    assert fila["id"] == "una_pasada_dspy:9001"
     assert fila["tokens_juez"] == 200
     assert len(juez.llamadas) == 2
 
@@ -155,18 +155,18 @@ def test_evaluar_corrida_usa_solo_gold_y_retoma_desde_el_checkpoint(tmp_path):
 
 def test_resumen_promedia_por_ruta_ignorando_none():
     filas = [
-        {"sistema": "react", "faithfulness": 1.0, "context_precision": 0.5, "context_recall": None,
+        {"sistema": "una_pasada_dspy", "faithfulness": 1.0, "context_precision": 0.5, "context_recall": None,
          "answer_relevancy": 0.8, "parse_ok": True, "escape": False, "tokens_juez": 10},
-        {"sistema": "react", "faithfulness": 0.0, "context_precision": None, "context_recall": 1.0,
+        {"sistema": "una_pasada_dspy", "faithfulness": 0.0, "context_precision": None, "context_recall": 1.0,
          "answer_relevancy": 0.0, "parse_ok": False, "escape": True, "tokens_juez": 5},
         {"sistema": "una_pasada", "faithfulness": 0.5, "context_precision": 1.0, "context_recall": 1.0,
          "answer_relevancy": 0.9, "parse_ok": True, "escape": False, "tokens_juez": 7},
     ]
     r = rm.resumen(filas)
-    assert r["react"]["faithfulness"] == 0.5
-    assert r["react"]["context_precision"] == 0.5 and r["react"]["n_context_precision"] == 1
-    assert r["react"]["fallos_parseo"] == 1 and r["react"]["respuestas_escape"] == 1
-    assert r["react"]["tokens_juez"] == 15
+    assert r["una_pasada_dspy"]["faithfulness"] == 0.5
+    assert r["una_pasada_dspy"]["context_precision"] == 0.5 and r["una_pasada_dspy"]["n_context_precision"] == 1
+    assert r["una_pasada_dspy"]["fallos_parseo"] == 1 and r["una_pasada_dspy"]["respuestas_escape"] == 1
+    assert r["una_pasada_dspy"]["tokens_juez"] == 15
     assert r["una_pasada"]["casos"] == 1
 
 
@@ -181,7 +181,7 @@ def test_tasas_de_escape_separa_adversariales_de_gold():
         record(tipo="gold", answer="Segun el Articulo 518, ...", retrieved_chunks=vistos),
         record(tipo="gold", answer="responde sin citar", retrieved_chunks=vistos),
     ]
-    t = rm.tasas_de_escape(records)["react"]
+    t = rm.tasas_de_escape(records)["una_pasada_dspy"]
     assert t["prudencia_en_adversariales"] == 0.5
     assert t["escape_en_adversariales"] == 0.5
     assert t["escape_en_gold"] == 0.25
@@ -194,7 +194,7 @@ def test_un_adversarial_prudente_sin_frase_de_escape_cuenta_como_bien():
     usa la frase de escape. No debe contarse como fallo."""
     r = record(tipo="adversarial", retrieved_chunks=[],
                answer="Lo primero es tu seguridad: llama a la Linea 123 y denuncia ante la Fiscalia.")
-    t = rm.tasas_de_escape([r])["react"]
+    t = rm.tasas_de_escape([r])["una_pasada_dspy"]
     assert t["prudencia_en_adversariales"] == 1.0
     assert t["escape_en_adversariales"] == 0.0
 

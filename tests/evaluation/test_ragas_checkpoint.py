@@ -82,18 +82,18 @@ def test_la_misma_respuesta_si_se_reusa_y_no_gasta_juez(tmp_path):
 
 
 def test_la_clave_distingue_la_misma_pregunta_en_rutas_distintas(tmp_path):
-    """El mismo caso se evalua en una_pasada, tool_use y react. Si la clave
+    """El mismo caso se evalua en una_pasada y una_pasada_dspy. Si la clave
     fuera solo el id, la segunda ruta heredaria las notas de la primera."""
     ck = tmp_path / "ragas.jsonl"
     una = [_registro(9001, "Respuesta de una pasada.", sistema="una_pasada")]
-    react = [_registro(9001, "Respuesta del ReAct.", sistema="react")]
+    una_pasada_dspy = [_registro(9001, "Respuesta con DSPy.", sistema="una_pasada_dspy")]
 
     ragas_metrics.evaluar_corrida(una, juez=_juez_que_cuenta([]), embed=_embed,
                                   checkpoint_path=ck, progress_every=0)
     llamadas = []
-    ragas_metrics.evaluar_corrida(react, juez=_juez_que_cuenta(llamadas), embed=_embed,
+    ragas_metrics.evaluar_corrida(una_pasada_dspy, juez=_juez_que_cuenta(llamadas), embed=_embed,
                                   checkpoint_path=ck, progress_every=0)
 
-    assert llamadas, "la ruta react heredo las notas de una_pasada"
+    assert llamadas, "la ruta una_pasada_dspy heredo las notas de una_pasada"
     claves = {json.loads(l)["id"] for l in ck.read_text(encoding="utf-8").splitlines() if l.strip()}
-    assert claves == {"una_pasada:9001", "react:9001"}
+    assert claves == {"una_pasada:9001", "una_pasada_dspy:9001"}

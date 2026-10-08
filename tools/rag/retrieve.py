@@ -42,7 +42,7 @@ def es_referencia_exacta(resultado: SearchResult, query: str) -> bool:
     Hallazgo que la motiva: corrida de S08 del 2026-09-27, ver
     docs/m3_decisiones_rag.md (seccion 25).
     """
-    from tools.rag.agentico import _puntaje_norma, articulos_citados  # perezoso: evita ciclo
+    from tools.rag.verificacion import articulos_citados, puntaje_norma  # perezoso: evita ciclo
 
     citados = articulos_citados(query)
     if not citados:
@@ -51,7 +51,7 @@ def es_referencia_exacta(resultado: SearchResult, query: str) -> bool:
     if not citados & propios:
         return False
     if _MENCIONA_NORMA.search(query or ""):
-        return _puntaje_norma(query, resultado.fuente) > 0
+        return puntaje_norma(query, resultado.fuente) > 0
     return True
 
 

@@ -107,7 +107,7 @@ def _cita_oraculo(r: dict, respaldadas: list[str]) -> bool:
 
 
 def _plazo_sin_respaldo(r: dict) -> bool:
-    from tools.rag.agentico import numero_en_letras
+    from tools.rag.verificacion import numero_en_letras
 
     respuesta = r["messages"][-1]["content"]
     contexto = _norm(r["messages"][1]["content"])

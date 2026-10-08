@@ -139,8 +139,8 @@ def test_el_record_asume_sistema_A_si_no_se_declara_el_sistema():
 
 
 def test_el_registro_de_una_pasada_se_marca_como_tal():
-    """Las rutas de S10 (tool_use / react) se distinguen por `sistema`; el RAG de
-    una pasada no lo setea y queda como 'una_pasada', con traza vacia."""
+    """El RAG de una pasada no setea `sistema` y queda como 'una_pasada', con
+    traza vacia (el campo distinguia las rutas agenticas, retiradas en C11)."""
     record = pipeline.to_eval_record(resultado_de_ejemplo(), registro_de_ejemplo())
 
     assert record["sistema"] == "una_pasada"

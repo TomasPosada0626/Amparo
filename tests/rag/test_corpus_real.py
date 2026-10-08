@@ -198,23 +198,3 @@ def test_los_numeros_de_articulo_tienen_forma_de_numero_de_articulo():
         for c in chunks_de(filename):
             for articulo in c.articulos_incluidos:
                 assert patron.match(articulo), f"{filename}: articulo raro {articulo!r}"
-
-
-def test_leer_articulo_sobre_el_corpus_real():
-    """El agente ReAct lee articulos exactos por numero: sobre la metadata real,
-    el articulo 20 de la Ley 820 es el del reajuste del canon, y un articulo
-    inexistente se reporta como tal."""
-    from tools.rag import agentico
-    from tools.rag.embed_store import chunk_to_metadata
-
-    class Store:
-        metadata = [chunk_to_metadata(c) for n in corpus.NORMAS_EN_ALCANCE for c in chunks_de(n.filename)]
-
-    obs, res = agentico.leer_articulo("Ley 820 de 2003, 20", Store())
-    assert res and "Reajuste del canon" in obs
-
-    obs, res = agentico.leer_articulo("CPACA, 14", Store())
-    assert res and "quince (15) días" in obs
-
-    obs, res = agentico.leer_articulo("Ley 820 de 2003, 999", Store())
-    assert res == [] and "no esta en el corpus" in obs
