@@ -197,7 +197,9 @@ class Buscador:
     def __init__(self, c: "Corpus", store=None):
         self.c = c
         self.store = store
-        self.nombre = "e5+faiss+enrutador" if store is not None else "bm25+enrutador"
+        from tools.rag import config as _c
+        _enr = "+enrutador" if _c.USE_ENRUTADOR else ""
+        self.nombre = ("e5+faiss" if store is not None else "bm25") + _enr
 
     def candidatos(self, pregunta: str, n: int) -> list:
         from tools.rag import config
@@ -206,7 +208,11 @@ class Buscador:
         if self.store is not None:
             from tools.rag.retrieve import retrieve
 
-            return retrieve(pregunta, self.store, top_k=n, min_score=None, use_router=True)
+            # La bandera, no True fijo: con el enrutador fijo aqui el dataset se
+            # construia siempre con el, aunque produccion lo tuviera apagado, y
+            # se entrenaria sobre un contexto que el sistema nunca arma.
+            return retrieve(pregunta, self.store, top_k=n, min_score=None,
+                            use_router=config.USE_ENRUTADOR)
         res = self.c.bm25.search(pregunta, config.ENRUTADOR_POOL)
         return priorizar(res, enrutador_por_defecto().normas(pregunta))[:n]
 

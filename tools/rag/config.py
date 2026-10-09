@@ -63,9 +63,20 @@ TOP_K = 5
 # prompt y el sistema responde "no tengo informacion verificada".
 #
 # 0.855 rompia la recuperacion normal (84% de las consultas se quedaban sin
-# chunks). 0.82 queda por debajo del minimo medido de cobertura real (0.825),
-# para no repetir ese problema.
-RETRIEVAL_MIN_SCORE = 0.82
+# chunks). 0.82 fue el valor del 2026-10-07, elegido por debajo del minimo
+# medido de cobertura real de entonces.
+#
+# Baja a 0.81 el 2026-10-09 con el barrido de results/busqueda_v2/. Con el
+# corpus de 36 normas y el enrutador encendido, 0.82 deja 4 de 45 casos gold sin
+# ningun contexto y el acierto@5 cae de 21/45 a 17/45: el sistema se niega a
+# responder cosas que si podia. A 0.81 no se queda sin contexto ningun gold.
+#
+# El costo esta en el otro lado: a 0.81 solo 1 de 30 adversariales se queda sin
+# contexto, asi que la valvula casi no se activa y la prudencia depende del
+# modelo, no del piso. Se acepta porque la prudencia medida el 2026-10-07 fue
+# 30/30 en las tres configuraciones, y porque el dataset v2 trae 263 ejemplos
+# que entrenan justamente la frase de escape.
+RETRIEVAL_MIN_SCORE = 0.81
 
 # --- Generacion -------------------------------------------------------------
 BASE_MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"  # mismo que tools/evaluation/config.py
@@ -97,18 +108,25 @@ LORA_ADAPTER_PATH: str | None = f"{DRIVE_ROOT}/amparo-lora-adapter"
 USE_HYBRID = False
 USE_RERANK = False
 
-# Enrutador por categoria (tools/rag/enrutador.py, 2026-10-08): antes de cortar
-# el top-k, sube al frente los candidatos de las normas de las categorias que el
+# Enrutador por categoria (tools/rag/enrutador.py): antes de cortar el top-k,
+# sube al frente los candidatos de las normas de las categorias que el
 # clasificador le asigna a la pregunta. Para que tenga de donde elegir, la
-# busqueda trae ENRUTADOR_POOL candidatos en vez de top_k. Medido con BM25 sobre
-# los 45 gold etiquetados: acierto en el top-5 de 10 a 17. Con e5, medir en Colab
-# (tools/rag/benchmark_busqueda.py) antes de dar el numero por bueno.
-# Por defecto FALSE, como USE_HYBRID y USE_RERANK: la configuracion A tiene que
-# seguir siendo denso puro para que la corrida con el corpus nuevo se pueda
-# comparar contra la del 2026-10-07. Encendido por defecto, A dejaba de ser la
-# linea base y no habria como separar cuanto aporto el corpus de cuanto el
-# enrutador. Se enciende en el benchmark, que mide con y sin.
-USE_ENRUTADOR = False
+# busqueda trae ENRUTADOR_POOL candidatos en vez de top_k.
+#
+# Encendido el 2026-10-09 con la medicion de results/busqueda_v2/: sobre los 45
+# gold etiquetados, con e5 y el corpus de 36 normas, el acierto@5 pasa de 0.333
+# a 0.467. Es la metrica que importa porque TOP_K = 5 y los cinco fragmentos
+# entran al prompt.
+#
+# Lo que NO mejora, y conviene saberlo: el acierto@1 baja de 0.222 a 0.178 y el
+# MRR queda igual (0.283 -> 0.281). El enrutador mete el articulo correcto
+# dentro del top-5, pero no lo pone de primero. Si algun dia el prompt usara
+# menos de 5 fragmentos, habria que volver a medirlo.
+#
+# tools/dataset_v2.py construye el contexto del dataset con esta misma bandera:
+# si se apaga aqui, el dataset hay que regenerarlo o entrena sobre un contexto
+# que no es el que vera en servicio.
+USE_ENRUTADOR = True
 ENRUTADOR_POOL = 300
 
 # Hybrid search -------------------------------------------------------------

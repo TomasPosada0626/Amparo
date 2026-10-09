@@ -18,6 +18,14 @@ Revisi*n de c*digo*.pdf
 wiki-drafts/
 # Salidas generadas (pueden contener contenido derivado del dataset privado)
 artifacts/
+# El indice reconstruido se trae a results/<corrida>/ para inspeccionarlo,
+# pero vive en Drive: son 48 MB de salida generada, igual que artifacts/.
+results/**/rag_index.faiss
+results/**/rag_index_metadata.jsonl
+# Los datasets regenerados quedan en data/, que es de donde los lee todo el
+# mundo; la copia en results/ seria el mismo archivo dos veces y se desincroniza.
+results/**/dataset_v2.jsonl
+results/**/dataset_m1_v2.jsonl
 
 # Entornos Python
 .venv/
