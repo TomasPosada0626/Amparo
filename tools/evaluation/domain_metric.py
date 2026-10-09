@@ -43,7 +43,82 @@ def citation_count(text: str) -> int:
 
 
 def has_invented_citation(text: str) -> bool:
+    """Toda cita es inventada: el modelo no tenia de donde sacarla.
+
+    Vale cuando la respuesta se genero SIN contexto, que era el unico caso de
+    M1 hasta el 2026-10-08. Desde que el dataset trae ejemplos con contexto
+    (data/dataset_v2.jsonl), usar esta funcion ahi marca como invencion cada
+    acierto: en la corrida del 2026-10-09 reporto 27.5 % de citas inventadas
+    cuando el 96.7 % de las citas estaban respaldadas por el contexto.
+    Para esos casos, cita_no_respaldada().
+    """
     return citation_count(text) > 0
+
+
+def articulos_del_contexto(contexto) -> set[str]:
+    """Numeros de articulo presentes en el contexto de un ejemplo.
+
+    contexto: lista de fragmentos como los guarda dataset_v2 (cada uno con
+    'articulos'), o una lista de SearchResult del retrieval.
+    """
+    from tools.rag.chunk import normalizar_numero
+
+    vistos: set[str] = set()
+    for fragmento in contexto or ():
+        articulos = (fragmento.get("articulos") if isinstance(fragmento, dict)
+                     else getattr(fragmento, "articulos_incluidos", None))
+        for a in (articulos or ()):
+            vistos.add(normalizar_numero(str(a)).upper())
+    return vistos
+
+
+def cita_no_respaldada(text: str, contexto=None) -> bool:
+    """Cita algo que no estaba en el contexto que recibio.
+
+    Sin contexto es equivalente a has_invented_citation: cualquier cita salio
+    de la memoria del modelo. Con contexto, solo cuenta lo que no estaba ahi.
+
+    OJO al leerla: respaldada no quiere decir correcta. Comprueba procedencia,
+    no pertinencia. En la corrida del 2026-10-09, los 25 casos B2 en que el
+    modelo cito teniendo un contexto que NO respondia la pregunta dieron todos
+    "respaldada", porque el articulo si estaba ahi; las respuestas no servian.
+    Esa diferencia se mide por modo, no por registro: ver resumen_por_modo().
+    """
+    from tools.rag.verificacion import articulos_citados
+
+    citados = articulos_citados(text)
+    if not citados:
+        return False
+    if not contexto:
+        return True
+    return bool(citados - articulos_del_contexto(contexto))
+
+
+def resumen_por_modo(registros: Sequence[dict]) -> dict[str, dict]:
+    """Por modo de dataset_v2: cuantos citan y cuantos usan la frase de escape.
+
+    Es lo que separa "cito" de "cito cuando debia". En B2 el contexto no
+    responde y lo correcto es escapar: si ahi la tasa de escape es baja y la de
+    citas alta, el modelo aprendio a citar pero no a abstenerse, que es como
+    salio el 2026-10-09 (0 de 35 escapes, 25 de 35 citando).
+    """
+    from tools.evaluation.ragas_metrics import es_valvula_de_escape
+    from tools.rag.verificacion import articulos_citados
+
+    salida: dict[str, dict] = {}
+    for r in registros:
+        modo = r.get("modo")
+        if not modo:
+            continue
+        d = salida.setdefault(modo, {"n": 0, "citan": 0, "escapan": 0, "no_respaldadas": 0})
+        d["n"] += 1
+        if articulos_citados(r.get("generated", "")):
+            d["citan"] += 1
+        if es_valvula_de_escape(r.get("generated", "")):
+            d["escapan"] += 1
+        if cita_no_respaldada(r.get("generated", ""), r.get("contexto")):
+            d["no_respaldadas"] += 1
+    return salida
 
 
 @dataclass

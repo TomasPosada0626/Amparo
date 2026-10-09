@@ -137,5 +137,6 @@
     ],
     "no_agregado": "banco a secas, porque aparece de forma incidental ('el banco te reporto') sin ser una ruta",
     "falso_positivo_corregido": "el patron viejo [Nn]otar[ií]a matcheaba dentro de 'notariado', un adjetivo que no es un destino. Al exigir limite de palabra quedo al descubierto el ejemplo 1111, que daba consejo generico sin decir a donde acudir, y se completo."
-  }
+  },
+  "superado_por": "results/m1_2026-10-09 (adaptador 8ce3cc2bc9306974, dataset v1+v2). Esta corrida se conserva porque es el control contra el que se mide la nueva: sus cifras de baseline (96.1 / 14.7 / 11.7 / 229) son la referencia de que nada derivo. Ya no es reproducible -- su adaptador se sobrescribio el 2026-10-06 y el historial de versiones de Drive no llega atras."
 }
