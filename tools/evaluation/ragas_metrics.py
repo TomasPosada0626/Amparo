@@ -80,9 +80,39 @@ FRASES_DE_ESCAPE = (
 
 
 def es_valvula_de_escape(respuesta: str) -> bool:
-    """¿La respuesta es la frase de escape de Amparo (prompt_template)?"""
+    """¿La respuesta CONTIENE la frase de escape de Amparo (prompt_template)?
+
+    Es busqueda de subcadena, asi que da True tambien cuando la respuesta
+    orienta y solo acota una duda ("el articulo 62 permite X. No tengo
+    informacion verificada sobre como se valora Y. Reune el acta..."). Para
+    contar abstenciones hay que usar `es_abstencion_pura`: con esta funcion, la
+    tasa de escape en gold de la corrida del 2026-10-09 salia 0.60 cuando las
+    abstenciones de verdad eran 8 de 45 (0.18).
+
+    Se conserva tal cual porque es la que define `respuestas_escape` y el
+    denominador de faithfulness en los scorecards ya publicados.
+    """
     r = (respuesta or "").lower()
     return any(f in r for f in FRASES_DE_ESCAPE)
+
+
+def es_abstencion_pura(respuesta: str) -> bool:
+    """¿La respuesta se abstiene DE VERDAD: la frase y nada de fondo?
+
+    Una abstencion es negarse a orientar. Si la respuesta cita un articulo,
+    esta orientando, y la frase solo esta acotando lo que no puede afirmar --
+    que es el comportamiento que se le pidio en los ejemplos B3, no un fallo.
+
+    Distinguirlas cambia el diagnostico: en gold, 27 de 45 respuestas contienen
+    la frase, pero solo 8 se abstienen; en adversariales la abstencion pura
+    sube a 20 de 30. El modelo si discrimina, 3.7 veces mas abstencion donde
+    corresponde, y medirlo por subcadena lo escondia.
+    """
+    if not es_valvula_de_escape(respuesta):
+        return False
+    from tools.rag.verificacion import articulos_citados   # perezoso: tools.rag es opcional aqui
+
+    return not articulos_citados(respuesta or "")
 
 
 # --- Prompts del juez --------------------------------------------------------

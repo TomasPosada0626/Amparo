@@ -1,128 +1,137 @@
-# La abstencion esta descalibrada, y son dos problemas distintos
+# Abstencion: medirla por subcadena daba el diagnostico al reves
 
 Corrida `m3_s10_2026-10-09` (commit `5c884760`, adaptador `8ce3cc2bc9306974`,
 indice `19657d22583f93d0`, eval set `a5151999c2095d00`, 11975 chunks).
 
-El hallazgo que cerro esta pregunta salio de la fase 5c de S10, que **nunca
-habia ejecutado** antes del 2026-10-09 (un bug de variable la rompia en
-silencio desde el 7 de octubre).
+La fase 5c de S10 **nunca habia ejecutado** antes del 2026-10-09: un bug de
+variable la rompia en silencio desde el 7 de octubre. Al correr, la tasa de
+escape en gold salio 0.60 y la primera lectura de este documento fue "el modelo
+sobre-abstiene con retrieval real". **Esa lectura era un artefacto de la
+medicion.** Lo que sigue es la version corregida.
 
-## Lo que parecia
+## El fallo de medicion
 
-Sobre los 103 ejemplos con contexto sintetico de `data/dataset_v2.jsonl`, el
-modelo **no se abstiene nunca**: 0 de 35 casos B2, y en 25 de ellos cita un
-articulo que estaba en el contexto pero no responde la pregunta. De ahi la
-lectura de que al modelo le falta aprender a abstenerse.
+`es_valvula_de_escape` busca la frase de escape como subcadena, asi que marca
+igual dos cosas distintas:
 
-## Lo que pasa con retrieval real
+- **abstenerse**: negarse a orientar;
+- **orientar y acotar**: responder con la norma que corresponde y decir, de
+  paso, que hay algo que no puede afirmar.
 
-Lo contrario, y en los casos donde si hay que responder:
+El caso 9002 es el ejemplo. Conto como escape:
 
-| | gold | adversarial |
-|---|---|---|
-| escapes | 27 de 45 (60 %) | 24 de 30 (80 %) |
-| orientan | 18 | 6 |
+> "El articulo 62 del Codigo Sustantivo del Trabajo permite terminar el
+> contrato cuando el empleador incumple sistematicamente sus obligaciones...
+> **No tengo informacion verificada** sobre como se valoran esas causales en un
+> despido por presion. Reune el acta, mensajes y testigos, y consulta en un
+> consultorio juridico universitario."
 
-En adversariales escapar es lo correcto y la prudencia sale 1.00. En gold,
-escapar 60 % de las veces no lo es.
+Eso no es abstenerse: es exactamente el comportamiento que piden los ejemplos
+B3 del dataset.
 
-Medir esto bien importa: contar los escapes con la frase sin tilde
-(`RESPUESTA_SIN_CONTEXTO`) da 8 en vez de 27, porque el modelo escribe
-"informacion" con tilde. La medicion correcta es
-`tools/evaluation/ragas_metrics.es_valvula_de_escape`, que acepta las dos
-formas, y es la que usan la fase 5 y `domain_metric.resumen_por_modo`.
+`es_abstencion_pura` separa las dos: exige la frase **y** que la respuesta no
+cite ningun articulo.
 
-## Quien decide el escape
+## Las cifras, separadas
 
-Ninguno de los 27 escapes en gold lo fuerza el pipeline:
+| S10 `una_pasada` | n | abstencion pura | orienta y acota | orienta sin la frase |
+|---|---|---|---|---|
+| gold | 45 | **8** (18 %) | 19 | 18 |
+| adversarial | 30 | **20** (67 %) | 4 | 6 |
+
+| S08 `config C` | n | abstencion pura | orienta y acota | orienta sin la frase |
+|---|---|---|---|---|
+| gold | 45 | **14** (31 %) | 14 | 17 |
+| adversarial | 30 | **19** (63 %) | 8 | 3 |
+
+**El modelo si discrimina**: en S10 se abstiene de verdad 3.7 veces mas en
+adversariales que en gold (67 % contra 18 %), y 37 de 45 casos gold reciben una
+respuesta de fondo. La subcadena convertia eso en "60 % de escape en gold".
+
+Las 19 respuestas que orientan y acotan tambien corrigen otra lectura: en M1,
+B3 daba 0 de 13 y se concluyo que el comportamiento de avisar del hueco no
+estaba en el modelo. Con retrieval real aparece en 19 de 45 casos. Lo que falla
+en B3 es el formato que el criterio exige, no la conducta.
+
+## Lo que queda en pie
+
+### Quien decide el escape
+
+Ninguna de las respuestas con la frase en gold la fuerza el pipeline:
 
 ```
 lo decidio el MODELO         27
 por codigo (umbral/citas)     0
 ```
 
-Eso descarta tres causas:
+Asi que **no es el umbral** `RETRIEVAL_MIN_SCORE = 0.81` (`escape_por_codigo`
+es `null` en todas), **no es el verificador de citas** (`citas_rechazadas`
+vacio) y **no es la cantidad de contexto** (52 de 72 casos con 5 fragmentos la
+contienen). Bajar el umbral o subir TOP_K no toca nada de esto.
 
-- **no es el umbral** `RETRIEVAL_MIN_SCORE = 0.81`: ningun escape viene de ahi
-  (`escape_por_codigo` es `null` en los 27);
-- **no es el verificador de citas**: `citas_rechazadas` vacio en todos;
-- **no es la cantidad de contexto**: 52 de 72 casos con 5 fragmentos escapan.
+### Las abstenciones puras y la evidencia
 
-## El corte que reparte la culpa
+Cruzando con `context_recall` por caso, las 8 abstenciones puras en gold:
 
-Cruzando `escape` con `context_recall` por caso
-(`ragas_checkpoint_una_pasada_lora.jsonl`), los 27 escapes en gold se parten:
+| | n |
+|---|---|
+| `context_recall = 0` | 5 |
+| `0 < recall < 0.5` | 2 |
+| `recall >= 0.5` | **1** |
 
-| escapes en gold | n | de quien es |
+Es decir: **una sola** abstencion en 45 casos gold ocurrio con evidencia
+razonable. Las 5 con `recall = 0` son correctas: no habia nada que usar.
+
+### La recuperacion es el problema grande
+
+17 de 45 casos gold tienen `context_recall = 0`:
+
+| config | gold | `recall = 0` |
 |---|---|---|
-| `context_recall = 0` | 13 | **de la recuperacion**. No habia nada que usar: abstenerse fue correcto. |
-| `0 < recall < 0.5` | 5 | evidencia parcial. Debia responder esa parte y avisar del hueco. |
-| `recall >= 0.5` | 9 | **del modelo**. La evidencia estaba y escapo igual. |
+| A_denso | 45 | 17 |
+| B_hybrid | 45 | 17 |
+| C_rerank | 45 | 15 |
+| una_pasada | 45 | 17 |
 
-Seis de esos 9 tenian `recall = 1.00`: recuperacion perfecta y aun asi
-respondio que no tenia informacion verificada (ids 9002, 9004, 9031, 9034,
-9040, 9053).
+Hibrido y reranking no los mueven, asi que no es ranking. Estan repartidos
+entre categorias (1 o 2 cada una), y 8 de esas categorias tienen solo 1 o 2
+casos gold en total.
 
-Y cuando la evidencia esta, la decision es una moneda al aire: con
-`recall >= 0.5`, **9 escapan y 9 orientan**.
+**Esto todavia no prueba que falten normas en el corpus.** `context_recall`
+mide cobertura contra una respuesta de referencia, no suficiencia juridica: un
+`recall = 0` puede ser que el corpus no la tenga, que la busqueda no la
+encuentre, o que la metrica no reconozca evidencia que si sirve. Para
+separarlo hay que comprobar, caso por caso, la norma esperada, si esta en el
+corpus y en que posicion del ranking aparece.
 
-El modelo no es del todo insensible a la evidencia -- el recall medio es 0.477
-donde orienta y 0.340 donde escapa, y con `recall = 0` escapa 13 de 17 veces,
-que es lo correcto -- pero no discrimina en el punto que decide.
+Una muestra de los contextos recuperados sugiere que el problema es real: para
+"renuncie por presion de mi jefe" (9002, `recall = 1.00`) los 5 fragmentos
+fueron el articulo 342 del CST sobre prestaciones renunciables, el 18 del CPACA
+sobre desistimiento, el 41 sobre agencia oficiosa y el 21 sobre funcionario sin
+competencia. Solo uno servia. Que `recall` diera 1.00 ahi es otra razon para no
+tratar esa metrica como prueba de suficiencia.
 
-## Las cuatro configuraciones
+## Que arreglar
 
-| config | gold | escapes | `recall=0` | escapa con evidencia | orienta con evidencia |
-|---|---|---|---|---|---|
-| A_denso | 45 | 27 | 17 | 9 | 9 |
-| B_hybrid | 45 | 33 | 17 | **14** | 5 |
-| C_rerank | 45 | 28 | 15 | 10 | 8 |
-| una_pasada | 45 | 27 | 17 | 9 | 9 |
+1. **Recuperacion** (17 casos sin evidencia): auditar norma esperada, presencia
+   en el corpus y posicion en el ranking antes de tocar el corpus. La Ley 2466
+   de 2025 sigue pendiente para lo laboral (`docs/m3_cobertura_corpus.md`).
+2. **Las metricas publicadas**: `escape_en_gold = 0.60` y
+   `escape_en_adversariales = 0.80` cuentan subcadenas. Los scorecards deben
+   reportar abstencion pura aparte, y mostrar los denominadores:
+   `faithfulness = 0.51` se promedia sobre `n = 18`, no sobre 45.
+3. **Un solo caso de sobre-abstencion** en 45 gold no justifica tocar el
+   entrenamiento. La comparacion base contra LoRA sigue valiendo, pero ya no
+   para explicar un fallo masivo.
 
-Dos cosas:
+**No reentrenar.** El fallo que motivaba hacerlo no existe en la magnitud que
+se creyo.
 
-1. **Los 17 casos sin evidencia son casi los mismos en las cuatro.** Hibrido y
-   reranking no los arreglan: no es un problema de ranking, es de que el corpus
-   no tiene (o no trocea bien) lo que esos casos necesitan.
-2. **B_hybrid es la peor en la decision que importa**: escapa 14 veces teniendo
-   evidencia contra 5 que orienta, casi 3 a 1 en contra. A y una_pasada quedan
-   9 a 9. Eso es una razon mejor para preferir A que "tiene el mejor recall",
-   porque mide la calidad de la decision y no solo la recuperacion.
+## Lo que sigue abierto
 
-Los 17 `recall = 0` estan repartidos finos entre categorias (1 o 2 cada una, y
-8 de ellas tienen solo 1 o 2 casos gold en total), asi que no es una norma
-faltante: es cobertura ancha.
-
-## Que arreglar, y que no
-
-Son dos trabajos distintos y no se tocan:
-
-- **Recuperacion** (13 escapes correctos + los 5 parciales): cobertura del
-  corpus y troceado. Aqui entra la Ley 2466 de 2025, que el Codigo Sustantivo
-  del Trabajo indexado no trae (`docs/m3_cobertura_corpus.md`).
-- **Modelo** (9 escapes con evidencia, y los 0 de 35 en B2): dataset y prompt.
-  El modelo decide escapar por algo que no es la suficiencia de la evidencia.
-
-**No bajar el umbral ni subir TOP_K**: ningun escape viene del filtrado, asi
-que aflojarlo solo agrega ruido.
-
-**No reentrenar todavia** sin saber por que escapa con `recall = 1.00`. Un
-dataset con mas ejemplos B2 empujaria hacia mas abstencion, que es el fallo
-dominante en produccion.
-
-## Lo que falta para cerrar el modelo
-
-Comparar base y afinado con el mismo indice, prompt y eval set. Si el base no
-escapa en esos 9 casos y el afinado si, el escape lo instalo el fine-tuning.
-S07 corrio sobre el base pero con el indice de 3420 chunks, asi que no sirve
-para comparar.
-
-## Lo que esto explica
-
-- **gold 1 de 45 en la fase 4b de M2.** 28 de los 44 fallos son escapes, no
-  errores juridicos: se abstuvo cuando debia responder.
-- **`faithfulness 0.51` con `n_faithfulness = 18`.** Se promedia solo sobre las
-  que orientan, mientras recall y precision usan los 45. El codigo ya guarda
-  los `n_`; el scorecard tiene que mostrarlos.
-- **B3 0 de 13 en M1.** Nunca dijo que parte no estaba respaldada, y los 5 casos
-  de evidencia parcial de aqui son el mismo comportamiento ausente.
+- **B2 en los ejemplos sinteticos: 0 de 35.** Ahi la frase no aparece ni una
+  vez, asi que no es el fallo de medicion: con contextos que traen articulos
+  bien formados pero de otra materia, el modelo cita en 25 de 35. Convive con
+  lo de arriba y es el hallazgo que no se cayo.
+- **B_hybrid** es la peor configuracion en la decision que importa, con la
+  medicion por subcadena. Hay que recalcularlo con `es_abstencion_pura`.
