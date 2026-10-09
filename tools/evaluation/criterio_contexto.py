@@ -93,21 +93,28 @@ def preparar(registros: Sequence[dict], label: str = "fine_tuned") -> tuple[list
     """
     generaciones, con_criterio = [], []
     for r in registros:
-        if not r.get("modo"):
+        # Dos formas de entrada. Los registros de dataset_v2 traen 'modo' y el
+        # criterio se redacta a partir de el. Los de S08/S10 (pipeline.to_eval_record)
+        # ya traen el 'criterio' del eval set y el contexto es el del retrieval
+        # REAL: esos miden lo mismo pero en produccion, que es lo que de verdad
+        # decide. Se aceptan los dos para no tener dos modulos que hagan lo mismo.
+        propio = r.get("criterio") if not r.get("modo") else None
+        if not r.get("modo") and not propio:
             continue
         generaciones.append(SimpleNamespace(
             id=r["id"],
-            query=r.get("pregunta") or r.get("query", ""),
-            generated=r.get("generated", ""),
+            query=r.get("pregunta") or r.get("question") or r.get("query", ""),
+            generated=r.get("generated") or r.get("answer", ""),
             label=label,
         ))
         con_criterio.append({
             "id": r["id"],
-            # El "tipo" del resumen es el modo: asi la tabla sale partida en
-            # B1/B2/B3, que es el corte donde se ve si aprendio a abstenerse.
-            "tipo": r["modo"],
+            # El "tipo" parte la tabla del resumen. Con 'modo' es B1/B2/B3, que
+            # es el corte donde se ve si aprendio a abstenerse; con el criterio
+            # propio es gold/adversarial, el corte del eval set.
+            "tipo": r.get("modo") or r.get("tipo", "caso"),
             "category": r.get("category", ""),
-            "criterio": criterio_de_modo(r),
+            "criterio": propio or criterio_de_modo(r),
         })
     return generaciones, con_criterio
 

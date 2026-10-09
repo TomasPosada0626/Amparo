@@ -83,3 +83,49 @@ def test_sin_fuentes_el_criterio_no_queda_vacio():
 def test_sin_ejemplos_con_contexto_falla_con_un_mensaje_claro():
     with pytest.raises(SystemExit, match="modo"):
         criterio_contexto.evaluar([V1], lambda s, u, m: "")
+
+
+# Los registros de S08/S10 (pipeline.to_eval_record) ya traen el criterio del
+# eval set, y su contexto es el del retrieval REAL. Juzgarlos mide pertinencia
+# en produccion, que es lo que de verdad decide si el fallo B2 importa.
+S08 = {"id": 7, "question": "Me embargaron una cuenta en cero",
+       "answer": "El articulo 594 del CGP protege...", "tipo": "gold",
+       "category": "Deudas", "criterio": "Debe nombrar el minimo inembargable."}
+
+
+def test_toma_los_registros_que_ya_traen_criterio():
+    """Sin 'modo' pero con 'criterio' propio: los de S08/S10."""
+    generaciones, con_criterio = criterio_contexto.preparar([S08])
+
+    assert [g.id for g in generaciones] == [7]
+    assert con_criterio[0]["criterio"] == "Debe nombrar el minimo inembargable."
+
+
+def test_de_los_registros_de_S08_lee_question_y_answer():
+    """Nombran distinto los campos que los de M1 ('pregunta'/'generated')."""
+    generaciones, _ = criterio_contexto.preparar([S08])
+
+    assert generaciones[0].query == "Me embargaron una cuenta en cero"
+    assert generaciones[0].generated.startswith("El articulo 594")
+
+
+def test_el_criterio_del_eval_set_no_se_reemplaza_por_el_del_modo():
+    """Si se sintetizara uno, el juez mediria otra cosa y las cifras de S08 no
+    serian comparables con las que M2 saca sobre el mismo eval set."""
+    _, con_criterio = criterio_contexto.preparar([S08])
+
+    assert "CONTEXTO" not in con_criterio[0]["criterio"]
+
+
+def test_en_S08_el_tipo_es_gold_o_adversarial():
+    _, con_criterio = criterio_contexto.preparar([S08])
+
+    assert con_criterio[0]["tipo"] == "gold"
+
+
+def test_un_registro_con_modo_y_criterio_usa_el_del_modo():
+    """Los de v2 traen 'criterio' redactado para el dataset, no para el juez:
+    manda el modo, que es lo que el ejemplo pedia."""
+    _, con_criterio = criterio_contexto.preparar([dict(B2, criterio="otra cosa")])
+
+    assert "error grave" in con_criterio[0]["criterio"]
