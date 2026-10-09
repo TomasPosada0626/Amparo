@@ -30,7 +30,37 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from tools.evaluation import config, eval_set
-from tools.evaluation.pipeline import _git_commit, _library_versions
+
+# No se importan de tools.evaluation.pipeline aunque esten ahi: ese modulo trae
+# metrics_classic, que importa sacrebleu, y el manifiesto quedaria necesitando
+# el stack de evaluacion entero. Se genera despues de la corrida, en un runtime
+# CPU sin nada instalado, y ahi fallaba con ModuleNotFoundError. Un manifiesto
+# tiene que poder armarse con la libreria estandar, igual que tools/rag/config.py
+# es importable sin GPU ni faiss.
+LIBRERIAS = ["transformers", "peft", "torch", "sacrebleu", "rouge-score", "bert-score"]
+
+
+def _git_commit() -> str:
+    import subprocess
+
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=config.PROJECT_ROOT, text=True
+        ).strip()
+    except Exception:
+        return "unknown"
+
+
+def _library_versions() -> dict[str, str]:
+    from importlib import metadata
+
+    versiones = {}
+    for lib in LIBRERIAS:
+        try:
+            versiones[lib] = metadata.version(lib)
+        except metadata.PackageNotFoundError:
+            versiones[lib] = "not-installed"
+    return versiones
 
 DATASET_ENTRENAMIENTO = config.PROJECT_ROOT / "data" / "dataset_m1_v2.jsonl"
 

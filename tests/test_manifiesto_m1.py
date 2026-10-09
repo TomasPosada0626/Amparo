@@ -52,3 +52,21 @@ def test_un_adaptador_que_no_esta_deja_el_hash_en_none_sin_lanzar():
     m = manifiesto_m1.construir("/ruta/inexistente")
 
     assert m["hash_adaptador"] is None
+
+
+def test_se_puede_armar_sin_el_stack_de_evaluacion(monkeypatch):
+    """El manifiesto se genera despues de la corrida, en un runtime CPU sin nada
+    instalado. Importarlo desde tools.evaluation.pipeline lo ataba a sacrebleu
+    via metrics_classic y fallaba con ModuleNotFoundError justo ahi."""
+    import importlib
+    import sys
+
+    for pesado in ("sacrebleu", "rouge_score", "bert_score", "torch", "transformers"):
+        monkeypatch.setitem(sys.modules, pesado, None)
+    for modulo in [m for m in list(sys.modules) if m.startswith("tools.")]:
+        monkeypatch.delitem(sys.modules, modulo, raising=False)
+
+    modulo = importlib.import_module("tools.manifiesto_m1")
+    m = modulo.construir("/no/existe")
+
+    assert m["n_total"] == 2291
