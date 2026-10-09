@@ -70,6 +70,7 @@ def construir(
     *,
     hardware: str | None = None,
     dataset: Path = DATASET_ENTRENAMIENTO,
+    hiperparametros: dict | None = None,
 ) -> dict:
     """El manifiesto como diccionario.
 
@@ -103,7 +104,10 @@ def construir(
         "n_val": por_split["val"],
         "origenes": dict(Counter(r["origen"] for r in registros)),
         "val_por_origen": dict(Counter(r["origen"] for r in registros if r["split"] == "val")),
-        "modos_v2": dict(Counter(r.get("modo") for r in registros if r["origen"] == "v2")),
+        "modos_con_contexto": dict(Counter(r.get("modo") for r in registros
+                                           if r["origen"] != "v1")),
+
+        "hiperparametros": hiperparametros,
 
         "hardware": hardware,
         "library_versions": _library_versions() if observado else None,
@@ -123,12 +127,24 @@ def construir(
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--adaptador", required=True, help="carpeta del adaptador LoRA")
+    p.add_argument("--dataset", default=None,
+                   help="dataset de entrenamiento (por defecto el de v1: "
+                        "data/dataset_m1_v2.jsonl). v2 entrena con "
+                        "data/dataset_m1_v3.jsonl y tiene que firmar ESE, o el "
+                        "manifiesto diria que entreno con otro archivo.")
+    p.add_argument("--hiperparametros", default=None,
+                   help="JSON con la configuracion de la corrida (LoRA, epocas, "
+                        "lr, batch, max_seq_length). Sin esto el manifiesto no "
+                        "dice con que se entreno y la corrida no se reproduce.")
     p.add_argument("--salida", default=None, help="carpeta donde escribir run_manifest.json")
     p.add_argument("--hardware", default=None,
                    help="salida de nvidia-smi; omitirlo marca el manifiesto como reconstruido")
     args = p.parse_args(argv)
 
-    m = construir(args.adaptador, hardware=args.hardware)
+    hiper = json.loads(Path(args.hiperparametros).read_text(encoding="utf-8"))         if args.hiperparametros else None
+    m = construir(args.adaptador, hardware=args.hardware,
+                  dataset=Path(args.dataset) if args.dataset else DATASET_ENTRENAMIENTO,
+                  hiperparametros=hiper)
 
     if m["hash_adaptador"] is None:
         print(f"AVISO: no se encontro adapter_model.safetensors en {args.adaptador}")
