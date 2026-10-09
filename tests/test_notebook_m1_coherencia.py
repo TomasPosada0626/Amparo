@@ -176,12 +176,18 @@ def test_evaluate_siempre_se_llama_con_su_checkpoint():
 def test_la_subida_a_hugging_face_declara_el_dataset_vigente():
     """Mismo origen que el test anterior: el mensaje de commit del adaptador es
     la procedencia que permite verificarlo sin acceso al Drive privado, y
-    retrocedio a '1410 ejemplos, 27 categorias' al traer el notebook ejecutado."""
+    retrocedio a '1410 ejemplos, 27 categorias' al traer el notebook ejecutado.
+
+    Desde el 2026-10-08 M1 entrena con el combinado v1+v2, no con
+    dataset_legal.jsonl: el mensaje debe declarar lo que de verdad se entreno,
+    que es lo que alguien sin acceso al Drive necesita para verificarlo."""
     import json as _json
 
     from tools.evaluation import config as _config
 
-    with open(_config.LOCAL_DATASET_PATH, encoding="utf-8") as f:
+    combinado = _config.PROJECT_ROOT / "data" / "dataset_m1_v2.jsonl"
+    ruta = combinado if combinado.exists() else _config.LOCAL_DATASET_PATH
+    with open(ruta, encoding="utf-8") as f:
         registros = [_json.loads(l) for l in f if l.strip()]
     n, categorias = len(registros), len({r["category"] for r in registros})
 
