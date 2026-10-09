@@ -1,137 +1,153 @@
-# Abstencion: medirla por subcadena daba el diagnostico al reves
+# Abstencion y recuperacion: lo que decian las metricas y lo que dicen los datos
 
-Corrida `m3_s10_2026-10-09` (commit `5c884760`, adaptador `8ce3cc2bc9306974`,
-indice `19657d22583f93d0`, eval set `a5151999c2095d00`, 11975 chunks).
+Corrida `m3_s10_2026-10-09` y `m3_s08_2026-10-09` (commit `5c884760`, adaptador
+`8ce3cc2bc9306974`, indice `19657d22583f93d0`, eval set `a5151999c2095d00`,
+11975 chunks, 37 normas).
 
-La fase 5c de S10 **nunca habia ejecutado** antes del 2026-10-09: un bug de
-variable la rompia en silencio desde el 7 de octubre. Al correr, la tasa de
-escape en gold salio 0.60 y la primera lectura de este documento fue "el modelo
-sobre-abstiene con retrieval real". **Esa lectura era un artefacto de la
-medicion.** Lo que sigue es la version corregida.
+Este documento se reescribio dos veces. La primera version concluyo que el
+modelo sobre-abstiene con retrieval real y que el problema grande era la
+cobertura del corpus. **Las dos conclusiones eran errores de medicion**, y
+quedan abajo con lo que las desmintio, porque el error es la parte util.
 
-## El fallo de medicion
+## 1. Abstenerse no es lo mismo que acotar una duda
 
 `es_valvula_de_escape` busca la frase de escape como subcadena, asi que marca
-igual dos cosas distintas:
-
-- **abstenerse**: negarse a orientar;
-- **orientar y acotar**: responder con la norma que corresponde y decir, de
-  paso, que hay algo que no puede afirmar.
-
-El caso 9002 es el ejemplo. Conto como escape:
+igual dos cosas distintas: negarse a orientar, y orientar diciendo de paso que
+hay algo que no se puede afirmar. El caso 9002 conto como escape:
 
 > "El articulo 62 del Codigo Sustantivo del Trabajo permite terminar el
 > contrato cuando el empleador incumple sistematicamente sus obligaciones...
 > **No tengo informacion verificada** sobre como se valoran esas causales en un
-> despido por presion. Reune el acta, mensajes y testigos, y consulta en un
-> consultorio juridico universitario."
+> despido por presion. Reune el acta, mensajes y testigos."
 
-Eso no es abstenerse: es exactamente el comportamiento que piden los ejemplos
-B3 del dataset.
+Eso es exactamente lo que piden los ejemplos B3 del dataset.
 
-`es_abstencion_pura` separa las dos: exige la frase **y** que la respuesta no
-cite ningun articulo.
+`es_abstencion_pura` exige la frase **y** que la respuesta no cite ningun
+articulo. Con esa medicion:
 
-## Las cifras, separadas
-
-| S10 `una_pasada` | n | abstencion pura | orienta y acota | orienta sin la frase |
+| config | gold: abstencion pura | orienta y acota | adversarial: abstencion pura | "escape" por subcadena (gold) |
 |---|---|---|---|---|
-| gold | 45 | **8** (18 %) | 19 | 18 |
-| adversarial | 30 | **20** (67 %) | 4 | 6 |
+| A denso+enrutador | 8/45 (18 %) | 19 | 20/30 (67 %) | 27/45 (60 %) |
+| B hybrid+enrutador | 14/45 (31 %) | 19 | 22/30 (73 %) | 33/45 (73 %) |
+| C rerank+enrutador | 14/45 (31 %) | 14 | 19/30 (63 %) | 28/45 (62 %) |
+| `una_pasada` | 8/45 (18 %) | 19 | 20/30 (67 %) | 27/45 (60 %) |
 
-| S08 `config C` | n | abstencion pura | orienta y acota | orienta sin la frase |
-|---|---|---|---|---|
-| gold | 45 | **14** (31 %) | 14 | 17 |
-| adversarial | 30 | **19** (63 %) | 8 | 3 |
+`una_pasada` y `A denso+enrutador` coinciden porque son la misma
+configuracion.
 
-**El modelo si discrimina**: en S10 se abstiene de verdad 3.7 veces mas en
-adversariales que en gold (67 % contra 18 %), y 37 de 45 casos gold reciben una
+**El modelo discrimina**: en produccion se abstiene de verdad 3.7 veces mas en
+adversariales que en gold (67 % contra 18 %), y 37 de 45 casos gold reciben
 respuesta de fondo. La subcadena convertia eso en "60 % de escape en gold".
 
-Las 19 respuestas que orientan y acotan tambien corrigen otra lectura: en M1,
-B3 daba 0 de 13 y se concluyo que el comportamiento de avisar del hueco no
-estaba en el modelo. Con retrieval real aparece en 19 de 45 casos. Lo que falla
-en B3 es el formato que el criterio exige, no la conducta.
+De las 8 abstenciones puras en gold, cruzadas con `context_recall`:
 
-## Lo que queda en pie
+| | n |
+|---|---|
+| `recall = 0` | 5 |
+| `0 < recall < 0.5` | 2 |
+| `recall >= 0.5` | **1** |
+
+**Una sola abstencion en 45 casos gold** ocurrio con evidencia razonable. Las 5
+con `recall = 0` son correctas: no habia nada que usar.
+
+Esto tambien corrige la lectura de B3 en M1 (0 de 13): la conducta de avisar
+del hueco aparece en 19 de 45 casos con retrieval real. Lo que falla en B3 es
+el formato que exige el criterio, no la conducta.
 
 ### Quien decide el escape
 
 Ninguna de las respuestas con la frase en gold la fuerza el pipeline:
-
-```
-lo decidio el MODELO         27
-por codigo (umbral/citas)     0
-```
-
-Asi que **no es el umbral** `RETRIEVAL_MIN_SCORE = 0.81` (`escape_por_codigo`
-es `null` en todas), **no es el verificador de citas** (`citas_rechazadas`
-vacio) y **no es la cantidad de contexto** (52 de 72 casos con 5 fragmentos la
+`escape_por_codigo` es `null` en las 27 y `citas_rechazadas` esta vacio. Asi
+que **no es el umbral** `RETRIEVAL_MIN_SCORE = 0.81`, **no es el verificador de
+citas** y **no es la cantidad de contexto** (52 de 72 casos con 5 fragmentos la
 contienen). Bajar el umbral o subir TOP_K no toca nada de esto.
 
-### Las abstenciones puras y la evidencia
+## 2. El corpus no es el problema; el ranking si
 
-Cruzando con `context_recall` por caso, las 8 abstenciones puras en gold:
+17 de los 45 casos gold tienen `context_recall = 0`. La primera version de este
+documento concluyo que era cobertura del corpus, razonando que hibrido y
+reranking no movian ese conteo. **El razonamiento estaba mal**: las tres
+configuraciones reordenan el mismo fondo de candidatos, asi que fallar las tres
+no distingue "no esta" de "no se encuentra".
+
+Cruzando los 17 con las etiquetas de `data/eval_set_articulos.json`, que dicen
+que articulo responde cada caso:
 
 | | n |
 |---|---|
-| `context_recall = 0` | 5 |
-| `0 < recall < 0.5` | 2 |
-| `recall >= 0.5` | **1** |
+| la norma esperada **no esta** en el corpus | **0** |
+| esta, pero no se recupero el articulo | 16 |
+| se recupero el articulo esperado y `recall` dio 0 igual | 3 |
 
-Es decir: **una sola** abstencion en 45 casos gold ocurrio con evidencia
-razonable. Las 5 con `recall = 0` son correctas: no habia nada que usar.
+**Las 17 normas estan todas indexadas.** Ni una falta. Y en 3 casos (9051,
+9064, 9069) el articulo correcto si se recupero y RAGAS puntuo `recall = 0`:
+una razon mas para no tratar `context_recall` como prueba de suficiencia.
 
-### La recuperacion es el problema grande
+### El ranking si mueve la aguja
 
-17 de 45 casos gold tienen `context_recall = 0`:
+`results/busqueda_v2/busqueda_2026-10-09.json` trae el puesto del articulo
+esperado por caso:
 
-| config | gold | `recall = 0` |
-|---|---|---|
-| A_denso | 45 | 17 |
-| B_hybrid | 45 | 17 |
-| C_rerank | 45 | 15 |
-| una_pasada | 45 | 17 |
+| config | @1 | @3 | @5 | @10 | MRR |
+|---|---|---|---|---|---|
+| A denso | 0.222 | 0.289 | 0.333 | 0.511 | 0.283 |
+| **A denso+enrutador** (produccion) | 0.178 | 0.356 | 0.467 | 0.556 | 0.281 |
+| B hybrid+enrutador | **0.289** | 0.422 | 0.489 | 0.600 | **0.378** |
+| C rerank+enrutador | 0.244 | **0.467** | **0.533** | **0.644** | 0.361 |
 
-Hibrido y reranking no los mueven, asi que no es ranking. Estan repartidos
-entre categorias (1 o 2 cada una), y 8 de esas categorias tienen solo 1 o 2
-casos gold en total.
+Y sobre los 17 casos con `recall = 0`, cuantos ponen el articulo esperado en el
+top-5:
 
-**Esto todavia no prueba que falten normas en el corpus.** `context_recall`
-mide cobertura contra una respuesta de referencia, no suficiencia juridica: un
-`recall = 0` puede ser que el corpus no la tenga, que la busqueda no la
-encuentre, o que la metrica no reconozca evidencia que si sirve. Para
-separarlo hay que comprobar, caso por caso, la norma esperada, si esta en el
-corpus y en que posicion del ranking aparece.
+| A | A+enrutador | B hybrid | C rerank |
+|---|---|---|---|
+| 1 | 3 | **6** | **6** |
 
-Una muestra de los contextos recuperados sugiere que el problema es real: para
-"renuncie por presion de mi jefe" (9002, `recall = 1.00`) los 5 fragmentos
-fueron el articulo 342 del CST sobre prestaciones renunciables, el 18 del CPACA
-sobre desistimiento, el 41 sobre agencia oficiosa y el 21 sobre funcionario sin
-competencia. Solo uno servia. Que `recall` diera 1.00 ahi es otra razon para no
-tratar esa metrica como prueba de suficiencia.
+`USE_ENRUTADOR` se justifico comparando A contra A+enrutador (acierto@5 0.333
+-> 0.467, ver `tools/rag/config.py`), y la medicion era correcta. Lo que no se
+noto es que B y C ya eran mejores que A+enrutador, que es lo que corre en
+produccion.
 
-## Que arreglar
+### Los 8 que ninguna configuracion encuentra
 
-1. **Recuperacion** (17 casos sin evidencia): auditar norma esperada, presencia
-   en el corpus y posicion en el ranking antes de tocar el corpus. La Ley 2466
-   de 2025 sigue pendiente para lo laboral (`docs/m3_cobertura_corpus.md`).
-2. **Las metricas publicadas**: `escape_en_gold = 0.60` y
-   `escape_en_adversariales = 0.80` cuentan subcadenas. Los scorecards deben
-   reportar abstencion pura aparte, y mostrar los denominadores:
-   `faithfulness = 0.51` se promedia sobre `n = 18`, no sobre 45.
-3. **Un solo caso de sobre-abstencion** en 45 gold no justifica tocar el
-   entrenamiento. La comparacion base contra LoRA sigue valiendo, pero ya no
-   para explicar un fallo masivo.
+9010, 9035, 9038, 9042, 9049, 9050, 9058 y 9055 no aparecen en el top-10 de
+ninguna configuracion (9055 solo con A denso puro, en el puesto 1, y se pierde
+en las otras tres). El articulo esta indexado y ninguna estrategia de busqueda
+lo saca. Ahi el trabajo es de embedding o de troceado, no de reordenamiento ni
+de corpus.
 
-**No reentrenar.** El fallo que motivaba hacerlo no existe en la magnitud que
-se creyo.
+## 3. La tension que queda
 
-## Lo que sigue abierto
+B y C encuentran el articulo esperado mas seguido (@5 0.489 y 0.533 contra
+0.467) y a la vez **se abstienen mas** en gold (31 % contra 18 %). No tengo
+explicacion medida para eso. La hipotesis a comprobar es que al cambiar que
+fragmentos ocupan los 5 cupos, entran fragmentos mas precisos pero mas cortos,
+y el modelo los lee como insuficientes.
 
-- **B2 en los ejemplos sinteticos: 0 de 35.** Ahi la frase no aparece ni una
-  vez, asi que no es el fallo de medicion: con contextos que traen articulos
-  bien formados pero de otra materia, el modelo cita en 25 de 35. Convive con
-  lo de arriba y es el hallazgo que no se cayo.
-- **B_hybrid** es la peor configuracion en la decision que importa, con la
-  medicion por subcadena. Hay que recalcularlo con `es_abstencion_pura`.
+No hay configuracion que domine: A responde mas en gold y recupera peor, C
+recupera mejor y abstiene mas. Elegir exige decidir que se optimiza, y
+conviene medirlo con `es_abstencion_pura` y acierto@5 juntos, no con
+`escape_en_gold`.
+
+## 4. Que hacer
+
+1. **Probar hybrid+rerank en produccion.** Rescata 6 de los 17 casos sin
+   evidencia contra 3 de la configuracion actual, y gana en @3, @5 y @10.
+   Medir a la vez si la abstencion en gold sube.
+2. **Los 8 casos que nadie encuentra**: revisar el troceado y el embedding de
+   esas normas. No es cobertura.
+3. **Las metricas publicadas**: `escape_en_gold = 0.60` y
+   `escape_en_adversariales = 0.80` cuentan subcadenas. Reportar abstencion
+   pura aparte, y mostrar los denominadores: `faithfulness = 0.51` se promedia
+   sobre `n = 18`, no sobre 45.
+4. **No reentrenar.** Una sobre-abstencion en 45 casos gold no lo justifica.
+
+La Ley 2466 de 2025 sigue pendiente para lo laboral
+(`docs/m3_cobertura_corpus.md`), pero **no explica ninguno de estos 17 casos**.
+
+## Lo que no se cayo
+
+**B2 en los ejemplos sinteticos: 0 de 35.** Ahi la frase de escape no aparece
+ni una vez, asi que no es el fallo de medicion de la seccion 1. Con contextos
+que traen articulos bien formados pero de otra materia, el modelo cita en 25 de
+35 en vez de abstenerse. Es el unico hallazgo de abstencion que sobrevivio a
+las dos correcciones.
