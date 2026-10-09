@@ -1,0 +1,1410 @@
+{
+  "n_pairs": 231,
+  "n_flipped": 42,
+  "n_tied_or_unparsed": 10,
+  "flip_rate_pct": 19.0,
+  "details": [
+    {
+      "id": 942,
+      "huella": "fb3be7b617ab8848",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 555,
+      "huella": "b0979b40e1436231",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 813,
+      "huella": "0890440afb272e0c",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1147,
+      "huella": "782aea5818f3c483",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 378,
+      "huella": "d441b09e1e3c4711",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 286,
+      "huella": "9eca2575a54b93ce",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1424,
+      "huella": "14c90720e1fe812c",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1160,
+      "huella": "9a4e947fccad5e5c",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "empate"
+    },
+    {
+      "id": 251,
+      "huella": "c9c43579990da203",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 996,
+      "huella": "3e3668fd96e33f8a",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 100,
+      "huella": "6af3804c473ada3a",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1178,
+      "huella": "86f70223b57abc5d",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 404,
+      "huella": "8e293efc75255f53",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1437,
+      "huella": "79a266581b0e42fa",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1367,
+      "huella": "916cb09b338f09f7",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 79,
+      "huella": "fbefb22273ad8bae",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 202,
+      "huella": "d0484ff2d2b5a3cc",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 645,
+      "huella": "81fde2a0ce3e4ac3",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 179,
+      "huella": "cebcebb93875528f",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 766,
+      "huella": "ec8c6731b3be1738",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1494,
+      "huella": "f73d54e456eb29c9",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 985,
+      "huella": "761560b5e50f4c18",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 551,
+      "huella": "520f65cb032cf180",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1397,
+      "huella": "07f364665bbfaaa0",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 271,
+      "huella": "f936d9c84bbb5e2a",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1071,
+      "huella": "9e62526d83d38ff6",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 411,
+      "huella": "43da0dda92429059",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 685,
+      "huella": "9a1b33b27551b51e",
+      "verdict_normal": "empate",
+      "verdict_swapped": "empate"
+    },
+    {
+      "id": 144,
+      "huella": "91fd78e1c4450380",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 681,
+      "huella": "60dba1f1ee7fec31",
+      "verdict_normal": "empate",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1061,
+      "huella": "ed52a2d310cd4546",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 249,
+      "huella": "0788aa5a02cbe6f2",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1455,
+      "huella": "3b812dc8aacf4f4c",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1297,
+      "huella": "44ffa6db724db97e",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 349,
+      "huella": "ebff04d1878fe6e6",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 828,
+      "huella": "7e78d7cfb80eb7f9",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1349,
+      "huella": "8b08da526319bdb2",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 897,
+      "huella": "b1fcc51e1ff5ec0e",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "empate"
+    },
+    {
+      "id": 1265,
+      "huella": "7d940ccaaf889926",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 621,
+      "huella": "c642a75eaf9b65b6",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1355,
+      "huella": "57bcc324ed7326fa",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 580,
+      "huella": "1026e7009e0bd5ad",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1435,
+      "huella": "aa73516f1fd0d9a3",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 678,
+      "huella": "ccd976a173890a67",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1504,
+      "huella": "7d4b19286d5bc135",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1360,
+      "huella": "375476fe10bb079d",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1515,
+      "huella": "addcad2eb2145e23",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 493,
+      "huella": "6d314023c7662537",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 847,
+      "huella": "dd312efefd832732",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 914,
+      "huella": "a88d2ed12a3d0dc4",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1395,
+      "huella": "1b4ed1076fa3becb",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1377,
+      "huella": "d7a966d90e4de6f1",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1326,
+      "huella": "25c123d84164639c",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 189,
+      "huella": "22d28418276103d0",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 66,
+      "huella": "67f67ffdf6a5bad6",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 318,
+      "huella": "25b3b89dcf28ed32",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 815,
+      "huella": "d70e5b7a916a7bf4",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 994,
+      "huella": "dbdd6e73810b7fe9",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 905,
+      "huella": "e5c7d7549d2de0f4",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 820,
+      "huella": "d5be25736907dc25",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 773,
+      "huella": "582ed3fee294a759",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 554,
+      "huella": "0e4ddab20879e61f",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 875,
+      "huella": "66c360b4b9bc31ad",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 631,
+      "huella": "771836fc98ea86c0",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1289,
+      "huella": "aa21b2bf647e26b7",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 615,
+      "huella": "b212fc6ed44a83d7",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 698,
+      "huella": "057d115d951d2ec3",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 764,
+      "huella": "de30143fee3780ac",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 762,
+      "huella": "03eedbee81de1297",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 165,
+      "huella": "d6e92f9bf858ad33",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 342,
+      "huella": "604bff47fc2a6434",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1223,
+      "huella": "5f1905fc1e672e7b",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "empate"
+    },
+    {
+      "id": 803,
+      "huella": "4240cb0b5943a584",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1156,
+      "huella": "2e89ece9dd5b9b28",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 521,
+      "huella": "ce5f22404092b240",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 753,
+      "huella": "51ba1d7dd1ed9f32",
+      "verdict_normal": "empate",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 638,
+      "huella": "c445532c030b615c",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "empate"
+    },
+    {
+      "id": 1117,
+      "huella": "f3c291f7e6d69f3e",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 541,
+      "huella": "f626da9e58dd644f",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 69,
+      "huella": "9ff2a9dd34260963",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 649,
+      "huella": "25e025db094bd84f",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1535,
+      "huella": "1b1e727c1c4aa6c3",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 961,
+      "huella": "24c3d06edcbc6d7a",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1405,
+      "huella": "d2a138efd2cf99cb",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1428,
+      "huella": "5dbb7c55c2595326",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 51,
+      "huella": "6e858e3bd6989906",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1436,
+      "huella": "c2bf607e268cf1b3",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 236,
+      "huella": "c56bd8b42759fa24",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1170,
+      "huella": "63ddcb43012eab1a",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 346,
+      "huella": "662c902e3e063d04",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 223,
+      "huella": "7df6edc4e16a5411",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1013,
+      "huella": "e3c31631950e5957",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1416,
+      "huella": "261a2efebfe488ba",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "empate"
+    },
+    {
+      "id": 1056,
+      "huella": "29f0dd883f2b866b",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 478,
+      "huella": "07199f90493f3c5c",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1208,
+      "huella": "d71e09eb32aaa800",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 596,
+      "huella": "e891a84f6200d14d",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 48,
+      "huella": "dccb230907e11b4d",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1224,
+      "huella": "09454263277981b7",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 315,
+      "huella": "7adfa7ca5104144e",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 826,
+      "huella": "4af58e2c04054614",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 798,
+      "huella": "5905d16b93bfd409",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 587,
+      "huella": "1a4d66731e9467d6",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1015,
+      "huella": "b6d652752dd1ca24",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 300,
+      "huella": "645b8de7341e9f26",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 170,
+      "huella": "2b226ac412d65e30",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 514,
+      "huella": "f66af0da2108d74a",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1203,
+      "huella": "2ea7f86b7eaba05f",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 540,
+      "huella": "3f0749ceaca31859",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 347,
+      "huella": "805494c257d80092",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 720,
+      "huella": "e6200d65403e922e",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 614,
+      "huella": "eac4fa270b464f7b",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1211,
+      "huella": "4b4e8ecfe0238d04",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 737,
+      "huella": "261a42599a10d1b0",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 517,
+      "huella": "ba49459d5a7f4d6e",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 3,
+      "huella": "2bd3ac758daf1d69",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 269,
+      "huella": "11b1965951b14984",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 670,
+      "huella": "e49ef4b0e9df90ee",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1050,
+      "huella": "c2df3e5706b36ea0",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 616,
+      "huella": "1b0d4d23eacb2873",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 159,
+      "huella": "3020f956e1894745",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 422,
+      "huella": "d7a3c50f6cc740f5",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1032,
+      "huella": "757ede437d445837",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1091,
+      "huella": "8a6d02bca73c2ac6",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 401,
+      "huella": "bf51a9e034fbd0bf",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 376,
+      "huella": "0f5a39538aff8d5c",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1526,
+      "huella": "d193657a4ca6d19a",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1214,
+      "huella": "7be0626a5d07842d",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1029,
+      "huella": "597f0670e207dd63",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 111,
+      "huella": "97a65253e5238e3b",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 93,
+      "huella": "2658e36a8d5b225c",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1384,
+      "huella": "009ca5be8efa2134",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1271,
+      "huella": "0e7ad254bd474d4d",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 690,
+      "huella": "f2a66b472af19d50",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1120,
+      "huella": "20093cc6211e2ea8",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 225,
+      "huella": "54adf428bcd015dc",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 702,
+      "huella": "5b92eef5112142f1",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 496,
+      "huella": "b6b706691ee1d26d",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1279,
+      "huella": "35e75e2da3354454",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 103,
+      "huella": "f30ee8e36dfd58df",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1530,
+      "huella": "7a92f8f99a0421f0",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 382,
+      "huella": "97be6203dc408c02",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 445,
+      "huella": "39f69d8a33610eec",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1138,
+      "huella": "bf0f9a3c48d8246d",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1240,
+      "huella": "22c14dcde8969590",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 261,
+      "huella": "5671d6b853e43d6a",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 320,
+      "huella": "94493cad03f6c49b",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 402,
+      "huella": "9b5c38c2722a850c",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 740,
+      "huella": "8fa2f153b732a8ea",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 862,
+      "huella": "ac1a8166b026bf03",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1023,
+      "huella": "6208e29cfe1546eb",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 525,
+      "huella": "f3df0de948c937e3",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 943,
+      "huella": "7a0265ff0918b5c1",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 506,
+      "huella": "b2a8fa9e7ec3606a",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 919,
+      "huella": "7b1ac1b7390ba331",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1123,
+      "huella": "e41e843f73f04ef0",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 141,
+      "huella": "f205aa5ae331605f",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1194,
+      "huella": "2aef365319c59fa6",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1489,
+      "huella": "686e04d0b43bb04b",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 906,
+      "huella": "b25d98f3b498d153",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1216,
+      "huella": "1dd0c222467f47f3",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1491,
+      "huella": "30cb978c0f828e53",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 863,
+      "huella": "4fe2418a4ebdbbf5",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 844,
+      "huella": "4d36dc1f3ac12c04",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1043,
+      "huella": "56f1f7fa65d1097e",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1081,
+      "huella": "b4c8a8adfbd8036f",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1039,
+      "huella": "19bc303c53f57a96",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1332,
+      "huella": "3b7b80d390ade8a3",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 639,
+      "huella": "05a9c3b6fd63b8ad",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 814,
+      "huella": "84c02eb8142dcf90",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 886,
+      "huella": "39bb0b61d6dac134",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 91,
+      "huella": "d4dfee59331da6f9",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 149,
+      "huella": "72bcda63342e8e7c",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 363,
+      "huella": "820016fdd924cebf",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "empate"
+    },
+    {
+      "id": 42,
+      "huella": "9e3e0b37e2c2e617",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 444,
+      "huella": "ef8cc5f97fb4f4fd",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1110,
+      "huella": "c21a19c1bc3fa072",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1266,
+      "huella": "d67b79c690bd504c",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 751,
+      "huella": "a1eef57ccf62895e",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 129,
+      "huella": "31f6e68648ab2723",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 190,
+      "huella": "1ebaa9a938c6bc7c",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1145,
+      "huella": "9495f27fe9a77bc7",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 246,
+      "huella": "17f3b29e7abc1e5c",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 147,
+      "huella": "33c809b0536951ff",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 910,
+      "huella": "6a05b16642c267d4",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 213,
+      "huella": "82023a98aa08873c",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1283,
+      "huella": "0b48f9bf4ca02d11",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 949,
+      "huella": "6cdf905c60880501",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 399,
+      "huella": "00c0146539d38e74",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1284,
+      "huella": "3ddb5f16cd4cbadd",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 950,
+      "huella": "a9f36f8af4c416bb",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1468,
+      "huella": "7528366d7021d1c5",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 313,
+      "huella": "cd221dabf1ed9815",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1285,
+      "huella": "704ee9085bcc62a0",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 654,
+      "huella": "498d8964b24f708c",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1225,
+      "huella": "1f280b0dcd93d373",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 80,
+      "huella": "8ccab6db7be5a263",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 771,
+      "huella": "45586459102d219a",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1321,
+      "huella": "859e8e06dbf30167",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1514,
+      "huella": "f1b9bb5ad57f5d71",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1095,
+      "huella": "fd97cd10c11d97c6",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1246,
+      "huella": "3ef5d9c7ab49a035",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 854,
+      "huella": "7f920e7fe3ff4124",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1306,
+      "huella": "ce18c9ab65973bde",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 507,
+      "huella": "f8b892c69663db57",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 607,
+      "huella": "dac75a1077ac55e2",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1125,
+      "huella": "dfc984a4323927ba",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1073,
+      "huella": "5c0e50fe1a44555c",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 960,
+      "huella": "5fc65ff9cb69226f",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 834,
+      "huella": "a5926879d52e773a",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 446,
+      "huella": "9086be1876639294",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 976,
+      "huella": "38ebb04baae4e509",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 713,
+      "huella": "2537f86e8265e806",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 462,
+      "huella": "b5dff2c102a739fb",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 606,
+      "huella": "52a34e33823bcb55",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 381,
+      "huella": "eb176420b4bdade5",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 326,
+      "huella": "93873646950199ea",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 118,
+      "huella": "c4648c0bddd1b736",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 730,
+      "huella": "2a21038b356691d7",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1181,
+      "huella": "f1fe204745488817",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 1002,
+      "huella": "e044b48bf0ea2e69",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 975,
+      "huella": "e55306bfcb8c251a",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 930,
+      "huella": "2d27466542c74268",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 476,
+      "huella": "4fa061b9afb6b48f",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 127,
+      "huella": "2593a834296866fa",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 74,
+      "huella": "66540e42b35450da",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 1237,
+      "huella": "eb48bd35554ea1e5",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 438,
+      "huella": "a99a75216fd24fb0",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "empate"
+    },
+    {
+      "id": 1456,
+      "huella": "12bd5aac8c3adbcc",
+      "verdict_normal": "baseline",
+      "verdict_swapped": "baseline"
+    },
+    {
+      "id": 932,
+      "huella": "61d0fd40114c0556",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "fine_tuned"
+    },
+    {
+      "id": 220,
+      "huella": "e90b114a5a3024b6",
+      "verdict_normal": "fine_tuned",
+      "verdict_swapped": "baseline"
+    }
+  ],
+  "veredicto_consistente": {
+    "fine_tuned": 73,
+    "baseline": 106,
+    "empate": 10,
+    "inconsistente": 42,
+    "sin_veredicto": 0
+  },
+  "tasa_victoria": {
+    "fine_tuned": 73,
+    "decididos": 179,
+    "tasa": 0.4078,
+    "ic95": [
+      0.3385,
+      0.481
+    ]
+  }
+}

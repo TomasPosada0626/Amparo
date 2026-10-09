@@ -1,0 +1,21 @@
+{
+  "git_commit": "a43bee8042ddf4403b996f822dcb46dbb441aab4",
+  "random_seed": 42,
+  "val_fraction": 0.15,
+  "n_val": 231,
+  "base_model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "adapter_dir": "/content/drive/MyDrive/Colab Notebooks/Amparo/amparo-lora-adapter",
+  "library_versions": {
+    "transformers": "5.19.0",
+    "peft": "0.21.2",
+    "torch": "2.11.0+cu130",
+    "sacrebleu": "2.6.0",
+    "rouge-score": "0.1.2",
+    "bert-score": "0.3.13"
+  },
+  "hardware": "NVIDIA A100-SXM4-80GB, 81920 MiB",
+  "timestamp": "2026-10-09T14:55:33.038844+00:00",
+  "hash_adaptador": "8ce3cc2bc9306974",
+  "hash_dataset": "5139e86a34de9d24",
+  "hash_eval_set": "a5151999c2095d00"
+}
