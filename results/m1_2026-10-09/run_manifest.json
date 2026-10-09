@@ -1,0 +1,51 @@
+{
+  "modulo": "m1",
+  "timestamp": "2026-10-09T04:09:32+00:00",
+  "git_commit": "7323227",
+  "base_model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "random_seed": 42,
+  "val_fraction": 0.15,
+  "adapter_dir": "/content/drive/MyDrive/Colab Notebooks/Amparo/amparo-lora-adapter",
+  "hash_adaptador": "8ce3cc2bc9306974",
+  "dataset_entrenamiento": "data/dataset_m1_v2.jsonl",
+  "hash_dataset_entrenamiento": "1d14a1e922d5b721",
+  "hash_dataset_v1": "5139e86a34de9d24",
+  "hash_eval_set": "a5151999c2095d00",
+  "n_total": 2291,
+  "n_train": 1957,
+  "n_val": 334,
+  "origenes": {
+    "v1": 1536,
+    "v2": 755
+  },
+  "val_por_origen": {
+    "v1": 231,
+    "v2": 103
+  },
+  "modos_v2": {
+    "B1": 391,
+    "B3": 101,
+    "B2": 263
+  },
+  "hardware": "NVIDIA A100 (variante de memoria no registrada)",
+  "library_versions": null,
+  "reconstruccion": {
+    "nota": "El manifiesto se genero despues, en otra sesion de Colab. Los hashes, los conteos y el commit SI son los de la corrida; el hardware y las versiones de librerias no se pudieron observar y quedan en None en vez de atribuirle a la corrida los de la sesion que genero el archivo.",
+    "git_commit": "7323227, el que imprimio la celda de clonado al entrenar (2026-10-08).",
+    "timestamp": "Hora en que adapter_model.safetensors quedo escrito en Drive.",
+    "hardware": "La GPU la confirmo Tomas: A100, en una sesion distinta de la que genero este archivo. La variante de memoria no quedo registrada en ninguna salida del notebook; la sesion que genero el manifiesto tenia una A100-80GB, que no tiene por que ser la misma. Desde este commit el notebook la registra al entrenar.",
+    "sesion_que_genero_el_archivo": {
+      "generado": "2026-10-09T12:27:54.254089+00:00",
+      "git_commit": "3b51de5caca9a4d29bdd8ae274ec8e07ca08a8a7",
+      "hardware": "NVIDIA A100-SXM4-80GB, 81920 MiB",
+      "library_versions": {
+        "transformers": "5.18.0",
+        "peft": "0.21.1",
+        "torch": "2.11.0+cu130",
+        "sacrebleu": "not-installed",
+        "rouge-score": "not-installed",
+        "bert-score": "not-installed"
+      }
+    }
+  }
+}
