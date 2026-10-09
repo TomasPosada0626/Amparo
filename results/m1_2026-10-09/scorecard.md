@@ -120,3 +120,115 @@ realidad. La medicion que decide es S08/S10 con el retrieval de verdad.
 - `metricas_por_registro.csv`, `metricas_por_categoria.csv`,
   `ejemplos_baseline_vs_afinado.csv`
 - `adapter_config.json`, `run_manifest.json`
+
+---
+
+# Cierre de M1 como v1 — 2026-10-09
+
+Lo que sigue se agrego al cerrar el modulo. No corrige el analisis de arriba:
+lo completa con evidencia que faltaba y con dos cifras que estaban mal medidas.
+
+## Dos cifras corregidas
+
+**Citas: el 27.5 % no era lo que decia.** `has_invented_citation` marca
+cualquier cita numerada, y 103 de los 334 ejemplos de validacion traen
+fragmentos de norma en el prompt, donde citar es lo que se pide. Promediar las
+dos poblaciones no significa nada. Separadas:
+
+| | v1, 231 sin contexto (cita de memoria) | v2, 103 con contexto (cita sin respaldo) | mezclado |
+|---|---|---|---|
+| base | 29/231 = **12.6 %** | 2/103 = 1.9 % | 116/334 = 34.7 % |
+| afinado | **0/231 = 0.0 %** | 3/103 = 2.9 % | 92/334 = 27.5 % |
+
+El afinado **no cita de memoria ni una vez en 231 ejemplos**. La mejora real es
+de 12.6 % a cero, no de 34.7 % a 27.5 %: las 92 que el numero mezclado le
+contaba como inventadas son todas de v2, y solo 3 no estan respaldadas.
+
+**B1 por el juez: 15/55 era un fallo del criterio, no del modelo.** El criterio
+nombraba la norma por su slug (`LEY-1564-2012`) y el juez marcaba mal las citas
+que decian "Codigo General del Proceso". Corregido da **24/55 cumple, 10
+parcial, 21 no cumple**. Sigue siendo malo para casos donde el contexto trae la
+respuesta, y queda como limitacion.
+
+## Integridad de la salida (poblacion: los 334)
+
+Un cuarto modo de fallo, que no estaba contado. Qwen2.5-7B es multilingue con
+pre-entrenamiento mayormente chino e ingles, y el modelo base pierde el idioma:
+
+| | n | deriva de idioma | rompe el rol | turno ficticio | alguno |
+|---|---|---|---|---|---|
+| base | 334 | 4 | 1 | 1 | **4 (1.2 %)** |
+| afinado | 334 | 0 | 0 | 0 | **0 (0.0 %)** |
+
+Casos del base: 910, 4527, 1081, 318. El 910 acumula las tres etiquetas --
+cambia al chino a mitad de palabra, emite `user` y escribe una pregunta
+inventada del usuario. Los cuatro quedan como prueba de regresion en
+`tests/evaluation/test_integridad_salida.py`.
+
+El afinado da cero tambien en otras dos poblaciones: 0/231 en M2 y 0/75 en S10
+con RAG. Son 640 respuestas sin un fallo de integridad. **Cero observado no es
+riesgo cero**: es una base de regresion, no una garantia, y cualquier aparicion
+nueva debe analizarse antes de aprobar una version.
+
+Esta metrica se evalua **aparte** de la correccion juridica y de la
+abstencion, y su denominador son los 334 -- no los 231 que usan las metricas de
+citas. Mezclarlos ya produjo un error una vez.
+
+## Truncamiento: descartado
+
+`MAX_NEW_TOKENS_EVAL = 900`. La respuesta mas larga del afinado son 84 palabras
+(~151 tokens) y la del base 449 (~808). Las tres respuestas del base que no
+terminan en puntuacion **no estaban cortadas**: habian cambiado de idioma. No
+hay evidencia de truncamiento en esta corrida.
+
+Limitacion real: M1 no usa `tools/evaluation/generation.py` y por eso sus
+registros no llevan el campo `cortada`, que M2 y S08 si traen (0 % en ambos).
+La proxima corrida deberia registrarlo en vez de acotarlo por longitud.
+
+## Criterios de cierre
+
+| | |
+|---|---|
+| El entrenamiento hace lo que dice | enmascaramiento verificado: 3472 de 3712 tokens ignorados en el lote inspeccionado |
+| Los datos estan identificados | `dataset_m1_v2.jsonl` `1d14a1e9` (2291 = 1536 v1 + 755 v2); `dataset_legal.jsonl` `5139e86a` firmado aparte; eval set `a5151999`. **No son intercambiables** y el manifiesto los distingue |
+| No hay fuga | `revisar()` bloquea ids repetidos, split faltante, v1 movido de lado y ejemplos v2 de entrenamiento cuya pregunta base esta en validacion |
+| Se puede reproducir | manifiesto con hash de adaptador, dataset, dataset v1 y eval set |
+| Las metricas tienen denominador | ver las tablas de arriba |
+| Las limitaciones estan registradas | abajo |
+
+## Limitaciones de v1, que NO se cierran
+
+1. **No se abstiene cuando el contexto no responde: 0 de 35 en B2**, y cita en
+   25 de esos 35. Es la limitacion critica y **bloquea el uso juridico**,
+   aunque el modulo se cierre como experimento.
+
+   No esta demostrado que sea solo una propiedad del dataset. El desbalance
+   entre ejemplos que ensenan a citar y ejemplos que ensenan a abstenerse es
+   una hipotesis razonable, pero tambien pueden influir como se construyeron
+   los contextos, el objetivo de entrenamiento y lo que el modelo aprendio.
+   **Antes de entrenar una v2 hay que disenar una prueba dirigida** que separe
+   esas causas.
+
+2. **B1 24/55 por el juez**: con el articulo que responde en el contexto,
+   cumple menos de la mitad de las veces.
+
+3. **B3 0/13**: nunca dice que parte de la respuesta no esta respaldada. Con
+   retrieval real esa conducta si aparece (19 de 45 casos en S10), asi que lo
+   que falla puede ser el formato que exige el criterio y no la conducta.
+
+4. **Las perdidas por epoca no quedaron en el notebook.** El historial del
+   `trainer` solo existe en W&B; esa sesion ya no esta, asi que no se puede
+   recuperar imprimiendolo. Se acepta W&B como el registro de esta corrida y la
+   proxima debe guardar `log_history` en el repo.
+
+5. **Dependencias sin fijar**: M1 instala con `pip install -U`. Las versiones
+   reales de esta corrida no quedaron registradas.
+
+## Veredicto
+
+**M1 v1 cerrado como experimento.** El adaptador `8ce3cc2bc9306974` se congela
+y se documenta. **No aprobado para uso juridico** mientras la limitacion 1 siga
+abierta.
+
+Se reabre solo con evidencia nueva: una prueba dirigida sobre la causa de B2, o
+un fallo de regresion en la bateria de integridad.
