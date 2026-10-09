@@ -1,0 +1,55 @@
+{
+  "fine_tuned": {
+    "B1": {
+      "n": 55,
+      "n_total": 55,
+      "sin_veredicto": 0,
+      "cumple": 15,
+      "parcial": 8,
+      "no_cumple": 32,
+      "aprobacion": 0.2727,
+      "aprobacion_ic95": [
+        0.1728,
+        0.4023
+      ],
+      "puntaje_medio": 0.3455,
+      "con_errores_juridicos": 0.6364,
+      "errores_juridicos_total": 65,
+      "con_citas_numeradas": 55
+    },
+    "B2": {
+      "n": 35,
+      "n_total": 35,
+      "sin_veredicto": 0,
+      "cumple": 0,
+      "parcial": 0,
+      "no_cumple": 35,
+      "aprobacion": 0.0,
+      "aprobacion_ic95": [
+        0.0,
+        0.0989
+      ],
+      "puntaje_medio": 0.0,
+      "con_errores_juridicos": 0.7714,
+      "errores_juridicos_total": 53,
+      "con_citas_numeradas": 25
+    },
+    "B3": {
+      "n": 13,
+      "n_total": 13,
+      "sin_veredicto": 0,
+      "cumple": 0,
+      "parcial": 2,
+      "no_cumple": 11,
+      "aprobacion": 0.0,
+      "aprobacion_ic95": [
+        0.0,
+        0.2281
+      ],
+      "puntaje_medio": 0.0769,
+      "con_errores_juridicos": 0.6923,
+      "errores_juridicos_total": 18,
+      "con_citas_numeradas": 12
+    }
+  }
+}

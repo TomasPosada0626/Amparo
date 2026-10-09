@@ -43,17 +43,67 @@ from tools.evaluation import criterio
 from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
 
 
+# Masculinas por el tipo de norma; el resto van con "la".
+_MASCULINAS = ("DECRETO", "ACUERDO", "CODIGO", "ESTATUTO")
+
+
+def _nombres_comunes() -> dict[str, str]:
+    """'LEY-1564-2012' -> 'Codigo General del Proceso', del catalogo del corpus.
+
+    El catalogo lleva el identificador en el nombre de archivo
+    (codigo_general_proceso_ley_1564_2012.md), asi que el slug se busca ahi.
+    Import perezoso y tolerante: si tools.rag no esta disponible, el criterio
+    sale sin el nombre comun en vez de romper la corrida del juez.
+    """
+    try:
+        from tools.rag import corpus
+    except Exception:
+        return {}
+    return {n.filename: n.nombre_comun for n in corpus.NORMAS_EN_ALCANCE if n.nombre_comun}
+
+
+def _norma_legible(slug: str) -> str:
+    """'LEY-820-2003' -> 'la Ley 820 de 2003 (Regimen de arrendamiento...)'.
+
+    Esto no es cosmetica. El 2026-10-09 el criterio nombraba la norma por su
+    slug y el juez marco 22 de 32 fallos de B1 con la forma "cita el articulo
+    314 del Codigo General del Proceso EN LUGAR DE la Ley 1564 de 2012" -- que
+    son la misma norma. El modelo habia citado bien. Nombrando las dos formas,
+    el juez no puede fallar por comparacion de cadenas.
+    """
+    partes = slug.split("-")
+    anio = partes[-1] if partes[-1].isdigit() and len(partes[-1]) == 4 else ""
+    medio = partes[1:-1] if anio else partes[1:]
+    tipo = partes[0]
+    articulo = "el" if tipo.upper().startswith(_MASCULINAS) else "la"
+    cuerpo = " ".join(w if w.isdigit() else w.capitalize() for w in [tipo, *medio])
+    texto = f"{articulo} {cuerpo} de {anio}" if anio else f"{articulo} {cuerpo}"
+
+    comun = next((v for k, v in _nombres_comunes().items()
+                  if slug.lower().replace("-", "_") in k), "")
+    return f"{texto} ({comun})" if comun else texto
+
+
 def _fuentes_legibles(registro: dict) -> str:
-    """'LEY-820-2003:20' -> 'el articulo 20 de LEY-820-2003'."""
+    """'LEY-820-2003:20' -> 'el articulo 20 de la Ley 820 de 2003 (...)'."""
     partes = []
     for f in registro.get("fuentes") or ():
         texto = f if isinstance(f, str) else ":".join(map(str, f))
         if ":" in texto:
             norma, art = texto.rsplit(":", 1)
-            partes.append(f"el articulo {art} de {norma}")
+            partes.append(f"el articulo {art} de {_norma_legible(norma)}")
         else:
             partes.append(texto)
     return " y ".join(partes) if partes else "el articulo que responde"
+
+
+# Se le dice al juez, explicitamente, que las dos formas valen. Sin esta frase
+# el nombre comun en el criterio no basta: el juez sigue exigiendo la que leyo.
+_FORMAS_VALIDAS = (
+    " Nombrar la norma por su nombre comun o por su numero y anio es lo mismo: "
+    "no es un error citar \"el Codigo General del Proceso\" donde el criterio "
+    "dice \"la Ley 1564 de 2012\". Lo que importa es el numero del articulo."
+)
 
 
 def criterio_de_modo(registro: dict) -> str:
@@ -77,12 +127,14 @@ def criterio_de_modo(registro: dict) -> str:
             f"El CONTEXTO respalda solo una parte de la respuesta: {_fuentes_legibles(registro)}. "
             "Debe responder esa parte citando esa norma, y decir explicitamente que la otra "
             "parte no esta respaldada por el contexto. Omitir esa advertencia es incumplir."
+            + _FORMAS_VALIDAS
         )
     return (
         f"El CONTEXTO trae {_fuentes_legibles(registro)}, que es lo que responde la pregunta. "
         "Debe usarlo y citarlo (norma y numero) tal como aparece en el contexto. Citar un "
         "articulo distinto, que no responda la pregunta, es un error: no basta con que el "
         "articulo estuviera en el contexto."
+        + _FORMAS_VALIDAS
     )
 
 

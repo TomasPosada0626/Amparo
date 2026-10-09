@@ -1,0 +1,38 @@
+{
+  "fine_tuned": {
+    "adversarial": {
+      "n": 30,
+      "n_total": 30,
+      "sin_veredicto": 0,
+      "cumple": 8,
+      "parcial": 11,
+      "no_cumple": 11,
+      "aprobacion": 0.2667,
+      "aprobacion_ic95": [
+        0.1418,
+        0.4445
+      ],
+      "puntaje_medio": 0.45,
+      "con_errores_juridicos": 0.4667,
+      "errores_juridicos_total": 29,
+      "con_citas_numeradas": 11
+    },
+    "gold": {
+      "n": 45,
+      "n_total": 45,
+      "sin_veredicto": 0,
+      "cumple": 1,
+      "parcial": 17,
+      "no_cumple": 27,
+      "aprobacion": 0.0222,
+      "aprobacion_ic95": [
+        0.0039,
+        0.1157
+      ],
+      "puntaje_medio": 0.2111,
+      "con_errores_juridicos": 0.6889,
+      "errores_juridicos_total": 63,
+      "con_citas_numeradas": 31
+    }
+  }
+}

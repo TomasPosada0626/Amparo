@@ -57,7 +57,7 @@ def test_en_B2_el_criterio_dice_que_citar_es_error_y_no_acierto_parcial():
 def test_en_B1_el_criterio_nombra_el_articulo_que_responde():
     c = criterio_contexto.criterio_de_modo(B1)
 
-    assert "articulo 20" in c and "LEY-820-2003" in c
+    assert "articulo 20" in c and "Ley 820 de 2003" in c
 
 
 def test_en_B1_no_basta_con_que_el_articulo_estuviera_en_el_contexto():
@@ -129,3 +129,59 @@ def test_un_registro_con_modo_y_criterio_usa_el_del_modo():
     _, con_criterio = criterio_contexto.preparar([dict(B2, criterio="otra cosa")])
 
     assert "error grave" in con_criterio[0]["criterio"]
+
+
+# El 2026-10-09 el criterio nombraba la norma por su slug ('LEY-1564-2012') y
+# el juez marco 22 de 32 fallos de B1 como "cita el Codigo General del Proceso
+# EN LUGAR DE la Ley 1564 de 2012" -- la misma norma. 21 de esos 32 habian
+# citado todos los articulos exigidos: era un fallo del criterio, no del modelo.
+
+
+def test_el_criterio_no_nombra_la_norma_por_su_slug():
+    c = criterio_contexto.criterio_de_modo(B1)
+
+    assert "LEY-820-2003" not in c
+
+
+def test_el_criterio_nombra_la_norma_como_la_citaria_un_abogado():
+    c = criterio_contexto.criterio_de_modo(B1)
+
+    assert "Ley 820 de 2003" in c
+
+
+def test_el_criterio_trae_el_nombre_comun_del_catalogo_del_corpus():
+    """Asi el juez reconoce la cita venga en la forma que venga."""
+    c = criterio_contexto.criterio_de_modo({"modo": "B1", "fuentes": ["LEY-1564-2012:314"]})
+
+    assert "Codigo General del Proceso" in c
+
+
+def test_el_criterio_dice_que_las_dos_formas_valen():
+    """Sin la frase explicita no basta con nombrarlas: el juez sigue exigiendo
+    la que leyo en el criterio."""
+    c = criterio_contexto.criterio_de_modo(B1)
+
+    assert "nombre comun o por su numero y anio es lo mismo" in c
+
+
+def test_un_decreto_va_en_masculino():
+    assert criterio_contexto._norma_legible("DECRETO-2663-1950").startswith("el Decreto 2663 de 1950")
+
+
+def test_una_norma_sin_numero_no_queda_deformada():
+    """'CONSTITUCION-POLITICA-1991' no tiene numero y no esta en el catalogo."""
+    assert criterio_contexto._norma_legible("CONSTITUCION-POLITICA-1991") == \
+        "la Constitucion Politica de 1991"
+
+
+def test_una_norma_fuera_del_catalogo_sigue_siendo_legible():
+    assert criterio_contexto._norma_legible("LEY-9999-2030") == "la Ley 9999 de 2030"
+
+
+def test_B2_no_cambia_al_arreglar_el_nombre_de_las_normas():
+    """B2 no nombra fuentes: su criterio es abstenerse. El 0/35 del 2026-10-09
+    NO es consecuencia de este fallo y el arreglo no puede ablandarlo."""
+    c = criterio_contexto.criterio_de_modo(B2)
+
+    assert "error grave" in c and "NO debe citar" in c
+    assert "nombre comun" not in c
