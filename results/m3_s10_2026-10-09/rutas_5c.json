@@ -1,0 +1,90 @@
+{
+  "referencias (calibracion)": {
+    "gold": {
+      "n_total": 45,
+      "n_orientan": 45,
+      "malas": 0,
+      "pct": 0.0,
+      "ic95": [
+        0.0,
+        7.9
+      ]
+    },
+    "adversarial": {
+      "n_total": 30,
+      "n_orientan": 30,
+      "malas": 0,
+      "pct": 0.0,
+      "ic95": [
+        0.0,
+        11.3
+      ]
+    }
+  },
+  "base sin RAG": {
+    "gold": {
+      "n_total": 45,
+      "n_orientan": 45,
+      "malas": 1,
+      "pct": 2.2,
+      "ic95": [
+        0.4,
+        11.6
+      ]
+    },
+    "adversarial": {
+      "n_total": 30,
+      "n_orientan": 30,
+      "malas": 0,
+      "pct": 0.0,
+      "ic95": [
+        0.0,
+        11.3
+      ]
+    }
+  },
+  "fine-tuned sin RAG": {
+    "gold": {
+      "n_total": 45,
+      "n_orientan": 45,
+      "malas": 2,
+      "pct": 4.4,
+      "ic95": [
+        1.2,
+        14.8
+      ]
+    },
+    "adversarial": {
+      "n_total": 30,
+      "n_orientan": 30,
+      "malas": 1,
+      "pct": 3.3,
+      "ic95": [
+        0.6,
+        16.7
+      ]
+    }
+  },
+  "una_pasada (con RAG)": {
+    "gold": {
+      "n_total": 45,
+      "n_orientan": 18,
+      "malas": 0,
+      "pct": 0.0,
+      "ic95": [
+        0.0,
+        17.6
+      ]
+    },
+    "adversarial": {
+      "n_total": 30,
+      "n_orientan": 6,
+      "malas": 0,
+      "pct": 0.0,
+      "ic95": [
+        0.0,
+        39.0
+      ]
+    }
+  }
+}

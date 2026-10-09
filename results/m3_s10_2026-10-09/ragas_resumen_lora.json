@@ -1,0 +1,31 @@
+{
+  "ragas": {
+    "una_pasada": {
+      "casos": 45,
+      "fallos_parseo": 0,
+      "respuestas_escape": 27,
+      "tokens_juez": 112986,
+      "faithfulness": 0.5099,
+      "n_faithfulness": 18,
+      "context_precision": 0.5582,
+      "n_context_precision": 45,
+      "context_recall": 0.3944,
+      "n_context_recall": 45,
+      "answer_relevancy": 0.3368,
+      "n_answer_relevancy": 45
+    }
+  },
+  "escape": {
+    "una_pasada": {
+      "prudencia_en_adversariales": 1.0,
+      "escape_en_adversariales": 0.8,
+      "escape_en_gold": 0.6,
+      "citas_no_respaldadas_en_gold": 0.0,
+      "n_adversariales": 30,
+      "n_gold": 45
+    }
+  },
+  "latencias": {
+    "una_pasada": 7.934471792373335
+  }
+}

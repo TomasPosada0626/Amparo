@@ -1,0 +1,36 @@
+{
+  "git_commit": "5c884760cbebf0c2d256ba53360faf93a636a2d9",
+  "timestamp": "2026-10-09T18:32:06.057810+00:00",
+  "modulo": "s10",
+  "use_lora": true,
+  "base_model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "adapter_dir": "/content/drive/MyDrive/Colab Notebooks/Amparo/amparo-lora-adapter",
+  "hash_adaptador": "8ce3cc2bc9306974",
+  "hash_indice": "19657d22583f93d0",
+  "hash_metadata_indice": "8cd72136235d6dfe",
+  "hash_corpus": "1c552822959e2932",
+  "hash_dataset": "5139e86a34de9d24",
+  "hash_eval_set": "a5151999c2095d00",
+  "n_chunks": 11975,
+  "n_eval_set": 75,
+  "retrieval": {
+    "embedding_model_id": "intfloat/multilingual-e5-base",
+    "top_k": 5,
+    "retrieval_min_score": 0.81,
+    "max_tokens_per_chunk": 350,
+    "min_tokens_per_chunk": 40,
+    "max_new_tokens_generation": 900
+  },
+  "library_versions": {
+    "transformers": "5.19.0",
+    "peft": "0.21.2",
+    "torch": "2.11.0+cu130",
+    "accelerate": "1.15.0",
+    "bitsandbytes": "0.50.2",
+    "sentence-transformers": "6.1.0",
+    "faiss-cpu": "1.15.1",
+    "rank_bm25": "0.2.2",
+    "dspy": "not-installed"
+  },
+  "hardware": "NVIDIA A100-SXM4-80GB, 81920 MiB"
+}
