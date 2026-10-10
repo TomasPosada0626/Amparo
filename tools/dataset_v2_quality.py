@@ -219,7 +219,14 @@ def analizar(registros: list[dict]) -> dict:
         mejor = indice.parecidos(_pregunta(r), 1)
         if mejor and mejor[0][1] >= eval_set.UMBRAL_PARECIDO:
             eid = ev[mejor[0][0]]["id"]
-            if eid not in eval_set.REVISADAS_DISTINTAS and (r["id"], eid) not in REVISADAS_DISTINTAS_V2:
+            # Una variante contrastiva tiene LA MISMA pregunta que su original,
+            # asi que hereda su revision: si (2006, 9108) ya se reviso a mano y
+            # se dio por distinto, (6004, 9108) es ese mismo texto y no hay nada
+            # nuevo que revisar. Sin herencia la puerta pedia revisar dos veces
+            # la misma frase y marcaba fuga donde no la hay.
+            propio = (r["id"], eid) in REVISADAS_DISTINTAS_V2
+            heredado = r.get("par_de") is not None and (r["par_de"], eid) in REVISADAS_DISTINTAS_V2
+            if eid not in eval_set.REVISADAS_DISTINTAS and not propio and not heredado:
                 fuga.append((r["id"], eid, mejor[0][1]))
 
     # Variedad: un mismo articulo como fuente de muchos ejemplos ensena a
@@ -229,10 +236,20 @@ def analizar(registros: list[dict]) -> dict:
     sobreusados = sorted(f for f, n in usos.items() if n > MAX_USOS_ARTICULO)
     preguntas = [_pregunta(r) for r in registros]
     indice_v2 = IndiceTfidf(preguntas) if len(preguntas) > 1 else None
+    # Un par contrastivo comparte la pregunta A PROPOSITO: es su definicion --
+    # la misma pregunta con un contexto que responde y con uno que no. Esta
+    # puerta busca "el mismo ejemplo dos veces", y un par no lo es: cambia el
+    # contexto y cambia el objetivo. Sin esta exencion la puerta marcaba una
+    # falla por cada variante (418 en el dataset historico, 413 en v3), es
+    # decir, denunciaba la correccion que se le pidio al dataset.
+    pares = {tuple(sorted((r["id"], r["par_de"]))) for r in registros if r.get("par_de")}
     casi_iguales = []
     for i, q in enumerate(preguntas):
         for j, s in (indice_v2.parecidos(q, 3) if indice_v2 else []):
             if j > i and s >= PARECIDO_MAX_V2:
+                par = tuple(sorted((registros[i]["id"], registros[j]["id"])))
+                if par in pares:
+                    continue
                 casi_iguales.append((registros[i]["id"], registros[j]["id"], round(s, 2)))
     # Regla de Tomas: de cada 3 ejemplos, 1 con contexto que no responde (B2).
     n_b2 = sum(1 for r in registros if r["modo"] == "B2")

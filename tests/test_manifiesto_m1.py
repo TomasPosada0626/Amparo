@@ -72,4 +72,13 @@ def test_se_puede_armar_sin_el_stack_de_evaluacion(monkeypatch):
     modulo = importlib.import_module("tools.manifiesto_m1")
     m = modulo.construir("/no/existe")
 
-    assert m["n_total"] == 2709
+    # El conteo va fijo a proposito: es la guardia contra un cambio accidental
+    # del dataset. Si cambia, hay que venir aqui y decir por que.
+    #
+    # 2709 -> 2626 el 2026-10-10, al reconstruir el contexto de los B2 con
+    # `tools.dataset_v3` (REGLA_B2_V3). Salen 83 ejemplos: 78 variantes
+    # contrastivas cuyo contexto traia un articulo contiguo al que se retiro
+    # -- ensenaban a abstenerse con la respuesta delante -- y 11 cuya pregunta
+    # es una urgencia y habrian recibido un escape sin encaminar. Seis variantes
+    # nuevas se pudieron generar donde la regla vieja las descartaba.
+    assert m["n_total"] == 2626

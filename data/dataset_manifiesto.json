@@ -1,0 +1,835 @@
+{
+  "version": "v3",
+  "derivado_de": {
+    "archivo": "data/dataset.jsonl",
+    "revision": "9c9f5a9",
+    "huella": "614b034fd210f7ae"
+  },
+  "commit": "9c9f5a9",
+  "correcciones": [
+    "contexto B2 de los contrastivos con REGLA_B2_V3 (misma categoria, sin el articulo oraculo)",
+    "objetivos de los contrastivos repartidos entre los punteros escritos a mano de su categoria"
+  ],
+  "sin_corregir": [
+    "los 263 B2 escritos a mano conservan la regla historica: falta declarar `excluir:` por caso"
+  ],
+  "huella": "91a871d60eca2097",
+  "composicion": {
+    "riesgo_suficiencia_indirecta": {
+      "AFINIDAD_ALTA_REVISAR": 28,
+      "MISMA_NORMA": 226,
+      "MISMO_CAPITULO": 71
+    },
+    "total": 2626,
+    "train": 2292,
+    "val": 334,
+    "por_origen": {
+      "v1": 1536,
+      "v2": 755,
+      "contrastivo": 335
+    },
+    "por_modo_en_train": {
+      "B1": {
+        "ejemplos": 336,
+        "pct_ejemplos": 14.7,
+        "pct_masa_tokens": 21.6
+      },
+      "B2": {
+        "ejemplos": 563,
+        "pct_ejemplos": 24.6,
+        "pct_masa_tokens": 18.4
+      },
+      "B3": {
+        "ejemplos": 88,
+        "pct_ejemplos": 3.8,
+        "pct_masa_tokens": 5.8
+      },
+      "sin contexto (v1)": {
+        "ejemplos": 1305,
+        "pct_ejemplos": 56.9,
+        "pct_masa_tokens": 54.2
+      }
+    },
+    "contrastivos": {
+      "n": 335,
+      "objetivos_distintos": 261,
+      "objetivo_mas_repetido": 2
+    }
+  },
+  "control_de_fuga": {
+    "train_val_misma_pregunta": [],
+    "train_igual_a_eval_set": [],
+    "contrastivo_de_una_base_en_val": []
+  },
+  "variantes_descartadas": [
+    {
+      "original": 2002,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Arriendo",
+      "pregunta": "Me subieron el canon mas de lo que deberian, es legal?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO arrendamiento_vivienda_urbana_ley_820_2003"
+      ]
+    },
+    {
+      "original": 2003,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Arriendo",
+      "pregunta": "El propietario me subio el canon mucho mas de lo que ha subido el costo de vida, es legal?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO arrendamiento_vivienda_urbana_ley_820_2003"
+      ]
+    },
+    {
+      "original": 2007,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Arriendo",
+      "pregunta": "Quiero que otra persona tome mi lugar como arrendatario del contrato, se puede?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO arrendamiento_vivienda_urbana_ley_820_2003"
+      ]
+    },
+    {
+      "original": 2105,
+      "razon": "URGENCIA_REQUIERE_OBJETIVO_A_MANO",
+      "categoria": "Salud / EPS",
+      "pregunta": "Necesito atencion psiquiatrica urgente y la EPS me da cita para dentro de dos meses."
+    },
+    {
+      "original": 2113,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Salud / EPS",
+      "pregunta": "Necesito que me trasladen a otra ciudad para un tratamiento y la EPS no autoriza la ambulancia.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO estatutaria_salud_ley_1751_2015"
+      ]
+    },
+    {
+      "original": 2201,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Garantias de consumo",
+      "pregunta": "Compre un producto defectuoso y no responden garantia.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO estatuto_consumidor_ley_1480_2011"
+      ]
+    },
+    {
+      "original": 2206,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Garantias de consumo",
+      "pregunta": "Compre un electrodomestico importado y aqui nadie me quiere hacer la garantia.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO estatuto_consumidor_ley_1480_2011"
+      ]
+    },
+    {
+      "original": 2208,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Garantias de consumo",
+      "pregunta": "Pague una garantia extendida aparte y ahora no me la quieren hacer valer.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO estatuto_consumidor_ley_1480_2011"
+      ]
+    },
+    {
+      "original": 2211,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Garantias de consumo",
+      "pregunta": "Un electrodomestico defectuoso se daño y ademas me quemo parte de la cocina.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO estatuto_consumidor_ley_1480_2011"
+      ]
+    },
+    {
+      "original": 2306,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Despido",
+      "pregunta": "Soy representante sindical y me despidieron sin permiso de nadie.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_sustantivo_trabajo_decreto_2663_1950"
+      ]
+    },
+    {
+      "original": 2307,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Despido",
+      "pregunta": "Puse una queja por acoso y a la semana me despidieron.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO acoso_laboral_ley_1010_2006"
+      ]
+    },
+    {
+      "original": 2318,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Despido",
+      "pregunta": "Estaba de vacaciones cuando me llego la carta de despido.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_sustantivo_trabajo_decreto_2663_1950"
+      ]
+    },
+    {
+      "original": 2404,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Relaciones laborales",
+      "pregunta": "No me han pagado la prima de servicios.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_sustantivo_trabajo_decreto_2663_1950"
+      ]
+    },
+    {
+      "original": 2405,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Relaciones laborales",
+      "pregunta": "Llevo años sin que me den vacaciones.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_sustantivo_trabajo_decreto_2663_1950"
+      ]
+    },
+    {
+      "original": 2411,
+      "razon": "URGENCIA_REQUIERE_OBJETIVO_A_MANO",
+      "categoria": "Relaciones laborales",
+      "pregunta": "Mi jefe me amenazo con despedirme si me afilio al sindicato."
+    },
+    {
+      "original": 2412,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Relaciones laborales",
+      "pregunta": "Estoy en huelga con mis compañeros, me van a pagar el salario de esos dias?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_sustantivo_trabajo_decreto_2663_1950"
+      ]
+    },
+    {
+      "original": 2413,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Relaciones laborales",
+      "pregunta": "Estoy en periodo de lactancia y no me dan el tiempo que me corresponde.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_sustantivo_trabajo_decreto_2663_1950"
+      ]
+    },
+    {
+      "original": 2419,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Relaciones laborales",
+      "pregunta": "Estoy en un contrato de aprendizaje y no se que derechos tengo.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_sustantivo_trabajo_decreto_2663_1950"
+      ]
+    },
+    {
+      "original": 2508,
+      "razon": "URGENCIA_REQUIERE_OBJETIVO_A_MANO",
+      "categoria": "Arriendo",
+      "pregunta": "Estoy en una situacion de violencia intrafamiliar y necesito salir del contrato de arriendo antes de tiempo."
+    },
+    {
+      "original": 2605,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Reporte en centrales de riesgo",
+      "pregunta": "Puse un reclamo en la central de riesgo y no me han respondido.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO habeas_data_financiero_ley_1266_2008"
+      ]
+    },
+    {
+      "original": 2606,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Reporte en centrales de riesgo",
+      "pregunta": "Quiero saber que informacion tiene la central de riesgo sobre mi.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO habeas_data_financiero_ley_1266_2008"
+      ]
+    },
+    {
+      "original": 2607,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Reporte en centrales de riesgo",
+      "pregunta": "Me negaron un apartamento en arriendo por salir reportado.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO habeas_data_financiero_ley_1266_2008"
+      ]
+    },
+    {
+      "original": 2608,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Reporte en centrales de riesgo",
+      "pregunta": "Me negaron un trabajo porque revisaron mi reporte y sali con mora.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO habeas_data_financiero_ley_1266_2008"
+      ]
+    },
+    {
+      "original": 2609,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Reporte en centrales de riesgo",
+      "pregunta": "Ya pague la deuda, cuanto tiempo se demoran en actualizar el reporte?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO habeas_data_financiero_ley_1266_2008"
+      ]
+    },
+    {
+      "original": 2610,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Reporte en centrales de riesgo",
+      "pregunta": "Me estan cobrando por consultar mi propio reporte crediticio, eso es legal?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO habeas_data_financiero_ley_1266_2008"
+      ]
+    },
+    {
+      "original": 2613,
+      "razon": "URGENCIA_REQUIERE_OBJETIVO_A_MANO",
+      "categoria": "Reporte en centrales de riesgo",
+      "pregunta": "Una empresa me amenaza con reportarme si no pago en 24 horas."
+    },
+    {
+      "original": 2701,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Accidentes de transito",
+      "pregunta": "No llego ningun agente de transito al accidente, solo hicimos un acuerdo entre los dos conductores.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_nacional_transito_ley_769_2002"
+      ]
+    },
+    {
+      "original": 2702,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Accidentes de transito",
+      "pregunta": "El informe de transito dice algo distinto a lo que realmente paso.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_nacional_transito_ley_769_2002"
+      ]
+    },
+    {
+      "original": 2703,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Accidentes de transito",
+      "pregunta": "Choque con otro carro y los dos nos culpamos mutuamente.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_nacional_transito_ley_769_2002"
+      ]
+    },
+    {
+      "original": 2706,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Accidentes de transito",
+      "pregunta": "Tuve un accidente en moto sin casco, eso me perjudica para reclamar?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_nacional_transito_ley_769_2002"
+      ]
+    },
+    {
+      "original": 2707,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Accidentes de transito",
+      "pregunta": "Tuve un accidente porque se atravesó un animal suelto en la via.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_nacional_transito_ley_769_2002"
+      ]
+    },
+    {
+      "original": 2805,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Embargos",
+      "pregunta": "Quiero pedir que levanten un embargo que tengo.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_general_proceso_ley_1564_2012"
+      ]
+    },
+    {
+      "original": 2808,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Embargos",
+      "pregunta": "Estoy en un proceso de reestructuracion de mis deudas y aun asi me embargaron.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_general_proceso_ley_1564_2012"
+      ]
+    },
+    {
+      "original": 2809,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Embargos",
+      "pregunta": "Me iniciaron un proceso monitorio y no se que es eso.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_general_proceso_ley_1564_2012"
+      ]
+    },
+    {
+      "original": 2901,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Comparendos de transito",
+      "pregunta": "Quiero impugnar un comparendo de transito.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_nacional_transito_ley_769_2002"
+      ]
+    },
+    {
+      "original": 2902,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Comparendos de transito",
+      "pregunta": "Me dijeron que hay descuento si pago rapido el comparendo, como funciona?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_nacional_transito_ley_769_2002"
+      ]
+    },
+    {
+      "original": 2913,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Comparendos de transito",
+      "pregunta": "Me suspendieron la licencia por acumular puntos, puedo hacer algo?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_nacional_transito_ley_769_2002"
+      ]
+    },
+    {
+      "original": 3002,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Acceso a informacion publica",
+      "pregunta": "Me negaron una informacion alegando reserva, pero no me dijeron cual.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO cpaca_ley_1437_2011",
+        "CONTIGUO_AL_ORACULO ley_transparencia_acceso_info_ley_1712_2014"
+      ]
+    },
+    {
+      "original": 3006,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Acceso a informacion publica",
+      "pregunta": "La entidad se esta demorando mas del plazo legal en resolver mi peticion.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO cpaca_ley_1437_2011"
+      ]
+    },
+    {
+      "original": 3101,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Conciliacion prejudicial",
+      "pregunta": "Me dijeron que la conciliacion es un requisito de procedibilidad, no entiendo que significa.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO estatuto_conciliacion_ley_2220_2022"
+      ]
+    },
+    {
+      "original": 3108,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Conciliacion prejudicial",
+      "pregunta": "Que pasa si la otra parte falta dos veces seguidas a la conciliacion?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO estatuto_conciliacion_ley_2220_2022"
+      ]
+    },
+    {
+      "original": 3109,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Conciliacion prejudicial",
+      "pregunta": "Puedo ir a una audiencia de conciliacion sin abogado?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO estatuto_conciliacion_ley_2220_2022"
+      ]
+    },
+    {
+      "original": 3113,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Conciliacion prejudicial",
+      "pregunta": "No se que documentos debo llevar a la audiencia de conciliacion.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO estatuto_conciliacion_ley_2220_2022"
+      ]
+    },
+    {
+      "original": 3203,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Contratacion estatal y facturacion",
+      "pregunta": "Termine un contrato con una entidad publica hace mas de un ano y todavia no lo han liquidado.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO contratacion_estatal_ley_1150_2007"
+      ]
+    },
+    {
+      "original": 3212,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Contratacion estatal y facturacion",
+      "pregunta": "La entidad publica me rechazo la factura electronica sin explicarme por que.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_comercio_decreto_410_1971"
+      ]
+    },
+    {
+      "original": 3213,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Contratacion estatal y facturacion",
+      "pregunta": "La entidad objeta mi factura por un formato incorrecto.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_comercio_decreto_410_1971"
+      ]
+    },
+    {
+      "original": 3304,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Contratos empresariales (B2B)",
+      "pregunta": "Un proveedor no entrego la mercancia a tiempo segun lo pactado.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_comercio_decreto_410_1971"
+      ]
+    },
+    {
+      "original": 3312,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Contratos empresariales (B2B)",
+      "pregunta": "Un cliente empresarial no me paga una factura vencida.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_comercio_decreto_410_1971"
+      ]
+    },
+    {
+      "original": 3403,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Derecho administrativo general",
+      "pregunta": "No se si me aplica el silencio administrativo positivo por la demora de la entidad.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO cpaca_ley_1437_2011"
+      ]
+    },
+    {
+      "original": 3404,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Derecho administrativo general",
+      "pregunta": "La entidad no respondio mi solicitud, entiendo que es silencio negativo, que hago?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO cpaca_ley_1437_2011"
+      ]
+    },
+    {
+      "original": 3409,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Derecho administrativo general",
+      "pregunta": "Me niegan la revocatoria directa de un acto que me afecta.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO cpaca_ley_1437_2011"
+      ]
+    },
+    {
+      "original": 3410,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Derecho administrativo general",
+      "pregunta": "Me impusieron una sancion administrativa sin darme oportunidad de defenderme.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO cpaca_ley_1437_2011"
+      ]
+    },
+    {
+      "original": 3413,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Derecho administrativo general",
+      "pregunta": "Gane un proceso contra una entidad publica y no cumple lo ordenado.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO cpaca_ley_1437_2011"
+      ]
+    },
+    {
+      "original": 3507,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Derecho ambiental sancionatorio",
+      "pregunta": "Me sancionaron por tener animales silvestres sin permiso.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO sancionatorio_ambiental_ley_1333_2009"
+      ]
+    },
+    {
+      "original": 3525,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Derecho ambiental sancionatorio",
+      "pregunta": "Me sancionaron por tener una mascota exotica sin permiso.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO sancionatorio_ambiental_ley_1333_2009"
+      ]
+    },
+    {
+      "original": 3601,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Derecho contractual general",
+      "pregunta": "Me cobraron una clausula penal muy alta.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_civil_ley_84_1873"
+      ]
+    },
+    {
+      "original": 3607,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Derecho contractual general",
+      "pregunta": "Firme un contrato por error, en realidad no queria esos terminos.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_civil_ley_84_1873"
+      ]
+    },
+    {
+      "original": 3705,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Derecho de familia - alimentos",
+      "pregunta": "Mi hijo tiene una discapacidad, hasta cuando le deben pagar alimentos?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_civil_ley_84_1873"
+      ]
+    },
+    {
+      "original": 3707,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Derecho de familia - alimentos",
+      "pregunta": "Me estan denunciando por inasistencia alimentaria, que implica eso?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_penal_ley_599_2000"
+      ]
+    },
+    {
+      "original": 3717,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Derecho de familia - alimentos",
+      "pregunta": "Puedo cobrar la cuota alimentaria de meses atras que nunca me pagaron?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_infancia_adolescencia_ley_1098_2006"
+      ]
+    },
+    {
+      "original": 3809,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Educacion / debido proceso disciplinario",
+      "pregunta": "El colegio no tiene un reglamento escrito de convivencia, sancionan segun lo que crea el director.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO ley_general_educacion_ley_115_1994"
+      ]
+    },
+    {
+      "original": 3903,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Licencias urbanisticas",
+      "pregunta": "Construi sin licencia y ahora quiero legalizar mi construccion.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO ordenamiento_territorial_ley_388_1997"
+      ]
+    },
+    {
+      "original": 4009,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Penal basico y derechos de las victimas",
+      "pregunta": "Un familiar esta detenido y no sabemos donde lo tienen.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_procedimiento_penal_ley_906_2004"
+      ]
+    },
+    {
+      "original": 4018,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Penal basico y derechos de las victimas",
+      "pregunta": "Me acusaron de robo en un almacen y me retuvieron por horas.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO constitucion_politica_1991"
+      ]
+    },
+    {
+      "original": 4101,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Pensiones y seguridad social",
+      "pregunta": "Me niegan pension por semanas faltantes.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO seguridad_social_ley_100_1993"
+      ]
+    },
+    {
+      "original": 4102,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Pensiones y seguridad social",
+      "pregunta": "Me niegan la pension de invalidez.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO seguridad_social_ley_100_1993"
+      ]
+    },
+    {
+      "original": 4103,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Pensiones y seguridad social",
+      "pregunta": "Murio mi conyuge y me niegan la pension de sobrevivientes.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO seguridad_social_ley_100_1993"
+      ]
+    },
+    {
+      "original": 4108,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Pensiones y seguridad social",
+      "pregunta": "No estoy de acuerdo con la calificacion de mi perdida de capacidad laboral.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO seguridad_social_ley_100_1993"
+      ]
+    },
+    {
+      "original": 4204,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Prestamos informales y usura",
+      "pregunta": "Me estan cobrando intereses sobre los intereses que ya debia.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_comercio_decreto_410_1971"
+      ]
+    },
+    {
+      "original": 4205,
+      "razon": "URGENCIA_REQUIERE_OBJETIVO_A_MANO",
+      "categoria": "Prestamos informales y usura",
+      "pregunta": "El prestamista me amenaza con violencia si no pago."
+    },
+    {
+      "original": 4206,
+      "razon": "URGENCIA_REQUIERE_OBJETIVO_A_MANO",
+      "categoria": "Prestamos informales y usura",
+      "pregunta": "El prestamista me amenaza con quitarme mis bienes sin ningun proceso."
+    },
+    {
+      "original": 4207,
+      "razon": "URGENCIA_REQUIERE_OBJETIVO_A_MANO",
+      "categoria": "Prestamos informales y usura",
+      "pregunta": "El prestamista me amenaza con denunciarme falsamente si no pago rapido."
+    },
+    {
+      "original": 4219,
+      "razon": "URGENCIA_REQUIERE_OBJETIVO_A_MANO",
+      "categoria": "Prestamos informales y usura",
+      "pregunta": "El prestamista me amenaza con contarle a toda mi familia sobre la deuda."
+    },
+    {
+      "original": 4301,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Procedimiento civil - recursos",
+      "pregunta": "Quiero saber si puedo apelar una sentencia civil.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_general_proceso_ley_1564_2012"
+      ]
+    },
+    {
+      "original": 4309,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Procedimiento civil - recursos",
+      "pregunta": "Puedo pedir la revision de una sentencia que ya quedo en firme?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_general_proceso_ley_1564_2012"
+      ]
+    },
+    {
+      "original": 4402,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Propiedad intelectual - marcas",
+      "pregunta": "Que es una clase de Niza y por que la piden para registrar una marca?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO propiedad_industrial_decision_486_2000"
+      ]
+    },
+    {
+      "original": 4403,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Propiedad intelectual - marcas",
+      "pregunta": "Alguien presento oposicion a mi solicitud de marca.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO propiedad_industrial_decision_486_2000"
+      ]
+    },
+    {
+      "original": 4406,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Propiedad intelectual - marcas",
+      "pregunta": "Quiero vender o ceder mi marca registrada a otra persona.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO propiedad_industrial_decision_486_2000"
+      ]
+    },
+    {
+      "original": 4409,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Propiedad intelectual - marcas",
+      "pregunta": "Alguien registro la marca de mi negocio antes que yo.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO propiedad_industrial_decision_486_2000"
+      ]
+    },
+    {
+      "original": 4425,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Propiedad intelectual - marcas",
+      "pregunta": "Mi marca caduco por falta de uso, la puedo reactivar?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO propiedad_industrial_decision_486_2000"
+      ]
+    },
+    {
+      "original": 4428,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Propiedad intelectual - marcas",
+      "pregunta": "Abri mi panaderia hace 8 anos con un nombre y ahora otro abrio una con el mismo nombre. Tengo derecho al nombre aunque no lo registre? y cuanto cobra un abogado por esto?",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO propiedad_industrial_decision_486_2000"
+      ]
+    },
+    {
+      "original": 4506,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Propiedad y linderos",
+      "pregunta": "Mi vecino desvio las aguas lluvias de su terreno hacia el mio.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_civil_ley_84_1873"
+      ]
+    },
+    {
+      "original": 4509,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Propiedad y linderos",
+      "pregunta": "La construccion nueva de mi vecino me esta tapando la luz de mi casa.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO codigo_civil_ley_84_1873"
+      ]
+    },
+    {
+      "original": 4602,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Violencia intrafamiliar y medidas de proteccion",
+      "pregunta": "Me dieron una medida de proteccion pero el sigue viniendo a la casa.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO violencia_intrafamiliar_ley_294_1996"
+      ]
+    },
+    {
+      "original": 4605,
+      "razon": "URGENCIA_REQUIERE_OBJETIVO_A_MANO",
+      "categoria": "Violencia intrafamiliar y medidas de proteccion",
+      "pregunta": "Me fui de la casa por la violencia y no tengo donde quedarme."
+    },
+    {
+      "original": 4607,
+      "razon": "URGENCIA_REQUIERE_OBJETIVO_A_MANO",
+      "categoria": "Violencia intrafamiliar y medidas de proteccion",
+      "pregunta": "Mi expareja me esta amenazando de muerte por mensajes."
+    },
+    {
+      "original": 4617,
+      "razon": "URGENCIA_REQUIERE_OBJETIVO_A_MANO",
+      "categoria": "Violencia intrafamiliar y medidas de proteccion",
+      "pregunta": "Necesito que valoren mis golpes pero me da pena ir al medico."
+    },
+    {
+      "original": 4702,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Servicios publicos domiciliarios",
+      "pregunta": "Pague la factura pero igual me suspendieron el servicio.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO servicios_publicos_domiciliarios_ley_142_1994"
+      ]
+    },
+    {
+      "original": 4714,
+      "razon": "CONTIGUO_AL_ORACULO",
+      "categoria": "Servicios publicos domiciliarios",
+      "pregunta": "Me facturan aseo aunque yo no saco basura porque reciclo todo.",
+      "detalle": [
+        "CONTIGUO_AL_ORACULO servicios_publicos_domiciliarios_ley_142_1994"
+      ]
+    }
+  ]
+}
