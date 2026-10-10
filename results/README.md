@@ -21,9 +21,38 @@ Cada uno costo unas 4-5 horas de A100, y **ninguno se borra**: son resultados
 experimentales, no versiones acumuladas del mismo archivo. v1 es el baseline
 contra el que se mide todo y v2 es la prueba de una hipotesis descartada.
 
-Sobra, y se puede borrar: cualquier copia fechada
-(`amparo-lora-adapter-v2-2026-10-10`), que es identica a la carpeta sin fecha
-cuando la corrida se hizo una sola vez.
+Los dos hashes estan **verificados contra Drive** el 2026-10-10, no solo
+leidos del manifiesto:
+
+    amparo-lora-adapter       8ce3cc2bc9306974
+    amparo-lora-adapter-v2    82089e4a0d9612a7
+
+Importa porque Drive mostraba "2 oct" como fecha de modificacion de la carpeta
+de produccion, y el adaptador v1 salio de la corrida del 9: parecia que
+produccion tenia uno viejo y que las mediciones de M2 y M3 no valian. Era la
+fecha de la carpeta sin refrescar. El contenido es el correcto.
+
+Las copias fechadas (`amparo-lora-adapter-2026-10-09` y
+`-v2-2026-10-09`) ya se borraron: eran identicas bit a bit a las carpetas sin
+fecha porque cada corrida se hizo una sola vez.
+
+## Cual esta en produccion, y por que
+
+**v1**, y no porque sea mejor. v2 gana en dos cosas chicas (entidades
+inventadas 3.0 -> 2.7 %, B3 12 -> 13), pierde en dos (B1 55 -> 54, ruta legal
+96.7 -> 95.2 %) y **empata en el fallo que motivo entrenarlo**: B2 0 de 35 en
+los dos.
+
+Cambiar la ruta cuesta: todas las mediciones de M2 y M3 se hicieron con v1, asi
+que el baseline dejaria de existir y habria que recorrer M2, S08 y S10. Y de v2
+no sabemos como se comporta con retrieval real, porque S10 con v2 no se corrio
+-- esa corrida solo tenia sentido si B2 mejoraba.
+
+La decision no esta cerrada. Bajo el criterio acordado el 2026-10-10 --
+conducta y no frase literal -- v2 podria ser mejor: cita menos (25 -> 19) y
+reconoce limites mas seguido (11 -> 14), que es justo lo que premian las tres
+dimensiones. Lo resuelve la revision de `docs/m1_b2_matriz.md`, y si v2 gana
+habria que correr S10 con el antes de adoptarlo.
 
 El proximo adaptador se llamaria `v3`, y el notebook lo toma de la variable
 `ADAPTADOR` en `colab/m1_finetune.ipynb`, con dos `assert` que impiden escribir
