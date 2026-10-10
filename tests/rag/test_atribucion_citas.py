@@ -202,3 +202,15 @@ def test_un_decreto_con_otro_numero_tampoco_se_resuelve():
     salida = citas_atribuidas("El articulo 62 del Decreto 2664 de 1950 lo permite.", [CST])
 
     assert salida == [("", "62")]
+
+
+def test_la_anafora_funciona_con_tildes():
+    """El patron esta escrito sin tildes y el texto las trae: "del mismo
+    codigo" empataba y "del mismo código" no, asi que toda anafora con esa
+    palabra se perdia. Lo destapo el barrido sobre las 70 respuestas, en el
+    caso 4226."""
+    respuesta = ("El artículo 67 del Código de Procedimiento Penal obliga a denunciar, "
+                 "y el artículo 68 del mismo código exime de hacerlo contra la familia.")
+    cpp = "Ley 906 de 2004 (Codigo de Procedimiento Penal)"
+
+    assert citas_atribuidas(respuesta, [cpp]) == [(cpp, "67"), (cpp, "68")]

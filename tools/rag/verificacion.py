@@ -241,7 +241,12 @@ def citas_atribuidas(texto: str, fuentes: Sequence[str] = (),
     for i, m in enumerate(citas):
         tope = citas[i + 1].start() if i + 1 < len(citas) else len(texto or "")
         ventana = (texto or "")[m.end():min(m.end() + _VENTANA_NORMA, tope)]
-        if _PATRON_ANAFORA.match(ventana):
+        # Se normaliza antes de buscar la anafora: el patron esta escrito sin
+        # tildes y el texto las trae. "del mismo codigo" empataba y "del mismo
+        # código" no, asi que toda anafora con esa palabra se perdia -- el caso
+        # 4226, donde el articulo 68 quedaba sin norma pese a venir del mismo
+        # Codigo de Procedimiento Penal que el 67.
+        if _PATRON_ANAFORA.match(_normalizar_texto(ventana)):
             fuente = ultima
         else:
             frase = _frase_de_norma(ventana)

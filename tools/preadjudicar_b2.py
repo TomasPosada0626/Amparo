@@ -11,10 +11,14 @@ queda en revision_juridica=requerida y comparacion_v1_v2=pendiente.
 """
 import csv
 import json
+import pathlib
 import re
 import sys
 
 sys.path.insert(0, '.')
+
+OFICIAL = pathlib.Path("docs/m1_b2_adjudicacion.csv")
+BORRADOR = pathlib.Path("docs/m1_b2_adjudicacion_borrador.csv")
 from tools.adjudicacion_b2 import (COLUMNAS, ORIGEN_PROMPT, commit_matriz,
                                    respuestas, revisar, _normalizar)
 
@@ -25,7 +29,7 @@ PERTINENCIA = {
  "2229": ("insuficiente", "", "El articulo 137 trata fallas en servicios publicos, no una compraventa entre particulares."),
  "2424": ("insuficiente", "", "Los cinco fragmentos son de servicios publicos domiciliarios, no de derechos laborales en mision."),
  "2822": ("insuficiente", "", "Las disposiciones sobre accidentes laborales no permiten determinar si la indemnizacion esta protegida frente a un embargo."),
- "2823": ("insuficiente", "", "El articulo 65 trata salarios y prestaciones impagados, no el embargo de una cuenta sin saldo. HALLAZGO DE CORPUS: el fragmento 5 termina con 'PREGUNTA DEL USUARIO: ...' incrustado en una disposicion derogada sobre competencia desleal."),
+ "2823": ("insuficiente", "", "El articulo 65 trata salarios y prestaciones impagados, no el embargo de una cuenta sin saldo. NOTA: en la matriz el fragmento 5 parece terminar con 'PREGUNTA DEL USUARIO:'; no es contaminacion del corpus sino el separador del propio prompt (prompt_template.py), que quedo pegado al transcribir porque el articulo 32 de la Ley 256 dice solo 'Derogado.'. El modelo recibio el prompt bien formado."),
  "2917": ("insuficiente", "", "Los articulos son del Codigo de Policia; no sustentan por si solos las reglas de una fotomulta por velocidad."),
  "3022": ("insuficiente", "", "Los articulos sobre informacion de animales y deberes de conciliadores no proporcionan el correo solicitado."),
  "3026": ("insuficiente", "", "Las reglas sobre habeas data financiero no determinan si existe esa base de datos."),
@@ -164,13 +168,23 @@ def main():
         filas.append(f)
 
     filas.sort(key=lambda f: int(f["case_id"]))
-    with open('docs/m1_b2_adjudicacion.csv', 'w', encoding='utf-8', newline='') as fh:
+
+    # Por defecto escribe un BORRADOR aparte. El CSV de trabajo puede llevar ya
+    # la revision del abogado, y regenerar sobre el la perderia sin aviso.
+    destino = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else BORRADOR
+    if destino == OFICIAL and "--reemplazar" not in sys.argv:
+        raise SystemExit(
+            f"{OFICIAL.name} es el CSV de trabajo y puede traer la revision "
+            "juridica. Se escribe el borrador en su lugar, o pasa "
+            "--reemplazar si de verdad quieres pisarlo.")
+    with destino.open("w", encoding="utf-8", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=COLUMNAS)
         w.writeheader()
         w.writerows(filas)
-    print(f"escritas {len(filas)} filas")
+    print(f"escritas {len(filas)} filas en {destino}")
     p = revisar(filas, textos=t)
     print("validador:", p if p else "sin problemas")
 
 
-main()
+if __name__ == "__main__":
+    main()
