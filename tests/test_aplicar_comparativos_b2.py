@@ -121,9 +121,10 @@ def test_las_consultas_abiertas_no_se_tocan_en_absoluto(oficial):
 
 
 def test_las_consultas_abiertas_siguen_pendientes(oficial):
+    """Hoy la lista esta vacia: Leonardo aprobo las cuatro el 2026-10-10."""
     despues, _ = aplicar(oficial)
     abiertas = [f for f in despues if f["case_id"] in CONSULTAS_ABIERTAS]
-    assert len(abiertas) == 4
+    assert len(abiertas) == len(CONSULTAS_ABIERTAS)
     for f in abiertas:
         assert f["comparacion_v1_v2"] == "pendiente", f["case_id"]
         assert f["revision_juridica"] == "requerida", f["case_id"]
@@ -134,6 +135,27 @@ def test_cada_consulta_abierta_dice_que_falta_responder():
     for cid, pregunta in CONSULTAS_ABIERTAS.items():
         assert "?" in pregunta, cid
         assert len(pregunta) > 50, cid
+
+
+def test_una_consulta_abierta_deja_su_fila_intacta(oficial, monkeypatch):
+    """El mecanismo de retencion, probado aunque la lista este vacia.
+
+    Se vacio al aprobarse las cuatro, y una prueba que solo recorre una lista
+    vacia no prueba nada. Si una tanda futura deja una consulta sin responder,
+    esto garantiza que su fila no se toca.
+    """
+    import tools.aplicar_comparativos_b2 as mod
+
+    cid = oficial[0]["case_id"]
+    # Retener una consulta es moverla de DICTAMEN a CONSULTAS_ABIERTAS, no
+    # dejarla en los dos: verificar() rechaza ese solapamiento, y con razon.
+    monkeypatch.setattr(mod, "CONSULTAS_ABIERTAS", {cid: "¿pregunta de prueba sin responder, suficientemente larga?"})
+    monkeypatch.setattr(mod, "DICTAMEN", {k: v for k, v in mod.DICTAMEN.items() if k != cid})
+    despues, celdas = mod.aplicar(oficial)
+    assert despues[0] == oficial[0]
+    assert not [c for c in celdas if c[0] == cid]
+    assert despues[0]["comparacion_v1_v2"] == "pendiente"
+    assert mod.verificar(oficial, despues) == []
 
 
 # --- coherencia del resultado --------------------------------------------------
@@ -170,7 +192,7 @@ def test_el_reparto_final_es_el_de_los_dictamenes(oficial):
     cuenta: dict[str, int] = {}
     for f in despues:
         cuenta[f["comparacion_v1_v2"]] = cuenta.get(f["comparacion_v1_v2"], 0) + 1
-    assert cuenta == {"mejora": 12, "empate": 14, "regresion": 5, "pendiente": 4}
+    assert cuenta == {"mejora": 12, "empate": 14, "regresion": 9}
 
 
 def test_verificar_no_encuentra_problemas_en_la_corrida_real(oficial):
@@ -195,11 +217,14 @@ def test_verificar_detecta_que_se_toco_una_etiqueta_aprobada(oficial):
     assert verificar(oficial, despues)
 
 
-def test_verificar_detecta_una_consulta_abierta_cerrada(oficial):
-    despues, _ = aplicar(oficial)
-    i = next(i for i, f in enumerate(despues) if f["case_id"] in CONSULTAS_ABIERTAS)
-    despues[i]["comparacion_v1_v2"] = "regresion"
-    problemas = verificar(oficial, despues)
+def test_verificar_detecta_una_consulta_abierta_cerrada(oficial, monkeypatch):
+    import tools.aplicar_comparativos_b2 as mod
+
+    cid = oficial[0]["case_id"]
+    monkeypatch.setattr(mod, "CONSULTAS_ABIERTAS", {cid: "¿pregunta de prueba sin responder, suficientemente larga?"})
+    despues, _ = mod.aplicar(oficial)
+    despues[0]["comparacion_v1_v2"] = "regresion"
+    problemas = mod.verificar(oficial, despues)
     assert any("consulta abierta" in p for p in problemas)
 
 
@@ -256,7 +281,7 @@ def test_escribir_aplica_y_es_idempotente(copia):
     cuenta: dict[str, int] = {}
     for f in escrito:
         cuenta[f["comparacion_v1_v2"]] = cuenta.get(f["comparacion_v1_v2"], 0) + 1
-    assert cuenta == {"mejora": 12, "empate": 14, "regresion": 5, "pendiente": 4}
+    assert cuenta == {"mejora": 12, "empate": 14, "regresion": 9}
 
     # una segunda corrida no vuelve a cambiar nada
     despues, celdas = aplicar(escrito)

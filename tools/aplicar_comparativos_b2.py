@@ -198,6 +198,31 @@ TANDA4 = {
     "4724": ("empate", "baja",
              "Casi identicas. v2 cita 'el articulo 34 de la misma ley' dos veces con "
              "contenidos distintos."),
+    # Las cuatro que quedaron con consulta abierta y Leonardo aprobo sin
+    # cambiarlas. Ver el bloque CONSULTAS_ABIERTAS.
+    "3327": ("regresion", "media",
+             "Los dos citan el articulo 98 del CST sobre la licencia del agente "
+             "viajero. v1 reconoce que 'No veo en ese articulo la respuesta'; v2 "
+             "afirma que esa licencia 'puede incluir' clausulas de mantenimiento, que "
+             "el articulo no dice. Aprobado como regresion media: la consulta sobre si "
+             "esa licencia admite tales clausulas se resolvio sin elevar la gravedad."),
+    "3822": ("regresion", "media",
+             "v1 cita el articulo 58 (procedimiento de reclamacion), que al menos "
+             "encaja con pedir la motivacion por escrito; v2 cita el articulo 8 sobre "
+             "garantia legal de productos nuevos ante la perdida de una beca. Aprobado "
+             "como regresion media: el regimen de garantias de consumo no da el encaje "
+             "que v2 le supone."),
+    "4128": ("regresion", "baja",
+             "v1 cita el articulo 236 y admite que 'no menciona cobrar dos pensiones'; "
+             "v2 cita el articulo 275 sobre pension de sustitucion y de ahi concluye "
+             "categoricamente 'No lo veo permitido'. Aprobado como regresion baja: el "
+             "articulo no sostiene una conclusion categorica, y la honestidad de v1 "
+             "sobre el limite pesa mas que la cercania tematica de v2."),
+    "4226": ("regresion", "baja",
+             "El articulo 67 dice que 'debe denunciar a la autoridad'. v1 lo repite "
+             "fiel; v2 dice que obliga a denunciar 'ante la Fiscalia', precision que el "
+             "articulo no trae. Aprobado como regresion baja y NO como empate: "
+             "practicamente util, textualmente infiel."),
 }
 
 DICTAMEN = {**TANDA1, **TANDA2Y3, **TANDA4}
@@ -206,16 +231,28 @@ DICTAMEN = {**TANDA1, **TANDA2Y3, **TANDA4}
 # Las cuatro que NO se cierran. Cada una con la pregunta que falta responder,
 # para que se vea que no es un olvido sino una consulta abierta.
 # ---------------------------------------------------------------------------
-CONSULTAS_ABIERTAS = {
-    "3327": "¿Puede la licencia del agente viajero (articulo 98 CST) incluir clausulas "
-            "de mantenimiento, como afirma v2? Si no, la regresion sube a alta.",
-    "4128": "¿El articulo 275 sobre pension de sustitucion permite concluir que no se "
-            "pueden recibir dos pensiones? v2 lo concluye categoricamente.",
-    "4226": "¿Es aceptable precisar 'la Fiscalia' donde el articulo 67 dice 'la "
-            "autoridad'? Si la precision es correcta y util, el caso pasa a empate.",
-    "3822": "¿Tiene algun encaje el regimen de garantias de consumo (articulo 8) con la "
-            "perdida de una beca? v2 lo invoca; v1 usa el articulo 58, mas cercano.",
-}
+CONSULTAS_ABIERTAS: dict[str, str] = {}
+
+# Las cuatro que la tanda 4 dejo con consulta abierta -- 3327, 3822, 4128 y
+# 4226 -- las aprobo Leonardo Galeano el 2026-10-10 **tal como estaban
+# redactadas**, junto con el resto de la tanda. Quedan en TANDA4 con el
+# veredicto del borrador.
+#
+# Lo que se preguntaba en cada una queda registrado aqui, porque la aprobacion
+# sin cambios es una decision y conviene poder leer sobre que se decidio:
+#
+#   3327  ¿Puede la licencia del agente viajero (art. 98 CST) incluir clausulas
+#         de mantenimiento, como afirma v2? Aprobada como regresion media: la
+#         regresion no sube a alta.
+#   4128  ¿El art. 275 sobre pension de sustitucion permite concluir que no se
+#         pueden recibir dos pensiones? Aprobada como regresion baja.
+#   4226  ¿Es aceptable precisar "la Fiscalia" donde el art. 67 dice "la
+#         autoridad"? Aprobada como regresion baja: no pasa a empate.
+#   3822  ¿Tiene encaje el regimen de garantias de consumo (art. 8) con la
+#         perdida de una beca? Aprobada como regresion media.
+#
+# El mecanismo se conserva vacio a proposito: si una tanda futura deja una
+# consulta sin responder, basta anadirla aqui y su fila no se toca.
 
 # Lo unico que esta corrida puede tocar.
 #
