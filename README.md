@@ -41,22 +41,28 @@ y evidencia medida.
 
 | Milestone | Tema | Estado | Artefactos |
 |---|---|:--:|---|
-| **M1** | Fine-tuning (LoRA sobre Qwen2.5-7B-Instruct) | ✅ | `data/dataset_legal.jsonl`, `colab/m1_finetune.ipynb` |
-| **M2** | Harness de evaluación (juez LLM, métricas, sesgos) | ✅ | `tools/evaluation/`, `results/m2_2026-10-06/` |
-| **M3** | RAG: ingenuo (S07) + avanzado (S08) + agéntico (S10) + DSPy | ✅ | `tools/rag/`, `docs/m3_decisiones_rag.md`, `results/m3_s08_busqueda_2026-09-27.md`, `results/m3_s10_rutas_2026-09-27.md` |
+| **M1** | Fine-tuning (LoRA sobre Qwen2.5-7B-Instruct) | ✅ | `data/dataset.jsonl`, `colab/m1_finetune.ipynb` |
+| **M2** | Harness de evaluación (juez LLM, métricas, sesgos) | ✅ | `tools/evaluation/`, `results/m2_2026-10-09/` |
+| **M3** | RAG: búsqueda A/B/C (S08) + de una pasada (S10) | ✅ | `tools/rag/`, `docs/m3_decisiones_rag.md`, `results/m3_s08_2026-10-09/`, `results/m3_s10_2026-10-09/` |
 
-### Resultados de M2 (201 ejemplos de validación)
+### Resultados de M2 (231 ejemplos de validación sin contexto)
 
 | Métrica | Baseline | Fine-tuned |
 |---|---|---|
-| Cumplimiento de "no inventar citas" | 73.6% | **100.0%** |
-| Juez compuesto (1-5) | 4.024 | **4.277** |
-| Similitud léxica | 3.4% | **18.5%** |
-| Latencia (s/consulta) | 12.2 | **4.3** |
+| Juez compuesto (1-5) | 3.47 | **4.121** |
+| Respuestas con error jurídico (juez) | 66.7% | **49.8%** |
+| Cita de memoria (231 sin contexto) | 12.6% | **0.0%** |
+| Entidades inventadas | 11.4% | **3.0%** |
+| Longitud media (palabras) | 224.4 | 45.8 |
 
-El fine-tuning llevó el cumplimiento de no-inventar-citas al 100% en validación.
-El RAG de M3 cierra el paso restante: pasar de "aprendió a no citar" a "cita
-correctamente porque tiene de dónde verificar".
+El fine-tuning eliminó la cita de memoria: cero en 231 ejemplos. Pero hay un
+desacuerdo sin resolver entre jueces -- el compuesto favorece al afinado y el
+cara a cara favorece al baseline (73 contra 106, con 42 pares inconsistentes
+según el orden) -- así que **todavía no se puede afirmar que el afinado sea
+globalmente superior**. Ver `results/README.md`.
+
+El fallo abierto es la abstención: con contexto que no responde la pregunta, el
+modelo cita igual en vez de reconocer el límite. Ver `docs/m1_b2_matriz.md`.
 
 ---
 
@@ -137,9 +143,12 @@ Amparo/
 │   │   ├── tracking.py         #   registro de corridas en W&B (M3 · S10)
 │   │   └── scorecard.py        #   reporte consolidado
 │   ├── model_comparator/       # Herramienta interna de comparación de modelos
-│   └── dataset_to_jsonl.py     # Genera data/dataset_legal.jsonl desde private/ (M1, se corrio una vez)
+│   ├── dataset_build.py        # Arma los ejemplos sin contexto desde data/dataset_src/
+│   └── dataset_v2.py           # Arma los ejemplos con contexto desde data/dataset_src_v2/
 ├── data/
-│   ├── dataset_legal.jsonl     # Dataset de fine-tuning (M1), generado por tools/dataset_to_jsonl.py
+│   ├── dataset.jsonl           # El único dataset: 2709 (1536 sin contexto + 755 con + 418 contrastivas)
+│   ├── dataset_src/            # Fuentes en Markdown de los ejemplos sin contexto
+│   ├── dataset_src_v2/         # Fuentes de los ejemplos con contexto (B1/B2/B3)
 │   ├── eval_set.json           # Eval set propio: gold + adversariales (M2)
 │   └── corpus/normas/          # Corpus de normas colombianas (versionado)
 ├── colab/                      # Notebooks de ejecución (GPU)
@@ -158,12 +167,14 @@ Amparo/
 
 ### El corpus normativo
 
-10 normas colombianas indexadas, que cubren las 9 categorías cotidianas de mayor
-frecuencia del dataset: Constitución de 1991, CPACA (Ley 1437 de 2011), Decreto
-2591 de 1991 (tutela), Ley 100 de 1993 (salud), Código Sustantivo del Trabajo,
-Ley 820 de 2003 (arriendo), Ley 1266 de 2008 (hábeas data financiero), Estatuto
-del Consumidor (Ley 1480 de 2011), Código Nacional de Tránsito (Ley 769 de 2002)
-y Código General del Proceso (Ley 1564 de 2012).
+37 normas colombianas indexadas en 11.975 fragmentos, que cubren las 27
+categorías del dataset. El catálogo con su alcance y sus notas está en
+`tools/rag/corpus.py`; la cobertura por categoría, con lo que falta, en
+`docs/m3_cobertura_corpus.md`.
+
+Pendiente conocido: el Código Sustantivo del Trabajo indexado no incorpora la
+Ley 2466 de 2025, lo que bloquea las consultas laborales afectadas por esa
+reforma.
 
 Resultado: **3.425 chunks, todos con número de artículo**. Fuente: SUIN-Juriscol
 (Ministerio de Justicia), vía un espejo comunitario. Es un espejo, no el Diario

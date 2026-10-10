@@ -63,8 +63,18 @@ class Enrutador:
         from sklearn.pipeline import make_pipeline, make_union
 
         if registros is None:
-            with open(DATASET_PATH, encoding="utf-8") as f:
-                registros = [json.loads(linea) for linea in f if linea.strip()]
+            # SOLO los ejemplos sin contexto. En servicio el enrutador recibe la
+            # consulta sola, asi que entrenarlo con otra cosa es un desajuste
+            # entre entrenamiento y uso.
+            #
+            # Importa porque messages[1] de un ejemplo con contexto NO es la
+            # pregunta: es el bloque CONTEXTO con hasta 5 fragmentos de norma y
+            # la pregunta al final, miles de caracteres. Al unificar el dataset
+            # el 2026-10-10 esto quedo leyendo los 2709 sin filtrar y el
+            # clasificador se habria entrenado con 1173 entradas que nunca ve.
+            from tools.evaluation import dataset as _dataset
+
+            registros = _dataset.load_records(DATASET_PATH, origen="v1")
         preguntas = [_normalizar(r["messages"][1]["content"]) for r in registros]
         categorias = [r["category"] for r in registros]
         modelo = make_pipeline(

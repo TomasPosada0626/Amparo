@@ -72,3 +72,50 @@ def test_retrieve_sin_enrutador_es_el_de_siempre(monkeypatch):
     store = _StoreFijo([_r("a", "cst"), _r("b", "cpaca"), _r("c", "ley820")])
     out = rt.retrieve("q", store, top_k=2, min_score=None, use_router=False)
     assert [r.chunk_id for r in out] == ["a", "b"] and store.pedidos == [2]
+
+
+# --- de que se entrena el clasificador --------------------------------------
+#
+# El 2026-10-10, al unificar los cinco archivos de datos en uno, el enrutador
+# quedo leyendo los 2709 registros sin filtrar. Los 1173 con contexto tienen en
+# messages[1] el bloque CONTEXTO -- hasta 5 fragmentos de norma y la pregunta al
+# final, unos 2100 caracteres -- mientras en servicio recibe la consulta sola,
+# unos 67. Un desajuste de 30x entre entrenamiento y uso que ningun test veia.
+
+def test_se_entrena_solo_con_las_preguntas_sin_contexto():
+    from tools.evaluation import dataset
+    from tools.rag import enrutador as mod
+
+    usados = dataset.load_records(mod.DATASET_PATH, origen="v1")
+    todos = dataset.load_records(mod.DATASET_PATH, origen=None)
+
+    assert len(usados) < len(todos), "deberia filtrar: el dataset trae mas de un origen"
+    assert all(r.get("origen") == "v1" for r in usados)
+
+
+def test_ninguna_entrada_de_entrenamiento_trae_el_bloque_de_contexto():
+    """Si entra un ejemplo con contexto, su messages[1] empieza con 'CONTEXTO:'
+    y el clasificador aprende de un texto que nunca vera."""
+    from tools.evaluation import dataset
+    from tools.rag import enrutador as mod
+
+    entradas = [r["messages"][1]["content"]
+                for r in dataset.load_records(mod.DATASET_PATH, origen="v1")]
+
+    con_contexto = [t[:40] for t in entradas if t.lstrip().startswith("CONTEXTO")]
+    assert con_contexto == [], f"entradas con contexto: {con_contexto[:3]}"
+
+
+def test_las_entradas_son_del_tamano_de_una_consulta_real():
+    """Guarda de magnitud: una consulta ronda los 70 caracteres y un ejemplo
+    con contexto los 2100. Si la media se dispara, se colo otro origen."""
+    import statistics
+
+    from tools.evaluation import dataset
+    from tools.rag import enrutador as mod
+
+    largos = [len(r["messages"][1]["content"])
+              for r in dataset.load_records(mod.DATASET_PATH, origen="v1")]
+
+    assert statistics.mean(largos) < 300, (
+        f"media de {statistics.mean(largos):.0f} caracteres: eso no son consultas sueltas")
