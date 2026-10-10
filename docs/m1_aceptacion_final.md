@@ -337,3 +337,55 @@ eso es la prueba controlada de la seccion 2.
 **La 1 y la 3 cuestan cero y no necesitan GPU.** La 6 no se hace antes de la 1:
 ampliar el entrenamiento con casos de urgencia mientras la metrica premia la
 abstencion sobre la seguridad es entrenar hacia el lado equivocado.
+
+---
+
+# Actualizacion — preparacion de la prueba controlada
+
+Ver `docs/m1_b2_funcional_preparacion.md`. Lo que cambia en esta matriz:
+
+## La fila de B2 se desdobla
+
+| criterio | antes decia | ahora |
+|---|---|---|
+| Abstencion con contexto irrelevante | "FALLIDO en A, SIN EVIDENCIA en B" | **A: 0/35** · **B: 35/35** · **`B2_funcional`: 1/35** · **15 fallos criticos** |
+
+**`B` resulto insuficiente como piso de seguridad, y esta medido:** aprueba los
+35 casos mientras `B2_funcional` aprueba uno. Los 15 fallos criticos son
+`orientacion_no_segura` (12), `excede_con_riesgo_alto` (4) y
+`plazo_sin_respaldo` (1): **ninguno viene de una cita inventada**, que es
+precisamente lo que `B` vigila.
+
+`B` se conserva como comprobacion separada. No se sustituye ni se reinterpreta.
+
+## Las tres cosas siguen separadas, y ninguna esta corregida
+
+| | medido | corregido |
+|---|---|---|
+| Urgencias | si, **0 de 5** seguras | **no** |
+| B2 funcional | linea base **1/35**; con recuperacion real **sin medir** | **no** |
+| Rutas juridicas | si, confirmados base 4 -> v1 6 -> v2 8 | **no** |
+
+## El dictamen no cambia, pero su fundamento si
+
+M1 sigue **abierto**. En el dictamen original dije que B2 no era un bloqueo
+estricto porque el `0/35` era formato y `B` no se habia medido en esos 35.
+**`B` ya se midio y pasa los 35, de modo que no acredita nada**, y
+`B2_funcional` da 1/35 con 15 fallos criticos.
+
+Asi que la lectura se corrige: **B2 no es un fallo de formato.** Es un fallo
+funcional con linea base medida, aunque todavia no con recuperacion real. Sigue
+sin ser el bloqueo mas grave -- las urgencias lo son -- pero deja de ser una
+discrepancia de literal.
+
+## Recomendacion sobre la corrida con GPU
+
+**Todavia no lista**, y no por la GPU. Dos impedimentos, los dos resolubles sin
+consumir recursos:
+
+1. `B2_funcional` depende de `calibracion` y `fundamentacion`, que vienen de la
+   adjudicacion y no se calculan solos: **la corrida no puede puntuarse a si
+   misma** sin una pasada de adjudicacion que el plan no incluye.
+2. El umbral **30/35 mas cero fallos criticos no estaba congelado**. Queda
+   propuesto, con su lectura alternativa, y debe fijarse por escrito antes de
+   ejecutar.
