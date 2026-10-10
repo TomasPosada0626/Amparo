@@ -192,13 +192,15 @@ def _es_continuacion(chunk_meta: dict, articulo: str) -> bool:
 
 
 def medir(indice: Path, metadata: Path, salida: Path) -> int:
-    from tools.rag import pipeline
+    # FaissStore.load directamente y no pipeline.load_index(): este ultimo no
+    # acepta rutas y cargaria el indice de artifacts/, que aqui no existe.
+    from tools.rag.embed_store import FaissStore
     from tools.rag.enrutador import enrutador_por_defecto
     from tools.rag.retrieve import retrieve
 
     etiquetas, cuenta = gold_aprobado()
     casos = {str(c["id"]): c for c in json.loads(EVAL_SET.read_text(encoding="utf-8"))}
-    store = pipeline.load_index(index_path=indice, metadata_path=metadata)
+    store = FaissStore.load(index_path=indice, metadata_path=metadata)
     if len(store.metadata) != N_CHUNKS:
         raise SystemExit(f"el indice tiene {len(store.metadata)} chunks, no {N_CHUNKS}")
     por_chunk = {m["chunk_id"]: m for m in store.metadata}

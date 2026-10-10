@@ -1,0 +1,38 @@
+{
+ "modulo": "auditoria_61",
+ "top_k": 100,
+ "min_score": null,
+ "use_router": true,
+ "huellas_verificadas": {
+  "hash_indice": "19657d22583f93d0",
+  "hash_metadata_indice": "8cd72136235d6dfe",
+  "hash_corpus": "1c552822959e2932",
+  "hash_eval_set": "a5151999c2095d00"
+ },
+ "n_chunks": 11975,
+ "gold": {
+  "archivo": "data\\eval_set_articulos.json",
+  "csv_veredictos": "docs\\m3_articulos_gold_validacion.csv",
+  "huella_csv": "b88c8154c5a852e1",
+  "quitadas_no_responde": 5,
+  "anadidas_omision": 3,
+  "sin_registro_individual": 128
+ },
+ "dependencias": {
+  "python": "3.13.5",
+  "torch": "2.14.1+cpu",
+  "faiss-cpu": "1.15.1",
+  "faiss": "ausente",
+  "transformers": "5.15.0",
+  "numpy": "2.5.2",
+  "rank-bm25": "0.2.2"
+ },
+ "agregado": {
+  "acierto@5": "20/45",
+  "acierto@10": "25/45",
+  "acierto@30": "37/45",
+  "acierto@100": "38/45",
+  "ausente_en_top_100": "7/45",
+  "acierto_solo_por_continuacion": "25/45"
+ }
+}

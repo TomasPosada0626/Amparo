@@ -1,0 +1,1182 @@
+[
+ {
+  "case_id": "9001",
+  "categoria": "Arriendo",
+  "pregunta": "Mi arrendador me subio el canon de arrendamiento el doble de lo que pagaba el año pasado, ¿puede hacer eso?",
+  "gold": {
+   "arrendamiento_vivienda_urbana_ley_820_2003": [
+    "20"
+   ]
+  },
+  "puesto": 1,
+  "solo_por_chunk_de_continuacion": false,
+  "normas_del_top_100": [
+   "arrendamiento_vivienda_urbana_ley_820_2003",
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_general_proceso_ley_1564_2012",
+   "cpaca_ley_1437_2011",
+   "estatuto_consumidor_ley_1480_2011"
+  ]
+ },
+ {
+  "case_id": "9002",
+  "categoria": "Despido",
+  "pregunta": "Renuncie a mi trabajo por presion de mi jefe, pero en el papel dice que fue voluntaria, ¿puedo reclamar algo?",
+  "gold": {
+   "codigo_sustantivo_trabajo_decreto_2663_1950": [
+    "62",
+    "64"
+   ],
+   "acoso_laboral_ley_1010_2006": [
+    "2"
+   ]
+  },
+  "puesto": 5,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "acoso_laboral_ley_1010_2006",
+   "codigo_infancia_adolescencia_ley_1098_2006",
+   "codigo_penal_ley_599_2000",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "tutela_decreto_2591_1991",
+   "violencia_contra_la_mujer_ley_1257_2008"
+  ]
+ },
+ {
+  "case_id": "9004",
+  "categoria": "Salud / EPS",
+  "pregunta": "Mi EPS me autorizo una cirugia pero llevo 3 meses esperando la cita sin que me den fecha, ¿que hago?",
+  "gold": {
+   "estatutaria_salud_ley_1751_2015": [
+    "10",
+    "2",
+    "6"
+   ],
+   "constitucion_politica_1991": [
+    "49",
+    "86"
+   ],
+   "tutela_decreto_2591_1991": [
+    "1"
+   ],
+   "cpaca_ley_1437_2011": [
+    "13",
+    "14"
+   ]
+  },
+  "puesto": 2,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "cpaca_ley_1437_2011",
+   "estatutaria_salud_ley_1751_2015",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "seguridad_social_ley_100_1993",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9005",
+  "categoria": "Garantias de consumo",
+  "pregunta": "Compre un celular hace 8 meses y ya se daño, la tienda dice que la garantia ya no cubre eso, ¿es cierto?",
+  "gold": {
+   "estatuto_consumidor_ley_1480_2011": [
+    "11",
+    "58",
+    "7",
+    "8"
+   ]
+  },
+  "puesto": 3,
+  "solo_por_chunk_de_continuacion": false,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_nacional_transito_ley_769_2002",
+   "codigo_penal_ley_599_2000",
+   "codigo_policia_convivencia_ley_1801_2016",
+   "codigo_procedimiento_penal_ley_906_2004",
+   "constitucion_politica_1991",
+   "contratacion_estatal_ley_1150_2007",
+   "contratacion_estatal_ley_80_1993",
+   "cpaca_ley_1437_2011",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "ley_general_educacion_ley_115_1994",
+   "seguridad_social_ley_100_1993",
+   "servicios_publicos_domiciliarios_ley_142_1994",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9007",
+  "categoria": "Prestamos informales y usura",
+  "pregunta": "Un conocido me presto dinero y me esta cobrando un interes que me parece exagerado, ¿como se si es usura?",
+  "gold": {
+   "codigo_penal_ley_599_2000": [
+    "305"
+   ],
+   "codigo_comercio_decreto_410_1971": [
+    "884"
+   ],
+   "codigo_civil_ley_84_1873": [
+    "2231"
+   ]
+  },
+  "puesto": 9,
+  "solo_por_chunk_de_continuacion": false,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_penal_ley_599_2000",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9009",
+  "categoria": "Acceso a informacion publica",
+  "pregunta": "Le pedi a la alcaldia informacion sobre un contrato publico y me dijeron que es confidencial, ¿pueden negarse asi como asi?",
+  "gold": {
+   "ley_transparencia_acceso_info_ley_1712_2014": [
+    "18",
+    "19",
+    "21",
+    "28"
+   ],
+   "cpaca_ley_1437_2011": [
+    "24",
+    "25"
+   ],
+   "constitucion_politica_1991": [
+    "74"
+   ]
+  },
+  "puesto": 5,
+  "solo_por_chunk_de_continuacion": false,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "ley_transparencia_acceso_info_ley_1712_2014",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9010",
+  "categoria": "Conciliacion prejudicial",
+  "pregunta": "Quiero demandar a mi ex-socio de negocio por un dinero que me debe, ¿tengo que hacer algo antes de ir directo a la demanda?",
+  "gold": {
+   "estatuto_conciliacion_ley_2220_2022": [
+    "67",
+    "68",
+    "70",
+    "71"
+   ],
+   "codigo_general_proceso_ley_1564_2012": [
+    "90"
+   ]
+  },
+  "puesto": null,
+  "solo_por_chunk_de_continuacion": null,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_general_proceso_ley_1564_2012",
+   "codigo_procedimiento_penal_ley_906_2004",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "cpaca_ley_1437_2011",
+   "estatuto_conciliacion_ley_2220_2022",
+   "estatuto_consumidor_ley_1480_2011",
+   "propiedad_industrial_decision_486_2000",
+   "servicios_publicos_domiciliarios_ley_142_1994",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9031",
+  "categoria": "Salud / EPS",
+  "pregunta": "Me pidieron dinero adelantado en urgencias de una clinica para atenderme, ¿pueden hacer eso?",
+  "gold": {
+   "estatutaria_salud_ley_1751_2015": [
+    "14"
+   ],
+   "seguridad_social_ley_100_1993": [
+    "168"
+   ]
+  },
+  "puesto": 1,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "acoso_laboral_ley_1010_2006",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "cpaca_ley_1437_2011",
+   "estatutaria_salud_ley_1751_2015",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "seguridad_social_ley_100_1993",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9032",
+  "categoria": "Salud / EPS",
+  "pregunta": "Mi EPS dice que el tratamiento que me ordeno el medico no esta cubierto por el plan, ¿ya no hay nada que hacer?",
+  "gold": {
+   "estatutaria_salud_ley_1751_2015": [
+    "10",
+    "15"
+   ],
+   "constitucion_politica_1991": [
+    "49"
+   ],
+   "tutela_decreto_2591_1991": [
+    "1"
+   ]
+  },
+  "puesto": 4,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "codigo_penal_ley_599_2000",
+   "codigo_procedimiento_penal_ley_906_2004",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "estatutaria_salud_ley_1751_2015",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "seguridad_social_ley_100_1993"
+  ]
+ },
+ {
+  "case_id": "9033",
+  "categoria": "Despido",
+  "pregunta": "Estoy incapacitado por una cirugia y mi empresa me acaba de despedir, ¿es valido?",
+  "gold": {
+   "discapacidad_estabilidad_reforzada_ley_361_1997": [
+    "26"
+   ]
+  },
+  "puesto": null,
+  "solo_por_chunk_de_continuacion": null,
+  "normas_del_top_100": [
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "cpaca_ley_1437_2011",
+   "seguridad_social_ley_100_1993"
+  ]
+ },
+ {
+  "case_id": "9034",
+  "categoria": "Arriendo",
+  "pregunta": "Mi arrendador me dijo que tengo que irme en una semana porque quiere el apartamento, ¿tengo que hacerlo?",
+  "gold": {
+   "arrendamiento_vivienda_urbana_ley_820_2003": [
+    "22",
+    "23"
+   ],
+   "codigo_general_proceso_ley_1564_2012": [
+    "384"
+   ]
+  },
+  "puesto": 3,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "arrendamiento_vivienda_urbana_ley_820_2003",
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_general_proceso_ley_1564_2012",
+   "cpaca_ley_1437_2011",
+   "estatuto_conciliacion_ley_2220_2022",
+   "propiedad_industrial_decision_486_2000"
+  ]
+ },
+ {
+  "case_id": "9035",
+  "categoria": "Arriendo",
+  "pregunta": "Ya entregue el apartamento y el arrendador no me devuelve el deposito, ¿que hago?",
+  "gold": {
+   "arrendamiento_vivienda_urbana_ley_820_2003": [
+    "16"
+   ]
+  },
+  "puesto": 23,
+  "solo_por_chunk_de_continuacion": false,
+  "normas_del_top_100": [
+   "arrendamiento_vivienda_urbana_ley_820_2003",
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_general_proceso_ley_1564_2012",
+   "codigo_nacional_transito_ley_769_2002",
+   "codigo_procedimiento_penal_ley_906_2004",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "estatuto_conciliacion_ley_2220_2022",
+   "ordenamiento_territorial_ley_388_1997"
+  ]
+ },
+ {
+  "case_id": "9036",
+  "categoria": "Relaciones laborales",
+  "pregunta": "Trabajo muchas horas extra y nunca me las han pagado, ¿que puedo hacer?",
+  "gold": {
+   "codigo_sustantivo_trabajo_decreto_2663_1950": [
+    "159",
+    "160",
+    "168",
+    "179"
+   ]
+  },
+  "puesto": 3,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "acoso_laboral_ley_1010_2006",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "cpaca_ley_1437_2011"
+  ]
+ },
+ {
+  "case_id": "9037",
+  "categoria": "Relaciones laborales",
+  "pregunta": "Mi jefe me grita y me humilla delante de mis compañeros todos los dias, ¿es acoso laboral?",
+  "gold": {
+   "acoso_laboral_ley_1010_2006": [
+    "2",
+    "7",
+    "9"
+   ]
+  },
+  "puesto": 1,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "acoso_laboral_ley_1010_2006",
+   "codigo_infancia_adolescencia_ley_1098_2006",
+   "codigo_penal_ley_599_2000",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "cpaca_ley_1437_2011",
+   "violencia_contra_la_mujer_ley_1257_2008"
+  ]
+ },
+ {
+  "case_id": "9038",
+  "categoria": "Relaciones laborales",
+  "pregunta": "Llevo dos años como contratista, con horario fijo y jefe directo, pero sin prestaciones, ¿puedo reclamar algo?",
+  "gold": {
+   "codigo_sustantivo_trabajo_decreto_2663_1950": [
+    "23",
+    "24"
+   ]
+  },
+  "puesto": null,
+  "solo_por_chunk_de_continuacion": null,
+  "normas_del_top_100": [
+   "acoso_laboral_ley_1010_2006",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "contratacion_estatal_ley_80_1993",
+   "cpaca_ley_1437_2011",
+   "habeas_data_datos_personales_ley_1581_2012"
+  ]
+ },
+ {
+  "case_id": "9039",
+  "categoria": "Reporte en centrales de riesgo",
+  "pregunta": "Pague una deuda hace seis años y todavia aparezco reportado en las centrales de riesgo, ¿eso es legal?",
+  "gold": {
+   "habeas_data_financiero_ley_1266_2008": [
+    "13"
+   ]
+  },
+  "puesto": 14,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "arrendamiento_vivienda_urbana_ley_820_2003",
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_general_proceso_ley_1564_2012",
+   "codigo_infancia_adolescencia_ley_1098_2006",
+   "codigo_nacional_transito_ley_769_2002",
+   "codigo_penal_ley_599_2000",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "constitucion_politica_1991",
+   "contratacion_estatal_ley_80_1993",
+   "cpaca_ley_1437_2011",
+   "estatuto_conciliacion_ley_2220_2022",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "habeas_data_financiero_ley_1266_2008",
+   "propiedad_industrial_decision_486_2000",
+   "seguridad_social_ley_100_1993",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9040",
+  "categoria": "Accidentes de transito",
+  "pregunta": "Tuve un accidente de moto y el hospital dice que el SOAT no cubre mis gastos, ¿es cierto?",
+  "gold": {
+   "seguridad_social_ley_100_1993": [
+    "167"
+   ]
+  },
+  "puesto": 6,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_nacional_transito_ley_769_2002",
+   "cpaca_ley_1437_2011",
+   "estatutaria_salud_ley_1751_2015",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "seguridad_social_ley_100_1993"
+  ]
+ },
+ {
+  "case_id": "9041",
+  "categoria": "Embargos",
+  "pregunta": "Me embargaron la cuenta de nomina y era mi salario del mes, ¿eso se puede?",
+  "gold": {
+   "codigo_sustantivo_trabajo_decreto_2663_1950": [
+    "154",
+    "155",
+    "156"
+   ],
+   "codigo_general_proceso_ley_1564_2012": [
+    "594"
+   ]
+  },
+  "puesto": 2,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "acoso_laboral_ley_1010_2006",
+   "codigo_general_proceso_ley_1564_2012",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011"
+  ]
+ },
+ {
+  "case_id": "9042",
+  "categoria": "Comparendos de transito",
+  "pregunta": "Me llego una fotomulta de una infraccion de hace casi un ano y nunca me notificaron antes, ¿tengo que pagarla?",
+  "gold": {
+   "codigo_nacional_transito_ley_769_2002": [
+    "135",
+    "161"
+   ]
+  },
+  "puesto": 54,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "arrendamiento_vivienda_urbana_ley_820_2003",
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_general_proceso_ley_1564_2012",
+   "codigo_nacional_transito_ley_769_2002",
+   "codigo_penal_ley_599_2000",
+   "codigo_policia_convivencia_ley_1801_2016",
+   "codigo_procedimiento_penal_ley_906_2004",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "cpaca_ley_1437_2011",
+   "estatuto_conciliacion_ley_2220_2022",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "habeas_data_financiero_ley_1266_2008",
+   "propiedad_industrial_decision_486_2000",
+   "sancionatorio_ambiental_ley_1333_2009",
+   "servicios_publicos_domiciliarios_ley_142_1994",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9043",
+  "categoria": "Garantias de consumo",
+  "pregunta": "Compre unos zapatos por internet y no me gustaron, ¿puedo devolverlos y que me devuelvan la plata?",
+  "gold": {
+   "estatuto_consumidor_ley_1480_2011": [
+    "47"
+   ]
+  },
+  "puesto": 11,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_general_proceso_ley_1564_2012",
+   "codigo_penal_ley_599_2000",
+   "codigo_procedimiento_penal_ley_906_2004",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "cpaca_ley_1437_2011",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "ordenamiento_territorial_ley_388_1997"
+  ]
+ },
+ {
+  "case_id": "9044",
+  "categoria": "Derecho de familia - alimentos",
+  "pregunta": "Mi ex pareja paga una cuota de alimentos muy baja y ahora mi hija necesita mas, ¿se puede aumentar?",
+  "gold": {
+   "codigo_infancia_adolescencia_ley_1098_2006": [
+    "111",
+    "129"
+   ],
+   "codigo_civil_ley_84_1873": [
+    "411",
+    "422"
+   ]
+  },
+  "puesto": 1,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_infancia_adolescencia_ley_1098_2006",
+   "codigo_penal_ley_599_2000",
+   "comisarias_de_familia_ley_2126_2021",
+   "cpaca_ley_1437_2011",
+   "seguridad_social_ley_100_1993"
+  ]
+ },
+ {
+  "case_id": "9045",
+  "categoria": "Accion de tutela",
+  "pregunta": "Un banco me bloqueo la cuenta sin explicacion, ¿puedo poner una tutela contra un banco aunque sea una empresa privada?",
+  "gold": {
+   "tutela_decreto_2591_1991": [
+    "42"
+   ],
+   "constitucion_politica_1991": [
+    "86"
+   ]
+  },
+  "puesto": 1,
+  "solo_por_chunk_de_continuacion": false,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9046",
+  "categoria": "Derecho de peticion",
+  "pregunta": "Le mande un derecho de peticion a una empresa de telefonia y no me responden, ¿que hago?",
+  "gold": {
+   "cpaca_ley_1437_2011": [
+    "14",
+    "32"
+   ],
+   "constitucion_politica_1991": [
+    "23"
+   ]
+  },
+  "puesto": 11,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "acoso_laboral_ley_1010_2006",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9048",
+  "categoria": "Derecho penal - denuncia",
+  "pregunta": "Me estafaron: hice una transferencia por una compra en internet y el vendedor desaparecio, ¿que hago?",
+  "gold": {
+   "codigo_penal_ley_599_2000": [
+    "246",
+    "269-J"
+   ],
+   "codigo_procedimiento_penal_ley_906_2004": [
+    "67",
+    "69"
+   ]
+  },
+  "puesto": null,
+  "solo_por_chunk_de_continuacion": null,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_general_proceso_ley_1564_2012",
+   "codigo_penal_ley_599_2000",
+   "codigo_procedimiento_penal_ley_906_2004",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "cpaca_ley_1437_2011",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "habeas_data_financiero_ley_1266_2008",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9049",
+  "categoria": "Derecho comercial",
+  "pregunta": "Vendo ropa por Instagram desde mi casa, ¿tengo que registrar mi negocio en la Camara de Comercio?",
+  "gold": {
+   "codigo_comercio_decreto_410_1971": [
+    "10",
+    "13",
+    "19",
+    "26",
+    "28"
+   ]
+  },
+  "puesto": null,
+  "solo_por_chunk_de_continuacion": null,
+  "normas_del_top_100": [
+   "codigo_comercio_decreto_410_1971",
+   "codigo_policia_convivencia_ley_1801_2016",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "propiedad_industrial_decision_486_2000",
+   "servicios_publicos_domiciliarios_ley_142_1994"
+  ]
+ },
+ {
+  "case_id": "9050",
+  "categoria": "Derecho comercial",
+  "pregunta": "Recibi un cheque como pago y el banco lo devolvio por falta de fondos, ¿que puedo hacer?",
+  "gold": {
+   "codigo_comercio_decreto_410_1971": [
+    "712",
+    "730",
+    "731",
+    "784",
+    "793"
+   ],
+   "codigo_general_proceso_ley_1564_2012": [
+    "422"
+   ]
+  },
+  "puesto": 15,
+  "solo_por_chunk_de_continuacion": false,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_general_proceso_ley_1564_2012",
+   "codigo_penal_ley_599_2000",
+   "codigo_procedimiento_penal_ley_906_2004",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "cpaca_ley_1437_2011",
+   "estatuto_conciliacion_ley_2220_2022",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_financiero_ley_1266_2008",
+   "seguridad_social_ley_100_1993"
+  ]
+ },
+ {
+  "case_id": "9051",
+  "categoria": "Relaciones laborales",
+  "pregunta": "Mi jefe me paso a turnos de noche de un dia para otro y yo tengo un hijo de dos anos.",
+  "gold": {
+   "codigo_sustantivo_trabajo_decreto_2663_1950": [
+    "158",
+    "160",
+    "57"
+   ],
+   "acoso_laboral_ley_1010_2006": [
+    "7"
+   ]
+  },
+  "puesto": 16,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "acoso_laboral_ley_1010_2006",
+   "codigo_infancia_adolescencia_ley_1098_2006",
+   "codigo_penal_ley_599_2000",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "violencia_intrafamiliar_ley_294_1996"
+  ]
+ },
+ {
+  "case_id": "9052",
+  "categoria": "Reporte en centrales de riesgo",
+  "pregunta": "Pague una deuda hace anos y ahora me la volvieron a reportar como si fuera nueva.",
+  "gold": {
+   "habeas_data_financiero_ley_1266_2008": [
+    "13",
+    "16",
+    "8"
+   ]
+  },
+  "puesto": 3,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_general_proceso_ley_1564_2012",
+   "codigo_nacional_transito_ley_769_2002",
+   "codigo_penal_ley_599_2000",
+   "constitucion_politica_1991",
+   "contratacion_estatal_ley_80_1993",
+   "cpaca_ley_1437_2011",
+   "estatuto_conciliacion_ley_2220_2022",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "habeas_data_financiero_ley_1266_2008",
+   "seguridad_social_ley_100_1993"
+  ]
+ },
+ {
+  "case_id": "9053",
+  "categoria": "Reporte en centrales de riesgo",
+  "pregunta": "Me reportaron por una deuda de la empresa donde fui representante legal, no es mia.",
+  "gold": {
+   "habeas_data_financiero_ley_1266_2008": [
+    "16",
+    "7",
+    "8"
+   ],
+   "codigo_comercio_decreto_410_1971": [
+    "98"
+   ]
+  },
+  "puesto": 5,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "habeas_data_financiero_ley_1266_2008"
+  ]
+ },
+ {
+  "case_id": "9054",
+  "categoria": "Accidentes de transito",
+  "pregunta": "Me chocaron el carro estando parqueado y el otro conductor dejo una nota con su numero.",
+  "gold": {
+   "codigo_nacional_transito_ley_769_2002": [
+    "143",
+    "144"
+   ],
+   "codigo_civil_ley_84_1873": [
+    "2341",
+    "2356"
+   ]
+  },
+  "puesto": 2,
+  "solo_por_chunk_de_continuacion": false,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_nacional_transito_ley_769_2002",
+   "codigo_penal_ley_599_2000",
+   "codigo_procedimiento_penal_ley_906_2004",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "habeas_data_datos_personales_ley_1581_2012"
+  ]
+ },
+ {
+  "case_id": "9055",
+  "categoria": "Accidentes de transito",
+  "pregunta": "Iba de pasajero en un taxi que se accidento y quede lesionado, a quien le reclamo?",
+  "gold": {
+   "codigo_comercio_decreto_410_1971": [
+    "1003",
+    "982"
+   ]
+  },
+  "puesto": null,
+  "solo_por_chunk_de_continuacion": null,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_nacional_transito_ley_769_2002",
+   "cpaca_ley_1437_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "habeas_data_financiero_ley_1266_2008",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9056",
+  "categoria": "Embargos",
+  "pregunta": "Me llego un embargo del juzgado pero el nombre y la cedula no son los mios, solo se parecen.",
+  "gold": {
+   "codigo_general_proceso_ley_1564_2012": [
+    "597"
+   ]
+  },
+  "puesto": 10,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "codigo_general_proceso_ley_1564_2012",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "servicios_publicos_domiciliarios_ley_142_1994",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9057",
+  "categoria": "Embargos",
+  "pregunta": "Soy codeudor de un credito y me embargaron sin avisarme nada antes.",
+  "gold": {
+   "codigo_general_proceso_ley_1564_2012": [
+    "133",
+    "290",
+    "291",
+    "292"
+   ]
+  },
+  "puesto": 21,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "arrendamiento_vivienda_urbana_ley_820_2003",
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_general_proceso_ley_1564_2012",
+   "codigo_penal_ley_599_2000",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "habeas_data_financiero_ley_1266_2008"
+  ]
+ },
+ {
+  "case_id": "9058",
+  "categoria": "Educacion / debido proceso disciplinario",
+  "pregunta": "Expulsaron a mi hijo del colegio por un video que circulo, sin llamarnos a nosotros antes.",
+  "gold": {
+   "ley_general_educacion_ley_115_1994": [
+    "132",
+    "87",
+    "96"
+   ],
+   "convivencia_escolar_ley_1620_2013": [
+    "21"
+   ]
+  },
+  "puesto": null,
+  "solo_por_chunk_de_continuacion": null,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_infancia_adolescencia_ley_1098_2006",
+   "codigo_penal_ley_599_2000",
+   "comisarias_de_familia_ley_2126_2021",
+   "constitucion_politica_1991",
+   "convivencia_escolar_ley_1620_2013",
+   "cpaca_ley_1437_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "ley_general_educacion_ley_115_1994"
+  ]
+ },
+ {
+  "case_id": "9059",
+  "categoria": "Derecho contractual general",
+  "pregunta": "Firme un contrato de servicios y ahora me cobran una penalidad que no estaba en lo que me mostraron.",
+  "gold": {
+   "estatuto_consumidor_ley_1480_2011": [
+    "37",
+    "38",
+    "42",
+    "43"
+   ]
+  },
+  "puesto": 2,
+  "solo_por_chunk_de_continuacion": false,
+  "normas_del_top_100": [
+   "arrendamiento_vivienda_urbana_ley_820_2003",
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_general_proceso_ley_1564_2012",
+   "codigo_penal_ley_599_2000",
+   "codigo_procedimiento_penal_ley_906_2004",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "competencia_desleal_ley_256_1996",
+   "constitucion_politica_1991",
+   "contratacion_estatal_ley_1150_2007",
+   "contratacion_estatal_ley_80_1993",
+   "cpaca_ley_1437_2011",
+   "estatuto_conciliacion_ley_2220_2022",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "seguridad_social_ley_100_1993",
+   "servicios_publicos_domiciliarios_ley_142_1994"
+  ]
+ },
+ {
+  "case_id": "9060",
+  "categoria": "Contratacion estatal y facturacion",
+  "pregunta": "Soy contratista del municipio y me piden firmar actas de recibo de obras que todavia no se han hecho.",
+  "gold": {
+   "contratacion_estatal_ley_80_1993": [
+    "26",
+    "5",
+    "52"
+   ],
+   "codigo_penal_ley_599_2000": [
+    "286",
+    "287"
+   ]
+  },
+  "puesto": 12,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "codigo_comercio_decreto_410_1971",
+   "constitucion_politica_1991",
+   "contratacion_estatal_ley_1150_2007",
+   "contratacion_estatal_ley_80_1993",
+   "cpaca_ley_1437_2011",
+   "ley_transparencia_acceso_info_ley_1712_2014"
+  ]
+ },
+ {
+  "case_id": "9061",
+  "categoria": "Derecho ambiental sancionatorio",
+  "pregunta": "La empresa vecina hace ruido toda la noche y dice que tiene permiso ambiental.",
+  "gold": {
+   "codigo_policia_convivencia_ley_1801_2016": [
+    "33"
+   ],
+   "sancionatorio_ambiental_ley_1333_2009": [
+    "1",
+    "5"
+   ]
+  },
+  "puesto": 17,
+  "solo_por_chunk_de_continuacion": false,
+  "normas_del_top_100": [
+   "acoso_laboral_ley_1010_2006",
+   "arrendamiento_vivienda_urbana_ley_820_2003",
+   "codigo_civil_ley_84_1873",
+   "codigo_nacional_transito_ley_769_2002",
+   "codigo_penal_ley_599_2000",
+   "codigo_policia_convivencia_ley_1801_2016",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "constitucion_politica_1991",
+   "contratacion_estatal_ley_80_1993",
+   "cpaca_ley_1437_2011",
+   "ordenamiento_territorial_ley_388_1997",
+   "propiedad_industrial_decision_486_2000",
+   "sancionatorio_ambiental_ley_1333_2009",
+   "servicios_publicos_domiciliarios_ley_142_1994",
+   "violencia_intrafamiliar_ley_294_1996"
+  ]
+ },
+ {
+  "case_id": "9062",
+  "categoria": "Pensiones y seguridad social",
+  "pregunta": "Trabaje quince anos con varios empleadores y en mi historia laboral faltan semanas.",
+  "gold": {
+   "seguridad_social_ley_100_1993": [
+    "17",
+    "22",
+    "23",
+    "24",
+    "33"
+   ]
+  },
+  "puesto": 30,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "acoso_laboral_ley_1010_2006",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "seguridad_social_ley_100_1993"
+  ]
+ },
+ {
+  "case_id": "9063",
+  "categoria": "Pensiones y seguridad social",
+  "pregunta": "Me pensionaron por un valor mucho menor al que yo calculaba y no me explican el calculo.",
+  "gold": {
+   "seguridad_social_ley_100_1993": [
+    "21",
+    "34"
+   ],
+   "cpaca_ley_1437_2011": [
+    "74",
+    "76"
+   ]
+  },
+  "puesto": 9,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "seguridad_social_ley_100_1993"
+  ]
+ },
+ {
+  "case_id": "9064",
+  "categoria": "Derecho administrativo general",
+  "pregunta": "Le pedi una informacion a la alcaldia y me respondieron algo que no tiene nada que ver con lo que pregunte.",
+  "gold": {
+   "cpaca_ley_1437_2011": [
+    "13",
+    "14"
+   ],
+   "constitucion_politica_1991": [
+    "23"
+   ]
+  },
+  "puesto": 21,
+  "solo_por_chunk_de_continuacion": false,
+  "normas_del_top_100": [
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "ley_transparencia_acceso_info_ley_1712_2014",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9065",
+  "categoria": "Propiedad intelectual - marcas",
+  "pregunta": "Un competidor registro un nombre casi igual al mio y yo llevo anos usandolo sin registrar.",
+  "gold": {
+   "propiedad_industrial_decision_486_2000": [
+    "136",
+    "146",
+    "154",
+    "172"
+   ]
+  },
+  "puesto": 1,
+  "solo_por_chunk_de_continuacion": false,
+  "normas_del_top_100": [
+   "competencia_desleal_ley_256_1996",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "propiedad_industrial_decision_486_2000",
+   "servicios_publicos_domiciliarios_ley_142_1994"
+  ]
+ },
+ {
+  "case_id": "9066",
+  "categoria": "Licencias urbanisticas",
+  "pregunta": "Mi vecino amplio su casa invadiendo el antejardin y la alcaldia no responde mis quejas.",
+  "gold": {
+   "ordenamiento_territorial_ley_388_1997": [
+    "103",
+    "99"
+   ],
+   "codigo_policia_convivencia_ley_1801_2016": [
+    "135",
+    "140",
+    "79"
+   ]
+  },
+  "puesto": 1,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "arrendamiento_vivienda_urbana_ley_820_2003",
+   "codigo_civil_ley_84_1873",
+   "codigo_policia_convivencia_ley_1801_2016",
+   "constitucion_politica_1991",
+   "cpaca_ley_1437_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9067",
+  "categoria": "Contratos empresariales (B2B)",
+  "pregunta": "El distribuidor esta vendiendo mi producto en una ciudad donde yo le di la exclusividad a otro.",
+  "gold": {
+   "codigo_comercio_decreto_410_1971": [
+    "1317",
+    "1318",
+    "1319"
+   ],
+   "codigo_civil_ley_84_1873": [
+    "1546",
+    "1602",
+    "1613"
+   ]
+  },
+  "puesto": 2,
+  "solo_por_chunk_de_continuacion": false,
+  "normas_del_top_100": [
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "cpaca_ley_1437_2011",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_datos_personales_ley_1581_2012"
+  ]
+ },
+ {
+  "case_id": "9068",
+  "categoria": "Procedimiento civil - recursos",
+  "pregunta": "Perdi en primera instancia y mi abogado no apelo dentro del tiempo.",
+  "gold": {
+   "codigo_general_proceso_ley_1564_2012": [
+    "302",
+    "322"
+   ]
+  },
+  "puesto": 22,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "codigo_general_proceso_ley_1564_2012",
+   "cpaca_ley_1437_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "tutela_decreto_2591_1991"
+  ]
+ },
+ {
+  "case_id": "9069",
+  "categoria": "Procedimiento civil - recursos",
+  "pregunta": "Me notificaron por un correo electronico que yo nunca autorice para eso.",
+  "gold": {
+   "codigo_general_proceso_ley_1564_2012": [
+    "133",
+    "291"
+   ]
+  },
+  "puesto": 9,
+  "solo_por_chunk_de_continuacion": true,
+  "normas_del_top_100": [
+   "acoso_laboral_ley_1010_2006",
+   "arrendamiento_vivienda_urbana_ley_820_2003",
+   "codigo_civil_ley_84_1873",
+   "codigo_comercio_decreto_410_1971",
+   "codigo_general_proceso_ley_1564_2012",
+   "codigo_penal_ley_599_2000",
+   "codigo_policia_convivencia_ley_1801_2016",
+   "codigo_procesal_trabajo_ley_2452_2025",
+   "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "constitucion_politica_1991",
+   "contratacion_estatal_ley_80_1993",
+   "cpaca_ley_1437_2011",
+   "estatuto_conciliacion_ley_2220_2022",
+   "estatuto_consumidor_ley_1480_2011",
+   "habeas_data_datos_personales_ley_1581_2012",
+   "ley_general_educacion_ley_115_1994",
+   "propiedad_industrial_decision_486_2000",
+   "seguridad_social_ley_100_1993",
+   "servicios_publicos_domiciliarios_ley_142_1994",
+   "tutela_decreto_2591_1991",
+   "violencia_intrafamiliar_ley_294_1996"
+  ]
+ }
+]
