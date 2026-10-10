@@ -137,3 +137,56 @@ def test_el_notebook_no_afirma_una_composicion_que_ya_no_existe(registros):
     assert not encontradas, (
         "el notebook todavia afirma cifras del dataset anterior: "
         f"{encontradas}. Actualiza colab/m1_finetune.ipynb.")
+
+
+# --- Contratos del notebook que no se ven ejecutando la suite ----------------
+#
+# Son comprobaciones estaticas sobre el .ipynb. Feas, pero el notebook no se
+# importa y estos dos fallos solo aparecerian en Colab, con la GPU ya pagando.
+
+def _codigo_del_notebook() -> str:
+    nb = json.loads(NOTEBOOK.read_text(encoding="utf-8"))
+    return "".join("".join(c["source"]) for c in nb["cells"])
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_la_revision_resuelta_se_usa_en_las_dos_cargas():
+    """`REVISION_BASE` se resolvia y solo se imprimia: el notebook anotaba una
+    revision y `from_pretrained` bajaba la que apuntara main, que puede ser
+    otra. Las dos cargas tienen que recibirla."""
+    codigo = _codigo_del_notebook()
+    assert "AutoTokenizer.from_pretrained(MODEL_ID, revision=REVISION_BASE)" in codigo
+    assert "revision=REVISION_BASE," in codigo
+    # y no puede quedar como el texto de un error
+    assert "REVISION_BASE = f'no se pudo resolver" not in codigo
+    assert "REVISION_BASE = None" in codigo
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_los_resultados_van_a_un_directorio_por_corrida():
+    """Todas las corridas escribian en `{DRIVE_DIR}/evaluacion` y la siguiente
+    reusaba los resultados de la anterior."""
+    codigo = _codigo_del_notebook()
+    assert "SALIDA_DIR = f'{EVAL_ROOT}/{CORRIDA_ID}'" in codigo
+    assert "SALIDA_DIR = f'{DRIVE_DIR}/evaluacion'" not in codigo
+    assert "_corrida.verificar_checkpoint(" in codigo
+    assert "_corrida.escribir(SALIDA_DIR, FIRMA)" in codigo
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_los_nombres_de_salida_no_implican_v2_ni_pisan_una_corrida_previa():
+    codigo = _codigo_del_notebook()
+    for viejo in ("historial_entrenamiento_v2.json", "hiperparametros_v2.json",
+                  "data/dataset_v2.jsonl"):
+        assert viejo not in codigo, f"el notebook todavia escribe {viejo}"
+    # el adaptador de produccion no se sobrescribe
+    assert "assert ADAPTADOR != 'v1'" in codigo
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_el_manifiesto_registra_la_identidad_de_la_corrida():
+    codigo = _codigo_del_notebook()
+    for campo in ('"corrida_id": CORRIDA_ID', '"revision_base": REVISION_BASE',
+                  '"revision_verificada": FIRMA["revision_verificada"]',
+                  '"huella_dataset": FIRMA["huella_dataset"]'):
+        assert campo in codigo, f"el manifiesto no registra {campo}"
