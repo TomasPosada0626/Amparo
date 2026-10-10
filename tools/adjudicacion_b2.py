@@ -55,8 +55,8 @@ COLUMNAS = [
     # Dictamen
     "comparacion_v1_v2", "validez_etiqueta_b2", "revision_juridica",
     "confianza", "justificacion_final",
-    # Trazabilidad
-    "revisor", "fecha_revision", "commit_evidencia",
+    # Trazabilidad -- tres procedencias distintas, no una
+    "revisor", "fecha_revision", "commit_matriz", "origen_prompt",
 ]
 
 # Vocabularios cerrados. Un campo libre donde deberia haber una categoria hace
@@ -84,6 +84,7 @@ OBLIGATORIAS = [
     "v2_fundamentacion", "v2_calibracion", "v2_orientacion_segura", "v2_riesgo",
     "comparacion_v1_v2", "validez_etiqueta_b2", "revision_juridica",
     "confianza", "justificacion_final", "revisor", "fecha_revision",
+    "commit_matriz", "origen_prompt",
 ]
 
 
@@ -91,7 +92,8 @@ def _leer(ruta: Path) -> list[dict]:
     return [json.loads(l) for l in ruta.read_text(encoding="utf-8").splitlines() if l.strip()]
 
 
-def commit_actual() -> str:
+def commit_matriz() -> str:
+    """El commit de la ultima modificacion de la matriz."""
     try:
         return subprocess.run(["git", "log", "-1", "--format=%h", "--", str(MATRIZ)],
                               capture_output=True, text=True,
@@ -100,9 +102,18 @@ def commit_actual() -> str:
         return "desconocido"
 
 
-# El commit de la matriz que se adjudica. Fijo, no calculado: si manana se
-# regenera la matriz, estas filas siguen apuntando a la evidencia que se leyo.
-COMMIT_EVIDENCIA = "d0ff2de"
+# Tres procedencias distintas, que antes estaban colapsadas en un solo campo
+# llamado commit_evidencia fijado a mano en d0ff2de. Eso era incoherente: en
+# d0ff2de los fragmentos de la matriz estaban recortados a 300 caracteres, y la
+# version completa -- la que de verdad se adjudica -- llego en ab4e6c4. Ademas
+# --crear calculaba el commit y --revisar esperaba la constante, asi que una
+# regeneracion escribia un valor que el validador rechazaba.
+#
+#   commit_matriz    la version de la matriz que el revisor leyo
+#   origen_prompt    de donde salio el contexto que recibio el modelo, que no
+#                    es la matriz sino los jsonl de resultados
+ORIGEN_PROMPT = ("results/m1_2026-10-09/finetuned_results.jsonl + "
+                 "results/m1_v2_2026-10-09/finetuned_results.jsonl")
 
 _PATRON_CASO = re.compile(r"^## Caso (\d+) —", re.MULTILINE)
 
@@ -136,7 +147,7 @@ def _normalizar(t: str) -> str:
 def casos() -> list[dict]:
     """Los 35 B2, con lo que se puede llenar sin criterio juridico."""
     v1 = {r["id"]: r for r in _leer(V1)}
-    commit = commit_actual()
+    commit = commit_matriz()
     filas = []
     for i in sorted(i for i, r in v1.items() if r.get("modo") == "B2"):
         fila = {c: "" for c in COLUMNAS}
@@ -146,7 +157,8 @@ def casos() -> list[dict]:
         # El commit de la matriz que se evaluo: si despues cambian los
         # fragmentos, la revision no queda apuntando a otra evidencia sin que
         # nadie lo note.
-        fila["commit_evidencia"] = commit
+        fila["commit_matriz"] = commit
+        fila["origen_prompt"] = ORIGEN_PROMPT
         filas.append(fila)
     return filas
 
@@ -161,7 +173,7 @@ def crear(ruta: Path = SALIDA) -> int:
 
 
 def revisar(filas: list[dict], ids_esperados=None, textos=None,
-            commit: str = COMMIT_EVIDENCIA) -> list[str]:
+            commit: str | None = None) -> list[str]:
     """Los controles de calidad, antes de dar B2 por cerrado.
 
     `textos` es {case_id: {"v1": ..., "v2": ...}} y sirve para comprobar que
@@ -170,6 +182,7 @@ def revisar(filas: list[dict], ids_esperados=None, textos=None,
     con datos de juguete.
     """
     problemas = []
+    commit = commit or commit_matriz()
 
     ids = [f.get("case_id", "") for f in filas]
     esperados = set(ids_esperados) if ids_esperados is not None else set(ids_canonicos())
@@ -224,12 +237,15 @@ def revisar(filas: list[dict], ids_esperados=None, textos=None,
         # El commit tiene que ser EL declarado, no cualquiera: si una fila
         # apunta a otra version de la matriz, se adjudico contra otra
         # evidencia y las filas dejan de ser comparables entre si.
-        ce = (f.get("commit_evidencia") or "").strip()
-        if not ce:
-            problemas.append(f"{cid}: sin commit_evidencia, la revision no es rastreable")
-        elif ce != commit:
+        cm = (f.get("commit_matriz") or "").strip()
+        if not cm:
+            problemas.append(f"{cid}: sin commit_matriz, la revision no es rastreable")
+        elif cm != commit:
             problemas.append(
-                f"{cid}: commit_evidencia={ce!r} pero la matriz adjudicada es {commit!r}")
+                f"{cid}: commit_matriz={cm!r} pero la matriz vigente es {commit!r}: "
+                "se adjudico contra otra version de la evidencia")
+        if not (f.get("origen_prompt") or "").strip():
+            problemas.append(f"{cid}: sin origen_prompt, no consta que recibio el modelo")
 
         # fragmentos_relevantes: ids de 1 a 5, sin repetir. Vacio vale cuando
         # ninguno aporta.
@@ -274,7 +290,8 @@ def main(argv=None) -> int:
             raise SystemExit(f"{SALIDA.name} ya existe: no se sobrescribe una revision en curso.")
         n = crear()
         print(f"Escrito {SALIDA} con {n} casos y las columnas vacias.")
-        print(f"commit_evidencia: {commit_actual()} (la matriz que se adjudica)")
+        print(f"commit_matriz:  {commit_matriz()} (la version que se adjudica)")
+        print(f"origen_prompt:  {ORIGEN_PROMPT}")
         return 0
 
     if not SALIDA.exists():

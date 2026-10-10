@@ -107,12 +107,25 @@ no se fuerza. El validador lo comprueba.
 
 ## Trazabilidad
 
-`revisor`, `fecha_revision` y `commit_evidencia` son obligatorios.
+Cuatro campos, y **tres procedencias distintas** que antes yo habia colapsado
+en una sola:
 
-`commit_evidencia` viene prellenado con `d0ff2de`, el commit de la matriz que
-se esta adjudicando. **No lo cambies**: si despues se regeneran los fragmentos,
-esa anotacion es lo unico que impide que la revision quede apuntando a otra
-evidencia sin que nadie lo note.
+| campo | que registra |
+|---|---|
+| `revisor` | quien adjudico. La primera pasada asistida va marcada como tal |
+| `fecha_revision` | cuando |
+| `commit_matriz` | la version de `m1_b2_matriz.md` que se leyo |
+| `origen_prompt` | de donde salio el contexto que recibio el modelo |
+
+`commit_matriz` viene prellenado con el commit vigente de la matriz. **No lo
+cambies**: si despues se regeneran los fragmentos, el validador detecta que la
+adjudicacion se hizo contra otra version.
+
+Importa la distincion: la matriz es una **transcripcion** de lo que recibio el
+modelo, y puede cambiar sin que cambie la entrada. Paso: en `d0ff2de` los
+fragmentos estaban recortados a 300 caracteres y en `ab4e6c4` quedaron
+completos. Los prompts originales, en cambio, nunca cambiaron -- viven en los
+jsonl de resultados, que es lo que anota `origen_prompt`.
 
 ## Antes de dar B2 por cerrado
 
