@@ -167,6 +167,29 @@ _PUNTAJE_MINIMO_NORMA = 2
 _CONECTORES = {"de", "del", "la", "el", "los", "las", "y"}
 
 
+# "Ley 2222 de 2022" y "Ley 2220 de 2022" comparten el año y ninguna palabra
+# util, asi que puntaje_norma les daba lo mismo y la cita equivocada se
+# resolvia a la norma del contexto. Paso en el caso 3729: el modelo escribio
+# "articulo 5 de la Ley 2222 de 2022", el contexto traia la Ley 2220, y
+# citas_mal_atribuidas devolvia vacio. Una norma se identifica por su NUMERO,
+# no por su año.
+_PATRON_NUMERO = re.compile(
+    r"\b(?:ley|decreto(?:\s+ley)?|resolucion|decision|acuerdo)\s+(\d+)", re.IGNORECASE)
+
+
+def _numero_compatible(frase: str, fuente: str) -> bool:
+    """¿El numero de norma que nombra la frase es el de esta fuente?
+
+    Si la frase no nombra ninguno -- "del Codigo General del Proceso" -- no
+    hay nada que contradecir y la fuente sigue siendo candidata.
+    """
+    m = _PATRON_NUMERO.search(_normalizar_texto(frase))
+    if not m:
+        return True
+    numeros = set(re.findall(r"\d+", _normalizar_texto(fuente)))
+    return (not numeros) or m.group(1) in numeros
+
+
 def _frase_de_norma(ventana: str) -> str:
     """"de la Constitucion permite la accion..." -> "la Constitucion".
 
@@ -222,7 +245,8 @@ def citas_atribuidas(texto: str, fuentes: Sequence[str] = (),
             fuente = ultima
         else:
             frase = _frase_de_norma(ventana)
-            puntuadas = [(puntaje_norma(frase, f), f) for f in fuentes]
+            candidatas = [f for f in fuentes if _numero_compatible(frase, f)]
+            puntuadas = [(puntaje_norma(frase, f), f) for f in candidatas]
             mejor = max(puntuadas, default=(0, ""))
             fuente = mejor[1] if mejor[0] >= _PUNTAJE_MINIMO_NORMA else ""
         if fuente:
@@ -276,6 +300,21 @@ def citas_mal_atribuidas(respuesta: str, resultados=(), query: str = "") -> list
         if (fuente, articulo) not in pares:
             malas.append(f"{articulo} (atribuido a {fuente})")
     return sorted(set(malas))
+
+
+# NO existe una comprobacion mecanica de que el contenido citado corresponda al
+# articulo al que se le atribuye.
+#
+# Se intento con solapamiento lexico y no sirve. En el caso 3328 la respuesta
+# atribuye al articulo 46 de la Ley 1480 lo que dice el 50 -- "entregar el
+# pedido dentro del plazo" es literal del 50 -- y la frase comparte 5 palabras
+# con el 46 contra 4 con el 50, porque el 46 tambien habla de proveedor,
+# entrega y consumidor. La heuristica habria devuelto "sin avisos" ante un
+# caso positivo conocido, que es peor que no tenerla: da falsa tranquilidad.
+#
+# citas_mal_atribuidas cubre el par (norma, articulo) y _numero_compatible el
+# numero de la norma. Lo que queda -- si ESE articulo sostiene ESA afirmacion
+# -- es juicio juridico y asi esta marcado en docs/m1_b2_rubrica.md.
 
 
 # Sentencias de la Corte Constitucional ("T-760 de 2008", "SU-111/97", "C 355").

@@ -166,3 +166,39 @@ def test_el_nombre_largo_de_una_norma_no_gana_por_palabras_genericas():
     from tools.rag.verificacion import _frase_de_norma
 
     assert _frase_de_norma("de la Constitucion permite la accion de tutela") == "la Constitucion"
+
+
+# El caso 3729: "Ley 2222 de 2022" donde el contexto trae la Ley 2220 de 2022.
+# Comparten el año y ninguna palabra util, asi que puntaje_norma les daba lo
+# mismo y la cita equivocada se resolvia a la norma del contexto. Una norma se
+# identifica por su NUMERO.
+
+LEY_2220 = "Ley 2220 de 2022 (Estatuto de Conciliacion)"
+
+
+def test_una_ley_con_otro_numero_pero_el_mismo_ano_no_se_resuelve():
+    salida = citas_atribuidas("El articulo 5 de la Ley 2222 de 2022 habilita la conciliacion.",
+                              [LEY_2220])
+
+    assert salida == [("", "5")]
+
+
+def test_la_ley_correcta_si_se_resuelve():
+    salida = citas_atribuidas("El articulo 5 de la Ley 2220 de 2022 habilita la conciliacion.",
+                              [LEY_2220])
+
+    assert salida == [(LEY_2220, "5")]
+
+
+def test_una_norma_nombrada_sin_numero_sigue_resolviendo():
+    """"del Codigo General del Proceso" no nombra numero: no hay nada que
+    contradecir."""
+    salida = citas_atribuidas("El articulo 314 del Codigo General del Proceso.", [CGP])
+
+    assert salida == [(CGP, "314")]
+
+
+def test_un_decreto_con_otro_numero_tampoco_se_resuelve():
+    salida = citas_atribuidas("El articulo 62 del Decreto 2664 de 1950 lo permite.", [CST])
+
+    assert salida == [("", "62")]
