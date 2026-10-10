@@ -18,6 +18,7 @@ import pytest
 
 from tools.adjudicacion_b2 import COLUMNAS, SALIDA, VOCABULARIO
 from tools.aplicar_comparativos_b2 import (
+    _DICTAMEN_PREVIO,
     AUTORIZADAS,
     CONSULTAS_ABIERTAS,
     DICTAMEN,
@@ -37,15 +38,46 @@ def leer(ruta):
         return list(csv.DictReader(f))
 
 
+def sin_adjudicar(filas):
+    """Las filas como estaban antes de escribir el dictamen comparativo.
+
+    El CSV oficial ya esta adjudicado (se escribio el 2026-10-10), asi que una
+    prueba de `aplicar` que lo lea tal cual no veria ningun cambio y no probaria
+    nada. Estas pruebas reconstruyen el estado previo en memoria, que es lo que
+    las hace independientes de si el oficial se escribio o no.
+    """
+    previas = []
+    for f in filas:
+        g = dict(f)
+        g["comparacion_v1_v2"] = "pendiente"
+        g["revision_juridica"] = "requerida"
+        prefijo = _DICTAMEN_PREVIO.sub("", f["justificacion_final"]).strip()
+        g["justificacion_final"] = f"{prefijo} {RELLENO}".strip() if prefijo else RELLENO
+        # la firma previa es la de la clasificacion, sin la clausula del comparativo
+        g["revisor"] = f["revisor"].split("Comparativo v1/v2:")[0].strip()
+        previas.append(g)
+    return previas
+
+
 @pytest.fixture
 def oficial():
+    """El estado previo a la adjudicacion, que es sobre lo que opera el script."""
+    return sin_adjudicar(leer(SALIDA))
+
+
+@pytest.fixture
+def escrito():
+    """El CSV oficial tal como esta hoy, ya adjudicado."""
     return leer(SALIDA)
 
 
 @pytest.fixture
-def copia(tmp_path):
+def copia(tmp_path, oficial):
     destino = tmp_path / "adjudicacion.csv"
-    shutil.copy(SALIDA, destino)
+    with destino.open("w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=COLUMNAS)
+        w.writeheader()
+        w.writerows(oficial)
     return destino
 
 
@@ -289,7 +321,32 @@ def test_escribir_aplica_y_es_idempotente(copia):
     assert verificar(escrito, despues) == []
 
 
-def test_el_csv_oficial_sigue_en_pendiente():
-    """Mientras las decisiones no esten confirmadas, el oficial no se toca."""
-    for f in leer(SALIDA):
-        assert f["comparacion_v1_v2"] == "pendiente", f["case_id"]
+def test_el_csv_oficial_quedo_adjudicado(escrito):
+    """El resultado registrado el 2026-10-10, fijado contra cambios accidentales.
+
+    Sustituye a la guarda anterior, que comprobaba que el oficial siguiera en
+    `pendiente`. Esa guarda protegia el procedimiento mientras el dictamen
+    estaba en borrador; una vez escrito, lo que hay que proteger es el
+    resultado.
+    """
+    from collections import Counter
+
+    assert len(escrito) == 35
+    assert Counter(f["comparacion_v1_v2"] for f in escrito) == {
+        "mejora": 12, "empate": 14, "regresion": 9}
+    for f in escrito:
+        assert f["revision_juridica"] == "cumplida", f["case_id"]
+        assert RELLENO not in f["justificacion_final"], f["case_id"]
+        assert "Leonardo Galeano" in f["revisor"], f["case_id"]
+    # las otras dos decisiones, intactas
+    assert Counter(f["validez_etiqueta_b2"] for f in escrito) == {
+        "valido": 32, "modo_mal_asignado": 3}
+    assert Counter(f["pertinencia_contexto"] for f in escrito) == {
+        "insuficiente": 27, "parcial": 8}
+
+
+def test_reaplicar_sobre_el_oficial_no_cambia_nada(escrito):
+    """Idempotencia sobre el archivo real: una corrida extra no lo mueve."""
+    despues, celdas = aplicar(escrito)
+    assert celdas == []
+    assert verificar(escrito, despues) == []
