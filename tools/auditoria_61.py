@@ -77,6 +77,37 @@ def versiones() -> dict[str, str]:
     return salida
 
 
+def huella_corpus_portable() -> str:
+    """`hash_corpus` calculado de forma que coincida en Windows y en Linux.
+
+    `manifiesto.huella_directorio` no sirve para comprobar desde Windows, y por
+    DOS razones independientes -- no por una, como decia el informe integral:
+
+      1. No normaliza el fin de linea. En disco los .md estan en CRLF y en git
+         en LF.
+      2. Ordena con `sorted(p.glob(...))`, o sea comparando objetos Path, y en
+         Windows la comparacion de PurePath es INSENSIBLE A MAYUSCULAS. Eso
+         manda README.md de la posicion 0 a la 30, y el hash cambia aunque el
+         contenido sea identico.
+
+    Corregir solo lo primero da 67ac5eebada5d2b9, que sigue sin coincidir.
+    Corrigiendo las dos sale 1c552822959e2932, el valor de los manifiestos.
+
+    Esto vive aqui y no en manifiesto.py a proposito: arreglar la funcion del
+    pipeline cambiaria el valor que registran las corridas futuras y necesita
+    su propia autorizacion.
+    """
+    import hashlib
+
+    directorio = Path(rag_config.RAW_CORPUS_DIR)
+    h = hashlib.sha256()
+    for nombre in sorted(p.name for p in directorio.glob("*.md")):
+        h.update(nombre.encode("utf-8"))
+        crudo = (directorio / nombre).read_bytes()
+        h.update(crudo.replace(bytes([13, 10]), bytes([10])))
+    return h.hexdigest()[:16]
+
+
 def verificar(indice: Path, metadata: Path) -> list[str]:
     """Lista vacia = se puede medir. Cualquier problema detiene la corrida."""
     problemas = []
@@ -96,16 +127,9 @@ def verificar(indice: Path, metadata: Path) -> list[str]:
             problemas.append(f"hash_metadata_indice {h} != "
                              f"{HUELLAS['hash_metadata_indice']} esperado")
 
-    from tools.rag.manifiesto import huella_directorio
-
-    # OJO: huella_directorio no normaliza fin de linea e incluye README.md, asi
-    # que desde un checkout de Windows da un valor distinto para el mismo
-    # contenido. Es el defecto H13 del informe integral. En Colab, que clona con
-    # LF, coincide.
-    h = huella_directorio(rag_config.RAW_CORPUS_DIR, patron="*.md")
+    h = huella_corpus_portable()
     if h != HUELLAS["hash_corpus"]:
-        problemas.append(f"hash_corpus {h} != {HUELLAS['hash_corpus']} esperado "
-                         "(si corres en Windows, puede ser el CRLF: ver H13)")
+        problemas.append(f"hash_corpus {h} != {HUELLAS['hash_corpus']} esperado")
 
     h = _huella(EVAL_SET)
     if h != HUELLAS["hash_eval_set"]:
