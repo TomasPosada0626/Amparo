@@ -12,6 +12,8 @@ from types import SimpleNamespace
 
 from tools.rag.verificacion import (
     citas_atribuidas,
+    citas_no_verificables,
+    normas_citadas_ausentes,
     citas_mal_atribuidas,
     citas_no_respaldadas,
     pares_vistos,
@@ -214,3 +216,66 @@ def test_la_anafora_funciona_con_tildes():
     cpp = "Ley 906 de 2004 (Codigo de Procedimiento Penal)"
 
     assert citas_atribuidas(respuesta, [cpp]) == [(cpp, "67"), (cpp, "68")]
+
+
+# --- la ley nombrada que no se recupero ---------------------------------------
+#
+# citas_atribuidas deja la fuente en "" cuando la ley nombrada no esta entre las
+# candidatas, y eso evita atribuirla falsamente. Pero nadie usaba ese "" como
+# señal: con el numero de articulo coincidiendo por casualidad, la cita del caso
+# 3729 pasaba las cuatro comprobaciones sin una bandera.
+
+def test_una_ley_nombrada_que_no_se_recupero_se_señala():
+    ctx = [chunk(LEY_2220, "5")]
+    respuesta = "El articulo 5 de la Ley 2222 de 2022 regula la conciliacion."
+
+    assert normas_citadas_ausentes(respuesta, ctx) == [
+        "5 (de la Ley 2222 de 2022, que no se recupero)"]
+
+
+def test_el_caso_3729_llega_a_citas_no_verificables():
+    """Es la funcion que consume el pipeline: si no llega aqui, no sirve."""
+    ctx = [chunk(LEY_2220, "5")]
+    respuesta = "El articulo 5 de la Ley 2222 de 2022 regula la conciliacion."
+
+    assert citas_no_verificables(respuesta, ctx) == [
+        "5 (de la Ley 2222 de 2022, que no se recupero)"]
+
+
+def test_la_ley_correcta_no_se_señala():
+    ctx = [chunk(LEY_2220, "5")]
+
+    assert normas_citadas_ausentes(
+        "El articulo 5 de la Ley 2220 de 2022 habilita la conciliacion.", ctx) == []
+
+
+def test_una_cita_sin_norma_nombrada_no_se_señala():
+    """"el articulo 314" no afirma de que ley es: no hay nada que contradecir."""
+    assert normas_citadas_ausentes("El articulo 314 permite el recurso.",
+                                   [chunk(CGP, "314")]) == []
+
+
+def test_una_norma_nombrada_sin_numero_no_se_señala():
+    assert normas_citadas_ausentes("El articulo 314 del Codigo General del Proceso.",
+                                   [chunk(CGP, "314")]) == []
+
+
+def test_la_anafora_no_cuenta_como_norma_nueva():
+    ctx = [chunk("Codigo de Procedimiento Penal", "67", "68")]
+    respuesta = ("El articulo 67 obliga a denunciar y el articulo 68 del mismo "
+                 "codigo exonera.")
+
+    assert normas_citadas_ausentes(respuesta, ctx) == []
+
+
+def test_el_articulo_vecino_de_la_misma_ley_sigue_fuera_de_alcance():
+    """El caso 3328: atribuir al 46 lo que dice el 50, las dos de la Ley 1480.
+
+    Esta comprobacion NO lo cubre y no pretende cubrirlo: la ley nombrada es la
+    correcta. Queda como juicio juridico, igual que antes.
+    """
+    ctx = [chunk("Ley 1480 de 2011 (Estatuto del Consumidor)", "46", "50")]
+
+    assert normas_citadas_ausentes(
+        "El articulo 46 de la Ley 1480 da treinta dias para entregar.", ctx) == []
+

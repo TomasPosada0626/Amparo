@@ -226,8 +226,13 @@ def citas_atribuidas(texto: str, fuentes: Sequence[str] = (),
     que ya expande siglas (CST, CGP) y pesa los numeros doble.
 
     No se intenta adivinar una norma que no este entre las candidatas: si la
-    respuesta cita una ley que el sistema no recupero, la fuente queda "" y de
-    eso ya se encarga `citas_no_respaldadas`.
+    respuesta cita una ley que el sistema no recupero, la fuente queda "".
+
+    Correccion: una version anterior de este docstring decia que de ese caso
+    "ya se encarga citas_no_respaldadas". Es falso -- esa funcion compara
+    numeros de articulo, no normas --, y por eso una cita que nombraba una ley
+    ausente con un numero de articulo coincidente pasaba sin bandera. Lo cubre
+    `normas_citadas_ausentes`.
 
     `numeros_conocidos` resuelve los sufijos numericos ("391-1", "269-1"), que
     `_PATRON_CITA` no captura. No se amplio ese patron a proposito: aceptar
@@ -281,6 +286,50 @@ def pares_vistos(resultados) -> set[tuple[str, str]]:
     """{(fuente, articulo)} de los chunks recuperados."""
     return {(r.fuente, normalizar_numero(a).upper())
             for r in resultados for a in (r.articulos_incluidos or ())}
+
+
+def normas_citadas_ausentes(respuesta: str, resultados=()) -> list[str]:
+    """Articulos citados nombrando una norma que el sistema NO recupero.
+
+    La laguna que esto cierra: `citas_no_respaldadas` compara numeros de
+    articulo y `citas_mal_atribuidas` solo actua cuando la atribucion se pudo
+    resolver. Si la respuesta nombra una ley ausente del contexto y el numero
+    de articulo coincide por casualidad con otra norma que si se recupero, las
+    dos comprobaciones callan.
+
+    Paso en el caso 3729: el contexto traia la Ley 2220 de 2022 y la respuesta
+    cito "el articulo 5 de la Ley 2222 de 2022". `_numero_compatible` evita
+    que esa cita se resuelva falsamente a la Ley 2220 -- la atribucion queda
+    "" -- pero nadie usaba ese "" como señal, asi que la cita pasaba
+    `citas_no_respaldadas`, `citas_mal_atribuidas`, `citas_no_verificables` y
+    `es_prudente` sin una sola bandera.
+
+    Solo se señala cuando la respuesta **nombra un numero de norma**. Una cita
+    sin norma ("el articulo 314") o con la norma nombrada sin numero ("del
+    Codigo General del Proceso") no afirma de que ley es, asi que no hay nada
+    que contradecir y no se toca: lo contrario llenaria de falsos positivos
+    las respuestas que citan de forma informal.
+    """
+    fuentes = sorted({f for f, _ in pares_vistos(resultados)})
+    texto = respuesta or ""
+    ausentes: list[str] = []
+    citas = list(_PATRON_CITA.finditer(texto))
+    for i, m in enumerate(citas):
+        tope = citas[i + 1].start() if i + 1 < len(citas) else len(texto)
+        ventana = texto[m.end():min(m.end() + _VENTANA_NORMA, tope)]
+        if _PATRON_ANAFORA.match(_normalizar_texto(ventana)):
+            continue  # "del mismo codigo": no nombra norma nueva
+        frase = _frase_de_norma(ventana)
+        nombrado = _PATRON_NUMERO.search(_normalizar_texto(frase))
+        if not nombrado:
+            continue  # no afirma de que norma es
+        if any(_numero_compatible(frase, f) for f in fuentes):
+            continue  # el numero nombrado si corresponde a algo recuperado
+        for numero in re.findall(r"\d+(?:\s*-\s*[A-Za-z](?![A-Za-z])|[A-Za-z](?![A-Za-z]))?",
+                                 m.group(1)):
+            articulo = normalizar_numero(numero).upper()
+            ausentes.append(f"{articulo} (de {frase.strip()}, que no se recupero)")
+    return sorted(set(ausentes))
 
 
 def citas_mal_atribuidas(respuesta: str, resultados=(), query: str = "") -> list[str]:
@@ -346,6 +395,7 @@ def citas_no_verificables(respuesta: str, resultados=(), query: str = "", *,
     articulos que no vio y sentencias (el corpus no tiene jurisprudencia, asi que
     una sentencia citada es siempre de memoria). Lista vacia = respuesta limpia."""
     return (citas_no_respaldadas(respuesta, resultados, query, vistos=vistos)
+            + normas_citadas_ausentes(respuesta, resultados)
             + sorted(sentencias_citadas(respuesta)))
 
 
