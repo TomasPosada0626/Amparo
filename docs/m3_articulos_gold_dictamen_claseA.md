@@ -66,7 +66,7 @@ calcularlo.
 | **9052** deuda pagada, reportada de nuevo | Ley 1266 · 13 | `responde` | alta | Permanencia de la informacion y termino maximo. Es el nucleo del caso. |
 | **9053** deuda de la empresa, no mia | Ley 1266 · 16 | `responde_parcial` | media | Da el tramite de peticiones y reclamos, o sea el camino. No resuelve a quien se atribuye la deuda. |
 | **9054** choque con nota del conductor | Ley 769 · 144 | `responde_parcial` | media | Informe policial cuando no hay conciliacion. Util pero lateral a *"¿que hago con la nota?"*. |
-| **9054** | Ley 769 · 149 | `responde_parcial` | **baja** | Casi literalmente igual al 144. Que los dos esten etiquetados hace sospechar de un duplicado en el corpus o en el etiquetado. |
+| **9054** | Ley 769 · 149 | **`no_responde`** | media | **Comprobado a peticion del abogado: no es duplicado.** Ver abajo. |
 | **9059** penalidad no mostrada | Ley 1480 · 43 | `responde` | alta | Clausulas abusivas ineficaces de pleno derecho. Encaja directo. |
 | **9061** ruido del vecino con permiso ambiental | Ley 1801 · 33 | `responde` | alta | Perturbar el sosiego con ruidos. Exacto, y el permiso ambiental no lo excusa. |
 | **9064** respuesta incongruente de la alcaldia | CPACA · 21 | **`no_responde`** | media | **Ver abajo.** |
@@ -121,15 +121,66 @@ vecindad que documento el anexo de chunking.
 
 | | |
 |---|---|
-| `responde` | **12** |
-| `responde_parcial` | **11** |
-| `no_responde` | **4** |
+| `responde` | **13** |
+| `responde_parcial` | **9** |
+| `no_responde` | **5** |
+
+Correccion a la primera version de este dictamen: su resumen decia 12 / 11 / 4.
+Las filas individuales sumaban 13 / 10 / 4 -- fue un error de aritmetica en la
+tabla de resumen, no en los veredictos. Con el cambio de 9054 queda 13 / 9 / 5.
 
 Que 11 de 27 sean `responde_parcial` no invalida nada para el calculo del
 acierto@k, pero si dice algo sobre el etiquetado: en varios casos el articulo
 que **resolveria** la consulta no esta etiquetado (el art. 64 del CST en 9002,
 el art. 15 de la Ley 1751 en 9032, el art. 23 del CPACA en 9064). Son
 omisiones candidatas, y si se agregan, el gold se vuelve mas exigente, no menos.
+
+## Las dos comprobaciones que pidio el abogado
+
+### Ley 769, articulos 144 y 149: no hay duplicado
+
+Tienen redaccion casi igual -- 56 % de similitud literal, y las dos listan el
+mismo contenido minimo del informe -- pero **ambitos distintos**, y la
+diferencia esta en su primera linea:
+
+- El **144** aplica *"en los casos en que no fuere posible la conciliacion entre
+  los conductores"*, y viene inmediatamente despues del **143**, que regula los
+  **daños materiales**.
+- El **149** aplica *"en los casos a que se refiere el articulo anterior"*, y el
+  anterior es el **148: Funciones de Policia Judicial**, para *"hechos que
+  puedan constituir infraccion penal"*.
+
+Es el mismo formulario para dos situaciones juridicas distintas. **No infla el
+gold por duplicacion**, pero si cambia el dictamen: el caso 9054 es un choque
+contra un carro parqueado, sin lesiones, asi que el supuesto penal del 149 no
+aplica y pasa a `no_responde`.
+
+El caso no deja de acertar: el 144 si aplica. Y vale notar que el articulo que
+**resolveria** la consulta es el **143** -- en daños materiales el material
+probatorio de las partes *"reemplazara el informe policial"*, que es justo el
+valor de la nota con el numero --, esta etiquetado como gold y **no se
+recupero**.
+
+### CGP, articulos 291 y 292: no son intercambiables
+
+- El **291** regula la practica de la notificacion personal e incluye el regimen
+  de la direccion electronica: *"deberan registrar, ademas, una direccion
+  electronica. Esta disposicion tambien se aplicara a las personas naturales que
+  **hayan suministrado al juez** su direccion de correo electronico."* Eso es
+  exactamente lo que discute el caso 9069.
+- El **292** es la notificacion **por aviso**, remitido *"a traves de servicio
+  postal autorizado"*, para cuando la personal no se pudo hacer.
+
+Se confirma `no_responde`. Una nota metodologica: buscar palabras clave no sirve
+para distinguirlos -- las dos disposiciones mencionan "electronico" y "correo",
+porque el 292 remite al numeral 3 del 291. Lo que decide es el ambito de
+aplicacion, leido.
+
+## Validacion
+
+**Clase A aprobada por Leonardo Galeano (abogado) el 2026-10-10**, con las dos
+comprobaciones de arriba hechas a su peticion. Su aprobacion **cubre solo la
+clase A**: no valida las 190 filas restantes.
 
 ## Lo que pedimos a Leonardo
 
