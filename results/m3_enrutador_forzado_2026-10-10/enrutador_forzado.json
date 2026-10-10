@@ -1,0 +1,1217 @@
+{
+ "huellas": {
+  "hash_indice": "19657d22583f93d0",
+  "hash_metadata_indice": "8cd72136235d6dfe",
+  "hash_corpus": "1c552822959e2932",
+  "hash_eval_set": "a5151999c2095d00"
+ },
+ "gold": {
+  "quitadas_no_responde": 5,
+  "anadidas_omision": 3,
+  "sin_registro_individual": 128
+ },
+ "dependencias": {
+  "python": "3.13.5",
+  "torch": "2.14.1+cpu",
+  "faiss-cpu": "1.15.1",
+  "faiss": "ausente",
+  "transformers": "5.15.0",
+  "numpy": "2.5.2",
+  "rank-bm25": "0.2.2"
+ },
+ "top_k": 100,
+ "min_score": null,
+ "agregado": {
+  "referencia (enrutador de produccion)": {
+   "acierto@1": "7/45",
+   "acierto@5": "20/45",
+   "acierto@10": "25/45",
+   "acierto@30": "37/45",
+   "acierto@100": "38/45",
+   "ausente_top_100": "7/45"
+  },
+  "sin enrutador": {
+   "acierto@1": "9/45",
+   "acierto@5": "16/45",
+   "acierto@10": "23/45",
+   "acierto@30": "31/45",
+   "acierto@100": "41/45",
+   "ausente_top_100": "4/45"
+  },
+  "forzado al gold (techo)": {
+   "acierto@1": "12/45",
+   "acierto@5": "25/45",
+   "acierto@10": "33/45",
+   "acierto@30": "41/45",
+   "acierto@100": "43/45",
+   "ausente_top_100": "2/45"
+  }
+ },
+ "por_caso": [
+  {
+   "case_id": "9001",
+   "categoria": "Arriendo",
+   "categorias_predichas": [
+    "Arriendo",
+    "Garantias de consumo"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 1,
+   "puesto_sin_enrutador": 1,
+   "puesto_forzado": 1,
+   "doc_hallado_forzado": "arrendamiento_vivienda_urbana_ley_820_2003",
+   "arts_gold_del_doc": [
+    "20"
+   ],
+   "gold": {
+    "arrendamiento_vivienda_urbana_ley_820_2003": [
+     "20"
+    ]
+   }
+  },
+  {
+   "case_id": "9002",
+   "categoria": "Despido",
+   "categorias_predichas": [
+    "Relaciones laborales",
+    "Violencia intrafamiliar y medidas de proteccion"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 5,
+   "puesto_sin_enrutador": 6,
+   "puesto_forzado": 4,
+   "doc_hallado_forzado": "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "arts_gold_del_doc": [
+    "62",
+    "64"
+   ],
+   "gold": {
+    "codigo_sustantivo_trabajo_decreto_2663_1950": [
+     "62",
+     "64"
+    ],
+    "acoso_laboral_ley_1010_2006": [
+     "2"
+    ]
+   }
+  },
+  {
+   "case_id": "9004",
+   "categoria": "Salud / EPS",
+   "categorias_predichas": [
+    "Salud / EPS",
+    "Relaciones laborales"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 2,
+   "puesto_sin_enrutador": 3,
+   "puesto_forzado": 1,
+   "doc_hallado_forzado": "estatutaria_salud_ley_1751_2015",
+   "arts_gold_del_doc": [
+    "10",
+    "2",
+    "6"
+   ],
+   "gold": {
+    "estatutaria_salud_ley_1751_2015": [
+     "10",
+     "2",
+     "6"
+    ],
+    "constitucion_politica_1991": [
+     "49",
+     "86"
+    ],
+    "tutela_decreto_2591_1991": [
+     "1"
+    ],
+    "cpaca_ley_1437_2011": [
+     "13",
+     "14"
+    ]
+   }
+  },
+  {
+   "case_id": "9005",
+   "categoria": "Garantias de consumo",
+   "categorias_predichas": [
+    "Garantias de consumo",
+    "Penal basico y derechos de las victimas"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 3,
+   "puesto_sin_enrutador": 5,
+   "puesto_forzado": 3,
+   "doc_hallado_forzado": "estatuto_consumidor_ley_1480_2011",
+   "arts_gold_del_doc": [
+    "11",
+    "58",
+    "7",
+    "8"
+   ],
+   "gold": {
+    "estatuto_consumidor_ley_1480_2011": [
+     "11",
+     "58",
+     "7",
+     "8"
+    ]
+   }
+  },
+  {
+   "case_id": "9007",
+   "categoria": "Prestamos informales y usura",
+   "categorias_predichas": [
+    "Prestamos informales y usura",
+    "Derecho contractual general"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 9,
+   "puesto_sin_enrutador": 10,
+   "puesto_forzado": 9,
+   "doc_hallado_forzado": "codigo_penal_ley_599_2000",
+   "arts_gold_del_doc": [
+    "305"
+   ],
+   "gold": {
+    "codigo_penal_ley_599_2000": [
+     "305"
+    ],
+    "codigo_comercio_decreto_410_1971": [
+     "884"
+    ],
+    "codigo_civil_ley_84_1873": [
+     "2231"
+    ]
+   }
+  },
+  {
+   "case_id": "9009",
+   "categoria": "Acceso a informacion publica",
+   "categorias_predichas": [
+    "Acceso a informacion publica",
+    "Derecho contractual general"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 5,
+   "puesto_sin_enrutador": 20,
+   "puesto_forzado": 4,
+   "doc_hallado_forzado": "ley_transparencia_acceso_info_ley_1712_2014",
+   "arts_gold_del_doc": [
+    "18",
+    "19",
+    "21",
+    "28"
+   ],
+   "gold": {
+    "ley_transparencia_acceso_info_ley_1712_2014": [
+     "18",
+     "19",
+     "21",
+     "28"
+    ],
+    "cpaca_ley_1437_2011": [
+     "24",
+     "25"
+    ],
+    "constitucion_politica_1991": [
+     "74"
+    ]
+   }
+  },
+  {
+   "case_id": "9010",
+   "categoria": "Conciliacion prejudicial",
+   "categorias_predichas": [],
+   "enrutador_prioriza_el_gold": null,
+   "puesto_referencia": null,
+   "puesto_sin_enrutador": null,
+   "puesto_forzado": 64,
+   "doc_hallado_forzado": "estatuto_conciliacion_ley_2220_2022",
+   "arts_gold_del_doc": [
+    "67",
+    "68",
+    "70",
+    "71"
+   ],
+   "gold": {
+    "estatuto_conciliacion_ley_2220_2022": [
+     "67",
+     "68",
+     "70",
+     "71"
+    ],
+    "codigo_general_proceso_ley_1564_2012": [
+     "90"
+    ]
+   }
+  },
+  {
+   "case_id": "9031",
+   "categoria": "Salud / EPS",
+   "categorias_predichas": [
+    "Salud / EPS",
+    "Despido"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 1,
+   "puesto_sin_enrutador": 1,
+   "puesto_forzado": 1,
+   "doc_hallado_forzado": "seguridad_social_ley_100_1993",
+   "arts_gold_del_doc": [
+    "168"
+   ],
+   "gold": {
+    "estatutaria_salud_ley_1751_2015": [
+     "14"
+    ],
+    "seguridad_social_ley_100_1993": [
+     "168"
+    ]
+   }
+  },
+  {
+   "case_id": "9032",
+   "categoria": "Salud / EPS",
+   "categorias_predichas": [
+    "Salud / EPS",
+    "Penal basico y derechos de las victimas"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 4,
+   "puesto_sin_enrutador": 7,
+   "puesto_forzado": 2,
+   "doc_hallado_forzado": "estatutaria_salud_ley_1751_2015",
+   "arts_gold_del_doc": [
+    "10",
+    "15"
+   ],
+   "gold": {
+    "estatutaria_salud_ley_1751_2015": [
+     "10",
+     "15"
+    ],
+    "constitucion_politica_1991": [
+     "49"
+    ],
+    "tutela_decreto_2591_1991": [
+     "1"
+    ]
+   }
+  },
+  {
+   "case_id": "9033",
+   "categoria": "Despido",
+   "categorias_predichas": [
+    "Salud / EPS",
+    "Relaciones laborales"
+   ],
+   "enrutador_prioriza_el_gold": false,
+   "puesto_referencia": null,
+   "puesto_sin_enrutador": 10,
+   "puesto_forzado": 1,
+   "doc_hallado_forzado": "discapacidad_estabilidad_reforzada_ley_361_1997",
+   "arts_gold_del_doc": [
+    "26"
+   ],
+   "gold": {
+    "discapacidad_estabilidad_reforzada_ley_361_1997": [
+     "26"
+    ]
+   }
+  },
+  {
+   "case_id": "9034",
+   "categoria": "Arriendo",
+   "categorias_predichas": [
+    "Arriendo",
+    "Reporte en centrales de riesgo"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 3,
+   "puesto_sin_enrutador": 4,
+   "puesto_forzado": 3,
+   "doc_hallado_forzado": "arrendamiento_vivienda_urbana_ley_820_2003",
+   "arts_gold_del_doc": [
+    "22",
+    "23"
+   ],
+   "gold": {
+    "arrendamiento_vivienda_urbana_ley_820_2003": [
+     "22",
+     "23"
+    ],
+    "codigo_general_proceso_ley_1564_2012": [
+     "384"
+    ]
+   }
+  },
+  {
+   "case_id": "9035",
+   "categoria": "Arriendo",
+   "categorias_predichas": [
+    "Arriendo",
+    "Penal basico y derechos de las victimas"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 23,
+   "puesto_sin_enrutador": 86,
+   "puesto_forzado": 23,
+   "doc_hallado_forzado": "arrendamiento_vivienda_urbana_ley_820_2003",
+   "arts_gold_del_doc": [
+    "16"
+   ],
+   "gold": {
+    "arrendamiento_vivienda_urbana_ley_820_2003": [
+     "16"
+    ]
+   }
+  },
+  {
+   "case_id": "9036",
+   "categoria": "Relaciones laborales",
+   "categorias_predichas": [
+    "Relaciones laborales",
+    "Garantias de consumo"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 3,
+   "puesto_sin_enrutador": 3,
+   "puesto_forzado": 3,
+   "doc_hallado_forzado": "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "arts_gold_del_doc": [
+    "159",
+    "160",
+    "168",
+    "179"
+   ],
+   "gold": {
+    "codigo_sustantivo_trabajo_decreto_2663_1950": [
+     "159",
+     "160",
+     "168",
+     "179"
+    ]
+   }
+  },
+  {
+   "case_id": "9037",
+   "categoria": "Relaciones laborales",
+   "categorias_predichas": [
+    "Relaciones laborales",
+    "Violencia intrafamiliar y medidas de proteccion"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 1,
+   "puesto_sin_enrutador": 1,
+   "puesto_forzado": 1,
+   "doc_hallado_forzado": "acoso_laboral_ley_1010_2006",
+   "arts_gold_del_doc": [
+    "2",
+    "7",
+    "9"
+   ],
+   "gold": {
+    "acoso_laboral_ley_1010_2006": [
+     "2",
+     "7",
+     "9"
+    ]
+   }
+  },
+  {
+   "case_id": "9038",
+   "categoria": "Relaciones laborales",
+   "categorias_predichas": [
+    "Relaciones laborales",
+    "Contratacion estatal y facturacion"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": null,
+   "puesto_sin_enrutador": null,
+   "puesto_forzado": 95,
+   "doc_hallado_forzado": "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "arts_gold_del_doc": [
+    "23",
+    "24"
+   ],
+   "gold": {
+    "codigo_sustantivo_trabajo_decreto_2663_1950": [
+     "23",
+     "24"
+    ]
+   }
+  },
+  {
+   "case_id": "9039",
+   "categoria": "Reporte en centrales de riesgo",
+   "categorias_predichas": [
+    "Reporte en centrales de riesgo",
+    "Arriendo"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 14,
+   "puesto_sin_enrutador": 77,
+   "puesto_forzado": 14,
+   "doc_hallado_forzado": "habeas_data_financiero_ley_1266_2008",
+   "arts_gold_del_doc": [
+    "13"
+   ],
+   "gold": {
+    "habeas_data_financiero_ley_1266_2008": [
+     "13"
+    ]
+   }
+  },
+  {
+   "case_id": "9040",
+   "categoria": "Accidentes de transito",
+   "categorias_predichas": [
+    "Accidentes de transito",
+    "Salud / EPS"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 6,
+   "puesto_sin_enrutador": 6,
+   "puesto_forzado": 3,
+   "doc_hallado_forzado": "seguridad_social_ley_100_1993",
+   "arts_gold_del_doc": [
+    "167"
+   ],
+   "gold": {
+    "seguridad_social_ley_100_1993": [
+     "167"
+    ]
+   }
+  },
+  {
+   "case_id": "9041",
+   "categoria": "Embargos",
+   "categorias_predichas": [
+    "Embargos",
+    "Relaciones laborales"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 2,
+   "puesto_sin_enrutador": 2,
+   "puesto_forzado": 2,
+   "doc_hallado_forzado": "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "arts_gold_del_doc": [
+    "154",
+    "155",
+    "156"
+   ],
+   "gold": {
+    "codigo_sustantivo_trabajo_decreto_2663_1950": [
+     "154",
+     "155",
+     "156"
+    ],
+    "codigo_general_proceso_ley_1564_2012": [
+     "594"
+    ]
+   }
+  },
+  {
+   "case_id": "9042",
+   "categoria": "Comparendos de transito",
+   "categorias_predichas": [
+    "Arriendo",
+    "Embargos"
+   ],
+   "enrutador_prioriza_el_gold": false,
+   "puesto_referencia": 54,
+   "puesto_sin_enrutador": 11,
+   "puesto_forzado": 6,
+   "doc_hallado_forzado": "codigo_nacional_transito_ley_769_2002",
+   "arts_gold_del_doc": [
+    "135",
+    "161"
+   ],
+   "gold": {
+    "codigo_nacional_transito_ley_769_2002": [
+     "135",
+     "161"
+    ]
+   }
+  },
+  {
+   "case_id": "9043",
+   "categoria": "Garantias de consumo",
+   "categorias_predichas": [
+    "Garantias de consumo",
+    "Relaciones laborales"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 11,
+   "puesto_sin_enrutador": 51,
+   "puesto_forzado": 9,
+   "doc_hallado_forzado": "estatuto_consumidor_ley_1480_2011",
+   "arts_gold_del_doc": [
+    "47"
+   ],
+   "gold": {
+    "estatuto_consumidor_ley_1480_2011": [
+     "47"
+    ]
+   }
+  },
+  {
+   "case_id": "9044",
+   "categoria": "Derecho de familia - alimentos",
+   "categorias_predichas": [
+    "Derecho de familia - alimentos",
+    "Salud / EPS"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 1,
+   "puesto_sin_enrutador": 1,
+   "puesto_forzado": 1,
+   "doc_hallado_forzado": "codigo_infancia_adolescencia_ley_1098_2006",
+   "arts_gold_del_doc": [
+    "111",
+    "129"
+   ],
+   "gold": {
+    "codigo_infancia_adolescencia_ley_1098_2006": [
+     "111",
+     "129"
+    ],
+    "codigo_civil_ley_84_1873": [
+     "411",
+     "422"
+    ]
+   }
+  },
+  {
+   "case_id": "9045",
+   "categoria": "Accion de tutela",
+   "categorias_predichas": [
+    "Garantias de consumo",
+    "Contratos empresariales (B2B)"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 1,
+   "puesto_sin_enrutador": 1,
+   "puesto_forzado": 1,
+   "doc_hallado_forzado": "constitucion_politica_1991",
+   "arts_gold_del_doc": [
+    "86"
+   ],
+   "gold": {
+    "tutela_decreto_2591_1991": [
+     "42"
+    ],
+    "constitucion_politica_1991": [
+     "86"
+    ]
+   }
+  },
+  {
+   "case_id": "9046",
+   "categoria": "Derecho de peticion",
+   "categorias_predichas": [
+    "Garantias de consumo",
+    "Relaciones laborales"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 11,
+   "puesto_sin_enrutador": 22,
+   "puesto_forzado": 7,
+   "doc_hallado_forzado": "cpaca_ley_1437_2011",
+   "arts_gold_del_doc": [
+    "14",
+    "32"
+   ],
+   "gold": {
+    "cpaca_ley_1437_2011": [
+     "14",
+     "32"
+    ],
+    "constitucion_politica_1991": [
+     "23"
+    ]
+   }
+  },
+  {
+   "case_id": "9048",
+   "categoria": "Derecho penal - denuncia",
+   "categorias_predichas": [
+    "Penal basico y derechos de las victimas",
+    "Garantias de consumo"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": null,
+   "puesto_sin_enrutador": null,
+   "puesto_forzado": null,
+   "doc_hallado_forzado": null,
+   "arts_gold_del_doc": null,
+   "gold": {
+    "codigo_penal_ley_599_2000": [
+     "246",
+     "269-J"
+    ],
+    "codigo_procedimiento_penal_ley_906_2004": [
+     "67",
+     "69"
+    ]
+   }
+  },
+  {
+   "case_id": "9049",
+   "categoria": "Derecho comercial",
+   "categorias_predichas": [
+    "Propiedad intelectual - marcas",
+    "Garantias de consumo"
+   ],
+   "enrutador_prioriza_el_gold": false,
+   "puesto_referencia": null,
+   "puesto_sin_enrutador": 36,
+   "puesto_forzado": 27,
+   "doc_hallado_forzado": "codigo_comercio_decreto_410_1971",
+   "arts_gold_del_doc": [
+    "10",
+    "13",
+    "19",
+    "26",
+    "28"
+   ],
+   "gold": {
+    "codigo_comercio_decreto_410_1971": [
+     "10",
+     "13",
+     "19",
+     "26",
+     "28"
+    ]
+   }
+  },
+  {
+   "case_id": "9050",
+   "categoria": "Derecho comercial",
+   "categorias_predichas": [],
+   "enrutador_prioriza_el_gold": null,
+   "puesto_referencia": 15,
+   "puesto_sin_enrutador": 15,
+   "puesto_forzado": 14,
+   "doc_hallado_forzado": "codigo_comercio_decreto_410_1971",
+   "arts_gold_del_doc": [
+    "712",
+    "730",
+    "731",
+    "784",
+    "793"
+   ],
+   "gold": {
+    "codigo_comercio_decreto_410_1971": [
+     "712",
+     "730",
+     "731",
+     "784",
+     "793"
+    ],
+    "codigo_general_proceso_ley_1564_2012": [
+     "422"
+    ]
+   }
+  },
+  {
+   "case_id": "9051",
+   "categoria": "Relaciones laborales",
+   "categorias_predichas": [
+    "Relaciones laborales",
+    "Violencia intrafamiliar y medidas de proteccion"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 16,
+   "puesto_sin_enrutador": 21,
+   "puesto_forzado": 12,
+   "doc_hallado_forzado": "codigo_sustantivo_trabajo_decreto_2663_1950",
+   "arts_gold_del_doc": [
+    "158",
+    "160",
+    "57"
+   ],
+   "gold": {
+    "codigo_sustantivo_trabajo_decreto_2663_1950": [
+     "158",
+     "160",
+     "57"
+    ],
+    "acoso_laboral_ley_1010_2006": [
+     "7"
+    ]
+   }
+  },
+  {
+   "case_id": "9052",
+   "categoria": "Reporte en centrales de riesgo",
+   "categorias_predichas": [
+    "Reporte en centrales de riesgo",
+    "Garantias de consumo"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 3,
+   "puesto_sin_enrutador": 14,
+   "puesto_forzado": 3,
+   "doc_hallado_forzado": "habeas_data_financiero_ley_1266_2008",
+   "arts_gold_del_doc": [
+    "13",
+    "16",
+    "8"
+   ],
+   "gold": {
+    "habeas_data_financiero_ley_1266_2008": [
+     "13",
+     "16",
+     "8"
+    ]
+   }
+  },
+  {
+   "case_id": "9053",
+   "categoria": "Reporte en centrales de riesgo",
+   "categorias_predichas": [
+    "Reporte en centrales de riesgo",
+    "Contratos empresariales (B2B)"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 5,
+   "puesto_sin_enrutador": 9,
+   "puesto_forzado": 3,
+   "doc_hallado_forzado": "habeas_data_financiero_ley_1266_2008",
+   "arts_gold_del_doc": [
+    "16",
+    "7",
+    "8"
+   ],
+   "gold": {
+    "habeas_data_financiero_ley_1266_2008": [
+     "16",
+     "7",
+     "8"
+    ],
+    "codigo_comercio_decreto_410_1971": [
+     "98"
+    ]
+   }
+  },
+  {
+   "case_id": "9054",
+   "categoria": "Accidentes de transito",
+   "categorias_predichas": [
+    "Accidentes de transito",
+    "Penal basico y derechos de las victimas"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 2,
+   "puesto_sin_enrutador": 2,
+   "puesto_forzado": 2,
+   "doc_hallado_forzado": "codigo_nacional_transito_ley_769_2002",
+   "arts_gold_del_doc": [
+    "143",
+    "144"
+   ],
+   "gold": {
+    "codigo_nacional_transito_ley_769_2002": [
+     "143",
+     "144"
+    ],
+    "codigo_civil_ley_84_1873": [
+     "2341",
+     "2356"
+    ]
+   }
+  },
+  {
+   "case_id": "9055",
+   "categoria": "Accidentes de transito",
+   "categorias_predichas": [
+    "Accidentes de transito",
+    "Reporte en centrales de riesgo"
+   ],
+   "enrutador_prioriza_el_gold": false,
+   "puesto_referencia": null,
+   "puesto_sin_enrutador": 1,
+   "puesto_forzado": 1,
+   "doc_hallado_forzado": "codigo_comercio_decreto_410_1971",
+   "arts_gold_del_doc": [
+    "1003",
+    "982"
+   ],
+   "gold": {
+    "codigo_comercio_decreto_410_1971": [
+     "1003",
+     "982"
+    ]
+   }
+  },
+  {
+   "case_id": "9056",
+   "categoria": "Embargos",
+   "categorias_predichas": [
+    "Embargos",
+    "Servicios publicos domiciliarios"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 10,
+   "puesto_sin_enrutador": 11,
+   "puesto_forzado": 10,
+   "doc_hallado_forzado": "codigo_general_proceso_ley_1564_2012",
+   "arts_gold_del_doc": [
+    "597"
+   ],
+   "gold": {
+    "codigo_general_proceso_ley_1564_2012": [
+     "597"
+    ]
+   }
+  },
+  {
+   "case_id": "9057",
+   "categoria": "Embargos",
+   "categorias_predichas": [
+    "Embargos",
+    "Reporte en centrales de riesgo"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 21,
+   "puesto_sin_enrutador": 76,
+   "puesto_forzado": 20,
+   "doc_hallado_forzado": "codigo_general_proceso_ley_1564_2012",
+   "arts_gold_del_doc": [
+    "133",
+    "290",
+    "291",
+    "292"
+   ],
+   "gold": {
+    "codigo_general_proceso_ley_1564_2012": [
+     "133",
+     "290",
+     "291",
+     "292"
+    ]
+   }
+  },
+  {
+   "case_id": "9058",
+   "categoria": "Educacion / debido proceso disciplinario",
+   "categorias_predichas": [
+    "Educacion / debido proceso disciplinario",
+    "Derecho de familia - alimentos"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": null,
+   "puesto_sin_enrutador": null,
+   "puesto_forzado": null,
+   "doc_hallado_forzado": null,
+   "arts_gold_del_doc": null,
+   "gold": {
+    "ley_general_educacion_ley_115_1994": [
+     "132",
+     "87",
+     "96"
+    ],
+    "convivencia_escolar_ley_1620_2013": [
+     "21"
+    ]
+   }
+  },
+  {
+   "case_id": "9059",
+   "categoria": "Derecho contractual general",
+   "categorias_predichas": [
+    "Derecho contractual general",
+    "Garantias de consumo"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 2,
+   "puesto_sin_enrutador": 31,
+   "puesto_forzado": 2,
+   "doc_hallado_forzado": "estatuto_consumidor_ley_1480_2011",
+   "arts_gold_del_doc": [
+    "37",
+    "38",
+    "42",
+    "43"
+   ],
+   "gold": {
+    "estatuto_consumidor_ley_1480_2011": [
+     "37",
+     "38",
+     "42",
+     "43"
+    ]
+   }
+  },
+  {
+   "case_id": "9060",
+   "categoria": "Contratacion estatal y facturacion",
+   "categorias_predichas": [
+    "Contratacion estatal y facturacion",
+    "Acceso a informacion publica"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 12,
+   "puesto_sin_enrutador": 17,
+   "puesto_forzado": 10,
+   "doc_hallado_forzado": "contratacion_estatal_ley_80_1993",
+   "arts_gold_del_doc": [
+    "26",
+    "5",
+    "52"
+   ],
+   "gold": {
+    "contratacion_estatal_ley_80_1993": [
+     "26",
+     "5",
+     "52"
+    ],
+    "codigo_penal_ley_599_2000": [
+     "286",
+     "287"
+    ]
+   }
+  },
+  {
+   "case_id": "9061",
+   "categoria": "Derecho ambiental sancionatorio",
+   "categorias_predichas": [
+    "Derecho ambiental sancionatorio",
+    "Relaciones laborales"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 17,
+   "puesto_sin_enrutador": 1,
+   "puesto_forzado": 1,
+   "doc_hallado_forzado": "codigo_policia_convivencia_ley_1801_2016",
+   "arts_gold_del_doc": [
+    "33"
+   ],
+   "gold": {
+    "codigo_policia_convivencia_ley_1801_2016": [
+     "33"
+    ],
+    "sancionatorio_ambiental_ley_1333_2009": [
+     "1",
+     "5"
+    ]
+   }
+  },
+  {
+   "case_id": "9062",
+   "categoria": "Pensiones y seguridad social",
+   "categorias_predichas": [
+    "Pensiones y seguridad social",
+    "Relaciones laborales"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 30,
+   "puesto_sin_enrutador": 35,
+   "puesto_forzado": 3,
+   "doc_hallado_forzado": "seguridad_social_ley_100_1993",
+   "arts_gold_del_doc": [
+    "17",
+    "22",
+    "23",
+    "24",
+    "33"
+   ],
+   "gold": {
+    "seguridad_social_ley_100_1993": [
+     "17",
+     "22",
+     "23",
+     "24",
+     "33"
+    ]
+   }
+  },
+  {
+   "case_id": "9063",
+   "categoria": "Pensiones y seguridad social",
+   "categorias_predichas": [
+    "Pensiones y seguridad social",
+    "Derecho administrativo general"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 9,
+   "puesto_sin_enrutador": 10,
+   "puesto_forzado": 9,
+   "doc_hallado_forzado": "seguridad_social_ley_100_1993",
+   "arts_gold_del_doc": [
+    "21",
+    "34"
+   ],
+   "gold": {
+    "seguridad_social_ley_100_1993": [
+     "21",
+     "34"
+    ],
+    "cpaca_ley_1437_2011": [
+     "74",
+     "76"
+    ]
+   }
+  },
+  {
+   "case_id": "9064",
+   "categoria": "Derecho administrativo general",
+   "categorias_predichas": [
+    "Acceso a informacion publica",
+    "Garantias de consumo"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 21,
+   "puesto_sin_enrutador": 36,
+   "puesto_forzado": 19,
+   "doc_hallado_forzado": "cpaca_ley_1437_2011",
+   "arts_gold_del_doc": [
+    "13",
+    "14"
+   ],
+   "gold": {
+    "cpaca_ley_1437_2011": [
+     "13",
+     "14"
+    ],
+    "constitucion_politica_1991": [
+     "23"
+    ]
+   }
+  },
+  {
+   "case_id": "9065",
+   "categoria": "Propiedad intelectual - marcas",
+   "categorias_predichas": [
+    "Propiedad intelectual - marcas",
+    "Servicios publicos domiciliarios"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 1,
+   "puesto_sin_enrutador": 1,
+   "puesto_forzado": 1,
+   "doc_hallado_forzado": "propiedad_industrial_decision_486_2000",
+   "arts_gold_del_doc": [
+    "136",
+    "146",
+    "154",
+    "172"
+   ],
+   "gold": {
+    "propiedad_industrial_decision_486_2000": [
+     "136",
+     "146",
+     "154",
+     "172"
+    ]
+   }
+  },
+  {
+   "case_id": "9066",
+   "categoria": "Licencias urbanisticas",
+   "categorias_predichas": [
+    "Propiedad y linderos",
+    "Arriendo"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 1,
+   "puesto_sin_enrutador": 1,
+   "puesto_forzado": 1,
+   "doc_hallado_forzado": "codigo_policia_convivencia_ley_1801_2016",
+   "arts_gold_del_doc": [
+    "135",
+    "140",
+    "79"
+   ],
+   "gold": {
+    "ordenamiento_territorial_ley_388_1997": [
+     "103",
+     "99"
+    ],
+    "codigo_policia_convivencia_ley_1801_2016": [
+     "135",
+     "140",
+     "79"
+    ]
+   }
+  },
+  {
+   "case_id": "9067",
+   "categoria": "Contratos empresariales (B2B)",
+   "categorias_predichas": [
+    "Garantias de consumo",
+    "Contratos empresariales (B2B)"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 2,
+   "puesto_sin_enrutador": 2,
+   "puesto_forzado": 1,
+   "doc_hallado_forzado": "codigo_comercio_decreto_410_1971",
+   "arts_gold_del_doc": [
+    "1317",
+    "1318",
+    "1319"
+   ],
+   "gold": {
+    "codigo_comercio_decreto_410_1971": [
+     "1317",
+     "1318",
+     "1319"
+    ],
+    "codigo_civil_ley_84_1873": [
+     "1546",
+     "1602",
+     "1613"
+    ]
+   }
+  },
+  {
+   "case_id": "9068",
+   "categoria": "Procedimiento civil - recursos",
+   "categorias_predichas": [
+    "Procedimiento civil - recursos",
+    "Garantias de consumo"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 22,
+   "puesto_sin_enrutador": 36,
+   "puesto_forzado": 22,
+   "doc_hallado_forzado": "codigo_general_proceso_ley_1564_2012",
+   "arts_gold_del_doc": [
+    "302",
+    "322"
+   ],
+   "gold": {
+    "codigo_general_proceso_ley_1564_2012": [
+     "302",
+     "322"
+    ]
+   }
+  },
+  {
+   "case_id": "9069",
+   "categoria": "Procedimiento civil - recursos",
+   "categorias_predichas": [
+    "Garantias de consumo",
+    "Embargos"
+   ],
+   "enrutador_prioriza_el_gold": true,
+   "puesto_referencia": 9,
+   "puesto_sin_enrutador": 39,
+   "puesto_forzado": 8,
+   "doc_hallado_forzado": "codigo_general_proceso_ley_1564_2012",
+   "arts_gold_del_doc": [
+    "133",
+    "291"
+   ],
+   "gold": {
+    "codigo_general_proceso_ley_1564_2012": [
+     "133",
+     "291"
+    ]
+   }
+  }
+ ]
+}

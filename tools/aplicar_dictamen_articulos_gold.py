@@ -256,8 +256,27 @@ CLASE_B_PRIMA = {
 }
 
 
+# Clases B y C: SOLO las tres filas que el dictamen nombro individualmente.
+# Las otras 125 no se registran porque su dictamen fue agregado (64/15/3 en B,
+# 38/8/0 en C) y no hay constancia de que veredicto corresponde a cada fila.
+# El instrumento docs/m3_articulos_gold_pendientes_BC.md esta generado con la
+# casilla vacia para esas 125; mientras no vuelva con los veredictos, asignarlos
+# seria deducirlos de la distribucion, o sea inventarlos.
+from tools.pendientes_bc import NOMBRADAS as _NOMBRADAS
+
+# Las tres son de clase B. La clase C no tiene ninguna fila con veredicto
+# individual, coherente con su agregado 38/8/0, que no nombro excepciones: la
+# comprobacion de completitud del verificador lo destapo cuando intente
+# registrar la de 9004 como clase C.
+CLASE_B_NOMBRADAS = dict(_NOMBRADAS)
+
 DICTAMENES = {"A": ("A_sostiene_acierto", CLASE_A),
-              "B_prima": ("B_candidato_omision", CLASE_B_PRIMA)}
+              "B_prima": ("B_candidato_omision", CLASE_B_PRIMA),
+              "B_parcial": ("B_caso_fallido", CLASE_B_NOMBRADAS)}
+
+# Las clases que se registran de forma PARCIAL: el verificador no exige que el
+# dictamen cubra la clase entera, pero si informa cuantas quedan pendientes.
+PARCIALES = {"B_parcial"}
 
 FIRMAS = {
     "A": ("primera pasada por Claude sobre el texto de la metadata del indice "
@@ -270,6 +289,10 @@ FIRMAS = {
                 "omisiones (9004 art. 10, 9009 art. 21, 9066 art. 79) y las consultas "
                 "de 9043, 9038 y 9068, que quedan como estaban redactadas. La "
                 "aprobacion cubre solo la clase B'"),
+    "B_parcial": ("primera pasada por Claude. Las tres filas de clase B que el "
+                  "dictamen nombro individualmente, aprobadas el 2026-10-10 por "
+                  "Leonardo Galeano (abogado). Las otras 79 de la clase siguen sin "
+                  "veredicto individual documentado"),
 }
 FECHA = "2026-10-10"
 
@@ -284,6 +307,9 @@ def aplicar(filas: list[dict], clase: str) -> tuple[list[dict], list[str]]:
         clave = (f["case_id"], f["doc_id"], f["articulo"])
         if f["clase_impacto"] == etiqueta:
             if clave not in dictamen:
+                if clase in PARCIALES:
+                    nuevas.append(g)
+                    continue
                 raise SystemExit(f"sin dictamen para {clave}")
             veredicto, conf, just = dictamen[clave]
             g.update({"veredicto": veredicto, "confianza": conf,
@@ -311,12 +337,22 @@ def verificar(antes: list[dict], despues: list[dict], clase: str) -> list[str]:
                              f"{a['clase_impacto']}, no {etiqueta}")
 
     de_la_clase = [f for f in despues if f["clase_impacto"] == etiqueta]
-    if len(de_la_clase) != len(dictamen):
-        problemas.append(f"la clase tiene {len(de_la_clase)} filas y el dictamen "
-                         f"{len(dictamen)}")
-    for f in de_la_clase:
-        if f["veredicto"] == "pendiente":
-            problemas.append(f"{f['case_id']}/art {f['articulo']}: quedo pendiente")
+    if clase in PARCIALES:
+        # registro parcial: solo se exige que lo dictaminado quede escrito
+        for k in dictamen:
+            fila = next((f for f in despues if (f["case_id"], f["doc_id"],
+                                                f["articulo"]) == k), None)
+            if fila is None:
+                problemas.append(f"{k}: no hay fila en el CSV para esa clave")
+            elif fila["veredicto"] == "pendiente":
+                problemas.append(f"{k}: quedo pendiente")
+    else:
+        if len(de_la_clase) != len(dictamen):
+            problemas.append(f"la clase tiene {len(de_la_clase)} filas y el "
+                             f"dictamen {len(dictamen)}")
+        for f in de_la_clase:
+            if f["veredicto"] == "pendiente":
+                problemas.append(f"{f['case_id']}/art {f['articulo']}: quedo pendiente")
         if f["huella_metadata"] != HASH_METADATA:
             problemas.append(f"{f['case_id']}/art {f['articulo']}: huella distinta")
 
