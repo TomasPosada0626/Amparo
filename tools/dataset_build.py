@@ -1,4 +1,4 @@
-"""Construye data/dataset_legal.jsonl desde fuentes versionadas y revisables.
+"""Construye los ejemplos SIN contexto de data/dataset.jsonl desde data/dataset_src/.
 
 Por que existe este modulo. La primera version del dataset se generaba con
 tools/dataset_to_jsonl.py a partir de private/dataset_legal_30_ejemplos.md, un
@@ -14,7 +14,7 @@ build es determinista, y cualquier cambio en una respuesta aparece como una
 linea en un diff de pull request.
 
     python -m tools.dataset_build --check   # valida las fuentes, no escribe
-    python -m tools.dataset_build           # escribe data/dataset_legal.jsonl
+    python -m tools.dataset_build --check   # valida las fuentes, no escribe
 
 El build NO pasa si las fuentes no cumplen las puertas de calidad de
 tools/dataset_quality.py: no se entrena con un dataset que no las pase.
@@ -29,7 +29,9 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = PROJECT_ROOT / "data" / "dataset_src"
-OUTPUT_JSONL = PROJECT_ROOT / "data" / "dataset_legal.jsonl"
+# El unico dataset. Antes esto escribia dataset_legal.jsonl y hacia falta
+# encadenar dos herramientas mas para llegar al archivo con el que se entrena.
+OUTPUT_JSONL = PROJECT_ROOT / "data" / "dataset.jsonl"
 
 # El system prompt del producto: unica fuente de verdad, de aqui lo toman el
 # dataset, el comparador y el prompt aumentado de M3. Codifica los cuatro
@@ -103,6 +105,23 @@ def main() -> None:
 
     if not SOURCE_DIR.exists():
         raise SystemExit(f"No existe {SOURCE_DIR}. Las fuentes por categoria viven ahi.")
+
+    # Esta herramienta solo construye los ejemplos SIN contexto de
+    # data/dataset_src/. El dataset con el que se entrena tiene ademas los 755
+    # con contexto (tools/dataset_v2.py) y 418 variantes contrastivas, y
+    # escribirlo desde aqui lo dejaria en 1536: se perderian los otros 1173 y
+    # el adaptador siguiente entrenaria sobre un dataset distinto sin que nada
+    # fallara.
+    #
+    # Mientras el generador de las contrastivas no exista (se borro el
+    # 2026-10-10 con la limpieza), el dataset NO se puede reconstruir entero y
+    # este comando solo valida.
+    if OUTPUT_JSONL.exists() and not args.check:
+        raise SystemExit(
+            f"{OUTPUT_JSONL.name} ya existe y tiene el dataset completo.\n"
+            "Esta herramienta solo arma los ejemplos sin contexto: escribirla "
+            "aqui perderia los 755 con contexto y las 418 contrastivas.\n"
+            "Usa --check para validar las fuentes sin escribir.")
 
     fuentes = [p for p in sorted(SOURCE_DIR.glob("*.md")) if es_fuente(p)]
     todos: list[dict] = []

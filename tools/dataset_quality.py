@@ -11,7 +11,7 @@ Este modulo convierte esos principios en comprobaciones ejecutables, para que la
 calidad del dataset sea una cifra que se mide y no una impresion de quien lo
 revisa. Se corre con:
 
-    python -m tools.dataset_quality                 # sobre data/dataset_legal.jsonl
+    python -m tools.dataset_quality                 # sobre data/dataset.jsonl
     python -m tools.dataset_quality <ruta.jsonl>    # sobre un lote en construccion
 
 Devuelve codigo de salida 1 si alguna puerta de calidad no pasa, para poder
@@ -27,7 +27,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DATASET = PROJECT_ROOT / "data" / "dataset_legal.jsonl"
+DEFAULT_DATASET = PROJECT_ROOT / "data" / "dataset.jsonl"
 
 # --- Contrato de una respuesta -------------------------------------------------
 # Principio 3 de PRODUCT.md: cada respuesta apunta a una figura juridica concreta.

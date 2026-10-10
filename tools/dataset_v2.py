@@ -1,11 +1,11 @@
 """Dataset de M1 v2: los ejemplos que ensenan a usar el contexto.
 
 Por que existe. M1 entrenaba con una sola forma de conversacion: prompt de M1,
-pregunta y respuesta sin citas (data/dataset_legal.jsonl: 0 de 1536 ejemplos con
+pregunta y respuesta sin citas (los 1536 sin contexto de data/dataset.jsonl: 0 con
 contexto, 0 de 1536 respuestas con un articulo). En M3 el modelo recibe
 fragmentos de normas y se le pide citar de ahi; nunca vio un ejemplo asi y cito
 en 0 de 9 casos aun con el contexto perfecto (results/m3_s08_2026-10-07). Este
-modulo construye data/dataset_v2.jsonl, siempre CON contexto, en tres modos:
+modulo construye los ejemplos CON contexto de data/dataset.jsonl, en tres modos:
 
   B1  el contexto trae el articulo que responde, entre fragmentos que no sirven:
       la respuesta cita ese articulo (norma y numero) tal como aparece.
@@ -18,7 +18,7 @@ No hay ejemplos sin contexto (el modo A del piloto se quito el 2026-10-08):
 cuando la busqueda no trae nada, el sistema responde la frase de escape SIN
 llamar al modelo (pipeline._generar_verificado), asi que un ejemplo sin contexto
 le ensenaria al modelo una situacion que en servicio nunca ve. Para eso ya esta
-data/dataset_legal.jsonl.
+los ejemplos sin contexto de data/dataset.jsonl.
 
 De donde sale el contexto. De la MISMA busqueda que usa el sistema al
 responder (Buscador): en Colab, retrieve() con e5 + FAISS + enrutador
@@ -70,7 +70,10 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = PROJECT_ROOT / "data" / "dataset_src_v2"
-OUTPUT_JSONL = PROJECT_ROOT / "data" / "dataset_v2.jsonl"
+# Los ejemplos con contexto ya no viven en un archivo propio: entran a
+# data/dataset.jsonl con origen "v2". Esta ruta queda para --solo-v2, que
+# sirve para revisar la construccion sin tocar el dataset.
+OUTPUT_JSONL = PROJECT_ROOT / "data" / "dataset_v2_revision.jsonl"
 
 MODOS = ("B1", "B2", "B3")
 NORMAS_GENERALES = {"codigo_civil_ley_84_1873", "codigo_comercio_decreto_410_1971",
