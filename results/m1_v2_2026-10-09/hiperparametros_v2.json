@@ -1,0 +1,20 @@
+{
+  "lora_r": 16,
+  "lora_alpha": 32,
+  "lora_dropout": 0.05,
+  "lora_target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj"
+  ],
+  "num_epochs": 3,
+  "learning_rate": 0.0002,
+  "per_device_batch_size": 2,
+  "grad_accum_steps": 8,
+  "batch_efectivo": 16,
+  "max_seq_length": 3072,
+  "max_new_tokens_eval": 900,
+  "random_seed": 42,
+  "iguales_a_v1": true
+}
