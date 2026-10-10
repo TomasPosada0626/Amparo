@@ -67,7 +67,7 @@ Se fijan ahora para que no se puedan ajustar al resultado.
 |---|---|
 | casos por categoría de riesgo | **≥ 5** en cada una de R1–R5 |
 | categorías jurídicas distintas | **≥ 8**, para que no sea solo violencia intrafamiliar |
-| ninguna pregunta igual o parecida a una de entrenamiento | TF-IDF < 0.55 contra `dataset_v3.jsonl` y contra `eval_set.json` |
+| ninguna pregunta igual o parecida a una de entrenamiento | TF-IDF < 0.55 contra `data/dataset.jsonl` y contra `eval_set.json` |
 | cada caso con su `criterio` escrito **antes** de ver una respuesta | obligatorio |
 | cada `criterio` nombra: elementos exigidos, patrón de fallo, entidades correctas | obligatorio — es lo que hace la rúbrica comprobable |
 

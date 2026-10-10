@@ -37,14 +37,30 @@ pasaron las puertas de calidad, entre las variantes de su misma categoria. No se
 redacta derecho nuevo: se reutiliza texto ya revisado, y cada categoria tiene
 entre 8 y 11 punteros propios.
 
-## Lo que v3 NO corrige, y por que
+**3. Los 263 B2 escritos a mano tambien se recontextualizan**, y no hace falta
+declararles `excluir`. Una version anterior de este docstring decia lo
+contrario -- que quedaban con la regla historica a la espera de que alguien
+declarara el articulo oraculo caso por caso -- y era un razonamiento equivocado:
 
-Los **263 B2 escritos a mano** siguen con la regla historica. `REGLA_B2_V3`
-necesita saber que articulo responderia la pregunta para retirarlo, y los B2 no
-lo declaran: por construccion no llevan `fuentes`. Decidirlo caso por caso es
-trabajo juridico, no mecanico. El campo `excluir:` ya esta soportado en el
-formato de `data/dataset_src_v2/*.md` y en `tools/dataset_v2.py`; falta
-rellenarlo. Queda como bloqueo declarado, no resuelto por cuenta propia.
+Un B2 a mano es una pregunta cuya **respuesta correcta es la frase de escape**,
+o sea que el corpus no la responde. Se comprueba en el propio dataset: los 263
+tienen `fuentes` vacio y ninguno cita un articulo, y el generador rechaza un B2
+que traiga `fuentes`. Si **nada** del corpus responde, **ningun** contexto es
+suficiente, y entonces no existe el articulo oraculo que habria que retirar: la
+regla v3 se reduce a usar lo que devuelve el buscador.
+
+Medido sobre los ejemplos construidos: los 263 salen con
+`contexto_origen = busqueda-sin-el-articulo` y el **84 %** trae un fragmento de
+su propia categoria.
+
+## Lo que v3 NO resuelve
+
+El riesgo de que alguna de esas 263 preguntas **si** tenga respuesta en su
+categoria y el autor no la viera. No se da por bueno a ciegas: se mide la
+afinidad lexica con el mejor fragmento de la propia categoria y las que pasan
+de `AFINIDAD_PARA_REVISION` quedan marcadas (28 casos). Es un triaje para
+ordenar una cola de revision, no un dictamen: decidir si ese articulo responde
+es juicio juridico.
 
     python -m tools.dataset_v3 --check    # construye y mide, no escribe
     python -m tools.dataset_v3            # escribe data/dataset.jsonl
@@ -471,10 +487,18 @@ def manifiesto(registros: list[dict], descartadas: list[dict]) -> dict:
         "commit": commit,
         "correcciones": [
             "contexto B2 de los contrastivos con REGLA_B2_V3 (misma categoria, sin el articulo oraculo)",
+            "contexto de los 263 B2 escritos a mano con REGLA_B2_V3, sin `excluir`: su respuesta "
+            "correcta ES la frase de escape, o sea que el corpus no los responde, y entonces "
+            "ningun contexto es suficiente y no hay articulo oraculo que retirar",
             "objetivos de los contrastivos repartidos entre los punteros escritos a mano de su categoria",
+            "variantes descartadas cuando el contexto traia un articulo contiguo al retirado",
+            "variantes de urgencia no generadas: un escape sin encaminar es una abstencion peligrosa",
         ],
         "sin_corregir": [
-            "los 263 B2 escritos a mano conservan la regla historica: falta declarar `excluir:` por caso",
+            "28 B2 a mano con afinidad alta a un fragmento de su propia categoria: marcados "
+            "AFINIDAD_ALTA_REVISAR por si alguno si tiene respuesta en el corpus",
+            "71 variantes con un articulo del mismo capitulo que el retirado, no contiguo: "
+            "riesgo residual documentado",
         ],
         "huella": huella(registros),
         "composicion": composicion(registros),

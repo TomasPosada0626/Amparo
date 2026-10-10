@@ -25,7 +25,7 @@
 > decisión se revierte, el instrumento está y no hay que rehacerlo.
 
 **Congelado el 2026-10-10, sobre el dataset `v3` (huella en
-`data/dataset_v3_manifiesto.json`) y antes de generar una sola respuesta del
+`data/dataset_manifiesto.json`) y antes de generar una sola respuesta del
 candidato.** Ningún número de este documento se mueve después de ver el
 resultado. Si alguno tiene que cambiar, se cambia **aquí, con fecha**, y la
 corrida se vuelve a correr; no se reinterpreta.
@@ -139,7 +139,7 @@ Lo que no pueda establecerse con certeza queda en `pendiente`, no se fuerza.
 
 | artefacto | huella | por qué no se toca |
 |---|---|---|
-| `data/dataset.jsonl` | `614b034fd210f7ae` | es el split de M1/M2; cambiarlo rompe la comparación con la corrida del 2026-10-06 |
+| `data/dataset.jsonl` en `9c9f5a9` | `614b034fd210f7ae` | el dataset anterior; vive en git y se recupera con `git show` |
 | índice FAISS | `19657d22583f93d0` | todas las corridas anteriores se midieron con él |
 | metadata | `8cd72136235d6dfe` | ídem |
 | `data/eval_set.json` | `a5151999c2095d00` | es el conjunto reservado |
@@ -148,8 +148,16 @@ Lo que no pueda establecerse con certeza queda en `pendiente`, no se fuerza.
 | rúbrica de los 5 casos de urgencia | — | la línea base 0/5 depende de ella |
 | las 92 filas gold adjudicadas | — | aprobadas por el abogado el 2026-10-10 |
 
-El candidato se entrena sobre **`data/dataset_v3.jsonl`**, que es un archivo
-nuevo con su propio manifiesto.
+El candidato se entrena sobre **`data/dataset.jsonl`**, huella sha1
+`37e579ad0bfac6bd` (`config.DATASET_SHA1`) y huella de manifiesto
+`91a871d60eca2097` (`data/dataset_manifiesto.json`). **Son dos algoritmos
+distintos sobre dos cosas distintas** -- sha1 de los bytes con LF frente a
+sha256 de los registros canonicos -- y copiarse uno en el otro detiene la
+corrida en la primera celda.
+
+No hay un archivo con sufijo de version: el proyecto tiene **un solo dataset
+con un solo nombre** (commit 42a4316) y la version la lleva git. El anterior
+esta en `git show 9c9f5a9:data/dataset.jsonl`.
 
 ---
 
@@ -256,7 +264,7 @@ cp ~/Downloads/busqueda_v2-20261009T012132Z-1-001/busqueda_v2/rag_index*.* artif
 1. [hecho]      dataset v3 construido, 19 puertas pasadas, suite 680/4
 2. [decision]   congelar este protocolo  <- requiere tu firma
 3. [decision]   los 6 puntos de la seccion 6
-4. [GPU]        UNA version candidata sobre dataset_v3.jsonl
+4. [GPU]        UNA version candidata sobre data/dataset.jsonl
 5. [sin GPU]    corrida de evaluacion en los cuatro escenarios
 6. [abogado]    pasada de adjudicacion
 7. [sin GPU]    las diez dimensiones, por separado, contra esta tabla
