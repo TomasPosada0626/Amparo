@@ -37,10 +37,19 @@ DICTAMEN = {
     "4724": ("valido", "baja"),
 }
 
-FIRMA = ("primera pasada: pertinencia por ChatGPT, verificacion mecanica por Claude. "
-         "Dictamen de las 8 etiquetas aprobado el 2026-10-10 por Leonardo Galeano "
-         "(abogado) y por ChatGPT (validacion metodologica asistida por IA, "
-         "no sustituye la validacion juridica profesional)")
+FIRMA_8 = ("primera pasada: pertinencia por ChatGPT, verificacion mecanica por Claude. "
+           "Dictamen de las 8 etiquetas aprobado el 2026-10-10 por Leonardo Galeano "
+           "(abogado) y por ChatGPT (validacion metodologica asistida por IA, "
+           "no sustituye la validacion juridica profesional)")
+
+# Las otras 27 filas. Leonardo valido tambien la primera pasada completa, pero
+# el alcance es distinto y conviene que la firma lo diga: aqui valido la
+# clasificacion de pertinencia, fundamentacion, calibracion, orientacion y
+# riesgo. NO valido comparacion_v1_v2, que sigue vacia en las 35 filas: no hay
+# dictamen que validar todavia.
+FIRMA_RESTO = ("primera pasada: pertinencia por ChatGPT, verificacion mecanica por "
+               "Claude. Clasificacion validada el 2026-10-10 por Leonardo Galeano "
+               "(abogado). No cubre comparacion_v1_v2, que sigue pendiente")
 
 # Lo unico que esta corrida puede tocar.
 EDITABLES = {"validez_etiqueta_b2", "confianza", "revisor"}
@@ -60,7 +69,9 @@ def aplicar(filas: list[dict]) -> tuple[list[dict], list[str]]:
             if f["confianza"] != conf:
                 cambios.append(f"{cid} confianza: {f['confianza']} -> {conf}")
                 g["confianza"] = conf
-            g["revisor"] = FIRMA
+            g["revisor"] = FIRMA_8
+        else:
+            g["revisor"] = FIRMA_RESTO
         nuevas.append(g)
     return nuevas, cambios
 
