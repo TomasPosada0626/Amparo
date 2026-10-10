@@ -2,6 +2,7 @@ import json
 
 import pytest
 
+from tools.evaluation import dataset as _dataset
 from tools.rag import config, corpus, ingest
 
 
@@ -9,8 +10,7 @@ def test_las_categorias_objetivo_existen_tal_cual_en_el_dataset_de_m1():
     """El corpus se prioriza por las categorias reales del dataset, no por una
     lista escrita de memoria: un nombre mal escrito aca romperia el mapeo
     norma -> categoria sin que nada fallara."""
-    with open(config.PROJECT_ROOT / "data" / "dataset_legal.jsonl", encoding="utf-8") as f:
-        categorias_reales = {json.loads(linea)["category"] for linea in f if linea.strip()}
+    categorias_reales = {r["category"] for r in _dataset.load_records()}
 
     for categoria in corpus.CATEGORIAS_OBJETIVO:
         assert categoria in categorias_reales, categoria
@@ -29,8 +29,7 @@ CATEGORIAS_DE_ABSTENCION = {
 
 
 def _categorias_del_dataset() -> set[str]:
-    with open(config.PROJECT_ROOT / "data" / "dataset_legal.jsonl", encoding="utf-8") as f:
-        return {json.loads(linea)["category"] for linea in f if linea.strip()}
+    return {r["category"] for r in _dataset.load_records()}
 
 
 def test_toda_categoria_tematica_del_dataset_tiene_norma_o_dice_cual_le_falta():

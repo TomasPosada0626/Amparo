@@ -62,7 +62,9 @@ def _library_versions() -> dict[str, str]:
             versiones[lib] = "not-installed"
     return versiones
 
-DATASET_ENTRENAMIENTO = config.PROJECT_ROOT / "data" / "dataset_m1_v2.jsonl"
+# El dataset unico. Antes el default era dataset_m1_v2.jsonl, que ya no existe:
+# cualquier uso sin --dataset fallaba.
+DATASET_ENTRENAMIENTO = config.DATASET_PATH
 
 
 def construir(
@@ -96,7 +98,6 @@ def construir(
 
         "dataset_entrenamiento": dataset.relative_to(config.PROJECT_ROOT).as_posix(),
         "hash_dataset_entrenamiento": huella_archivo(dataset),
-        "hash_dataset_v1": huella_archivo(config.LOCAL_DATASET_PATH),
         "hash_eval_set": huella_archivo(eval_set.EVAL_SET_PATH),
 
         "n_total": len(registros),

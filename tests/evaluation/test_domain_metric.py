@@ -1,5 +1,6 @@
 import json
 
+from tools.evaluation import dataset as _dataset
 from tools.evaluation import config, domain_metric
 
 
@@ -54,8 +55,7 @@ def test_citation_report_compliance_rate():
 def test_gold_dataset_has_zero_citations():
     """Confirma sobre el dataset real que las respuestas gold nunca citan
     normas por numero -- es la premisa que justifica esta metrica."""
-    with open(config.LOCAL_DATASET_PATH, encoding="utf-8") as f:
-        records = [json.loads(line) for line in f if line.strip()]
+    records = _dataset.load_records()
 
     total_citations = sum(
         domain_metric.citation_count(r["messages"][2]["content"]) for r in records

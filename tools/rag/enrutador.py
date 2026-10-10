@@ -31,9 +31,12 @@ from __future__ import annotations
 import json
 from functools import lru_cache
 
+from tools.evaluation import config as eval_config
 from tools.rag import corpus
 
-DATASET_PATH = corpus.config.PROJECT_ROOT / "data" / "dataset_legal.jsonl"
+# El dataset unico. Los ejemplos sin contexto (origen v1) traen la categoria de
+# cada pregunta, que es lo que entrena el clasificador.
+DATASET_PATH = eval_config.DATASET_PATH
 
 # Cuantas categorias tematicas se toman de la prediccion. Con 2 entran las
 # confusiones esperables (Despido / Relaciones laborales, Derecho administrativo

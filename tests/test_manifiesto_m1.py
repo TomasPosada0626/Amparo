@@ -14,9 +14,12 @@ def test_registra_el_dataset_con_el_que_m1_entrena():
     y el hash que importa es el de lo que de verdad entro al SFT."""
     m = manifiesto_m1.construir("/no/existe")
 
-    assert m["dataset_entrenamiento"] == "data/dataset_m1_v2.jsonl"
+    assert m["dataset_entrenamiento"] == "data/dataset.jsonl"
     assert m["hash_dataset_entrenamiento"] is not None
-    assert m["hash_dataset_v1"] != m["hash_dataset_entrenamiento"]
+    # Ya no hay un hash aparte para v1: hay un solo dataset, y los ejemplos sin
+    # contexto se sacan filtrandolo por origen. Antes eran dos archivos y habia
+    # que poder distinguirlos.
+    assert "hash_dataset_v1" not in m
 
 
 def test_los_conteos_salen_del_archivo_y_no_de_la_sesion():
@@ -24,7 +27,7 @@ def test_los_conteos_salen_del_archivo_y_no_de_la_sesion():
     m = manifiesto_m1.construir("/no/existe")
 
     assert m["n_total"] == m["n_train"] + m["n_val"]
-    assert set(m["origenes"]) == {"v1", "v2"}
+    assert set(m["origenes"]) == {"v1", "v2", "contrastivo"}
     assert set(m["val_por_origen"]) == {"v1", "v2"}
 
 
@@ -69,4 +72,4 @@ def test_se_puede_armar_sin_el_stack_de_evaluacion(monkeypatch):
     modulo = importlib.import_module("tools.manifiesto_m1")
     m = modulo.construir("/no/existe")
 
-    assert m["n_total"] == 2291
+    assert m["n_total"] == 2709

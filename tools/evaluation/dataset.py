@@ -19,9 +19,23 @@ from random import Random
 from tools.evaluation import config
 
 
-def load_records(path: Path = config.LOCAL_DATASET_PATH) -> list[dict]:
+def _leer(path: Path) -> list[dict]:
     with open(path, encoding="utf-8") as f:
         return [json.loads(line) for line in f if line.strip()]
+
+
+def load_records(path: Path = config.DATASET_PATH, origen: str | None = "v1") -> list[dict]:
+    """Los ejemplos sin contexto (origen v1): los 1536 del dataset legal.
+
+    `origen` filtra el unico dataset. Antes esto leia data/dataset_legal.jsonl,
+    que ya no existe como archivo aparte; v3 lo contiene verbatim, asi que
+    filtrar por origen devuelve los mismos 1536 registros con los mismos
+    campos. Con origen=None devuelve los 2709.
+    """
+    registros = _leer(path)
+    if origen is None:
+        return registros
+    return [r for r in registros if r.get("origen") == origen]
 
 
 def system_prompt(records: list[dict]) -> str:
@@ -53,11 +67,15 @@ def stratified_split(
     return train_records, val_records
 
 
-def load_records_v2(path: Path = config.PROJECT_ROOT / "data" / "dataset_v2.jsonl") -> list[dict]:
-    """Ejemplos de data/dataset_v2.jsonl (tools/dataset_v2.py); [] si no existe."""
+def load_records_v2(path: Path = config.DATASET_PATH) -> list[dict]:
+    """Los ejemplos CON contexto (origen v2): los 755 de tools/dataset_v2.py.
+
+    No incluye las 418 variantes contrastivas (origen `contrastivo`): son
+    ejemplos de entrenamiento derivados, no parte de la fuente revisada.
+    """
     if not path.exists():
         return []
-    return load_records(path)
+    return load_records(path, origen="v2")
 
 
 def split_v2(

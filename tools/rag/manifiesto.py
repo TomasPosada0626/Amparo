@@ -29,6 +29,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
+from tools.evaluation import config as eval_config
 from tools.rag import config
 
 # Librerias que importan para reproducir una corrida de M3. Las de M2 mas las
@@ -154,7 +155,7 @@ def construir(
         hash_metadata_indice=huella_archivo(meta),
         hash_corpus=huella_directorio(config.RAW_CORPUS_DIR, patron="*.md"),
         hash_dataset=huella_archivo(
-            config.PROJECT_ROOT / "data" / "dataset_legal.jsonl"),
+            eval_config.DATASET_PATH),
         hash_eval_set=huella_archivo(config.PROJECT_ROOT / "data" / "eval_set.json"),
         n_chunks=n_chunks,
         n_eval_set=n_eval_set,

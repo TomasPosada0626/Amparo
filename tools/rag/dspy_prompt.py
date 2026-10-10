@@ -122,7 +122,9 @@ def _normalizar(texto: str) -> str:
 def cargar_dataset_m1(path: Path | None = None) -> list[dict]:
     from tools.evaluation import config as eval_config
 
-    path = path or (eval_config.PROJECT_ROOT / "data" / "dataset_legal.jsonl")
+    # Antes era data/dataset_legal.jsonl. Ahora hay un solo dataset y los
+    # ejemplos sin contexto se sacan filtrandolo por origen: los mismos 1536.
+    path = path or eval_config.DATASET_PATH
     with open(path, encoding="utf-8") as f:
         return [json.loads(l) for l in f if l.strip()]
 

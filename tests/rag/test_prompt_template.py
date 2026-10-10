@@ -130,9 +130,8 @@ def test_el_prompt_de_m1_de_la_libreria_rag_es_el_del_dataset():
     adaptador y el delta deja de ser atribuible al RAG."""
     import json
 
-    from tools.evaluation import config as eval_config
+    from tools.evaluation import dataset as _dataset
     from tools.rag.prompt_template import SYSTEM_PROMPT_M1
 
-    with open(eval_config.LOCAL_DATASET_PATH, encoding="utf-8") as f:
-        primero = json.loads(f.readline())
+    primero = _dataset.load_records()[0]
     assert SYSTEM_PROMPT_M1 == primero["messages"][0]["content"]

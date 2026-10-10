@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import json
 
+from tools.evaluation import dataset as _dataset
 from tools.evaluation import config
 from tools.evaluation.entity_metric import (
     find_fabricated_entities,
@@ -24,8 +25,7 @@ from tools.evaluation.entity_metric import (
 
 
 def _respuestas_del_dataset() -> list[tuple[int, str]]:
-    with open(config.LOCAL_DATASET_PATH, encoding="utf-8") as f:
-        registros = [json.loads(linea) for linea in f if linea.strip()]
+    registros = _dataset.load_records()
     return [(r["id"], r["messages"][2]["content"]) for r in registros]
 
 

@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import json
 
+from tools.evaluation import dataset as _dataset
 from tools.evaluation import config as eval_config
 from tools.model_comparator import config as mc_config
 from tools.rag import prompt_template
@@ -23,9 +24,7 @@ from tools.rag import prompt_template
 
 def _system_prompt_del_dataset() -> str:
     """El system prompt tal como quedo en data/dataset_legal.jsonl."""
-    with open(eval_config.LOCAL_DATASET_PATH, encoding="utf-8") as f:
-        primer_registro = json.loads(f.readline())
-    return primer_registro["messages"][0]["content"]
+    return _dataset.load_records()[0]["messages"][0]["content"]
 
 
 def test_el_prompt_del_comparador_es_el_que_se_entreno():
@@ -39,9 +38,19 @@ def test_el_prompt_del_rag_es_el_que_se_entreno():
 
 
 def test_todo_el_dataset_usa_el_mismo_system_prompt():
-    with open(eval_config.LOCAL_DATASET_PATH, encoding="utf-8") as f:
-        prompts = {json.loads(linea)["messages"][0]["content"] for linea in f if linea.strip()}
-    assert len(prompts) == 1, f"el dataset mezcla {len(prompts)} system prompts distintos"
+    # Un prompt para los ejemplos sin contexto y otro para los que lo llevan.
+    # Son dos a proposito: el segundo agrega las reglas de uso del CONTEXTO. Lo
+    # que no puede pasar es que haya mas de uno DENTRO de cada grupo, porque
+    # entonces el modelo recibiria instrucciones distintas para la misma tarea.
+    sin_contexto = {r["messages"][0]["content"] for r in _dataset.load_records()}
+    assert len(sin_contexto) == 1, (
+        f"los ejemplos sin contexto mezclan {len(sin_contexto)} system prompts")
+
+    con_contexto = {r["messages"][0]["content"] for r in _dataset.load_records_v2()}
+    assert len(con_contexto) == 1, (
+        f"los ejemplos con contexto mezclan {len(con_contexto)} system prompts")
+    assert sin_contexto != con_contexto, (
+        "el prompt con contexto deberia agregar las reglas de uso del CONTEXTO")
 
 
 def test_el_eval_set_de_m2_usa_el_prompt_que_se_entreno():
