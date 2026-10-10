@@ -100,6 +100,39 @@ def commit_actual() -> str:
         return "desconocido"
 
 
+# El commit de la matriz que se adjudica. Fijo, no calculado: si manana se
+# regenera la matriz, estas filas siguen apuntando a la evidencia que se leyo.
+COMMIT_EVIDENCIA = "d0ff2de"
+
+_PATRON_CASO = re.compile(r"^## Caso (\d+) —", re.MULTILINE)
+
+
+def ids_canonicos(matriz: Path = MATRIZ) -> list[str]:
+    """Los case_id que trae la matriz de evidencia, en orden.
+
+    Se leen de la matriz y no de los resultados de v1 a proposito: si manana
+    ese jsonl pierde filas, el conjunto esperado se reduciria en silencio y el
+    validador daria por completa una adjudicacion a la que le faltan casos.
+    """
+    return _PATRON_CASO.findall(matriz.read_text(encoding="utf-8"))
+
+
+def respuestas() -> dict[str, dict[str, str]]:
+    """{case_id: {"v1": texto, "v2": texto}} para comprobar las citas."""
+    a = {str(r["id"]): r.get("generated") or "" for r in _leer(V1)}
+    b = {str(r["id"]): r.get("generated") or "" for r in _leer(V2)}
+    return {k: {"v1": a.get(k, ""), "v2": b.get(k, "")} for k in set(a) | set(b)}
+
+
+def _normalizar(t: str) -> str:
+    """Espacios y comillas, nada mas. No se tocan las palabras: la cita tiene
+    que aparecer en la respuesta, no parecerse a ella."""
+    t = (t or "").strip().strip("\"'“”‘’")
+    for a, b in (("“", '"'), ("”", '"'), ("‘", "'"), ("’", "'")):
+        t = t.replace(a, b)
+    return re.sub(r"\s+", " ", t).lower()
+
+
 def casos() -> list[dict]:
     """Los 35 B2, con lo que se puede llenar sin criterio juridico."""
     v1 = {r["id"]: r for r in _leer(V1)}
@@ -127,13 +160,19 @@ def crear(ruta: Path = SALIDA) -> int:
     return len(filas)
 
 
-def revisar(filas: list[dict], ids_esperados: set[str] | None = None) -> list[str]:
-    """Los controles de calidad, antes de dar B2 por cerrado."""
+def revisar(filas: list[dict], ids_esperados=None, textos=None,
+            commit: str = COMMIT_EVIDENCIA) -> list[str]:
+    """Los controles de calidad, antes de dar B2 por cerrado.
+
+    `textos` es {case_id: {"v1": ..., "v2": ...}} y sirve para comprobar que
+    una cita marcada como afirmacion sin respaldo aparece de verdad en la
+    respuesta. Con None no se comprueba, que es lo que necesitan las pruebas
+    con datos de juguete.
+    """
     problemas = []
 
     ids = [f.get("case_id", "") for f in filas]
-    esperados = ids_esperados if ids_esperados is not None else {
-        c["case_id"] for c in casos()}
+    esperados = set(ids_esperados) if ids_esperados is not None else set(ids_canonicos())
 
     repetidos = sorted({i for i in ids if ids.count(i) > 1})
     if repetidos:
@@ -156,12 +195,24 @@ def revisar(filas: list[dict], ids_esperados: set[str] | None = None) -> list[st
                 problemas.append(f"{cid}: {col}={v!r} no esta en {sorted(validos)}")
 
         # Una afirmacion marcada como fuera de respaldo tiene que traer la
-        # frase concreta: sin ella, el dictamen no se puede revisar.
+        # frase concreta Y esa frase tiene que estar en la respuesta. Sin lo
+        # segundo, "invento un plazo" pasaria el control sin ser una cita.
         for m in ("v1", "v2"):
-            if (f.get(f"{m}_fundamentacion") or "").strip() == "excede" and not (
-                    f.get(f"{m}_afirmaciones_sin_respaldo") or "").strip():
+            if (f.get(f"{m}_fundamentacion") or "").strip() != "excede":
+                continue
+            cita = (f.get(f"{m}_afirmaciones_sin_respaldo") or "").strip()
+            if not cita:
                 problemas.append(
                     f"{cid}: {m} marcado 'excede' sin citar la afirmacion sin respaldo")
+                continue
+            if textos is None:
+                continue
+            original = (textos.get(cid) or {}).get(m)
+            if original is None:
+                problemas.append(f"{cid}: no hay respuesta de {m} contra la cual comprobar la cita")
+            elif _normalizar(cita) not in _normalizar(original):
+                problemas.append(
+                    f"{cid}: la cita de {m} no aparece en su respuesta: {cita[:60]!r}")
 
         # Un caso juridicamente dudoso se marca pendiente, no se fuerza.
         if (f.get("revision_juridica") or "").strip() == "requerida" and (
@@ -170,8 +221,32 @@ def revisar(filas: list[dict], ids_esperados: set[str] | None = None) -> list[st
                 f"{cid}: requiere revision juridica pero ya tiene un dictamen "
                 "comparativo; marcar 'pendiente' hasta resolverla")
 
-        if not (f.get("commit_evidencia") or "").strip():
+        # El commit tiene que ser EL declarado, no cualquiera: si una fila
+        # apunta a otra version de la matriz, se adjudico contra otra
+        # evidencia y las filas dejan de ser comparables entre si.
+        ce = (f.get("commit_evidencia") or "").strip()
+        if not ce:
             problemas.append(f"{cid}: sin commit_evidencia, la revision no es rastreable")
+        elif ce != commit:
+            problemas.append(
+                f"{cid}: commit_evidencia={ce!r} pero la matriz adjudicada es {commit!r}")
+
+        # fragmentos_relevantes: ids de 1 a 5, sin repetir. Vacio vale cuando
+        # ninguno aporta.
+        fr = (f.get("fragmentos_relevantes") or "").strip()
+        if fr:
+            trozos = [t.strip() for t in fr.split(",")]
+            if not all(t.isdigit() and 1 <= int(t) <= 5 for t in trozos):
+                problemas.append(
+                    f"{cid}: fragmentos_relevantes={fr!r} debe ser numeros de 1 a 5 "
+                    "separados por comas")
+            elif len(set(trozos)) != len(trozos):
+                problemas.append(f"{cid}: fragmentos_relevantes={fr!r} tiene repetidos")
+
+        # Un caso con contexto pertinente tiene que decir cual fragmento lo es.
+        if (f.get("pertinencia_contexto") or "").strip() in ("suficiente", "parcial") and not fr:
+            problemas.append(
+                f"{cid}: el contexto se marco pertinente pero no se dice que fragmento lo es")
 
     return problemas
 
@@ -206,7 +281,7 @@ def main(argv=None) -> int:
         raise SystemExit(f"No existe {SALIDA}. Crealo con --crear.")
     with SALIDA.open(encoding="utf-8", newline="") as f:
         filas = list(csv.DictReader(f))
-    problemas = revisar(filas)
+    problemas = revisar(filas, textos=respuestas())
     print(resumen(filas))
     print()
     if problemas:

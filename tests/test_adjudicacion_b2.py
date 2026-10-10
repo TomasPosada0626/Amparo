@@ -111,3 +111,110 @@ def test_sin_commit_de_evidencia_la_revision_no_es_rastreable():
 
 def test_las_columnas_de_trazabilidad_son_obligatorias():
     assert "revisor" in OBLIGATORIAS and "fecha_revision" in OBLIGATORIAS
+
+
+# --- la cita tiene que estar en la respuesta, no parecerse ------------------
+#
+# "invento un plazo" describe el problema pero no permite revisarlo: quien
+# audita no puede volver a la respuesta y comprobarlo.
+
+TEXTOS = {"1": {"v1": "El articulo 20 limita el reajuste al IPC.",
+                "v2": "Puedes reclamar. El plazo es de 30 dias habiles."},
+          "2": {"v1": "x", "v2": "y"}}
+
+
+def test_una_cita_literal_de_la_respuesta_pasa():
+    ok = revisar([fila("1", v2_fundamentacion="excede",
+                       v2_afirmaciones_sin_respaldo="El plazo es de 30 dias habiles"),
+                  fila("2")], IDS, TEXTOS)
+
+    assert ok == []
+
+
+def test_una_descripcion_en_vez_de_una_cita_no_pasa():
+    malo = revisar([fila("1", v2_fundamentacion="excede",
+                         v2_afirmaciones_sin_respaldo="invento un plazo"),
+                    fila("2")], IDS, TEXTOS)
+
+    assert any("no aparece en su respuesta" in p for p in malo)
+
+
+def test_la_cita_se_compara_sin_importar_espacios_ni_comillas():
+    """Normalizaciones seguras: espacios y comillas. Las palabras no se tocan."""
+    ok = revisar([fila("1", v2_fundamentacion="excede",
+                       v2_afirmaciones_sin_respaldo='"El  plazo   es de 30 dias habiles"'),
+                  fila("2")], IDS, TEXTOS)
+
+    assert ok == []
+
+
+def test_una_cita_del_otro_modelo_no_cuenta():
+    """La de v1 no respalda un 'excede' de v2."""
+    malo = revisar([fila("1", v2_fundamentacion="excede",
+                         v2_afirmaciones_sin_respaldo="El articulo 20 limita el reajuste"),
+                    fila("2")], IDS, TEXTOS)
+
+    assert any("no aparece en su respuesta" in p for p in malo)
+
+
+# --- trazabilidad: el commit declarado, no cualquiera -----------------------
+
+def test_un_commit_distinto_al_declarado_no_pasa():
+    """Si una fila apunta a otra version de la matriz, se adjudico contra otra
+    evidencia y las filas dejan de ser comparables."""
+    malo = revisar([fila("1", commit_evidencia="abc1234"), fila("2")], IDS,
+                   commit="d0ff2de")
+
+    assert any("pero la matriz adjudicada es" in p for p in malo)
+
+
+def test_el_commit_declarado_pasa():
+    assert revisar([fila("1"), fila("2")], IDS, commit="d0ff2de") == []
+
+
+# --- fragmentos_relevantes ---------------------------------------------------
+
+def test_fragmentos_validos_pasan():
+    ok = revisar([fila("1", pertinencia_contexto="parcial", fragmentos_relevantes="1,3"),
+                  fila("2")], IDS)
+
+    assert ok == []
+
+
+def test_un_fragmento_fuera_de_rango_no_pasa():
+    malo = revisar([fila("1", pertinencia_contexto="parcial", fragmentos_relevantes="1,7"),
+                    fila("2")], IDS)
+
+    assert any("numeros de 1 a 5" in p for p in malo)
+
+
+def test_fragmentos_repetidos_no_pasan():
+    malo = revisar([fila("1", pertinencia_contexto="parcial", fragmentos_relevantes="2,2"),
+                    fila("2")], IDS)
+
+    assert any("repetidos" in p for p in malo)
+
+
+def test_fragmentos_vacio_vale_si_el_contexto_es_insuficiente():
+    assert revisar([fila("1", pertinencia_contexto="insuficiente",
+                         fragmentos_relevantes=""), fila("2")], IDS) == []
+
+
+def test_marcar_el_contexto_pertinente_exige_decir_cual_fragmento():
+    malo = revisar([fila("1", pertinencia_contexto="suficiente",
+                         fragmentos_relevantes=""), fila("2")], IDS)
+
+    assert any("no se dice que fragmento" in p for p in malo)
+
+
+# --- identidad canonica ------------------------------------------------------
+
+def test_los_ids_esperados_salen_de_la_matriz_y_son_35():
+    """Si salieran de los resultados de v1 y ese jsonl perdiera filas, el
+    conjunto esperado se reduciria en silencio."""
+    from tools.adjudicacion_b2 import ids_canonicos
+
+    ids = ids_canonicos()
+
+    assert len(ids) == 35
+    assert len(set(ids)) == 35
