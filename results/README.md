@@ -93,12 +93,21 @@ No son correcciones de datos: el modelo no cambio, cambio como se mide.
 
 ## Abierto
 
-- **B2: 0 de 35 abstenciones literales en v1 y en v2.** La causa raiz esta
-  demostrada: el dataset se contradice 594 veces en entrenamiento -- la misma
-  pregunta con respuesta de fondo en los ejemplos sin contexto y con la frase
-  de escape en los B2. El criterio paso a medir conducta y no la frase literal;
-  la matriz caso por caso esta en `docs/m1_b2_matriz.md` y espera revision
-  juridica.
+- **B2: 0 de 35 abstenciones literales en v1 y en v2.** Hay 594 ejemplos B2 de
+  entrenamiento cuya pregunta base aparece tambien, sin contexto, con una
+  respuesta de fondo. El conteo es exacto y reproducible.
+
+  **Eso NO son 594 etiquetas erroneas**, y llamarlo "contradiccion demostrada"
+  fue ir mas alla de lo que prueba: el system prompt de los ejemplos con
+  contexto agrega 796 caracteres de reglas que el otro no tiene, entre ellas
+  "nunca cites de memoria". La misma pregunta con instrucciones distintas puede
+  requerir respuestas distintas; eso es aprendizaje condicional. Lo que el dato
+  demuestra es que existe una tension entre modos, no cual de los dos targets
+  esta mal.
+
+  Cual corregir lo decide la revision caso por caso de `docs/m1_b2_matriz.md`,
+  con el criterio conductual acordado el 2026-10-10. Hasta entonces no se tocan
+  los targets ni se entrena otra version.
 - **Recuperacion: 17 de 45 casos gold con `context_recall = 0`.** Las 17 normas
   estan en el corpus; lo que falla es el ranking. C (rerank) las rescata mejor
   que la configuracion de produccion. Ocho no las encuentra ninguna.
