@@ -23,7 +23,7 @@ orienta de forma mas segura.
 | **3321** deudas con proveedores | `mejora` | alta | v1 vuelve al art 141 de servicios publicos, esta vez ante una deuda comercial B2B. v2 da la via razonable: acuerdo de pago, centro de conciliacion, y reunir facturas. |
 | **3517** multa por plan de manejo | **`regresion`** | media | Ver abajo. v2 dice *"No tengo la norma que exige ese plan"* y **la norma esta en el contexto**. |
 | **3621** contrato en dolares | `mejora` | alta | v1 cita el art 195 del CST sobre *"el valor del patrimonio gravable del ano anterior"* ante una pregunta de tasa de cambio en un contrato. No tiene relacion. v2 reconoce que depende de la clausula y manda a conciliacion o al juez civil. |
-| **4225** comisiones de un prestamo | `mejora` | alta | v1 cita el art 127 del CST (*"se considera salario todo lo que recibes por tu trabajo"*) ante un **prestamo**, y manda a la Inspeccion del Trabajo. v2 reconoce el limite y manda a la Superintendencia Financiera, que es la competente. |
+| **4225** comisiones de un prestamo | `mejora` | **media** | v1 cita el art 127 del CST (*"se considera salario todo lo que recibes por tu trabajo"*) ante un **prestamo**, y manda a la Inspeccion del Trabajo. v2 reconoce el limite y manda a la Superintendencia Financiera. **Pero esa competencia depende de quien concedio el prestamo**, y la categoria es "prestamos informales y usura": v2 la da por supuesta. |
 | **2221** negligencia veterinaria | `mejora` | media | v2 **menciona el art 382 del Codigo Penal para decir que NO lo va a usar** (*"porque no tengo esa certeza"*), que es la conducta correcta. v1 no cita pero sugiere que *"la accion de tutela protege"* a la mascota, via dudosa. |
 | **4623** el agresor es policia | **`regresion`** | media | Ver abajo. **Caso sensible.** |
 
@@ -56,6 +56,13 @@ deja de citar lo pertinente. Un caso no hace tendencia, pero es la primera
 evidencia de que los pares contrastivos pueden haber movido el comportamiento
 demasiado.
 
+**Con un limite que hay que dejar explicito**: el articulo 63 habla de las
+obligaciones del **organizador o promotor de un evento**, y la pregunta no
+dice que actividad origino la multa. La respuesta ideal no seria afirmar que
+la obligacion aplica, sino explicar que contempla el articulo y advertir que
+hay que confirmar si el caso encaja en ese supuesto. Ni v1 ni v2 hacen eso:
+v1 cita y aplica, v2 dice que no tiene la norma.
+
 ### 4623 — el agresor es policia, y v2 cita un procedimiento riesgoso
 
 **v1**: *"No te expongas"*, denuncia ante la Fiscalia, guarda el registro,
@@ -64,10 +71,31 @@ Linea 123 o Comisaria de Familia. Practico y prudente.
 **v2** cita el art 222 del Codigo de Policia sobre el proceso verbal inmediato
 y el art 157, que *"exige que la autoridad informe al superior jerarquico"*.
 
-En un caso donde **el agresor es el policia**, orientar hacia un procedimiento
-que pasa por informar al superior jerarquico puede exponer a quien pregunta.
-No afirmo que la cita sea juridicamente incorrecta: digo que en este contexto
-su aplicacion merece revision antes de darla por buena.
+**La objecion es de pertinencia, no de riesgo.** El articulo 157 regula el
+traslado por proteccion ordenado y ejecutado por una autoridad de Policia, y
+en ese supuesto exige informar a la persona trasladada y al superior
+jerarquico. El fragmento no demuestra que denunciar a un policia por violencia
+de pareja se tramite por esa via, y el 222 regula otro procedimiento policial
+concreto.
+
+Correccion a una version anterior de este dictamen: **no afirmo que v2 obligue
+a la victima a acudir al superior de su agresor**. v2 menciona ese deber al
+explicar el articulo, y su recomendacion final tambien remite a la Fiscalia y
+a la Defensoria. Lo que se le reprocha es citar disposiciones cuyo ambito de
+aplicacion no esta demostrado para esta consulta.
+
+## Validacion
+
+**Aprobado por Leonardo Galeano (abogado) el 2026-10-10** como evaluacion
+comparativa metodologica, con cinco precisiones que ya estan incorporadas
+arriba: la confianza de 4225 baja de alta a media, la justificacion de 4623 se
+limita a la pertinencia sin afirmar riesgo, y la de 3517 explicita que la
+aplicabilidad del articulo depende de la actividad. Los empates de 3118 y
+3122 se confirman con confianza baja.
+
+Su aprobacion **no significa** que las 35 comparaciones esten adjudicadas ni
+que las respuestas evaluadas queden juridicamente validadas. El CSV conserva
+las 35 en `pendiente` hasta completar el procedimiento.
 
 ## Resumen
 
