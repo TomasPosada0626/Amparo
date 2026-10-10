@@ -190,3 +190,33 @@ def test_el_manifiesto_registra_la_identidad_de_la_corrida():
                   '"revision_verificada": FIRMA["revision_verificada"]',
                   '"huella_dataset": FIRMA["huella_dataset"]'):
         assert campo in codigo, f"el manifiesto no registra {campo}"
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_el_adaptador_se_guarda_por_corrida_y_sin_sobrescribir():
+    """`dirs_exist_ok=True` sobre una ruta que solo dependia de la etiqueta y
+    la fecha: una segunda corrida el mismo dia borraba el adaptador de la
+    primera."""
+    codigo = _codigo_del_notebook()
+    assert "shutil.copytree(" not in codigo, "vuelve a copiar a mano"
+    assert "_corrida.guardar_adaptador(" in codigo
+    assert "ADAPTER_DIR = f'{ADAPTADOR_ROOT}/amparo-lora-adapter-{ADAPTADOR}-{CORRIDA_ID}'" in codigo
+    assert "ADAPTER_DIR_VERSIONADO" not in codigo
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_los_resultados_afinados_se_atan_a_los_pesos():
+    """El corrida_id identifica COMO se entreno, no QUE salio."""
+    codigo = _codigo_del_notebook()
+    assert "_corrida.registrar_adaptador(SALIDA_DIR, 'afinado', HUELLA_ADAPTADOR)" in codigo
+    assert "huella_adaptador=HUELLA_ADAPTADOR if estado == 'afinado' else None" in codigo
+    assert '"huella_adaptador": HUELLA_ADAPTADOR' in codigo
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_una_revision_sin_resolver_detiene_antes_de_cargar_el_modelo():
+    """Bajar 15 GB para descubrir despues que la corrida no sirve es tiempo de
+    GPU tirado, asi que la comprobacion va antes de `from_pretrained`."""
+    codigo = _codigo_del_notebook()
+    assert "_corrida.exigir_revision(REVISION_BASE)" in codigo
+    assert codigo.index("_corrida.exigir_revision(") < codigo.index("AutoTokenizer.from_pretrained")

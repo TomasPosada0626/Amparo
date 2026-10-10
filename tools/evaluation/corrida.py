@@ -156,26 +156,119 @@ def verificar_firma(guardada: dict | None, actual: dict, donde: str) -> None:
             f"\n\nNo se borra nada. Usa otro directorio o mueve esos resultados.")
 
 
+def exigir_revision(revision: str | None) -> str:
+    """La revision del modelo base, o se detiene.
+
+    Por que es un error y no un aviso. Sin `revision` fijada, Hugging Face
+    sirve lo que apunte `main`, y `main` **puede cambiar sin que cambie nada de
+    la firma**: mismo dataset, mismo commit, mismo adaptador, mismo
+    `corrida_id`, y otros pesos debajo. Un checkpoint guardado ayer se reusaria
+    hoy contra un modelo base distinto sin que nada falle.
+
+    Una corrida experimental que no se puede reproducir no sirve para decidir
+    si se adopta un adaptador, que es justo para lo que se hace.
+    """
+    if not revision:
+        raise SystemExit(
+            "No se pudo resolver la revision del modelo base.\n\n"
+            "Sin revision fijada se baja lo que apunte main, que puede cambiar "
+            "sin que cambie la firma de la corrida: dos corridas con el mismo "
+            "corrida_id podrian tener pesos base distintos.\n\n"
+            "Reintenta cuando huggingface_hub responda. Si decides correr igual "
+            "-- sabiendo que la corrida NO es reproducible y que no podra "
+            "reanudarse -- pon EXIGIR_REVISION = False en el notebook.")
+    return revision
+
+
+def ruta_meta(directorio, estado: str) -> Path:
+    return Path(directorio) / f"{estado}.meta.json"
+
+
+def registrar_adaptador(directorio, estado: str, huella: str | None) -> None:
+    """Deja la huella de los pesos junto a los resultados de ese estado.
+
+    Si ya hay una y es otra, **se detiene**: son pesos distintos y sus
+    respuestas no se pueden juntar en una sola cifra.
+    """
+    ruta = ruta_meta(directorio, estado)
+    if ruta.exists():
+        previa = json.loads(ruta.read_text(encoding="utf-8")).get("huella_adaptador")
+        if previa != huella:
+            raise SystemExit(
+                f"{ruta} dice que los resultados de '{estado}' son del adaptador "
+                f"{previa!r} y los pesos actuales son {huella!r}.\n\n"
+                f"Es el caso que la firma de la corrida NO detecta: misma "
+                f"configuracion, misma etiqueta de adaptador y mismo dia, pero "
+                f"un entrenamiento distinto. Reusar esos resultados mezclaria "
+                f"dos modelos.\n\nNo se borra nada: usa otro directorio.")
+        return
+    ruta.parent.mkdir(parents=True, exist_ok=True)
+    ruta.write_text(json.dumps({"huella_adaptador": huella}, ensure_ascii=False,
+                               indent=2) + "\n", encoding="utf-8", newline="\n")
+
+
 def verificar_checkpoint(directorio, actual: dict, estado: str,
-                         n_esperado: int | None = None) -> list[dict]:
+                         n_esperado: int | None = None,
+                         huella_adaptador: str | None = None) -> list[dict]:
     """Los resultados reusables de `<directorio>/<estado>_results.jsonl`.
 
     Devuelve [] si no hay nada que reusar. Se detiene -- no borra, no sigue --
-    si lo que hay es de otra corrida.
+    si lo que hay es de otra corrida o de otros pesos.
+
+    `huella_adaptador` es **obligatoria para `afinado`**. El `corrida_id`
+    identifica la configuracion del entrenamiento, no su resultado: dos
+    entrenamientos con la misma configuracion el mismo dia dan el mismo
+    `corrida_id` y **pesos distintos**, porque basta que cambie el orden de un
+    lote o la version de una libreria. Sin esta comprobacion, el segundo
+    reusaria el `afinado_results.jsonl` parcial del primero.
     """
     if estado not in ESTADOS:
         raise SystemExit(f"estado {estado!r} no esta en {ESTADOS}")
+    if estado == "afinado" and not huella_adaptador:
+        raise SystemExit(
+            "evaluar 'afinado' exige la huella del adaptador entrenado: sin ella "
+            "no se puede saber si unos resultados guardados son de ESTOS pesos.")
     d = Path(directorio)
     ruta = d / f"{estado}_results.jsonl"
     if not ruta.exists():
+        registrar_adaptador(d, estado, huella_adaptador)
         return []
-    verificar_firma(leer(d), actual, str(ruta))
+    firma_guardada = leer(d)
+    verificar_firma(firma_guardada, actual, str(ruta))
+    if not (firma_guardada or {}).get("revision_base"):
+        raise SystemExit(
+            f"{ruta} se genero sin una revision inmutable del modelo base, asi "
+            f"que no hay forma de saber si los pesos base son los mismos de hoy. "
+            f"No se reusa.")
+    registrar_adaptador(d, estado, huella_adaptador)
     filas = [json.loads(l) for l in ruta.read_text(encoding="utf-8").splitlines()
              if l.strip()]
     if n_esperado is not None and len(filas) > n_esperado:
         raise SystemExit(
             f"{ruta} tiene {len(filas)} registros y la validacion {n_esperado}.")
     return filas
+
+
+def guardar_adaptador(origen, destino) -> str:
+    """Copia el adaptador a `destino`, que **no puede existir**, y da su huella.
+
+    Sin `dirs_exist_ok`. La version anterior copiaba con `dirs_exist_ok=True`
+    sobre una ruta que solo dependia de la etiqueta y la fecha, asi que una
+    segunda corrida el mismo dia **borraba el adaptador de la primera**. Ya
+    paso: el adaptador del 27 de septiembre se perdio asi.
+    """
+    import shutil
+
+    d = Path(destino)
+    if d.exists():
+        raise SystemExit(
+            f"{d} ya existe y no se sobrescribe. Si vienes a reanudar la "
+            f"evaluacion, NO reentrenes: carga ese adaptador y sigue. Si quieres "
+            f"otro entrenamiento, usa otra ruta -- el adaptador de ahi es el "
+            f"unico ejemplar de su corrida.")
+    d.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(origen, d)
+    return huella_directorio(d)
 
 
 def resumen(f: dict) -> str:

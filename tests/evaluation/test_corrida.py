@@ -76,7 +76,8 @@ class TestRechazoDeCheckpointsAjenos:
 
         actual = _firma(adaptador="v3")
         with pytest.raises(SystemExit) as e:
-            corrida.verificar_checkpoint(tmp_path, actual, "afinado", n_esperado=334)
+            corrida.verificar_checkpoint(tmp_path, actual, "afinado", n_esperado=334,
+                                         huella_adaptador="pesos")
         assert "adaptador" in str(e.value)
         assert "No se borra nada" in str(e.value)
 
@@ -116,7 +117,8 @@ class TestRechazoDeCheckpointsAjenos:
         f = _firma()
         _checkpoint(tmp_path, f, "base", n=334)
         assert len(corrida.verificar_checkpoint(tmp_path, f, "base")) == 334
-        assert corrida.verificar_checkpoint(tmp_path, f, "afinado") == []
+        assert corrida.verificar_checkpoint(tmp_path, f, "afinado",
+                                            huella_adaptador="pesos") == []
 
     def test_un_estado_desconocido_no_pasa_en_silencio(self, tmp_path):
         with pytest.raises(SystemExit):
@@ -166,3 +168,109 @@ class TestHuellaDirectorio:
 
     def test_un_directorio_que_no_existe_da_None(self, tmp_path):
         assert corrida.huella_directorio(tmp_path / "no") is None
+
+
+class TestIdentidadDeLosPesos:
+    """El hueco que la firma de configuracion NO cierra.
+
+    `corrida_id` identifica COMO se entreno, no QUE salio. Dos entrenamientos
+    con la misma configuracion el mismo dia dan el mismo `corrida_id` y pesos
+    distintos -- basta que cambie el orden de un lote o la version de una
+    libreria. Sin la huella de los pesos, el segundo reusa el checkpoint
+    parcial del primero.
+    """
+
+    def test_misma_etiqueta_v3_pero_otros_pesos_no_reusa(self, tmp_path):
+        """**La prueba central del auditor.** Misma corrida, misma etiqueta de
+        adaptador, resultados parciales guardados, y otros pesos."""
+        f = _firma(adaptador="v3")
+        _checkpoint(tmp_path, f, "afinado", n=120)
+        corrida.registrar_adaptador(tmp_path, "afinado", "pesos_del_primero")
+
+        with pytest.raises(SystemExit) as e:
+            corrida.verificar_checkpoint(tmp_path, f, "afinado", n_esperado=334,
+                                         huella_adaptador="pesos_del_segundo")
+        assert "pesos_del_primero" in str(e.value)
+        assert "No se borra nada" in str(e.value)
+
+    def test_los_mismos_pesos_si_reanudan(self, tmp_path):
+        f = _firma()
+        _checkpoint(tmp_path, f, "afinado", n=120)
+        corrida.registrar_adaptador(tmp_path, "afinado", "pesos_a")
+        filas = corrida.verificar_checkpoint(tmp_path, f, "afinado", n_esperado=334,
+                                             huella_adaptador="pesos_a")
+        assert len(filas) == 120
+
+    def test_evaluar_afinado_sin_huella_no_arranca(self, tmp_path):
+        """Si no se exige, el fallo vuelve en cuanto alguien la olvide."""
+        f = _firma()
+        _checkpoint(tmp_path, f, "afinado", n=10)
+        with pytest.raises(SystemExit) as e:
+            corrida.verificar_checkpoint(tmp_path, f, "afinado")
+        assert "exige la huella del adaptador" in str(e.value)
+
+    def test_el_baseline_no_necesita_huella_de_adaptador(self, tmp_path):
+        """El baseline es el modelo sin adaptador: no hay pesos que firmar."""
+        f = _firma()
+        _checkpoint(tmp_path, f, "base", n=50)
+        assert len(corrida.verificar_checkpoint(tmp_path, f, "base")) == 50
+
+
+class TestGuardadoSinSobrescritura:
+    def test_no_sobrescribe_una_carpeta_de_adaptador_existente(self, tmp_path):
+        """`dirs_exist_ok=True` sobre una ruta que solo dependia de la etiqueta
+        y la fecha: una segunda corrida el mismo dia borraba el adaptador de la
+        primera. Asi se perdio el del 27 de septiembre."""
+        origen = tmp_path / "salida"
+        origen.mkdir()
+        (origen / "adapter_model.safetensors").write_bytes(b"pesos_nuevos")
+
+        destino = tmp_path / "drive" / "adaptador-v3"
+        destino.mkdir(parents=True)
+        (destino / "adapter_model.safetensors").write_bytes(b"pesos_viejos")
+
+        with pytest.raises(SystemExit) as e:
+            corrida.guardar_adaptador(origen, destino)
+        assert "no se sobrescribe" in str(e.value)
+        # y el adaptador anterior sigue intacto
+        assert (destino / "adapter_model.safetensors").read_bytes() == b"pesos_viejos"
+
+    def test_guarda_y_devuelve_la_huella_de_los_pesos(self, tmp_path):
+        origen = tmp_path / "salida"
+        origen.mkdir()
+        (origen / "adapter_model.safetensors").write_bytes(b"pesos")
+        h = corrida.guardar_adaptador(origen, tmp_path / "drive" / "ad-v3-20261010")
+        assert h == corrida.huella_directorio(tmp_path / "drive" / "ad-v3-20261010")
+
+    def test_dos_corridas_distintas_no_colisionan(self, tmp_path):
+        origen = tmp_path / "salida"
+        origen.mkdir()
+        (origen / "w.bin").write_bytes(b"a")
+        corrida.guardar_adaptador(origen, tmp_path / "ad-v3-corridaA")
+        (origen / "w.bin").write_bytes(b"b")
+        h2 = corrida.guardar_adaptador(origen, tmp_path / "ad-v3-corridaB")
+        assert corrida.huella_directorio(tmp_path / "ad-v3-corridaA") != h2
+
+
+class TestRevisionObligatoria:
+    def test_una_revision_sin_resolver_detiene_la_corrida(self):
+        """`main` puede cambiar sin que cambie la firma: dos corridas con el
+        mismo `corrida_id` tendrian pesos base distintos."""
+        with pytest.raises(SystemExit) as e:
+            corrida.exigir_revision(None)
+        assert "no es reproducible" in str(e.value) or "reproducible" in str(e.value)
+        with pytest.raises(SystemExit):
+            corrida.exigir_revision("")
+
+    def test_una_revision_resuelta_pasa(self):
+        assert corrida.exigir_revision("abc123") == "abc123"
+
+    def test_un_checkpoint_sin_revision_no_se_reusa(self, tmp_path):
+        """Aunque alguien haya corrido con EXIGIR_REVISION = False, lo que
+        quedo no sirve para reanudar: no hay forma de saber si los pesos base
+        son los mismos."""
+        f = _firma(revision_base=None)
+        _checkpoint(tmp_path, f, "base", n=40)
+        with pytest.raises(SystemExit) as e:
+            corrida.verificar_checkpoint(tmp_path, f, "base")
+        assert "revision inmutable" in str(e.value)
