@@ -57,15 +57,28 @@ caso.
 
 `responde`, confianza **alta**.
 
-## Un hallazgo que no venia a buscar: 142 chunks que solo dicen "Derogado"
+## Un hallazgo que no venia a buscar: 107 chunks que solo dicen "Derogado"
 
 Leyendo el caso 9058 aparecio esto, y es el defecto mas barato de corregir de
 toda la auditoria.
 
-**El 1.2 % del indice (142 de 11 975 chunks) tiene como contenido completo una
+**El 0.9 % del indice (107 de 11 975 chunks) tiene como contenido completo una
 derogatoria**: *"Articulo 226. Derogado"*. No pueden responder nada, y **ocupan
-sitio en el top-5**: 14 de ellos llegaron al contexto final en **7 de los 45
-casos gold**.
+sitio en el top-5**: 6 sitios en **3 de los 45 casos gold**, mas 7 sitios en 3
+de los 30 adversariales.
+
+> **Correccion de la primera version de este dictamen.** Decia "142 chunks" y
+> "14 sitios en 7 casos gold". Las dos cifras salian de una heuristica laxa
+> (texto corto que contuviera "derogad") que:
+>
+> - **incluia articulos sustantivos**: el art. 380 de la Constitucion dice
+>   *"Queda derogada la Constitucion hasta ahora vigente"*, que es contenido
+>   normativo real y **no** debe excluirse;
+> - **mezclaba casos gold con adversariales**: 2 de los 7 (9115 y 9116) son
+>   adversariales y no entran en el acierto@k.
+>
+> Las cifras de arriba son las de la regla acotada que se describe abajo, con
+> sus controles en cero.
 
 El caso 9058 es el extremo. *"Expulsaron a mi hijo del colegio por un video que
 circulo, sin llamarnos a nosotros antes"*:
@@ -82,8 +95,54 @@ circulo, sin llamarnos a nosotros antes"*:
 (el del celular, que acierta) gasta tambien un sitio en el art. 80 de la Ley
 1480, derogado.
 
-Por norma: Codigo Civil 62, Codigo de Comercio 29, CST 9, Ley 115 7, Codigo
-Penal 6, Ley 80 6.
+### La regla, probada sobre la metadata del indice sin regenerarlo
+
+```
+es_solo_derogatoria(texto):
+    exige que el texto contenga "derogad"        <- sin esto se colarian los
+                                                    chunks que solo son rotulo
+    quita los encabezados de division (TITULO, CAPITULO, LIBRO...)
+    quita los encabezados de articulo ("Articulo 226.")
+    quita las declaraciones de derogatoria ("Derogado por el articulo X de...")
+    quita la rubrica en mayusculas ("ENGANCHE PARA EL EXTERIOR")
+    -> es derogatoria pura si no queda ni un caracter alfanumerico
+```
+
+El orden importa: la derogatoria se quita **antes** que la rubrica, para no
+borrar la rubrica de un articulo vigente y dejarlo pareciendo vacio.
+
+| control | resultado |
+|---|---|
+| Chunks **sin** la palabra "derogad" que la regla excluiria | **0** |
+| Art. 380 de la Constitucion (deroga otra norma) | **se conserva** |
+| Art. 72 del CST (*"ENGANCHE PARA EL EXTERIOR. Articulo derogado por..."*) | se excluye, correcto: su unico contenido es la derogatoria |
+| `n_chunks` | 11 975 -> **11 868** |
+
+Las tres iteraciones que hicieron falta, por si sirve de registro: la
+heuristica laxa daba 142 con falsos positivos; una regla estricta daba 56 y se
+dejaba fuera los bloques de varios stubs seguidos; la acotada da 107 con el
+control en cero.
+
+**Un residuo que la regla conserva a proposito**: chunks que son un stub
+seguido de los encabezados de la seccion siguiente
+(`cpaca_ley_1437_2011::chunk194`: *"Articulo 148A. Derogado / TITULO IV /
+DISTRIBUCION DE LAS COMPETENCIAS..."*). Son unos 58 y tampoco pueden responder,
+pero excluirlos exigiria decidir que hacer con los rotulos de navegacion. El
+sesgo elegido es **sub-excluir antes que sobre-excluir**.
+
+### Un defecto vecino, que no es este
+
+El control destapo **13 chunks cuyo unico contenido es un rotulo**, sin
+derogatoria ninguna: *"AFILIACION AL SISTEMA GENERAL DE PENSIONES"*,
+*"TRABAJADORES DE EMPRESAS AGRICOLAS GANADERAS Y FORESTALES."*. Tampoco pueden
+responder, pero es **otro** defecto y merece su propia regla: uno de ellos
+(*"ARTICULO 360. AFILIACION A VARIOS SINDICATOS."*) podria ser el encabezado de
+un articulo cuyo cuerpo quedo en otro chunk, y excluirlo le quitaria al
+articulo su ancla de identidad. No se toca aqui.
+
+Por norma, las derogatorias puras: Codigo Civil 62, Codigo de Comercio 29, CST
+9, Ley 115 7, Codigo Penal 6, Ley 80 6 (conteo de la heuristica laxa; el
+reparto de las 107 se publica cuando la regla entre al codigo).
 
 Es un defecto de **ingesta**, no de corpus: los `.md` registran correctamente
 que el articulo fue derogado, y esa informacion es legitima en el texto. Lo que
