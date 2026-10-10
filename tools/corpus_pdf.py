@@ -378,10 +378,61 @@ def a_markdown(fuente: FuentePdf) -> str:
     return f"---\n{cabecera}\n---\n# {fuente.title}\n\n{_cuerpo(fuente)}\n"
 
 
+# El corpus comiteado se convirtio con el pdftotext de poppler-utils, como dice
+# el docstring. Git for Windows trae en mingw64/bin el pdftotext de Xpdf, que
+# NO sirve: se comprobo contra los nueve .md comiteados y ninguno se reproduce.
+# Xpdf colapsa la estructura de parrafos (la Ley 1751 sale en 10 bloques en vez
+# de uno por articulo), no encuentra el ancla "DECRETA:" porque la pega al
+# renglon anterior, y ademas pierde texto: 24 pasajes muestreados del cuerpo de
+# los .md no aparecen en su extraccion, concentrados en la Ley 142.
+#
+# Sin esta guarda, un `python -m tools.corpus_pdf` en una maquina con Xpdf
+# degrada el corpus en silencio y de ahi se reindexa y se evalua sobre texto
+# mutilado. Se comprueba antes de tocar un solo PDF.
+_ESPERADO = "poppler"
+
+
+def implementacion_pdftotext() -> str:
+    """"poppler", "xpdf" o "desconocida (<primera linea de -v>)"."""
+    try:
+        r = subprocess.run(["pdftotext", "-v"], capture_output=True, text=True,
+                           encoding="utf-8", errors="replace")
+    except FileNotFoundError:
+        return "ausente"
+    # pdftotext -v escribe en stderr, y cada implementacion se nombra en su
+    # aviso de copyright: poppler dice "The Poppler Developers", Xpdf dice
+    # "Glyph & Cog".
+    aviso = ((r.stderr or "") + (r.stdout or ""))
+    bajo = aviso.lower()
+    if "poppler" in bajo:
+        return "poppler"
+    if "glyph" in bajo or "xpdfreader" in bajo:
+        return "xpdf"
+    primera = next((l.strip() for l in aviso.splitlines() if l.strip()), "sin salida")
+    return f"desconocida ({primera})"
+
+
+def exigir_extractor_sancionado() -> None:
+    quien = implementacion_pdftotext()
+    if quien == _ESPERADO:
+        return
+    aviso = [
+        f"pdftotext instalado: {quien}; el corpus se convirtio con {_ESPERADO}.",
+        "Convertir con otra implementacion degrada el corpus (ver el comentario",
+        "de exigir_extractor_sancionado). Instala poppler-utils y repite:",
+        "  Windows: scoop install poppler   (o conda install -c conda-forge poppler)",
+        "  Debian/Ubuntu/Colab: apt-get install -y poppler-utils",
+        "y asegurate de que su pdftotext va antes que el de Git for Windows",
+        "en el PATH.",
+    ]
+    raise SystemExit(chr(10).join(aviso))
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--check", action="store_true", help="no escribe; falla si algun .md cambiaria")
     args = parser.parse_args(argv)
+    exigir_extractor_sancionado()
     distintos = []
     for fuente in FUENTES:
         texto = a_markdown(fuente)

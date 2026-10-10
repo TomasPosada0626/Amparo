@@ -198,6 +198,14 @@ def test_la_conversion_de_pdf_esta_al_dia():
 
     if shutil.which("pdftotext") is None:
         pytest.skip("pdftotext (poppler-utils) no esta instalado")
+    # El mismo motivo del skip anterior: sin el extractor que convirtio el
+    # corpus no hay nada que comprobar. Git for Windows trae el pdftotext de
+    # Xpdf en mingw64/bin, que no reproduce ninguno de los nueve .md -- pierde
+    # texto y colapsa los parrafos -- asi que aqui solo diria que el corpus
+    # cambiaria, que es cierto y no es el defecto que este test busca.
+    quien = corpus_pdf.implementacion_pdftotext()
+    if quien != "poppler":
+        pytest.skip(f"pdftotext instalado: {quien}; se necesita poppler-utils")
     assert corpus_pdf.main(["--check"]) == 0
 
 
