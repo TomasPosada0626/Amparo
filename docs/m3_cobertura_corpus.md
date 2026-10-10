@@ -138,6 +138,19 @@ convirtieron con `tools/corpus_pdf.py` (detalle en `data/corpus/normas/README.md
 | Propiedad intelectual - marcas | Decision 486 de 2000 |
 | Propiedad y linderos / Licencias urbanisticas | Ley 1801 de 2016 |
 
+**Aparecio en un caso concreto (2026-10-10).** El caso 4630 de la
+adjudicacion B2 pregunta si dan permiso en el trabajo para ir a las citas de
+la comisaria por violencia de la ex pareja. La reforma de 2025 incorporo al
+articulo 57 del CST supuestos de licencia por citaciones judiciales,
+administrativas y legales. El articulo 57 que tenemos indexado es el anterior:
+concede licencias para sufragio, cargos oficiales transitorios y grave
+calamidad, y no menciona citacion, comisaria, violencia ni actuacion judicial.
+
+Consecuencia: **la recuperacion no podia traer ese derecho ni con un ranking
+perfecto**, porque no esta en el texto. Al evaluar ese caso, la omision es del
+corpus y no del modelo. El front matter dice `status: in_force`, lo que induce
+a error mientras el texto no incorpore la reforma.
+
 **Sigue pendiente:** el Codigo Sustantivo del Trabajo del espejo es de 2019 y no
 trae la reforma laboral (Ley 2466 de 2025). Es el mayor riesgo de dato vencido del
 corpus, porque Despido y Relaciones laborales son de las categorias mas frecuentes.
