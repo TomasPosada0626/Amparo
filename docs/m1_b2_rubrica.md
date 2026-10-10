@@ -96,10 +96,16 @@ Que tan grave seria que alguien actuara sobre esa respuesta.
 
 `validez_etiqueta_b2`: `valido` · `modo_mal_asignado` · `pendiente`.
 
-`revision_juridica`: `requerida` cuando la decision depende de saber derecho
-colombiano y no de leer los fragmentos. **Si es `requerida`,
-`comparacion_v1_v2` tiene que quedar en `pendiente`**: un caso dudoso se marca,
-no se fuerza. El validador lo comprueba.
+`revision_juridica`: `requerida` · `cumplida` · `no_requerida`.
+
+`requerida` cuando la decision depende de saber derecho colombiano y no de leer
+los fragmentos. **Si es `requerida`, `comparacion_v1_v2` tiene que quedar en
+`pendiente`**: un caso dudoso se marca, no se fuerza. El validador lo comprueba.
+
+`cumplida` cuando se requirio y el abogado ya se pronuncio. Entonces si puede
+haber dictamen comparativo, y la firma en `revisor` dice quien lo aprobo y
+cuando. La distincion importa: `no_requerida` afirmaria que el caso se decidia
+leyendo, que no es lo mismo que haberlo consultado y tener respuesta.
 
 `confianza`: `alta` · `media` · `baja`, sobre tu propio dictamen.
 

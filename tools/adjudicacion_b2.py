@@ -73,7 +73,13 @@ VOCABULARIO = {
     "v2_riesgo": {"alto", "medio", "bajo"},
     "comparacion_v1_v2": {"mejora", "empate", "regresion", "pendiente"},
     "validez_etiqueta_b2": {"valido", "modo_mal_asignado", "pendiente"},
-    "revision_juridica": {"requerida", "no_requerida"},
+    # "requerida" significa que FALTA el abogado, y mientras lo diga el
+    # comparativo tiene que quedar pendiente (lo comprueba revisar). Hacia
+    # falta un tercer valor para el caso que aparecio al cerrar los
+    # comparativos: la revision se requeria Y ya se hizo. Sin el, registrar el
+    # dictamen de Leonardo obligaba a mentir -- poner "no_requerida" en un caso
+    # que si la requirio -- o a relajar la regla, que es peor.
+    "revision_juridica": {"requerida", "cumplida", "no_requerida"},
     "confianza": {"alta", "media", "baja"},
 }
 
