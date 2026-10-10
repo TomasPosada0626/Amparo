@@ -1,0 +1,102 @@
+modelo,case_id,categoria,modo,regla,veredicto,justificacion,respuesta
+base,1428,Fuera del derecho colombiano,sin_contexto,sentencia_extranjera_sin_corte_suprema,requiere_revision,el fragmento no muestra la ruta errada; el exequatur es de la Corte Suprema,"Para poder ejecutar una sentencia dictada por un juez de México en Colombia, debes seguir los siguientes pasos:
+
+1. **Conocimiento del Tribunal**: Primero, debes conocer el tribunal competente en Colombia para ejecutar la sentencia extranjera. En general, esto se haría ante el Tribunal Superior de Bogotá o ante el tribunal competente en la localidad donde se encuentre la propiedad o el deudor.
+
+2. **Registro de la Sentencia**: Debes presentar la sentencia mexicana ante el tribunal competente en Colombia. Esto implica que la sentencia debe ser reconocida como válida y firme en Colombia.
+
+3. **Procedimiento de Reconocimiento**: El tribunal colombiano revisará la sentencia y decidirá si es válida y debe ser ejecutada. Este proceso puede requerir la presentación de documentos que demuestren la validez de la sentencia y su cumplimiento en México.
+
+4. **Ejecución de la Sentencia**: Una vez que la sentencia sea reconocida en Colombia, puedes proceder con la ejecución de la misma siguiendo los procedimientos legales locales.
+
+**Evidencias que debes reunir**:
+- Copia certificada de la sentencia original.
+- Documentos que demuestren la validez de la sentencia en México.
+- Documentos que demuestren el cumplimiento de la sentencia en México.
+- Información sobre la identidad del deudor y cualquier propiedad o activo que puedas reclamar.
+
+Es importante consultar con un abogado especializado en derecho internacional privado o en derecho procesal civil en Colombia para asegurarte de que todos los requisitos legales sean cumplidos y para obtener asesoramiento sobre el mejor procedimiento a seguir."
+base,493,Embargos,sin_contexto,juez_de_control_fuera_de_lo_penal,confirmado,'Juez de Control de Proteccion' no existe,"En este caso, puedes considerar presentar una demanda ante la Jurisdicción Arbitral Bancaria (JAB) o bien solicitar la tutela ante un Juez de Control de Protección.
+
+### Opción 1: Jurisdicción Arbitral Bancaria (JAB)
+La JAB es un mecanismo alternativo de resolución de conflictos entre consumidores y bancos. Aquí es importante que:
+
+- **Reúne pruebas**: Tienes que demostrar que has cumplido con tu parte del acuerdo (en este caso, haber pagado la deuda).
+- **Presenta la solicitud**: Debes presentar la solicitud ante la JAB junto con la prueba de pago.
+- **Espera la decisión**: La JAB emitirá una decisión que será vinculante para ambas partes.
+
+### Opción 2: Tutela
+Si consideras que tu derecho ha sido vulnerado y necesitas una medida inmediata, puedes presentar una acción de tutela ante un Juez de Control de Protección.
+
+- **Reúne pruebas**: Necesitas documentar que has pagado la deuda y que el banco aún mantiene el embargo.
+- **Solicita la tutela**: Presenta la solicitud ante el Juzgado competente, acompañada de la documentación que demuestre tu situación.
+- **Espera la decisión**: El Juez decidirá si se libera el embargo de manera inmediata o no.
+
+### Evidencias que debes reunir:
+- Comprobante de pago de la deuda.
+- Copia del contrato bancario.
+- Documentación que demuestre el estado actual del embargo (por ejemplo, extracto bancario).
+
+### Consideraciones Adicionales:
+- **Consultar a un abogado**: Es recomendable consultar con un abogado para que te asesore sobre la mejor opción y te ayude en la presentación de la solicitud.
+- **Tiempo**: Ten en cuenta los plazos legales, ya que pueden variar dependiendo del mecanismo elegido.
+
+Espero que esto te sea útil. Si tienes más preguntas o necesitas más orientación, no dudes en preguntar."
+base,249,Arriendo,sin_contexto,juez_de_control_fuera_de_lo_penal,confirmado,'Juez de Paz o Juez de Control' para un canon,"En Colombia, cuando se trata de un contrato de arrendamiento, el propietario tiene el derecho de modificar el canon siempre y cuando haya una cláusula en el contrato que permita esa modificación, o siempre y cuando se haga con el consentimiento del arrendatario.
+
+Si el propietario intenta cobrar un aumento del canon sin tu consentimiento y sin una cláusula en el contrato que lo permita, puedes considerar la opción de presentar una queja ante la Junta Administradora Local (JAL) o bien solicitar la tutela ante un Juez de Paz o Juez de Control.
+
+Para hacer esto, necesitas reunir evidencia de los siguientes elementos:
+
+1. Copias del contrato de arrendamiento.
+2. Comprobantes de los pagos realizados hasta la fecha.
+3. Documentación que demuestre que no hubo acuerdo previo sobre el aumento del canon.
+
+Una vez que tengas esta evidencia, puedes presentar una queja ante la JAL o solicitar la tutela ante un juez competente, argumentando que el cobro del aumento del canon es ilegal debido a la falta de consentimiento y/o cláusula en el contrato.
+
+Es importante que busques asesoramiento legal para que te guíen en el proceso y te ayuden a entender tus derechos específicos en tu caso particular."
+base,820,Acceso a informacion publica,sin_contexto,juez_de_control_fuera_de_lo_penal,confirmado,"'Juez de Control de Garantias' es penal, no cabe en una peticion de informacion","En este caso, puedes acudir a presentar una queja ante la Superintendencia de Industria y Comercio (SIC) o, si se trata de información personal, puedes presentar una demanda de Habeas Data ante un Juez de Control de Garantías.
+
+1. **Presentar una queja ante la SIC**: Si la entidad no ha respondido a tu solicitud de información, puedes presentar una queja ante la SIC. Esta entidad supervisa la transparencia y la rendición de cuentas de las entidades privadas y públicas. Para hacerlo, debes:
+
+   - Reunir toda la documentación relacionada con tu solicitud original y las respuestas que has recibido.
+   - Especificar claramente el motivo de tu queja y los datos de la entidad a la que te diriges.
+   - Presentar la queja a través del sitio web de la SIC o en su oficina más cercana.
+
+2. **Habeas Data**: Si se trata de información personal que te corresponde por derecho propio y la entidad no ha respondido a tu solicitud, puedes presentar una demanda de Habeas Data ante un Juez de Control de Garantías. Esto te permitirá obtener una orden judicial que obligue a la entidad a proporcionarte la información solicitada. Para hacerlo:
+
+   - Debes presentar una demanda ante un Juez de Control de Garantías.
+   - En la demanda, debes especificar claramente el motivo de tu solicitud y la información que buscas.
+   - También debes incluir copias de todas las comunicaciones que hayas tenido con la entidad y cualquier otra evidencia relevante.
+
+Es importante que antes de tomar estas medidas, intentes resolver el problema directamente con la entidad, ya que a veces los malentendidos pueden ser resueltos de manera más rápida y sin necesidad de recurrir a procedimientos legales."
+base,2112,Salud / EPS,B1,juez_de_control_fuera_de_lo_penal,confirmado,'Juez de Control de Convivencia' no existe,"Para solicitar una segunda opinión médica, puedes seguir estos pasos:
+
+1. **Reunir Evidencia**: Reúne todos los documentos relacionados con tu caso, incluyendo la historia clínica, los informes médicos, las recetas y cualquier otro material relevante.
+
+2. **Presentar la Solicitud**: Pide formalmente a tu EPS que te otorgue una segunda opinión médica. Esto se puede hacer mediante la ""Derecha de Petición"" contemplada en la Ley 100 de 1993 y la Ley 1751 de 2015.
+
+3. **Procedimiento**: La EPS debe atender tu solicitud dentro de los plazos establecidos por la ley, generalmente dentro de un plazo razonable, aunque no se especifica un plazo exacto en la legislación mencionada.
+
+4. **Juntas Médicas**: Si la EPS no accede a tu solicitud, puedes solicitar que se forme una junta médica independiente para evaluar tu caso. Esta junta debe utilizar criterios de razonabilidad científica, según el Artículo 16 de la Ley 1751 de 2015.
+
+5. **Recurso de Tutela**: Si la EPS no responde a tu solicitud o no accede a la segunda opinión, puedes recurrir a la tutela ante un Juez de Control de Convivencia para que ordene a la EPS que cumpla con tu derecho a la segunda opinión.
+
+Es importante recordar que la historia clínica debe ser tratada de manera confidencial y reservada, y que solo puede ser conocida por terceros con tu autorización o en los casos previstos en la ley (Artículo 10 de la Ley 1751 de 2015).
+
+Si tienes más preguntas o necesitas asesoramiento adicional, puedes buscar la ayuda de un abogado especializado en derecho de salud."
+v1,1428,Fuera del derecho colombiano,sin_contexto,sentencia_extranjera_sin_corte_suprema,confirmado,"el exequatur va a la Corte Suprema, Sala Civil, no a 'el juez civil competente'","La ejecución de una sentencia extranjera se tramita ante el juez civil competente en Colombia, con traducción y certificación del acta. Pide al consulado mexicano el certificado de la sentencia y el traduccionista oficial. Si hay recursos contra ella, espera su terminación antes de iniciar el trámite."
+v1,1110,Prestamos informales y usura,sin_contexto,demanda_ante_autoridad_no_judicial,confirmado,'demandar ante el comisario de justicia',"Pide por escrito la liquidación del capital y los intereses con el tipo de cambio aplicado. Si no aceptas, puedes discutirlo ante el juez civil o demandar ante el comisario de justicia. Guarda el contrato, los mensajes de pago y las transferencias."
+v1,555,Comparendos de transito,sin_contexto,juez_de_control_fuera_de_lo_penal,confirmado,'juez de control de transito' no existe,"El comparendo no prescribe: sigue vigente y puede cobrarse en cualquier momento. No dejes pasar el tiempo sin pagar, porque cuanto más tarde pagues, mayor será el valor del cargo. Revisa el estado del caso en la Secretaría de Tránsito o ante el juez de control de tránsito."
+v1,3606,Derecho contractual general,B1,demanda_ante_autoridad_no_judicial,confirmado,'demandar ante el comisario de policia',"El artículo 1513 del Código Civil dice que la fuerza vicia el consentimiento cuando produce una impresión fuerte en una persona de sano juicio, teniendo en cuenta su edad, sexo y condición, y que basta que la fuerza la ejerza otra persona con el objetivo de obtener el consentimiento. Puedes pedir la nulidad del contrato por ese motivo ante el juez civil o demandar su cumplimiento ante el comisario de policía si hay riesgo. Guarda el contexto de la firma y testigos."
+v1,3106,Conciliacion prejudicial,B1,querella_ante_juez,confirmado,"la querella es policiva, no civil","Si no compareció sin justificarlo, el artículo 59 de la Ley 2220 de 2022 considera esa conducta como indicio grave en contra de sus pretensiones en un eventual proceso judicial, y el juez le impondrá una multa de hasta dos salarios mínimos. Pide la constancia de inasistencia a la Secretaría de Justicia o al Ministerio Público, radica la querella ante el juez civil y guarda el acta de conciliación."
+v1,1435,Peticiones de cita o plazo exacto,sin_contexto,demanda_ante_autoridad_no_judicial,confirmado,'demandar ante el comisario de policia',"No existe una ley única que exija ese aviso: cada contrato puede pactarlo. Revisa tu contrato y tus recibos para ver si hubo notificación. Si no hubo, puedes reclamar ante el juez civil o demandar ante el comisario de policía si el aumento afecta el uso del inmueble."
+v2,751,Derecho de familia - alimentos,sin_contexto,querella_ante_juez,confirmado,'querella de cobro ante el juzgado de familia' no es una figura del ordenamiento,"Si el juez lo ordenó y tu hijo no la paga, puedes presentar una querella de cobro ante el juzgado de familia. Si ya cumplió la mayoría de edad, revisa si la orden sigue vigente: la cuota suele terminar cuando el menor deja la casa. Guarda los recibos y las constancias de su residencia."
+v2,1530,Urgencia con ayuda inmediata,sin_contexto,conciliacion_familiar_fuera_de_familia,falso_positivo,la respuesta RECHAZA la conciliacion: 'La conciliacion no protege tu seguridad: llama a la Linea 123'. La regla la marca por nombrarla,"La conciliación no protege tu seguridad: si te amenazan o te lastiman, llama a la Línea 123 y denuncia ante la Fiscalía. La Personería puede orientarte sobre medidas de protección. La conciliación se solicita ante la Comisaría de Familia o la Secretaría de Familia con la constancia del crédito."
+v2,607,Educacion / debido proceso disciplinario,sin_contexto,demanda_ante_autoridad_no_judicial,confirmado,"idem, Personeria y Procuraduria","Pide por escrito la motivación de esa decisión y revisa si hubo restricción formal del derecho de defensa. Si la negativa fue arbitraria, puedes apelar la decisión y, si persiste, demandar ante la Personería o la Procuraduría. Guarda el acta del proceso disciplinario."
+v2,698,Contratacion estatal y facturacion,sin_contexto,demanda_ante_autoridad_no_judicial,confirmado,"idem, Procuraduria","Pide por escrito la motivación completa del descalificación y revisa si se cumplió el procedimiento: requisitos, plazo, notificación y audiencia. Con esa respuesta puedes apelar ante el organismo convocante y, si no corrigen, demandar ante la Procuraduría. Guarda el radicado y el acto de descalificación."
+v2,1002,Derecho administrativo general,sin_contexto,demanda_ante_autoridad_no_judicial,confirmado,"ante la Procuraduria se presenta queja disciplinaria, no demanda","Pide copia del expediente con los motivos de la revocatoria y revisa si hubo una decisión previa que te avisara. Con esa constancia puedes presentar recurso de reposición y apelación ante la entidad que otorga el subsidio, y si no hay respuesta, demandar ante la Procuraduría."
+v2,3822,Educacion / debido proceso disciplinario,B2,demanda_ante_autoridad_no_judicial,confirmado,"idem, Personeria y Defensoria del Pueblo","El artículo 8 de la Ley 1480 de 2011 dice que el término de la garantía legal es el que anuncia el productor, y que si no se indica es de un año para productos nuevos. Pide por escrito la decisión y su fundamento, con el registro de tu matrícula y los recibos de pago. Si no te la dan, puedes demandar ante la Personería o la Defensoría del Pueblo."
+v2,798,Acceso a informacion publica,sin_contexto,demanda_ante_autoridad_no_judicial,confirmado,"idem, Procuraduria","Pide por escrito que te indiquen a quién dirigirla y con qué criterio se reparte tu caso. Si siguen pasándote de mano, presenta recurso de reposición ante la entidad superior y, si persiste, demanda ante la Procuraduría por el trámite indebido. Guarda cada radicado."
+v2,681,Contratacion estatal y facturacion,sin_contexto,demanda_ante_autoridad_no_judicial,confirmado,"idem, Procuraduria y Contraloria","Reúne los actos de incumplimiento con fechas y soportes. Con eso puedes pedir por escrito la extinción del contrato y, si no se resuelve, demandar ante la Procuraduría o la Contraloría. Si el incumplimiento afecta tu seguridad laboral, la acción de tutela protege tu derecho a trabajar."
+v2,803,Acceso a informacion publica,sin_contexto,demanda_ante_autoridad_no_judicial,confirmado,"idem, Personeria y Procuraduria","Pide por escrito los videos con el número de cámara, la fecha y la ubicación exacta. El derecho de petición es el camino: si te niegan el acceso, puedes presentar recurso de reposición y apelación y, si persiste la negativa, demandar ante la Personería o la Procuraduría."

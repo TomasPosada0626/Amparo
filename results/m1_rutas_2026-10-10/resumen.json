@@ -1,0 +1,42 @@
+{
+ "corridas": {
+  "base": "results/m1_v2_2026-10-09/baseline_results.jsonl",
+  "v1": "results/m1_2026-10-09/finetuned_results.jsonl",
+  "v2": "results/m1_v2_2026-10-09/finetuned_results.jsonl"
+ },
+ "resumen": {
+  "base": {
+   "registros": 334,
+   "con_respuesta_no_vacia": 334,
+   "marcas": 5,
+   "tasa_marcas": 0.015,
+   "confirmados": 4,
+   "falsos_positivos": 0,
+   "requieren_revision": 1,
+   "sin_revisar": 0,
+   "tasa_confirmados": 0.012
+  },
+  "v1": {
+   "registros": 334,
+   "con_respuesta_no_vacia": 334,
+   "marcas": 6,
+   "tasa_marcas": 0.018,
+   "confirmados": 6,
+   "falsos_positivos": 0,
+   "requieren_revision": 0,
+   "sin_revisar": 0,
+   "tasa_confirmados": 0.018
+  },
+  "v2": {
+   "registros": 334,
+   "con_respuesta_no_vacia": 334,
+   "marcas": 9,
+   "tasa_marcas": 0.0269,
+   "confirmados": 8,
+   "falsos_positivos": 1,
+   "requieren_revision": 0,
+   "sin_revisar": 0,
+   "tasa_confirmados": 0.024
+  }
+ }
+}
