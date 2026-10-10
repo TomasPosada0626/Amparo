@@ -167,12 +167,110 @@ CLASE_A = {
         "es justo lo que se discute. ACIERTO FALSO: era el unico punto de acierto."),
 }
 
-DICTAMENES = {"A": ("A_sostiene_acierto", CLASE_A)}
 
-FIRMA = ("primera pasada por Claude sobre el texto de la metadata del indice "
-         "evaluado. Clase A aprobada el 2026-10-10 por Leonardo Galeano (abogado), "
-         "con la comprobacion expresa de Ley 769 arts. 144/149 y CGP arts. 291/292. "
-         "La aprobacion cubre solo la clase A")
+# Clase B' -- los 62 candidatos a omision. Copia del documento
+# docs/m3_articulos_gold_dictamen_claseB.md, que los lista por caso.
+# Formato compacto: (caso, doc, articulo) -> (veredicto, confianza).
+# La justificacion comun de cada grupo esta en _JUST_B.
+_L1751 = "estatutaria_salud_ley_1751_2015"
+_D2591 = "tutela_decreto_2591_1991"
+_CC = "codigo_civil_ley_84_1873"
+_CCO = "codigo_comercio_decreto_410_1971"
+_CPACA = "cpaca_ley_1437_2011"
+_L1712 = "ley_transparencia_acceso_info_ley_1712_2014"
+_CGP = "codigo_general_proceso_ley_1564_2012"
+_L820 = "arrendamiento_vivienda_urbana_ley_820_2003"
+_CST = "codigo_sustantivo_trabajo_decreto_2663_1950"
+_L1266 = "habeas_data_financiero_ley_1266_2008"
+_L1480 = "estatuto_consumidor_ley_1480_2011"
+_L1620 = "convivencia_escolar_ley_1620_2013"
+_L115 = "ley_general_educacion_ley_115_1994"
+_L80 = "contratacion_estatal_ley_80_1993"
+_L100 = "seguridad_social_ley_100_1993"
+_L1801 = "codigo_policia_convivencia_ley_1801_2016"
+
+_JUST_B = {
+    "responde": "El sistema lo trajo y responde la consulta: es una omision del gold, y el fallo del caso era falso.",
+    "responde_parcial": "Aporta una pieza real de la respuesta pero no la resuelve; no basta para dar el caso por acertado.",
+    "no_responde": "El sistema lo trajo pero es de otra materia o no toca la pregunta: el fallo del caso es correcto.",
+}
+
+CLASE_B_PRIMA_COMPACTA = {
+    # las tres omisiones reales
+    ("9004", _L1751, "10"): ("responde", "alta"),
+    ("9009", _L1712, "21"): ("responde", "alta"),
+    ("9066", _L1801, "79"): ("responde", "alta"),
+    # aportan una pieza, no resuelven
+    ("9007", _CCO, "1163"): ("responde_parcial", "media"),
+    ("9009", _L1712, "9"): ("responde_parcial", "media"),
+    ("9038", _CST, "43"): ("responde_parcial", "media"),
+    ("9039", _L1266, "16"): ("responde_parcial", "media"),
+    ("9043", _L1480, "51"): ("responde_parcial", "media"),
+    ("9043", _L1480, "50"): ("responde_parcial", "baja"),
+    ("9043", _L1480, "58"): ("responde_parcial", "baja"),
+    ("9050", _CCO, "714"): ("responde_parcial", "media"),
+    ("9050", _CCO, "720"): ("responde_parcial", "media"),
+    ("9050", _CCO, "721"): ("responde_parcial", "media"),
+    ("9056", _CGP, "593"): ("responde_parcial", "media"),
+    ("9057", _CGP, "593"): ("responde_parcial", "media"),
+    ("9063", _L100, "33"): ("responde_parcial", "media"),
+    ("9063", _L100, "35"): ("responde_parcial", "media"),
+    ("9063", _L100, "117"): ("responde_parcial", "media"),
+    ("9068", _CGP, "321"): ("responde_parcial", "media"),
+    ("9068", _CGP, "352"): ("responde_parcial", "media"),
+}
+
+# Los 43 que no responden, por caso. Confianza alta salvo las anotadas.
+_NO_RESPONDE_B = {
+    ("9004", _D2591, "17"): "alta",
+    ("9007", _CC, "2172"): "alta", ("9007", _CC, "2234"): "alta",
+    ("9007", _CC, "2309"): "alta",
+    ("9009", _CPACA, "141"): "alta", ("9009", _CPACA, "217"): "alta",
+    ("9010", _CGP, "526"): "alta",
+    ("9035", _L820, "8"): "media", ("9035", _L820, "15"): "alta",
+    ("9035", _L820, "22"): "alta", ("9035", _L820, "23"): "alta",
+    ("9035", _L820, "25"): "alta",
+    ("9038", _CST, "48"): "alta", ("9038", _CST, "140"): "alta",
+    ("9039", _L1266, "14"): "media", ("9039", _L1266, "19-A"): "media",
+    ("9041", _CST, "65"): "alta", ("9041", _CST, "290"): "alta",
+    ("9041", _CST, "393"): "alta", ("9041", _CST, "433"): "alta",
+    ("9043", _L1480, "18"): "alta",
+    ("9046", _CPACA, "16"): "media", ("9046", _CPACA, "21"): "alta",
+    ("9046", _CPACA, "225"): "alta",
+    ("9050", _CCO, "724"): "alta", ("9050", _CCO, "728"): "alta",
+    ("9056", _CGP, "468"): "alta", ("9056", _CGP, "598"): "alta",
+    ("9056", _CGP, "599"): "media",
+    ("9057", _CGP, "468"): "alta", ("9057", _CGP, "470"): "media",
+    ("9058", _L1620, "2"): "media", ("9058", _L115, "82"): "alta",
+    ("9058", _L115, "134"): "alta", ("9058", _L115, "149"): "alta",
+    ("9058", _L115, "172"): "alta",
+    ("9060", _L80, "4"): "media", ("9060", _L80, "25"): "alta",
+    ("9060", _L80, "32"): "alta",
+    ("9063", _L100, "14"): "media", ("9063", _L100, "27"): "alta",
+    ("9068", _CGP, "159"): "alta",
+}
+
+CLASE_B_PRIMA = {
+    **{k: (v[0], v[1], _JUST_B[v[0]]) for k, v in CLASE_B_PRIMA_COMPACTA.items()},
+    **{k: ("no_responde", c, _JUST_B["no_responde"]) for k, c in _NO_RESPONDE_B.items()},
+}
+
+
+DICTAMENES = {"A": ("A_sostiene_acierto", CLASE_A),
+              "B_prima": ("B_candidato_omision", CLASE_B_PRIMA)}
+
+FIRMAS = {
+    "A": ("primera pasada por Claude sobre el texto de la metadata del indice "
+          "evaluado. Clase A aprobada el 2026-10-10 por Leonardo Galeano (abogado), "
+          "con la comprobacion expresa de Ley 769 arts. 144/149 y CGP arts. 291/292. "
+          "La aprobacion cubre solo la clase A"),
+    "B_prima": ("primera pasada por Claude sobre el texto de la metadata del indice "
+                "evaluado. Clase B' (candidatos a omision) aprobada el 2026-10-10 por "
+                "Leonardo Galeano (abogado) como dictamen completo, incluidas las tres "
+                "omisiones (9004 art. 10, 9009 art. 21, 9066 art. 79) y las consultas "
+                "de 9043, 9038 y 9068, que quedan como estaban redactadas. La "
+                "aprobacion cubre solo la clase B'"),
+}
 FECHA = "2026-10-10"
 
 EDITABLES = {"veredicto", "confianza", "justificacion", "revisor", "fecha_revision"}
@@ -184,12 +282,12 @@ def aplicar(filas: list[dict], clase: str) -> tuple[list[dict], list[str]]:
     for f in filas:
         g = dict(f)
         clave = (f["case_id"], f["doc_id"], f["articulo"])
-        if f["clase_impacto"] == etiqueta and f["origen"] == "etiqueta":
+        if f["clase_impacto"] == etiqueta:
             if clave not in dictamen:
                 raise SystemExit(f"sin dictamen para {clave}")
             veredicto, conf, just = dictamen[clave]
             g.update({"veredicto": veredicto, "confianza": conf,
-                      "justificacion": just, "revisor": FIRMA,
+                      "justificacion": just, "revisor": FIRMAS[clase],
                       "fecha_revision": FECHA})
             cambios += [f"{'/'.join(clave)}: {f[c]!r} -> {g[c]!r}"
                         for c in ("veredicto",) if f[c] != g[c]]
@@ -212,8 +310,7 @@ def verificar(antes: list[dict], despues: list[dict], clase: str) -> list[str]:
             problemas.append(f"{a['case_id']}/art {a['articulo']}: es clase "
                              f"{a['clase_impacto']}, no {etiqueta}")
 
-    de_la_clase = [f for f in despues
-                   if f["clase_impacto"] == etiqueta and f["origen"] == "etiqueta"]
+    de_la_clase = [f for f in despues if f["clase_impacto"] == etiqueta]
     if len(de_la_clase) != len(dictamen):
         problemas.append(f"la clase tiene {len(de_la_clase)} filas y el dictamen "
                          f"{len(dictamen)}")
@@ -223,11 +320,14 @@ def verificar(antes: list[dict], despues: list[dict], clase: str) -> list[str]:
         if f["huella_metadata"] != HASH_METADATA:
             problemas.append(f"{f['case_id']}/art {f['articulo']}: huella distinta")
 
-    # las otras clases, intactas
+    # las otras clases, intactas. Se compara el CAMBIO, no el estado: una clase
+    # adjudicada en una corrida anterior debe quedar como esta, no volver a
+    # pendiente ni figurar como problema de esta.
     for a, b in zip(antes, despues):
-        if a["clase_impacto"] != etiqueta and b["veredicto"] != "pendiente":
+        if a["clase_impacto"] != etiqueta and a != b:
+            tocadas = [c for c in COLUMNAS if a[c] != b[c]]
             problemas.append(f"{a['case_id']}/art {a['articulo']}: clase "
-                             f"{a['clase_impacto']} dejo de estar pendiente")
+                             f"{a['clase_impacto']} modificada en {tocadas}")
     return problemas
 
 

@@ -188,8 +188,12 @@ no tiene sentido es indexarla como fragmento recuperable.
 | | |
 |---|---|
 | `responde` | **3** |
-| `responde_parcial` | **16** |
-| `no_responde` | **43** |
+| `responde_parcial` | **17** |
+| `no_responde` | **42** |
+
+Correccion: el resumen de la primera version decia 16 y 43. La tabla por
+caso lista 17 parciales y 42 que no responden -- el error estaba en el
+resumen, no en los veredictos.
 
 ## Lo que esto dice del etiquetado original
 
