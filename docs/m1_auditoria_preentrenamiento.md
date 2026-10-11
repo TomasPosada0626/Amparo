@@ -179,7 +179,7 @@ una decisión (decisión 7 del protocolo). La recomendación es restaurarlos.
 |---|---|
 | 1. prompt de evaluación | **corregido** en CPU: `evaluate()` y el entrenamiento usan la misma `prompt_de()`; cada respuesta guarda `prompt_sistema` y `con_contexto`; `system_prompt()` falla si recibe prompts mezclados |
 | 2. dev contaminado | **corregido** en CPU: `split_dev()` por grupo de pregunta. 0 preguntas compartidas con fit (antes 113 de 179), 0 pares partidos (antes 51) |
-| 2b. 35 B2 de validación | **documentado, pendiente de decisión** |
+| 2b. 35 B2 de validación | **corregido** el 2026-10-11 en la fase A: restaurados, 0 registros distintos de la base |
 | revisión del modelo base de v1 | **recuperada**: `a09a35458c702b33eeacc393d103063234e8bc28`, del historial de commits de HF |
 | reevaluación de v1 | **preparada**: `tools/evaluation/reevaluacion_v1.py` y `colab/m1_reevaluacion_v1.ipynb`, probada con `--dry-run` |
 

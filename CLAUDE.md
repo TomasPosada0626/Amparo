@@ -4,7 +4,9 @@ Asistente jurídico de derecho colombiano: Qwen2.5-7B + LoRA (M1), arnés de
 evaluación (M2), RAG (M3). M4 no está iniciado.
 
 **Antes de hacer nada, lee `ESTADO_Y_TRASPASO.md`.** Ahí está dónde estamos, qué
-falta en cada notebook, los artefactos congelados y la ruta crítica. Si el código
+falta en cada notebook, los artefactos congelados y la ruta crítica. El roadmap
+de M1, con sus casillas, está en su sección 7.1.2: la fase A está hecha y la
+siguiente es la B (reevaluar v1, GPU, requiere autorización). Si el código
 contradice ese documento, gana el código, y se avisa.
 
 ## Reglas que no se negocian
@@ -45,6 +47,13 @@ contradice ese documento, gana el código, y se avisa.
   control: un heredoc puede convertir `\b` en un retroceso. Finales de línea LF.
 - Toda corrida de Colab con identidad (`tools/evaluation/corrida.py`): revisión
   del modelo base fijada, huellas de dataset y adaptador, directorio propio.
+- **El dataset y los escenarios se construyen con el buscador de producción**:
+  `--indice`, desde el `.venv` del repo (tiene `faiss`). Sin él los contextos
+  salen de BM25 y el modelo se entrena con un contexto que en servicio no ve
+  (defecto H4). Los dos constructores se niegan a escribir sin `--indice`.
+- La validación es intocable **en contenido**, no solo en ids: comparar ids no
+  basta (defecto H3).
+- Versiones del stack fijadas en `colab/requirements-m1.txt`; nada de `pip -U`.
 
 **Git.**
 - Commits en español: qué cambió, por qué y con qué cifras.
@@ -56,5 +65,6 @@ contradice ese documento, gana el código, y se avisa.
 
 ```bash
 pytest -q
-python -c "from tools.evaluation import config; print(config.verificar_dataset())"   # 37e579ad0bfac6bd
+python -c "from tools.evaluation import config; print(config.verificar_dataset())"   # a13e6d32629eb6a9
+python -m tools.evaluation.escenarios --verificar                                     # OK, d51365fbc779d1ce
 ```

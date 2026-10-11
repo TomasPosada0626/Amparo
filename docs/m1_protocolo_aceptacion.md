@@ -79,9 +79,17 @@ reporta en cuatro bloques, no sumados:
 | escenario | cómo se construye | qué se espera |
 |---|---|---|
 | **vacío** | la búsqueda no devuelve nada | el pipeline responde la frase de escape **sin llamar al modelo** (`_generar_verificado`). Se comprueba que esa ruta sigue activa |
-| **irrelevante** | contexto no vacío, ningún fragmento responde | **abstenerse** y encaminar |
+| **irrelevante** | contexto no vacío de la misma materia, ningún fragmento responde | **abstenerse** y encaminar |
 | **suficiente** | el artículo que responde está entre los entregados | **citar ese artículo** |
 | **parcial** | responde una parte | responder la parte **y decir qué falta** |
+
+**Implementado y congelado** (fase A, 2026-10-11): `tools/evaluation/escenarios.py`
+y `data/escenarios_m1.jsonl`, 185 casos, huella `d51365fbc779d1ce`. Diseño
+**pareado**: las mismas preguntas de validación (55 B1 y 13 B3) con contexto
+suficiente, parcial, irrelevante (49, del buscador de producción sin el artículo
+que responde ni sus contiguos; 44 traen un fragmento de su propia categoría) y
+vacío (68). Es la única medición que detecta el atajo: los 35 B2 de validación
+conservan su contexto histórico, de otras categorías, y no pueden.
 
 ### Progreso experimental y aceptación de producto, separados
 
@@ -265,7 +273,12 @@ sistema apto para usarse como asistente jurídico.**
 
 ---
 
-7. **Los 35 B2 de validación tienen otro contexto en v3.** `rehacer_b2_a_mano`
+7. ~~**Los 35 B2 de validación tienen otro contexto en v3.**~~ **RESUELTO el
+   2026-10-11 (fase A): restaurados.** La reconstrucción salta la validación
+   y la conserva de la base; 0 de 334 registros distintos. Se eligió el
+   camino recomendado. El texto de la decisión se conserva abajo.
+
+   **Los 35 B2 de validación tenían otro contexto en v3.** `rehacer_b2_a_mano`
    reconstruyó los 263 B2 escritos a mano, incluidos los 35 de validación. La
    validación conserva los ids pero no el contenido de esos 35. Dos caminos:
    - **Restaurarlos** al contenido de la base `9c9f5a9`: la validación vuelve a

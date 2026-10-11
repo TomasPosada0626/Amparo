@@ -2,9 +2,9 @@
 
 **Para:** Martín, y el Claude con que trabaje sobre este repositorio.
 **De:** Tomás.
-**Fecha:** 2026-10-10. **Rama:** `m3.5`.
-**Suite al cierre de este informe:** 782 passed, 4 skipped, 1 xfailed (el xfail
-es un defecto conocido y documentado, sección 9).
+**Fecha:** 2026-10-10. **Actualizado:** 2026-10-11, con la **fase A de M1
+completa** (sección 7.1.2). **Rama:** `m3.5`.
+**Suite:** 798 passed, 4 skipped.
 
 ---
 
@@ -52,7 +52,7 @@ los puntos con el mismo peso, redondeado a 5.
 
 | notebook | preparación | listo para correr | completado |
 |---|---|---|---|
-| `m1_finetune.ipynb` | `████████░░ 75 %` | `█████░░░░░ 55 %` | `██░░░░░░░░ 25 %` |
+| `m1_finetune.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `████░░░░░░ 35 %` |
 | `m1_reevaluacion_v1.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `░░░░░░░░░░ 0 %` |
 | `m2_evaluacion.ipynb` | `██████░░░░ 60 %` | `████░░░░░░ 40 %` | `██████░░░░ 60 %` |
 | `m3_busqueda_v2.ipynb` | `██████░░░░ 55 %` | `█████░░░░░ 50 %` | `█████░░░░░ 50 %` |
@@ -61,7 +61,7 @@ los puntos con el mismo peso, redondeado a 5.
 
 | módulo | preparación | completado |
 |---|---|---|
-| **M1** — fine-tuning | `████████░░ 75 %` | `██░░░░░░░░ 25 %` |
+| **M1** — fine-tuning | `██████████ 100 %` | `████░░░░░░ 35 %` |
 | **M2** — evaluación | `██████░░░░ 60 %` | `██████░░░░ 60 %` |
 | **M3** — RAG | `██████░░░░ 60 %` | `████░░░░░░ 40 %` (S10, el que importa para M4, va en 15 %) |
 | **M4** — entrega final | no iniciado | no iniciado |
@@ -70,9 +70,10 @@ Los de M3 son el promedio de sus tres notebooks.
 
 ### Lo que hay que saber en cinco líneas
 
-1. **El dataset está corregido en lo principal** (el atajo que impedía aprender
-   a abstenerse está roto) pero tiene **dos defectos de construcción** que
-   introduje yo y hay que arreglar antes de entrenar (sección 9, H3 y H4).
+1. **La preparación de M1 está completa** (fase A, 2026-10-11). El dataset
+   está listo para entrenar: el atajo que impedía aprender a abstenerse está
+   roto en entrenamiento, la validación está congelada, todo contexto sale del
+   buscador de producción y el stack tiene versiones fijadas.
 2. **Las cifras históricas de abstención de M1 (0/35, 1/35) no valen**: se
    midieron sin la orden de abstenerse en el prompt. Ya está corregido el
    notebook; falta medir de nuevo.
@@ -81,8 +82,8 @@ Los de M3 son el promedio de sus tres notebooks.
    responde llega al contexto en 20 de 45 casos. Ningún entrenamiento arregla
    eso solo.
 4. **Nada se entrena ni se corre en GPU sin autorización de Tomás.**
-5. El siguiente paso con GPU es **reevaluar v1** (solo inferencia, ~40 min), no
-   entrenar.
+5. El siguiente paso es la **fase B**: reevaluar v1 con el prompt correcto (GPU,
+   solo inferencia, ~40 min) y adjudicar sus 35 B2. No entrenar todavía.
 
 ---
 
@@ -113,8 +114,10 @@ y contenido falso es el peor resultado posible.
   al responder. **Hoy lo es** (verificado: `prompt_template.build_messages` da el
   mismo system prompt que los ejemplos con contexto del dataset).
 - El **dataset de M1 se construye con el mismo buscador que usa M3**, para que el
-  modelo se entrene con el tipo de contexto que va a ver en servicio. Hoy eso se
-  rompió en parte (H4).
+  modelo se entrene con el tipo de contexto que va a ver en servicio. Se rompió
+  al construir v3 en local (H4) y se corrigió en la fase A: **todo contexto, de
+  todo modo, sale de e5 + FAISS + enrutador**, y el constructor se niega a
+  escribir sin `--indice`.
 
 ### Los tres modos de respuesta con contexto
 
@@ -184,8 +187,11 @@ tiene detrás un error real.
 15. **La lógica vive en `tools/` y se prueba en CPU.** Los notebooks importan de
     `tools/`; no se copia lógica dentro de un notebook (ya se desincronizó una
     vez y subestimó al modelo sin que nada fallara).
-16. **`pytest -q` en verde antes de comitear.** Hoy: 782 passed, 4 skipped,
-    1 xfailed.
+16. **`pytest -q` en verde antes de comitear.** Hoy: 798 passed, 4 skipped.
+16b. **El dataset y los escenarios se construyen con el buscador de producción**:
+    `--indice`, desde el `.venv` del repo, que tiene `faiss`. Sin `--indice` los
+    contextos salen de BM25 y se reintroduce el defecto H4; por eso los dos
+    constructores se niegan a escribir sin él.
 17. **Editar notebooks por JSON, sin reformatear.**
     `json.dumps(nb, indent=2, ensure_ascii=False) + "\n"` reproduce los
     `.ipynb` de este repo byte a byte. Otra indentación genera un diff de
@@ -233,6 +239,7 @@ tools/
     dataset.py              carga, splits, prompt_de(), split_dev()
     corrida.py              identidad de corrida, huella de pesos, guardado seguro
     reevaluacion_v1.py      reevaluacion de v1 con el prompt correcto
+    escenarios.py           prueba de los 4 escenarios (vacio, irrelevante, suficiente, parcial)
     b2_funcional.py         metrica de abstencion funcional (exige adjudicacion)
     generation.py           carga del modelo y generacion greedy (M2 y M3)
     judge*, external_judge  juez Groq
@@ -245,8 +252,10 @@ tools/
     prompt_template.py      build_messages(): el prompt aumentado
     corpus.py, ingest.py, chunk.py, embed_store.py
 colab/                      los notebooks (seccion 7)
+  requirements-m1.txt       versiones fijadas del stack de M1
 data/
-  dataset.jsonl             EL dataset (2626)
+  dataset.jsonl             EL dataset (2580)
+  escenarios_m1.jsonl       los 4 escenarios de contexto, congelados (185 casos)
   dataset_manifiesto.json   su composicion, huella y las 89 variantes descartadas
   dataset_src/              fuentes .md de los ejemplos sin contexto (34 archivos)
   dataset_src_v2/           fuentes .md de los ejemplos con contexto (27 archivos)
@@ -271,8 +280,9 @@ artifacts/                  indice FAISS y adaptadores (NO en git)
 
 | artefacto | huella | algoritmo | dónde vive |
 |---|---|---|---|
-| `data/dataset.jsonl` | `37e579ad0bfac6bd` | `config.huella_dataset` | git |
-| `data/dataset.jsonl` (manifiesto) | `91a871d60eca2097` | `dataset_v3.huella` | git |
+| `data/dataset.jsonl` | `a13e6d32629eb6a9` | `config.huella_dataset` | git |
+| `data/dataset.jsonl` (manifiesto) | `795cae01c1c38225` | `dataset_v3.huella` | git |
+| `data/escenarios_m1.jsonl` | `d51365fbc779d1ce` | `manifiesto.huella_archivo` | git |
 | `data/eval_set.json` | `a5151999c2095d00` | `manifiesto.huella_archivo` | git |
 | corpus | `1c552822959e2932` | `auditoria_61.huella_corpus_portable` | git |
 | índice `rag_index.faiss` | `19657d22583f93d0` | sha256 del archivo | Drive `Amparo/rag/` y `artifacts/` |
@@ -281,8 +291,9 @@ artifacts/                  indice FAISS y adaptadores (NO en git)
 | adaptador **v2** | `82089e4a0d9612a7` | ídem | Drive `Amparo/amparo-lora-adapter-v2` |
 | modelo base, revisión | `a09a35458c702b33eeacc393d103063234e8bc28` | commit de HF | Hugging Face |
 
-**El dataset anterior** (2709 ejemplos, sha1 `db0b6e65126cab25`) sigue en
-`git show 9c9f5a9:data/dataset.jsonl`.
+**Versiones anteriores del dataset**, todas en git:
+`9c9f5a9` (2709 ejemplos, sha1 `db0b6e65126cab25`) y `12d062f` (2626, sha1
+`37e579ad0bfac6bd`, construida con BM25 y con la validación alterada: H3, H4).
 
 **La revisión del modelo base** se recuperó así: el código de v1 no fijaba
 `revision` y bajó `main`. El último commit a `main` de `Qwen/Qwen2.5-7B-Instruct`
@@ -326,16 +337,21 @@ abre.
 
 ## 6. Los datos
 
-### 6.1 `data/dataset.jsonl` — 2626 ejemplos
+### 6.1 `data/dataset.jsonl` — 2580 ejemplos
 
 | origen | n | con contexto | de dónde sale |
 |---|---|---|---|
 | `v1` | 1536 | no | `data/dataset_src/` vía `dataset_build.py` |
 | `v2` | 755 | sí: B1 391, B2 263, B3 101 | `data/dataset_src_v2/` vía `dataset_v2.py` |
-| `contrastivo` | 335 | sí: todos B2 | la misma pregunta de un B1/B3 con un contexto que no responde |
+| `contrastivo` | 289 | sí: todos B2 | la misma pregunta de un B1/B3 con un contexto que no responde |
 
-**Split:** train 2292, validación **334** (231 `v1` + 103 con contexto: 55 B1,
-35 B2, 13 B3). Los ids de validación son los mismos de siempre.
+**Split:** train 2246, validación **334** (231 `v1` + 103 con contexto: 55 B1,
+35 B2, 13 B3). Los ids **y el contenido** de la validación son los mismos de la
+base `9c9f5a9`: verificado registro a registro.
+
+**Se construye con `python -m tools.dataset_v3 --indice`**, desde el `.venv`.
+Lee su base de `git show 9c9f5a9:data/dataset.jsonl`, no del disco, así que es
+idempotente: dos construcciones dan la misma huella.
 
 **Dos system prompts, a propósito.** Uno para los ejemplos sin contexto y otro
 —1350 caracteres— para los que llevan contexto, que agrega las reglas de uso del
@@ -346,16 +362,26 @@ fallo de evaluación más grave encontrado (H1).
 
 | | antes | ahora |
 |---|---|---|
-| B2 con un fragmento de su propia categoría | **0 %** | **85 %** |
-| ventaja del atajo "si no hay nada de mi categoría, abstente" sobre adivinar | **+41,3 pts** | **−2,2 pts** |
-| objetivos distintos en los contrastivos | 11 (uno repetido 250 veces) | 261 (máximo 2) |
+| B2 de entrenamiento con un fragmento de su propia categoría | **0 %** | **87,6 %** |
+| ventaja del atajo "si no hay nada de mi categoría, abstente", **en entrenamiento** | **+39,2 pts** | **−3,6 pts** |
+| buscador que arma los contextos B2 | BM25 en los contrastivos | **e5 + FAISS + enrutador en todos** |
+| validación | — | congelada: 0 registros distintos de la base |
+| objetivos distintos en los contrastivos | 11 (uno repetido 250 veces) | 213 (máximo 2), solo con punteros de entrenamiento |
 | ejemplos de urgencia que enseñaban una abstención sin encaminar | 12 | 0 |
 
-**Puertas de calidad:** 19 de 19. **Fugas:** 0 en los tres controles. **Ningún
-ejemplo se trunca:** el más largo son 2596 tokens contra `MAX_SEQ_LENGTH` 3072.
+**Ojo con el atajo en validación: +32,0 pts.** Los 35 B2 de validación conservan
+su contexto histórico, de otras categorías (0 de 35 traen un fragmento de la
+suya), así que un modelo que hubiera aprendido el atajo los aprobaría. **La
+validación no puede detectarlo.** Lo detecta la prueba de los 4 escenarios
+(`data/escenarios_m1.jsonl`, sección 7.1.3). Medido sobre todo junto, como las
+cifras anteriores, el atajo da +3,1: no cumple el "≤ 0" que se había fijado, y
+lo empuja justo esa validación.
 
-**Riesgos documentados, no bloqueantes:** 71 variantes con un artículo del mismo
-capítulo que el retirado (no contiguo) y 28 B2 marcados `AFINIDAD_ALTA_REVISAR`.
+**Puertas de calidad:** 19 de 19. **Fugas:** 0 en los tres controles. **Ningún
+ejemplo se trunca:** el más largo son 2855 tokens contra `MAX_SEQ_LENGTH` 3072.
+
+**Riesgos documentados, no bloqueantes:** 73 variantes con un artículo del mismo
+capítulo que el retirado (no contiguo) y 15 B2 marcados `AFINIDAD_ALTA_REVISAR`.
 
 ### 6.2 `data/eval_set.json` — 75 casos
 
@@ -406,40 +432,38 @@ manifiesto.
 `results/m1_v2_2026-10-09/` (v2). **Sus cifras de abstención y de los 103 con
 contexto no son comparables** (H1).
 
-**Preparación — 8 de 11 (75 %)**
+**Preparación — 12 de 12 (100 %)**
 
 - [x] Diagnóstico del fallo de abstención: el atajo, medido (+41,3 pts)
-- [x] Dataset que lo corrige (v3)
+- [x] Dataset que lo corrige
 - [x] 19 puertas de calidad y 3 controles de fuga
 - [x] Los 35 B2 adjudicados por el abogado
 - [x] Gold de artículos adjudicado en todo lo que mueve el acierto@k
 - [x] Protocolo de aceptación congelado, con la lectura fijada antes de ver resultados
 - [x] Notebook corregido: prompt de evaluación, dev, identidad de corrida, revisión, adaptador
 - [x] Reevaluación de v1 preparada y probada
-- [ ] Validación congelada en contenido (H3)
-- [ ] Contextos B2 con el buscador de producción (H4)
-- [ ] Versiones del stack fijadas (H9)
+- [x] Validación congelada en contenido (H3) — *fase A*
+- [x] Contextos B2 con el buscador de producción (H4) — *fase A*
+- [x] Versiones del stack fijadas (H9) — *fase A*
+- [x] Prueba de los 4 escenarios implementada y congelada — *fase A*
 
-Los tres que faltan son del orden de una hora de CPU, pero se cuentan igual que
-los demás: el método es el mismo en todas las barras.
-
-**Listo para correr — 4 de 7 (55 %)**
+**Listo para correr — 7 de 7 (100 %)**
 
 - [x] Preflight: huella del dataset, conteos, ninguna contrastiva en validación
 - [x] Evaluación con el prompt de **cada** registro (`prompt_de`), igual que el entrenamiento
 - [x] Dev recortado por grupo de pregunta (0 preguntas compartidas con entrenamiento)
 - [x] Identidad de corrida: revisión fijada, huella de pesos, adaptador sin sobrescritura
-- [ ] **Validación congelada en contenido** — 35 B2 cambiados (H3)
-- [ ] **Contextos B2 con el buscador de producción** — 263 B2 con BM25 (H4)
-- [ ] Versiones del stack fijadas — el notebook instala `-U` (H9)
+- [x] Validación congelada en contenido
+- [x] Contextos con el buscador de producción
+- [x] Versiones del stack fijadas (`colab/requirements-m1.txt`)
 
-**Completado — 1,5 de 6 (25 %)**
+**Completado — 2 de 6 (35 %)**
 
-- [~] Dataset con el atajo corregido — sí, pero con H3 y H4 pendientes
+- [x] Dataset con el atajo corregido
 - [x] v1 entrenado y en Drive (referencia de producción)
 - [ ] Línea base válida: v1 reevaluado con el prompt correcto **y adjudicado**
 - [ ] Candidato entrenado
-- [ ] Candidato evaluado y sus 35 B2 adjudicadas
+- [ ] Candidato evaluado: sus 35 B2 adjudicadas y los 4 escenarios
 - [ ] Criterios de aceptación cumplidos (sección 7.1.1)
 
 **M1 completado cuando** un candidato cumpla, contra una línea base válida, los
@@ -461,6 +485,100 @@ diferencia pareada en `B2_funcional`, candidato menos v1 reevaluado, sobre los
 mismos 35 casos, entero por encima de 0 (`estadistica.diferencia_pareada`), y
 menos fallos críticos que v1 reevaluado.
 
+#### 7.1.2 Roadmap de M1 hasta el 100 %
+
+Los pasos con GPU necesitan la autorización de Tomás. **La fase A está hecha.**
+
+**FASE A — Cerrar la preparación (CPU)** · *preparación → 100 %* · **HECHA el 2026-10-11**
+
+- [x] **A1. Validación congelada (H3).** La reconstrucción salta los B2 de
+  validación y los conserva de la base. ✔ 0 de 334 registros distintos; la
+  prueba que lo documentaba como `xfail` pasa y la marca se quitó.
+- [x] **A2. Contexto del buscador de producción (H4).**
+  `python -m tools.dataset_v3 --indice` desde el `.venv`. ✔ Todo contexto de
+  todo modo con `e5+faiss+enrutador`; B2 de entrenamiento con fragmento de su
+  categoría 87,6 %; atajo en entrenamiento −3,6 pts. De paso: los punteros de
+  los objetivos, solo de entrenamiento (39 objetivos usaban texto de validación).
+- [x] **A3. Verificación.** ✔ 19 de 19 puertas, 0 fugas, máximo 2855 tokens,
+  idempotente, `DATASET_SHA1 = a13e6d32629eb6a9`, 798 pruebas en verde.
+- [x] **A4. Stack fijado (H9).** `colab/requirements-m1.txt`, instalado por los
+  dos notebooks de M1. ✔ Ningún `pip install -U` en ellos; el manifiesto registra
+  el stack completo.
+- [x] **A5. Los 4 escenarios.** `tools/evaluation/escenarios.py` y
+  `data/escenarios_m1.jsonl` (185 casos). ✔ El irrelevante no trae el artículo
+  que responde en ninguno de sus 49 casos.
+- [x] **A6. Comiteado y subido.**
+
+**FASE B — Línea base válida (GPU, solo inferencia)** · *completado: línea base*
+
+- [ ] **B1.** Autorización de Tomás (~40 min de A100)
+- [ ] **B2.** Correr `colab/m1_reevaluacion_v1.ipynb`: primero la celda del plan,
+  después la corrida. ✔ Hay `resumen.json` y el control dice REPRODUCCIÓN (con
+  DIAGNÓSTICO la cifra vale, pero se reporta como diagnóstico).
+- [ ] **B3.** Copiar a `results/m1_reevaluacion_v1_<fecha>/` y comitear.
+- [ ] **B4.** Adjudicar las 35 respuestas B2 nuevas: primera pasada con
+  `tools/adjudicacion_b2.py`, la valida el abogado, pasa el validador.
+- [ ] **B5.** Leer con la tabla de la sección 7.2. Con **≥ 30/35 y 0 críticos**,
+  v1 pasa a la fase D como candidato y la C se salta; si no, fase C.
+
+**FASE C — Candidato (GPU, entrenamiento)** · *completado: candidato entrenado y evaluado*
+
+- [ ] **C1.** Autorización de Tomás (~4–5 h de A100)
+- [ ] **C2.** Correr `colab/m1_finetune.ipynb` completo, con `ADAPTADOR` nuevo y
+  `EXIGIR_REVISION = True`. ✔ El preflight da `a13e6d32629eb6a9`, aparece el
+  `corrida_id`, el adaptador se guarda con su huella de pesos, hay enlace de W&B.
+- [ ] **C3.** Copiar a `results/m1_<fecha>/` y comitear.
+- [ ] **C4.** Adjudicar las 35 B2 del candidato.
+- [ ] **C5.** Correr los 4 escenarios con el candidato **y con v1**:
+  `python -m tools.evaluation.escenarios --correr --adaptador <dir> --salida <dir>`.
+  Adjudicar los irrelevantes.
+- [ ] **C6.** Medir la sobreabstención en los 45 gold con recuperación real (S10
+  con el adaptador candidato).
+
+**FASE D — Juicio (CPU)** · *completado: criterios cumplidos*
+
+- [ ] **D1.** `B2_funcional` ≥ 30/35 **y** 0 fallos críticos
+- [ ] **D2.** B1 y B3 no empeoran respecto a v1 reevaluado
+- [ ] **D3.** Sobreabstención en gold ≤ 3/45
+- [ ] **D4.** Rutas incorrectas ≤ 4 (`tools/metricas_rutas.py`)
+- [ ] **D5.** 0 citas no verificables
+- [ ] **D6.** Progreso, **aparte** de la aceptación: IC 95 % de la diferencia
+  pareada contra v1 reevaluado por encima de 0
+- [ ] **D7.** Informe del veredicto, comiteado
+
+Si D1–D5 pasan, **M1 completado**. Adoptar el candidato en producción es otra
+decisión de Tomás y obliga a volver a correr M2, S08 y S10. Si algo falla, el
+candidato no se acepta y se analiza antes de otra versión de datos: **hacer los
+pasos no garantiza el 100 %; lo garantiza que el candidato cumpla.**
+
+| tras la fase | preparación | completado |
+|---|---|---|
+| A *(hoy)* | 100 % | 35 % |
+| B | 100 % | 50 % |
+| C | 100 % | 85 % |
+| D, si cumple | 100 % | **100 %** |
+
+#### 7.1.3 La prueba de los 4 escenarios
+
+**Por qué:** los 35 B2 de validación no pueden detectar el atajo (sección 6.1).
+Esta prueba sí, con un diseño **pareado**: la misma pregunta con un contexto que
+la responde y con uno de la misma materia que no.
+
+| escenario | n | de dónde sale | qué se espera |
+|---|---|---|---|
+| `suficiente` | 55 | los B1 de validación, con su contexto | citar el artículo que responde |
+| `parcial` | 13 | los B3 de validación, con su contexto | responder la parte y decir qué falta |
+| `irrelevante` | 49 | las mismas preguntas, del buscador de producción sin el artículo que responde ni sus contiguos | abstenerse |
+| `vacio` | 68 | las mismas preguntas, sin fragmentos | la frase de escape **por código**, sin llamar al modelo |
+
+El irrelevante trae un fragmento de su propia categoría en **44 de 49** casos.
+Se descartaron 19 por traer un artículo contiguo al que responde. Está congelado
+en `data/escenarios_m1.jsonl` (huella `d51365fbc779d1ce`) para que v1 y el
+candidato reciban exactamente lo mismo. 117 generaciones en GPU (~40 min).
+
+    python -m tools.evaluation.escenarios --verificar        # CPU, sin faiss
+    python -m tools.evaluation.escenarios --correr --adaptador <dir> --salida <dir>   # Colab
+
 ### 7.2 M1 — `colab/m1_reevaluacion_v1.ipynb`
 
 **Qué hace:** regenera las respuestas del adaptador **v1 existente**, sin
@@ -473,16 +591,17 @@ cualquier diferencia, **DIAGNÓSTICO**. La regla se fijó antes de correr.
 
 **Coste:** unos 35–40 min en A100. Solo inferencia.
 
-**Preparación — 5 de 5 (100 %)**: es la misma lista que *listo para correr*;
+**Preparación — 6 de 6 (100 %)**: es la misma lista que *listo para correr*;
 este notebook es solo una corrida.
 
-**Listo para correr — 5 de 5 (100 %)**
+**Listo para correr — 6 de 6 (100 %)**
 
 - [x] Plan probado en CPU con `--dry-run`
 - [x] Fuente histórica: solo cambia el prompt
 - [x] Revisión del modelo base recuperada y fijada
 - [x] Huella del adaptador verificada (acepta v1, rechaza v2)
 - [x] Control de reproducción con regla fijada
+- [x] Instala las versiones fijadas de `colab/requirements-m1.txt`
 
 **Completado — 0 de 3 (0 %)**
 
@@ -709,19 +828,21 @@ cambia. **No es evidencia de que el sistema sea seguro ante urgencias.**
 |---|---|---|---|---|
 | **H1** | La evaluación de M1 generaba las 334 respuestas con el prompt de `records[0]` (sin contexto): los 35 B2 se evaluaron **sin la orden de abstenerse**. Invalida 0/35, 1/35 y 15/35 | crítica | **corregido** en el notebook; falta reevaluar | `m1_finetune` celda 13 |
 | **H2** | El dev que elige la época compartía el 63 % de sus preguntas con el entrenamiento | alta | **corregido** (`split_dev`) | celda 22 |
-| **H3** | Al construir v3 se reconstruyó también el contexto de **los 35 B2 de validación**. Validación con los mismos ids y otro contenido | alta | **abierto** — prueba `xfail(strict=True)` | `tools/dataset_v3.py` |
-| **H4** | Al construir v3 en local, los **263 B2 escritos a mano pasaron de e5 + FAISS a BM25**. Hoy todos los B2 tienen contexto de BM25 y todos los B1/B3 de e5: posible atajo nuevo por el estilo del contexto | alta | **abierto** | `tools/dataset_v3.py` |
+| **H3** | Al construir v3 se reconstruyó también el contexto de **los 35 B2 de validación**. Validación con los mismos ids y otro contenido | alta | **corregido** en la fase A: 0 registros distintos de la base | `tools/dataset_v3.py` |
+| **H4** | Al construir v3 en local, los **263 B2 escritos a mano pasaron de e5 + FAISS a BM25**: todos los B2 con BM25 y todos los B1/B3 con e5, posible atajo por el estilo del contexto | alta | **corregido** en la fase A: todo contexto con e5 + FAISS, y escribir exige `--indice` | `tools/dataset_v3.py` |
 | **H5** | RAGAS de S10 excluyó 27 respuestas por **contener** la frase de escape, no por ser abstención: *faithfulness* sobre 18 de 45 | media | abierto | `ragas_metrics`, S10 |
 | **H6** | `generation.load_base_model` (M2 y M3) no fija la revisión del modelo base | media | abierto | `tools/evaluation/generation.py` |
 | **H7** | `m3_busqueda_v2` llama a un módulo que ya no existe y sobrescribe la config en sesión con valores viejos | media | abierto | `m3_busqueda_v2` celdas 10 y 13 |
 | **H8** | `dataset_contrastivo.py` sigue generando los contrastivos viejos (a un archivo de revisión, no al dataset) | baja | abierto | `tools/dataset_contrastivo.py` |
-| **H9** | El stack se instala con `pip install -U`, sin versiones fijadas; las de v1 no se registraron | media | abierto | celda 1 de los notebooks |
+| **H9** | El stack se instalaba con `pip install -U`, sin versiones fijadas; las de v1 no se registraron | media | **corregido en M1** (`colab/requirements-m1.txt`); **abierto en M2 y M3**, que siguen con `-U` | celda de instalación |
 | **H10** | Regresión de rutas incorrectas: base 4 → v1 6 → v2 8. *Ojo: medida sobre los 334, que incluyen los 103 generados con el prompt equivocado* | media | medido, sin corregir | `results/m1_rutas_2026-10-10/` |
 | **H11** | Artículo 57 del CST indexado anterior a la reforma de 2025 (casos 9051, 4630). **Única corrección que exige reconstruir el índice** | media | abierto | corpus |
 | **H12** | 64 fragmentos puramente derogatorios ocupan 6 puestos del top-5 en 3 casos gold. Se arregla con un filtro **posterior** a la recuperación, sin reconstruir | media | abierto | `tools/rag/retrieve.py` |
 | **H13** | 4 categorías gold no son enrutables y el enrutador entierra 3 casos que el denso solo encontraba | media | medido | `tools/rag/enrutador.py` |
 | **H14** | Desacuerdo entre jueces en M2 (compuesto frente a cara a cara) | media | abierto | `results/m2_2026-10-09/` |
 | **H15** | No hay negativos adjudicados con recuperación real: ninguna señal de suficiencia se puede usar como puerta | media | abierto | `tools/prototipo/` |
+| **H16** | Los punteros de los objetivos contrastivos salían también de los B2 de validación: 39 de 289 objetivos de entrenamiento usaban texto que solo existía en validación | media | **corregido** en la fase A: solo punteros de entrenamiento | `tools/dataset_v3.py` |
+| **H17** | Los 35 B2 de validación conservan su contexto histórico, de otras categorías: **no pueden detectar el atajo** (+32 pts de ventaja sobre ellos) | alta | **mitigado**: lo detecta la prueba de los 4 escenarios, que hay que correr con el candidato (C5) | `data/escenarios_m1.jsonl` |
 
 ---
 
@@ -730,12 +851,12 @@ cambia. **No es evidencia de que el sistema sea seguro ante urgencias.**
 En este orden. **Los pasos con GPU necesitan la autorización de Tomás.**
 
 ```
-DATOS (CPU)
- 1. H3  restaurar los 35 B2 de validacion al contenido de la base 9c9f5a9
- 2. H4  reconstruir los B2 de entrenamiento con --indice (e5 + FAISS),
-        que es el buscador de produccion. El indice y e5 estan en local
- 3.     volver a verificar: 19 puertas, fugas, atajo, huella; quitar el xfail
- 4. H9  fijar las versiones del stack en los notebooks
+DATOS (CPU)                                         -- HECHO, fase A (2026-10-11)
+ 1. [x] H3  validacion congelada
+ 2. [x] H4  todo contexto con el buscador de produccion (e5 + FAISS)
+ 3. [x]     verificado: 19 puertas, 0 fugas, idempotente, xfail retirado
+ 4. [x] H9  stack de M1 fijado
+ 4b.[x]     prueba de los 4 escenarios implementada y congelada
 
 LINEA BASE (GPU, solo inferencia)
  5.     reevaluar v1 con el prompt correcto  (colab/m1_reevaluacion_v1.ipynb)
@@ -744,7 +865,7 @@ LINEA BASE (GPU, solo inferencia)
 
 M1 (GPU, entrenamiento) -- solo si el paso 7 lo justifica
  8.     entrenar UN candidato
- 9.     evaluarlo y adjudicar sus 35 B2
+ 9.     evaluarlo, adjudicar sus 35 B2 y correr los 4 escenarios
 10.     juzgarlo contra los criterios congelados
 
 M3 (CPU y GPU)
@@ -760,8 +881,9 @@ M2 (GPU + Groq)
 18.     M2 con el adaptador final; resolver H14
 ```
 
-**Por qué en este orden.** Los pasos 1–4 tocan el dataset y conviene hacerlos de
-una vez, antes de cualquier corrida: si se entrena antes, hay que repetir. El 5
+**Por qué en este orden.** Los pasos 1–4 tocaban el dataset y convenía hacerlos
+de una vez, antes de cualquier corrida: ya están hechos. El roadmap detallado de
+M1, paso por paso y con su comprobación, está en la sección 7.1.2. El 5
 es barato y decide si el 8 hace falta. M3 depende de M1 solo en el paso 16;
 todo lo de recuperación (11–14) se puede avanzar en paralelo.
 
@@ -808,18 +930,23 @@ todo lo de recuperación (11–14) se puede avanzar en paralelo.
 ```bash
 git pull origin m3.5
 pip install -r requirements.txt
-pytest -q                                   # 782 passed, 4 skipped, 1 xfailed
+pytest -q                                   # 798 passed, 4 skipped
 #   Sin artifacts/ (los adaptadores no estan en git) algunas pruebas se SALTAN
 #   en vez de pasar: mas "skipped", ninguna "failed". Un "failed" si es un aviso.
 
 python -c "from tools.evaluation import config; print(config.verificar_dataset())"
-#   -> 37e579ad0bfac6bd
+#   -> a13e6d32629eb6a9
+
+python -m tools.evaluation.escenarios --verificar
+#   -> OK, huella d51365fbc779d1ce (no necesita faiss)
 
 python -m tools.evaluation.reevaluacion_v1 --adaptador artifacts/amparo-lora-adapter --dry-run
 #   -> 103 registros, 10 de control, huella 8ce3cc2bc9306974
 #      (requiere el adaptador v1 en artifacts/; esta en Drive)
 
-python -m tools.dataset_v3 --check          # reconstruye en memoria y verifica, no escribe
+# Reconstruir el dataset exige el buscador de produccion: el indice en
+# artifacts/ (esta en Drive) y el .venv del repo, que tiene faiss.
+.venv/Scripts/python -m tools.dataset_v3 --check --indice   # verifica, no escribe
 ```
 
 Si algo de esto no da lo esperado, **para y avisa antes de seguir**: es la forma
