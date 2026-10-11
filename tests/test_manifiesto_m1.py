@@ -81,4 +81,10 @@ def test_se_puede_armar_sin_el_stack_de_evaluacion(monkeypatch):
     # -- ensenaban a abstenerse con la respuesta delante -- y 11 cuya pregunta
     # es una urgencia y habrian recibido un escape sin encaminar. Seis variantes
     # nuevas se pudieron generar donde la regla vieja las descartaba.
-    assert m["n_total"] == 2626
+    #
+    # 2626 -> 2580 en la fase A: los contextos B2 pasan a salir del buscador de
+    # produccion (e5 + FAISS, defecto H4). Con e5 el contexto de un contrastivo
+    # trae mas a menudo un articulo contiguo al que se retiro -- e5 trae el
+    # vecindario del que responde --, y esas variantes se descartan porque el
+    # vecino suele responder tambien: 125 descartes frente a 78 con BM25.
+    assert m["n_total"] == 2580

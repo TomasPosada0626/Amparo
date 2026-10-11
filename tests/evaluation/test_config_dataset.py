@@ -130,6 +130,9 @@ def test_el_notebook_no_afirma_una_composicion_que_ya_no_existe(registros):
         "2709": len(registros),
         "418": origenes["contrastivo"],
         "2375": sum(1 for r in registros if r.get("split") == "train"),
+        # las de la version de 33cc019, antes de la fase A
+        "2626": len(registros),
+        "2292": sum(1 for r in registros if r.get("split") == "train"),
     }
     encontradas = [f"{viejo} (ahora {nuevo})"
                    for viejo, nuevo in obsoletas.items()
@@ -252,16 +255,13 @@ def test_el_dev_se_recorta_por_grupo_de_pregunta():
     assert "_n_dev = max(1, round(len(_items) * DEV_FRACTION))" not in codigo
 
 
-@pytest.mark.xfail(strict=True, reason=(
-    "DEFECTO CONOCIDO, introducido en 33cc019: rehacer_b2_a_mano reconstruyo el "
-    "contexto de los 263 B2 escritos a mano, incluidos los 35 de VALIDACION. La "
-    "validacion conserva los ids pero no el contenido. Pendiente de decision: "
-    "restaurarlos (validacion congelada) o aceptar el cambio y readjudicar. "
-    "strict=True: cuando se corrija, esta prueba pasara y el xfail fallara, "
-    "obligando a quitar esta marca."))
 def test_el_contenido_de_la_validacion_no_cambio(registros):
     """**Comparar ids no basta.** La prueba de arriba comprueba que son los
-    mismos 334 ids y pasa; esta comprueba que dicen lo mismo, y no pasa.
+    mismos 334 ids; esta comprueba que dicen lo mismo.
+
+    Estuvo marcada xfail(strict=True) mientras duro el defecto H3: en 33cc019
+    se reconstruyo el contexto de los 35 B2 de validacion. Se corrigio en la
+    fase A -- la reconstruccion salta la validacion -- y la marca se quito.
 
     Antes solo existia la de ids, y con ella se afirmo dos veces que la
     validacion estaba intacta cuando los 35 B2 -- justo los que miden la
@@ -280,3 +280,31 @@ def test_el_contenido_de_la_validacion_no_cambio(registros):
     cambiados = [x["id"] for x in registros
                  if x.get("split") == "val" and x["messages"] != base[x["id"]]["messages"]]
     assert not cambiados, f"{len(cambiados)} registros de validacion cambiaron: {cambiados[:8]}"
+
+
+# --- A4: versiones del stack fijadas ------------------------------------------
+
+REQUISITOS = config.PROJECT_ROOT / "colab" / "requirements-m1.txt"
+
+
+def test_el_stack_de_m1_esta_fijado():
+    """Con `pip install -U` cada corrida bajaba una version distinta, y las de
+    v1 no quedaron registradas. Cada paquete con su version exacta."""
+    lineas = [l.strip() for l in REQUISITOS.read_text(encoding="utf-8").splitlines()
+              if l.strip() and not l.startswith("#")]
+    paquetes = {l.split("==")[0]: l for l in lineas}
+    for p in ("transformers", "peft", "trl", "accelerate", "bitsandbytes", "datasets"):
+        assert p in paquetes, f"falta {p}"
+        assert "==" in paquetes[p], f"{p} sin version exacta"
+    # torch NO: Colab trae su build para CUDA y reemplazarlo rompe la GPU
+    assert "torch" not in paquetes
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_los_notebooks_de_m1_instalan_las_versiones_fijadas():
+    for nombre in ("m1_finetune.ipynb", "m1_reevaluacion_v1.ipynb"):
+        nb = json.loads((config.PROJECT_ROOT / "colab" / nombre).read_text(encoding="utf-8"))
+        codigo = "".join("".join(c["source"]) for c in nb["cells"])
+        assert "pip install -q -r /content/Amparo/colab/requirements-m1.txt" in codigo, nombre
+        assert not [l for l in codigo.splitlines() if "pip install" in l and " -U" in l], (
+            f"{nombre} vuelve a instalar sin version")

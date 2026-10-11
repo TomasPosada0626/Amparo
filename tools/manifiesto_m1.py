@@ -37,7 +37,11 @@ from tools.evaluation import config, eval_set
 # CPU sin nada instalado, y ahi fallaba con ModuleNotFoundError. Un manifiesto
 # tiene que poder armarse con la libreria estandar, igual que tools/rag/config.py
 # es importable sin GPU ni faiss.
-LIBRERIAS = ["transformers", "peft", "torch", "sacrebleu", "rouge-score", "bert-score"]
+# Todo el stack con que se entrena, no solo lo que mide. v1 no registro ninguna
+# version y no hubo forma de reproducirlo; trl, bitsandbytes, accelerate y
+# datasets tampoco se registraban en las corridas posteriores.
+LIBRERIAS = ["transformers", "peft", "trl", "accelerate", "bitsandbytes", "datasets",
+             "torch", "wandb", "sacrebleu", "rouge-score", "bert-score"]
 
 
 def _git_commit() -> str:

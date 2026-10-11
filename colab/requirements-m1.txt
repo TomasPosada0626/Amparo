@@ -1,0 +1,27 @@
+# Stack de M1, con versiones fijadas. Lo instalan m1_finetune.ipynb y
+# m1_reevaluacion_v1.ipynb.
+#
+# Antes se instalaba con `pip install -U`: cada corrida bajaba lo ultimo, y las
+# versiones de v1 no quedaron registradas (library_versions: None en su
+# manifiesto). Dos corridas del mismo notebook podian diferir solo por eso.
+#
+# De donde salen estas, y no de una eleccion:
+#   transformers, peft      registradas por m1_v2_2026-10-09, una corrida de
+#                           ENTRENAMIENTO de este notebook (y por M2, S08, S10)
+#   accelerate, bitsandbytes registradas por S08 y S10, el mismo dia
+#   trl, datasets, wandb    no las registro ninguna corrida. Son la ultima
+#                           version estable en PyPI antes de la corrida de
+#                           entrenamiento m1_v2 (2026-10-10 01:24 UTC): lo que
+#                           instalo `pip install -U` entonces. El metodo se
+#                           comprobo con las cuatro de arriba: da exactamente
+#                           las registradas.
+#
+# torch NO se fija: Colab trae su build compilado para CUDA y reemplazarlo rompe
+# la GPU. Se registra en el manifiesto de cada corrida.
+transformers==5.19.0
+peft==0.21.2
+trl==1.15.0
+accelerate==1.15.0
+bitsandbytes==0.50.2
+datasets==5.1.0
+wandb==0.30.0

@@ -6,7 +6,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 # El unico dataset. Trae los 1536 ejemplos sin contexto (origen v1), los 755
-# con contexto (v2) y las 335 variantes contrastivas, cada uno con su origen y
+# con contexto (v2) y las 289 variantes contrastivas, cada uno con su origen y
 # su split ya resueltos. `dataset.load_records()` lo filtra por origen.
 #
 # Sin numero de version en el nombre a proposito: hubo cinco archivos de datos
@@ -32,12 +32,14 @@ DATASET_PATH = PROJECT_ROOT / "data" / "dataset.jsonl"
 #
 # Historico, para que un cambio no pase por despiste:
 #   db0b6e65126cab25  hasta 9c9f5a9  dataset de 2709 (contrastivos con la regla B2 vieja)
-#   37e579ad0bfac6bd  desde 33cc019  dataset de 2626 (REGLA_B2_V3, ver dataset_manifiesto.json)
-DATASET_SHA1 = "37e579ad0bfac6bd"
+#   37e579ad0bfac6bd  33cc019        dataset de 2626 (REGLA_B2_V3, construido con BM25)
+#   a13e6d32629eb6a9  fase A         dataset de 2580: contextos con e5 + FAISS (H4),
+#                                    validacion congelada (H3), punteros solo de train
+DATASET_SHA1 = "a13e6d32629eb6a9"
 
 # Nombre anterior, cuando apuntaba a data/dataset_legal.jsonl. Se conserva para
 # no romper lo que lo importa, pero lo que antes era un archivo de 1536 ahora es
-# uno de 2626: quien necesite solo los de v1 debe usar dataset.load_records().
+# uno de 2580: quien necesite solo los de v1 debe usar dataset.load_records().
 LOCAL_DATASET_PATH = DATASET_PATH
 
 

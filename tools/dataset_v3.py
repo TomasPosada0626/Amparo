@@ -32,12 +32,13 @@ puntero salia de un diccionario de 12 categorias con un texto por defecto, y las
 15 categorias que no estaban en el diccionario cayeron todas en la misma frase.
 Un objetivo repetido 250 veces ensena esa cadena, no la conducta.
 
-v3 reparte los **263 punteros escritos a mano** de los B2 originales, que ya
+v3 reparte los **punteros escritos a mano** de los B2 de entrenamiento, que ya
 pasaron las puertas de calidad, entre las variantes de su misma categoria. No se
 redacta derecho nuevo: se reutiliza texto ya revisado, y cada categoria tiene
 entre 8 y 11 punteros propios.
 
-**3. Los 263 B2 escritos a mano tambien se recontextualizan**, y no hace falta
+**3. Los B2 escritos a mano de ENTRENAMIENTO tambien se recontextualizan** (228
+de los 263; los 35 de validacion no se tocan), y no hace falta
 declararles `excluir`. Una version anterior de este docstring decia lo
 contrario -- que quedaban con la regla historica a la espera de que alguien
 declarara el articulo oraculo caso por caso -- y era un razonamiento equivocado:
@@ -49,21 +50,35 @@ que traiga `fuentes`. Si **nada** del corpus responde, **ningun** contexto es
 suficiente, y entonces no existe el articulo oraculo que habria que retirar: la
 regla v3 se reduce a usar lo que devuelve el buscador.
 
-Medido sobre los ejemplos construidos: los 263 salen con
-`contexto_origen = busqueda-sin-el-articulo` y el **84 %** trae un fragmento de
-su propia categoria.
+**4. Los B2 de validacion no se reconstruyen.** Conservan el contenido de la
+base `9c9f5a9`, el mismo sobre el que se evaluaron v1 y v2 y se adjudicaron. Una
+version anterior los reconstruia (defecto H3).
+
+**5. Todo contexto sale del buscador de produccion: e5 + FAISS + enrutador.**
+Una version anterior se construyo en local con BM25 (defecto H4): todos los B2
+quedaron con BM25 y todos los B1/B3 con e5, y el estilo del contexto podia
+delatar el modo. Por eso **escribir exige `--indice`**.
+
+Medido sobre los ejemplos construidos: la ventaja del atajo "si no hay nada de
+mi categoria, abstente" es de **-3,6 puntos en entrenamiento** (antes +39,2).
+En validacion es +32,0, porque los 35 B2 conservan su contexto historico, de
+otras categorias: por eso la validacion no puede detectar el atajo y hace falta
+la prueba de los 4 escenarios.
 
 ## Lo que v3 NO resuelve
 
-El riesgo de que alguna de esas 263 preguntas **si** tenga respuesta en su
+El riesgo de que alguna de esas preguntas **si** tenga respuesta en su
 categoria y el autor no la viera. No se da por bueno a ciegas: se mide la
 afinidad lexica con el mejor fragmento de la propia categoria y las que pasan
-de `AFINIDAD_PARA_REVISION` quedan marcadas (28 casos). Es un triaje para
+de `AFINIDAD_PARA_REVISION` quedan marcadas (ver el manifiesto). Es un triaje para
 ordenar una cola de revision, no un dictamen: decidir si ese articulo responde
 es juicio juridico.
 
-    python -m tools.dataset_v3 --check    # construye y mide, no escribe
-    python -m tools.dataset_v3            # escribe data/dataset.jsonl
+    python -m tools.dataset_v3 --check --indice   # construye y mide, no escribe
+    python -m tools.dataset_v3 --indice           # escribe data/dataset.jsonl
+
+`--indice` necesita el indice FAISS en `artifacts/` y e5; en local corre con el
+`.venv` del repo, que tiene faiss.
 """
 from __future__ import annotations
 
@@ -139,6 +154,13 @@ def punteros_por_categoria(registros: list[dict]) -> dict[str, list[str]]:
     pool: dict[str, set[str]] = defaultdict(set)
     for r in registros:
         if r.get("modo") != "B2" or r.get("origen") != "v2":
+            continue
+        # Solo de ENTRENAMIENTO. Tomarlos tambien de validacion convertia el
+        # texto de respuesta de 35 B2 de validacion en objetivos de
+        # entrenamiento: medido, 39 de 289 contrastivos usaban un puntero que
+        # solo existia en validacion. Es el puntero y no la pregunta, pero es
+        # fuga. Con esto cada categoria conserva entre 6 y 10 punteros.
+        if r.get("split") != "train":
             continue
         texto = r["messages"][-1]["content"]
         resto = texto[len(RESPUESTA_SIN_CONTEXTO):].lstrip(". ").strip()
@@ -298,11 +320,13 @@ def rehacer_contrastivos(registros: list[dict], store=None) -> tuple[list[dict],
 
 
 def rehacer_b2_a_mano(registros: list[dict], store=None) -> tuple[list[dict], list[dict]]:
-    """Los 263 B2 escritos a mano, con contexto de su propia categoria.
+    """Los B2 escritos a mano de ENTRENAMIENTO, con contexto de su propia categoria.
+
+    Los de validacion se saltan y se conservan tal cual (defecto H3).
 
     **Por que no hace falta declarar `excluir` en estos.** Un B2 a mano es una
     pregunta cuya respuesta correcta *es* la frase de escape: el corpus no la
-    responde. Se comprueba en el dataset -- los 263 tienen `fuentes` vacio y
+    responde. Se comprueba en el dataset -- los 263 B2 a mano tienen `fuentes` vacio y
     ninguno cita un articulo -- y lo impone el generador, que rechaza un B2 con
     `fuentes`. Si **nada** del corpus responde, **ningun** contexto es
     suficiente, y entonces no hay articulo oraculo que retirar: la regla v3 se
@@ -314,7 +338,7 @@ def rehacer_b2_a_mano(registros: list[dict], store=None) -> tuple[list[dict], li
     tiene que abstenerse, y es la que el contexto historico -- normas de otras
     categorias -- nunca le mostro.
 
-    **El riesgo que queda, y como se acota.** Que alguna de esas 263 preguntas si
+    **El riesgo que queda, y como se acota.** Que alguna de esas preguntas si
     tenga respuesta en su categoria y el autor no la viera. No se da por bueno a
     ciegas: se mide la afinidad lexica del mejor fragmento de la propia categoria
     y las que pasan de `AFINIDAD_PARA_REVISION` quedan marcadas. Es un triaje,
@@ -334,6 +358,14 @@ def rehacer_b2_a_mano(registros: list[dict], store=None) -> tuple[list[dict], li
     salida, descartadas = [], []
     for r in registros:
         if r.get("modo") != "B2" or r.get("origen") != "v2":
+            continue
+        # **La validacion no se toca.** Los 35 B2 de validacion son los que miden
+        # la abstencion, y su contexto tiene que ser el mismo con que se evaluaron
+        # v1 y v2 y sobre el que se adjudicaron. Una version anterior los
+        # reconstruia junto con los de entrenamiento (defecto H3, commit
+        # 33cc019): la validacion conservaba los ids y cambiaba el contenido. Se
+        # quedan como estan en la base, y construir() los conserva de alli.
+        if r.get("split") == "val":
             continue
         # Un B2 cuya pregunta es una urgencia no puede quedarse con un objetivo
         # que solo se abstiene: es la abstencion peligrosa. Se revisa aparte.
@@ -480,25 +512,34 @@ def manifiesto(registros: list[dict], descartadas: list[dict]) -> dict:
                                 capture_output=True, text=True, check=True).stdout.strip()
     except Exception:
         commit = "desconocido"
+    _riesgo = composicion(registros)["riesgo_suficiencia_indirecta"]
     return {
         "version": VERSION,
         "derivado_de": {"archivo": BASE_PATH, "revision": BASE_REV,
                         "huella": huella(leer_base())},
         "commit": commit,
+        "buscador": sorted({r.get("buscador") for r in registros if r.get("buscador")}),
         "correcciones": [
             "contexto B2 de los contrastivos con REGLA_B2_V3 (misma categoria, sin el articulo oraculo)",
-            "contexto de los 263 B2 escritos a mano con REGLA_B2_V3, sin `excluir`: su respuesta "
-            "correcta ES la frase de escape, o sea que el corpus no los responde, y entonces "
+            "contexto de los B2 escritos a mano DE ENTRENAMIENTO con REGLA_B2_V3, sin `excluir`: su "
+            "respuesta correcta ES la frase de escape, el corpus no los responde, y entonces "
             "ningun contexto es suficiente y no hay articulo oraculo que retirar",
+            "los B2 de VALIDACION no se reconstruyen: conservan el contenido de la base (H3)",
+            "todos los contextos con el buscador de produccion, e5 + FAISS + enrutador (H4)",
             "objetivos de los contrastivos repartidos entre los punteros escritos a mano de su categoria",
             "variantes descartadas cuando el contexto traia un articulo contiguo al retirado",
             "variantes de urgencia no generadas: un escape sin encaminar es una abstencion peligrosa",
         ],
+        # Se cuentan, no se escriben: dos cifras escritas a mano en este bloque
+        # quedaron falsas en cuanto cambio el buscador.
         "sin_corregir": [
-            "28 B2 a mano con afinidad alta a un fragmento de su propia categoria: marcados "
-            "AFINIDAD_ALTA_REVISAR por si alguno si tiene respuesta en el corpus",
-            "71 variantes con un articulo del mismo capitulo que el retirado, no contiguo: "
-            "riesgo residual documentado",
+            f"{_riesgo.get('AFINIDAD_ALTA_REVISAR', 0)} B2 a mano con afinidad alta a un fragmento "
+            "de su propia categoria: marcados AFINIDAD_ALTA_REVISAR por si alguno si tiene "
+            "respuesta en el corpus",
+            f"{_riesgo.get('MISMO_CAPITULO', 0)} variantes con un articulo del mismo capitulo que "
+            "el retirado, no contiguo: riesgo residual documentado",
+            "los 35 B2 de validacion tienen 0 fragmentos de su propia categoria (contexto "
+            "historico): no detectan el atajo. Lo detecta la prueba de los 4 escenarios",
         ],
         "huella": huella(registros),
         "composicion": composicion(registros),
@@ -512,7 +553,12 @@ def manifiesto(registros: list[dict], descartadas: list[dict]) -> dict:
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     p.add_argument("--check", action="store_true", help="construye y mide, no escribe")
-    p.add_argument("--indice", action="store_true", help="contexto con FAISS + e5 (Colab)")
+    p.add_argument("--indice", action="store_true",
+                   help="contexto con el buscador de PRODUCCION: e5 + FAISS + enrutador. "
+                        "Obligatorio para escribir")
+    p.add_argument("--permitir-bm25", action="store_true",
+                   help="escribir con BM25 aunque no sea el buscador de produccion. "
+                        "Solo para pruebas: reintroduce el defecto H4")
     args = p.parse_args(argv)
 
     store = None
@@ -520,6 +566,18 @@ def main(argv=None) -> int:
         from tools.rag import pipeline
 
         store = pipeline.load_index()
+
+    # **Escribir exige el buscador de produccion.** Sin --indice los contextos
+    # salen de BM25, y el RAG responde con e5 + FAISS: el modelo se entrenaria con
+    # un tipo de contexto que en servicio no ve. Paso al construir v3 en local
+    # (defecto H4): los B2 escritos a mano quedaron con BM25 y todos los
+    # B1/B3 con e5, y el estilo del contexto podia delatar el modo. --check puede
+    # correr sin indice para revisar; escribir no.
+    if not args.check and store is None and not args.permitir_bm25:
+        raise SystemExit(
+            "Para escribir el dataset hace falta --indice (e5 + FAISS, el buscador "
+            "de produccion). Sin el, los contextos salen de BM25: es el defecto H4. "
+            "Si es solo una prueba, --permitir-bm25.")
 
     registros, descartadas = construir(store)
     m = manifiesto(registros, descartadas)
