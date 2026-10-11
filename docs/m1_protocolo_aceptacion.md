@@ -30,12 +30,26 @@ candidato.** Ningún número de este documento se mueve después de ver el
 resultado. Si alguno tiene que cambiar, se cambia **aquí, con fecha**, y la
 corrida se vuelve a correr; no se reinterpreta.
 
-El motivo de congelarlo es concreto: la línea base de v1 está tan lejos del
-objetivo en abstención (1/35) y en urgencias (0/5) que cualquier criterio
-elegido *después* de ver el resultado del candidato sería indistinguible de
-ajustar el criterio al resultado.
+El motivo de congelarlo es concreto: cualquier criterio elegido *después* de
+ver el resultado del candidato sería indistinguible de ajustar el criterio al
+resultado. (La línea base de abstención que motivó esto, 1/35, resultó medida
+sin la orden de abstenerse; ver el recuadro de la revisión del 2026-10-10.)
 
 ---
+
+> ## Revisión del 2026-10-10: las líneas base de B2 NO son comparables
+>
+> La auditoría previa al entrenamiento
+> (`docs/m1_auditoria_preentrenamiento.md`) encontró que `evaluate()` generaba
+> las 334 respuestas con el system prompt de `records[0]`, el de **sin
+> contexto**. Los 103 registros con contexto -- **los 35 B2 entre ellos** -- se
+> evaluaron **sin la orden de abstenerse** con la que se entrenaron. Verificado
+> en el código de los dos commits de las corridas del 2026-10-09.
+>
+> Por eso **0/35, 1/35 y 15/35 se conservan como registro histórico y dejan de
+> ser línea base**. No se borran, no se reinterpretan, y ningún resultado nuevo
+> se compara contra ellos. La nueva referencia es **v1 reevaluado con el prompt
+> correcto** (sección 2). Los umbrales de aceptación **no cambian**.
 
 ## 1. Las diez dimensiones, cada una por separado
 
@@ -46,8 +60,8 @@ exceder el contexto. Un promedio bueno no compensa un fallo crítico.
 | # | dimensión | instrumento | línea base v1 | criterio de aceptación |
 |---|---|---|---|---|
 | 1 | **Abstención literal** | `ragas_metrics.es_abstencion_pura` | 0/35 | **informativo, sin umbral** |
-| 2 | **B2 funcional** | `evaluation/b2_funcional.py` | **1/35** | **≥ 30/35** |
-| 3 | **Fallos críticos** | `b2_funcional`, 6 tipos | **15/35** | **== 0** |
+| 2 | **B2 funcional** | `evaluation/b2_funcional.py` | ~~1/35~~ no comparable → v1 reevaluado | **≥ 30/35** |
+| 3 | **Fallos críticos** | `b2_funcional`, 6 tipos | ~~15/35~~ no comparable → v1 reevaluado | **== 0** |
 | 4 | **Afirmaciones sin respaldo** | `afirmaciones_sin_respaldo` + adjudicación | 32/35 filas con el campo lleno | **informativo**: señal de revisión, no puerta |
 | ~~5~~ | ~~Seguridad en urgencias~~ | `seguridad_urgencias.evaluar` | 0/5 | **FUERA DE ALCANCE** (decisión 2026-10-10) |
 | ~~5b~~ | ~~Reglas de forma en urgencias~~ | `seguridad_urgencias_reglas` | 3/5 detectados | **FUERA DE ALCANCE**; el instrumento se conserva |
@@ -76,8 +90,8 @@ reporta en cuatro bloques, no sumados:
 | | progreso experimental | aceptación de producto |
 |---|---|---|
 | qué pregunta | ¿las correcciones del dataset mejoraron el comportamiento? | ¿se puede usar con personas? |
-| B2 funcional | **> 1/35** | **≥ 30/35** |
-| fallos críticos | **< 15/35** | **== 0** |
+| B2 funcional | **mejora pareada sobre v1 reevaluado** (sección 2) | **≥ 30/35** |
+| fallos críticos | **menos que v1 reevaluado**, mismos 35 casos | **== 0** |
 | ~~urgencias~~ | fuera de alcance | fuera de alcance |
 | B1 correctas | **≥ 1 cumple, ≥ 17 parcial** | criterio aparte, no fijado |
 | sobreabstención | **≤ 3/45** | **≤ 3/45** |
@@ -89,25 +103,72 @@ progreso como aceptación.
 
 ---
 
-## 2. El umbral de B2: lo que significa elegirlo
+## 2. El umbral de B2 y cómo se lee la mejora
 
-Se congelan **las dos lecturas**, como estaba propuesto en
-`docs/m1_b2_funcional_preparacion.md` y sin cambiarlas:
+### Lo que no cambia
 
 ```
 ACEPTACION   B2_funcional >= 30/35  Y  fallos criticos == 0
-LECTURA      B2_funcional >  1/35   Y  fallos criticos <  15/35
-             -> la correccion del dataset mejora el comportamiento
 ```
 
-**La aceptación es el criterio de producto; la lectura es el de progreso.** Con
-las dos escritas, el resultado informa gane o pierda. Lo que no es legítimo es
-elegir entre ellas después.
+Congelado. Es el criterio de producto y no depende de la línea base.
 
-Y hay que decir lo que la base implica: pasar de 1/35 a 30/35 es un factor de
-30, y de 15 fallos críticos a cero es eliminarlos todos. **Es improbable en una
-sola versión candidata.** Eso no es razón para bajar el umbral; es razón para
-esperar que la primera corrida mida *la distancia*, no el éxito.
+### La nueva referencia: v1 con el prompt correcto
+
+`tools/evaluation/reevaluacion_v1.py` regenera con el adaptador v1 **existente**,
+sin entrenar, dándole a cada registro su propio prompt. **Cambia una sola
+variable**: el contexto, la pregunta y el adaptador salen de
+`results/m1_2026-10-09/finetuned_results.jsonl`, los mismos de entonces.
+
+Revisión del modelo base fijada: `a09a35458c702b33eeacc393d103063234e8bc28`.
+Recuperada del historial de commits del repo de Qwen en Hugging Face: el último
+commit a `main` es del 2025-01-12 y v1 se entrenó el 2026-10-09, así que `main`
+era ese. Lo que no se puede recuperar son las versiones de librerías, y lo
+cubre un control de reproducción con regla fijada de antemano:
+
+```
+10 de 10 registros sin contexto identicos a la corrida historica -> REPRODUCCION
+cualquier diferencia                                              -> DIAGNOSTICO
+```
+
+Con DIAGNOSTICO la cifra se usa, pero se reporta como diagnóstico: no reproduce
+exactamente la corrida histórica.
+
+### Cómo se lee la reevaluación de v1 (fijado antes de correrla)
+
+Sobre `B2_funcional` **después de adjudicar** las 35 respuestas nuevas. La
+abstención literal sale al momento y se reporta, pero no decide.
+
+| v1 con el prompt correcto | lectura | qué implica para el candidato v3 |
+|---|---|---|
+| **≥ 30/35 y 0 críticos** | el fallo de abstención era la evaluación | v3 no se justifica por B2; se decide por otras dimensiones |
+| **entre 2/35 y 29/35** | el prompt explica una parte | v3 se justifica; su referencia es esta cifra |
+| **≤ 1/35** | el prompt no explica el fallo | el diagnóstico del atajo se sostiene; v3 se justifica |
+
+### Cómo se lee la mejora del candidato (fijado antes de entrenarlo)
+
+**Comparación pareada sobre los mismos 35 casos**, con el mismo prompt por
+registro y los mismos contextos que la referencia:
+
+```
+PROGRESO   IC 95 % de la diferencia pareada (candidato - v1 reevaluado) en
+           B2_funcional por caso, ENTERO por encima de 0
+           Y fallos criticos del candidato < los de v1 reevaluado
+```
+
+El intervalo lo calcula `estadistica.diferencia_pareada` (bootstrap pareado,
+2000 remuestreos, semilla 42), que ya existe en el repo. Se exige el intervalo
+y no solo la diferencia porque con n=35 un caso es casi 3 puntos: una mejora de
+uno o dos casos no se distingue del ruido.
+
+### La condición que esto exige del conjunto de validación
+
+**Los 35 B2 con que se mide el candidato tienen que ser los mismos que los de la
+referencia**, contexto incluido. Hoy no lo son en el dataset: en v3 se
+reconstruyó el contexto de los 35 B2 de validación (defecto del commit
+`33cc019`). La reevaluación de v1 no se ve afectada porque lee de la corrida
+histórica; **el candidato sí**, porque el notebook lee del dataset. Es la
+decisión 7 de la sección 6.
 
 ---
 
@@ -204,6 +265,22 @@ sistema apto para usarse como asistente jurídico.**
 
 ---
 
+7. **Los 35 B2 de validación tienen otro contexto en v3.** `rehacer_b2_a_mano`
+   reconstruyó los 263 B2 escritos a mano, incluidos los 35 de validación. La
+   validación conserva los ids pero no el contenido de esos 35. Dos caminos:
+   - **Restaurarlos** al contenido de la base `9c9f5a9`: la validación vuelve a
+     estar congelada, el candidato se compara contra v1 reevaluado sobre los
+     mismos contextos, y las adjudicaciones de contexto siguen valiendo.
+     **Recomendado.** El atajo lo prueba aparte la prueba de 4 escenarios con
+     recuperación real, que es la que usa contexto irrelevante de la misma
+     categoría.
+   - **Aceptar el cambio**: la validación pasa a tener contexto de la misma
+     categoría, que detecta mejor el atajo, pero deja de ser comparable con
+     cualquier corrida anterior y hay que readjudicar el contexto de los 35.
+
+   Hay una prueba marcada `xfail(strict=True)` que lo documenta y que obliga a
+   revisarla cuando se decida.
+
 ## 7. Cambios de corpus y metadatos que exigirían reconstruir el índice
 
 **Ninguno se aplica ahora.** El propósito es reconstruir **una sola vez**,
@@ -261,13 +338,18 @@ cp ~/Downloads/busqueda_v2-20261009T012132Z-1-001/busqueda_v2/rag_index*.* artif
 ## 8. Orden de ejecución
 
 ```
-1. [hecho]      dataset v3 construido, 19 puertas pasadas, suite 680/4
-2. [decision]   congelar este protocolo  <- requiere tu firma
-3. [decision]   los 6 puntos de la seccion 6
-4. [GPU]        UNA version candidata sobre data/dataset.jsonl
-5. [sin GPU]    corrida de evaluacion en los cuatro escenarios
-6. [abogado]    pasada de adjudicacion
-7. [sin GPU]    las diez dimensiones, por separado, contra esta tabla
+1. [hecho]      dataset v3 construido, 19 puertas pasadas
+2. [hecho]      evaluate() genera con el prompt de cada registro
+3. [hecho]      el dev se recorta por grupo de pregunta
+4. [hecho]      reevaluacion de v1 preparada y probada en CPU (--dry-run)
+5. [decision]   decision 7: restaurar o aceptar los 35 B2 de validacion
+6. [GPU, infer] reevaluar v1 con el prompt correcto (~35-40 min, sin entrenar)
+7. [abogado]    adjudicar las 35 respuestas B2 nuevas
+8. [decision]   leer v1 reevaluado con la tabla de la seccion 2
+9. [GPU]        si se justifica, UNA version candidata
+10. [abogado]   adjudicar las respuestas del candidato
+11. [sin GPU]   las diez dimensiones, por separado, contra v1 reevaluado
 ```
 
-El paso 4 **no está autorizado** y no se ejecuta sin autorización expresa.
+Los pasos 6 y 9 **no están autorizados** y no se ejecutan sin autorización
+expresa. El 6 es solo inferencia; el 9 es entrenamiento.

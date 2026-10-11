@@ -220,3 +220,63 @@ def test_una_revision_sin_resolver_detiene_antes_de_cargar_el_modelo():
     codigo = _codigo_del_notebook()
     assert "_corrida.exigir_revision(REVISION_BASE)" in codigo
     assert codigo.index("_corrida.exigir_revision(") < codigo.index("AutoTokenizer.from_pretrained")
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_la_evaluacion_genera_con_el_prompt_de_cada_registro():
+    """`SYSTEM_PROMPT = records[0]...` evaluaba los 103 registros con contexto
+    -- los 35 B2 entre ellos -- sin la orden de abstenerse."""
+    codigo = _codigo_del_notebook()
+    assert "records[0]['messages'][0]" not in codigo
+    assert "SYSTEM_PROMPT" not in codigo
+    assert "messages = prompt_de(item)" in codigo
+    assert "def generate_response(model, item: dict)" in codigo
+    # y cada respuesta guarda con que prompt salio
+    assert "'prompt_sistema': huella_prompt(item)" in codigo
+    assert "'prompt_sistema', 'con_contexto'}" in codigo
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_entrenamiento_y_evaluacion_usan_la_misma_funcion_de_prompt():
+    """Si una cambia y la otra no, vuelven a separarse sin que nada falle."""
+    codigo = _codigo_del_notebook()
+    assert "return {'prompt': prompt_de(record)" in codigo
+    assert codigo.count("prompt_de(") >= 2
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_el_dev_se_recorta_por_grupo_de_pregunta():
+    codigo = _codigo_del_notebook()
+    assert "split_dev(train_records, DEV_FRACTION, RANDOM_SEED)" in codigo
+    # el recorte por registro, que partia los pares, ya no esta
+    assert "_n_dev = max(1, round(len(_items) * DEV_FRACTION))" not in codigo
+
+
+@pytest.mark.xfail(strict=True, reason=(
+    "DEFECTO CONOCIDO, introducido en 33cc019: rehacer_b2_a_mano reconstruyo el "
+    "contexto de los 263 B2 escritos a mano, incluidos los 35 de VALIDACION. La "
+    "validacion conserva los ids pero no el contenido. Pendiente de decision: "
+    "restaurarlos (validacion congelada) o aceptar el cambio y readjudicar. "
+    "strict=True: cuando se corrija, esta prueba pasara y el xfail fallara, "
+    "obligando a quitar esta marca."))
+def test_el_contenido_de_la_validacion_no_cambio(registros):
+    """**Comparar ids no basta.** La prueba de arriba comprueba que son los
+    mismos 334 ids y pasa; esta comprueba que dicen lo mismo, y no pasa.
+
+    Antes solo existia la de ids, y con ella se afirmo dos veces que la
+    validacion estaba intacta cuando los 35 B2 -- justo los que miden la
+    abstencion -- tenian otro contexto.
+    """
+    import subprocess
+
+    from tools.dataset_v3 import BASE_PATH, BASE_REV
+
+    r = subprocess.run(["git", "show", f"{BASE_REV}:{BASE_PATH}"],
+                       cwd=config.PROJECT_ROOT, capture_output=True)
+    if r.returncode != 0:
+        pytest.skip("sin git")
+    base = {x["id"]: x for x in (json.loads(l) for l in
+            r.stdout.decode("utf-8").splitlines() if l.strip())}
+    cambiados = [x["id"] for x in registros
+                 if x.get("split") == "val" and x["messages"] != base[x["id"]]["messages"]]
+    assert not cambiados, f"{len(cambiados)} registros de validacion cambiaron: {cambiados[:8]}"
