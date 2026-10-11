@@ -32,27 +32,41 @@ que M1–M3 queden cerrados.
 
 ### Avance por notebook
 
-Dos barras por notebook, porque responden preguntas distintas:
-**Listo para correr** — ¿el código está correcto y se puede lanzar en Colab sin
-que algo conocido invalide el resultado? **Completado** — ¿los resultados ya
-cumplen lo que el módulo tiene que demostrar? Cada porcentaje sale de la lista
-de comprobación de su sección (7.x), con todos los puntos con el mismo peso.
+Tres barras por notebook, porque responden preguntas distintas:
 
-| notebook | listo para correr | completado |
+- **Preparación** — ¿cuánto del trabajo previo está hecho? Diagnóstico, datos,
+  instrumentos, adjudicaciones, protocolo y código. Mide **trabajo**.
+- **Listo para correr** — ¿se puede lanzar ya en Colab sin que un defecto
+  conocido invalide el resultado? Es la parte de la preparación que bloquea la
+  siguiente corrida.
+- **Completado** — ¿los resultados ya demuestran lo que el módulo tiene que
+  demostrar? Mide **resultado**.
+
+**No se leen igual.** Una preparación alta con un completado bajo significa que
+el trabajo está hecho y falta la corrida que lo demuestre — que es justo donde
+está M1. La barra de completado avanza a saltos, no poco a poco: varios de sus
+puntos salen de una sola corrida.
+
+Cada porcentaje sale de la lista de comprobación de su sección (7.x), con todos
+los puntos con el mismo peso, redondeado a 5.
+
+| notebook | preparación | listo para correr | completado |
+|---|---|---|---|
+| `m1_finetune.ipynb` | `████████░░ 75 %` | `█████░░░░░ 55 %` | `██░░░░░░░░ 25 %` |
+| `m1_reevaluacion_v1.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `░░░░░░░░░░ 0 %` |
+| `m2_evaluacion.ipynb` | `██████░░░░ 60 %` | `████░░░░░░ 40 %` | `██████░░░░ 60 %` |
+| `m3_busqueda_v2.ipynb` | `██████░░░░ 55 %` | `█████░░░░░ 50 %` | `█████░░░░░ 50 %` |
+| `m3_s08_rag_avanzado.ipynb` | `███████░░░ 65 %` | `█████░░░░░ 50 %` | `█████░░░░░ 50 %` |
+| `m3_s10_rag_agentico.ipynb` | `██████░░░░ 55 %` | `█████░░░░░ 50 %` | `█░░░░░░░░░ 15 %` |
+
+| módulo | preparación | completado |
 |---|---|---|
-| `m1_finetune.ipynb` | `█████░░░░░ 55 %` | `██░░░░░░░░ 25 %` |
-| `m1_reevaluacion_v1.ipynb` | `██████████ 100 %` | `░░░░░░░░░░ 0 %` |
-| `m2_evaluacion.ipynb` | `████░░░░░░ 40 %` | `██████░░░░ 60 %` |
-| `m3_busqueda_v2.ipynb` | `█████░░░░░ 50 %` | `█████░░░░░ 50 %` |
-| `m3_s08_rag_avanzado.ipynb` | `█████░░░░░ 50 %` | `█████░░░░░ 50 %` |
-| `m3_s10_rag_agentico.ipynb` | `█████░░░░░ 50 %` | `█░░░░░░░░░ 15 %` |
+| **M1** — fine-tuning | `████████░░ 75 %` | `██░░░░░░░░ 25 %` |
+| **M2** — evaluación | `██████░░░░ 60 %` | `██████░░░░ 60 %` |
+| **M3** — RAG | `██████░░░░ 60 %` | `████░░░░░░ 40 %` (S10, el que importa para M4, va en 15 %) |
+| **M4** — entrega final | no iniciado | no iniciado |
 
-| módulo | completado |
-|---|---|
-| **M1** — fine-tuning | `██░░░░░░░░ 25 %` |
-| **M2** — evaluación | `██████░░░░ 60 %` |
-| **M3** — RAG | `████░░░░░░ 40 %` (promedio de sus tres notebooks; S10, el que importa para M4, va en 15 %) |
-| **M4** — entrega final | no iniciado |
+Los de M3 son el promedio de sus tres notebooks.
 
 ### Lo que hay que saber en cinco líneas
 
@@ -392,6 +406,23 @@ manifiesto.
 `results/m1_v2_2026-10-09/` (v2). **Sus cifras de abstención y de los 103 con
 contexto no son comparables** (H1).
 
+**Preparación — 8 de 11 (75 %)**
+
+- [x] Diagnóstico del fallo de abstención: el atajo, medido (+41,3 pts)
+- [x] Dataset que lo corrige (v3)
+- [x] 19 puertas de calidad y 3 controles de fuga
+- [x] Los 35 B2 adjudicados por el abogado
+- [x] Gold de artículos adjudicado en todo lo que mueve el acierto@k
+- [x] Protocolo de aceptación congelado, con la lectura fijada antes de ver resultados
+- [x] Notebook corregido: prompt de evaluación, dev, identidad de corrida, revisión, adaptador
+- [x] Reevaluación de v1 preparada y probada
+- [ ] Validación congelada en contenido (H3)
+- [ ] Contextos B2 con el buscador de producción (H4)
+- [ ] Versiones del stack fijadas (H9)
+
+Los tres que faltan son del orden de una hora de CPU, pero se cuentan igual que
+los demás: el método es el mismo en todas las barras.
+
 **Listo para correr — 4 de 7 (55 %)**
 
 - [x] Preflight: huella del dataset, conteos, ninguna contrastiva en validación
@@ -442,6 +473,9 @@ cualquier diferencia, **DIAGNÓSTICO**. La regla se fijó antes de correr.
 
 **Coste:** unos 35–40 min en A100. Solo inferencia.
 
+**Preparación — 5 de 5 (100 %)**: es la misma lista que *listo para correr*;
+este notebook es solo una corrida.
+
 **Listo para correr — 5 de 5 (100 %)**
 
 - [x] Plan probado en CPU con `--dry-run`
@@ -490,6 +524,17 @@ globalmente mejor.
 **M2 no tiene el fallo del prompt de M1:** carga solo los registros sin contexto
 (`load_records()` con `origen="v1"`), y para ellos un único prompt es el correcto.
 
+**Preparación — 5 de 8 (60 %)**
+
+- [x] Eval set: 45 gold + 30 adversariales
+- [x] Criterio verificable por caso ("Debe…" / "No debe…")
+- [x] Juez externo con controles de sesgo (otra familia, los dos órdenes)
+- [x] Métricas sin juez y guardia de rutas y entidades
+- [x] Reanudación por días sin GPU
+- [ ] Revisión del modelo base fijada (H6)
+- [ ] Verificación de la huella del dataset y del adaptador evaluados
+- [ ] Identidad de corrida para apuntar al candidato sin mezclar resultados
+
 **Listo para correr — 2 de 5 (40 %)**
 
 - [x] Corre contra el repo actual (sus `assert` de 1536 y 231 se cumplen)
@@ -519,6 +564,16 @@ real.
 **Resultados:** el índice vigente (`19657d22583f93d0`, 11 975 fragmentos) y el
 barrido que fijó `RETRIEVAL_MIN_SCORE = 0.81` y `USE_ENRUTADOR = True`.
 
+**Preparación — 4 de 7 (55 %)**
+
+- [x] Corpus en alcance: 36 normas para las 27 categorías
+- [x] Índice reconstruido y verificado
+- [x] Medición de acierto@k contra el gold
+- [x] Barrido del piso y del enrutador
+- [ ] Fase 3 funcional (H7)
+- [ ] Configuración de la sesión coherente con el repo (H7)
+- [ ] Correcciones de corpus preparadas: fuente del artículo 57, derogatorias (H11, H12)
+
 **Listo para correr — 2 de 4 (50 %)**
 
 - [x] Fase 1: reconstruye el índice
@@ -542,6 +597,15 @@ el mismo generador. **A** denso puro; **B** denso + BM25 con fusión RRF; **C** 
 
 **Corrida vigente:** `results/m3_s08_2026-10-09/`, con v1. **Producción quedó en
 denso + enrutador** (`USE_HYBRID = False`, `USE_RERANK = False`).
+
+**Preparación — 4 de 6 (65 %)**
+
+- [x] Hybrid (BM25 + RRF) implementado y probado
+- [x] Reordenamiento con cross-encoder implementado
+- [x] A/B/C sobre un solo camino de código
+- [x] Manifiesto de corrida
+- [ ] Revisión fijada (H6)
+- [ ] Verificación de la huella del índice antes de correr
 
 **Listo para correr — 2 de 4 (50 %)**
 
@@ -589,6 +653,20 @@ de 45 casos el artículo que responde **no está en el contexto**. Pero sí est�
 el top-30 en 37: **el problema es el orden**, no la cobertura. Esa es la palanca
 más grande para que S10 responda bien, y es de recuperación, no de
 entrenamiento.
+
+**Preparación — 6 de 11 (55 %)**
+
+- [x] RAG de una pasada (`answer_query`)
+- [x] Verificación de citas, incluidas las normas citadas que no se recuperaron
+- [x] Prompt idéntico al de entrenamiento
+- [x] RAGAS, guardia de rutas y W&B
+- [x] Auditoría de recuperación caso por caso (6.1)
+- [x] Diagnóstico del cuello de botella: el orden de la recuperación
+- [ ] Revisión fijada (H6)
+- [ ] RAGAS con abstención estricta (H5)
+- [ ] Filtro de derogatorias (H12)
+- [ ] Corrección del enrutamiento (H13)
+- [ ] Mejora del ranking implementada
 
 **Listo para correr — 3 de 6 (50 %)**
 
