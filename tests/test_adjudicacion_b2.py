@@ -228,3 +228,87 @@ def test_sin_origen_prompt_no_consta_que_recibio_el_modelo():
     malo = revisar([fila("1", origen_prompt=""), fila("2")], IDS, commit="ab4e6c4")
 
     assert any("origen_prompt" in p for p in malo)
+
+
+# --- segunda ronda: v1 reevaluado (fase B, paso B4) ---------------------------
+
+from tools import adjudicacion_b2 as adj
+from tools.evaluation import b2_funcional
+
+
+def _previas():
+    import csv
+    with adj.SALIDA.open(encoding="utf-8", newline="") as f:
+        return {fila["case_id"]: fila for fila in csv.DictReader(f)}
+
+
+def _fila_reeval(fila_base, **kw):
+    f = dict(fila_base)
+    f.update({"v1r_fundamentacion": "dentro", "v1r_calibracion": "reconoce",
+              "v1r_orientacion_segura": "si", "v1r_riesgo": "bajo",
+              "revision_juridica": "requerida", "confianza": "media",
+              "justificacion_final": "se abstiene y orienta", "revisor": "primera pasada",
+              "fecha_revision": "2026-10-12"})
+    f.update(kw)
+    return f
+
+
+def test_la_planilla_nueva_trae_los_35_con_el_contexto_aprobado():
+    previas = _previas()
+    filas = adj.casos_reevaluacion()
+    assert {f["case_id"] for f in filas} == set(previas)
+    for f in filas:
+        for c in adj.COLUMNAS_CONTEXTO:
+            assert f[c] == previas[f["case_id"]][c]
+
+
+def test_los_que_dicen_la_frase_y_afirman_algo_van_primero():
+    filas = adj.casos_reevaluacion()
+    prioritarios = [f["case_id"] for f in filas if f["prioridad"] == "1"]
+    assert prioritarios == sorted(prioritarios, key=int)
+    assert filas[: len(prioritarios)] == [f for f in filas if f["prioridad"] == "1"]
+    assert {"2126", "3328", "4324", "4623"} == set(prioritarios)
+
+
+def test_una_ronda_completa_no_da_problemas():
+    previas, textos = _previas(), adj.respuestas_reevaluacion()
+    filas = [_fila_reeval(f) for f in adj.casos_reevaluacion()]
+    assert adj.revisar_reevaluacion(filas, previas, textos) == []
+
+
+def test_atrapa_que_se_cambie_el_contexto_aprobado():
+    previas, textos = _previas(), adj.respuestas_reevaluacion()
+    filas = [_fila_reeval(f) for f in adj.casos_reevaluacion()]
+    filas[0]["pertinencia_contexto"] = "suficiente" if filas[0]["pertinencia_contexto"] != "suficiente" else "parcial"
+    assert any("cambio el contexto" in p for p in adj.revisar_reevaluacion(filas, previas, textos))
+
+
+def test_excede_exige_una_cita_que_este_en_la_respuesta():
+    previas, textos = _previas(), adj.respuestas_reevaluacion()
+    filas = [_fila_reeval(f) for f in adj.casos_reevaluacion()]
+    filas[0]["v1r_fundamentacion"] = "excede"
+    assert any("sin citar" in p for p in adj.revisar_reevaluacion(filas, previas, textos))
+    filas[0]["v1r_afirmaciones_sin_respaldo"] = "una frase que el modelo nunca dijo"
+    assert any("no aparece" in p for p in adj.revisar_reevaluacion(filas, previas, textos))
+
+
+def test_cumplida_sin_el_abogado_no_pasa():
+    previas, textos = _previas(), adj.respuestas_reevaluacion()
+    filas = [_fila_reeval(f) for f in adj.casos_reevaluacion()]
+    filas[0]["revision_juridica"] = "cumplida"
+    assert any("sin el abogado" in p for p in adj.revisar_reevaluacion(filas, previas, textos))
+
+
+def test_la_respuesta_de_la_planilla_es_la_de_la_corrida():
+    previas, textos = _previas(), adj.respuestas_reevaluacion()
+    filas = [_fila_reeval(f) for f in adj.casos_reevaluacion()]
+    filas[0]["respuesta_v1r"] = "otra cosa"
+    assert any("no es la de la corrida" in p for p in adj.revisar_reevaluacion(filas, previas, textos))
+
+
+def test_b2_funcional_lee_la_planilla_nueva_con_el_prefijo_v1r():
+    fila = _fila_reeval(adj.casos_reevaluacion()[0])
+    v = b2_funcional.evaluar(fila, modelo="v1r")
+    assert v["pasa_b2_funcional"] and not v["tiene_fallo_critico"]
+    fila.update(v1r_fundamentacion="excede", v1r_riesgo="alto")
+    assert "excede_con_riesgo_alto" in b2_funcional.evaluar(fila, modelo="v1r")["fallos_criticos"]

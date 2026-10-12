@@ -284,12 +284,204 @@ def resumen(filas: list[dict]) -> str:
     return "\n".join(lineas)
 
 
+# ---------------------------------------------------------------------------
+# Segunda ronda: v1 reevaluado con el prompt correcto (fase B, paso B4)
+# ---------------------------------------------------------------------------
+#
+# La ronda del 2026-10-10 adjudico las respuestas de v1 y v2 generadas con el
+# prompt equivocado (H1). La reevaluacion del 2026-10-12 genera 35 respuestas
+# B2 NUEVAS de v1 sobre el MISMO contexto. El protocolo (docs/
+# m1_protocolo_aceptacion.md, seccion 3) dice que la adjudicacion del contexto
+# sigue valiendo; lo que falta es adjudicar cada respuesta nueva.
+#
+# Por eso es otra planilla y no otra version de la aprobada:
+#   - docs/m1_b2_adjudicacion.csv no se toca (la aprobo el abogado);
+#   - las columnas de contexto se COPIAN de ella y el validador comprueba que
+#     nadie las cambio: si el contexto se readjudicara aqui, las dos rondas
+#     dejarian de ser comparables;
+#   - las de la respuesta llevan el prefijo v1r_, para que
+#     b2_funcional.evaluar(fila, modelo="v1r") las lea igual que las de v1/v2.
+#
+#   python -m tools.adjudicacion_b2 --crear-reevaluacion
+#   python -m tools.adjudicacion_b2 --revisar-reevaluacion
+
+REEVALUACION = (config.PROJECT_ROOT / "results" / "m1_reevaluacion_v1_2026-10-12"
+                / "afinado_results.jsonl")
+SALIDA_REEVAL = config.PROJECT_ROOT / "docs" / "m1_b2_adjudicacion_v1_reevaluado.csv"
+ORIGEN_RESPUESTA_REEVAL = ("results/m1_reevaluacion_v1_2026-10-12/afinado_results.jsonl "
+                           "(corrida 20261012-e54205d5)")
+
+# Copiadas tal cual de la adjudicacion aprobada: no se readjudican.
+COLUMNAS_CONTEXTO = ["pertinencia_contexto", "fragmentos_relevantes",
+                     "justificacion_contexto", "validez_etiqueta_b2"]
+
+COLUMNAS_REEVAL = [
+    "case_id", "categoria", "pregunta",
+    # 1 = la respuesta dice la frase de escape pero NO es abstencion pura:
+    # afirma algo despues, que es donde puede haber un fallo critico. Se
+    # adjudican primero.
+    "prioridad",
+    *COLUMNAS_CONTEXTO,
+    "respuesta_v1r",
+    "v1r_fundamentacion", "v1r_calibracion", "v1r_orientacion_segura",
+    "v1r_afirmaciones_sin_respaldo", "v1r_riesgo",
+    "revision_juridica", "confianza", "justificacion_final",
+    "revisor", "fecha_revision", "origen_contexto", "origen_respuesta",
+]
+
+VOCABULARIO_REEVAL = {
+    "v1r_fundamentacion": VOCABULARIO["v1_fundamentacion"],
+    "v1r_calibracion": VOCABULARIO["v1_calibracion"],
+    "v1r_orientacion_segura": VOCABULARIO["v1_orientacion_segura"],
+    "v1r_riesgo": VOCABULARIO["v1_riesgo"],
+    "revision_juridica": VOCABULARIO["revision_juridica"],
+    "confianza": VOCABULARIO["confianza"],
+    "prioridad": {"1", "2"},
+}
+
+OBLIGATORIAS_REEVAL = [
+    "v1r_fundamentacion", "v1r_calibracion", "v1r_orientacion_segura", "v1r_riesgo",
+    "revision_juridica", "confianza", "justificacion_final", "revisor",
+    "fecha_revision", "origen_contexto", "origen_respuesta",
+]
+
+
+def respuestas_reevaluacion(ruta: Path = REEVALUACION) -> dict[str, str]:
+    """{case_id: respuesta nueva de v1} de los B2 de la reevaluacion."""
+    return {str(r["id"]): r.get("generated") or "" for r in _leer(ruta) if r.get("modo") == "B2"}
+
+
+def casos_reevaluacion(aprobada: Path = SALIDA, ruta: Path = REEVALUACION) -> list[dict]:
+    """Las 35 filas: contexto copiado de la ronda aprobada, respuesta nueva al
+    lado, prioridad 1 primero. Lo que exige criterio queda vacio."""
+    from tools.evaluation.ragas_metrics import es_abstencion_pura
+
+    with aprobada.open(encoding="utf-8", newline="") as f:
+        previas = {fila["case_id"]: fila for fila in csv.DictReader(f)}
+    nuevas = respuestas_reevaluacion(ruta)
+    faltan = sorted(set(previas) - set(nuevas))
+    sobran = sorted(set(nuevas) - set(previas))
+    if faltan or sobran:
+        raise SystemExit(f"La reevaluacion no trae los mismos 35: faltan {faltan}, sobran {sobran}")
+    commit = commit_matriz()
+    filas = []
+    for cid, prev in previas.items():
+        fila = {c: "" for c in COLUMNAS_REEVAL}
+        fila["case_id"] = cid
+        fila["categoria"] = prev.get("categoria", "")
+        fila["pregunta"] = prev.get("pregunta", "")
+        for c in COLUMNAS_CONTEXTO:
+            fila[c] = prev.get(c, "")
+        fila["respuesta_v1r"] = nuevas[cid]
+        fila["prioridad"] = "2" if es_abstencion_pura(nuevas[cid]) else "1"
+        fila["origen_contexto"] = f"docs/m1_b2_adjudicacion.csv (matriz {commit})"
+        fila["origen_respuesta"] = ORIGEN_RESPUESTA_REEVAL
+        filas.append(fila)
+    filas.sort(key=lambda f: (f["prioridad"], int(f["case_id"])))
+    return filas
+
+
+def crear_reevaluacion(ruta: Path = SALIDA_REEVAL) -> int:
+    filas = casos_reevaluacion()
+    with ruta.open("w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=COLUMNAS_REEVAL, lineterminator="\n")
+        w.writeheader()
+        w.writerows(filas)
+    return len(filas)
+
+
+def revisar_reevaluacion(filas: list[dict], previas: dict[str, dict],
+                         textos: dict[str, str] | None = None) -> list[str]:
+    """Los controles de la segunda ronda.
+
+    `previas` es {case_id: fila} de la adjudicacion aprobada: los 35 esperados
+    y el contexto que no se puede cambiar. `textos` es {case_id: respuesta
+    nueva}: contra el texto de verdad, no contra la copia de la planilla."""
+    problemas = []
+    ids = [f.get("case_id", "") for f in filas]
+    repetidos = sorted({i for i in ids if ids.count(i) > 1})
+    if repetidos:
+        problemas.append(f"case_id repetidos: {repetidos}")
+    faltan = sorted(set(previas) - set(ids))
+    if faltan:
+        problemas.append(f"casos sin fila: {faltan}")
+    sobran = sorted(set(ids) - set(previas))
+    if sobran:
+        problemas.append(f"filas que no son de los 35: {sobran}")
+
+    for f in filas:
+        cid = f.get("case_id", "?")
+        vacias = [c for c in OBLIGATORIAS_REEVAL if not (f.get(c) or "").strip()]
+        if vacias:
+            problemas.append(f"{cid}: sin llenar {vacias}")
+        for col, validos in VOCABULARIO_REEVAL.items():
+            v = (f.get(col) or "").strip()
+            if v and v not in validos:
+                problemas.append(f"{cid}: {col}={v!r} no esta en {sorted(validos)}")
+
+        # El contexto se adjudico en la ronda aprobada y aqui solo se copia.
+        prev = previas.get(cid)
+        if prev is not None:
+            cambiadas = [c for c in COLUMNAS_CONTEXTO
+                         if (f.get(c) or "").strip() != (prev.get(c) or "").strip()]
+            if cambiadas:
+                problemas.append(f"{cid}: cambio el contexto adjudicado en {cambiadas}; "
+                                 "se readjudica en la planilla aprobada, no aqui")
+
+        # La respuesta de la planilla tiene que ser la de la corrida.
+        if textos is not None:
+            real = textos.get(cid)
+            if real is None:
+                problemas.append(f"{cid}: no hay respuesta nueva contra la cual comprobar")
+            elif _normalizar(f.get("respuesta_v1r") or "") != _normalizar(real):
+                problemas.append(f"{cid}: respuesta_v1r no es la de la corrida")
+
+        # "excede" exige citar la afirmacion, y que este en la respuesta.
+        if (f.get("v1r_fundamentacion") or "").strip() == "excede":
+            cita = (f.get("v1r_afirmaciones_sin_respaldo") or "").strip()
+            if not cita:
+                problemas.append(f"{cid}: marcado 'excede' sin citar la afirmacion sin respaldo")
+            elif textos is not None and cid in textos and \
+                    _normalizar(cita) not in _normalizar(textos[cid]):
+                problemas.append(f"{cid}: la cita no aparece en la respuesta: {cita[:60]!r}")
+
+        # Una primera pasada no es un dictamen: mientras falte el abogado, la
+        # fila lo dice.
+        if (f.get("revision_juridica") or "").strip() == "cumplida" and \
+                "Galeano" not in (f.get("revisor") or ""):
+            problemas.append(f"{cid}: revision_juridica=cumplida sin el abogado en 'revisor'")
+    return problemas
+
+
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__)
     g = p.add_mutually_exclusive_group(required=True)
     g.add_argument("--crear", action="store_true", help="arma el CSV vacio")
     g.add_argument("--revisar", action="store_true", help="valida el CSV llenado")
+    g.add_argument("--crear-reevaluacion", action="store_true",
+                   help="arma la planilla de las 35 respuestas de v1 reevaluado")
+    g.add_argument("--revisar-reevaluacion", action="store_true",
+                   help="valida la planilla de v1 reevaluado")
     args = p.parse_args(argv)
+
+    if args.crear_reevaluacion:
+        if SALIDA_REEVAL.exists():
+            raise SystemExit(f"{SALIDA_REEVAL.name} ya existe: no se sobrescribe una revision en curso.")
+        n = crear_reevaluacion()
+        print(f"Escrito {SALIDA_REEVAL} con {n} casos (prioridad 1 primero).")
+        return 0
+    if args.revisar_reevaluacion:
+        with SALIDA.open(encoding="utf-8", newline="") as f:
+            previas = {fila["case_id"]: fila for fila in csv.DictReader(f)}
+        with SALIDA_REEVAL.open(encoding="utf-8", newline="") as f:
+            filas = list(csv.DictReader(f))
+        problemas = revisar_reevaluacion(filas, previas, respuestas_reevaluacion())
+        if problemas:
+            for s in problemas[:40]:
+                print(f"  - {s}")
+            raise SystemExit(f"{len(problemas)} problemas: la adjudicacion no esta cerrada.")
+        print("Sin problemas: los 35 casos adjudicados y trazables.")
+        return 0
 
     if args.crear:
         if SALIDA.exists():

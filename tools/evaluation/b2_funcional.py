@@ -143,8 +143,11 @@ def evaluar(fila: dict, respuesta: str = "", contexto_texto: str = "",
     }
 
 
-def analizar(modelo: str = "v1", respuestas=None, contextos=None) -> dict:
-    filas = list(csv.DictReader(CSV_B2.open(encoding="utf-8", newline="")))
+def analizar(modelo: str = "v1", respuestas=None, contextos=None, ruta=None) -> dict:
+    """`ruta`: la planilla a leer. Por defecto la de la ronda aprobada; para v1
+    reevaluado, docs/m1_b2_adjudicacion_v1_reevaluado.csv con modelo="v1r"."""
+    with (ruta or CSV_B2).open(encoding="utf-8", newline="") as f:
+        filas = list(csv.DictReader(f))
     respuestas = respuestas or {}
     contextos = contextos or {}
     out = [evaluar(f, respuestas.get(f["case_id"], ""),
