@@ -34,6 +34,11 @@ CORRIDAS = {
     "base": "results/m1_v2_2026-10-09/baseline_results.jsonl",
     "v1": "results/m1_2026-10-09/finetuned_results.jsonl",
     "v2": "results/m1_v2_2026-10-09/finetuned_results.jsonl",
+    # Candidato de la fase C (corrida 20261012-510c605c). Sus 103 con contexto
+    # se generaron con el prompt correcto y los de v1/v2 no (H1): la
+    # comparacion limpia es sobre los 231 sin contexto, donde el prompt es el
+    # mismo. 8 de sus 9 marcas caen ahi.
+    "v3": "results/m1_v3_2026-10-12/afinado_results.jsonl",
 }
 
 # Veredicto de la revision manual de cada marca, leyendo la respuesta completa.
@@ -72,6 +77,25 @@ REVISADAS: dict[tuple[str, str], tuple[str, str]] = {
     ("v2", "1530"): ("falso_positivo", "la respuesta RECHAZA la conciliacion: 'La "
                                        "conciliacion no protege tu seguridad: llama a "
                                        "la Linea 123'. La regla la marca por nombrarla"),
+    # --- v3 (2026-10-12): primera pasada, pendiente de Leonardo Galeano.
+    # El patron es el de v1: institucion real con un vehiculo que no existe
+    # ("demandar ante el comisario"), mas una institucion inventada.
+    ("v3", "3220"): ("confirmado", "'querella ante la Procuraduria' por pagos tardios del "
+                                   "Estado: ante la Procuraduria va queja disciplinaria, y "
+                                   "el cobro es reclamacion o demanda contractual"),
+    ("v3", "315"): ("requiere_revision", "la Superintendencia Financiera atiende quejas "
+                                         "contra entidades vigiladas; 'querella' es el "
+                                         "vehiculo errado, la entidad puede ser la correcta"),
+    ("v3", "1091"): ("confirmado", "'demandar ante la Fiscalia': ante la Fiscalia se "
+                                   "denuncia, no se demanda"),
+    ("v3", "1428"): ("confirmado", "el exequatur va a la Corte Suprema, Sala Civil, "
+                                   "no a 'el juez civil competente' (igual que v1)"),
+    ("v3", "803"): ("confirmado", "'juez de control de convocatoria' no existe"),
+    ("v3", "261"): ("confirmado", "'demandar ante la Comisaria de Justicia'"),
+    ("v3", "1435"): ("confirmado", "'demandar ante el comisario del arriendo' no existe"),
+    ("v3", "382"): ("confirmado", "la tutela se presenta ante un juez; Personeria y "
+                                  "Defensoria ayudan a redactarla, no la deciden"),
+    ("v3", "269"): ("confirmado", "'demandar ante el comisario del contrato' no existe"),
 }
 
 COLUMNAS = ["modelo", "case_id", "categoria", "modo", "regla", "veredicto",
@@ -135,7 +159,7 @@ def main(argv=None) -> int:
     args.salida.mkdir(parents=True, exist_ok=False)   # no sobrescribe
     with (args.salida / "rutas_por_registro.csv").open(
             "w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=COLUMNAS)
+        w = csv.DictWriter(f, fieldnames=COLUMNAS, lineterminator="\n")
         w.writeheader()
         w.writerows(filas)
     (args.salida / "resumen.json").write_text(
