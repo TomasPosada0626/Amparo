@@ -304,99 +304,159 @@ def resumen(filas: list[dict]) -> str:
 #
 #   python -m tools.adjudicacion_b2 --crear-reevaluacion
 #   python -m tools.adjudicacion_b2 --revisar-reevaluacion
+#   python -m tools.adjudicacion_b2 --crear-ronda v3      # candidato, fase C (C4)
+#   python -m tools.adjudicacion_b2 --revisar-ronda v3
 
-REEVALUACION = (config.PROJECT_ROOT / "results" / "m1_reevaluacion_v1_2026-10-12"
-                / "afinado_results.jsonl")
-SALIDA_REEVAL = config.PROJECT_ROOT / "docs" / "m1_b2_adjudicacion_v1_reevaluado.csv"
-ORIGEN_RESPUESTA_REEVAL = ("results/m1_reevaluacion_v1_2026-10-12/afinado_results.jsonl "
-                           "(corrida 20261012-e54205d5)")
+# Cada ronda posterior a la aprobada es una planilla propia con el mismo
+# formato; solo cambian el prefijo de las columnas de la respuesta, la corrida
+# de donde sale y el archivo. v1r es v1 reevaluado (fase B); v3 es el candidato
+# de la fase C, paso C4. Las dos se comparan contra el mismo contexto aprobado.
+RONDAS = {
+    "v1r": {
+        "corrida": config.PROJECT_ROOT / "results" / "m1_reevaluacion_v1_2026-10-12"
+                   / "afinado_results.jsonl",
+        "salida": config.PROJECT_ROOT / "docs" / "m1_b2_adjudicacion_v1_reevaluado.csv",
+        "origen": ("results/m1_reevaluacion_v1_2026-10-12/afinado_results.jsonl "
+                   "(corrida 20261012-e54205d5)"),
+    },
+    "v3": {
+        "corrida": config.PROJECT_ROOT / "results" / "m1_v3_2026-10-12"
+                   / "afinado_results.jsonl",
+        "salida": config.PROJECT_ROOT / "docs" / "m1_b2_adjudicacion_v3.csv",
+        "origen": ("results/m1_v3_2026-10-12/afinado_results.jsonl "
+                   "(corrida 20261012-510c605c)"),
+    },
+}
+
+REEVALUACION = RONDAS["v1r"]["corrida"]
+SALIDA_REEVAL = RONDAS["v1r"]["salida"]
+ORIGEN_RESPUESTA_REEVAL = RONDAS["v1r"]["origen"]
 
 # Copiadas tal cual de la adjudicacion aprobada: no se readjudican.
 COLUMNAS_CONTEXTO = ["pertinencia_contexto", "fragmentos_relevantes",
                      "justificacion_contexto", "validez_etiqueta_b2"]
 
-COLUMNAS_REEVAL = [
-    "case_id", "categoria", "pregunta",
-    # 1 = la respuesta dice la frase de escape pero NO es abstencion pura:
-    # afirma algo despues, que es donde puede haber un fallo critico. Se
-    # adjudican primero.
-    "prioridad",
-    *COLUMNAS_CONTEXTO,
-    "respuesta_v1r",
-    "v1r_fundamentacion", "v1r_calibracion", "v1r_orientacion_segura",
-    "v1r_afirmaciones_sin_respaldo", "v1r_riesgo",
-    "revision_juridica", "confianza", "justificacion_final",
-    "revisor", "fecha_revision", "origen_contexto", "origen_respuesta",
-]
 
-VOCABULARIO_REEVAL = {
-    "v1r_fundamentacion": VOCABULARIO["v1_fundamentacion"],
-    "v1r_calibracion": VOCABULARIO["v1_calibracion"],
-    "v1r_orientacion_segura": VOCABULARIO["v1_orientacion_segura"],
-    "v1r_riesgo": VOCABULARIO["v1_riesgo"],
-    "revision_juridica": VOCABULARIO["revision_juridica"],
-    "confianza": VOCABULARIO["confianza"],
-    "prioridad": {"1", "2"},
-}
+def columnas_ronda(prefijo: str) -> list[str]:
+    return [
+        "case_id", "categoria", "pregunta",
+        # 1 = la respuesta dice la frase de escape pero NO es abstencion pura:
+        # afirma algo despues, que es donde puede haber un fallo critico. Se
+        # adjudican primero.
+        "prioridad",
+        *COLUMNAS_CONTEXTO,
+        f"respuesta_{prefijo}",
+        f"{prefijo}_fundamentacion", f"{prefijo}_calibracion",
+        f"{prefijo}_orientacion_segura", f"{prefijo}_afirmaciones_sin_respaldo",
+        f"{prefijo}_riesgo",
+        "revision_juridica", "confianza", "justificacion_final",
+        "revisor", "fecha_revision", "origen_contexto", "origen_respuesta",
+    ]
 
-OBLIGATORIAS_REEVAL = [
-    "v1r_fundamentacion", "v1r_calibracion", "v1r_orientacion_segura", "v1r_riesgo",
-    "revision_juridica", "confianza", "justificacion_final", "revisor",
-    "fecha_revision", "origen_contexto", "origen_respuesta",
-]
+
+def vocabulario_ronda(prefijo: str) -> dict[str, set[str]]:
+    return {
+        f"{prefijo}_fundamentacion": VOCABULARIO["v1_fundamentacion"],
+        f"{prefijo}_calibracion": VOCABULARIO["v1_calibracion"],
+        f"{prefijo}_orientacion_segura": VOCABULARIO["v1_orientacion_segura"],
+        f"{prefijo}_riesgo": VOCABULARIO["v1_riesgo"],
+        "revision_juridica": VOCABULARIO["revision_juridica"],
+        "confianza": VOCABULARIO["confianza"],
+        "prioridad": {"1", "2"},
+    }
+
+
+def obligatorias_ronda(prefijo: str) -> list[str]:
+    return [
+        f"{prefijo}_fundamentacion", f"{prefijo}_calibracion",
+        f"{prefijo}_orientacion_segura", f"{prefijo}_riesgo",
+        "revision_juridica", "confianza", "justificacion_final", "revisor",
+        "fecha_revision", "origen_contexto", "origen_respuesta",
+    ]
+
+
+COLUMNAS_REEVAL = columnas_ronda("v1r")
+VOCABULARIO_REEVAL = vocabulario_ronda("v1r")
+OBLIGATORIAS_REEVAL = obligatorias_ronda("v1r")
+
+
+def _ids_aprobados(aprobada: Path = SALIDA) -> set[str]:
+    with aprobada.open(encoding="utf-8", newline="") as f:
+        return {fila["case_id"] for fila in csv.DictReader(f)}
+
+
+def respuestas_ronda(prefijo: str, ruta: Path | None = None) -> dict[str, str]:
+    """{case_id: respuesta} de los 35 B2 en la corrida de esa ronda.
+
+    Se filtra por los ids de la planilla aprobada y no por un campo `modo`:
+    las salidas del notebook de entrenamiento no lo traen."""
+    ids = _ids_aprobados()
+    ruta = ruta or RONDAS[prefijo]["corrida"]
+    return {str(r["id"]): r.get("generated") or "" for r in _leer(ruta) if str(r["id"]) in ids}
 
 
 def respuestas_reevaluacion(ruta: Path = REEVALUACION) -> dict[str, str]:
     """{case_id: respuesta nueva de v1} de los B2 de la reevaluacion."""
-    return {str(r["id"]): r.get("generated") or "" for r in _leer(ruta) if r.get("modo") == "B2"}
+    return respuestas_ronda("v1r", ruta)
 
 
-def casos_reevaluacion(aprobada: Path = SALIDA, ruta: Path = REEVALUACION) -> list[dict]:
+def casos_ronda(prefijo: str, aprobada: Path = SALIDA, ruta: Path | None = None) -> list[dict]:
     """Las 35 filas: contexto copiado de la ronda aprobada, respuesta nueva al
     lado, prioridad 1 primero. Lo que exige criterio queda vacio."""
     from tools.evaluation.ragas_metrics import es_abstencion_pura
 
     with aprobada.open(encoding="utf-8", newline="") as f:
         previas = {fila["case_id"]: fila for fila in csv.DictReader(f)}
-    nuevas = respuestas_reevaluacion(ruta)
+    nuevas = respuestas_ronda(prefijo, ruta)
     faltan = sorted(set(previas) - set(nuevas))
     sobran = sorted(set(nuevas) - set(previas))
     if faltan or sobran:
-        raise SystemExit(f"La reevaluacion no trae los mismos 35: faltan {faltan}, sobran {sobran}")
+        raise SystemExit(f"La corrida no trae los mismos 35: faltan {faltan}, sobran {sobran}")
     commit = commit_matriz()
+    columnas = columnas_ronda(prefijo)
     filas = []
     for cid, prev in previas.items():
-        fila = {c: "" for c in COLUMNAS_REEVAL}
+        fila = {c: "" for c in columnas}
         fila["case_id"] = cid
         fila["categoria"] = prev.get("categoria", "")
         fila["pregunta"] = prev.get("pregunta", "")
         for c in COLUMNAS_CONTEXTO:
             fila[c] = prev.get(c, "")
-        fila["respuesta_v1r"] = nuevas[cid]
+        fila[f"respuesta_{prefijo}"] = nuevas[cid]
         fila["prioridad"] = "2" if es_abstencion_pura(nuevas[cid]) else "1"
         fila["origen_contexto"] = f"docs/m1_b2_adjudicacion.csv (matriz {commit})"
-        fila["origen_respuesta"] = ORIGEN_RESPUESTA_REEVAL
+        fila["origen_respuesta"] = RONDAS[prefijo]["origen"]
         filas.append(fila)
     filas.sort(key=lambda f: (f["prioridad"], int(f["case_id"])))
     return filas
 
 
-def crear_reevaluacion(ruta: Path = SALIDA_REEVAL) -> int:
-    filas = casos_reevaluacion()
-    with ruta.open("w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=COLUMNAS_REEVAL, lineterminator="\n")
+def casos_reevaluacion(aprobada: Path = SALIDA, ruta: Path = REEVALUACION) -> list[dict]:
+    return casos_ronda("v1r", aprobada, ruta)
+
+
+def crear_ronda(prefijo: str, ruta: Path | None = None) -> int:
+    filas = casos_ronda(prefijo)
+    with (ruta or RONDAS[prefijo]["salida"]).open("w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=columnas_ronda(prefijo), lineterminator="\n")
         w.writeheader()
         w.writerows(filas)
     return len(filas)
 
 
-def revisar_reevaluacion(filas: list[dict], previas: dict[str, dict],
-                         textos: dict[str, str] | None = None) -> list[str]:
-    """Los controles de la segunda ronda.
+def crear_reevaluacion(ruta: Path = SALIDA_REEVAL) -> int:
+    return crear_ronda("v1r", ruta)
+
+
+def revisar_ronda(prefijo: str, filas: list[dict], previas: dict[str, dict],
+                  textos: dict[str, str] | None = None) -> list[str]:
+    """Los controles de una ronda posterior a la aprobada.
 
     `previas` es {case_id: fila} de la adjudicacion aprobada: los 35 esperados
     y el contexto que no se puede cambiar. `textos` es {case_id: respuesta
     nueva}: contra el texto de verdad, no contra la copia de la planilla."""
+    obligatorias = obligatorias_ronda(prefijo)
+    vocabulario = vocabulario_ronda(prefijo)
     problemas = []
     ids = [f.get("case_id", "") for f in filas]
     repetidos = sorted({i for i in ids if ids.count(i) > 1})
@@ -411,10 +471,10 @@ def revisar_reevaluacion(filas: list[dict], previas: dict[str, dict],
 
     for f in filas:
         cid = f.get("case_id", "?")
-        vacias = [c for c in OBLIGATORIAS_REEVAL if not (f.get(c) or "").strip()]
+        vacias = [c for c in obligatorias if not (f.get(c) or "").strip()]
         if vacias:
             problemas.append(f"{cid}: sin llenar {vacias}")
-        for col, validos in VOCABULARIO_REEVAL.items():
+        for col, validos in vocabulario.items():
             v = (f.get(col) or "").strip()
             if v and v not in validos:
                 problemas.append(f"{cid}: {col}={v!r} no esta en {sorted(validos)}")
@@ -433,12 +493,12 @@ def revisar_reevaluacion(filas: list[dict], previas: dict[str, dict],
             real = textos.get(cid)
             if real is None:
                 problemas.append(f"{cid}: no hay respuesta nueva contra la cual comprobar")
-            elif _normalizar(f.get("respuesta_v1r") or "") != _normalizar(real):
-                problemas.append(f"{cid}: respuesta_v1r no es la de la corrida")
+            elif _normalizar(f.get(f"respuesta_{prefijo}") or "") != _normalizar(real):
+                problemas.append(f"{cid}: respuesta_{prefijo} no es la de la corrida")
 
         # "excede" exige citar la afirmacion, y que este en la respuesta.
-        if (f.get("v1r_fundamentacion") or "").strip() == "excede":
-            cita = (f.get("v1r_afirmaciones_sin_respaldo") or "").strip()
+        if (f.get(f"{prefijo}_fundamentacion") or "").strip() == "excede":
+            cita = (f.get(f"{prefijo}_afirmaciones_sin_respaldo") or "").strip()
             if not cita:
                 problemas.append(f"{cid}: marcado 'excede' sin citar la afirmacion sin respaldo")
             elif textos is not None and cid in textos and \
@@ -453,6 +513,11 @@ def revisar_reevaluacion(filas: list[dict], previas: dict[str, dict],
     return problemas
 
 
+def revisar_reevaluacion(filas: list[dict], previas: dict[str, dict],
+                         textos: dict[str, str] | None = None) -> list[str]:
+    return revisar_ronda("v1r", filas, previas, textos)
+
+
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__)
     g = p.add_mutually_exclusive_group(required=True)
@@ -462,20 +527,27 @@ def main(argv=None) -> int:
                    help="arma la planilla de las 35 respuestas de v1 reevaluado")
     g.add_argument("--revisar-reevaluacion", action="store_true",
                    help="valida la planilla de v1 reevaluado")
+    g.add_argument("--crear-ronda", choices=sorted(RONDAS),
+                   help="arma la planilla de las 35 respuestas de esa ronda")
+    g.add_argument("--revisar-ronda", choices=sorted(RONDAS),
+                   help="valida la planilla de esa ronda")
     args = p.parse_args(argv)
 
-    if args.crear_reevaluacion:
-        if SALIDA_REEVAL.exists():
-            raise SystemExit(f"{SALIDA_REEVAL.name} ya existe: no se sobrescribe una revision en curso.")
-        n = crear_reevaluacion()
-        print(f"Escrito {SALIDA_REEVAL} con {n} casos (prioridad 1 primero).")
+    crear_r = args.crear_ronda or ("v1r" if args.crear_reevaluacion else None)
+    revisar_r = args.revisar_ronda or ("v1r" if args.revisar_reevaluacion else None)
+    if crear_r:
+        salida = RONDAS[crear_r]["salida"]
+        if salida.exists():
+            raise SystemExit(f"{salida.name} ya existe: no se sobrescribe una revision en curso.")
+        n = crear_ronda(crear_r)
+        print(f"Escrito {salida} con {n} casos (prioridad 1 primero).")
         return 0
-    if args.revisar_reevaluacion:
+    if revisar_r:
         with SALIDA.open(encoding="utf-8", newline="") as f:
             previas = {fila["case_id"]: fila for fila in csv.DictReader(f)}
-        with SALIDA_REEVAL.open(encoding="utf-8", newline="") as f:
+        with RONDAS[revisar_r]["salida"].open(encoding="utf-8", newline="") as f:
             filas = list(csv.DictReader(f))
-        problemas = revisar_reevaluacion(filas, previas, respuestas_reevaluacion())
+        problemas = revisar_ronda(revisar_r, filas, previas, respuestas_ronda(revisar_r))
         if problemas:
             for s in problemas[:40]:
                 print(f"  - {s}")

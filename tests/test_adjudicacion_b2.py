@@ -312,3 +312,62 @@ def test_b2_funcional_lee_la_planilla_nueva_con_el_prefijo_v1r():
     assert v["pasa_b2_funcional"] and not v["tiene_fallo_critico"]
     fila.update(v1r_fundamentacion="excede", v1r_riesgo="alto")
     assert "excede_con_riesgo_alto" in b2_funcional.evaluar(fila, modelo="v1r")["fallos_criticos"]
+
+
+# --- tercera ronda: candidato v3 (fase C, paso C4) ----------------------------
+
+
+def _fila_v3(fila_base, **kw):
+    f = dict(fila_base)
+    f.update({"v3_fundamentacion": "dentro", "v3_calibracion": "reconoce",
+              "v3_orientacion_segura": "si", "v3_riesgo": "bajo",
+              "revision_juridica": "requerida", "confianza": "media",
+              "justificacion_final": "se abstiene y orienta", "revisor": "primera pasada",
+              "fecha_revision": "2026-10-12"})
+    f.update(kw)
+    return f
+
+
+def test_v3_trae_los_35_con_el_contexto_aprobado_y_su_corrida():
+    previas = _previas()
+    filas = adj.casos_ronda("v3")
+    assert {f["case_id"] for f in filas} == set(previas)
+    for f in filas:
+        for c in adj.COLUMNAS_CONTEXTO:
+            assert f[c] == previas[f["case_id"]][c]
+        assert "20261012-510c605c" in f["origen_respuesta"]
+        assert "respuesta_v1r" not in f and f["respuesta_v3"]
+
+
+def test_v3_una_ronda_completa_no_da_problemas():
+    previas, textos = _previas(), adj.respuestas_ronda("v3")
+    filas = [_fila_v3(f) for f in adj.casos_ronda("v3")]
+    assert adj.revisar_ronda("v3", filas, previas, textos) == []
+
+
+def test_v3_no_acepta_las_respuestas_de_otra_ronda():
+    previas, textos = _previas(), adj.respuestas_ronda("v3")
+    v1r = adj.respuestas_ronda("v1r")
+    filas = [_fila_v3(f) for f in adj.casos_ronda("v3")]
+    cid = next(f["case_id"] for f in filas if v1r[f["case_id"]] != textos[f["case_id"]])
+    for f in filas:
+        if f["case_id"] == cid:
+            f["respuesta_v3"] = v1r[cid]
+    assert any("no es la de la corrida" in p for p in adj.revisar_ronda("v3", filas, previas, textos))
+
+
+def test_v3_excede_exige_cita_de_su_propia_respuesta():
+    previas, textos = _previas(), adj.respuestas_ronda("v3")
+    filas = [_fila_v3(f) for f in adj.casos_ronda("v3")]
+    filas[0]["v3_fundamentacion"] = "excede"
+    assert any("sin citar" in p for p in adj.revisar_ronda("v3", filas, previas, textos))
+    filas[0]["v3_afirmaciones_sin_respaldo"] = textos[filas[0]["case_id"]][-40:]
+    assert not any(filas[0]["case_id"] + ":" in p
+                   for p in adj.revisar_ronda("v3", filas, previas, textos))
+
+
+def test_b2_funcional_lee_la_planilla_v3():
+    fila = _fila_v3(adj.casos_ronda("v3")[0])
+    assert b2_funcional.evaluar(fila, modelo="v3")["pasa_b2_funcional"]
+    fila.update(v3_orientacion_segura="no")
+    assert "orientacion_no_segura" in b2_funcional.evaluar(fila, modelo="v3")["fallos_criticos"]
