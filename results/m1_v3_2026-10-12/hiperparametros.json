@@ -1,0 +1,29 @@
+{
+  "lora_r": 16,
+  "lora_alpha": 32,
+  "lora_dropout": 0.05,
+  "lora_target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj"
+  ],
+  "num_epochs": 3,
+  "learning_rate": 0.0002,
+  "per_device_batch_size": 2,
+  "grad_accum_steps": 8,
+  "batch_efectivo": 16,
+  "max_seq_length": 3072,
+  "max_new_tokens_eval": 900,
+  "random_seed": 42,
+  "iguales_a_v1": true,
+  "corrida_id": "20261012-510c605c",
+  "model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "revision_base": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "revision_verificada": true,
+  "commit": "d779f6f",
+  "huella_dataset": "a13e6d32629eb6a9",
+  "adaptador": "v3",
+  "huella_adaptador": "ccaa34d5f2482e09",
+  "ruta_adaptador": "/content/drive/MyDrive/Colab Notebooks/Amparo/adaptadores/amparo-lora-adapter-v3-20261012-510c605c"
+}

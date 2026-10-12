@@ -1,0 +1,73 @@
+{
+  "modulo": "m1",
+  "timestamp": "2026-10-12T05:11:49.092537+00:00",
+  "git_commit": "d779f6fcb489a0e9f99cce75cb57ddc73a306f92",
+  "base_model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "random_seed": 42,
+  "val_fraction": 0.15,
+  "adapter_dir": "/content/drive/MyDrive/Colab Notebooks/Amparo/adaptadores/amparo-lora-adapter-v3-20261012-510c605c",
+  "hash_adaptador": "c2d7bb1dfdd8e598",
+  "dataset_entrenamiento": "data/dataset.jsonl",
+  "hash_dataset_entrenamiento": "6320d23d0c3a5fb6",
+  "hash_eval_set": "a5151999c2095d00",
+  "n_total": 2580,
+  "n_train": 2246,
+  "n_val": 334,
+  "origenes": {
+    "v1": 1536,
+    "v2": 755,
+    "contrastivo": 289
+  },
+  "val_por_origen": {
+    "v1": 231,
+    "v2": 103
+  },
+  "modos_con_contexto": {
+    "B1": 391,
+    "B3": 101,
+    "B2": 552
+  },
+  "hiperparametros": {
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "lora_target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj"
+    ],
+    "num_epochs": 3,
+    "learning_rate": 0.0002,
+    "per_device_batch_size": 2,
+    "grad_accum_steps": 8,
+    "batch_efectivo": 16,
+    "max_seq_length": 3072,
+    "max_new_tokens_eval": 900,
+    "random_seed": 42,
+    "iguales_a_v1": true,
+    "corrida_id": "20261012-510c605c",
+    "model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "revision_base": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "revision_verificada": true,
+    "commit": "d779f6f",
+    "huella_dataset": "a13e6d32629eb6a9",
+    "adaptador": "v3",
+    "huella_adaptador": "ccaa34d5f2482e09",
+    "ruta_adaptador": "/content/drive/MyDrive/Colab Notebooks/Amparo/adaptadores/amparo-lora-adapter-v3-20261012-510c605c"
+  },
+  "hardware": "NVIDIA A100-SXM4-80GB, 81920 MiB",
+  "library_versions": {
+    "transformers": "5.19.0",
+    "peft": "0.21.2",
+    "trl": "1.15.0",
+    "accelerate": "1.15.0",
+    "bitsandbytes": "0.50.2",
+    "datasets": "5.1.0",
+    "torch": "2.11.0+cu130",
+    "wandb": "0.30.0",
+    "sacrebleu": "not-installed",
+    "rouge-score": "not-installed",
+    "bert-score": "not-installed"
+  }
+}
