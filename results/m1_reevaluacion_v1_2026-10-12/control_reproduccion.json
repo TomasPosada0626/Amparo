@@ -1,0 +1,75 @@
+{
+  "veredicto": "DIAGNOSTICO",
+  "casos": [
+    {
+      "id": 3,
+      "coincide": false,
+      "generated": "El despido durante el embarazo es nulo y te corresponde la indemnización por esa situación. Pide por escrito el concepto de la empresa y, si no lo reconoce, acude a la Inspección del Trabajo. Guarda el certificado de gestación y el contrato.",
+      "historico": "El despido durante el embarazo es nulo y te corresponde la indemnización por esa situación. Pide por escrito la liquidación con ese concepto y, si no la incluyen, acude a la Inspección del Trabajo. Guarda el certificado de gestación y el contrato.",
+      "n_tokens": 64
+    },
+    {
+      "id": 42,
+      "coincide": false,
+      "generated": "El despido durante incapacidad temporal es nulo y te corresponde el pago del salario y las prestaciones. Pide por escrito la autorización para regresar al trabajo y, si no la dan, acude a la Inspección del Trabajo con tu certificado médico.",
+      "historico": "El despido durante incapacidad temporal es nulo y te corresponde la prestación. Reúne la carta de despido, la certificación médica y los pagos recibidos, y presenta la reclamación ante la Inspección del Trabajo. Si el empleador niega el pago, puedes demandar ante el juez laboral.",
+      "n_tokens": 60
+    },
+    {
+      "id": 48,
+      "coincide": true,
+      "generated": "Si la empresa cerró y no pudo pagar los salarios, el despido puede ser por fuerza mayor y no por culpa del trabajador. Reúne el comunicado de cierre, las liquidaciones y los avisos de pago, y pide la liquidación al liquidador laboral o al juez laboral.",
+      "historico": "Si la empresa cerró y no pudo pagar los salarios, el despido puede ser por fuerza mayor y no por culpa del trabajador. Reúne el comunicado de cierre, las liquidaciones y los avisos de pago, y pide la liquidación al liquidador laboral o al juez laboral.",
+      "n_tokens": 69
+    },
+    {
+      "id": 51,
+      "coincide": true,
+      "generated": "Pide por escrito el reintegro del depósito con los conceptos retenidos. Si no responde, puedes demandar ante el juez civil o acudir a un centro de conciliación. Guarda el contrato, las facturas, el recibo de pago y fotos de la entrega.",
+      "historico": "Pide por escrito el reintegro del depósito con los conceptos retenidos. Si no responde, puedes demandar ante el juez civil o acudir a un centro de conciliación. Guarda el contrato, las facturas, el recibo de pago y fotos de la entrega.",
+      "n_tokens": 66
+    },
+    {
+      "id": 66,
+      "coincide": false,
+      "generated": "Pide por escrito a la entidad que te niega el crédito el motivo y el soporte de la negativa. Si el reporte es falso, presenta reclamación de habeas data ante la entidad y, si no corrige, acude a la Superintendencia Financiera. Guarda el contrato, los recibos de pago y el radicado.",
+      "historico": "Pide por escrito a la entidad que te niega el crédito la razón y, si la respuesta no aclara el motivo, interpón recurso de reposición y apelación. Para levantar el reporte, presenta reclamación de habeas data con tu historia de pagos y los comprobantes de pago.",
+      "n_tokens": 80
+    },
+    {
+      "id": 69,
+      "coincide": false,
+      "generated": "Pide por escrito al centro de crédito la constancia de la fusión y su fecha, y presenta reclamación de habeas data para que corrijan el reporte. Si la confusión afecta tu crédito, puedes acudir a la Superintendencia Financiera. Guarda el contrato de fusión y tus estados financieros.",
+      "historico": "Pide por escrito al centro de crédito la fusión y su fecha, y revisa si tu nombre aparece como socios o directivos de ambas. Con esa constancia puedes pedir a la entidad corregir el reporte y, si no lo hacen, presentar reclamación de habeas data.",
+      "n_tokens": 78
+    },
+    {
+      "id": 74,
+      "coincide": false,
+      "generated": "Denuncia ante la Fiscalía con tu historia clínica, fotos del lugar, testigos y la descripción del vehículo. La Policía Transito también puede investigar. Guarda los recibos de atención médica y pide la constancia de accidente al hospital.",
+      "historico": "Denuncia ante la Fiscalía con tu historia clínica, fotos del lugar, testigos y la descripción del vehículo. La Policía Transito también puede investigar. Guarda los recibos de atención médica y el informe policial de accidente. Si te dejaron sin reparación, la demanda se presenta ante el juez civil.",
+      "n_tokens": 57
+    },
+    {
+      "id": 79,
+      "coincide": true,
+      "generated": "Pide copia del informe policial de accidente y del acta de defunción. Con eso puedes reclamar al responsable por los daños personales ante el juez civil, y si hubo negligencia del conductor o del dueño del vehículo, también demandarlos. La Defensoría del Pueblo puede orientarte.",
+      "historico": "Pide copia del informe policial de accidente y del acta de defunción. Con eso puedes reclamar al responsable por los daños personales ante el juez civil, y si hubo negligencia del conductor o del dueño del vehículo, también demandarlos. La Defensoría del Pueblo puede orientarte.",
+      "n_tokens": 72
+    },
+    {
+      "id": 80,
+      "coincide": false,
+      "generated": "Pide por escrito al dueño del vehículo el certificado de autorización y la matrícula, y radica la denuncia ante la Fiscalía con fotos, testigos y el informe policial de accidente. Con eso reclama al asegurador del otro conductor y, si no responde, demanda ante el juez civil.",
+      "historico": "Pide por escrito al dueño del vehículo que cubra los daños, con su radicado ante la Fiscalía por accidente de tránsito. Si no acepta, puedes demandar ante el juez civil por daños y perjuicios. Guarda el radicado policial, la historia clínica y las facturas de reparación.",
+      "n_tokens": 75
+    },
+    {
+      "id": 91,
+      "coincide": false,
+      "generated": "Pide por escrito la recepción de la garantía con la factura y el certificado de garantía. Si no la aceptan, presenta reclamación ante el distribuidor o el fabricante y, si siguen negando, demanda ante el juez civil. Guarda el modelo, la fecha de compra y los mensajes donde se niegan.",
+      "historico": "Pide por escrito la autorización de devolución o sustitución con la factura y el reporte de la falla. Si la marca niega el trámite, puedes reclamar ante la Superintendencia de Industria y Comercio y demandar ante el juez civil. Guarda el modelo, la fecha de compra y las fotos del daño.",
+      "n_tokens": 76
+    }
+  ]
+}

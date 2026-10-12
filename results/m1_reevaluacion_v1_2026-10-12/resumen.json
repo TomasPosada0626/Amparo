@@ -1,0 +1,46 @@
+{
+  "modelo": "Qwen/Qwen2.5-7B-Instruct",
+  "revision_base": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "revision_es_la_de_v1": true,
+  "adaptador": "/content/drive/MyDrive/Colab Notebooks/Amparo/amparo-lora-adapter",
+  "huella_adaptador": "8ce3cc2bc9306974",
+  "fuente": "results/m1_2026-10-09/finetuned_results.jsonl",
+  "huella_fuente": "fd8bfe60a7a49f8c",
+  "alcance": "contexto",
+  "n_objetivo": 103,
+  "por_modo": {
+    "B1": 55,
+    "B2": 35,
+    "B3": 13
+  },
+  "prompts_objetivo": [
+    "aece3d7bf042"
+  ],
+  "n_control": 10,
+  "prompts_control": [
+    "93ced6a0799f"
+  ],
+  "ids_control": [
+    3,
+    42,
+    48,
+    51,
+    66,
+    69,
+    74,
+    79,
+    80,
+    91
+  ],
+  "max_new_tokens": 900,
+  "corrida_id": "20261012-e54205d5",
+  "commit": "6fa7cc1",
+  "control": "DIAGNOSTICO",
+  "abstencion_literal_b2": {
+    "prompt_correcto": 31,
+    "prompt_equivocado_2026_10_09": 0,
+    "n": 35
+  },
+  "comparable_con_el_1_de_35": false,
+  "nota": "B2_funcional exige adjudicacion. Esta cifra es la abstencion literal (metrica A); la funcional sale de tools/adjudicacion_b2.py."
+}
