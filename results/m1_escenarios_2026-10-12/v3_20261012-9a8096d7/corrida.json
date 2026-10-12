@@ -1,0 +1,10 @@
+{
+  "huella_dataset": "d51365fbc779d1ce",
+  "commit": "d779f6f",
+  "model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "revision_base": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "revision_verificada": true,
+  "adaptador": "escenarios-c2d7bb1dfdd8e598",
+  "fecha": "2026-10-12",
+  "corrida_id": "20261012-9a8096d7"
+}
