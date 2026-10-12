@@ -1,0 +1,24 @@
+{
+  "corrida_id": "20261012-cfcfc6a4",
+  "huella_adaptador": "8ce3cc2bc9306974",
+  "n": 45,
+  "abstencion_pura": "10/45",
+  "cumple_d3": false,
+  "por_origen": {
+    "sin_contexto": 0,
+    "citas_no_verificables": 0,
+    "modelo": 10
+  },
+  "ids_abstencion": [
+    9004,
+    9007,
+    9010,
+    9042,
+    9049,
+    9053,
+    9056,
+    9062,
+    9066,
+    9067
+  ]
+}
