@@ -5,9 +5,10 @@ evaluación (M2), RAG (M3). M4 no está iniciado.
 
 **Antes de hacer nada, lee `ESTADO_Y_TRASPASO.md`.** Ahí está dónde estamos, qué
 falta en cada notebook, los artefactos congelados y la ruta crítica. El roadmap
-de M1, con sus casillas, está en su sección 7.1.2: la fase A está hecha y la
-siguiente es la B (reevaluar v1, GPU, requiere autorización). Si el código
-contradice ese documento, gana el código, y se avisa.
+de M1, con sus casillas, está en su sección 7.1.2: las fases A–D están hechas,
+v3 **no se aceptó** (`docs/m1_veredicto_v3.md`) y lo siguiente es un v4 del
+dataset, probado primero solo con los 4 escenarios (GPU, requiere autorización).
+Si el código contradice ese documento, gana el código, y se avisa.
 
 ## Reglas que no se negocian
 
@@ -24,7 +25,10 @@ contradice ese documento, gana el código, y se avisa.
   resultados históricos. Las salidas guardadas en los notebooks tampoco.
 - Un solo dataset con un solo nombre. No se crean `dataset_v3.jsonl` ni
   parecidos: la versión la lleva git.
-- El adaptador `v1` es producción.
+- El adaptador `v1` es producción. **Publicar en Hugging Face es adoptar**: el
+  repo es público y la celda del notebook no publica salvo
+  `PUBLICAR_EN_HF = True`, que solo se pone tras un veredicto de aceptación.
+  Para devolver `main` a v1: `python -m tools.hf_restaurar_v1 --escribir`.
 - **Sin GPU, entrenamiento, inferencia ni créditos** (Colab, Groq, W&B) sin
   autorización expresa. Preparar y probar en CPU, sí.
 

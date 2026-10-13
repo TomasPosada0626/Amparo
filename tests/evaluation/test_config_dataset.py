@@ -308,3 +308,19 @@ def test_los_notebooks_de_m1_instalan_las_versiones_fijadas():
         assert "pip install -q -r /content/Amparo/colab/requirements-m1.txt" in codigo, nombre
         assert not [l for l in codigo.splitlines() if "pip install" in l and " -U" in l], (
             f"{nombre} vuelve a instalar sin version")
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_el_notebook_no_publica_en_hugging_face_por_defecto():
+    """El repo de HF es publico y la celda publicaba en cada corrida completa:
+    el `main` paso de v1 a v2 (2026-10-10) y a v3 (2026-10-12) sin que nadie
+    adoptara ninguno. Publicar es adoptar, y eso se decide despues de la fase D."""
+    nb = json.loads(NOTEBOOK.read_text(encoding="utf-8"))
+    celda = next("".join(c["source"]) for c in nb["cells"] if "upload_folder(" in "".join(c["source"]))
+    assert "PUBLICAR_EN_HF = False" in celda
+    assert "if not PUBLICAR_EN_HF:" in celda
+    # la subida solo dentro de la rama que exige publicar a proposito
+    antes, despues = celda.split("else:", 1)
+    assert "upload_folder(" not in antes and "upload_folder(" in despues
+    # y el mensaje ya no es un texto fijo que puede mentir sobre el dataset
+    assert "dataset v1+v2" not in celda

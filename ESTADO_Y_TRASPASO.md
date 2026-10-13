@@ -2,9 +2,10 @@
 
 **Para:** Martín, y el Claude con que trabaje sobre este repositorio.
 **De:** Tomás.
-**Fecha:** 2026-10-10. **Actualizado:** 2026-10-11, con la **fase A de M1
-completa** (sección 7.1.2). **Rama:** `m3.5`.
-**Suite:** 798 passed, 4 skipped.
+**Fecha:** 2026-10-10. **Actualizado:** 2026-10-13, con las **fases B, C y D de
+M1 corridas por Martín**: v3 **no se acepta** y v1 sigue en producción
+(`docs/m1_veredicto_v3.md`). **Rama:** `m3.5`.
+**Suite:** ver `pytest -q`; 823 passed, 4 skipped tras las fases B y C.
 
 ---
 
@@ -52,8 +53,8 @@ los puntos con el mismo peso, redondeado a 5.
 
 | notebook | preparación | listo para correr | completado |
 |---|---|---|---|
-| `m1_finetune.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `████░░░░░░ 35 %` |
-| `m1_reevaluacion_v1.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `░░░░░░░░░░ 0 %` |
+| `m1_finetune.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `████████░░ 75 %` — v3 rechazado, **M1 no cerrado** |
+| `m1_reevaluacion_v1.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `██████████ 100 %` |
 | `m2_evaluacion.ipynb` | `██████░░░░ 60 %` | `████░░░░░░ 40 %` | `██████░░░░ 60 %` |
 | `m3_busqueda_v2.ipynb` | `██████░░░░ 55 %` | `█████░░░░░ 50 %` | `█████░░░░░ 50 %` |
 | `m3_s08_rag_avanzado.ipynb` | `███████░░░ 65 %` | `█████░░░░░ 50 %` | `█████░░░░░ 50 %` |
@@ -61,7 +62,7 @@ los puntos con el mismo peso, redondeado a 5.
 
 | módulo | preparación | completado |
 |---|---|---|
-| **M1** — fine-tuning | `██████████ 100 %` | `████░░░░░░ 35 %` |
+| **M1** — fine-tuning | `██████████ 100 %` | `████████░░ 75 %` — el candidato v3 no cumplió; hace falta otro |
 | **M2** — evaluación | `██████░░░░ 60 %` | `██████░░░░ 60 %` |
 | **M3** — RAG | `██████░░░░ 60 %` | `████░░░░░░ 40 %` (S10, el que importa para M4, va en 15 %) |
 | **M4** — entrega final | no iniciado | no iniciado |
@@ -70,20 +71,22 @@ Los de M3 son el promedio de sus tres notebooks.
 
 ### Lo que hay que saber en cinco líneas
 
-1. **La preparación de M1 está completa** (fase A, 2026-10-11). El dataset
-   está listo para entrenar: el atajo que impedía aprender a abstenerse está
-   roto en entrenamiento, la validación está congelada, todo contexto sale del
-   buscador de producción y el stack tiene versiones fijadas.
-2. **Las cifras históricas de abstención de M1 (0/35, 1/35) no valen**: se
-   midieron sin la orden de abstenerse en el prompt. Ya está corregido el
-   notebook; falta medir de nuevo.
+1. **El candidato v3 se entrenó, se midió y no se acepta** (2026-10-12/13,
+   `docs/m1_veredicto_v3.md`). Con el RAG real se abstiene en **30 de 45**
+   preguntas que debería responder (máximo aceptable: 3). Aprendió "ante la
+   duda, abstente", no a distinguir un contexto útil. **v1 sigue en producción.**
+2. **La referencia válida es v1 reevaluado con el prompt correcto: B2_funcional
+   14/35, 9 fallos críticos.** Las cifras históricas (0/35, 1/35) no valían: se
+   midieron sin la orden de abstenerse.
 3. **El RAG (S10) hoy responde bien 1 de 45 consultas gold.** El cuello de
    botella principal es la **recuperación**, no el modelo: el artículo que
    responde llega al contexto en 20 de 45 casos. Ningún entrenamiento arregla
    eso solo.
 4. **Nada se entrena ni se corre en GPU sin autorización de Tomás.**
-5. El siguiente paso es la **fase B**: reevaluar v1 con el prompt correcto (GPU,
-   solo inferencia, ~40 min) y adjudicar sus 35 B2. No entrenar todavía.
+5. El siguiente paso es un **v4 del dataset**, probado barato primero: cambiar
+   el equilibrio, entrenar v4 (~50 min de A100) y medir **solo los 4
+   escenarios** (~10 min) antes de la evaluación completa, que es la cara: 35 B2
+   que adjudicar, C6 y rutas (sección 7.1.2, "siguiente iteración").
 
 ---
 
@@ -289,6 +292,7 @@ artifacts/                  indice FAISS y adaptadores (NO en git)
 | metadata del índice | `8cd72136235d6dfe` | sha256 del archivo | ídem |
 | adaptador **v1** (producción) | `8ce3cc2bc9306974` | `huella_archivo` del `.safetensors` | Drive `Amparo/amparo-lora-adapter` |
 | adaptador **v2** | `82089e4a0d9612a7` | ídem | Drive `Amparo/amparo-lora-adapter-v2` |
+| adaptador **v3** (rechazado) | `c2d7bb1dfdd8e598` | ídem | Drive `Amparo/adaptadores/amparo-lora-adapter-v3-20261012-510c605c` |
 | modelo base, revisión | `a09a35458c702b33eeacc393d103063234e8bc28` | commit de HF | Hugging Face |
 
 **Versiones anteriores del dataset**, todas en git:
@@ -457,14 +461,17 @@ contexto no son comparables** (H1).
 - [x] Contextos con el buscador de producción
 - [x] Versiones del stack fijadas (`colab/requirements-m1.txt`)
 
-**Completado — 2 de 6 (35 %)**
+**Completado — 4,5 de 6 (75 %)** · **pero M1 no está cerrado**: el punto que lo
+cierra falló con v3, y un candidato nuevo repite los dos puntos de candidato.
 
 - [x] Dataset con el atajo corregido
 - [x] v1 entrenado y en Drive (referencia de producción)
-- [ ] Línea base válida: v1 reevaluado con el prompt correcto **y adjudicado**
-- [ ] Candidato entrenado
-- [ ] Candidato evaluado: sus 35 B2 adjudicadas y los 4 escenarios
-- [ ] Criterios de aceptación cumplidos (sección 7.1.1)
+- [x] Línea base válida: v1 reevaluado (control DIAGNÓSTICO) y adjudicado,
+  validado por el abogado (confirmado por Tomás, 2026-10-13)
+- [x] Candidato entrenado: v3, corrida `20261012-510c605c`
+- [~] Candidato evaluado: 4 escenarios y C6 hechos; sus 35 B2 en primera pasada,
+  con la planilla fuera del repo
+- [ ] Criterios de aceptación cumplidos — **v3 no cumple** (D1, D3, D4, D5)
 
 **M1 completado cuando** un candidato cumpla, contra una línea base válida, los
 criterios congelados de `docs/m1_protocolo_aceptacion.md`:
@@ -509,54 +516,61 @@ Los pasos con GPU necesitan la autorización de Tomás. **La fase A está hecha.
   que responde en ninguno de sus 49 casos.
 - [x] **A6. Comiteado y subido.**
 
-**FASE B — Línea base válida (GPU, solo inferencia)** · *completado: línea base*
+**FASE B — Línea base válida (GPU, solo inferencia)** · **HECHA por Martín, 2026-10-12**
 
-- [ ] **B1.** Autorización de Tomás (~40 min de A100)
-- [ ] **B2.** Correr `colab/m1_reevaluacion_v1.ipynb`: primero la celda del plan,
-  después la corrida. ✔ Hay `resumen.json` y el control dice REPRODUCCIÓN (con
-  DIAGNÓSTICO la cifra vale, pero se reporta como diagnóstico).
-- [ ] **B3.** Copiar a `results/m1_reevaluacion_v1_<fecha>/` y comitear.
-- [ ] **B4.** Adjudicar las 35 respuestas B2 nuevas: primera pasada con
-  `tools/adjudicacion_b2.py`, la valida el abogado, pasa el validador.
-- [ ] **B5.** Leer con la tabla de la sección 7.2. Con **≥ 30/35 y 0 críticos**,
-  v1 pasa a la fase D como candidato y la C se salta; si no, fase C.
+- [x] **B1–B3.** `colab/m1_reevaluacion_v1.ipynb` en A100, corrida
+  `20261012-e54205d5`, resultados en `results/m1_reevaluacion_v1_2026-10-12/`.
+  Abstención literal en los 35 B2: **31/35** con el prompt correcto (0/35 sin él).
+  Control **DIAGNÓSTICO: 3 de 10** idénticos. Las 7 distintas empiezan igual y se
+  separan a mitad del texto: deriva numérica del stack, no otro modelo.
+- [x] **B4.** `docs/m1_b2_adjudicacion_v1_reevaluado.csv`. Validación del abogado
+  confirmada por Tomás el 2026-10-13.
+- [x] **B5.** **B2_funcional 14/35 con 9 fallos críticos** (verificado) → fase C.
 
-**FASE C — Candidato (GPU, entrenamiento)** · *completado: candidato entrenado y evaluado*
+**FASE C — Candidato (GPU, entrenamiento)** · **HECHA por Martín, 2026-10-12**
 
-- [ ] **C1.** Autorización de Tomás (~4–5 h de A100)
-- [ ] **C2.** Correr `colab/m1_finetune.ipynb` completo, con `ADAPTADOR` nuevo y
-  `EXIGIR_REVISION = True`. ✔ El preflight da `a13e6d32629eb6a9`, aparece el
-  `corrida_id`, el adaptador se guarda con su huella de pesos, hay enlace de W&B.
-- [ ] **C3.** Copiar a `results/m1_<fecha>/` y comitear.
-- [ ] **C4.** Adjudicar las 35 B2 del candidato.
-- [ ] **C5.** Correr los 4 escenarios con el candidato **y con v1**:
-  `python -m tools.evaluation.escenarios --correr --adaptador <dir> --salida <dir>`.
-  Adjudicar los irrelevantes.
-- [ ] **C6.** Medir la sobreabstención en los 45 gold con recuperación real (S10
-  con el adaptador candidato).
+- [x] **C1–C3.** v3, corrida `20261012-510c605c`, A100, 3 épocas en 49 min.
+  Dataset `a13e6d32629eb6a9`, revisión fijada, versiones fijadas, hiperparámetros
+  de v1, `eval_loss` 1,33 → 1,26 → 1,25. Adaptador `c2d7bb1dfdd8e598`.
+  Resultados en `results/m1_v3_2026-10-12/`.
+- [~] **C4.** Primera pasada de las 35 B2 de v3: 20/35, 6 críticos. **La planilla
+  `docs/m1_b2_adjudicacion_v3.csv` no está en el repo**; aprobada por el abogado
+  según Tomás (2026-10-13).
+- [x] **C5.** Los 4 escenarios con v3 y con v1, misma T4
+  (`results/m1_escenarios_2026-10-12/`). La primera pasada de los 49 irrelevantes
+  tampoco está en el repo.
+- [x] **C6.** Sobreabstención con el RAG real: **v1 10/45, v3 30/45**
+  (`results/m1_gold_c6_2026-10-12/`).
 
-**FASE D — Juicio (CPU)** · *completado: criterios cumplidos*
+**FASE D — Juicio** · **HECHA: v3 no se acepta** (`docs/m1_veredicto_v3.md`)
 
-- [ ] **D1.** `B2_funcional` ≥ 30/35 **y** 0 fallos críticos
-- [ ] **D2.** B1 y B3 no empeoran respecto a v1 reevaluado
-- [ ] **D3.** Sobreabstención en gold ≤ 3/45
-- [ ] **D4.** Rutas incorrectas ≤ 4 (`tools/metricas_rutas.py`)
-- [ ] **D5.** 0 citas no verificables
-- [ ] **D6.** Progreso, **aparte** de la aceptación: IC 95 % de la diferencia
-  pareada contra v1 reevaluado por encima de 0
-- [ ] **D7.** Informe del veredicto, comiteado
+- [ ] **D1.** `B2_funcional` ≥ 30/35 y 0 críticos — v3 20/35 con 6 críticos ✗
+- [ ] **D2.** B1 y B3 no empeoran — en los escenarios **empeora** ✗
+- [ ] **D3.** Sobreabstención ≤ 3/45 — v3 **30/45** ✗ (v1 tampoco: 10/45)
+- [ ] **D4.** Rutas ≤ 4 — v3 8 + 1 por revisar ✗
+- [ ] **D5.** 0 citas no verificables — v3 2/103 ✗
+- [ ] **D6.** Progreso — +17 pts [−3, +37]: no demostrado
+- [x] **D7.** Veredicto comiteado: `docs/m1_veredicto_v3.md`
 
-Si D1–D5 pasan, **M1 completado**. Adoptar el candidato en producción es otra
-decisión de Tomás y obliga a volver a correr M2, S08 y S10. Si algo falla, el
-candidato no se acepta y se analiza antes de otra versión de datos: **hacer los
-pasos no garantiza el 100 %; lo garantiza que el candidato cumpla.**
+**D3 basta por sí solo y no depende de ninguna adjudicación**, así que las
+validaciones pendientes no pueden cambiar el veredicto.
 
-| tras la fase | preparación | completado |
-|---|---|---|
-| A *(hoy)* | 100 % | 35 % |
-| B | 100 % | 50 % |
-| C | 100 % | 85 % |
-| D, si cumple | 100 % | **100 %** |
+#### Siguiente iteración: v4
+
+**M1 no está completado.** El candidato no cumplió, que es lo que el roadmap
+advertía que podía pasar. Lo siguiente, en este orden:
+
+- [~] **Cerrar lo pendiente de v3:** el abogado aprobó las tres planillas y las
+  9 rutas (según Tomás, 2026-10-13); falta que las dos planillas que no están
+  lleguen al repo (Tomás).
+- [ ] **v4 del dataset** con la hipótesis de Martín (sin medir todavía): el
+  dataset subió la señal de abstención de 8,3 % a 17,2 % y los 289 contrastivos
+  enseñan a abstenerse con contextos parecidos a los útiles. Candidatos:
+  menos contrastivos, más B1 que citan, revisar las entidades de los B2.
+- [ ] **Prueba barata antes de la evaluación completa:** entrenar v4 (~50 min
+  de A100) y medir **solo los 4 escenarios** (~10 min), sin adjudicar nada. Si
+  la fila "pareado" no mejora, no se hace la evaluación completa.
+- [ ] Después, de nuevo las fases C y D con el candidato v4.
 
 #### 7.1.3 La prueba de los 4 escenarios
 
@@ -603,11 +617,12 @@ este notebook es solo una corrida.
 - [x] Control de reproducción con regla fijada
 - [x] Instala las versiones fijadas de `colab/requirements-m1.txt`
 
-**Completado — 0 de 3 (0 %)**
+**Completado — 3 de 3 (100 %)**
 
-- [ ] Ejecutada (requiere autorización de GPU)
-- [ ] Las 35 respuestas B2 nuevas adjudicadas
-- [ ] Leída con la tabla del protocolo
+- [x] Ejecutada: corrida `20261012-e54205d5`, control DIAGNÓSTICO (3 de 10)
+- [x] Las 35 respuestas B2 adjudicadas y validadas por el abogado (confirmado por Tomás, 2026-10-13)
+- [x] Leída con la tabla del protocolo: **14/35, entre 2 y 29** → el prompt
+  explicaba una parte del fallo (de 1/35 a 14/35); v3 se justificaba
 
 **Cómo se lee el resultado (fijado antes de correr):**
 
@@ -843,6 +858,10 @@ cambia. **No es evidencia de que el sistema sea seguro ante urgencias.**
 | **H15** | No hay negativos adjudicados con recuperación real: ninguna señal de suficiencia se puede usar como puerta | media | abierto | `tools/prototipo/` |
 | **H16** | Los punteros de los objetivos contrastivos salían también de los B2 de validación: 39 de 289 objetivos de entrenamiento usaban texto que solo existía en validación | media | **corregido** en la fase A: solo punteros de entrenamiento | `tools/dataset_v3.py` |
 | **H17** | Los 35 B2 de validación conservan su contexto histórico, de otras categorías: **no pueden detectar el atajo** (+32 pts de ventaja sobre ellos) | alta | **mitigado**: lo detecta la prueba de los 4 escenarios, que hay que correr con el candidato (C5) | `data/escenarios_m1.jsonl` |
+| **H18** | El repo **público** de Hugging Face servía v3, un candidato rechazado. Ya no era v1 desde el 2026-10-10, cuando lo pisó v2: la celda del notebook publicaba en cada corrida completa | alta | **resuelto**: celda protegida (`PUBLICAR_EN_HF = False`) y `main` restaurado a v1 el 2026-10-13 (commit `52a79fb3ab`, huella `8ce3cc2bc9306974` comprobada desde fuera). v2 y v3 siguen en el historial del repo | `colab/m1_finetune.ipynb`, celda 39 |
+| **H19** | Las planillas de primera pasada de las 35 B2 de v3 y de los 49 irrelevantes **no están en el repo**: D1 de v3, los irrelevantes adjudicados y D6 no se pueden verificar | media | abierto: subirlas (Tomás). El abogado ya las aprobó | `docs/` |
+| **H20** | Control de reproducción de v1 reevaluado: 3 de 10. Las 7 distintas empiezan igual y divergen a mitad del texto: deriva numérica del stack, no otro modelo | baja | explicado: v1 reevaluado no reproduce exactamente la corrida del 9 de octubre, pero se compara con v3 en el mismo stack | `results/m1_reevaluacion_v1_2026-10-12/` |
+| **H21** | La línea base de D3 en el protocolo (1/45) no correspondía a la medición con el RAG real: 8/45 (S10) y 10/45 (v1 hoy). **v1 tampoco cumple D3** | media | corregida la línea base, **sin tocar el umbral** | `docs/m1_protocolo_aceptacion.md` |
 
 ---
 
@@ -858,15 +877,16 @@ DATOS (CPU)                                         -- HECHO, fase A (2026-10-11
  4. [x] H9  stack de M1 fijado
  4b.[x]     prueba de los 4 escenarios implementada y congelada
 
-LINEA BASE (GPU, solo inferencia)
- 5.     reevaluar v1 con el prompt correcto  (colab/m1_reevaluacion_v1.ipynb)
- 6.     adjudicar las 35 respuestas B2 nuevas (abogado)
- 7.     leer el resultado con la tabla de la seccion 7.2
+LINEA BASE (GPU, solo inferencia)                   -- HECHO, Martin (2026-10-12)
+ 5. [x]     v1 reevaluado: B2_funcional 14/35, 9 criticos
+ 6. [x]     adjudicado y validado por el abogado
+ 7. [x]     leido: el prompt explicaba una parte; se justifica un candidato
 
-M1 (GPU, entrenamiento) -- solo si el paso 7 lo justifica
- 8.     entrenar UN candidato
- 9.     evaluarlo, adjudicar sus 35 B2 y correr los 4 escenarios
-10.     juzgarlo contra los criterios congelados
+M1 (GPU, entrenamiento)                             -- HECHO, v3 RECHAZADO
+ 8. [x]     v3 entrenado
+ 9. [~]     evaluado; faltan en el repo dos planillas de adjudicacion
+10. [x]     juzgado: no cumple (docs/m1_veredicto_v3.md)
+10b.[ ]     v4 del dataset, probado primero con los 4 escenarios
 
 M3 (CPU y GPU)
 11. H12 filtro de derogatorias posterior a la recuperacion (sin reconstruir)

@@ -67,9 +67,18 @@ exceder el contexto. Un promedio bueno no compensa un fallo crítico.
 | ~~5b~~ | ~~Reglas de forma en urgencias~~ | `seguridad_urgencias_reglas` | 3/5 detectados | **FUERA DE ALCANCE**; el instrumento se conserva |
 | 6 | **Respuestas B1 correctas** | veredicto contra el `criterio` del caso | **1/45 cumple**, 17 parcial | **no empeorar**: ≥ 1 cumple y ≥ 17 parcial |
 | 7 | **Respuestas B3 parciales** | ídem, modo B3 | — | que las parciales **se limiten**, no se rechacen |
-| 8 | **Sobreabstención** | `es_abstencion_pura` sobre los 45 gold | 1/45 | **≤ 3/45** |
+| 8 | **Sobreabstención** | `es_abstencion_pura` sobre los 45 gold, con el RAG real | ~~1/45~~ **8/45** (S10, 2026-10-09) · **10/45** (v1, 2026-10-12)¹ | **≤ 3/45** |
 | 9 | **Errores de enrutamiento** | `metricas_rutas.rutas_incorrectas` | base 4 → v1 6 → v2 8 | **≤ 4** (el nivel del modelo base) |
 | 10 | **Verificación de citas** | `citas_no_verificables` | 0 citas rechazadas | **== 0**, se mantiene |
+
+¹ **Corrección de la línea base, 2026-10-13. El umbral (≤ 3/45) no cambia.** La
+cifra de 1/45 venía de una medición anterior, con otra definición, y no
+corresponde a esta: `es_abstencion_pura` sobre los 45 gold con el RAG real da
+**8/45** en la corrida de S10 del 2026-10-09 y **10/45** con v1 el 2026-10-12
+(`results/m1_gold_c6_2026-10-12/`; la diferencia entre las dos es la deriva del
+stack, ver la fase B). Lo señaló Martín en su veredicto. Consecuencia que conviene
+tener a la vista: **v1 tampoco cumple D3**. Es un hallazgo sobre el sistema, no
+solo sobre el candidato, y entra en el roadmap de M3.
 
 ### Los cuatro escenarios de contexto
 
