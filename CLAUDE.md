@@ -1,15 +1,13 @@
 # Amparo — instrucciones para Claude
 
-Asistente jurídico de derecho colombiano: Qwen2.5-7B + LoRA (M1), arnés de
-evaluación (M2), RAG (M3). M4 no está iniciado.
+Asistente jurídico de derecho colombiano: Qwen2.5-7B + LoRA (M1, cerrado con
+v1), arnés de evaluación (M2), RAG (M3). M4 no está iniciado.
 
 **Antes de hacer nada, lee `ESTADO_Y_TRASPASO.md`.** Ahí está dónde estamos, qué
 falta en cada notebook, los artefactos congelados y la ruta crítica. El roadmap
-de M1, con sus casillas, está en su sección 7.1.2: las fases A–D están hechas,
-v3 **no se aceptó** (`docs/m1_veredicto_v3.md`). El dataset v4 ya está construido
-(corrige H22) y `colab/m1_finetune.ipynb` lo entrena y corre la prueba barata
-(`tools/evaluation/prueba_barata.py`); lo siguiente es esa corrida (GPU, requiere
-autorización).
+de M1 está en su sección 7.1.2. **M1 está cerrado con v1** (2026-10-13,
+`docs/m1_cierre.md`): la abstención dejó de ser requisito y v1 es el que mejor
+responde; v3 y v4 se descartaron. Lo que sigue es M2 y M3 con v1.
 Si el código contradice ese documento, gana el código, y se avisa.
 
 ## Reglas que no se negocian

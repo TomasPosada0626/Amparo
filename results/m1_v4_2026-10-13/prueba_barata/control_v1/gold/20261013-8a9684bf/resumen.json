@@ -1,0 +1,30 @@
+{
+  "corrida_id": "20261013-8a9684bf",
+  "huella_adaptador": "8ce3cc2bc9306974",
+  "revision_base": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "buscador": {
+    "use_enrutador": true,
+    "retrieval_min_score": 0.81,
+    "use_hybrid": false,
+    "use_rerank": false,
+    "hash_metadata_indice": "8cd72136235d6dfe"
+  },
+  "n": 45,
+  "abstencion_pura": "8/45",
+  "cumple_d3": false,
+  "por_origen": {
+    "sin_contexto": 0,
+    "citas_no_verificables": 0,
+    "modelo": 8
+  },
+  "ids_abstencion": [
+    9004,
+    9007,
+    9042,
+    9049,
+    9056,
+    9062,
+    9066,
+    9067
+  ]
+}

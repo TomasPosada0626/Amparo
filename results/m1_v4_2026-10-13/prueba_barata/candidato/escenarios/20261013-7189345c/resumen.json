@@ -1,0 +1,11 @@
+{
+  "corrida_id": "20261013-7189345c",
+  "huella_adaptador": "101a9c9d945fad68",
+  "huella_escenarios": "d51365fbc779d1ce",
+  "suficiente_cita_el_oraculo": "25/55",
+  "suficiente_se_abstiene": "25/55",
+  "parcial_dice_que_falta": "12/13",
+  "irrelevante_se_abstiene": "40/49",
+  "irrelevante_cita_sin_respaldo": 0,
+  "nota": "B2_funcional del irrelevante exige adjudicacion (tools/adjudicacion_b2.py)."
+}

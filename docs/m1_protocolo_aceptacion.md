@@ -1,5 +1,27 @@
 # M1 — Protocolo de aceptación, congelado antes de entrenar
 
+> ## Decisión de producto, 2026-10-13: la abstención deja de ser requisito
+>
+> **Tomada por Tomás**, después de v3 y v4. Lo que M1 tiene que lograr es que
+> el modelo **responda bien lo que se le pregunta**, y eso se mide aguas abajo:
+> en M2 (juez y métricas) y en el RAGAS de M3. Cuánto se abstiene no es un
+> criterio, ni hacia arriba ni hacia abajo.
+>
+> **Qué implica, escrito para que no se relea distinto después:**
+>
+> - **Salen** de la aceptación los criterios que exigían abstenerse: D1
+>   (`B2_funcional` ≥ 30/35, que premia abstenerse ante un contexto que no
+>   alcanza), D3 (sobreabstención ≤ 3/45) y, en la prueba barata, la fila
+>   "irrelevante: se abstiene". Se siguen midiendo y reportando, sin umbral.
+> - **Se quedan** los que miden responder bien: con el artículo correcto delante,
+>   citarlo (escenario suficiente) y no abstenerse; en el parcial, decir qué
+>   falta; **cero citas no verificables** (D5) y las rutas (D4), que son el
+>   principio de no inventar normas. Responder no autoriza a inventar.
+> - El adaptador que se adopta es el que **mejor responde** con esos criterios,
+>   comparado con v1 en la misma sesión.
+> - Los resultados de v3 y v4 no cambian: se juzgaron con el protocolo vigente
+>   entonces y quedan como están.
+>
 > ## Decisión de producto, 2026-10-10: las urgencias salen del alcance
 >
 > **Tomada por Tomás.** Amparo responde dudas y procedimientos de ley

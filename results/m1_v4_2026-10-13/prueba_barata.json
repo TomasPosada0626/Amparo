@@ -1,0 +1,49 @@
+{
+  "problemas": [],
+  "pasa": false,
+  "filas": [
+    {
+      "fila": "suficiente: se abstiene",
+      "valor": "25/55",
+      "umbral": "<= 6",
+      "v1_ref": 4,
+      "cumple": false
+    },
+    {
+      "fila": "suficiente: cita el articulo que responde",
+      "valor": "25/55",
+      "umbral": ">= 39",
+      "v1_ref": 41,
+      "cumple": false
+    },
+    {
+      "fila": "parcial: dice que falta",
+      "valor": "12/13",
+      "umbral": ">= 11",
+      "v1_ref": 11,
+      "cumple": true
+    },
+    {
+      "fila": "irrelevante: se abstiene",
+      "valor": "40/49",
+      "umbral": ">= 25",
+      "v1_ref": 19,
+      "cumple": true
+    },
+    {
+      "fila": "irrelevante: cita sin respaldo",
+      "valor": 0,
+      "umbral": "<= 0",
+      "v1_ref": 1,
+      "cumple": true
+    },
+    {
+      "fila": "gold con RAG real: abstencion pura",
+      "valor": "30/45",
+      "umbral": "<= 10",
+      "v1_ref": 10,
+      "cumple": false
+    }
+  ],
+  "avisos_control": []
+}

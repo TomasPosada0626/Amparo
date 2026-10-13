@@ -55,7 +55,7 @@ los puntos con el mismo peso, redondeado a 5.
 
 | notebook | preparación | listo para correr | completado |
 |---|---|---|---|
-| `m1_finetune.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `████████░░ 75 %` — v3 rechazado, **M1 no cerrado** |
+| `m1_finetune.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `██████████ 100 %` — **M1 cerrado con v1** (2026-10-13) |
 | `m1_reevaluacion_v1.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `██████████ 100 %` |
 | `m2_evaluacion.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `██████░░░░ 60 %` |
 | `m3_busqueda_v2.ipynb` | `█████████░ 85 %` | `██████████ 100 %` | `█████░░░░░ 50 %` |
@@ -64,7 +64,7 @@ los puntos con el mismo peso, redondeado a 5.
 
 | módulo | preparación | completado |
 |---|---|---|
-| **M1** — fine-tuning | `██████████ 100 %` | `████████░░ 75 %` — el candidato v3 no cumplió; hace falta otro |
+| **M1** — fine-tuning | `██████████ 100 %` | `██████████ 100 %` — **cerrado con v1** (`docs/m1_cierre.md`) |
 | **M2** — evaluación | `██████████ 100 %` | `██████░░░░ 60 %` |
 | **M3** — RAG | `█████████░ 90 %` | `████░░░░░░ 40 %` (S10, el que importa para M4, va en 15 %) |
 | **M4** — entrega final | no iniciado | no iniciado |
@@ -73,23 +73,23 @@ Los de M3 son el promedio de sus tres notebooks.
 
 ### Lo que hay que saber en cinco líneas
 
-1. **El candidato v3 se entrenó, se midió y no se acepta** (2026-10-12/13,
-   `docs/m1_veredicto_v3.md`). Con el RAG real se abstiene en **30 de 45**
-   preguntas que debería responder (máximo aceptable: 3). Aprendió "ante la
-   duda, abstente", no a distinguir un contexto útil. **v1 sigue en producción.**
-2. **La referencia válida es v1 reevaluado con el prompt correcto: B2_funcional
-   14/35, 9 fallos críticos.** Las cifras históricas (0/35, 1/35) no valían: se
-   midieron sin la orden de abstenerse.
+1. **M1 está cerrado con v1** (2026-10-13, `docs/m1_cierre.md`). Por decisión
+   de Tomás la abstención dejó de ser requisito: se exige responder bien, y v1
+   es el que mejor responde (cita el artículo correcto en 41/55 cuando lo tiene;
+   se niega en 10/45 consultas reales, frente a 30/45 de v3 y v4). Ya está en
+   producción y es el `main` de Hugging Face.
+2. **v3 y v4 se entrenaron y se descartaron** (`docs/m1_veredicto_v3.md`,
+   `docs/m1_veredicto_v4.md`): aprendieron a abstenerse de más. De v4 queda el
+   dataset sin el defecto H22 y el notebook con la prueba barata, por si se
+   reentrena.
 3. **El RAG (S10) hoy responde bien 1 de 45 consultas gold.** El cuello de
    botella principal es la **recuperación**, no el modelo: el artículo que
    responde llega al contexto en 20 de 45 casos. Ningún entrenamiento arregla
    eso solo.
 4. **Nada se entrena ni se corre en GPU sin autorización de Tomás.**
-5. **El siguiente paso es correr v4** (requiere autorización de GPU): el
-   dataset v4 ya está construido (`5cec3fdf891260fd`, corrige H22 y H25) y
-   `colab/m1_finetune.ipynb` lo entrena (~50 min de A100) y corre la **prueba
-   barata** (~20 min, v1 como control). Si no la pasa, se detiene solo; si la
-   pasa, sigue con la evaluación completa (sección 7.1.2).
+5. **Lo siguiente es M2 y M3 con v1.** La mejora grande para que el sistema
+   responda bien está en la búsqueda (M3): el artículo correcto llega en 21 de
+   45 consultas.
 
 ---
 
@@ -294,8 +294,9 @@ artifacts/                  indice FAISS y adaptadores (NO en git)
 | índice `rag_index.faiss` | `19657d22583f93d0` | sha256 del archivo | Drive `Amparo/rag/` y `artifacts/` |
 | metadata del índice | `8cd72136235d6dfe` | sha256 del archivo | ídem |
 | adaptador **v1** (producción) | `8ce3cc2bc9306974` | `huella_archivo` del `.safetensors` | Drive `Amparo/amparo-lora-adapter` |
-| adaptador **v2** | `82089e4a0d9612a7` | ídem | Drive `Amparo/amparo-lora-adapter-v2` |
-| adaptador **v3** (rechazado) | `c2d7bb1dfdd8e598` | ídem | Drive `Amparo/adaptadores/amparo-lora-adapter-v3-20261012-510c605c` |
+| adaptador **v2** | `82089e4a0d9612a7` | ídem | ya no en Drive (papelera 2026-10-13); sigue en el historial de Hugging Face |
+| adaptador **v3** (rechazado) | `c2d7bb1dfdd8e598` | ídem | borrado de Drive el 2026-10-13 (papelera); sigue en el historial de Hugging Face |
+| adaptador **v4** (descartado en la prueba barata) | `101a9c9d945fad68` | ídem | borrado de Drive el 2026-10-13 (papelera, 30 días) |
 | modelo base, revisión | `a09a35458c702b33eeacc393d103063234e8bc28` | commit de HF | Hugging Face |
 
 **Versiones anteriores del dataset**, todas en git:
@@ -478,20 +479,22 @@ contexto no son comparables** (H1).
 - [x] Contextos con el buscador de producción
 - [x] Versiones del stack fijadas (`colab/requirements-m1.txt`)
 
-**Completado — 4,5 de 6 (75 %)** · **pero M1 no está cerrado**: el punto que lo
-cierra falló con v3, y un candidato nuevo repite los dos puntos de candidato.
+**Completado — 6 de 6 (100 %)** · **cerrado con v1 el 2026-10-13**
+(`docs/m1_cierre.md`).
 
 - [x] Dataset con el atajo corregido
 - [x] v1 entrenado y en Drive (referencia de producción)
 - [x] Línea base válida: v1 reevaluado (control DIAGNÓSTICO) y adjudicado,
   validado por el abogado (confirmado por Tomás, 2026-10-13)
 - [x] Candidato entrenado: v3, corrida `20261012-510c605c`
-- [~] Candidato evaluado: 4 escenarios y C6 hechos; sus 35 B2 en primera pasada,
-  con la planilla fuera del repo
-- [ ] Criterios de aceptación cumplidos — **v3 no cumple** (D1, D3, D4, D5)
+- [x] Candidatos evaluados: v3 (completo) y v4 (prueba barata), con v1 como control
+- [x] Aceptación: con el protocolo del 2026-10-13 (responder bien, la abstención
+  ya no es requisito) se adopta **v1**, el que mejor responde. Limitaciones
+  escritas: 1 cita no verificable en 103 (interceptada por el verificador en el
+  RAG) y 6 rutas incorrectas
 
-**M1 completado cuando** un candidato cumpla, contra una línea base válida, los
-criterios congelados de `docs/m1_protocolo_aceptacion.md`:
+**Criterios históricos.** Así se juzgaron v3 y v4. Desde el 2026-10-13, D1 y
+D3 salen de la aceptación (decisión de Tomás, cabecera del protocolo):
 
 #### 7.1.1 Criterios congelados (resumen)
 
@@ -597,12 +600,16 @@ advertía que podía pasar. Estado de la iteración:
   verificación registro por registro (ahorra ~90 min), manifiesto, **prueba
   barata dentro** con v1 como control e índice verificado, y se detiene solo si
   no la pasa (`tools/evaluation/prueba_barata.py`).
-- [ ] **Correr v4** (GPU, requiere autorización): ~50 min de entrenamiento y
-  ~20 min de prueba barata en A100.
-- [ ] Si pasa: fases C y D completas (35 B2 para el abogado, rutas, veredicto).
-- [ ] Si no pasa: la hipótesis de Martín (menos contrastivos) como variable
-  del siguiente candidato. **No entró en v4 a propósito**: con dos cambios a la
-  vez, un resultado no se puede atribuir a ninguno.
+- [x] **v4 corrido (2026-10-13, `20261013-5a95ede7`): NO PASA la prueba
+  barata** (`docs/m1_veredicto_v4.md`). Suficiente se abstiene 25/55 (≤ 6), cita
+  25/55 (≥ 39), gold 30/45 (≤ 10). Control v1 válido (8/45). H22 sí quedó
+  corregido: abstenciones con una Superintendencia o Secretaría, de 8/30 a 2/30
+  en gold y de 24/72 a 2/76 en escenarios. La sobreabstención es la de v3 caso
+  por caso (29 de 30 iguales; 13 de 21 con el artículo delante).
+- [—] ~~**v5: una sola variable, el número de contrastivos**~~ **No se hace**: M1 se cerró con v1 (`docs/m1_cierre.md`). Queda como idea si se reentrena: (hipótesis de
+  Martín, que la lectura de v4 apoya). Con 289 contrastivos, el 55 % de los
+  ejemplos con contexto enseña a abstenerse (v1: 35 %). Propuesta: 100,
+  estratificados (43 %). Requiere autorización de GPU (~70 min).
 
 #### 7.1.3 La prueba de los 4 escenarios
 
@@ -928,7 +935,8 @@ M1 (GPU, entrenamiento)                             -- HECHO, v3 RECHAZADO
  9. [~]     evaluado; faltan en el repo dos planillas de adjudicacion
 10. [x]     juzgado: no cumple (docs/m1_veredicto_v3.md)
 10b.[x]     dataset v4 (H22) y notebook listo con la prueba barata dentro
-10c.[ ]     correr v4 (GPU, autorizacion); si pasa la prueba barata, fases C y D
+10c.[x]     v4 corrido: NO PASA la prueba barata (docs/m1_veredicto_v4.md)
+10d.[x]     M1 CERRADO con v1 (docs/m1_cierre.md); v5 no se hace
 
 M3 (CPU y GPU)
 11. [x] H12 filtro de derogatorias: implementado, APAGADO, medido (21/45 igual)
