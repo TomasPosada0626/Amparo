@@ -38,31 +38,67 @@ filtro de derogatorias (21/45 con y sin él; queda implementado y apagado, H12).
 
 ## La decisión, fijada antes de correr
 
-S08 ya compara A, B y C con el enrutador encendido (`SISTEMAS` sobre
-`pipeline.answer_query`), así que la corrida de Colab responde la pregunta sin
-cambiar código. **Se adopta C como configuración de producción si**, en el RAGAS
-de S08 sobre las 45 gold:
+**Se adopta C como configuración de producción si**, en el RAGAS de las 45 gold:
 
 1. la **media de las cuatro métricas** (faithfulness, answer relevancy, context
    precision y context recall) es **mayor que la de A**, y
 2. **ninguna de las cuatro baja más de 0,03** frente a A.
 
-Si no se cumplen las dos, se queda A. La latencia se reporta y no decide: el
-reranker es lento en CPU pero en GPU no pesa.
+Si no se cumplen las dos, o falta algún dato, se queda A. La latencia se reporta
+y no decide. La regla la aplica `tools/evaluation/decision_busqueda.py` dentro
+de S10 (fase 5d), no una lectura a ojo; sus pruebas fijan la tolerancia en 0,03.
+
+**Lo que hay que saber antes**: aplicada a la corrida A/B/C del 2026-10-09, la
+regla habría dejado A, porque C bajaba context recall en 0,04. Aquella corrida
+usaba la regla vieja de abstención (H5) y otro código, así que se vuelve a medir;
+pero que gane A es un resultado posible y válido.
+
+## Cómo se reparte el trabajo entre S08 y S10
+
+- **S08** genera las respuestas de A, B y C (75 consultas cada una) y las guarda
+  en `rag/corridas_abc/`. **No tiene juez.**
+- **S10** genera la corrida de una pasada (configuración de `config.py`, hoy A),
+  calcula su RAGAS y, en la fase 5b, el RAGAS de A, B y C a partir de lo que
+  guardó S08. En la fase 5d **aplica la decisión** y pasa el **juez contra el
+  criterio** de cada caso por el sistema elegido (la cifra de "responde bien",
+  hoy 1/45 gold). En la 5c mide las rutas, también del sistema elegido.
+
+Con una corrida de S08 y una de S10 queda todo: no hace falta repetir S10.
 
 ## Qué correr en Colab, en orden
 
-1. **`colab/m3_s08_rag_avanzado.ipynb`**, completo, en GPU (A100 o L4). Necesita
-   la key de Groq en los secretos de Colab (el juez de RAGAS). Corre A, B y C con
-   v1 sobre las 75 consultas del eval set y calcula RAGAS.
-2. Con el resultado, **yo aplico la decisión** (cambiar o no `USE_HYBRID` y
-   `USE_RERANK` en `tools/rag/config.py`) y la dejo escrita.
-3. **`colab/m3_s10_rag_agentico.ipynb`**, completo, con la configuración que
-   quede. Es la corrida del sistema que se entrega: RAGAS, rutas y la
-   comparación con M2.
+1. **`colab/m3_s08_rag_avanzado.ipynb`, completo, con GPU** (A100 o L4). Unos 30
+   minutos de generación en A100 (7,3 s por consulta en la corrida anterior).
+2. **`colab/m3_s10_rag_agentico.ipynb` hasta la celda que guarda las respuestas
+   (Fase 4), con GPU.** Unos 10 minutos.
+3. **Desconectar la GPU.** Abrir un entorno **sin GPU** (no gasta unidades) y
+   correr de S10: las de instalación, la del índice (Fase 1, sin la del modelo) y
+   de la Fase 5 en adelante. Las respuestas se cargan de Drive. Lo que queda es
+   Groq y e5 en CPU.
+4. Me avisas: leo los resultados de Drive y aplico la decisión en
+   `tools/rag/config.py`.
 
-Las dos verifican el adaptador y el índice por huella antes de medir, e instalan
-las versiones fijadas (`colab/requirements-m3.txt`).
+**Total de GPU: unos 40-50 minutos de A100**, unas 5-6 unidades.
+
+**Lo que necesitan los secretos de Colab:**
+- `GROQ_API_KEY`: obligatorio para la Fase 5 de S10.
+- `WANDB_API_KEY`: **opcional**. Sin él, W&B queda sin conexión; con una key
+  inválida, también (no tumba la celda).
+
+**El cupo de Groq.** RAGAS son unos 110 mil tokens del juez por sistema: una
+pasada, A, B y C. A toma las notas de una pasada sin gastar juez solo en los
+casos en que las dos sesiones generaron exactamente el mismo texto, y entre
+sesiones puede haber deriva numérica. Con el juez de criterio (75 llamadas), en
+torno a 450-560 mil tokens. Si el cupo diario se agota, la celda se detiene
+sola; al volver a correrla otro día, sigue desde el checkpoint sin repetir
+llamadas. Por eso esa parte va en el entorno sin GPU.
+
+## Antes de correr: la prueba de humo
+
+`.venv/Scripts/python.exe -m tools.humo_m3` ejecuta S08 y S10 completos en CPU
+con 5 casos, sustituyendo solo Qwen, el juez de Groq y Drive, y después repite
+S10 en una sesión nueva sin generar. El 2026-10-13 dio "TODO OK" por los dos
+caminos de la decisión (gana A y, con `HUMO_FORZAR_C=1`, gana C).
 
 ## Lo que queda abierto y no bloquea
 

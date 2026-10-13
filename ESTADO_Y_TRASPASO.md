@@ -870,7 +870,8 @@ entrenamiento.
 
 - [x] Corrida completa (2026-10-09)
 - [x] Corrida con el adaptador final: v1 (`results/m3_s10_2026-10-09/`, `hash_adaptador` `8ce3cc2bc9306974`)
-- [ ] Gold que cumplen su criterio (hoy 1/45)
+- [ ] Gold que cumplen su criterio (hoy 1/45). Desde el 2026-10-13 S10 lo mide
+  sola (fase 5d) sobre el sistema que elige la regla de búsqueda
 - [ ] Recuperación: artículo gold en el top-5 (hoy 21/45; 25/45 con C, medido en CPU)
 - [ ] Rutas incorrectas ≤ 4 (v1 tiene 6)
 - [ ] Correcciones de corpus (derogatorias hechas y apagadas; falta el artículo 57)
@@ -955,9 +956,10 @@ M3 (CPU y GPU)
 11. [x] H12 filtro de derogatorias: implementado, APAGADO, medido (21/45 igual)
 12. [ ] H13 enrutamiento; medir por separado (sin diseno de correccion todavia)
 13. [ ] H11 articulo 57 del CST: reconstruir el indice UNA vez, con su linea base
-14. [~]     ranking: medido en CPU, C (enrutador+hybrid+rerank) 25/45 vs 21/45; decide el RAGAS de S08
+14. [~]     ranking: medido en CPU, C (enrutador+hybrid+rerank) 25/45 vs 21/45; decide S10 (fase 5d)
 15. [x] H5, H6  RAGAS con abstencion estricta y revision fijada
-16. [ ]     S08 y luego S10 en Colab (docs/m3_plan_colab_2026-10-13.md); el adaptador final es v1
+16. [ ]     Colab: S08 (GPU), S10 hasta la Fase 4 (GPU), resto de S10 sin GPU
+            (docs/m3_plan_colab_2026-10-13.md). Antes: python -m tools.humo_m3 (CPU)
 
 M2 (GPU + Groq)
 17. [x] H6  revision fijada; adaptador y dataset verificados por huella

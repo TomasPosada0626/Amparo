@@ -83,3 +83,24 @@ def test_comparativa_pone_las_rutas_lado_a_lado():
     tabla = wb.logs[0]["comparativa"]
     assert [fila[0] for fila in tabla.data] == ["una_pasada", "una_pasada_dspy"]
     assert tabla.data[1][5] == 1.0 and tabla.data[1][8] == 9.1
+
+
+class WandbQueRechazaLaKey(FakeWandb):
+    """Como wandb con una WANDB_API_KEY invalida: init online falla."""
+
+    def init(self, **kwargs):
+        if kwargs.get("mode") != "offline":
+            raise RuntimeError("api key invalida")
+        return super().init(**kwargs)
+
+
+def test_una_key_invalida_no_tumba_el_registro(monkeypatch):
+    """S10 llega a W&B despues de RAGAS: una key vencida en los secretos no puede
+    tumbar la celda. Sigue sin conexion y lo dice."""
+    monkeypatch.delenv("WANDB_MODE", raising=False)
+    wb = WandbQueRechazaLaKey()
+    tracking.registrar_ruta(wb, sistema="una_pasada", resumen_ragas={}, escape={}, latencia_s=None,
+                            filas_ragas=[], records=[], config={}, entity="e", project="p")
+    assert wb.runs[0]["mode"] == "offline" and wb.finished == 1
+    import os
+    assert os.environ["WANDB_MODE"] == "offline"

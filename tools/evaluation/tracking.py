@@ -46,6 +46,18 @@ def modo_de_ejecucion(api_key: Optional[str] = None) -> str:
     return "offline"
 
 
+def _iniciar(wb, **kwargs):
+    """wb.init, y si W&B rechaza la conexion (key invalida o vencida, sin red),
+    sigue sin conexion en vez de tumbar la celda: a esa altura RAGAS ya esta en
+    Drive, y perder el registro no justifica perder la sesion. Lo dice en voz alta."""
+    try:
+        return wb.init(**kwargs)
+    except Exception as e:  # noqa: BLE001 -- cualquier fallo de W&B degrada a offline
+        print(f"[tracking] W&B no acepto la conexion ({type(e).__name__}): se registra sin conexion.")
+        os.environ["WANDB_MODE"] = "offline"
+        return wb.init(mode="offline", **kwargs)
+
+
 def _recortar(texto, n: int = MAX_TEXTO_TABLA) -> str:
     texto = "" if texto is None else str(texto)
     return texto if len(texto) <= n else texto[:n] + " [...]"
@@ -72,7 +84,7 @@ def registrar_ruta(
     filas_ragas: filas de ragas_metrics.evaluar_corrida de esta ruta
     records: registros de pipeline.to_eval_record de esta ruta (con la traza)
     """
-    run = wb.init(entity=entity, project=project, name=sistema, group=grupo,
+    run = _iniciar(wb, entity=entity, project=project, name=sistema, group=grupo,
                   job_type="evaluacion-rag", config={**config, "sistema": sistema}, reinit=True)
 
     escalares = {k: v for k, v in (resumen_ragas or {}).items() if isinstance(v, (int, float)) and v is not None}
@@ -119,7 +131,7 @@ def registrar_comparativa(
     grupo: Optional[str] = None,
 ) -> Optional[str]:
     """Una corrida con las rutas lado a lado: la tabla que va al informe."""
-    run = wb.init(entity=entity, project=project, name="comparativa", group=grupo,
+    run = _iniciar(wb, entity=entity, project=project, name="comparativa", group=grupo,
                   job_type="comparativa", config=config, reinit=True)
     cols = ["sistema", "faithfulness", "context_precision", "context_recall", "answer_relevancy",
             "prudencia_en_adversariales", "escape_en_gold", "citas_no_respaldadas_en_gold",

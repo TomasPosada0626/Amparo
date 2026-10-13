@@ -337,9 +337,11 @@ def test_la_revision_es_la_fijada_y_no_la_de_main():
 
 
 @pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
-def test_el_candidato_no_lleva_la_etiqueta_del_rechazado():
+def test_el_candidato_no_lleva_la_etiqueta_de_un_descartado():
+    """v3 y v4 se descartaron: un reentrenamiento no puede guardarse con su nombre."""
     codigo = _codigo_del_notebook()
-    assert "ADAPTADOR = 'v3'" not in codigo and "ADAPTADOR = 'v4'" in codigo
+    assert "ADAPTADOR = 'v3'" not in codigo and "ADAPTADOR = 'v4'" not in codigo
+    assert "ADAPTADOR = 'v5'" in codigo
 
 
 @pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
