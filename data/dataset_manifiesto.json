@@ -1,11 +1,12 @@
 {
-  "version": "v3",
+  "version": "v4",
+  "version_contexto": "v3",
   "derivado_de": {
     "archivo": "data/dataset.jsonl",
     "revision": "9c9f5a9",
     "huella": "614b034fd210f7ae"
   },
-  "commit": "c83f8d5",
+  "commit": "b25eea4",
   "buscador": [
     "e5+faiss+enrutador"
   ],
@@ -14,7 +15,7 @@
     "contexto de los B2 escritos a mano DE ENTRENAMIENTO con REGLA_B2_V3, sin `excluir`: su respuesta correcta ES la frase de escape, el corpus no los responde, y entonces ningun contexto es suficiente y no hay articulo oraculo que retirar",
     "los B2 de VALIDACION no se reconstruyen: conservan el contenido de la base (H3)",
     "todos los contextos con el buscador de produccion, e5 + FAISS + enrutador (H4)",
-    "objetivos de los contrastivos repartidos entre los punteros escritos a mano de su categoria",
+    "objetivos de los contrastivos con punteros que valen para cualquier pregunta (H22); violencia intrafamiliar conserva la Comisaria de Familia y la linea 155",
     "variantes descartadas cuando el contexto traia un articulo contiguo al retirado",
     "variantes de urgencia no generadas: un escape sin encaminar es una abstencion peligrosa"
   ],
@@ -23,7 +24,7 @@
     "73 variantes con un articulo del mismo capitulo que el retirado, no contiguo: riesgo residual documentado",
     "los 35 B2 de validacion tienen 0 fragmentos de su propia categoria (contexto historico): no detectan el atajo. Lo detecta la prueba de los 4 escenarios"
   ],
-  "huella": "795cae01c1c38225",
+  "huella": "73faffe5b03275d5",
   "composicion": {
     "riesgo_suficiencia_indirecta": {
       "AFINIDAD_ALTA_REVISAR": 15,
@@ -42,28 +43,28 @@
       "B1": {
         "ejemplos": 336,
         "pct_ejemplos": 15.0,
-        "pct_masa_tokens": 21.9
+        "pct_masa_tokens": 22.6
       },
       "B2": {
         "ejemplos": 517,
         "pct_ejemplos": 23.0,
-        "pct_masa_tokens": 17.2
+        "pct_masa_tokens": 14.8
       },
       "B3": {
         "ejemplos": 88,
         "pct_ejemplos": 3.9,
-        "pct_masa_tokens": 5.9
+        "pct_masa_tokens": 6.1
       },
       "sin contexto (v1)": {
         "ejemplos": 1305,
         "pct_ejemplos": 58.1,
-        "pct_masa_tokens": 55.0
+        "pct_masa_tokens": 56.6
       }
     },
     "contrastivos": {
       "n": 289,
-      "objetivos_distintos": 213,
-      "objetivo_mas_repetido": 2
+      "objetivos_distintos": 3,
+      "objetivo_mas_repetido": 147
     }
   },
   "control_de_fuga": {

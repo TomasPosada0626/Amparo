@@ -94,6 +94,12 @@ def apply_score_floor(
     return [r for r in results if pasa_el_piso(r, min_score, query)]
 
 
+# Cuantos candidatos de mas se piden con el filtro de derogatorias encendido.
+# En 9058, 4 de los 5 fragmentos del top-5 eran derogatorias: con 10 de margen
+# el top-5 se llena aunque sean todos.
+MARGEN_DEROGATORIAS = 10
+
+
 def retrieve(
     query: str,
     store: VectorStore,
@@ -105,6 +111,7 @@ def retrieve(
     bm25=None,
     use_router: bool | None = None,
     enrutador=None,
+    filtrar_derogatorias: bool | None = None,
     _reranker_scorer=None,
 ) -> list[SearchResult]:
     """Recupera los chunks mas relevantes para la consulta.
@@ -127,6 +134,9 @@ def retrieve(
     use_router / enrutador: prioriza los candidatos de las normas de la
     categoria de la pregunta (tools/rag/enrutador.py). use_router=None toma
     config.USE_ENRUTADOR; enrutador=None usa el entrenado con el dataset de M1.
+
+    filtrar_derogatorias: descarta los fragmentos que son solo una derogatoria
+    (H12). None toma config.FILTRAR_DEROGATORIAS, que esta apagado.
     """
     if use_router is None:
         use_router = config.USE_ENRUTADOR
@@ -148,6 +158,11 @@ def retrieve(
         n_recuperar = top_k
     if permitidas is not None:
         n_recuperar = max(n_recuperar, config.ENRUTADOR_POOL)
+    if filtrar_derogatorias is None:
+        filtrar_derogatorias = config.FILTRAR_DEROGATORIAS
+    if filtrar_derogatorias:
+        # margen para que, quitadas las derogatorias, el top_k siga lleno
+        n_recuperar += MARGEN_DEROGATORIAS
 
     # --- Etapa 1: candidatos (denso, o hybrid denso+BM25) -------------------
     if use_hybrid:
@@ -185,6 +200,10 @@ def retrieve(
     # contra 4.57 y 0 en A. Filtrar primero y recortar despues llena el top_k con
     # los mejores candidatos que SI pasan. En A no cambia nada: la lista viene
     # ordenada por coseno y el piso solo quita la cola.
+    if filtrar_derogatorias:
+        from tools.rag.derogatorias import filtrar
+
+        candidatos = filtrar(candidatos)
     if min_score is not None:
         candidatos = apply_score_floor(candidatos, min_score, query)
     return candidatos[:top_k]

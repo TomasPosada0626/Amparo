@@ -112,22 +112,55 @@ class TestReglaB2:
 
 
 class TestObjetivosDeLosContrastivos:
-    POOL = {"Arriendo": ["Consulta en la Personeria.", "Acude a un consultorio juridico.",
-                         "Pregunta en la inspeccion de policia."]}
+    def test_el_puntero_no_es_de_otra_pregunta(self):
+        """H22: v3 le prestaba a cada variante el puntero escrito para OTRA
+        pregunta de su categoria. A "me cortaron el agua" le tocaba "pide la
+        cancelacion por escrito al operador... queja ante la SIC". El puntero de
+        una variante es generico: vale para cualquier pregunta."""
+        for i in range(4):
+            texto, _ = d3.objetivo("Servicios publicos domiciliarios", i,
+                                   "Me cortaron el agua sin avisarme nada.")
+            assert any(texto.endswith(p) for p in d3.PUNTEROS_GENERICOS)
+            assert "Superintendencia" not in texto
 
-    def test_reparte_en_vez_de_repetir(self):
-        """El defecto que corrige v3: 418 variantes con 11 objetivos distintos y
-        250 identicos. El reparto es round-robin y deterministico."""
-        vistos = [d3.objetivo("Arriendo", i, self.POOL)[0] for i in range(3)]
-        assert len(set(vistos)) == 3
-        assert d3.objetivo("Arriendo", 0, self.POOL) == d3.objetivo("Arriendo", 3, self.POOL)
+    def test_alterna_los_genericos_de_forma_deterministica(self):
+        vistos = [d3.objetivo("Arriendo", i)[0] for i in range(len(d3.PUNTEROS_GENERICOS))]
+        assert len(set(vistos)) == len(d3.PUNTEROS_GENERICOS)
+        assert d3.objetivo("Arriendo", 0) == d3.objetivo("Arriendo", len(d3.PUNTEROS_GENERICOS))
+
+    def test_los_genericos_no_nombran_una_autoridad_que_pueda_ser_la_equivocada(self):
+        from tools.evaluation import entity_metric
+
+        prohibidas = ("Superintendencia", "Supersalud", "Fiscal", "Ministerio",
+                      "Secretar", "Inspecci", "notar")
+        for p in d3.PUNTEROS_GENERICOS:
+            assert not any(x in p for x in prohibidas), p
+            assert not entity_metric.find_fabricated_entities(p), p
+
+    def test_violencia_intrafamiliar_conserva_la_comisaria_y_la_linea(self):
+        texto, _ = d3.objetivo("Violencia intrafamiliar y medidas de proteccion", 0,
+                               "Quiero saber como pedir una medida de proteccion.")
+        assert "Comisaría de Familia" in texto and "155" in texto
+
+    def test_la_categoria_con_puntero_propio_existe_en_el_dataset(self):
+        """Un nombre de categoria mal escrito no falla: cae en el generico."""
+        import json
+
+        from tools.evaluation import config
+
+        categorias = {json.loads(l)["category"]
+                      for l in config.DATASET_PATH.read_text(encoding="utf-8").splitlines() if l.strip()}
+        assert set(d3.PUNTERO_POR_CATEGORIA) <= categorias
 
     def test_el_prefijo_es_la_frase_exacta(self):
         """`es_valvula_de_escape` y el juez buscan esa frase tal cual."""
+        from tools.evaluation.ragas_metrics import es_valvula_de_escape
         from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
 
-        texto, _ = d3.objetivo("Arriendo", 0, self.POOL)
-        assert texto.startswith(RESPUESTA_SIN_CONTEXTO)
+        for cat in ("Arriendo", "Violencia intrafamiliar y medidas de proteccion"):
+            texto, _ = d3.objetivo(cat, 0)
+            assert texto.startswith(RESPUESTA_SIN_CONTEXTO)
+            assert es_valvula_de_escape(texto)
 
     def test_una_urgencia_no_recibe_objetivo_mecanico(self):
         """Caso 6077 del historico: a *"estoy en una situacion de violencia
@@ -135,15 +168,9 @@ class TestObjetivosDeLosContrastivos:
         dano, avisa al arrendador"*. Pasaba el regex de ayuda inmediata y era
         ajeno a la situacion. Ahora no se genera."""
         texto, nota = d3.objetivo(
-            "Arriendo", 0, self.POOL,
+            "Arriendo", 0,
             "Estoy en una situacion de violencia intrafamiliar y necesito salir del contrato")
         assert texto == "" and nota == "URGENCIA_REQUIERE_OBJETIVO_A_MANO"
-
-    def test_una_categoria_sin_punteros_para_en_vez_de_inventar(self):
-        import pytest
-
-        with pytest.raises(SystemExit):
-            d3.objetivo("Categoria que no existe", 0, self.POOL)
 
 
 class TestUrgenciaAmplia:

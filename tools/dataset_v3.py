@@ -32,10 +32,19 @@ puntero salia de un diccionario de 12 categorias con un texto por defecto, y las
 15 categorias que no estaban en el diccionario cayeron todas en la misma frase.
 Un objetivo repetido 250 veces ensena esa cadena, no la conducta.
 
-v3 reparte los **punteros escritos a mano** de los B2 de entrenamiento, que ya
-pasaron las puertas de calidad, entre las variantes de su misma categoria. No se
-redacta derecho nuevo: se reutiliza texto ya revisado, y cada categoria tiene
-entre 8 y 11 punteros propios.
+v3 repartia los punteros escritos a mano de los B2 de entrenamiento entre las
+variantes de su categoria. **Era un defecto (H22, 2026-10-13)**: cada puntero se
+escribio para OTRA pregunta (0 de 289 propios, 113 con una autoridad concreta), y
+a *"me cortaron el agua sin avisarme"* le tocaba *"pide la cancelacion por
+escrito al operador... queja ante la Superintendencia de Industria y Comercio"*.
+6 de los 9 fallos criticos de v1 reevaluado estan en ese puntero.
+
+**v4 usa punteros que valen para cualquier pregunta** (`PUNTEROS_GENERICOS`): un
+consultorio juridico universitario o la Personeria, que orientan en cualquier
+materia. La unica excepcion es violencia intrafamiliar, que conserva el puntero
+de categoria que ya estaba en el repo (`dataset_contrastivo.DONDE_CONSULTAR`):
+la Comisaria de Familia es la via de toda esa categoria, y dejarla sin la linea
+de emergencia seria la abstencion peligrosa que `objetivo` documenta.
 
 **3. Los B2 escritos a mano de ENTRENAMIENTO tambien se recontextualizan** (228
 de los 263; los 35 de validacion no se tocan), y no hace falta
@@ -85,7 +94,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-from collections import Counter, defaultdict
+from collections import Counter
 from pathlib import Path
 
 from tools.evaluation import config as config_eval
@@ -107,7 +116,8 @@ BASE_PATH = "data/dataset.jsonl"
 SALIDA = config_eval.DATASET_PATH
 MANIFIESTO = RAIZ / "data" / "dataset_manifiesto.json"
 
-VERSION = "v3"
+VERSION = "v3"            # version del CONTEXTO: los contextos no cambian en v4
+VERSION_DATASET = "v4"    # H22: punteros genericos en los contrastivos
 
 # Afinidad lexica a partir de la cual un B2 a mano se marca para revision: el
 # contexto trae un articulo de su propia categoria muy parecido a la pregunta,
@@ -141,40 +151,31 @@ def leer(ruta: Path) -> list[dict]:
 # Punteros: de donde sale cada objetivo
 # --------------------------------------------------------------------------
 
-def punteros_por_categoria(registros: list[dict]) -> dict[str, list[str]]:
-    """Los punteros escritos a mano de los B2 de v2, agrupados por categoria.
+# A donde mandar a la persona cuando el contexto no alcanza, en una variante
+# contrastiva. Tiene que valer para CUALQUIER pregunta: la variante no tiene un
+# puntero escrito para ella, y prestarle el de otra pregunta fue el defecto H22.
+# Un consultorio juridico universitario y la Personeria orientan en cualquier
+# materia; ninguno de los dos es una autoridad que pueda ser la equivocada.
+PUNTEROS_GENERICOS = (
+    "Te sugiero consultar un consultorio jurídico universitario.",
+    "Puedes pedir orientación gratuita en un consultorio jurídico universitario o "
+    "en la Personería de tu municipio.",
+)
 
-    Son el texto que sigue a la frase de escape ("Te sugiero consultar..."). Ya
-    pasaron `dataset_v2_quality`: ni rutas incorrectas, ni entidades inventadas,
-    ni promesas. Reutilizarlos es preferible a generar frases nuevas, que serian
-    derecho sin revisar.
-    """
-    from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
-
-    pool: dict[str, set[str]] = defaultdict(set)
-    for r in registros:
-        if r.get("modo") != "B2" or r.get("origen") != "v2":
-            continue
-        # Solo de ENTRENAMIENTO. Tomarlos tambien de validacion convertia el
-        # texto de respuesta de 35 B2 de validacion en objetivos de
-        # entrenamiento: medido, 39 de 289 contrastivos usaban un puntero que
-        # solo existia en validacion. Es el puntero y no la pregunta, pero es
-        # fuga. Con esto cada categoria conserva entre 6 y 10 punteros.
-        if r.get("split") != "train":
-            continue
-        texto = r["messages"][-1]["content"]
-        resto = texto[len(RESPUESTA_SIN_CONTEXTO):].lstrip(". ").strip()
-        if resto:
-            pool[r["category"]].add(resto)
-    return {c: sorted(v) for c, v in pool.items()}
+# Categorias cuya via es la misma para todas sus preguntas, y en las que un
+# puntero generico seria peor. Texto tomado de `dataset_contrastivo.DONDE_CONSULTAR`.
+PUNTERO_POR_CATEGORIA = {
+    "Violencia intrafamiliar y medidas de proteccion":
+        "Acude a la Comisaría de Familia; si hay riesgo inmediato, llama a la Línea 155.",
+}
 
 
-def objetivo(categoria: str, orden: int, pool: dict[str, list[str]],
-             pregunta: str = "") -> tuple[str, str]:
-    """(objetivo, nota): la frase de escape exacta mas un puntero de la categoria.
+def objetivo(categoria: str, orden: int, pregunta: str = "") -> tuple[str, str]:
+    """(objetivo, nota): la frase de escape exacta mas un puntero que vale para
+    ESA pregunta, sea cual sea (H22).
 
-    `orden` es la posicion de la variante dentro de su categoria, asi que el
-    reparto es round-robin y deterministico: misma entrada, mismo dataset.
+    `orden` es la posicion de la variante dentro de su categoria: alterna los
+    punteros genericos de forma deterministica, misma entrada, mismo dataset.
     El prefijo tiene que ser identico al de los B2 a mano --
     `es_valvula_de_escape` y el juez lo buscan tal cual.
 
@@ -216,12 +217,11 @@ def objetivo(categoria: str, orden: int, pool: dict[str, list[str]],
     from tools.evaluation.seguridad_urgencias_reglas import URGENCIA_AMPLIA
     from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
 
-    opciones = pool.get(categoria)
-    if not opciones:
-        raise SystemExit(f"sin punteros para la categoria {categoria!r}")
     if URGENCIA_AMPLIA.search(pregunta or ""):
         return "", "URGENCIA_REQUIERE_OBJETIVO_A_MANO"
-    return f"{RESPUESTA_SIN_CONTEXTO}. {opciones[orden % len(opciones)]}", ""
+    puntero = PUNTERO_POR_CATEGORIA.get(
+        categoria, PUNTEROS_GENERICOS[orden % len(PUNTEROS_GENERICOS)])
+    return f"{RESPUESTA_SIN_CONTEXTO}. {puntero}", ""
 
 
 # --------------------------------------------------------------------------
@@ -243,7 +243,6 @@ def rehacer_contrastivos(registros: list[dict], store=None) -> tuple[list[dict],
 
     c = cargar_corpus()
     buscador = Buscador(c, store)
-    pool = punteros_por_categoria(registros)
     por_id = {r["id"]: r for r in registros}
 
     # El id de cada variante se conserva: una variante nueva del mismo original
@@ -293,7 +292,7 @@ def rehacer_contrastivos(registros: list[dict], store=None) -> tuple[list[dict],
                                 "detalle": grave})
             continue
 
-        e.respuesta, nota = objetivo(e.categoria, orden_cat[e.categoria], pool, e.pregunta)
+        e.respuesta, nota = objetivo(e.categoria, orden_cat[e.categoria], e.pregunta)
         if not e.respuesta:
             descartadas.append({"original": r["id"], "razon": nota,
                                 "categoria": r["category"], "pregunta": r["pregunta"]})
@@ -514,7 +513,8 @@ def manifiesto(registros: list[dict], descartadas: list[dict]) -> dict:
         commit = "desconocido"
     _riesgo = composicion(registros)["riesgo_suficiencia_indirecta"]
     return {
-        "version": VERSION,
+        "version": VERSION_DATASET,
+        "version_contexto": VERSION,
         "derivado_de": {"archivo": BASE_PATH, "revision": BASE_REV,
                         "huella": huella(leer_base())},
         "commit": commit,
@@ -526,7 +526,8 @@ def manifiesto(registros: list[dict], descartadas: list[dict]) -> dict:
             "ningun contexto es suficiente y no hay articulo oraculo que retirar",
             "los B2 de VALIDACION no se reconstruyen: conservan el contenido de la base (H3)",
             "todos los contextos con el buscador de produccion, e5 + FAISS + enrutador (H4)",
-            "objetivos de los contrastivos repartidos entre los punteros escritos a mano de su categoria",
+            "objetivos de los contrastivos con punteros que valen para cualquier pregunta (H22); "
+            "violencia intrafamiliar conserva la Comisaria de Familia y la linea 155",
             "variantes descartadas cuando el contexto traia un articulo contiguo al retirado",
             "variantes de urgencia no generadas: un escape sin encaminar es una abstencion peligrosa",
         ],
@@ -582,7 +583,7 @@ def main(argv=None) -> int:
     registros, descartadas = construir(store)
     m = manifiesto(registros, descartadas)
 
-    print(f"DATASET v3   huella {m['huella']}   derivado de {m['derivado_de']['huella']}")
+    print(f"DATASET {VERSION_DATASET}   huella {m['huella']}   derivado de {m['derivado_de']['huella']}")
     print()
     c = m["composicion"]
     print(f"  total {c['total']}   train {c['train']}   val {c['val']}")

@@ -2,10 +2,12 @@
 
 **Para:** Martín, y el Claude con que trabaje sobre este repositorio.
 **De:** Tomás.
-**Fecha:** 2026-10-10. **Actualizado:** 2026-10-13, con las **fases B, C y D de
-M1 corridas por Martín**: v3 **no se acepta** y v1 sigue en producción
-(`docs/m1_veredicto_v3.md`). **Rama:** `m3.5`.
-**Suite:** ver `pytest -q`; 823 passed, 4 skipped tras las fases B y C.
+**Fecha:** 2026-10-10. **Actualizado:** 2026-10-13. Las **fases B, C y D de
+M1** las corrió Martín: v3 **no se acepta** y v1 sigue en producción
+(`docs/m1_veredicto_v3.md`). Después, en CPU: **dataset v4** (corrige H22),
+**notebook de M1 listo para v4** con la prueba barata dentro, revisión de los
+gold y H5-H9 y H12 corregidos. **Lo siguiente necesita GPU y autorización.**
+**Rama:** `m3.5`. **Suite:** ver `pytest -q`.
 
 ---
 
@@ -55,16 +57,16 @@ los puntos con el mismo peso, redondeado a 5.
 |---|---|---|---|
 | `m1_finetune.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `████████░░ 75 %` — v3 rechazado, **M1 no cerrado** |
 | `m1_reevaluacion_v1.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `██████████ 100 %` |
-| `m2_evaluacion.ipynb` | `██████░░░░ 60 %` | `████░░░░░░ 40 %` | `██████░░░░ 60 %` |
-| `m3_busqueda_v2.ipynb` | `██████░░░░ 55 %` | `█████░░░░░ 50 %` | `█████░░░░░ 50 %` |
-| `m3_s08_rag_avanzado.ipynb` | `███████░░░ 65 %` | `█████░░░░░ 50 %` | `█████░░░░░ 50 %` |
-| `m3_s10_rag_agentico.ipynb` | `██████░░░░ 55 %` | `█████░░░░░ 50 %` | `█░░░░░░░░░ 15 %` |
+| `m2_evaluacion.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `██████░░░░ 60 %` |
+| `m3_busqueda_v2.ipynb` | `█████████░ 85 %` | `██████████ 100 %` | `█████░░░░░ 50 %` |
+| `m3_s08_rag_avanzado.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `█████░░░░░ 50 %` |
+| `m3_s10_rag_agentico.ipynb` | `████████░░ 80 %` | `████████░░ 85 %` | `█░░░░░░░░░ 15 %` |
 
 | módulo | preparación | completado |
 |---|---|---|
 | **M1** — fine-tuning | `██████████ 100 %` | `████████░░ 75 %` — el candidato v3 no cumplió; hace falta otro |
-| **M2** — evaluación | `██████░░░░ 60 %` | `██████░░░░ 60 %` |
-| **M3** — RAG | `██████░░░░ 60 %` | `████░░░░░░ 40 %` (S10, el que importa para M4, va en 15 %) |
+| **M2** — evaluación | `██████████ 100 %` | `██████░░░░ 60 %` |
+| **M3** — RAG | `█████████░ 90 %` | `████░░░░░░ 40 %` (S10, el que importa para M4, va en 15 %) |
 | **M4** — entrega final | no iniciado | no iniciado |
 
 Los de M3 son el promedio de sus tres notebooks.
@@ -83,10 +85,11 @@ Los de M3 son el promedio de sus tres notebooks.
    responde llega al contexto en 20 de 45 casos. Ningún entrenamiento arregla
    eso solo.
 4. **Nada se entrena ni se corre en GPU sin autorización de Tomás.**
-5. El siguiente paso es un **v4 del dataset**, probado barato primero: cambiar
-   el equilibrio, entrenar v4 (~50 min de A100) y medir **solo los 4
-   escenarios** (~10 min) antes de la evaluación completa, que es la cara: 35 B2
-   que adjudicar, C6 y rutas (sección 7.1.2, "siguiente iteración").
+5. **El siguiente paso es correr v4** (requiere autorización de GPU): el
+   dataset v4 ya está construido (`7a8a29a5282a9e35`, corrige H22) y
+   `colab/m1_finetune.ipynb` lo entrena (~50 min de A100) y corre la **prueba
+   barata** (~20 min, v1 como control). Si no la pasa, se detiene solo; si la
+   pasa, sigue con la evaluación completa (sección 7.1.2).
 
 ---
 
@@ -283,8 +286,8 @@ artifacts/                  indice FAISS y adaptadores (NO en git)
 
 | artefacto | huella | algoritmo | dónde vive |
 |---|---|---|---|
-| `data/dataset.jsonl` | `a13e6d32629eb6a9` | `config.huella_dataset` | git |
-| `data/dataset.jsonl` (manifiesto) | `795cae01c1c38225` | `dataset_v3.huella` | git |
+| `data/dataset.jsonl` | `7a8a29a5282a9e35` (v4, 2026-10-13; v3 era `a13e6d32629eb6a9`) | `config.huella_dataset` | git |
+| `data/dataset.jsonl` (manifiesto) | `73faffe5b03275d5` (v4; v3 era `795cae01c1c38225`) | `dataset_v3.huella` | git |
 | `data/escenarios_m1.jsonl` | `d51365fbc779d1ce` | `manifiesto.huella_archivo` | git |
 | `data/eval_set.json` | `a5151999c2095d00` | `manifiesto.huella_archivo` | git |
 | corpus | `1c552822959e2932` | `auditoria_61.huella_corpus_portable` | git |
@@ -400,9 +403,16 @@ reservado: no se entrena con él y hay pruebas de fuga.
 217 filas: qué artículos responden cada caso gold. **92 adjudicadas por el
 abogado** (clase A 27, B′ 62, B nombradas 3), **125 pendientes**. Ninguna de las
 125 corresponde a un artículo que se haya recuperado, así que **no mueven el
-acierto@k**. Faltan 18 marcas (12 de clase B, 6 de C) que solo importan para el
-techo de suficiencia. `tools/registrar_bc_gold.py` las registra y se niega a
-escribir si no cuadran con el dictamen aprobado.
+acierto@k**. Faltan **14 marcas** (8 de clase B, 6 de C) que solo importan para
+el techo de suficiencia; eran 18 por un `doc_id` mal escrito en
+`tools/registrar_bc_gold.py`, corregido el 2026-10-13. `registrar_bc_gold` las
+registra y se niega a escribir si no cuadran con el dictamen aprobado.
+
+**Revisión del 2026-10-13** (`docs/m3_gold_revision_2026-10-13.md`): las 217
+etiquetas existen en el índice, el CSV y el JSON coinciden y la huella de la
+metadata cuadra. Quedan dos decisiones del abogado: la propuesta de las 14
+marcas y **el caso 9033, que no tiene ningún artículo que lo responda** (su
+única etiqueta es `no_responde`), así que el techo de acierto@k es 44/45.
 
 ### 6.4 Adjudicación B2 — `docs/m1_b2_adjudicacion.csv`
 
@@ -558,19 +568,32 @@ validaciones pendientes no pueden cambiar el veredicto.
 #### Siguiente iteración: v4
 
 **M1 no está completado.** El candidato no cumplió, que es lo que el roadmap
-advertía que podía pasar. Lo siguiente, en este orden:
+advertía que podía pasar. Estado de la iteración:
 
 - [~] **Cerrar lo pendiente de v3:** el abogado aprobó las tres planillas y las
   9 rutas (según Tomás, 2026-10-13); falta que las dos planillas que no están
-  lleguen al repo (Tomás).
-- [ ] **v4 del dataset** con la hipótesis de Martín (sin medir todavía): el
-  dataset subió la señal de abstención de 8,3 % a 17,2 % y los 289 contrastivos
-  enseñan a abstenerse con contextos parecidos a los útiles. Candidatos:
-  menos contrastivos, más B1 que citan, revisar las entidades de los B2.
-- [ ] **Prueba barata antes de la evaluación completa:** entrenar v4 (~50 min
-  de A100) y medir **solo los 4 escenarios** (~10 min), sin adjudicar nada. Si
-  la fila "pareado" no mejora, no se hace la evaluación completa.
-- [ ] Después, de nuevo las fases C y D con el candidato v4.
+  lleguen al repo (Tomás). No cambia el veredicto.
+- [x] **Criterios de la prueba barata escritos antes de v4**
+  (`docs/m1_protocolo_aceptacion.md`, 2026-10-13): mejorar irrelevante a ≥ 25/49
+  sin empeorar suficiente (≤ 6/55 se abstiene, ≥ 39/55 cita), parcial (≥ 11/13),
+  citas sin respaldo (0) ni gold con RAG real (≤ 10/45). Comprobado con sus
+  datos: v3 no la habría pasado.
+- [x] **Dataset v4 = v3 + la corrección de H22**, y nada más. Los 289
+  contrastivos llevan un puntero que vale para cualquier pregunta (consultorio
+  jurídico o Personería; violencia intrafamiliar, Comisaría y línea 155). Solo
+  cambian esas 289 respuestas de entrenamiento: ningún contexto, ninguna
+  pregunta, nada de la validación. Huella `7a8a29a5282a9e35`.
+- [x] **El notebook de M1 corre v4 de punta a punta**: revisión del modelo base
+  fijada (antes tomaba la de `main`), etiqueta `v4`, baseline reusado de v3 con
+  verificación registro por registro (ahorra ~90 min), manifiesto, **prueba
+  barata dentro** con v1 como control e índice verificado, y se detiene solo si
+  no la pasa (`tools/evaluation/prueba_barata.py`).
+- [ ] **Correr v4** (GPU, requiere autorización): ~50 min de entrenamiento y
+  ~20 min de prueba barata en A100.
+- [ ] Si pasa: fases C y D completas (35 B2 para el abogado, rutas, veredicto).
+- [ ] Si no pasa: la hipótesis de Martín (menos contrastivos) como variable
+  del siguiente candidato. **No entró en v4 a propósito**: con dos cambios a la
+  vez, un resultado no se puede atribuir a ninguno.
 
 #### 7.1.3 La prueba de los 4 escenarios
 
@@ -658,24 +681,26 @@ globalmente mejor.
 **M2 no tiene el fallo del prompt de M1:** carga solo los registros sin contexto
 (`load_records()` con `origen="v1"`), y para ellos un único prompt es el correcto.
 
-**Preparación — 5 de 8 (60 %)**
+**Preparación — 8 de 8 (100 %)**
 
 - [x] Eval set: 45 gold + 30 adversariales
 - [x] Criterio verificable por caso ("Debe…" / "No debe…")
 - [x] Juez externo con controles de sesgo (otra familia, los dos órdenes)
 - [x] Métricas sin juez y guardia de rutas y entidades
 - [x] Reanudación por días sin GPU
-- [ ] Revisión del modelo base fijada (H6)
-- [ ] Verificación de la huella del dataset y del adaptador evaluados
-- [ ] Identidad de corrida para apuntar al candidato sin mezclar resultados
+- [x] Revisión del modelo base fijada (H6, en el cargador compartido)
+- [x] Verificación de la huella del dataset y del adaptador evaluados, antes de generar
+- [x] Apunta a un candidato sin mezclar: `ADAPTADOR_DIR` + su huella, y el
+  manifiesto firma ese adaptador y la revisión
 
-**Listo para correr — 2 de 5 (40 %)**
+**Listo para correr — 5 de 5 (100 %)**
 
 - [x] Corre contra el repo actual (sus `assert` de 1536 y 231 se cumplen)
 - [x] Juez con reanudación por días y checkpoints por texto
-- [ ] Revisión del modelo base fijada — `generation.load_base_model` no la pasa (H6)
-- [ ] Verifica la huella del dataset y del adaptador que evalúa
-- [ ] Apunta al adaptador candidato — hoy lee v1 de `config.DRIVE_ADAPTER_DIR` (correcto mientras no haya candidato)
+- [x] Revisión del modelo base fijada (H6)
+- [x] Verifica la huella del dataset y del adaptador que evalúa
+- [x] Apunta al adaptador que se declare (`ADAPTADOR_DIR`, por defecto v1); M2
+  no corre hasta que haya un candidato aceptado
 
 **Completado — 3 de 5 (60 %)**
 
@@ -698,22 +723,24 @@ real.
 **Resultados:** el índice vigente (`19657d22583f93d0`, 11 975 fragmentos) y el
 barrido que fijó `RETRIEVAL_MIN_SCORE = 0.81` y `USE_ENRUTADOR = True`.
 
-**Preparación — 4 de 7 (55 %)**
+**Preparación — 6 de 7 (85 %)**
 
 - [x] Corpus en alcance: 36 normas para las 27 categorías
 - [x] Índice reconstruido y verificado
 - [x] Medición de acierto@k contra el gold
 - [x] Barrido del piso y del enrutador
-- [ ] Fase 3 funcional (H7)
-- [ ] Configuración de la sesión coherente con el repo (H7)
-- [ ] Correcciones de corpus preparadas: fuente del artículo 57, derogatorias (H11, H12)
+- [x] Fase 3 **retirada** (H7): sobrescribía `data/dataset.jsonl` con otro
+  constructor; el dataset se construye en local con `tools.dataset_v3 --indice`
+- [x] Configuración de la sesión: la muestra, ya no la pisa (H7)
+- [~] Correcciones de corpus: derogatorias **implementadas y apagadas** (H12);
+  falta el artículo 57 del CST (H11, exige reconstruir el índice)
 
-**Listo para correr — 2 de 4 (50 %)**
+**Listo para correr — 4 de 4 (100 %)**
 
 - [x] Fase 1: reconstruye el índice
 - [x] Fase 2: mide acierto@k contra el gold
-- [ ] Fase 3 llama a `tools.dataset_m1_v2`, **que ya no existe** (H7)
-- [ ] La celda de decisión fija `USE_ENRUTADOR = False` y piso `0.82` en la sesión, al revés que `tools/rag/config.py` (H7)
+- [x] Fase 3 retirada: se detiene sin escribir nada (H7)
+- [x] La celda de decisión muestra la configuración del repo en vez de pisarla (H7)
 
 **Completado — 2 de 4 (50 %)**
 
@@ -732,21 +759,21 @@ el mismo generador. **A** denso puro; **B** denso + BM25 con fusión RRF; **C** 
 **Corrida vigente:** `results/m3_s08_2026-10-09/`, con v1. **Producción quedó en
 denso + enrutador** (`USE_HYBRID = False`, `USE_RERANK = False`).
 
-**Preparación — 4 de 6 (65 %)**
+**Preparación — 6 de 6 (100 %)**
 
 - [x] Hybrid (BM25 + RRF) implementado y probado
 - [x] Reordenamiento con cross-encoder implementado
 - [x] A/B/C sobre un solo camino de código
 - [x] Manifiesto de corrida
-- [ ] Revisión fijada (H6)
-- [ ] Verificación de la huella del índice antes de correr
+- [x] Revisión fijada (H6)
+- [x] Verificación de la huella del índice antes de correr
 
-**Listo para correr — 2 de 4 (50 %)**
+**Listo para correr — 4 de 4 (100 %)**
 
 - [x] Usa los artefactos verificados
 - [x] Las tres configuraciones sobre un solo camino de código
-- [ ] Revisión fijada (H6)
-- [ ] Verifica la huella del índice **antes** de correr (hoy solo la registra después)
+- [x] Revisión fijada (H6)
+- [x] Verifica la huella del índice **antes** de correr
 
 **Completado — 2 de 4 (50 %)**
 
@@ -788,7 +815,7 @@ el top-30 en 37: **el problema es el orden**, no la cobertura. Esa es la palanca
 más grande para que S10 responda bien, y es de recuperación, no de
 entrenamiento.
 
-**Preparación — 6 de 11 (55 %)**
+**Preparación — 9 de 11 (80 %)**
 
 - [x] RAG de una pasada (`answer_query`)
 - [x] Verificación de citas, incluidas las normas citadas que no se recuperaron
@@ -796,19 +823,20 @@ entrenamiento.
 - [x] RAGAS, guardia de rutas y W&B
 - [x] Auditoría de recuperación caso por caso (6.1)
 - [x] Diagnóstico del cuello de botella: el orden de la recuperación
-- [ ] Revisión fijada (H6)
-- [ ] RAGAS con abstención estricta (H5)
-- [ ] Filtro de derogatorias (H12)
+- [x] Revisión fijada (H6)
+- [x] RAGAS con abstención estricta (H5)
+- [x] Filtro de derogatorias (H12): implementado y **apagado**; medido, libera
+  6 puestos del top-5 y el acierto@5 sigue en 21/45
 - [ ] Corrección del enrutamiento (H13)
 - [ ] Mejora del ranking implementada
 
-**Listo para correr — 3 de 6 (50 %)**
+**Listo para correr — 5 de 6 (85 %)**
 
 - [x] Artefactos verificados
 - [x] El prompt del pipeline es el de entrenamiento
 - [x] RAGAS, guardia de rutas y W&B
-- [ ] Revisión fijada (H6)
-- [ ] RAGAS excluye respuestas por la regla de subcadena (H5)
+- [x] Revisión fijada (H6) e índice verificado antes de medir
+- [x] RAGAS excluye solo la abstención pura (H5)
 - [ ] Adaptador final
 
 **Completado — 1 de 7 (15 %)**
@@ -841,18 +869,18 @@ cambia. **No es evidencia de que el sistema sea seguro ante urgencias.**
 
 | # | hallazgo | sev. | estado | dónde |
 |---|---|---|---|---|
-| **H1** | La evaluación de M1 generaba las 334 respuestas con el prompt de `records[0]` (sin contexto): los 35 B2 se evaluaron **sin la orden de abstenerse**. Invalida 0/35, 1/35 y 15/35 | crítica | **corregido** en el notebook; falta reevaluar | `m1_finetune` celda 13 |
+| **H1** | La evaluación de M1 generaba las 334 respuestas con el prompt de `records[0]` (sin contexto): los 35 B2 se evaluaron **sin la orden de abstenerse**. Invalida 0/35, 1/35 y 15/35 | crítica | **resuelto**: v1 reevaluado con el prompt correcto el 2026-10-12 (fase B): 14/35 | `m1_finetune` celda 13 |
 | **H2** | El dev que elige la época compartía el 63 % de sus preguntas con el entrenamiento | alta | **corregido** (`split_dev`) | celda 22 |
 | **H3** | Al construir v3 se reconstruyó también el contexto de **los 35 B2 de validación**. Validación con los mismos ids y otro contenido | alta | **corregido** en la fase A: 0 registros distintos de la base | `tools/dataset_v3.py` |
 | **H4** | Al construir v3 en local, los **263 B2 escritos a mano pasaron de e5 + FAISS a BM25**: todos los B2 con BM25 y todos los B1/B3 con e5, posible atajo por el estilo del contexto | alta | **corregido** en la fase A: todo contexto con e5 + FAISS, y escribir exige `--indice` | `tools/dataset_v3.py` |
-| **H5** | RAGAS de S10 excluyó 27 respuestas por **contener** la frase de escape, no por ser abstención: *faithfulness* sobre 18 de 45 | media | abierto | `ragas_metrics`, S10 |
-| **H6** | `generation.load_base_model` (M2 y M3) no fija la revisión del modelo base | media | abierto | `tools/evaluation/generation.py` |
-| **H7** | `m3_busqueda_v2` llama a un módulo que ya no existe y sobrescribe la config en sesión con valores viejos | media | abierto | `m3_busqueda_v2` celdas 10 y 13 |
-| **H8** | `dataset_contrastivo.py` sigue generando los contrastivos viejos (a un archivo de revisión, no al dataset) | baja | abierto | `tools/dataset_contrastivo.py` |
-| **H9** | El stack se instalaba con `pip install -U`, sin versiones fijadas; las de v1 no se registraron | media | **corregido en M1** (`colab/requirements-m1.txt`); **abierto en M2 y M3**, que siguen con `-U` | celda de instalación |
+| **H5** | RAGAS de S10 excluyó 27 respuestas por **contener** la frase de escape, no por ser abstención: *faithfulness* sobre 18 de 45 | media | **corregido**: faithfulness excluye solo la abstención pura; las filas viejas del checkpoint se rehacen donde la regla cambia | `ragas_metrics`, S10 |
+| **H6** | `generation.load_base_model` (M2 y M3) no fija la revisión del modelo base | media | **corregido**: `config.BASE_MODEL_REVISION` en el cargador compartido, C6 y el notebook de M1 | `tools/evaluation/generation.py` |
+| **H7** | `m3_busqueda_v2` llama a un módulo que ya no existe y sobrescribe la config en sesión con valores viejos | media | **corregido**: fase 3 retirada (escribía `data/dataset.jsonl`) y la celda de config solo muestra | `m3_busqueda_v2` celdas 10 y 13 |
+| **H8** | `dataset_contrastivo.py` sigue generando los contrastivos viejos (a un archivo de revisión, no al dataset) | baja | **corregido**: escribir exige `--legado`; queda como biblioteca | `tools/dataset_contrastivo.py` |
+| **H9** | El stack se instalaba con `pip install -U`, sin versiones fijadas; las de v1 no se registraron | media | **corregido en todos**: `colab/requirements-m{1,2,3}.txt` con las versiones registradas por las corridas | celda de instalación |
 | **H10** | Regresión de rutas incorrectas: base 4 → v1 6 → v2 8. *Ojo: medida sobre los 334, que incluyen los 103 generados con el prompt equivocado* | media | medido, sin corregir | `results/m1_rutas_2026-10-10/` |
 | **H11** | Artículo 57 del CST indexado anterior a la reforma de 2025 (casos 9051, 4630). **Única corrección que exige reconstruir el índice** | media | abierto | corpus |
-| **H12** | 64 fragmentos puramente derogatorios ocupan 6 puestos del top-5 en 3 casos gold. Se arregla con un filtro **posterior** a la recuperación, sin reconstruir | media | abierto | `tools/rag/retrieve.py` |
+| **H12** | 64 fragmentos puramente derogatorios ocupan 6 puestos del top-5 en 3 casos gold. Se arregla con un filtro **posterior** a la recuperación, sin reconstruir | media | **implementado y apagado** (`config.FILTRAR_DEROGATORIAS`): 109 fragmentos; medido, libera 6 puestos y el acierto@5 queda en 21/45 | `tools/rag/retrieve.py` |
 | **H13** | 4 categorías gold no son enrutables y el enrutador entierra 3 casos que el denso solo encontraba | media | medido | `tools/rag/enrutador.py` |
 | **H14** | Desacuerdo entre jueces en M2 (compuesto frente a cara a cara) | media | abierto | `results/m2_2026-10-09/` |
 | **H15** | No hay negativos adjudicados con recuperación real: ninguna señal de suficiencia se puede usar como puerta | media | abierto | `tools/prototipo/` |
@@ -862,6 +890,10 @@ cambia. **No es evidencia de que el sistema sea seguro ante urgencias.**
 | **H19** | Las planillas de primera pasada de las 35 B2 de v3 y de los 49 irrelevantes **no están en el repo**: D1 de v3, los irrelevantes adjudicados y D6 no se pueden verificar | media | abierto: subirlas (Tomás). El abogado ya las aprobó | `docs/` |
 | **H20** | Control de reproducción de v1 reevaluado: 3 de 10. Las 7 distintas empiezan igual y divergen a mitad del texto: deriva numérica del stack, no otro modelo | baja | explicado: v1 reevaluado no reproduce exactamente la corrida del 9 de octubre, pero se compara con v3 en el mismo stack | `results/m1_reevaluacion_v1_2026-10-12/` |
 | **H21** | La línea base de D3 en el protocolo (1/45) no correspondía a la medición con el RAG real: 8/45 (S10) y 10/45 (v1 hoy). **v1 tampoco cumple D3** | media | corregida la línea base, **sin tocar el umbral** | `docs/m1_protocolo_aceptacion.md` |
+| **H22** | **El dataset enseña a encaminar a donde no corresponde.** Los 289 contrastivos llevan un puntero escrito para **otra** pregunta de su categoría (0 de 289 propios; 113 nombran una autoridad concreta): a *"me cortaron el agua sin avisarme"* se le enseña *"pide la cancelación por escrito al operador... queja ante la Superintendencia de Industria y Comercio"*. Y de los 146 B2 escritos a mano que nombran una autoridad concreta, en 138 esa autoridad no está en el contexto. **6 de los 9 fallos críticos de v1 reevaluado están en ese puntero**, no en el contenido jurídico | alta | **corregido en el dataset v4** (contrastivos). Lo de los B2 escritos a mano sigue abierto: H25 | `data/dataset.jsonl`, `tools/dataset_v3.py` (`objetivo`) |
+| **H23** | **D3 mezcla la búsqueda con el modelo.** El artículo gold llega al contexto en 21 de 45 consultas. Con el artículo delante, v1 se abstiene en 4/21 y v3 en 13/21 (v3 sobreabstiene de verdad); sin él, 6/24 y 17/24. Mientras la búsqueda traiga 21/45, ≤ 3/45 exige responder también cuando falta el artículo | media | documentado; **el umbral no se toca**. Leer D3 en dos partes en el próximo veredicto | `docs/m1_protocolo_aceptacion.md`, fila 8 |
+| **H24** | El caso gold 9033 no tiene ningún artículo que lo responda, y su criterio pide la autorización del Ministerio del Trabajo, que en el corpus solo está en el artículo que se marcó `no_responde` (Ley 361 art. 26) | media | abierto: decisión del abogado | `docs/m3_gold_revision_2026-10-13.md` |
+| **H25** | De los 146 B2 escritos a mano que nombran una autoridad concreta, en 138 esa autoridad no está en el contexto: el modelo aprende a decir "no tengo información" y a la vez a nombrar de memoria la autoridad competente. Es la fuente probable de los 3 fallos de autoridad equivocada de v1 | media | abierto: es política de producto (Tomás) y contenido jurídico (abogado); v4 no los toca | `data/dataset.jsonl`, B2 de origen v2 |
 
 ---
 
@@ -886,19 +918,20 @@ M1 (GPU, entrenamiento)                             -- HECHO, v3 RECHAZADO
  8. [x]     v3 entrenado
  9. [~]     evaluado; faltan en el repo dos planillas de adjudicacion
 10. [x]     juzgado: no cumple (docs/m1_veredicto_v3.md)
-10b.[ ]     v4 del dataset, probado primero con los 4 escenarios
+10b.[x]     dataset v4 (H22) y notebook listo con la prueba barata dentro
+10c.[ ]     correr v4 (GPU, autorizacion); si pasa la prueba barata, fases C y D
 
 M3 (CPU y GPU)
-11. H12 filtro de derogatorias posterior a la recuperacion (sin reconstruir)
-12. H13 enrutamiento; medir por separado
-13. H11 articulo 57 del CST: reconstruir el indice UNA vez, con su linea base
-14.     ranking: es la palanca mas grande de S10 (top-5 20/45, top-30 37/45)
-15. H5, H6  RAGAS con abstencion estricta y revision fijada
-16.     S08 y S10 con el adaptador final
+11. [x] H12 filtro de derogatorias: implementado, APAGADO, medido (21/45 igual)
+12. [ ] H13 enrutamiento; medir por separado (sin diseno de correccion todavia)
+13. [ ] H11 articulo 57 del CST: reconstruir el indice UNA vez, con su linea base
+14. [ ]     ranking: es la palanca mas grande de S10 (top-5 21/45, top-30 37/45)
+15. [x] H5, H6  RAGAS con abstencion estricta y revision fijada
+16. [ ]     S08 y S10 con el adaptador final
 
 M2 (GPU + Groq)
-17. H6  revision fijada
-18.     M2 con el adaptador final; resolver H14
+17. [x] H6  revision fijada; adaptador y dataset verificados por huella
+18. [ ]     M2 con el adaptador final; resolver H14
 ```
 
 **Por qué en este orden.** Los pasos 1–4 tocaban el dataset y convenía hacerlos
@@ -955,7 +988,7 @@ pytest -q                                   # 798 passed, 4 skipped
 #   en vez de pasar: mas "skipped", ninguna "failed". Un "failed" si es un aviso.
 
 python -c "from tools.evaluation import config; print(config.verificar_dataset())"
-#   -> a13e6d32629eb6a9
+#   -> 7a8a29a5282a9e35
 
 python -m tools.evaluation.escenarios --verificar
 #   -> OK, huella d51365fbc779d1ce (no necesita faiss)

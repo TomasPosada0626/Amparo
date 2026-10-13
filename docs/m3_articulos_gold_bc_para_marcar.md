@@ -37,10 +37,10 @@ Cupo que tiene que cuadrar al terminar:
 | 9009 | ley_transparencia_acceso_info_ley_1712_2014 | 19 | responde | Le pedi a la alcaldia informacion sobre un contrato publico y me dijer |
 | 9009 | ley_transparencia_acceso_info_ley_1712_2014 | 28 | responde | Le pedi a la alcaldia informacion sobre un contrato publico y me dijer |
 | 9010 | codigo_general_proceso_ley_1564_2012 | 90 | responde_parcial | Quiero demandar a mi ex-socio de negocio por un dinero que me debe, ¿t |
-| 9010 | estatuto_conciliacion_ley_2220_2022 | 67 | responde | Quiero demandar a mi ex-socio de negocio por un dinero que me debe, ¿t |
-| 9010 | estatuto_conciliacion_ley_2220_2022 | 68 | responde | Quiero demandar a mi ex-socio de negocio por un dinero que me debe, ¿t |
-| 9010 | estatuto_conciliacion_ley_2220_2022 | 70 | responde | Quiero demandar a mi ex-socio de negocio por un dinero que me debe, ¿t |
-| 9010 | estatuto_conciliacion_ley_2220_2022 | 71 | responde | Quiero demandar a mi ex-socio de negocio por un dinero que me debe, ¿t |
+| 9010 | estatuto_conciliacion_ley_2220_2022 | 67 | responde_parcial | Quiero demandar a mi ex-socio de negocio por un dinero que me debe, ¿t |
+| 9010 | estatuto_conciliacion_ley_2220_2022 | 68 | responde_parcial | Quiero demandar a mi ex-socio de negocio por un dinero que me debe, ¿t |
+| 9010 | estatuto_conciliacion_ley_2220_2022 | 70 | responde_parcial | Quiero demandar a mi ex-socio de negocio por un dinero que me debe, ¿t |
+| 9010 | estatuto_conciliacion_ley_2220_2022 | 71 | responde_parcial | Quiero demandar a mi ex-socio de negocio por un dinero que me debe, ¿t |
 | 9031 | estatutaria_salud_ley_1751_2015 | 14 | responde | Me pidieron dinero adelantado en urgencias de una clinica para atender |
 | 9032 | constitucion_politica_1991 | 49 | responde | Mi EPS dice que el tratamiento que me ordeno el medico no esta cubiert |
 | 9032 | estatutaria_salud_ley_1751_2015 | 15 | responde | Mi EPS dice que el tratamiento que me ordeno el medico no esta cubiert |
@@ -144,5 +144,5 @@ Cupo que tiene que cuadrar al terminar:
 | 9069 | codigo_general_proceso_ley_1564_2012 | 133 | responde | Me notificaron por un correo electronico que yo nunca autorice para es |
 | 9069 | codigo_general_proceso_ley_1564_2012 | 291 | responde | Me notificaron por un correo electronico que yo nunca autorice para es |
 
-Filas: 125. Ya marcadas como parcial: 5.
-**Faltan 18 por marcar**: 12 de clase B y 6 de clase C.
+Filas: 125. Ya marcadas como parcial: 9.
+**Faltan 14 por marcar**: 8 de clase B y 6 de clase C.

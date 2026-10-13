@@ -462,7 +462,20 @@ def informe(variantes: list[dict], registros: list[dict]) -> None:
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--revisar", action="store_true", help="solo revisar lo ya escrito")
+    p.add_argument("--legado", action="store_true",
+                   help="escribir igual las variantes de este modulo (historicas)")
     args = p.parse_args(argv)
+
+    # H8: este modulo ya no es el que arma los contrastivos del dataset. Los de
+    # data/dataset.jsonl salen de tools/dataset_v3.py (contexto con REGLA_B2_V3 y
+    # punteros que valen para cualquier pregunta, H22). Escribir las de aqui,
+    # con el puntero por categoria y la regla B2 vieja, solo a proposito.
+    if not args.revisar and not args.legado:
+        raise SystemExit(
+            "Los contrastivos del dataset se construyen con "
+            "`python -m tools.dataset_v3 --indice`. Este modulo queda como biblioteca "
+            "(candidatas, _fuentes_como_doc). Para escribir igual sus variantes "
+            "historicas: --legado.")
 
     registros = _leer(DATASET)
     variantes = _leer(SALIDA) if args.revisar else construir(registros)

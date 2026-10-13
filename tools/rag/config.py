@@ -129,6 +129,13 @@ USE_RERANK = False
 USE_ENRUTADOR = True
 ENRUTADOR_POOL = 300
 
+# Filtro de derogatorias (H12, tools/rag/derogatorias.py): descarta del top-k
+# los fragmentos cuyo unico contenido es "Articulo X. Derogado...". **Apagado**:
+# cambia el contexto que ve el modelo, y mientras se compara un candidato de M1
+# con v1 el buscador tiene que ser el mismo. Se enciende como experimento de M3,
+# con su linea base medida antes, y entonces el dataset se reconstruye con el.
+FILTRAR_DEROGATORIAS = False
+
 # Hybrid search -------------------------------------------------------------
 # Cuantos candidatos pide CADA recuperador (denso y BM25) antes de fusionar. Es
 # mayor que TOP_K a proposito: la fusion RRF necesita ver mas abajo en cada

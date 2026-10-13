@@ -178,6 +178,51 @@ El intervalo lo calcula `estadistica.diferencia_pareada` (bootstrap pareado,
 y no solo la diferencia porque con n=35 un caso es casi 3 puntos: una mejora de
 uno o dos casos no se distingue del ruido.
 
+### La prueba barata de un candidato nuevo (fijada el 2026-10-13, antes de v4)
+
+**Para qué.** La evaluación completa de un candidato cuesta 35 B2 que adjudicar,
+las rutas y el veredicto. Antes de pagarla, el candidato pasa una prueba
+**automática, sin adjudicación**: los 4 escenarios (`tools/evaluation/escenarios.py`,
+huella `d51365fbc779d1ce`) y la sobreabstención en los 45 gold con el RAG real
+(`tools/evaluation/sobreabstencion_gold.py`). Las dos ya existen y ya se
+corrieron con v1 y con v3 el 2026-10-12.
+
+**Por qué estas filas.** v3 mejoró la que se pensaba vigilar (irrelevante: de
+19/49 a 39/49) y se hundió en las otras (suficiente se abstiene: de 4/55 a 22/55;
+gold: de 10/45 a 30/45). Una prueba que mire solo la fila de irrelevantes lo
+habría dejado pasar. Por eso la condición es doble: **mejorar la abstención sin
+empeorar la respuesta**.
+
+| fila | v1 (2026-10-12) | v3 (2026-10-12) | el candidato pasa si |
+|---|---|---|---|
+| suficiente: se abstiene | 4/55 | 22/55 | **≤ 6/55** |
+| suficiente: cita el artículo que responde | 41/55 | 29/55 | **≥ 39/55** |
+| parcial: dice que falta | 11/13 | 13/13 | **≥ 11/13** |
+| irrelevante: se abstiene | 19/49 | 39/49 | **≥ 25/49** |
+| irrelevante: cita sin respaldo | 1 | 0 | **0** |
+| gold con RAG real: abstención pura | 10/45 | 30/45 | **≤ 10/45** |
+
+- **Las dos filas de "suficiente" llevan una holgura de 2 casos** sobre v1. Es
+  deriva numérica, no generosidad: el control de reproducción de la
+  reevaluación dio 3 de 10 idénticas con el mismo adaptador y el mismo stack.
+  **Las otras tres de "no empeorar" no llevan holgura**: parcial (n = 13, dos
+  casos serían 15 puntos), cita sin respaldo (el principio rector) y gold (es la
+  fila que tumbó a v3 y la que juzga D3).
+- **La fila de mejora exige 6 casos más que v1** (de 19 a 25 de 49, unos 12
+  puntos), para que no la cumpla el ruido.
+- **Pasa si cumple las seis.** Si falla una, el candidato se descarta sin
+  evaluación completa y se anota por qué.
+- **Pasar no es aceptar.** Solo autoriza la evaluación completa (fases C y D),
+  con los criterios D1–D7 sin cambios. En particular D3 sigue en **≤ 3/45**;
+  aquí se pide solo no empeorar a v1.
+- Los dos modelos se corren en la misma GPU y con las versiones fijadas
+  (`colab/requirements-m1.txt`), como se corrieron v1 y v3.
+- **Implementación**: `tools/evaluation/prueba_barata.py` aplica esta tabla y
+  se niega a juzgar si la medición no es la del protocolo (otro archivo de
+  escenarios, otra revisión, adaptadores distintos, o un buscador distinto del
+  del control). `tests/evaluation/test_prueba_barata.py` comprueba que sus
+  umbrales sean los de esta tabla. El notebook de M1 la corre en el Paso 2b.
+
 ### La condición que esto exige del conjunto de validación
 
 **Los 35 B2 con que se mide el candidato tienen que ser los mismos que los de la

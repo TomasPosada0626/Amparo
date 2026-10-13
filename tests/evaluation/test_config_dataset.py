@@ -324,3 +324,40 @@ def test_el_notebook_no_publica_en_hugging_face_por_defecto():
     assert "upload_folder(" not in antes and "upload_folder(" in despues
     # y el mensaje ya no es un texto fijo que puede mentir sobre el dataset
     assert "dataset v1+v2" not in celda
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_la_revision_es_la_fijada_y_no_la_de_main():
+    """`model_info(MODEL_ID).sha` es lo que apunte main el dia de la corrida: si
+    Qwen publica otro commit, el candidato se entrena sobre otro modelo base que
+    v1 y la comparacion deja de medir una sola variable."""
+    codigo = _codigo_del_notebook()
+    assert "model_info(MODEL_ID).sha" not in codigo
+    assert "model_info(MODEL_ID, revision=_cfg_rev.BASE_MODEL_REVISION).sha" in codigo
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_el_candidato_no_lleva_la_etiqueta_del_rechazado():
+    codigo = _codigo_del_notebook()
+    assert "ADAPTADOR = 'v3'" not in codigo and "ADAPTADOR = 'v4'" in codigo
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_la_prueba_barata_va_antes_de_la_evaluacion_completa():
+    """Protocolo: si el candidato no pasa la prueba barata no se paga la
+    evaluacion completa. El manifiesto queda escrito antes de que pueda detenerse."""
+    codigo = _codigo_del_notebook()
+    guardar = codigo.index("_corrida.guardar_adaptador(")
+    manifiesto = codigo.index("python -m tools.manifiesto_m1")
+    barata = codigo.index("_pb.informe(")
+    completa = codigo.index("finetuned_results = evaluate(")
+    assert guardar < manifiesto < barata < completa
+    assert "if not PRUEBA_BARATA['pasa'] and not EVALUAR_SIEMPRE:" in codigo
+    assert "EVALUAR_SIEMPRE = False" in codigo
+
+
+@pytest.mark.skipif(not NOTEBOOK.exists(), reason="sin notebook")
+def test_el_baseline_solo_se_reusa_verificado():
+    codigo = _codigo_del_notebook()
+    assert "reusar_base(REUSAR_BASE_DE, val_records, REVISION_BASE, CAMPOS_ESPERADOS)" in codigo
+    assert "if baseline_results is None:" in codigo

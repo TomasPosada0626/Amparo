@@ -251,3 +251,51 @@ def test_distingue_limite_por_minuto_de_cupo_diario():
     assert rm.es_limite_por_minuto(E("Rate limit reached ... tokens per minute (TPM)"))
     assert not rm.es_limite_por_minuto(E("Rate limit reached ... tokens per day (TPD)"))
     assert not rm.es_limite_por_minuto(ValueError("otra cosa"))
+
+
+# --- H5: solo la abstencion pura queda fuera de faithfulness ---------------------
+
+ORIENTA_Y_ACOTA = ("Segun la Ley 820 de 2003, Articulo 20, el reajuste no puede superar el "
+                   "IPC. No tengo informacion verificada sobre tu contrato en particular.")
+
+
+def test_una_respuesta_que_orienta_y_acota_si_se_juzga():
+    """H5: en S10, 27 de 45 contenian la frase y solo 8 se abstenian. Excluirlas
+    por subcadena dejo faithfulness sobre 18 casos."""
+    juez = juez_fijo(veredicto(afirmaciones=(True, False)))
+    fila = rm.evaluar_caso(record(answer=ORIENTA_Y_ACOTA), juez=juez, embed=embed_fake)
+    assert not fila["escape"] and fila["contiene_frase_de_escape"]
+    assert fila["faithfulness"] == 0.5
+    assert fila["answer_relevancy"] is not None and len(juez.llamadas) == 2
+    assert fila["regla_escape"] == rm.REGLA_ESCAPE
+
+
+def test_el_checkpoint_viejo_se_rehace_solo_donde_la_regla_cambia(tmp_path):
+    """Una fila juzgada con la regla vieja se reusa si las dos reglas coinciden,
+    y se vuelve a pagar juez solo si la nueva la clasifica distinto."""
+    ck = tmp_path / "ragas.jsonl"
+    igual = record(id=1, answer="Segun la Ley 820 de 2003, Articulo 20, hasta el IPC.")
+    cambia = record(id=2, answer=ORIENTA_Y_ACOTA)
+    viejas = [
+        {"id": rm.clave_de(igual), "huella": rm.huella_de(igual), "escape": False,
+         "faithfulness": 1.0, "parse_ok": True, "sistema": "una_pasada_dspy"},
+        {"id": rm.clave_de(cambia), "huella": rm.huella_de(cambia), "escape": True,
+         "faithfulness": None, "parse_ok": True, "sistema": "una_pasada_dspy"},
+    ]
+    ck.write_text("".join(json.dumps(f) + "\n" for f in viejas), encoding="utf-8")
+    juez = juez_fijo(veredicto(afirmaciones=(True,)))
+    filas = rm.evaluar_corrida([igual, cambia], juez=juez, embed=embed_fake, checkpoint_path=ck)
+    por_clave = {f["id"]: f for f in filas}
+    assert por_clave[rm.clave_de(igual)]["faithfulness"] == 1.0       # reusada, sin juez
+    rehecha = por_clave[rm.clave_de(cambia)]
+    assert rehecha["faithfulness"] == 1.0 and not rehecha["escape"]
+    assert sum("CONTEXTOS RECUPERADOS" in u for u in juez.llamadas) == 1
+
+
+def test_las_tasas_separan_la_frase_de_la_abstencion():
+    from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
+
+    recs = [record(id=1, answer=ORIENTA_Y_ACOTA), record(id=2, answer=RESPUESTA_SIN_CONTEXTO + ".")]
+    t = rm.tasas_de_escape(recs)["una_pasada_dspy"]
+    assert t["escape_en_gold"] == 1.0
+    assert t["abstencion_pura_en_gold"] == 0.5

@@ -51,6 +51,8 @@ class RunManifest:
     hash_adaptador: Optional[str] = None
     hash_dataset: Optional[str] = None
     hash_eval_set: Optional[str] = None
+    # La revision del modelo base con que se genero (H6): el cargador la fija.
+    revision_base: Optional[str] = None
 
 
 def _git_commit() -> str:
@@ -105,6 +107,7 @@ def build_manifest(
         library_versions=_library_versions(),
         hardware=hardware,
         timestamp=datetime.now(timezone.utc).isoformat(),
+        revision_base=config.BASE_MODEL_REVISION,
         **_huellas(adapter_dir),
     )
 

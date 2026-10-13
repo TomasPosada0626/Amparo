@@ -6,8 +6,10 @@ evaluación (M2), RAG (M3). M4 no está iniciado.
 **Antes de hacer nada, lee `ESTADO_Y_TRASPASO.md`.** Ahí está dónde estamos, qué
 falta en cada notebook, los artefactos congelados y la ruta crítica. El roadmap
 de M1, con sus casillas, está en su sección 7.1.2: las fases A–D están hechas,
-v3 **no se aceptó** (`docs/m1_veredicto_v3.md`) y lo siguiente es un v4 del
-dataset, probado primero solo con los 4 escenarios (GPU, requiere autorización).
+v3 **no se aceptó** (`docs/m1_veredicto_v3.md`). El dataset v4 ya está construido
+(corrige H22) y `colab/m1_finetune.ipynb` lo entrena y corre la prueba barata
+(`tools/evaluation/prueba_barata.py`); lo siguiente es esa corrida (GPU, requiere
+autorización).
 Si el código contradice ese documento, gana el código, y se avisa.
 
 ## Reglas que no se negocian
@@ -69,6 +71,6 @@ Si el código contradice ese documento, gana el código, y se avisa.
 
 ```bash
 pytest -q
-python -c "from tools.evaluation import config; print(config.verificar_dataset())"   # a13e6d32629eb6a9
+python -c "from tools.evaluation import config; print(config.verificar_dataset())"   # 7a8a29a5282a9e35
 python -m tools.evaluation.escenarios --verificar                                     # OK, d51365fbc779d1ce
 ```

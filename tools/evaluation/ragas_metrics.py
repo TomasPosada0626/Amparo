@@ -115,6 +115,23 @@ def es_abstencion_pura(respuesta: str) -> bool:
     return not articulos_citados(respuesta or "")
 
 
+# Que respuestas quedan fuera de faithfulness (H5). Antes, toda la que CONTENIA
+# la frase de escape: en S10, 27 de 45, y faithfulness se calculo sobre 18. Una
+# respuesta que orienta con un articulo y acota una duda SI afirma cosas que se
+# pueden verificar contra el contexto. Ahora solo se excluye la abstencion pura.
+# Cada fila guarda la regla con que se juzgo, para no mezclar filas de las dos.
+REGLA_ESCAPE = "abstencion_pura"
+
+
+def _juzgada_con_otra_regla(fila: dict, record: dict) -> bool:
+    """¿Esta fila de checkpoint se juzgo con la regla vieja Y la nueva la
+    clasificaria distinto? Solo esas se vuelven a evaluar: las demas tienen las
+    mismas notas con cualquiera de las dos reglas, y no hace falta pagar juez."""
+    if fila.get("regla_escape") == REGLA_ESCAPE:
+        return False
+    return bool(fila.get("escape")) != es_abstencion_pura(record.get("answer", ""))
+
+
 # --- Prompts del juez --------------------------------------------------------
 
 SYSTEM_JUEZ = (
@@ -260,14 +277,15 @@ def evaluar_caso(record: dict, *, juez: Juez, embed: Embedder) -> dict:
     """Calcula las cuatro metricas de un registro de pipeline.to_eval_record.
 
     Dos llamadas al juez: una con el contexto (tres metricas) y una corta para
-    answer_relevancy. Si la respuesta es la valvula de escape, no hay nada que
+    answer_relevancy. Si la respuesta es una abstencion pura, no hay nada que
     verificar: faithfulness queda None y answer_relevancy vale 0 (no contesto),
     y el contexto se sigue evaluando (el retrieval pudo traer lo necesario y el
-    generador no lo uso)."""
+    generador no lo uso). Una respuesta que orienta y ademas contiene la frase
+    de escape SI se juzga (H5)."""
     t0 = time.perf_counter()
     respuesta = record.get("answer", "")
     contextos = list(record.get("contexts") or [])
-    escape = es_valvula_de_escape(respuesta)
+    escape = es_abstencion_pura(respuesta)
     tokens = 0
 
     texto, usados = juez(
@@ -299,6 +317,8 @@ def evaluar_caso(record: dict, *, juez: Juez, embed: Embedder) -> dict:
         "tipo": record.get("tipo", ""),
         "category": record.get("category", ""),
         "escape": escape,
+        "contiene_frase_de_escape": es_valvula_de_escape(respuesta),
+        "regla_escape": REGLA_ESCAPE,
         "n_contextos": len(contextos),
         "huella": huella_de(record),
         "error_juez": error_juez,
@@ -360,6 +380,13 @@ def evaluar_corrida(
     # varias rutas.
     huellas = {clave_de(r): huella_de(r) for r in pendientes}
     hechos = load_checkpoint(checkpoint_path, huellas, log_prefix="ragas")
+    por_clave = {clave_de(r): r for r in pendientes}
+    viejas = [k for k, f in hechos.items() if _juzgada_con_otra_regla(f, por_clave[k])]
+    for k in viejas:
+        del hechos[k]
+    if viejas:
+        print(f"[ragas] {len(viejas)} filas del checkpoint se juzgaron con la regla de escape "
+              "anterior y la nueva las clasifica distinto: se vuelven a evaluar (H5).")
     previas = {(f.get("registro_id"), f.get("huella")): f for f in reusar
                if f.get("huella") and not f.get("error_juez")}
     filas, tokens, errores_seguidos, reusadas = [], 0, 0, 0
@@ -369,6 +396,8 @@ def evaluar_corrida(
             filas.append(hechos[clave])
             continue
         previa = previas.get((record["id"], huella_de(record)))
+        if previa is not None and _juzgada_con_otra_regla(previa, record):
+            previa = None
         if previa is not None:
             fila = {**previa, "id": clave, "sistema": record.get("sistema", "una_pasada"),
                     "reusada_de": previa.get("id"), "tokens_juez": 0}
@@ -411,7 +440,9 @@ def resumen(filas: Sequence[dict]) -> dict:
     salida = {}
     for sistema, fs in por_sistema.items():
         r = {"casos": len(fs), "fallos_parseo": sum(1 for f in fs if not f.get("parse_ok")),
+             # abstenciones puras desde H5; las filas viejas cuentan como se juzgaron
              "respuestas_escape": sum(1 for f in fs if f.get("escape")),
+             "contienen_frase_de_escape": sum(1 for f in fs if f.get("contiene_frase_de_escape")),
              "tokens_juez": sum(f.get("tokens_juez", 0) for f in fs)}
         for m in METRICAS:
             valores = [f[m] for f in fs if f.get(m) is not None]
@@ -436,7 +467,9 @@ def tasas_de_escape(records: Sequence[dict]) -> dict:
       Es la medida principal en adversariales: no todos esperan la frase de
       escape (una amenaza espera que se priorice la seguridad, p. ej.).
     - escape_en_adversariales: cuantos usaron literalmente la frase de escape.
-    - escape_en_gold: deberia responder. Alta = el sistema se niega de mas.
+    - escape_en_gold: CONTIENE la frase (subcadena; se conserva por comparabilidad).
+    - abstencion_pura_en_gold: deberia responder. Alta = el sistema se niega de
+      mas. Es la que se lee como sobreabstencion (H5).
     - citas_no_respaldadas_en_gold: respuestas gold que citan un articulo que el
       sistema no recupero. Deberia ser 0: es el principio de Amparo."""
     from tools.rag.verificacion import citas_no_respaldadas, es_prudente
@@ -444,12 +477,13 @@ def tasas_de_escape(records: Sequence[dict]) -> dict:
     salida: dict[str, dict] = {}
     for r in records:
         s = salida.setdefault(r.get("sistema", "una_pasada"),
-                              {"adversarial": [0, 0, 0], "gold": [0, 0, 0]})
+                              {"adversarial": [0, 0, 0, 0], "gold": [0, 0, 0, 0]})
         tipo = r.get("tipo") if r.get("tipo") in ("adversarial", "gold") else None
         if not tipo:
             continue
         respuesta, vistos = r.get("answer", ""), articulos_de_record(r)
         s[tipo][0] += int(es_valvula_de_escape(respuesta))
+        s[tipo][3] += int(es_abstencion_pura(respuesta))
         s[tipo][1] += 1
         if tipo == "adversarial":
             s[tipo][2] += int(es_prudente(respuesta, vistos, r.get("question", "")))
@@ -464,6 +498,9 @@ def tasas_de_escape(records: Sequence[dict]) -> dict:
             "prudencia_en_adversariales": tasa(v["adversarial"][2], v["adversarial"][1]),
             "escape_en_adversariales": tasa(v["adversarial"][0], v["adversarial"][1]),
             "escape_en_gold": tasa(v["gold"][0], v["gold"][1]),
+            # la que cuenta como sobreabstencion (D3): sin fondo, solo la frase
+            "abstencion_pura_en_gold": tasa(v["gold"][3], v["gold"][1]),
+            "abstencion_pura_en_adversariales": tasa(v["adversarial"][3], v["adversarial"][1]),
             "citas_no_respaldadas_en_gold": tasa(v["gold"][2], v["gold"][1]),
             "n_adversariales": v["adversarial"][1],
             "n_gold": v["gold"][1],

@@ -133,10 +133,9 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--adaptador", required=True, help="carpeta del adaptador LoRA")
     p.add_argument("--dataset", default=None,
-                   help="dataset de entrenamiento (por defecto el de v1: "
-                        "data/dataset_m1_v2.jsonl). v2 entrena con "
-                        "data/dataset_m1_v3.jsonl y tiene que firmar ESE, o el "
-                        "manifiesto diria que entreno con otro archivo.")
+                   help="dataset de entrenamiento (por defecto data/dataset.jsonl, "
+                        "el unico). Se pasa explicito desde el notebook para "
+                        "que el manifiesto firme el archivo que se uso de verdad.")
     p.add_argument("--hiperparametros", default=None,
                    help="JSON con la configuracion de la corrida (LoRA, epocas, "
                         "lr, batch, max_seq_length). Sin esto el manifiesto no "

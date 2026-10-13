@@ -25,7 +25,7 @@ DATASET_PATH = PROJECT_ROOT / "data" / "dataset.jsonl"
 # mano.
 #
 # **Es un sha1 de 16 caracteres y NO es la huella del manifiesto.**
-# `data/dataset_manifiesto.json` trae `91a871d60eca2097`, que es un sha256 sobre
+# `data/dataset_manifiesto.json` trae `73faffe5b03275d5`, que es un sha256 sobre
 # los registros canonicos (json ordenado, uno por linea). Son dos algoritmos
 # sobre dos cosas distintas y copiarse uno en el otro hace fallar la corrida
 # antes de empezar. Lo comprueba `tests/evaluation/test_config_dataset.py`.
@@ -34,8 +34,11 @@ DATASET_PATH = PROJECT_ROOT / "data" / "dataset.jsonl"
 #   db0b6e65126cab25  hasta 9c9f5a9  dataset de 2709 (contrastivos con la regla B2 vieja)
 #   37e579ad0bfac6bd  33cc019        dataset de 2626 (REGLA_B2_V3, construido con BM25)
 #   a13e6d32629eb6a9  fase A         dataset de 2580: contextos con e5 + FAISS (H4),
-#                                    validacion congelada (H3), punteros solo de train
-DATASET_SHA1 = "a13e6d32629eb6a9"
+#                                    validacion congelada (H3), punteros solo de train.
+#                                    Con el que se entreno v3 (rechazado)
+#   7a8a29a5282a9e35  2026-10-13     v4: los 289 contrastivos con punteros genericos
+#                                    (H22); solo cambia su respuesta, nada mas
+DATASET_SHA1 = "7a8a29a5282a9e35"
 
 # Nombre anterior, cuando apuntaba a data/dataset_legal.jsonl. Se conserva para
 # no romper lo que lo importa, pero lo que antes era un archivo de 1536 ahora es
@@ -71,6 +74,11 @@ RANDOM_SEED = 42
 VAL_FRACTION = 0.15
 
 BASE_MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"
+# Revision inmutable del modelo base (H6). Es la de v1, recuperada de la cache
+# de la corrida del 2026-10-09 y verificada en Hugging Face. Sin ella,
+# from_pretrained baja lo que apunte `main`, que cambia si Qwen publica otro
+# commit, y dos corridas "iguales" dejan de comparar el mismo modelo.
+BASE_MODEL_REVISION = "a09a35458c702b33eeacc393d103063234e8bc28"
 
 # Respuestas del asistente. Era 300: el baseline escribe ~180 palabras con
 # listas y 159 de sus 213 respuestas quedaban cortadas a mitad de frase

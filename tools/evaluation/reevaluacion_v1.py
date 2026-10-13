@@ -77,7 +77,7 @@ from pathlib import Path
 from tools.evaluation import config
 
 MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"
-REVISION_V1 = "a09a35458c702b33eeacc393d103063234e8bc28"
+REVISION_V1 = config.BASE_MODEL_REVISION   # a09a35458c702b33eeacc393d103063234e8bc28
 HUELLA_ADAPTADOR_V1 = "8ce3cc2bc9306974"
 MAX_NEW_TOKENS = 900            # MAX_NEW_TOKENS_EVAL del notebook historico
 N_CONTROL = 10

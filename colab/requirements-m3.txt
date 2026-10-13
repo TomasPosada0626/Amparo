@@ -1,0 +1,21 @@
+# Stack de M3 (busqueda_v2, S08 y S10), con versiones fijadas (H9).
+#
+# Antes se instalaba con `pip install -U`: cada corrida bajaba lo ultimo y dos
+# corridas del mismo notebook podian diferir solo por eso.
+#
+# De donde salen, y no de una eleccion: registradas por S08 y S10 del 2026-10-09
+# (results/m3_s08_2026-10-09/run_manifest.json, results/m3_s10_2026-10-09/) y
+# por busqueda_v2 (results/busqueda_v2/run_manifest.json), que coinciden.
+#   wandb                   la de M1 (colab/requirements-m1.txt): S10 no la
+#                           registraba.
+#
+# torch NO se fija: Colab trae su build compilado para CUDA y reemplazarlo rompe
+# la GPU.
+transformers==5.19.0
+peft==0.21.2
+accelerate==1.15.0
+bitsandbytes==0.50.2
+sentence-transformers==6.1.0
+faiss-cpu==1.15.1
+rank_bm25==0.2.2
+wandb==0.30.0

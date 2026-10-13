@@ -76,6 +76,22 @@ def _leer(ruta: Path) -> list[dict]:
 
 # --- Lo que corre en Colab -----------------------------------------------------
 
+def buscador() -> dict:
+    """Con que buscador se midio. C6 depende de el tanto como del adaptador: si
+    cambia el piso, el enrutador o el indice, cambia la cifra sin que cambie el
+    modelo. Dos corridas solo se comparan si esto coincide (prueba_barata)."""
+    from tools.rag import config as rag_config
+    from tools.rag.manifiesto import huella_archivo
+
+    return {
+        "use_enrutador": rag_config.USE_ENRUTADOR,
+        "retrieval_min_score": rag_config.RETRIEVAL_MIN_SCORE,
+        "use_hybrid": rag_config.USE_HYBRID,
+        "use_rerank": rag_config.USE_RERANK,
+        "hash_metadata_indice": huella_archivo(rag_config.FAISS_METADATA_PATH),
+    }
+
+
 def correr(adaptador, salida) -> dict:
     from tools.evaluation import corrida, eval_set
     from tools.evaluation.ragas_metrics import es_abstencion_pura
@@ -83,12 +99,9 @@ def correr(adaptador, salida) -> dict:
     from tools.rag.manifiesto import huella_archivo
 
     huella_adaptador = huella_archivo(Path(adaptador) / "adapter_model.safetensors")
-    try:  # informativo: el pipeline no fija la revision (H6), se anota cual habia
-        from huggingface_hub import model_info
-
-        revision = model_info(rag_config.BASE_MODEL_ID).sha
-    except Exception:
-        revision = None
+    # El pipeline carga con la revision fijada (H6), asi que es la que se anota.
+    # Antes se anotaba lo que apuntara `main`, que no era necesariamente lo cargado.
+    revision = corrida.exigir_revision(config.BASE_MODEL_REVISION)
     firma = corrida.firma(huella_dataset=huella_archivo(eval_set.EVAL_SET_PATH),
                           model_id=rag_config.BASE_MODEL_ID,
                           adaptador=f"gold-{huella_adaptador}", revision_base=revision,
@@ -119,7 +132,7 @@ def correr(adaptador, salida) -> dict:
             f.write(json.dumps(fila, ensure_ascii=False) + "\n")
 
     res = {"corrida_id": firma["corrida_id"], "huella_adaptador": huella_adaptador,
-           **resumir(_leer(ruta))}
+           "revision_base": revision, "buscador": buscador(), **resumir(_leer(ruta))}
     (d / "resumen.json").write_text(json.dumps(res, ensure_ascii=False, indent=2) + "\n",
                                     encoding="utf-8", newline="\n")
     return res

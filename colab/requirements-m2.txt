@@ -1,0 +1,23 @@
+# Stack de M2 (colab/m2_evaluacion.ipynb), con versiones fijadas (H9).
+#
+# Antes se instalaba con `pip install -U`: cada corrida bajaba lo ultimo y dos
+# corridas del mismo notebook podian diferir solo por eso.
+#
+# De donde salen, y no de una eleccion:
+#   transformers, peft, sacrebleu, rouge-score, bert-score
+#                           registradas por la corrida de M2 del 2026-10-09
+#                           (results/m2_2026-10-09/run_manifest.json)
+#   accelerate, bitsandbytes registradas por S08 el mismo dia
+#                           (results/m3_s08_2026-10-09/run_manifest.json); M2 no
+#                           las registraba. bitsandbytes cumple el >=0.46.1 que
+#                           pedia el notebook.
+#
+# torch NO se fija: Colab trae su build compilado para CUDA y reemplazarlo rompe
+# la GPU.
+transformers==5.19.0
+peft==0.21.2
+accelerate==1.15.0
+bitsandbytes==0.50.2
+sacrebleu==2.6.0
+rouge-score==0.1.2
+bert-score==0.3.13

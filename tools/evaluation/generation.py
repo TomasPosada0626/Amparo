@@ -19,9 +19,17 @@ from typing import Callable, Optional
 from tools.evaluation import config
 
 
-def load_base_model(model_id: str = config.BASE_MODEL_ID):
+def load_base_model(model_id: str = config.BASE_MODEL_ID,
+                    revision: str | None = config.BASE_MODEL_REVISION):
     """Carga el modelo base en 4-bit (QLoRA), igual que la celda 9 de
-    m1_finetune.ipynb / la de "Modo rapido"."""
+    m1_finetune.ipynb / la de "Modo rapido".
+
+    `revision` fija el commit del modelo base (H6): por defecto el de v1. Solo
+    se aplica a `config.BASE_MODEL_ID`; otro modelo exige pasar la suya."""
+    if model_id != config.BASE_MODEL_ID and revision == config.BASE_MODEL_REVISION:
+        raise ValueError(
+            f"la revision por defecto es la de {config.BASE_MODEL_ID}; para "
+            f"{model_id} pasa la suya o revision=None a proposito")
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
@@ -31,12 +39,12 @@ def load_base_model(model_id: str = config.BASE_MODEL_ID):
         bnb_4bit_compute_dtype=torch.bfloat16,
         bnb_4bit_use_double_quant=True,
     )
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    tokenizer = AutoTokenizer.from_pretrained(model_id, revision=revision)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
     model = AutoModelForCausalLM.from_pretrained(
-        model_id, quantization_config=bnb_config, device_map="auto"
+        model_id, revision=revision, quantization_config=bnb_config, device_map="auto"
     )
     model.eval()
     return model, tokenizer
