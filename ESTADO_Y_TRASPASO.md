@@ -57,7 +57,7 @@ los puntos con el mismo peso, redondeado a 5.
 |---|---|---|---|
 | `m1_finetune.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `██████████ 100 %` — **M1 cerrado con v1** (2026-10-13) |
 | `m1_reevaluacion_v1.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `██████████ 100 %` |
-| `m2_evaluacion.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `██████░░░░ 60 %` |
+| `m2_evaluacion.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `██████████ 100 %` |
 | `m3_busqueda_v2.ipynb` | `█████████░ 85 %` | `██████████ 100 %` | `█████░░░░░ 50 %` |
 | `m3_s08_rag_avanzado.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `█████░░░░░ 50 %` |
 | `m3_s10_rag_agentico.ipynb` | `████████░░ 80 %` | `████████░░ 85 %` | `█░░░░░░░░░ 15 %` |
@@ -65,7 +65,7 @@ los puntos con el mismo peso, redondeado a 5.
 | módulo | preparación | completado |
 |---|---|---|
 | **M1** — fine-tuning | `██████████ 100 %` | `██████████ 100 %` — **cerrado con v1** (`docs/m1_cierre.md`) |
-| **M2** — evaluación | `██████████ 100 %` | `██████░░░░ 60 %` |
+| **M2** — evaluación | `██████████ 100 %` | `██████████ 100 %` — cerrado con v1 (`docs/m2_desacuerdo_jueces.md`) |
 | **M3** — RAG | `█████████░ 90 %` | `████░░░░░░ 40 %` (S10, el que importa para M4, va en 15 %) |
 | **M4** — entrega final | no iniciado | no iniciado |
 
@@ -690,9 +690,14 @@ cara a cara en los dos órdenes. (4b) El juez sobre los ejemplos con contexto.
 | eval set adversarial: cumple / parcial / no cumple | 10 / 6 / 14 | 9 / 15 / 6 |
 | **cara a cara** (231 pares) | **106** | 73 (10 empates, 42 inconsistentes, 19 % de cambio según el orden) |
 
-**El desacuerdo está sin resolver:** el compuesto favorece al afinado y el cara a
-cara al baseline. Hasta resolverlo **no se puede afirmar** que el afinado sea
-globalmente mejor.
+**El desacuerdo está explicado** (`docs/m2_desacuerdo_jueces.md`, 2026-10-13):
+no se contradicen, pesan cosas distintas. El compuesto incluye la concisión, que
+separa a los dos (2,81 frente a 4,45; en 94 de los 106 pares que gana el
+baseline, la rúbrica le da al afinado mejor concisión), y el cara a cara no la
+mira. En corrección jurídica coinciden en 109 de 130 pares. El cara a cara premia
+la completitud del baseline, no su largo (su tasa de victoria no sube con la
+razón de longitudes). Con la definición del producto ("responde de forma breve"),
+el afinado es mejor; en completitud de la orientación, no.
 
 **M2 no tiene el fallo del prompt de M1:** carga solo los registros sin contexto
 (`load_records()` con `origen="v1"`), y para ellos un único prompt es el correcto.
@@ -718,16 +723,18 @@ globalmente mejor.
 - [x] Apunta al adaptador que se declare (`ADAPTADOR_DIR`, por defecto v1); M2
   no corre hasta que haya un candidato aceptado
 
-**Completado — 3 de 5 (60 %)**
+**Completado — 5 de 5 (100 %)** · cerrado el 2026-10-13
 
 - [x] Eval set: 45 gold + 30 adversariales con criterio verificable
 - [x] Corrida con v1: baseline sin cortar, juez contra criterio, cara a cara
 - [x] Resultados en `results/m2_2026-10-09/`
-- [ ] Desacuerdo entre jueces explicado
-- [ ] Corrida con el adaptador candidato
+- [x] Desacuerdo entre jueces explicado y medido (`docs/m2_desacuerdo_jueces.md`)
+- [x] Corrida con el adaptador que M1 aceptó: es v1, y `results/m2_2026-10-09/`
+  se hizo con v1 (`hash_adaptador` `8ce3cc2bc9306974`). Limitación: anterior a
+  H6, no registró la revisión del modelo base
 
-**M2 completado cuando** se corra con el adaptador que M1 acepte, con la
-revisión fijada, y el desacuerdo entre jueces tenga una explicación medida.
+**M2 cerrado** con el adaptador que M1 aceptó (v1) y el desacuerdo entre jueces
+explicado. Volver a correrlo solo hace falta si se adopta otro adaptador.
 
 ### 7.4 M3 — `colab/m3_busqueda_v2.ipynb`
 
@@ -898,7 +905,7 @@ cambia. **No es evidencia de que el sistema sea seguro ante urgencias.**
 | **H11** | Artículo 57 del CST indexado anterior a la reforma de 2025 (casos 9051, 4630). **Única corrección que exige reconstruir el índice** | media | abierto | corpus |
 | **H12** | 64 fragmentos puramente derogatorios ocupan 6 puestos del top-5 en 3 casos gold. Se arregla con un filtro **posterior** a la recuperación, sin reconstruir | media | **implementado y apagado** (`config.FILTRAR_DEROGATORIAS`): 109 fragmentos; medido, libera 6 puestos y el acierto@5 queda en 21/45 | `tools/rag/retrieve.py` |
 | **H13** | 4 categorías gold no son enrutables y el enrutador entierra 3 casos que el denso solo encontraba | media | medido | `tools/rag/enrutador.py` |
-| **H14** | Desacuerdo entre jueces en M2 (compuesto frente a cara a cara) | media | abierto | `results/m2_2026-10-09/` |
+| **H14** | Desacuerdo entre jueces en M2 (compuesto frente a cara a cara) | media | **resuelto** (`docs/m2_desacuerdo_jueces.md`): la concisión pesa en el compuesto y no en el cara a cara; en corrección jurídica coinciden en 109 de 130 pares | `results/m2_2026-10-09/` |
 | **H15** | No hay negativos adjudicados con recuperación real: ninguna señal de suficiencia se puede usar como puerta | media | abierto | `tools/prototipo/` |
 | **H16** | Los punteros de los objetivos contrastivos salían también de los B2 de validación: 39 de 289 objetivos de entrenamiento usaban texto que solo existía en validación | media | **corregido** en la fase A: solo punteros de entrenamiento | `tools/dataset_v3.py` |
 | **H17** | Los 35 B2 de validación conservan su contexto histórico, de otras categorías: **no pueden detectar el atajo** (+32 pts de ventaja sobre ellos) | alta | **mitigado**: lo detecta la prueba de los 4 escenarios, que hay que correr con el candidato (C5) | `data/escenarios_m1.jsonl` |
@@ -948,7 +955,7 @@ M3 (CPU y GPU)
 
 M2 (GPU + Groq)
 17. [x] H6  revision fijada; adaptador y dataset verificados por huella
-18. [ ]     M2 con el adaptador final; resolver H14
+18. [x]     M2 cerrado con v1; H14 explicado (docs/m2_desacuerdo_jueces.md)
 ```
 
 **Por qué en este orden.** Los pasos 1–4 tocaban el dataset y convenía hacerlos
