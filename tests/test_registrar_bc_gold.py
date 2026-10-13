@@ -22,13 +22,27 @@ def test_las_parciales_nombradas_existen_en_el_gold():
     assert not faltan, f"parciales nombradas que no estan en el gold: {faltan}"
 
 
-def test_las_parciales_nombradas_son_de_las_clases_b_y_c_pendientes():
+def test_las_parciales_nombradas_quedaron_registradas_como_parciales():
     clase = {(f["case_id"], f["doc_id"], f["articulo"]): (f["clase_impacto"], f["veredicto"])
              for f in _filas()}
     for k in R.PARCIALES_NOMBRADAS:
         c, v = clase[k]
         assert c in R.TOTALES, (k, c)
-        assert v == "pendiente", (k, v)
+        assert v == "responde_parcial", (k, v)
+
+
+def test_el_gold_no_tiene_filas_sin_veredicto():
+    """Registrado el 2026-10-13. Una fila pendiente vuelve a dejar casos sin
+    articulo que los responda o con el techo de suficiencia mal contado."""
+    assert not [f for f in _filas() if f["veredicto"] == "pendiente"]
+
+
+def test_todos_los_casos_gold_tienen_un_articulo_que_los_responde():
+    """9033 no tenia ninguno (H24) y no podia acertar nunca."""
+    from tools.auditoria_61 import gold_aprobado
+
+    etiquetas, _ = gold_aprobado()
+    assert len(etiquetas) == 45 and all(etiquetas.values())
 
 
 def test_el_cupo_que_falta_marcar_es_14():

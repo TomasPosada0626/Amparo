@@ -1,8 +1,12 @@
 # Revisión del gold de artículos — 2026-10-13
 
-**Para Leonardo Galeano.** Primera pasada de Claude, a pedido de Tomás. Nada de
-esto está registrado en `docs/m3_articulos_gold_validacion.csv`: el CSV solo
-cambia con tu veredicto. Son dos decisiones, y las dos son tuyas.
+**Para Leonardo Galeano.** Primera pasada de Claude, a pedido de Tomás.
+
+> **Resuelto el 2026-10-13.** Leonardo aprobó la propuesta de las 14 marcas
+> (decisión 2) y delegó en Claude la decisión 1, por ser un proyecto de curso.
+> Las 14 quedaron registradas con `registrar_bc_gold` y el art. 26 de la Ley 361
+> pasó a `responde_parcial` para 9033 (justificación en el CSV). El gold no tiene
+> filas pendientes. Lo de abajo es la propuesta tal como se presentó.
 
 ## Lo que se comprobó y está bien
 

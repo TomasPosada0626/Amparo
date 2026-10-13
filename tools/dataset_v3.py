@@ -117,7 +117,7 @@ SALIDA = config_eval.DATASET_PATH
 MANIFIESTO = RAIZ / "data" / "dataset_manifiesto.json"
 
 VERSION = "v3"            # version del CONTEXTO: los contextos no cambian en v4
-VERSION_DATASET = "v4"    # H22: punteros genericos en los contrastivos
+VERSION_DATASET = "v4"    # H22 (punteros de los contrastivos) y H25 (4 B2 a mano)
 
 # Afinidad lexica a partir de la cual un B2 a mano se marca para revision: el
 # contexto trae un articulo de su propia categoria muy parecido a la pregunta,
@@ -318,6 +318,48 @@ def rehacer_contrastivos(registros: list[dict], store=None) -> tuple[list[dict],
     return salida, descartadas
 
 
+# Punteros de B2 escritos a mano que mandaban a una autoridad fuera de su
+# competencia (H25, 2026-10-13). De los 36 que nombran una Superintendencia o una
+# Secretaria, 32 son correctos para su pregunta y se conservan: orientar con
+# conocimiento general es parte del diseno de B2. Estos cuatro reproducen el
+# patron de los fallos criticos de v1 reevaluado:
+#   4718, 4719  internet: la SIC es correcta, pero en la categoria "servicios
+#               publicos" ensenaban "servicios publicos -> SIC", y v1 mando un
+#               corte de energia a la SIC (caso 4724). Se dice el alcance.
+#   3319        exclusividad entre empresas: el incumplimiento no se reclama ante
+#               la SIC (es el patron del caso 3328, regimen de consumo en B2B).
+#   2725        la Superintendencia Financiera vigila a la aseguradora, no a la
+#               empresa de alquiler.
+# Solo cambia el puntero; el prefijo es la frase de escape exacta.
+CORRECCIONES_B2 = {
+    4718: "Presenta un reclamo escrito al operador y, si no responde, acude a la "
+          "Superintendencia de Industria y Comercio, que atiende las quejas de internet "
+          "y telefonia; las de agua, luz y gas van a la Superintendencia de Servicios "
+          "Publicos Domiciliarios.",
+    4719: "Pide la cancelacion por escrito al operador, guarda el numero de radicado y, "
+          "si insisten en las trabas, queja ante la Superintendencia de Industria y "
+          "Comercio, que atiende internet y telefonia (no agua, luz ni gas).",
+    3319: "Guarda el contrato y las pruebas de las ventas en tu zona, requiere por "
+          "escrito y, si sigue, acude a un centro de conciliacion; si no hay acuerdo, el "
+          "incumplimiento se reclama ante el juez civil o el arbitraje que haya pactado "
+          "el contrato.",
+    2725: "Revisa el contrato de alquiler y la poliza. Si la aseguradora te niega el "
+          "pago o te cobra algo indebido, puedes quejarte ante la Superintendencia "
+          "Financiera, que la vigila; por lo que te cobre la empresa de alquiler, un "
+          "consultorio juridico universitario puede orientarte.",
+}
+
+
+def respuesta_b2(registro: dict) -> str:
+    """El objetivo de un B2 escrito a mano, con la correccion de H25 si la tiene."""
+    from tools.rag.prompt_template import RESPUESTA_SIN_CONTEXTO
+
+    puntero = CORRECCIONES_B2.get(registro["id"])
+    if puntero is None:
+        return registro["messages"][-1]["content"]
+    return f"{RESPUESTA_SIN_CONTEXTO}. {puntero}"
+
+
 def rehacer_b2_a_mano(registros: list[dict], store=None) -> tuple[list[dict], list[dict]]:
     """Los B2 escritos a mano de ENTRENAMIENTO, con contexto de su propia categoria.
 
@@ -377,7 +419,7 @@ def rehacer_b2_a_mano(registros: list[dict], store=None) -> tuple[list[dict], li
                                     "categoria": r["category"], "pregunta": r["pregunta"]})
                 continue
         e = Especificacion(id=r["id"], categoria=r["category"], modo="B2",
-                           respuesta=r["messages"][-1]["content"],
+                           respuesta=respuesta_b2(r),
                            base=r.get("base_id"), pregunta=r["pregunta"],
                            fuentes=[], excluir=[])
         fragmentos, origen = fragmentos_para(e, e.pregunta, c, buscador, regla_b2=REGLA_B2_V3)
@@ -528,6 +570,7 @@ def manifiesto(registros: list[dict], descartadas: list[dict]) -> dict:
             "todos los contextos con el buscador de produccion, e5 + FAISS + enrutador (H4)",
             "objetivos de los contrastivos con punteros que valen para cualquier pregunta (H22); "
             "violencia intrafamiliar conserva la Comisaria de Familia y la linea 155",
+            "4 punteros de B2 escritos a mano corregidos: autoridad fuera de su competencia (H25)",
             "variantes descartadas cuando el contexto traia un articulo contiguo al retirado",
             "variantes de urgencia no generadas: un escape sin encaminar es una abstencion peligrosa",
         ],

@@ -86,7 +86,7 @@ Los de M3 son el promedio de sus tres notebooks.
    eso solo.
 4. **Nada se entrena ni se corre en GPU sin autorización de Tomás.**
 5. **El siguiente paso es correr v4** (requiere autorización de GPU): el
-   dataset v4 ya está construido (`7a8a29a5282a9e35`, corrige H22) y
+   dataset v4 ya está construido (`5cec3fdf891260fd`, corrige H22 y H25) y
    `colab/m1_finetune.ipynb` lo entrena (~50 min de A100) y corre la **prueba
    barata** (~20 min, v1 como control). Si no la pasa, se detiene solo; si la
    pasa, sigue con la evaluación completa (sección 7.1.2).
@@ -286,8 +286,8 @@ artifacts/                  indice FAISS y adaptadores (NO en git)
 
 | artefacto | huella | algoritmo | dónde vive |
 |---|---|---|---|
-| `data/dataset.jsonl` | `7a8a29a5282a9e35` (v4, 2026-10-13; v3 era `a13e6d32629eb6a9`) | `config.huella_dataset` | git |
-| `data/dataset.jsonl` (manifiesto) | `73faffe5b03275d5` (v4; v3 era `795cae01c1c38225`) | `dataset_v3.huella` | git |
+| `data/dataset.jsonl` | `5cec3fdf891260fd` (v4, 2026-10-13; v3 era `a13e6d32629eb6a9`) | `config.huella_dataset` | git |
+| `data/dataset.jsonl` (manifiesto) | `76c631a205050326` (v4; v3 era `795cae01c1c38225`) | `dataset_v3.huella` | git |
 | `data/escenarios_m1.jsonl` | `d51365fbc779d1ce` | `manifiesto.huella_archivo` | git |
 | `data/eval_set.json` | `a5151999c2095d00` | `manifiesto.huella_archivo` | git |
 | corpus | `1c552822959e2932` | `auditoria_61.huella_corpus_portable` | git |
@@ -400,19 +400,26 @@ reservado: no se entrena con él y hay pruebas de fuga.
 
 ### 6.3 Gold de artículos — `docs/m3_articulos_gold_validacion.csv`
 
-217 filas: qué artículos responden cada caso gold. **92 adjudicadas por el
-abogado** (clase A 27, B′ 62, B nombradas 3), **125 pendientes**. Ninguna de las
-125 corresponde a un artículo que se haya recuperado, así que **no mueven el
-acierto@k**. Faltan **14 marcas** (8 de clase B, 6 de C) que solo importan para
-el techo de suficiencia; eran 18 por un `doc_id` mal escrito en
-`tools/registrar_bc_gold.py`, corregido el 2026-10-13. `registrar_bc_gold` las
-registra y se niega a escribir si no cuadran con el dictamen aprobado.
+217 filas: qué artículos responden cada caso gold. **Completo desde el
+2026-10-13: ninguna fila sin veredicto.** Clase A 27, B′ 62 y las 3 `no_responde`
+de B, adjudicadas por el abogado el 2026-10-10; las otras 125 de B y C,
+registradas con `tools/registrar_bc_gold.py` según el dictamen aprobado y las 14
+parciales que propuso Claude y aprobó el abogado (según Tomás). Totales: B 64/15/3
+y C 38/8/0, los del dictamen. Había un `doc_id` mal escrito en el registrador
+que pedía 18 marcas en vez de 14; corregido.
 
-**Revisión del 2026-10-13** (`docs/m3_gold_revision_2026-10-13.md`): las 217
+**El caso 9033** (despido estando incapacitado) no tenía ningún artículo que lo
+respondiera: su única etiqueta, Ley 361 art. 26, estaba en `no_responde`. Por
+delegación del abogado, decidido con criterio de Claude: pasa a
+`responde_parcial`. Es el único artículo del corpus con la autorización del
+Ministerio del Trabajo que exige el criterio del caso, y la Corte Constitucional
+extendió esa protección a la debilidad manifiesta por salud. El techo de
+acierto@k vuelve a 45/45; el acierto@5 medido sigue en **21/45**, porque el
+buscador no trae ese artículo ni en el top-30.
+
+Comprobaciones mecánicas (`docs/m3_gold_revision_2026-10-13.md`): las 217
 etiquetas existen en el índice, el CSV y el JSON coinciden y la huella de la
-metadata cuadra. Quedan dos decisiones del abogado: la propuesta de las 14
-marcas y **el caso 9033, que no tiene ningún artículo que lo responda** (su
-única etiqueta es `no_responde`), así que el techo de acierto@k es 44/45.
+metadata cuadra.
 
 ### 6.4 Adjudicación B2 — `docs/m1_b2_adjudicacion.csv`
 
@@ -578,11 +585,13 @@ advertía que podía pasar. Estado de la iteración:
   sin empeorar suficiente (≤ 6/55 se abstiene, ≥ 39/55 cita), parcial (≥ 11/13),
   citas sin respaldo (0) ni gold con RAG real (≤ 10/45). Comprobado con sus
   datos: v3 no la habría pasado.
-- [x] **Dataset v4 = v3 + la corrección de H22**, y nada más. Los 289
-  contrastivos llevan un puntero que vale para cualquier pregunta (consultorio
-  jurídico o Personería; violencia intrafamiliar, Comisaría y línea 155). Solo
-  cambian esas 289 respuestas de entrenamiento: ningún contexto, ninguna
-  pregunta, nada de la validación. Huella `7a8a29a5282a9e35`.
+- [x] **Dataset v4 = v3 + la corrección de los punteros de abstención**, y
+  nada más. Los 289 contrastivos llevan un puntero que vale para cualquier
+  pregunta (consultorio jurídico o Personería; violencia intrafamiliar,
+  Comisaría y línea 155) (H22), y 4 B2 escritos a mano que mandaban a una
+  autoridad fuera de su competencia quedan corregidos (H25). Solo cambian esas
+  293 respuestas de entrenamiento: ningún contexto, ninguna pregunta, nada de la
+  validación. Huella `5cec3fdf891260fd`.
 - [x] **El notebook de M1 corre v4 de punta a punta**: revisión del modelo base
   fijada (antes tomaba la de `main`), etiqueta `v4`, baseline reusado de v3 con
   verificación registro por registro (ahorra ~90 min), manifiesto, **prueba
@@ -887,13 +896,13 @@ cambia. **No es evidencia de que el sistema sea seguro ante urgencias.**
 | **H16** | Los punteros de los objetivos contrastivos salían también de los B2 de validación: 39 de 289 objetivos de entrenamiento usaban texto que solo existía en validación | media | **corregido** en la fase A: solo punteros de entrenamiento | `tools/dataset_v3.py` |
 | **H17** | Los 35 B2 de validación conservan su contexto histórico, de otras categorías: **no pueden detectar el atajo** (+32 pts de ventaja sobre ellos) | alta | **mitigado**: lo detecta la prueba de los 4 escenarios, que hay que correr con el candidato (C5) | `data/escenarios_m1.jsonl` |
 | **H18** | El repo **público** de Hugging Face servía v3, un candidato rechazado. Ya no era v1 desde el 2026-10-10, cuando lo pisó v2: la celda del notebook publicaba en cada corrida completa | alta | **resuelto**: celda protegida (`PUBLICAR_EN_HF = False`) y `main` restaurado a v1 el 2026-10-13 (commit `52a79fb3ab`, huella `8ce3cc2bc9306974` comprobada desde fuera). v2 y v3 siguen en el historial del repo | `colab/m1_finetune.ipynb`, celda 39 |
-| **H19** | Las planillas de primera pasada de las 35 B2 de v3 y de los 49 irrelevantes **no están en el repo**: D1 de v3, los irrelevantes adjudicados y D6 no se pueden verificar | media | abierto: subirlas (Tomás). El abogado ya las aprobó | `docs/` |
+| **H19** | Las planillas de primera pasada de las 35 B2 de v3 y de los 49 irrelevantes **no están en el repo**: D1 de v3, los irrelevantes adjudicados y D6 no se pueden verificar | media | abierto, **no bloquea**: v3 se rechaza por D3 y v4 genera sus propias respuestas. No están en el Drive (buscado el 2026-10-13): viven en el repo local de Martín, `docs/m1_b2_adjudicacion_v3.csv` y `docs/m1_escenarios_irrelevante_adjudicacion.csv` | `docs/` |
 | **H20** | Control de reproducción de v1 reevaluado: 3 de 10. Las 7 distintas empiezan igual y divergen a mitad del texto: deriva numérica del stack, no otro modelo | baja | explicado: v1 reevaluado no reproduce exactamente la corrida del 9 de octubre, pero se compara con v3 en el mismo stack | `results/m1_reevaluacion_v1_2026-10-12/` |
 | **H21** | La línea base de D3 en el protocolo (1/45) no correspondía a la medición con el RAG real: 8/45 (S10) y 10/45 (v1 hoy). **v1 tampoco cumple D3** | media | corregida la línea base, **sin tocar el umbral** | `docs/m1_protocolo_aceptacion.md` |
 | **H22** | **El dataset enseña a encaminar a donde no corresponde.** Los 289 contrastivos llevan un puntero escrito para **otra** pregunta de su categoría (0 de 289 propios; 113 nombran una autoridad concreta): a *"me cortaron el agua sin avisarme"* se le enseña *"pide la cancelación por escrito al operador... queja ante la Superintendencia de Industria y Comercio"*. Y de los 146 B2 escritos a mano que nombran una autoridad concreta, en 138 esa autoridad no está en el contexto. **6 de los 9 fallos críticos de v1 reevaluado están en ese puntero**, no en el contenido jurídico | alta | **corregido en el dataset v4** (contrastivos). Lo de los B2 escritos a mano sigue abierto: H25 | `data/dataset.jsonl`, `tools/dataset_v3.py` (`objetivo`) |
 | **H23** | **D3 mezcla la búsqueda con el modelo.** El artículo gold llega al contexto en 21 de 45 consultas. Con el artículo delante, v1 se abstiene en 4/21 y v3 en 13/21 (v3 sobreabstiene de verdad); sin él, 6/24 y 17/24. Mientras la búsqueda traiga 21/45, ≤ 3/45 exige responder también cuando falta el artículo | media | documentado; **el umbral no se toca**. Leer D3 en dos partes en el próximo veredicto | `docs/m1_protocolo_aceptacion.md`, fila 8 |
-| **H24** | El caso gold 9033 no tiene ningún artículo que lo responda, y su criterio pide la autorización del Ministerio del Trabajo, que en el corpus solo está en el artículo que se marcó `no_responde` (Ley 361 art. 26) | media | abierto: decisión del abogado | `docs/m3_gold_revision_2026-10-13.md` |
-| **H25** | De los 146 B2 escritos a mano que nombran una autoridad concreta, en 138 esa autoridad no está en el contexto: el modelo aprende a decir "no tengo información" y a la vez a nombrar de memoria la autoridad competente. Es la fuente probable de los 3 fallos de autoridad equivocada de v1 | media | abierto: es política de producto (Tomás) y contenido jurídico (abogado); v4 no los toca | `data/dataset.jsonl`, B2 de origen v2 |
+| **H24** | El caso gold 9033 no tiene ningún artículo que lo responda, y su criterio pide la autorización del Ministerio del Trabajo, que en el corpus solo está en el artículo que se marcó `no_responde` (Ley 361 art. 26) | media | **resuelto** (criterio de Claude, por delegación del abogado): Ley 361 art. 26 pasa a `responde_parcial`; el caso ya tiene artículo y el techo vuelve a 45/45 | `docs/m3_gold_revision_2026-10-13.md` |
+| **H25** | De los 146 B2 escritos a mano que nombran una autoridad concreta, en 138 esa autoridad no está en el contexto: el modelo aprende a decir "no tengo información" y a la vez a nombrar de memoria la autoridad competente. Es la fuente probable de los 3 fallos de autoridad equivocada de v1 | media | **decidido y corregido** (criterio de Claude, delegado por Tomás): de los 36 que nombran una Superintendencia o Secretaría, 32 son correctos para su pregunta y se conservan; 4 reproducían el patrón de los fallos de v1 y se corrigen en el constructor (`CORRECCIONES_B2`): 4718 y 4719 dicen el alcance de la SIC (internet, no agua, luz ni gas), 3319 deja la SIC fuera de un contrato entre empresas y 2725 separa aseguradora de alquiler | `data/dataset.jsonl`, B2 de origen v2 |
 
 ---
 
@@ -988,7 +997,7 @@ pytest -q                                   # 798 passed, 4 skipped
 #   en vez de pasar: mas "skipped", ninguna "failed". Un "failed" si es un aviso.
 
 python -c "from tools.evaluation import config; print(config.verificar_dataset())"
-#   -> 7a8a29a5282a9e35
+#   -> 5cec3fdf891260fd
 
 python -m tools.evaluation.escenarios --verificar
 #   -> OK, huella d51365fbc779d1ce (no necesita faiss)

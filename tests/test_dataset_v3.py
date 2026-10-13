@@ -197,3 +197,40 @@ class TestUrgenciaAmplia:
                   "Tengo un proceso disciplinario en curso, puedo seguir yendo a clases?",
                   "Tenia un contrato a termino fijo y me lo terminaron antes de que se venciera."):
             assert not URGENCIA_AMPLIA.search(q), q
+
+
+class TestCorreccionesB2:
+    """H25: 4 B2 escritos a mano mandaban a una autoridad fuera de su competencia."""
+
+    def _dataset(self):
+        import json
+
+        from tools.evaluation import config
+        return {r["id"]: r for r in map(json.loads, config.DATASET_PATH.read_text(encoding="utf-8").splitlines())}
+
+    def test_solo_tocan_b2_escritos_a_mano_de_entrenamiento(self):
+        regs = self._dataset()
+        for i in d3.CORRECCIONES_B2:
+            r = regs[i]
+            assert (r["modo"], r["origen"], r["split"]) == ("B2", "v2", "train"), i
+
+    def test_el_dataset_lleva_la_correccion_con_la_frase_exacta(self):
+        from tools.evaluation.ragas_metrics import es_valvula_de_escape
+        from tools.evaluation import entity_metric
+
+        regs = self._dataset()
+        for i, puntero in d3.CORRECCIONES_B2.items():
+            texto = regs[i]["messages"][-1]["content"]
+            assert texto == d3.respuesta_b2(regs[i]) and texto.endswith(puntero)
+            assert es_valvula_de_escape(texto)
+            assert not entity_metric.find_fabricated_entities(texto), i
+
+    def test_internet_dice_el_alcance_de_la_sic(self):
+        """v1 mando un corte de energia a la SIC (caso 4724): la categoria
+        "servicios publicos" le ensenaba SIC sin decir que es solo internet y telefonia."""
+        for i in (4718, 4719):
+            assert "Superintendencia de Industria y Comercio" in d3.CORRECCIONES_B2[i]
+            assert "luz" in d3.CORRECCIONES_B2[i] and "gas" in d3.CORRECCIONES_B2[i]
+
+    def test_el_contrato_entre_empresas_no_va_a_la_sic(self):
+        assert "Superintendencia" not in d3.CORRECCIONES_B2[3319]

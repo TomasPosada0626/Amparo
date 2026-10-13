@@ -83,8 +83,10 @@ JUSTIFICACION = {
 }
 REVISOR = ("dictamen de clases B y C redactado por Claude y aprobado el 2026-10-10 "
            "por Leonardo Galeano (abogado). Veredicto por fila marcado sobre "
-           "docs/m3_articulos_gold_bc_para_marcar.md")
-FECHA = "2026-10-10"
+           "docs/m3_articulos_gold_bc_para_marcar.md: las 9 parciales que nombro el "
+           "dictamen y las 14 que propuso Claude en docs/m3_gold_revision_2026-10-13.md, "
+           "aprobadas por Leonardo Galeano el 2026-10-13 segun Tomas")
+FECHA = "2026-10-13"
 EDITABLES = {"veredicto", "confianza", "justificacion", "revisor", "fecha_revision"}
 
 _LINEA = re.compile(r"^\|\s*(\d+)\s*\|\s*([\w.\-]+)\s*\|\s*([\w\-]+)\s*\|"

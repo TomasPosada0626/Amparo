@@ -25,7 +25,7 @@ DATASET_PATH = PROJECT_ROOT / "data" / "dataset.jsonl"
 # mano.
 #
 # **Es un sha1 de 16 caracteres y NO es la huella del manifiesto.**
-# `data/dataset_manifiesto.json` trae `73faffe5b03275d5`, que es un sha256 sobre
+# `data/dataset_manifiesto.json` trae `76c631a205050326`, que es un sha256 sobre
 # los registros canonicos (json ordenado, uno por linea). Son dos algoritmos
 # sobre dos cosas distintas y copiarse uno en el otro hace fallar la corrida
 # antes de empezar. Lo comprueba `tests/evaluation/test_config_dataset.py`.
@@ -36,9 +36,12 @@ DATASET_PATH = PROJECT_ROOT / "data" / "dataset.jsonl"
 #   a13e6d32629eb6a9  fase A         dataset de 2580: contextos con e5 + FAISS (H4),
 #                                    validacion congelada (H3), punteros solo de train.
 #                                    Con el que se entreno v3 (rechazado)
-#   7a8a29a5282a9e35  2026-10-13     v4: los 289 contrastivos con punteros genericos
-#                                    (H22); solo cambia su respuesta, nada mas
-DATASET_SHA1 = "7a8a29a5282a9e35"
+#   7a8a29a5282a9e35  2026-10-13     v4 provisional: los 289 contrastivos con punteros
+#                                    genericos (H22)
+#   5cec3fdf891260fd  2026-10-13     v4: lo anterior y 4 punteros de B2 a mano que
+#                                    mandaban fuera de competencia (H25). Solo
+#                                    cambian respuestas de train
+DATASET_SHA1 = "5cec3fdf891260fd"
 
 # Nombre anterior, cuando apuntaba a data/dataset_legal.jsonl. Se conserva para
 # no romper lo que lo importa, pero lo que antes era un archivo de 1536 ahora es

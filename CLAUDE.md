@@ -71,6 +71,6 @@ Si el código contradice ese documento, gana el código, y se avisa.
 
 ```bash
 pytest -q
-python -c "from tools.evaluation import config; print(config.verificar_dataset())"   # 7a8a29a5282a9e35
+python -c "from tools.evaluation import config; print(config.verificar_dataset())"   # 5cec3fdf891260fd
 python -m tools.evaluation.escenarios --verificar                                     # OK, d51365fbc779d1ce
 ```
