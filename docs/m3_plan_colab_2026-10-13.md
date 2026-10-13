@@ -80,10 +80,8 @@ Con una corrida de S08 y una de S10 queda todo: no hace falta repetir S10.
 
 **Total de GPU: unos 40-50 minutos de A100**, unas 5-6 unidades.
 
-**Lo que necesitan los secretos de Colab:**
-- `GROQ_API_KEY`: obligatorio para la Fase 5 de S10.
-- `WANDB_API_KEY`: **opcional**. Sin él, W&B queda sin conexión; con una key
-  inválida, también (no tumba la celda).
+**Lo que necesitan los secretos de Colab:** solo `GROQ_API_KEY`, para la Fase 5
+de S10. W&B se quitó el 2026-10-13: no aportaba resultados y todo queda en Drive.
 
 **El cupo de Groq.** RAGAS son unos 110 mil tokens del juez por sistema: una
 pasada, A, B y C. A toma las notas de una pasada sin gastar juez solo en los

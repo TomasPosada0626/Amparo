@@ -14,7 +14,7 @@ ejecutar, y lo que no se puede probar en CPU está acotado abajo.
   sustituyendo solo Qwen, el juez de Groq, Drive y nvidia-smi. Corren de verdad
   la búsqueda (e5 + FAISS + enrutador + BM25 + cross-encoder), la verificación de
   citas, RAGAS con los embeddings de e5, la decisión de búsqueda, el juez de
-  criterio, las rutas, wandb y los manifiestos. Después repite S10 en una sesión
+  criterio, las rutas y los manifiestos. Después repite S10 en una sesión
   nueva sin generar. **"TODO OK" por los dos caminos de la decisión** (gana A, y
   gana C forzado).
 - Comprobaciones cruzadas de huellas, ids, contenido y prompts entre módulos.
@@ -58,7 +58,7 @@ compara contra la corrida de M2 que está en el repo.
 | 1 | El plan decía que S08 calculaba RAGAS y decidía. **S08 no tiene juez**: lo calcula S10 | correr S08 y esperar una decisión que no llega |
 | 2 | Nadie medía "responde bien" (el juez contra el criterio de cada caso) en el RAG | sin la cifra que importa; ahora S10 la mide sola (fase 5d) |
 | 3 | La decisión A/C iba a leerse a ojo | ahora la aplica `decision_busqueda.py`, con la regla escrita antes |
-| 4 | Una key de W&B inválida tumbaba la celda de registro | ahora sigue sin conexión |
+| 4 | Una key de W&B inválida tumbaba la celda de registro | W&B se quitó del proyecto (no aportaba resultados) |
 | 5 | RAGAS en una sesión nueva fallaba (`registros` no existía) | obligaba a hacer RAGAS con la GPU encendida, esperando el cupo de Groq |
 
 Además: un texto de S10 todavía decía que las abstenciones se excluían de las

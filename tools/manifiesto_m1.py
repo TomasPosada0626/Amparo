@@ -41,7 +41,7 @@ from tools.evaluation import config, eval_set
 # version y no hubo forma de reproducirlo; trl, bitsandbytes, accelerate y
 # datasets tampoco se registraban en las corridas posteriores.
 LIBRERIAS = ["transformers", "peft", "trl", "accelerate", "bitsandbytes", "datasets",
-             "torch", "wandb", "sacrebleu", "rouge-score", "bert-score"]
+             "torch", "sacrebleu", "rouge-score", "bert-score"]
 
 
 def _git_commit() -> str:

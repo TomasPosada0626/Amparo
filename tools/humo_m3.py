@@ -8,7 +8,7 @@ inexistente para ejercitar la correccion de citas), el juez de Groq (RAGAS y
 criterio, con el formato real), Drive (una carpeta temporal) y nvidia-smi.
 Corren de verdad: e5 + FAISS, el enrutador, BM25, el cross-encoder, la
 verificacion de citas, RAGAS con los embeddings de e5, la decision de busqueda,
-las rutas, wandb sin conexion y los manifiestos.
+las rutas y los manifiestos.
 
 Despues repite S10 en una sesion NUEVA sin generar (el camino recomendado para
 hacer RAGAS en un entorno sin GPU) y comprueba que no llama al generador.
@@ -16,7 +16,7 @@ hacer RAGAS en un entorno sin GPU) y comprueba que no llama al generador.
     .venv/Scripts/python.exe -m tools.humo_m3              # unos 5 minutos
     HUMO_FORZAR_C=1 .venv/Scripts/python.exe -m tools.humo_m3   # el camino "gana C"
 
-Necesita el `.venv` del repo (faiss, sentence-transformers, wandb), el indice en
+Necesita el `.venv` del repo (faiss, sentence-transformers), el indice en
 `artifacts/` y el adaptador v1 en `artifacts/amparo-lora-adapter`. No escribe
 nada en el repo. Termina con "RESULTADO: TODO OK" o con la celda que fallo.
 """
@@ -27,9 +27,6 @@ sys.path.insert(0, str(RAIZ))
 TMP = pathlib.Path(tempfile.mkdtemp(prefix="humo_m3_"))
 DRIVE = TMP / "drive"
 (DRIVE / "rag").mkdir(parents=True)
-os.environ["WANDB_MODE"] = "offline"
-os.environ["WANDB_DIR"] = str(TMP)
-os.environ["WANDB_SILENT"] = "true"
 
 # --- Drive: el indice en la carpeta temporal, y config apuntando ahi ----------
 from tools.rag import config as rc
@@ -45,7 +42,7 @@ rc.LORA_ADAPTER_PATH = str(RAIZ / "artifacts" / "amparo-lora-adapter")   # v1 re
 colab = types.ModuleType("google.colab")
 colab.drive = types.SimpleNamespace(mount=lambda *a, **k: print("[humo] drive.mount simulado"))
 colab.userdata = types.SimpleNamespace(get=lambda k: "clave-falsa" if k == "GROQ_API_KEY" else None)
-import google                      # el paquete real (protobuf lo necesita wandb)
+import google                      # el paquete real: solo se le agrega google.colab
 google.colab = colab; sys.modules["google.colab"] = colab
 
 # --- nvidia-smi ------------------------------------------------------------------

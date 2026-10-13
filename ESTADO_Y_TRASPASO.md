@@ -166,7 +166,7 @@ tiene detrás un error real.
    lleva git y el manifiesto. **No se crean archivos `dataset_v3.jsonl`** ni
    parecidos: el dataset anterior se recupera con
    `git show <commit>:data/dataset.jsonl`.
-7. **Sin GPU, entrenamiento, inferencia ni créditos** (Colab, Groq, W&B) sin
+7. **Sin GPU, entrenamiento, inferencia ni créditos** (Colab, Groq) sin
    autorización expresa de Tomás. Preparar y probar en CPU, sí.
 8. **El adaptador `v1` es producción y no se sobrescribe.** Hay `assert`s que lo
    impiden; no se quitan.
@@ -336,7 +336,7 @@ prueba que falla si alguien copia una en otra.
 
 ### 5.4 Secretos de Colab
 
-`GROQ_API_KEY` (juez de M2 y RAGAS de S10), `WANDB_API_KEY` (S10), y un token de
+`GROQ_API_KEY` (juez de M2 y RAGAS de S10) y un token de
 escritura de Hugging Face para publicar un adaptador. Viven en los secretos de
 Colab. **Nunca en el repo.** Hay un `.env` local que está en `.gitignore` y no se
 abre.
@@ -813,7 +813,8 @@ denso + enrutador** (`USE_HYBRID = False`, `USE_RERANK = False`).
 
 **Qué hace:** corre el RAG de una pasada (`pipeline.answer_query`) sobre los 75
 casos del eval set; lo evalúa con **RAGAS** (juez Groq); compara las búsquedas de
-S08 con RAGAS; mide la guardia de rutas; registra en W&B. Las rutas agénticas
+S08 con RAGAS; decide la búsqueda y juzga contra el criterio; mide la guardia
+de rutas. W&B se quitó el 2026-10-13: todo queda en Drive. Las rutas agénticas
 (*tool use*, ReAct) se retiraron el 2026-10-08: el modelo nunca decidió buscar
 por sí mismo y costaban 2,2 veces la latencia sin ganar nada.
 
@@ -847,7 +848,7 @@ entrenamiento.
 - [x] RAG de una pasada (`answer_query`)
 - [x] Verificación de citas, incluidas las normas citadas que no se recuperaron
 - [x] Prompt idéntico al de entrenamiento
-- [x] RAGAS, guardia de rutas y W&B
+- [x] RAGAS y guardia de rutas (W&B quitado el 2026-10-13)
 - [x] Auditoría de recuperación caso por caso (6.1)
 - [x] Diagnóstico del cuello de botella: el orden de la recuperación
 - [x] Revisión fijada (H6)
@@ -861,7 +862,7 @@ entrenamiento.
 
 - [x] Artefactos verificados
 - [x] El prompt del pipeline es el de entrenamiento
-- [x] RAGAS, guardia de rutas y W&B
+- [x] RAGAS y guardia de rutas (W&B quitado el 2026-10-13)
 - [x] Revisión fijada (H6) e índice verificado antes de medir
 - [x] RAGAS excluye solo la abstención pura (H5)
 - [x] Adaptador final: v1, verificado por huella antes de cargarlo (`pipeline.verificar_adaptador`)

@@ -140,7 +140,6 @@ Amparo/
 │   │   ├── domain_metric.py    #   cumplimiento de no-inventar-citas
 │   │   ├── bias.py            #   sesgos (longitud, posición, autopreferencia)
 │   │   ├── ragas_metrics.py    #   métricas RAGAS con juez Groq (M3 · S10)
-│   │   ├── tracking.py         #   registro de corridas en W&B (M3 · S10)
 │   │   └── scorecard.py        #   reporte consolidado
 │   ├── model_comparator/       # Herramienta interna de comparación de modelos
 │   ├── dataset_build.py        # Arma los ejemplos sin contexto desde data/dataset_src/
@@ -220,9 +219,9 @@ pytest -q                      # toda la suite
 2. **Consultar** — `colab/m3_s08_rag_avanzado.ipynb` carga el índice y compara las
    tres configuraciones de retrieval (denso / hybrid / hybrid + rerank).
 3. **Evaluación** — `colab/m3_s10_rag_agentico.ipynb` corre el RAG de una pasada
-   sobre el eval set, lo evalúa con RAGAS (juez Groq), mide la guardia de rutas y
-   lo registra en W&B. Necesita los secretos de Colab `GROQ_API_KEY` y
-   `WANDB_API_KEY`. Las rutas agénticas (tool use y ReAct) se retiraron el
+   sobre el eval set, lo evalúa con RAGAS (juez Groq), decide la búsqueda, lo
+   juzga contra el criterio de cada caso y mide la guardia de rutas. Necesita el
+   secreto de Colab `GROQ_API_KEY`. Las rutas agénticas (tool use y ReAct) se retiraron el
    2026-10-08: dos corridas mostraron que no se pagan
    (`docs/m3_decisiones_rag.md`, sección 28).
 4. **Extra DSPy** — `colab/m3_s10_extra_dspy.ipynb` optimiza el prompt de generación

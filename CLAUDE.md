@@ -31,7 +31,7 @@ Si el código contradice ese documento, gana el código, y se avisa.
   repo es público y la celda del notebook no publica salvo
   `PUBLICAR_EN_HF = True`, que solo se pone tras un veredicto de aceptación.
   Para devolver `main` a v1: `python -m tools.hf_restaurar_v1 --escribir`.
-- **Sin GPU, entrenamiento, inferencia ni créditos** (Colab, Groq, W&B) sin
+- **Sin GPU, entrenamiento, inferencia ni créditos** (Colab, Groq) sin
   autorización expresa. Preparar y probar en CPU, sí.
 
 **Método.**
