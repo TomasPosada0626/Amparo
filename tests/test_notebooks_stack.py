@@ -78,3 +78,28 @@ def test_el_indice_se_verifica_antes_de_medir(nombre):
     assert "_verificar_indice(" in codigo
     assert codigo.index("_verificar_indice(") < codigo.index("load_index()" if "load_index()" in codigo
                                                              else "_c6.correr(")
+
+
+@pytest.mark.parametrize("nombre", ["m3_s08_rag_avanzado", "m3_s10_rag_agentico"])
+def test_m3_verifica_que_el_adaptador_sea_el_de_produccion(nombre):
+    """M3 usa como generador el adaptador con que se cerraron M1 y M2 (v1)."""
+    nb = json.loads((COLAB / f"{nombre}.ipynb").read_bytes().decode("utf-8"))
+    codigo = "".join("".join(c["source"]) for c in nb["cells"])
+    assert "pipeline.verificar_adaptador()" in codigo
+    assert codigo.index("pipeline.verificar_adaptador()") < codigo.index("pipeline.load_model(")
+
+
+def test_s10_compara_contra_una_corrida_de_m2_que_existe():
+    import re
+
+    nb = json.loads((COLAB / "m3_s10_rag_agentico.ipynb").read_bytes().decode("utf-8"))
+    codigo = "".join("".join(c["source"]) for c in nb["cells"])
+    ruta = re.search(r'M2_DIR = Path\("([^"]+)"\)', codigo).group(1)
+    d = config.PROJECT_ROOT / ruta
+    assert (d / "eval_set_baseline_results.jsonl").exists() and (d / "eval_set_finetuned_results.jsonl").exists()
+
+
+def test_m2_lee_la_huella_de_la_constante_unica():
+    nb = json.loads((COLAB / "m2_evaluacion.ipynb").read_bytes().decode("utf-8"))
+    codigo = "".join("".join(c["source"]) for c in nb["cells"])
+    assert "HUELLA_ADAPTADOR_ESPERADA = _rag_config.HUELLA_ADAPTADOR_PRODUCCION" in codigo

@@ -91,6 +91,10 @@ MAX_NEW_TOKENS_GENERATION = 900
 # modulo sigue siendo seguro de importar en cualquier parte.
 DRIVE_ROOT = "/content/drive/MyDrive/Colab Notebooks/Amparo"
 LORA_ADAPTER_PATH: str | None = f"{DRIVE_ROOT}/amparo-lora-adapter"
+# La huella de los pesos del adaptador de produccion: v1, con el que se cerraron
+# M1 y M2 (docs/m1_cierre.md). S08, S10 y M2 la comprueban antes de generar, asi
+# que los tres modulos no pueden quedar midiendo adaptadores distintos.
+HUELLA_ADAPTADOR_PRODUCCION = "8ce3cc2bc9306974"
 
 # --- RAG avanzado -----------------------------------------------------------
 # Constantes de las dos tecnicas avanzadas: hybrid search (BM25 + denso, fusion

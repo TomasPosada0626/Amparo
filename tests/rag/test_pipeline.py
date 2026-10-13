@@ -251,3 +251,33 @@ def test_el_registro_de_evaluacion_guarda_si_la_respuesta_se_corto():
 
     assert fila["n_tokens"] == 900
     assert fila["cortada"] is True
+
+
+# --- el adaptador de produccion, verificado antes de cargarlo ------------------
+
+def test_la_huella_de_produccion_es_v1_en_todos_los_modulos():
+    from tools import hf_restaurar_v1
+    from tools.evaluation.reevaluacion_v1 import HUELLA_ADAPTADOR_V1
+    from tools.rag import config as rag_config
+
+    assert (rag_config.HUELLA_ADAPTADOR_PRODUCCION == HUELLA_ADAPTADOR_V1
+            == hf_restaurar_v1.HUELLA_V1 == "8ce3cc2bc9306974")
+
+
+def test_verificar_adaptador_rechaza_otros_pesos(tmp_path):
+    import pytest
+
+    from tools.rag import pipeline
+
+    (tmp_path / "adapter_model.safetensors").write_bytes(b"otros pesos")
+    with pytest.raises(SystemExit, match="no se carga"):
+        pipeline.verificar_adaptador(str(tmp_path))
+
+
+def test_verificar_adaptador_acepta_la_esperada(tmp_path):
+    from tools.rag import pipeline
+    from tools.rag.manifiesto import huella_archivo
+
+    f = tmp_path / "adapter_model.safetensors"
+    f.write_bytes(b"pesos")
+    assert pipeline.verificar_adaptador(str(tmp_path), esperada=huella_archivo(f)) == huella_archivo(f)

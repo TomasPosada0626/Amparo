@@ -59,14 +59,14 @@ los puntos con el mismo peso, redondeado a 5.
 | `m1_reevaluacion_v1.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `██████████ 100 %` |
 | `m2_evaluacion.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `██████████ 100 %` |
 | `m3_busqueda_v2.ipynb` | `█████████░ 85 %` | `██████████ 100 %` | `█████░░░░░ 50 %` |
-| `m3_s08_rag_avanzado.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `█████░░░░░ 50 %` |
-| `m3_s10_rag_agentico.ipynb` | `████████░░ 80 %` | `████████░░ 85 %` | `█░░░░░░░░░ 15 %` |
+| `m3_s08_rag_avanzado.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `████████░░ 75 %` |
+| `m3_s10_rag_agentico.ipynb` | `█████████░ 90 %` | `██████████ 100 %` | `███░░░░░░░ 35 %` |
 
 | módulo | preparación | completado |
 |---|---|---|
 | **M1** — fine-tuning | `██████████ 100 %` | `██████████ 100 %` — **cerrado con v1** (`docs/m1_cierre.md`) |
 | **M2** — evaluación | `██████████ 100 %` | `██████████ 100 %` — cerrado con v1 (`docs/m2_desacuerdo_jueces.md`) |
-| **M3** — RAG | `█████████░ 90 %` | `████░░░░░░ 40 %` (S10, el que importa para M4, va en 15 %) |
+| **M3** — RAG | `█████████░ 90 %` | `█████░░░░░ 55 %` (S10, el que se entrega, va en 35 %); lo siguiente es Colab (`docs/m3_plan_colab_2026-10-13.md`) |
 | **M4** — entrega final | no iniciado | no iniciado |
 
 Los de M3 son el promedio de sus tres notebooks.
@@ -798,12 +798,16 @@ denso + enrutador** (`USE_HYBRID = False`, `USE_RERANK = False`).
 - [x] Revisión fijada (H6)
 - [x] Verifica la huella del índice **antes** de correr
 
-**Completado — 2 de 4 (50 %)**
+**Completado — 3 de 4 (75 %)**
 
 - [x] A/B/C medido
 - [x] Configuración de producción fijada
-- [ ] Ranking suficiente
-- [ ] Corrida con el adaptador final
+- [ ] Ranking suficiente — medido en CPU el 2026-10-13: con enrutador + híbrido +
+  reranker (C), 25/45 en el top-5 frente a 21/45 de producción, sin significancia
+  (gana 8, pierde 4). Decide el RAGAS de S08 con el criterio de
+  `docs/m3_plan_colab_2026-10-13.md`, fijado antes de correr
+- [x] Corrida con el adaptador final: v1, que es el que quedó
+  (`results/m3_s08_2026-10-09/`, `hash_adaptador` `8ce3cc2bc9306974`)
 
 ### 7.6 M3 — `colab/m3_s10_rag_agentico.ipynb` — **el RAG que se entrega**
 
@@ -838,7 +842,7 @@ el top-30 en 37: **el problema es el orden**, no la cobertura. Esa es la palanca
 más grande para que S10 responda bien, y es de recuperación, no de
 entrenamiento.
 
-**Preparación — 9 de 11 (80 %)**
+**Preparación — 10 de 11 (90 %)**
 
 - [x] RAG de una pasada (`answer_query`)
 - [x] Verificación de citas, incluidas las normas citadas que no se recuperaron
@@ -851,26 +855,28 @@ entrenamiento.
 - [x] Filtro de derogatorias (H12): implementado y **apagado**; medido, libera
   6 puestos del top-5 y el acierto@5 sigue en 21/45
 - [ ] Corrección del enrutamiento (H13)
-- [ ] Mejora del ranking implementada
+- [x] Mejora del ranking implementada y medida en CPU: reranker con híbrido, 21 → 25 de 45 en el top-5 (`docs/m3_plan_colab_2026-10-13.md`)
 
-**Listo para correr — 5 de 6 (85 %)**
+**Listo para correr — 6 de 6 (100 %)**
 
 - [x] Artefactos verificados
 - [x] El prompt del pipeline es el de entrenamiento
 - [x] RAGAS, guardia de rutas y W&B
 - [x] Revisión fijada (H6) e índice verificado antes de medir
 - [x] RAGAS excluye solo la abstención pura (H5)
-- [ ] Adaptador final
+- [x] Adaptador final: v1, verificado por huella antes de cargarlo (`pipeline.verificar_adaptador`)
 
-**Completado — 1 de 7 (15 %)**
+**Completado — 2 de 6 (35 %)**
 
 - [x] Corrida completa (2026-10-09)
+- [x] Corrida con el adaptador final: v1 (`results/m3_s10_2026-10-09/`, `hash_adaptador` `8ce3cc2bc9306974`)
 - [ ] Gold que cumplen su criterio (hoy 1/45)
-- [ ] Recuperación: artículo gold en el top-5 (hoy 20/45)
-- [ ] Sobreabstención en gold ≤ 3/45 (hoy 8)
+- [ ] Recuperación: artículo gold en el top-5 (hoy 21/45; 25/45 con C, medido en CPU)
 - [ ] Rutas incorrectas ≤ 4 (v1 tiene 6)
-- [ ] Correcciones de corpus (artículo 57, derogatorias)
-- [ ] Corrida con el adaptador final
+- [ ] Correcciones de corpus (derogatorias hechas y apagadas; falta el artículo 57)
+
+La sobreabstención ya no es criterio (decisión de Tomás del 2026-10-13): se
+sigue midiendo y reportando, sin umbral.
 
 ---
 
@@ -949,9 +955,9 @@ M3 (CPU y GPU)
 11. [x] H12 filtro de derogatorias: implementado, APAGADO, medido (21/45 igual)
 12. [ ] H13 enrutamiento; medir por separado (sin diseno de correccion todavia)
 13. [ ] H11 articulo 57 del CST: reconstruir el indice UNA vez, con su linea base
-14. [ ]     ranking: es la palanca mas grande de S10 (top-5 21/45, top-30 37/45)
+14. [~]     ranking: medido en CPU, C (enrutador+hybrid+rerank) 25/45 vs 21/45; decide el RAGAS de S08
 15. [x] H5, H6  RAGAS con abstencion estricta y revision fijada
-16. [ ]     S08 y S10 con el adaptador final
+16. [ ]     S08 y luego S10 en Colab (docs/m3_plan_colab_2026-10-13.md); el adaptador final es v1
 
 M2 (GPU + Groq)
 17. [x] H6  revision fijada; adaptador y dataset verificados por huella

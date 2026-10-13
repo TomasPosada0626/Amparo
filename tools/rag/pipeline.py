@@ -282,6 +282,27 @@ def to_eval_record(resultado: dict, registro: dict) -> dict:
     }
 
 
+def verificar_adaptador(ruta: str | None = None,
+                        esperada: str = config.HUELLA_ADAPTADOR_PRODUCCION) -> str:
+    """La huella del adaptador que se va a cargar, o se detiene si no es la esperada.
+
+    El adaptador vive en Drive y se lee por ruta: si alguien deja otros pesos en
+    esa carpeta, el RAG los cargaria sin aviso y las cifras de M3 quedarian
+    atribuidas a v1. Paso con M2 el 6 de octubre. Se comprueba ANTES de cargar."""
+    from pathlib import Path
+
+    from tools.rag.manifiesto import huella_archivo
+
+    ruta = ruta or config.LORA_ADAPTER_PATH
+    if not ruta:
+        raise SystemExit("LORA_ADAPTER_PATH no esta configurado en tools/rag/config.py")
+    h = huella_archivo(Path(ruta) / "adapter_model.safetensors")
+    if h != esperada:
+        raise SystemExit(f"El adaptador de {ruta} tiene la huella {h}, no {esperada} "
+                         "(el de produccion): no se carga.")
+    return h
+
+
 def load_model(use_lora: bool = False):
     """Carga el modelo una sola vez, reutilizando tools/evaluation/generation.py.
 
