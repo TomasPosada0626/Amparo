@@ -7,7 +7,7 @@ v1), arnés de evaluación (M2), RAG (M3). M4 no está iniciado.
 falta en cada notebook, los artefactos congelados y la ruta crítica. El roadmap
 de M1 está en su sección 7.1.2. **M1 está cerrado con v1** (2026-10-13,
 `docs/m1_cierre.md`): la abstención dejó de ser requisito y v1 es el que mejor
-responde; v3 y v4 se descartaron. **M2 también está cerrado** (H14 explicado). M3 sigue con v1: lo de CPU está hecho y lo que falta es Colab, en el orden de `docs/m3_plan_colab_2026-10-13.md`.
+responde; v3 y v4 se descartaron. **M2 también está cerrado** (H14 explicado). M3 se corrió en Colab el 2026-10-14 con v1 (`docs/m3_resultados_colab_2026-10-14.md`): la regla de búsqueda dejó A en producción; lo que falta es recuperación (H11, H13), no otra corrida.
 Antes de cualquier corrida de S08 o S10: `.venv/Scripts/python.exe -m tools.humo_m3` (los ejecuta
 completos en CPU, sustituyendo solo Qwen, Groq y Drive); tiene que terminar en "TODO OK".
 Si el código contradice ese documento, gana el código, y se avisa.

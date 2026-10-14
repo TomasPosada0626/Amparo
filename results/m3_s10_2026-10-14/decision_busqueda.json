@@ -1,0 +1,14 @@
+{
+  "elegida": "A_denso",
+  "motivo": "C no sube la media (0.5125 frente a 0.5363): se queda A",
+  "medias": {
+    "A_denso": 0.5363,
+    "C_rerank": 0.5125
+  },
+  "diferencias": {
+    "faithfulness": 0.0344,
+    "answer_relevancy": -0.1124,
+    "context_precision": 0.0399,
+    "context_recall": -0.057
+  }
+}

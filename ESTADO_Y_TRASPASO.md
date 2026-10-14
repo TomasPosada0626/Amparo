@@ -2,11 +2,10 @@
 
 **Para:** Martín, y el Claude con que trabaje sobre este repositorio.
 **De:** Tomás.
-**Fecha:** 2026-10-10. **Actualizado:** 2026-10-13. Las **fases B, C y D de
-M1** las corrió Martín: v3 **no se acepta** y v1 sigue en producción
-(`docs/m1_veredicto_v3.md`). Después, en CPU: **dataset v4** (corrige H22),
-**notebook de M1 listo para v4** con la prueba barata dentro, revisión de los
-gold y H5-H9 y H12 corregidos. **Lo siguiente necesita GPU y autorización.**
+**Fecha:** 2026-10-10. **Actualizado:** 2026-10-14. M1 y M2 **cerrados con
+v1** (2026-10-13). M3 **corrido en Colab el 2026-10-14** (S08 y S10): la regla
+de búsqueda dejó **A** en producción (`docs/m3_resultados_colab_2026-10-14.md`).
+Lo que queda de M3 no se arregla con otra corrida: recuperación (H11, H13).
 **Rama:** `m3.5`. **Suite:** ver `pytest -q`.
 
 ---
@@ -60,13 +59,13 @@ los puntos con el mismo peso, redondeado a 5.
 | `m2_evaluacion.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `██████████ 100 %` |
 | `m3_busqueda_v2.ipynb` | `█████████░ 85 %` | `██████████ 100 %` | `█████░░░░░ 50 %` |
 | `m3_s08_rag_avanzado.ipynb` | `██████████ 100 %` | `██████████ 100 %` | `████████░░ 75 %` |
-| `m3_s10_rag_agentico.ipynb` | `█████████░ 90 %` | `██████████ 100 %` | `███░░░░░░░ 35 %` |
+| `m3_s10_rag_agentico.ipynb` | `█████████░ 90 %` | `██████████ 100 %` | `█████░░░░░ 50 %` |
 
 | módulo | preparación | completado |
 |---|---|---|
 | **M1** — fine-tuning | `██████████ 100 %` | `██████████ 100 %` — **cerrado con v1** (`docs/m1_cierre.md`) |
 | **M2** — evaluación | `██████████ 100 %` | `██████████ 100 %` — cerrado con v1 (`docs/m2_desacuerdo_jueces.md`) |
-| **M3** — RAG | `█████████░ 90 %` | `█████░░░░░ 55 %` (S10, el que se entrega, va en 35 %); lo siguiente es Colab (`docs/m3_plan_colab_2026-10-13.md`) |
+| **M3** — RAG | `█████████░ 90 %` | `██████░░░░ 60 %` (S10, el que se entrega, va en 50 %); Colab corrido el 2026-10-14 (`docs/m3_resultados_colab_2026-10-14.md`) |
 | **M4** — entrega final | no iniciado | no iniciado |
 
 Los de M3 son el promedio de sus tres notebooks.
@@ -82,14 +81,16 @@ Los de M3 son el promedio de sus tres notebooks.
    `docs/m1_veredicto_v4.md`): aprendieron a abstenerse de más. De v4 queda el
    dataset sin el defecto H22 y el notebook con la prueba barata, por si se
    reentrena.
-3. **El RAG (S10) hoy responde bien 1 de 45 consultas gold.** El cuello de
-   botella principal es la **recuperación**, no el modelo: el artículo que
-   responde llega al contexto en 20 de 45 casos. Ningún entrenamiento arregla
-   eso solo.
+3. **El RAG (S10) responde bien 1 o 2 de 45 consultas gold** (2 el
+   2026-10-14, 1 el 2026-10-09, con las mismas respuestas: la diferencia es el
+   juez). El cuello de botella principal es la **recuperación**, no el modelo:
+   el artículo que responde llega al contexto en 21 de 45 casos. Ningún
+   entrenamiento arregla eso solo.
 4. **Nada se entrena ni se corre en GPU sin autorización de Tomás.**
-5. **Lo siguiente es M2 y M3 con v1.** La mejora grande para que el sistema
-   responda bien está en la búsqueda (M3): el artículo correcto llega en 21 de
-   45 consultas.
+5. **M3 se corrió con v1 el 2026-10-14.** El reordenamiento (C) pone el
+   artículo correcto más arriba, pero el modelo responde peor con ese contexto
+   (answer relevancy −0,11): la regla fijada antes dejó **A**. La mejora que
+   falta está en la búsqueda (H11, H13), no en otra corrida.
 
 ---
 
@@ -779,8 +780,9 @@ el mismo generador. **A** denso puro; **B** denso + BM25 con fusión RRF; **C** 
 + reordenamiento con cross-encoder. Copia el índice de `Drive/Amparo/rag/` a
 `artifacts/`.
 
-**Corrida vigente:** `results/m3_s08_2026-10-09/`, con v1. **Producción quedó en
-denso + enrutador** (`USE_HYBRID = False`, `USE_RERANK = False`).
+**Corrida vigente:** `results/m3_s08_2026-10-14/`, con v1; respuestas idénticas
+a las de `results/m3_s08_2026-10-09/`. **Producción sigue en denso + enrutador**
+(`USE_HYBRID = False`, `USE_RERANK = False`): lo decidió S10 el 2026-10-14.
 
 **Preparación — 6 de 6 (100 %)**
 
@@ -804,8 +806,8 @@ denso + enrutador** (`USE_HYBRID = False`, `USE_RERANK = False`).
 - [x] Configuración de producción fijada
 - [ ] Ranking suficiente — medido en CPU el 2026-10-13: con enrutador + híbrido +
   reranker (C), 25/45 en el top-5 frente a 21/45 de producción, sin significancia
-  (gana 8, pierde 4). Decide el RAGAS de S08 con el criterio de
-  `docs/m3_plan_colab_2026-10-13.md`, fijado antes de correr
+  (gana 8, pierde 4). En el RAGAS del 2026-10-14, C **no** sube la media (0,513
+  frente a 0,536): se queda A (`docs/m3_resultados_colab_2026-10-14.md`)
 - [x] Corrida con el adaptador final: v1, que es el que quedó
   (`results/m3_s08_2026-10-09/`, `hash_adaptador` `8ce3cc2bc9306974`)
 
@@ -818,30 +820,34 @@ de rutas. W&B se quitó el 2026-10-13: todo queda en Drive. Las rutas agénticas
 (*tool use*, ReAct) se retiraron el 2026-10-08: el modelo nunca decidió buscar
 por sí mismo y costaban 2,2 veces la latencia sin ganar nada.
 
-**Corrida vigente:** `results/m3_s10_2026-10-09/`, con v1, índice
-`19657d22`, corpus `1c552822`, eval set `a5151999`. **Generó con el prompt
-correcto** (con la orden de abstenerse): el fallo de M1 no le afecta.
+**Corrida vigente:** `results/m3_s10_2026-10-14/`, con v1, índice
+`19657d22`, corpus `1c552822`, eval set `a5151999`, RAGAS con abstención
+estricta (H5). Las respuestas son idénticas a las del 2026-10-09; cambió la
+medición (`docs/m3_resultados_colab_2026-10-14.md`).
 
 **Cómo responde hoy, de verdad:**
 
 | | resultado |
 |---|---|
-| gold que **cumplen** su criterio (juez Groq) | **1 de 45** (17 parcial, 27 no cumple) |
-| adversariales que cumplen | 8 de 30 (11 parcial, 11 no cumple) |
-| artículo gold en el contexto entregado (top-5) | **20 de 45** |
+| gold que **cumplen** su criterio (juez Groq) | **2 de 45** (21 parcial, 22 no cumple); 1 de 45 el 2026-10-09 con las mismas respuestas |
+| adversariales que cumplen | 6 de 30 (13 parcial, 11 no cumple) |
+| artículo gold en el contexto entregado (top-5) | **21 de 45** |
 | … en el top-30 | 37 de 45 |
 | abstención pura en gold (debería responder) | 8 de 45 |
 | abstención pura en adversariales | 20 de 30 |
+| rutas incorrectas con RAG | 0 de 45 gold, 0 de 30 adversariales |
 | respuestas cortadas | 0 |
 | latencia media | 7,9 s |
-| RAGAS: context precision / recall / answer relevancy | 0,56 / 0,39 / 0,34 |
-| RAGAS: faithfulness | 0,51 **sobre solo 18 de 45** (H5) |
+| RAGAS: context precision / recall / answer relevancy | 0,59 / 0,43 / 0,70 |
+| RAGAS: faithfulness | 0,43 sobre 37 de 45 (las 8 restantes son abstención pura) |
 
-**Lectura honesta.** El modelo no puede citar un artículo que no le llega: en 25
+**Lectura honesta.** El modelo no puede citar un artículo que no le llega: en 24
 de 45 casos el artículo que responde **no está en el contexto**. Pero sí está en
 el top-30 en 37: **el problema es el orden**, no la cobertura. Esa es la palanca
 más grande para que S10 responda bien, y es de recuperación, no de
-entrenamiento.
+entrenamiento. Reordenar con el cross-encoder (C) no bastó: sube el acierto,
+pero con ese contexto el modelo se abstiene más (14 abstenciones puras frente a
+8) y el RAGAS baja (2026-10-14).
 
 **Preparación — 10 de 11 (90 %)**
 
@@ -867,14 +873,13 @@ entrenamiento.
 - [x] RAGAS excluye solo la abstención pura (H5)
 - [x] Adaptador final: v1, verificado por huella antes de cargarlo (`pipeline.verificar_adaptador`)
 
-**Completado — 2 de 6 (35 %)**
+**Completado — 3 de 6 (50 %)**
 
-- [x] Corrida completa (2026-10-09)
-- [x] Corrida con el adaptador final: v1 (`results/m3_s10_2026-10-09/`, `hash_adaptador` `8ce3cc2bc9306974`)
-- [ ] Gold que cumplen su criterio (hoy 1/45). Desde el 2026-10-13 S10 lo mide
-  sola (fase 5d) sobre el sistema que elige la regla de búsqueda
-- [ ] Recuperación: artículo gold en el top-5 (hoy 21/45; 25/45 con C, medido en CPU)
-- [ ] Rutas incorrectas ≤ 4 (v1 tiene 6)
+- [x] Corrida completa (2026-10-09; repetida el 2026-10-14 con H5 y la decisión de búsqueda)
+- [x] Corrida con el adaptador final: v1 (`results/m3_s10_2026-10-14/`, `hash_adaptador` `8ce3cc2bc9306974`)
+- [ ] Gold que cumplen su criterio: 2/45 el 2026-10-14 (1/45 el 2026-10-09, mismas respuestas)
+- [ ] Recuperación: artículo gold en el top-5 (21/45; C sube a 25/45 pero el RAGAS lo descartó)
+- [x] Rutas incorrectas ≤ 4: con RAG, 0 de 45 gold y 0 de 30 adversariales (`rutas_5c.json`, 2026-10-14; sin RAG v1 tiene 6)
 - [ ] Correcciones de corpus (derogatorias hechas y apagadas; falta el artículo 57)
 
 La sobreabstención ya no es criterio (decisión de Tomás del 2026-10-13): se
@@ -957,10 +962,10 @@ M3 (CPU y GPU)
 11. [x] H12 filtro de derogatorias: implementado, APAGADO, medido (21/45 igual)
 12. [ ] H13 enrutamiento; medir por separado (sin diseno de correccion todavia)
 13. [ ] H11 articulo 57 del CST: reconstruir el indice UNA vez, con su linea base
-14. [~]     ranking: medido en CPU, C (enrutador+hybrid+rerank) 25/45 vs 21/45; decide S10 (fase 5d)
+14. [x]     ranking: C sube el acierto (25/45 vs 21/45) pero no el RAGAS: se queda A (2026-10-14)
 15. [x] H5, H6  RAGAS con abstencion estricta y revision fijada
-16. [ ]     Colab: S08 (GPU), S10 hasta la Fase 4 (GPU), resto de S10 sin GPU
-            (docs/m3_plan_colab_2026-10-13.md). Antes: python -m tools.humo_m3 (CPU)
+16. [x]     Colab: S08 y S10 corridos el 2026-10-14 en A100
+            (docs/m3_resultados_colab_2026-10-14.md)
 
 M2 (GPU + Groq)
 17. [x] H6  revision fijada; adaptador y dataset verificados por huella
@@ -984,7 +989,9 @@ todo lo de recuperación (11–14) se puede avanzar en paralelo.
 | `m1_rutas_2026-10-10/` | base, v1, v2 | la tendencia | la cifra exacta de los 103 con contexto — H1 |
 | `m2_2026-10-09/` | v1 | todo, con el desacuerdo H14 a la vista | — |
 | `m3_s08_2026-10-09/` | v1 | A/B/C | — |
-| `m3_s10_2026-10-09/` | v1 | veredictos por criterio, recuperación, latencia | *faithfulness* (H5) |
+| `m3_s08_2026-10-14/` | v1 | A/B/C, idénticas a las del 2026-10-09 | — |
+| `m3_s10_2026-10-09/` | v1 | veredictos por criterio, recuperación, latencia | *faithfulness* y *answer relevancy* (H5); rutas con RAG (excluía abstenciones, H22) |
+| `m3_s10_2026-10-14/` | v1 | todo: RAGAS con H5, decisión de búsqueda, criterio, rutas | `tokens_juez` de los resúmenes no es lo gastado en la sesión |
 | `m3_61_2026-10-10/` | — | acierto@k por caso (auditoría 6.1) | — |
 | `busqueda_v2/` | — | el barrido del piso y el enrutador | — |
 

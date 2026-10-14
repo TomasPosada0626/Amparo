@@ -1,5 +1,8 @@
 # M3 — Lo medido en CPU y lo que falta correr en Colab (2026-10-13)
 
+> **Corrido el 2026-10-14.** Resultado en `docs/m3_resultados_colab_2026-10-14.md`:
+> C no sube la media de RAGAS (0,513 frente a 0,536) y se queda A.
+
 ## Lo que M3 tiene que lograr
 
 Con la decisión del 2026-10-13 (`docs/m1_protocolo_aceptacion.md`), el objetivo es
