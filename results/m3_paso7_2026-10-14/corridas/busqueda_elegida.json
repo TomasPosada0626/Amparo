@@ -1,0 +1,30 @@
+{
+  "nombre": "R2: bge-reranker-v2-m3 sobre los 30 primeros (lee el texto)",
+  "motivo": "Regla de docs/m3_protocolo_aceptacion.md, 3: mas aciertos en el top-5 de las 45 gold (27 frente a 20 de produccion, +7). Empata en top-5 y top-3 con borrador+reranker (27/22) y con la variante con cita en top-5 (27): gana por top-3 (22 frente a 21) y por cambiar menos cosas. Con el piso de produccion (0.81) sigue en 27.",
+  "opciones": {
+    "use_rerank": true,
+    "reranker_id": "BAAI/bge-reranker-v2-m3",
+    "rerank_con_cita": false
+  },
+  "medicion": {
+    "sin_piso": {
+      "@1": 16,
+      "@3": 22,
+      "@5": 27,
+      "@10": 32
+    },
+    "piso_0.81": {
+      "@1": 15,
+      "@3": 22,
+      "@5": 27,
+      "@10": 29
+    },
+    "produccion_sin_piso": {
+      "@1": 7,
+      "@3": 16,
+      "@5": 20,
+      "@10": 25
+    }
+  },
+  "fecha": "2026-10-14"
+}

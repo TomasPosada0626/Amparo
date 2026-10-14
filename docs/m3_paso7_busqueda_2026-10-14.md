@@ -90,3 +90,71 @@ medirse sobre preguntas nuevas.
 Elegir para GPU no es adoptar: se adopta solo si pasa la regla de búsqueda con
 las respuestas generadas y se confirma en las 26 preguntas nuevas
 (`colab/m3_paso7_corrida_final.ipynb`, prueba de humo `tools/humo_paso7.py`).
+
+## 5. Corrida final en GPU (2026-10-14, A100)
+
+`colab/m3_paso7_corrida_final.ipynb`, commit `54fd2f0`, adaptador v1
+`8ce3cc2bc9306974`, indice `19657d22583f93d0`, eval set `a5151999c2095d00`.
+Archivos en `results/m3_paso7_2026-10-14/corridas/` (bajados de Drive; 7 archivos
+completos, sin repetidos, cada sistema con sus opciones). Evaluado en CPU con
+`tools/evaluation/evaluar_paso7.py`; A sobre el eval set es la corrida de S10 del
+2026-10-14 (determinista).
+
+| sistema | eval set: articulo en top-5 | **eval set: gold bien respondidas** | no cumple | abstencion pura | **26 nuevas: articulo** | **26 nuevas: bien respondidas** |
+|---|---|---|---|---|---|---|
+| A (produccion) | 21 | **13** | 10 | 8 | 16 | **7** |
+| A + bloque de servicio | 21 | 15 | 13 | 15 | 16 | 10 |
+| **R (bge-reranker-v2-m3)** | **27** | **16** | **4** | 8 | **19** | 11 |
+| R + bloque de servicio | 27 | 15 | 7 | 10 | 19 | **13** |
+
+**Contra la meta** (`docs/m3_protocolo_aceptacion.md`, 2):
+
+- Busqueda, >= 28: **27. No se alcanza, por 1.** En las preguntas nuevas sube de
+  16 a 19: la mejora no es un ajuste a las 45.
+- Respuesta, >= 18: **16 con R. No se alcanza, por 2.** La subida (+3) esta en el
+  borde del ruido medido del juez (1 a 3). En las preguntas nuevas, 7 -> 11.
+- Lo que mas mejora: las respuestas que **no cumplen** bajan de 10 a 4.
+
+**El bloque de servicio no se adopta tal como esta.** Una variable por vez:
+A -> A_servicio da +2 cumple pero +3 no cumple y casi duplica las abstenciones
+(8 -> 15); R -> R_servicio da -1 en el eval set y +2 en las nuevas. Mezclado y
+dentro del ruido, y empuja al modelo a negarse, lo contrario de lo que buscaba.
+
+**Donde esta ahora el cuello de botella.** Con R, el articulo llega en 27 gold;
+de esas, 10 cumplen, **15 son parciales** y 2 no cumplen. La busqueda dejo de
+ser el problema principal: con el articulo en la mano, el modelo responde a
+medias (omite la via o la entidad, o se apoya en otro fragmento). Eso no lo
+arregla otra busqueda ni este prompt; es del modelo.
+
+**Adopcion de R en produccion:** cumple tres de las cuatro condiciones (no
+empeora en las nuevas: 16 -> 19 y 7 -> 11; el juez lo da mejor que A: 16 frente
+a 13). Falta la regla de RAGAS (media mayor que A, ninguna metrica baja mas de
+0,03), que gasta Groq (~110 mil tokens) y espera autorizacion.
+
+## 6. Adopcion (2026-10-14)
+
+RAGAS de R sobre las 45 gold, con el mismo juez y el mismo codigo que S10
+(`results/m3_paso7_2026-10-14/corridas/ragas_resumen_A_vs_R.json`, 120 682
+tokens del juez):
+
+| | faithfulness | answer relevancy | context precision | context recall | **media** |
+|---|---|---|---|---|---|
+| A (produccion anterior) | 0,433 | 0,695 | 0,587 | 0,430 | 0,536 |
+| **R** | 0,438 | 0,689 | **0,770** | **0,490** | **0,597** |
+
+Sube la media y ninguna metrica baja mas de 0,03 (la que mas baja: answer
+relevancy, -0,006). Con eso R cumple las cuatro condiciones del protocolo
+(seccion 3): regla de RAGAS, no empeora en las preguntas nuevas (articulo 16 ->
+19, juez 7 -> 11), el juez no lo da peor (13 -> 16) y la busqueda sube (21 ->
+27). **Adoptado**: `config.USE_RERANK = True`, `RERANK_MODEL_ID =
+"BAAI/bge-reranker-v2-m3"`, `RERANK_CON_CITA = False`. Latencia: 7,2 -> 8,5 s por
+consulta en A100.
+
+Coherencia con M1: el constructor del dataset (`dataset_v2.Buscador`) usa ahora la
+misma bandera, asi que si el dataset se reconstruye sus contextos salen del
+buscador que sirve (H4). El dataset actual no se reconstruyo: v1 se entreno con
+contextos sin reranker, y en servicio recibe contextos mejores.
+
+La meta no se alcanzo (27 de 28 en busqueda; 16 de 18 en respuesta). Con el
+articulo en el contexto, el modelo responde bien 10 de 27 y a medias 15: lo que
+falta es del modelo, no de la busqueda.

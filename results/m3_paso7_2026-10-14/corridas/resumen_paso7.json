@@ -1,0 +1,476 @@
+{
+  "A/eval_set": {
+    "n": 75,
+    "acierto_top5_gold": {
+      "aciertos": 21,
+      "de": 45,
+      "ids": [
+        "9001",
+        "9002",
+        "9004",
+        "9005",
+        "9009",
+        "9031",
+        "9032",
+        "9034",
+        "9036",
+        "9037",
+        "9041",
+        "9044",
+        "9045",
+        "9052",
+        "9053",
+        "9054",
+        "9059",
+        "9061",
+        "9065",
+        "9066",
+        "9067"
+      ]
+    },
+    "abstencion_pura_gold": 8,
+    "segundos_media": null,
+    "juez_rag": {
+      "adversarial": {
+        "n": 30,
+        "n_total": 30,
+        "sin_veredicto": 0,
+        "cumple": 10,
+        "parcial": 8,
+        "no_cumple": 12,
+        "aprobacion": 0.3333,
+        "aprobacion_ic95": [
+          0.1923,
+          0.5122
+        ],
+        "puntaje_medio": 0.4667,
+        "con_errores_juridicos": 0.3,
+        "errores_juridicos_total": 16,
+        "con_citas_numeradas": 10
+      },
+      "gold": {
+        "n": 45,
+        "n_total": 45,
+        "sin_veredicto": 0,
+        "cumple": 13,
+        "parcial": 22,
+        "no_cumple": 10,
+        "aprobacion": 0.2889,
+        "aprobacion_ic95": [
+          0.1773,
+          0.4337
+        ],
+        "puntaje_medio": 0.5333,
+        "con_errores_juridicos": 0.3778,
+        "errores_juridicos_total": 37,
+        "con_citas_numeradas": 37
+      }
+    }
+  },
+  "A_servicio/eval_set": {
+    "n": 75,
+    "acierto_top5_gold": {
+      "aciertos": 21,
+      "de": 45,
+      "ids": [
+        "9001",
+        "9002",
+        "9004",
+        "9005",
+        "9009",
+        "9031",
+        "9032",
+        "9034",
+        "9036",
+        "9037",
+        "9041",
+        "9044",
+        "9045",
+        "9052",
+        "9053",
+        "9054",
+        "9059",
+        "9061",
+        "9065",
+        "9066",
+        "9067"
+      ]
+    },
+    "abstencion_pura_gold": 15,
+    "segundos_media": 7.16,
+    "juez_rag": {
+      "adversarial": {
+        "n": 30,
+        "n_total": 30,
+        "sin_veredicto": 0,
+        "cumple": 11,
+        "parcial": 6,
+        "no_cumple": 13,
+        "aprobacion": 0.3667,
+        "aprobacion_ic95": [
+          0.2187,
+          0.5449
+        ],
+        "puntaje_medio": 0.4667,
+        "con_errores_juridicos": 0.2333,
+        "errores_juridicos_total": 18,
+        "con_citas_numeradas": 8
+      },
+      "gold": {
+        "n": 45,
+        "n_total": 45,
+        "sin_veredicto": 0,
+        "cumple": 15,
+        "parcial": 17,
+        "no_cumple": 13,
+        "aprobacion": 0.3333,
+        "aprobacion_ic95": [
+          0.2136,
+          0.4793
+        ],
+        "puntaje_medio": 0.5222,
+        "con_errores_juridicos": 0.3556,
+        "errores_juridicos_total": 31,
+        "con_citas_numeradas": 30
+      }
+    }
+  },
+  "R/eval_set": {
+    "n": 75,
+    "acierto_top5_gold": {
+      "aciertos": 27,
+      "de": 45,
+      "ids": [
+        "9001",
+        "9002",
+        "9005",
+        "9007",
+        "9009",
+        "9031",
+        "9034",
+        "9035",
+        "9036",
+        "9037",
+        "9039",
+        "9040",
+        "9041",
+        "9043",
+        "9044",
+        "9045",
+        "9046",
+        "9052",
+        "9054",
+        "9056",
+        "9060",
+        "9063",
+        "9065",
+        "9066",
+        "9067",
+        "9068",
+        "9069"
+      ]
+    },
+    "abstencion_pura_gold": 8,
+    "segundos_media": 8.46,
+    "juez_rag": {
+      "adversarial": {
+        "n": 30,
+        "n_total": 30,
+        "sin_veredicto": 0,
+        "cumple": 10,
+        "parcial": 3,
+        "no_cumple": 17,
+        "aprobacion": 0.3333,
+        "aprobacion_ic95": [
+          0.1923,
+          0.5122
+        ],
+        "puntaje_medio": 0.3833,
+        "con_errores_juridicos": 0.3667,
+        "errores_juridicos_total": 25,
+        "con_citas_numeradas": 9
+      },
+      "gold": {
+        "n": 45,
+        "n_total": 45,
+        "sin_veredicto": 0,
+        "cumple": 16,
+        "parcial": 25,
+        "no_cumple": 4,
+        "aprobacion": 0.3556,
+        "aprobacion_ic95": [
+          0.2322,
+          0.5016
+        ],
+        "puntaje_medio": 0.6333,
+        "con_errores_juridicos": 0.3556,
+        "errores_juridicos_total": 38,
+        "con_citas_numeradas": 37
+      }
+    }
+  },
+  "R_servicio/eval_set": {
+    "n": 75,
+    "acierto_top5_gold": {
+      "aciertos": 27,
+      "de": 45,
+      "ids": [
+        "9001",
+        "9002",
+        "9005",
+        "9007",
+        "9009",
+        "9031",
+        "9034",
+        "9035",
+        "9036",
+        "9037",
+        "9039",
+        "9040",
+        "9041",
+        "9043",
+        "9044",
+        "9045",
+        "9046",
+        "9052",
+        "9054",
+        "9056",
+        "9060",
+        "9063",
+        "9065",
+        "9066",
+        "9067",
+        "9068",
+        "9069"
+      ]
+    },
+    "abstencion_pura_gold": 10,
+    "segundos_media": 7.67,
+    "juez_rag": {
+      "adversarial": {
+        "n": 30,
+        "n_total": 30,
+        "sin_veredicto": 0,
+        "cumple": 10,
+        "parcial": 7,
+        "no_cumple": 13,
+        "aprobacion": 0.3333,
+        "aprobacion_ic95": [
+          0.1923,
+          0.5122
+        ],
+        "puntaje_medio": 0.45,
+        "con_errores_juridicos": 0.2,
+        "errores_juridicos_total": 19,
+        "con_citas_numeradas": 9
+      },
+      "gold": {
+        "n": 45,
+        "n_total": 45,
+        "sin_veredicto": 0,
+        "cumple": 15,
+        "parcial": 23,
+        "no_cumple": 7,
+        "aprobacion": 0.3333,
+        "aprobacion_ic95": [
+          0.2136,
+          0.4793
+        ],
+        "puntaje_medio": 0.5889,
+        "con_errores_juridicos": 0.4222,
+        "errores_juridicos_total": 48,
+        "con_citas_numeradas": 35
+      }
+    }
+  },
+  "A/confirmacion": {
+    "n": 26,
+    "acierto_top5_gold": {
+      "aciertos": 16,
+      "de": 26,
+      "ids": [
+        "9501",
+        "9502",
+        "9505",
+        "9506",
+        "9507",
+        "9508",
+        "9512",
+        "9513",
+        "9514",
+        "9515",
+        "9516",
+        "9518",
+        "9519",
+        "9520",
+        "9521",
+        "9526"
+      ]
+    },
+    "abstencion_pura_gold": 1,
+    "segundos_media": 10.58,
+    "juez_rag": {
+      "gold": {
+        "n": 26,
+        "n_total": 26,
+        "sin_veredicto": 0,
+        "cumple": 7,
+        "parcial": 18,
+        "no_cumple": 1,
+        "aprobacion": 0.2692,
+        "aprobacion_ic95": [
+          0.137,
+          0.4608
+        ],
+        "puntaje_medio": 0.6154,
+        "con_errores_juridicos": 0.4615,
+        "errores_juridicos_total": 20,
+        "con_citas_numeradas": 25
+      }
+    }
+  },
+  "A_servicio/confirmacion": {
+    "n": 26,
+    "acierto_top5_gold": {
+      "aciertos": 16,
+      "de": 26,
+      "ids": [
+        "9501",
+        "9502",
+        "9505",
+        "9506",
+        "9507",
+        "9508",
+        "9512",
+        "9513",
+        "9514",
+        "9515",
+        "9516",
+        "9518",
+        "9519",
+        "9520",
+        "9521",
+        "9526"
+      ]
+    },
+    "abstencion_pura_gold": 2,
+    "segundos_media": 9.22,
+    "juez_rag": {
+      "gold": {
+        "n": 26,
+        "n_total": 26,
+        "sin_veredicto": 0,
+        "cumple": 10,
+        "parcial": 14,
+        "no_cumple": 2,
+        "aprobacion": 0.3846,
+        "aprobacion_ic95": [
+          0.2243,
+          0.5747
+        ],
+        "puntaje_medio": 0.6538,
+        "con_errores_juridicos": 0.4615,
+        "errores_juridicos_total": 23,
+        "con_citas_numeradas": 24
+      }
+    }
+  },
+  "R/confirmacion": {
+    "n": 26,
+    "acierto_top5_gold": {
+      "aciertos": 19,
+      "de": 26,
+      "ids": [
+        "9501",
+        "9502",
+        "9503",
+        "9504",
+        "9505",
+        "9506",
+        "9507",
+        "9508",
+        "9512",
+        "9513",
+        "9514",
+        "9515",
+        "9516",
+        "9519",
+        "9520",
+        "9521",
+        "9522",
+        "9523",
+        "9526"
+      ]
+    },
+    "abstencion_pura_gold": 1,
+    "segundos_media": 10.41,
+    "juez_rag": {
+      "gold": {
+        "n": 26,
+        "n_total": 26,
+        "sin_veredicto": 0,
+        "cumple": 11,
+        "parcial": 12,
+        "no_cumple": 3,
+        "aprobacion": 0.4231,
+        "aprobacion_ic95": [
+          0.2554,
+          0.6105
+        ],
+        "puntaje_medio": 0.6538,
+        "con_errores_juridicos": 0.3846,
+        "errores_juridicos_total": 22,
+        "con_citas_numeradas": 25
+      }
+    }
+  },
+  "R_servicio/confirmacion": {
+    "n": 26,
+    "acierto_top5_gold": {
+      "aciertos": 19,
+      "de": 26,
+      "ids": [
+        "9501",
+        "9502",
+        "9503",
+        "9504",
+        "9505",
+        "9506",
+        "9507",
+        "9508",
+        "9512",
+        "9513",
+        "9514",
+        "9515",
+        "9516",
+        "9519",
+        "9520",
+        "9521",
+        "9522",
+        "9523",
+        "9526"
+      ]
+    },
+    "abstencion_pura_gold": 1,
+    "segundos_media": 10.23,
+    "juez_rag": {
+      "gold": {
+        "n": 26,
+        "n_total": 26,
+        "sin_veredicto": 0,
+        "cumple": 13,
+        "parcial": 10,
+        "no_cumple": 3,
+        "aprobacion": 0.5,
+        "aprobacion_ic95": [
+          0.3206,
+          0.6794
+        ],
+        "puntaje_medio": 0.6923,
+        "con_errores_juridicos": 0.3462,
+        "errores_juridicos_total": 18,
+        "con_citas_numeradas": 25
+      }
+    }
+  }
+}

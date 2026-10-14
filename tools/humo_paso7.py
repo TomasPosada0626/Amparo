@@ -19,6 +19,10 @@ import json, pathlib, re, shutil, subprocess, sys, tempfile, traceback, types
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
 TMP = pathlib.Path(tempfile.mkdtemp(prefix="humo_paso7_"))
+import atexit
+# La carpeta temporal lleva una copia del indice (~90 MB): se borra al salir. Antes se
+# quedaba y 16 corridas llenaron el disco (2026-10-14).
+atexit.register(shutil.rmtree, TMP, ignore_errors=True)
 DRIVE = TMP / "drive"
 (DRIVE / "rag").mkdir(parents=True)
 

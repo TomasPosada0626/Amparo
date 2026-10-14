@@ -8,12 +8,14 @@ tests del RAG: correr sin GPU, sin faiss, sin el stack pesado.
 from tools.rag import config
 
 
-def test_las_banderas_maestras_arrancan_en_falso():
-    """El default es el comportamiento S07 (sistema A): con las dos banderas en
-    False el retrieval es denso puro, y por eso los 125 tests de S07 no cambian.
-    El delta A/B/C solo es atribuible si el punto de partida es el ingenuo."""
+def test_produccion_reordena_sin_hibrido():
+    """Desde el 2026-10-14 produccion reordena con el cross-encoder (paso 7 de M3:
+    paso las cuatro condiciones de docs/m3_protocolo_aceptacion.md) y sigue sin
+    hibrido, que no mejoro en ninguna medicion. retrieve() conserva use_rerank=False
+    por defecto: el que enciende el reranking es pipeline.answer_query, que lee
+    esta bandera."""
     assert config.USE_HYBRID is False
-    assert config.USE_RERANK is False
+    assert config.USE_RERANK is True
 
 
 def test_hybrid_top_n_supera_el_top_k_final():
@@ -45,8 +47,10 @@ def test_el_prompt_sigue_recibiendo_top_k_chunks():
 
 def test_el_reranker_es_un_cross_encoder_multilingue():
     """Mismo criterio que e5: el caso de Amparo es consulta coloquial en español
-    -> texto normativo, asi que el reranker tiene que entender español."""
-    assert "mmarco" in config.RERANK_MODEL_ID.lower()
+    -> texto normativo, asi que el reranker tiene que entender español.
+    bge-reranker-v2-m3 es multilingue; reemplazo a mmarco MiniLM el 2026-10-14
+    (27 frente a 22 de 45 con el articulo correcto en el top-5)."""
+    assert config.RERANK_MODEL_ID == "BAAI/bge-reranker-v2-m3"
 
 
 def test_importar_config_no_arrastra_el_stack_pesado():

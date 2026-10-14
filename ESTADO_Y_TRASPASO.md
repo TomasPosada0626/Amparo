@@ -772,7 +772,7 @@ barrido que fijó `RETRIEVAL_MIN_SCORE = 0.81` y `USE_ENRUTADOR = True`.
 - [x] Índice verificado
 - [x] Configuración de búsqueda justificada (piso 0,81, enrutador)
 - [ ] Correcciones de corpus agrupadas (artículo 57 del CST, derogatorias)
-- [ ] Ranking suficiente: 21 de 45 en el top-5; meta ≥ 28 (`docs/m3_protocolo_aceptacion.md`)
+- [ ] Ranking suficiente: **27** de 45 en el top-5 con bge-reranker-v2-m3 (adoptado el 2026-10-14; antes 21); meta ≥ 28, falta 1
 
 ### 7.5 M3 — `colab/m3_s08_rag_avanzado.ipynb`
 
@@ -879,8 +879,8 @@ pero con ese contexto el modelo se abstiene más (14 abstenciones puras frente a
 
 - [x] Corrida completa (2026-10-09; repetida el 2026-10-14 con H5 y la decisión de búsqueda)
 - [x] Corrida con el adaptador final: v1 (`results/m3_s10_2026-10-14/`, `hash_adaptador` `8ce3cc2bc9306974`)
-- [ ] Gold bien respondidas: 13/45 con el juez del RAG; meta ≥ 18 (`docs/m3_protocolo_aceptacion.md`)
-- [ ] Recuperación: artículo gold en el top-5: 21/45; meta ≥ 28 (C sube a 25/45 pero el RAGAS lo descartó)
+- [ ] Gold bien respondidas: **16**/45 con el juez del RAG (antes 13; 7 -> 11 en las 26 nuevas); meta ≥ 18. Con el articulo en el contexto responde bien 10 de 27: falta es del modelo
+- [ ] Recuperación: artículo gold en el top-5: **27**/45 (bge-reranker-v2-m3, adoptado; 16 -> 19 en las 26 nuevas); meta ≥ 28
 - [x] Rutas incorrectas ≤ 4: con RAG, 0 de 45 gold y 0 de 30 adversariales (`rutas_5c.json`, 2026-10-14; sin RAG v1 tiene 6)
 - [ ] Correcciones de corpus (derogatorias hechas y apagadas; falta el artículo 57)
 
@@ -974,8 +974,11 @@ M3 (CPU y GPU)
 18. [x]     paso 7 en CPU: el articulo se pierde porque e5 trae la ley y no el
             articulo; bge-reranker-v2-m3 lo sube de 20 a 27/45 en el top-5. Bloque de
             servicio del prompt listo (docs/m3_paso7_busqueda_2026-10-14.md)
-19. [ ]     Colab: colab/m3_paso7_corrida_final.ipynb (A100, ~45 min), despues juez
-            y RAGAS en CPU (tools/evaluation/evaluar_paso7.py); adoptar o no
+19. [x]     Colab: corrida final (A100, 2026-10-14). R adoptado: RAGAS 0.536 -> 0.597,
+            juez 13 -> 16, busqueda 21 -> 27; bloque de servicio NO adoptado
+            (mas abstenciones). Meta no alcanzada: 27/28 y 16/18
+20. [ ]     Si se quiere llegar a la meta: reentrenar (v5) para que, con el articulo
+            en el contexto, responda completo (hoy 15 de 27 a medias). Reabre M1 y M2
 
 M2 (GPU + Groq)
 17. [x] H6  revision fijada; adaptador y dataset verificados por huella

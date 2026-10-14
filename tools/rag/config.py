@@ -110,7 +110,13 @@ HUELLA_ADAPTADOR_PRODUCCION = "8ce3cc2bc9306974"
 # aca, y no solo como argumentos, para tener un unico lugar donde leer en que
 # configuracion corre el sistema.
 USE_HYBRID = False
-USE_RERANK = False
+# Reranking ENCENDIDO desde el 2026-10-14 (paso 7 de M3), con bge-reranker-v2-m3
+# (RERANK_MODEL_ID). Paso las cuatro condiciones de docs/m3_protocolo_aceptacion.md:
+# articulo en el top-5 de 20-21 a 27/45 (y de 16 a 19 en las 26 preguntas nuevas);
+# juez del RAG 13 -> 16 gold bien respondidas (7 -> 11 en las nuevas); media de
+# RAGAS 0.536 -> 0.597, ninguna metrica baja mas de 0.03. Cuesta ~1.3 s por
+# consulta en A100. Ver docs/m3_paso7_busqueda_2026-10-14.md.
+USE_RERANK = True
 
 # Enrutador por categoria (tools/rag/enrutador.py): antes de cortar el top-k,
 # sube al frente los candidatos de las normas de las categorias que el
@@ -168,7 +174,10 @@ RRF_K = 60
 # motivo que e5 en el retrieval denso: el caso de Amparo es consulta coloquial en
 # español -> texto normativo. Stack pesado: se carga con import perezoso y solo
 # corre en Colab, igual que e5 y Qwen (no entra a requirements.txt).
-RERANK_MODEL_ID = "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"
+# Desde el 2026-10-14, bge-reranker-v2-m3 (multilingue, XLM-R large): en las 45
+# gold, mmarco MiniLM subia el articulo correcto al top-5 en 22 casos y bge en 27.
+# El de mmarco se conserva como referencia en results/m3_paso7_2026-10-14/rerank/.
+RERANK_MODEL_ID = "BAAI/bge-reranker-v2-m3"
 RERANK_MAX_LENGTH = 512  # limite de tokens del par (consulta, chunk)
 
 # Que lee el cross-encoder de cada fragmento. False: solo el texto (como hasta

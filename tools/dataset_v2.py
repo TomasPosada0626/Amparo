@@ -210,7 +210,10 @@ class Buscador:
         self.store = store
         from tools.rag import config as _c
         _enr = "+enrutador" if _c.USE_ENRUTADOR else ""
-        self.nombre = ("e5+faiss" if store is not None else "bm25") + _enr
+        # El reranker solo aplica con el store (produccion); el camino BM25 local
+        # no lo usa. Queda en el nombre para que el dataset diga con que se armo.
+        _rr = f"+rerank({_c.RERANK_MODEL_ID})" if (store is not None and _c.USE_RERANK) else ""
+        self.nombre = ("e5+faiss" if store is not None else "bm25") + _enr + _rr
 
     def candidatos(self, pregunta: str, n: int) -> list:
         from tools.rag import config
@@ -222,8 +225,10 @@ class Buscador:
             # La bandera, no True fijo: con el enrutador fijo aqui el dataset se
             # construia siempre con el, aunque produccion lo tuviera apagado, y
             # se entrenaria sobre un contexto que el sistema nunca arma.
+            # Lo mismo con el reranker (encendido el 2026-10-14): si el dataset se
+            # reconstruye, sus contextos salen del buscador que sirve (H4).
             return retrieve(pregunta, self.store, top_k=n, min_score=None,
-                            use_router=config.USE_ENRUTADOR)
+                            use_router=config.USE_ENRUTADOR, use_rerank=config.USE_RERANK)
         res = self.c.bm25.search(pregunta, config.ENRUTADOR_POOL)
         return priorizar(res, enrutador_por_defecto().normas(pregunta))[:n]
 

@@ -6,7 +6,7 @@ de Colab, con 5 casos del eval set. Sustituye SOLO lo que exige GPU o red: Qwen
 (un generador que cita el articulo del contexto y, 1 de cada 4 veces, uno
 inexistente para ejercitar la correccion de citas), el juez de Groq (RAGAS y
 criterio, con el formato real), Drive (una carpeta temporal) y nvidia-smi.
-Corren de verdad: e5 + FAISS, el enrutador, BM25, el cross-encoder, la
+Corren de verdad: e5 + FAISS, el enrutador, BM25, la
 verificacion de citas, RAGAS con los embeddings de e5, la decision de busqueda,
 las rutas y los manifiestos.
 
@@ -25,6 +25,10 @@ import json, os, pathlib, re, shutil, subprocess, sys, tempfile, types, tracebac
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
 TMP = pathlib.Path(tempfile.mkdtemp(prefix="humo_m3_"))
+import atexit
+# La carpeta temporal lleva una copia del indice (~90 MB): se borra al salir. Antes se
+# quedaba y 16 corridas llenaron el disco (2026-10-14).
+atexit.register(shutil.rmtree, TMP, ignore_errors=True)
 DRIVE = TMP / "drive"
 (DRIVE / "rag").mkdir(parents=True)
 
@@ -70,6 +74,17 @@ def run_chat_generation(model, tokenizer, system_prompt, user_content, max_new_t
         texto = "Segun el articulo 9999 de la Ley 1 de 1900, tienes derecho a reclamar."
     return (texto, 40) if return_n_tokens else texto
 generation.run_chat_generation = run_chat_generation
+
+# --- cross-encoder falso -------------------------------------------------------
+# Desde el 2026-10-14 produccion reordena con bge-reranker-v2-m3 (2 GB): cargarlo en
+# CPU haria la prueba lenta y no aporta a lo que se prueba (el camino de codigo).
+# El puntuador falso conserva el orden; registra que modelo se pidio.
+from tools.rag import rerank as _rerank
+RERANKERS = []
+class _CEFalso:
+    def __init__(self, mid): self.mid = mid
+    def predict(self, pares): RERANKERS.append(self.mid); return [float(-i) for i in range(len(pares))]
+_rerank.load_reranker = lambda model_id=rc.RERANK_MODEL_ID: _CEFalso(model_id)
 
 # --- eval set reducido: 3 gold y 2 adversariales -------------------------------
 from tools.evaluation import eval_set as es
@@ -141,6 +156,7 @@ if ok:
     ok = ok and LLAMADAS["n"] == antes
 
 print("\n[humo] llamadas al generador:", LLAMADAS)
+print("[humo] cross-encoder pedido:", sorted(set(RERANKERS)) or "ninguno")
 print("[humo] archivos escritos en Drive simulado:")
 for p in sorted((DRIVE / "rag").rglob("*")):
     if p.is_file() and p.suffix != ".faiss" and p.name != "rag_index_metadata.jsonl":
