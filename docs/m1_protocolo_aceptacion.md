@@ -224,6 +224,13 @@ empeorar la respuesta**.
 | irrelevante: cita sin respaldo | 1 | 0 | **0** |
 | gold con RAG real: abstención pura | 10/45 | 30/45 | **≤ 10/45** |
 
+> **Desde el 2026-10-13 (decisión de Tomás, cabecera de este protocolo)** la
+> abstención no es criterio. Deciden cuatro filas: *suficiente: se abstiene*,
+> *suficiente: cita el artículo que responde*, *parcial: dice que falta* e
+> *irrelevante: cita sin respaldo*. Las filas **irrelevante: se abstiene** y
+> **gold con RAG real: abstención pura** se siguen midiendo y reportando, sin
+> umbral. v3 y v4 se juzgaron con las seis, que era el protocolo vigente.
+
 - **Las dos filas de "suficiente" llevan una holgura de 2 casos** sobre v1. Es
   deriva numérica, no generosidad: el control de reproducción de la
   reevaluación dio 3 de 10 idénticas con el mismo adaptador y el mismo stack.
@@ -232,8 +239,9 @@ empeorar la respuesta**.
   fila que tumbó a v3 y la que juzga D3).
 - **La fila de mejora exige 6 casos más que v1** (de 19 a 25 de 49, unos 12
   puntos), para que no la cumpla el ruido.
-- **Pasa si cumple las seis.** Si falla una, el candidato se descarta sin
-  evaluación completa y se anota por qué.
+- **Pasa si cumple las seis** (v3, v4). **Desde el 2026-10-13, si cumple las
+  cuatro que deciden** (nota bajo la tabla). Si falla una, el candidato se
+  descarta sin evaluación completa y se anota por qué.
 - **Pasar no es aceptar.** Solo autoriza la evaluación completa (fases C y D),
   con los criterios D1–D7 sin cambios. En particular D3 sigue en **≤ 3/45**;
   aquí se pide solo no empeorar a v1.

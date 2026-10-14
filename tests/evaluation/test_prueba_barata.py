@@ -117,3 +117,21 @@ def test_candidato_y_control_con_buscadores_distintos_no_se_juzga(tmp_path):
 def test_acepta_el_directorio_padre_con_una_sola_corrida(tmp_path):
     _escribir(tmp_path / "e" / "20261014-xxxx", ESC_OK)
     assert pb._resumen(tmp_path / "e")["huella_adaptador"] == "aaaa"
+
+
+def test_las_filas_de_abstencion_ya_no_deciden(tmp_path):
+    """Decision de Tomas del 2026-10-13: cuanto se abstiene no es criterio. Un
+    candidato que se abstiene poco en irrelevante y mucho en gold pasa si
+    responde bien con contexto suficiente y no inventa citas."""
+    esc = {**ESC_OK, "irrelevante_se_abstiene": "5/49"}
+    gold = {**GOLD_OK, "abstencion_pura": "30/45"}
+    r = pb.informe(_escribir(tmp_path / "e", esc), _escribir(tmp_path / "g", gold))
+    assert r["pasa"]
+    informativas = {f["fila"] for f in r["filas"] if not f["decide"]}
+    assert informativas == pb.INFORMATIVAS
+
+
+def test_el_protocolo_dice_que_filas_ya_no_deciden():
+    texto = PROTOCOLO.read_text(encoding="utf-8")
+    nota = texto.split("Desde el 2026-10-13 (decisión de Tomás", 1)[1].split("\n\n", 1)[0]
+    assert "irrelevante: se abstiene" in nota and "abstención pura" in nota

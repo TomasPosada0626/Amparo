@@ -1,8 +1,10 @@
 """La prueba barata de un candidato, juzgada contra el protocolo.
 
 `docs/m1_protocolo_aceptacion.md`, "La prueba barata de un candidato nuevo"
-(fijada el 2026-10-13, antes de v4): seis filas automaticas, sin adjudicacion,
-que el candidato tiene que cumplir TODAS antes de pagar la evaluacion completa.
+(fijada el 2026-10-13, antes de v4): seis filas automaticas, sin adjudicacion, de las
+que deciden cuatro desde la decision de Tomas del mismo dia (la abstencion no es criterio),
+y las que deciden el candidato las tiene que cumplir TODAS antes de pagar la evaluacion
+completa.
 Los umbrales viven aqui y en el protocolo; `tests/evaluation/test_prueba_barata.py`
 comprueba que digan lo mismo.
 
@@ -30,6 +32,9 @@ from tools.evaluation import config
 HUELLA_ESCENARIOS = "d51365fbc779d1ce"
 
 # (fila, campo en el resumen, operador, umbral, referencia de v1 2026-10-12)
+# Las seis se miden; desde el 2026-10-13 solo deciden las que no miden cuanto se
+# abstiene el modelo (decision de Tomas: la abstencion no es criterio). Las otras
+# dos estan en INFORMATIVAS y se reportan sin umbral.
 CRITERIOS = (
     ("suficiente: se abstiene", "escenarios", "suficiente_se_abstiene", "<=", 6, 4),
     ("suficiente: cita el articulo que responde", "escenarios", "suficiente_cita_el_oraculo", ">=", 39, 41),
@@ -43,6 +48,8 @@ CRITERIOS = (
 # sospechar que el entorno cambio. Es un aviso, no una condicion: la deriva
 # numerica existe (control de reproduccion de la fase B: 3 de 10 identicas).
 TOLERANCIA_CONTROL = 3
+
+INFORMATIVAS = {"irrelevante: se abstiene", "gold con RAG real: abstencion pura"}
 
 
 def _resumen(directorio) -> dict:
@@ -88,8 +95,9 @@ def juzgar(esc: dict, gold: dict) -> dict:
     for nombre, fuente, campo, op, umbral, ref in CRITERIOS:
         valor = _numero(fuentes[fuente][campo])
         filas.append({"fila": nombre, "valor": fuentes[fuente][campo], "umbral": f"{op} {umbral}",
-                      "v1_ref": ref, "cumple": _cumple(valor, op, umbral)})
-    return {"pasa": all(f["cumple"] for f in filas), "filas": filas}
+                      "v1_ref": ref, "cumple": _cumple(valor, op, umbral),
+                      "decide": nombre not in INFORMATIVAS})
+    return {"pasa": all(f["cumple"] for f in filas if f["decide"]), "filas": filas}
 
 
 def comparar_control(esc: dict, gold: dict) -> list[str]:
@@ -131,8 +139,8 @@ def informe(dir_esc, dir_gold, ctrl_esc=None, ctrl_gold=None) -> dict:
 def imprimir(r: dict) -> None:
     print(f"{'fila':44}{'valor':>8}{'umbral':>9}{'v1':>6}  ")
     for f in r["filas"]:
-        print(f"{f['fila']:44}{str(f['valor']):>8}{f['umbral']:>9}{f['v1_ref']:>6}  "
-              f"{'cumple' if f['cumple'] else 'NO CUMPLE'}")
+        estado = ("cumple" if f["cumple"] else "NO CUMPLE") if f["decide"] else "(solo informa)"
+        print(f"{f['fila']:44}{str(f['valor']):>8}{f['umbral']:>9}{f['v1_ref']:>6}  {estado}")
     for p in r["problemas"]:
         print(f"MEDICION NO VALIDA: {p}")
     for a in r["avisos_control"]:
