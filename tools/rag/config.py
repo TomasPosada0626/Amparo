@@ -133,6 +133,13 @@ USE_RERANK = False
 USE_ENRUTADOR = True
 ENRUTADOR_POOL = 300
 
+# Voto de la busqueda densa (enrutador.ampliar_con_busqueda): las normas de los
+# primeros N candidatos densos entran siempre en las permitidas, para que un
+# error de tema del clasificador no saque del frente la norma correcta (R1 del
+# paso 7 de M3, docs/m3_protocolo_aceptacion.md). N=3 se fijo antes de medirlo.
+# **Apagado (0)** hasta que se mida y se adopte con la regla de busqueda.
+ENRUTADOR_VOTO_DENSO = 0
+
 # Filtro de derogatorias (H12, tools/rag/derogatorias.py): descarta del top-k
 # los fragmentos cuyo unico contenido es "Articulo X. Derogado...". **Apagado**:
 # cambia el contexto que ve el modelo, y mientras se compara un candidato de M1
@@ -163,6 +170,17 @@ RRF_K = 60
 # corre en Colab, igual que e5 y Qwen (no entra a requirements.txt).
 RERANK_MODEL_ID = "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"
 RERANK_MAX_LENGTH = 512  # limite de tokens del par (consulta, chunk)
+
+# Que lee el cross-encoder de cada fragmento. False: solo el texto (como hasta
+# ahora). True: la cita y el capitulo delante (chunk.texto_indexable), lo mismo
+# que se indexa. Para elegir EL articulo dentro de una norma, el numero y el
+# titulo del capitulo pesan (R2 del paso 7 de M3). Apagado hasta medirlo.
+RERANK_CON_CITA = False
+
+# Bloque de servicio al final del system prompt (prompt_template.
+# INSTRUCCIONES_DE_SERVICIO; paso 4 del plan de M3). El system prompt de
+# entrenamiento queda intacto delante. Apagado hasta medirlo en GPU.
+PROMPT_SERVICIO = False
 
 # El embudo: se recuperan RERANK_INPUT_N candidatos baratos (bi-encoder/BM25) y
 # el cross-encoder, caro por par, reordena para quedarse con RERANK_OUTPUT_K.

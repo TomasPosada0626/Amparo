@@ -58,6 +58,7 @@ def rerank(
     *,
     top_k: int = config.RERANK_OUTPUT_K,
     model_id: str = config.RERANK_MODEL_ID,
+    con_cita: bool | None = None,
     _scorer=None,
 ) -> list[SearchResult]:
     """Reordena `candidates` por relevancia (consulta, chunk) y devuelve los top_k.
@@ -74,11 +75,22 @@ def rerank(
     _scorer: inyectable para tests -- una funcion pares -> lista de puntajes.
     Por defecto usa el cross-encoder real (GPU). Permite probar la logica del
     embudo sin descargar el modelo.
+
+    con_cita: el cross-encoder lee la cita y el capitulo delante del texto
+    (chunk.texto_indexable), lo mismo que se indexa. None toma
+    config.RERANK_CON_CITA.
     """
     if not candidates:
         return []
 
-    pares = [(query, c.text) for c in candidates]
+    if con_cita is None:
+        con_cita = config.RERANK_CON_CITA
+    if con_cita:
+        from tools.rag.chunk import texto_indexable
+
+        pares = [(query, texto_indexable(c)) for c in candidates]
+    else:
+        pares = [(query, c.text) for c in candidates]
     if _scorer is not None:
         puntajes = _scorer(pares)
     else:

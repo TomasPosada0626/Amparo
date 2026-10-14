@@ -96,3 +96,26 @@ def test_reranking_de_lista_vacia_devuelve_vacio():
     """Sin candidatos (la valvula de escape ya filtro todo, o el corpus no trajo
     nada) no hay nada que reordenar: [] y no un error."""
     assert rerank.rerank("consulta", [], top_k=5, _scorer=lambda p: []) == []
+
+
+def test_con_cita_el_cross_encoder_lee_la_norma_y_el_articulo():
+    """R2 del paso 7: para elegir EL articulo dentro de una norma, el numero y el
+    capitulo pesan; el indice ya los embebe (chunk.texto_indexable)."""
+    vistos = []
+
+    def scorer(pares):
+        vistos.extend(t for _, t in pares)
+        return [1.0] * len(pares)
+
+    c = make_result("c1", 0.8, articulos=["47"])
+    rerank.rerank("consulta", [c], top_k=1, con_cita=True, _scorer=scorer)
+    assert vistos[0].startswith("Ley 1480 de 2011, Articulo 47")
+    assert vistos[0].endswith("texto de c1")
+
+
+def test_por_defecto_el_cross_encoder_lee_solo_el_texto():
+    vistos = []
+    rerank.rerank("consulta", [make_result("c1", 0.8, articulos=["47"])], top_k=1,
+                  _scorer=lambda pares: vistos.extend(t for _, t in pares) or [1.0])
+    assert vistos == ["texto de c1"]
+    assert rerank.config.RERANK_CON_CITA is False

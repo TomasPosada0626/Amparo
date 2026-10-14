@@ -145,16 +145,26 @@ def evaluar_contra_criterio(
     checkpoint_path: Optional[Path] = None,
     progress_every: int = 5,
     log_prefix: str = "criterio",
+    system_prompt: str = CRITERIO_SYSTEM_PROMPT,
+    construir_prompt: Optional[Callable[[object, dict], str]] = None,
+    huella_fn: Optional[Callable[[object, dict], str]] = None,
 ) -> list[VeredictoCriterio]:
     """generaciones: objetos con .id/.query/.generated/.label (GenerationResult
-    o equivalentes); registros: data/eval_set.json (aporta criterio y tipo)."""
+    o equivalentes); registros: data/eval_set.json (aporta criterio y tipo).
+
+    system_prompt, construir_prompt(g, registro) y huella_fn(g, registro) dejan
+    usar otro juez con el mismo motor (juez_rag.py, el del RAG). Por defecto es
+    el juez de M2, con las mismas huellas de siempre."""
     por_id = {r["id"]: r for r in registros}
     faltan = sorted(g.id for g in generaciones if g.id not in por_id)
     if faltan:
         raise ValueError(f"Respuestas de casos que ya no estan en el eval set: {faltan}. El eval set cambio "
                          "despues de generar: volver a generar con el eval set actual.")
-    huellas = {g.id: huella(CRITERIO_PROMPT_VERSION, g.query, por_id[g.id]["criterio"], g.generated)
-               for g in generaciones}
+    if construir_prompt is None:
+        construir_prompt = lambda g, rec: build_criterio_prompt(g.query, rec["criterio"], rec["tipo"], g.generated)
+    if huella_fn is None:
+        huella_fn = lambda g, rec: huella(CRITERIO_PROMPT_VERSION, g.query, rec["criterio"], g.generated)
+    huellas = {g.id: huella_fn(g, por_id[g.id]) for g in generaciones}
     done = load_checkpoint(checkpoint_path, huellas, log_prefix=log_prefix)
 
     salida: list[VeredictoCriterio] = []
@@ -166,9 +176,7 @@ def evaluar_contra_criterio(
             veredicto, errores, justificacion, ok, raw = (
                 e["veredicto"], e["errores_juridicos"], e["justificacion"], e["parse_ok"], e["raw_output"])
         else:
-            raw = generate_fn(CRITERIO_SYSTEM_PROMPT,
-                              build_criterio_prompt(g.query, rec["criterio"], rec["tipo"], g.generated),
-                              max_tokens)
+            raw = generate_fn(system_prompt, construir_prompt(g, rec), max_tokens)
             veredicto, errores, justificacion, ok = parse_criterio_output(raw)
             if ok:   # sin respuesta (cupo, red) o ilegible: no se guarda, se reintenta al retomar
                 append_checkpoint(checkpoint_path, {

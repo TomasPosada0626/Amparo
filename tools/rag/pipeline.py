@@ -124,6 +124,9 @@ def answer_query(
     bm25=None,
     model_bundle=None,
     prompt_optimizado: dict | None = None,
+    prompt_servicio: bool = config.PROMPT_SERVICIO,
+    reranker_id: str | None = None,
+    rerank_con_cita: bool | None = None,
 ) -> dict:
     """Corre retrieve -> augment -> generate para una consulta.
 
@@ -145,6 +148,11 @@ def answer_query(
     instrucciones + demos). Si se pasa, reemplaza al prompt escrito a mano y la
     salida se marca con sistema "una_pasada_dspy"; el retrieval no cambia.
 
+    prompt_servicio: agrega prompt_template.INSTRUCCIONES_DE_SERVICIO al final
+    del system prompt de entrenamiento (paso 4 del plan de M3). reranker_id /
+    rerank_con_cita: que cross-encoder reordena si use_rerank (R2 del paso 7).
+    Los tres quedan en la salida para que dos corridas sean distinguibles.
+
     Devuelve tambien la evidencia de retrieval (chunks, scores) para que el
     harness de tools/evaluation/ pueda auditar no solo el texto final sino que
     efectivamente hubo recuperacion antes de responder.
@@ -157,10 +165,12 @@ def answer_query(
         use_hybrid=use_hybrid,
         use_rerank=use_rerank,
         bm25=bm25,
+        reranker_id=reranker_id,
+        rerank_con_cita=rerank_con_cita,
     )
     respuesta, verificacion = _generar_verificado(
         query, recuperados, use_lora=use_lora, model_bundle=model_bundle,
-        prompt_optimizado=prompt_optimizado,
+        prompt_optimizado=prompt_optimizado, prompt_servicio=prompt_servicio,
     )
 
     return {
@@ -189,6 +199,10 @@ def answer_query(
         # numeros distintos serian indistinguibles y el delta no seria atribuible.
         "used_hybrid": use_hybrid,
         "used_rerank": use_rerank,
+        "reranker": (reranker_id or config.RERANK_MODEL_ID) if use_rerank else None,
+        "rerank_con_cita": (config.RERANK_CON_CITA if rerank_con_cita is None else rerank_con_cita)
+                           if use_rerank else None,
+        "prompt_servicio": prompt_servicio,
         "top_k": top_k,
         "min_score": min_score,
         "sistema": "una_pasada_dspy" if prompt_optimizado is not None else "una_pasada",
@@ -196,7 +210,8 @@ def answer_query(
     }
 
 
-def _generar_verificado(query, recuperados, *, use_lora, model_bundle, prompt_optimizado=None):
+def _generar_verificado(query, recuperados, *, use_lora, model_bundle, prompt_optimizado=None,
+                        prompt_servicio=False):
     """Genera la respuesta con las dos salvaguardas de codigo (seccion 25 de docs).
 
     Hallazgos de la corrida de S08 (2026-09-27) que las motivan: la valvula de
@@ -221,7 +236,7 @@ def _generar_verificado(query, recuperados, *, use_lora, model_bundle, prompt_op
 
         messages = mensajes_con_prompt_optimizado(query, recuperados, prompt_optimizado)
     else:
-        messages = build_messages(query, recuperados)
+        messages = build_messages(query, recuperados, servicio=prompt_servicio)
     respuesta = generate(messages, use_lora=use_lora, model_bundle=model_bundle)
 
     rechazadas = citas_no_verificables(respuesta, recuperados, query)
@@ -271,6 +286,11 @@ def to_eval_record(resultado: dict, registro: dict) -> dict:
         # docs/m3_decisiones_rag.md.
         "used_hybrid": resultado.get("used_hybrid", False),
         "used_rerank": resultado.get("used_rerank", False),
+        # Paso 7 de M3: que cross-encoder reordeno, si leyo la cita, y si el prompt
+        # llevaba el bloque de servicio. None/False en corridas anteriores.
+        "reranker": resultado.get("reranker"),
+        "rerank_con_cita": resultado.get("rerank_con_cita"),
+        "prompt_servicio": resultado.get("prompt_servicio", False),
         # Ruta que genero la respuesta: "una_pasada" o "una_pasada_dspy". Las
         # rutas "tool_use" y "react" se retiraron el 2026-10-08 (C11); el campo
         # y la traza (vacia) se conservan para leer las corridas anteriores.

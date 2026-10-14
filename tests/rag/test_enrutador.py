@@ -119,3 +119,35 @@ def test_las_entradas_son_del_tamano_de_una_consulta_real():
 
     assert statistics.mean(largos) < 300, (
         f"media de {statistics.mean(largos):.0f} caracteres: eso no son consultas sueltas")
+
+
+# --- voto de la busqueda densa (R1 del paso 7, apagado por defecto) ----------
+
+def test_el_voto_denso_suma_las_normas_de_los_primeros_candidatos():
+    cands = [_r("a", "cst"), _r("b", "ley820"), _r("c", "cpaca")]
+    assert en.ampliar_con_busqueda({"ley820"}, cands, 1) == {"ley820", "cst"}
+
+
+def test_el_voto_denso_apagado_o_sin_filtro_no_cambia_nada():
+    cands = [_r("a", "cst")]
+    assert en.ampliar_con_busqueda({"ley820"}, cands, 0) == {"ley820"}
+    assert en.ampliar_con_busqueda(None, cands, 3) is None
+
+
+def test_produccion_no_tiene_el_voto_denso_encendido(monkeypatch):
+    """Medido el 2026-10-14 con N=3: 17/45 en el top-5 frente a 20 sin el voto.
+    No se adopta; si alguien lo enciende, que sea a proposito."""
+    assert rt.config.ENRUTADOR_VOTO_DENSO == 0
+    monkeypatch.setattr(rt, "embed_query", lambda q: [0.0])
+    store = _StoreFijo([_r("a", "cst"), _r("b", "cpaca"), _r("c", "ley820")])
+    out = rt.retrieve("q", store, top_k=2, min_score=None, use_router=True,
+                      enrutador=_EnrutadorFijo({"ley820"}))
+    assert [r.chunk_id for r in out] == ["c", "a"]
+
+
+def test_retrieve_con_voto_denso_deja_subir_la_norma_de_la_busqueda(monkeypatch):
+    monkeypatch.setattr(rt, "embed_query", lambda q: [0.0])
+    store = _StoreFijo([_r("a", "cst"), _r("b", "cpaca"), _r("c", "ley820")])
+    out = rt.retrieve("q", store, top_k=2, min_score=None, use_router=True,
+                      enrutador=_EnrutadorFijo({"ley820"}), voto_denso=1)
+    assert [r.chunk_id for r in out] == ["a", "c"]

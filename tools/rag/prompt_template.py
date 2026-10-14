@@ -71,6 +71,26 @@ RESPUESTA_ESCAPE_POR_CODIGO = (
     "en riesgo, llama a la Linea 123."
 )
 
+# Bloque de servicio (paso 4 del plan de M3, docs/m3_protocolo_aceptacion.md).
+# NO esta en el prompt de entrenamiento: se agrega AL FINAL del system prompt
+# con que se entreno, que queda intacto delante, para que el modelo siga viendo
+# el rol y las reglas que aprendio. Ataca los fallos que el juez del RAG vio con
+# el articulo correcto en el contexto (2026-10-14): apoyarse en el fragmento
+# equivocado (9002, 9032, 9034), omitir ante quien acudir (9054, 9059, 9066) y
+# negarse teniendo de donde responder (3 casos). Afina la valvula de escape sin
+# contradecirla: la frase sigue siendo para cuando ningun fragmento sirve.
+# Tomas decidio el 2026-10-13 que abstenerse no es requisito.
+INSTRUCCIONES_DE_SERVICIO = """\
+Indicaciones para que la respuesta le sirva a quien pregunta:
+- Primero identifica cual de los fragmentos del CONTEXTO responde la pregunta y \
+apoya tu respuesta en ese. Si citas un articulo, que sea el que responde, no el \
+primero que aparezca.
+- Di que puede hacer la persona: el mecanismo, ante quien acudir y que pruebas \
+reunir. No te quedes solo en citar la norma.
+- La frase de falta de informacion es solo para cuando ningun fragmento tiene \
+relacion con la pregunta. Si algun fragmento responde aunque sea una parte, \
+responde esa parte y di que falta."""
+
 SIN_CONTEXTO_RELEVANTE = (
     "(No se encontro contexto relevante en la base de conocimiento.)"
 )
@@ -109,7 +129,7 @@ PREGUNTA DEL USUARIO:
 {query}"""
 
 
-def build_messages(query: str, retrieved: list[SearchResult]) -> list[dict]:
+def build_messages(query: str, retrieved: list[SearchResult], servicio: bool = False) -> list[dict]:
     """Las mismas 4 partes, separadas en roles system/user.
 
     Es el formato que consume apply_chat_template, y mantiene la comparabilidad
@@ -117,9 +137,16 @@ def build_messages(query: str, retrieved: list[SearchResult]) -> list[dict]:
     consulta en el user. Las partes 1 y 3 (instruccion y valvula de escape) son
     reglas -> system; las partes 2 y 4 (contexto y pregunta) son el caso
     concreto -> user.
+
+    servicio=True agrega INSTRUCCIONES_DE_SERVICIO al final del system prompt.
+    Por defecto False: es lo que construye el dataset de entrenamiento
+    (dataset_v3, escenarios) y no debe cambiar sin reentrenar.
     """
+    system = f"{INSTRUCCION}\n\n{VALVULA_DE_ESCAPE}"
+    if servicio:
+        system = f"{system}\n\n{INSTRUCCIONES_DE_SERVICIO}"
     return [
-        {"role": "system", "content": f"{INSTRUCCION}\n\n{VALVULA_DE_ESCAPE}"},
+        {"role": "system", "content": system},
         {
             "role": "user",
             "content": (

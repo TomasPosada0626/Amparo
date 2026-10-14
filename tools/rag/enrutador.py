@@ -121,6 +121,22 @@ class Enrutador:
         return permitidas
 
 
+def ampliar_con_busqueda(permitidas: set[str] | None, candidatos: list, n: int) -> set[str] | None:
+    """La busqueda densa vota: las normas de sus `n` primeros candidatos entran
+    siempre en las permitidas.
+
+    Por que (diagnostico del 2026-10-14 sobre las 45 gold): el clasificador se
+    equivoca de tema en preguntas que la busqueda acierta. "Me llego una
+    fotomulta..." la clasifica como Arriendo / Embargos y saca del frente al
+    Codigo de Transito; en 9055 y 9061 la busqueda traia el articulo correcto en
+    el puesto 1 y el enrutador lo mandaba al 119 y al 17. Con este voto el
+    enrutador sigue ordenando, pero no puede excluir la norma en la que la
+    busqueda tiene mas confianza. n=0 lo apaga."""
+    if permitidas is None or n <= 0:
+        return permitidas
+    return set(permitidas) | {c.doc_id for c in candidatos[:n]}
+
+
 def priorizar(resultados: list, permitidas: set[str] | None) -> list:
     """Los resultados de las normas permitidas primero, en su orden; despues el
     resto, tambien en su orden. Con permitidas=None no cambia nada."""

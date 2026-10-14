@@ -81,11 +81,12 @@ Los de M3 son el promedio de sus tres notebooks.
    `docs/m1_veredicto_v4.md`): aprendieron a abstenerse de más. De v4 queda el
    dataset sin el defecto H22 y el notebook con la prueba barata, por si se
    reentrena.
-3. **El RAG (S10) responde bien 1 o 2 de 45 consultas gold** (2 el
-   2026-10-14, 1 el 2026-10-09, con las mismas respuestas: la diferencia es el
-   juez). El cuello de botella principal es la **recuperación**, no el modelo:
-   el artículo que responde llega al contexto en 21 de 45 casos. Ningún
-   entrenamiento arregla eso solo.
+3. **El RAG (S10) responde bien 13 de 45 consultas gold** con el juez del RAG
+   (`juez_rag.py`, 2026-10-14), que ve los fragmentos y no castiga citarlos.
+   El juez de M2 daba 1-2 de 45 porque castigaba toda cita que no podía
+   verificar. Dos problemas, no uno: el artículo que responde llega al contexto
+   en 21 de 45 casos, y aun cuando llega, el modelo a veces omite lo esencial.
+   La meta de M3 está fijada en `docs/m3_protocolo_aceptacion.md`.
 4. **Nada se entrena ni se corre en GPU sin autorización de Tomás.**
 5. **M3 se corrió con v1 el 2026-10-14.** El reordenamiento (C) pone el
    artículo correcto más arriba, pero el modelo responde peor con ese contexto
@@ -771,7 +772,7 @@ barrido que fijó `RETRIEVAL_MIN_SCORE = 0.81` y `USE_ENRUTADOR = True`.
 - [x] Índice verificado
 - [x] Configuración de búsqueda justificada (piso 0,81, enrutador)
 - [ ] Correcciones de corpus agrupadas (artículo 57 del CST, derogatorias)
-- [ ] Ranking suficiente (hoy el artículo gold está en el top-5 en 20 de 45)
+- [ ] Ranking suficiente: 21 de 45 en el top-5; meta ≥ 28 (`docs/m3_protocolo_aceptacion.md`)
 
 ### 7.5 M3 — `colab/m3_s08_rag_avanzado.ipynb`
 
@@ -829,7 +830,8 @@ medición (`docs/m3_resultados_colab_2026-10-14.md`).
 
 | | resultado |
 |---|---|
-| gold que **cumplen** su criterio (juez Groq) | **2 de 45** (21 parcial, 22 no cumple); 1 de 45 el 2026-10-09 con las mismas respuestas |
+| gold bien respondidas, **juez del RAG** (`rag-2026-10-14b`, ve los fragmentos) | **13 de 45** (22 parcial, 10 no cumple); repetido: 14. Meta: ≥ 18 |
+| gold que cumplen, juez de M2 (no ve los fragmentos, castiga citar) | 2 de 45; no mide al RAG (`docs/m3_protocolo_aceptacion.md`, 1) |
 | adversariales que cumplen | 6 de 30 (13 parcial, 11 no cumple) |
 | artículo gold en el contexto entregado (top-5) | **21 de 45** |
 | … en el top-30 | 37 de 45 |
@@ -877,8 +879,8 @@ pero con ese contexto el modelo se abstiene más (14 abstenciones puras frente a
 
 - [x] Corrida completa (2026-10-09; repetida el 2026-10-14 con H5 y la decisión de búsqueda)
 - [x] Corrida con el adaptador final: v1 (`results/m3_s10_2026-10-14/`, `hash_adaptador` `8ce3cc2bc9306974`)
-- [ ] Gold que cumplen su criterio: 2/45 el 2026-10-14 (1/45 el 2026-10-09, mismas respuestas)
-- [ ] Recuperación: artículo gold en el top-5 (21/45; C sube a 25/45 pero el RAGAS lo descartó)
+- [ ] Gold bien respondidas: 13/45 con el juez del RAG; meta ≥ 18 (`docs/m3_protocolo_aceptacion.md`)
+- [ ] Recuperación: artículo gold en el top-5: 21/45; meta ≥ 28 (C sube a 25/45 pero el RAGAS lo descartó)
 - [x] Rutas incorrectas ≤ 4: con RAG, 0 de 45 gold y 0 de 30 adversariales (`rutas_5c.json`, 2026-10-14; sin RAG v1 tiene 6)
 - [ ] Correcciones de corpus (derogatorias hechas y apagadas; falta el artículo 57)
 
@@ -966,6 +968,14 @@ M3 (CPU y GPU)
 15. [x] H5, H6  RAGAS con abstencion estricta y revision fijada
 16. [x]     Colab: S08 y S10 corridos el 2026-10-14 en A100
             (docs/m3_resultados_colab_2026-10-14.md)
+17. [x]     juez del RAG (ve los fragmentos; version b con pertinencia): linea base
+            13/45 gold, techo (respuestas de referencia) 43/45; meta fijada: >= 28
+            articulo en top-5 y >= 18 bien respondidas (docs/m3_protocolo_aceptacion.md)
+18. [x]     paso 7 en CPU: el articulo se pierde porque e5 trae la ley y no el
+            articulo; bge-reranker-v2-m3 lo sube de 20 a 27/45 en el top-5. Bloque de
+            servicio del prompt listo (docs/m3_paso7_busqueda_2026-10-14.md)
+19. [ ]     Colab: colab/m3_paso7_corrida_final.ipynb (A100, ~45 min), despues juez
+            y RAGAS en CPU (tools/evaluation/evaluar_paso7.py); adoptar o no
 
 M2 (GPU + Groq)
 17. [x] H6  revision fijada; adaptador y dataset verificados por huella

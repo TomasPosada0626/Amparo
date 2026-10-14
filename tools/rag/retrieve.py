@@ -112,6 +112,9 @@ def retrieve(
     use_router: bool | None = None,
     enrutador=None,
     filtrar_derogatorias: bool | None = None,
+    voto_denso: int | None = None,
+    reranker_id: str | None = None,
+    rerank_con_cita: bool | None = None,
     _reranker_scorer=None,
 ) -> list[SearchResult]:
     """Recupera los chunks mas relevantes para la consulta.
@@ -137,7 +140,18 @@ def retrieve(
 
     filtrar_derogatorias: descarta los fragmentos que son solo una derogatoria
     (H12). None toma config.FILTRAR_DEROGATORIAS, que esta apagado.
+
+    voto_denso: las normas de los primeros N candidatos entran siempre en las
+    permitidas del enrutador (enrutador.ampliar_con_busqueda). None toma
+    config.ENRUTADOR_VOTO_DENSO (0, apagado).
+
+    reranker_id / rerank_con_cita: que cross-encoder reordena y si lee la cita
+    con el texto. None toma config.RERANK_MODEL_ID / config.RERANK_CON_CITA.
     """
+    if voto_denso is None:
+        voto_denso = config.ENRUTADOR_VOTO_DENSO
+    if reranker_id is None:
+        reranker_id = config.RERANK_MODEL_ID
     if use_router is None:
         use_router = config.USE_ENRUTADOR
     permitidas = None
@@ -178,8 +192,9 @@ def retrieve(
     # Las normas de la categoria de la pregunta van al frente. El reranker (si
     # esta) solo ve los primeros RERANK_INPUT_N, que ahora son de esas normas.
     if permitidas is not None:
-        from tools.rag.enrutador import priorizar
+        from tools.rag.enrutador import ampliar_con_busqueda, priorizar
 
+        permitidas = ampliar_con_busqueda(permitidas, candidatos, voto_denso)
         candidatos = priorizar(candidatos, permitidas)
         if use_rerank:
             candidatos = candidatos[: config.RERANK_INPUT_N]
@@ -190,7 +205,8 @@ def retrieve(
     if use_rerank:
         from tools.rag.rerank import rerank
 
-        candidatos = rerank(query, candidatos, top_k=len(candidatos), _scorer=_reranker_scorer)
+        candidatos = rerank(query, candidatos, top_k=len(candidatos), model_id=reranker_id,
+                            con_cita=rerank_con_cita, _scorer=_reranker_scorer)
 
     # --- Etapa 3: valvula de escape, y DESPUES el recorte a top_k -----------
     # Antes el recorte iba primero: en B y C, chunks solo-BM25 ocupaban puestos

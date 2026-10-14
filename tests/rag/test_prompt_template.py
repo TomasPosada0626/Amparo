@@ -135,3 +135,29 @@ def test_el_prompt_de_m1_de_la_libreria_rag_es_el_del_dataset():
 
     primero = _dataset.load_records()[0]
     assert SYSTEM_PROMPT_M1 == primero["messages"][0]["content"]
+
+
+# --- bloque de servicio (paso 4 del plan de M3) ------------------------------
+
+def test_el_prompt_de_servicio_empieza_identico_al_de_entrenamiento():
+    """La coherencia M1-M3: el modelo sigue viendo el system prompt con que se
+    entreno; el bloque de servicio solo se agrega al final."""
+    entrenamiento = prompt_template.build_messages("q", [])[0]["content"]
+    servicio = prompt_template.build_messages("q", [], servicio=True)[0]["content"]
+    assert servicio.startswith(entrenamiento)
+    assert servicio[len(entrenamiento):].strip() == prompt_template.INSTRUCCIONES_DE_SERVICIO
+
+
+def test_por_defecto_no_hay_bloque_de_servicio():
+    """El dataset de entrenamiento se construye con build_messages(): si el bloque
+    entrara por defecto, reconstruir el dataset cambiaria lo que el modelo aprendio."""
+    assert prompt_template.INSTRUCCIONES_DE_SERVICIO not in prompt_template.build_messages("q", [])[0]["content"]
+    from tools.rag import config
+    assert config.PROMPT_SERVICIO is False
+
+
+def test_el_bloque_de_servicio_no_contradice_la_valvula_de_escape():
+    """Afina cuando usar la frase (solo si ningun fragmento sirve), no la prohibe."""
+    texto = prompt_template.INSTRUCCIONES_DE_SERVICIO
+    assert "ningun fragmento tiene relacion" in texto
+    assert "ante quien acudir" in texto and "responde esa parte y di que falta" in texto

@@ -1,0 +1,665 @@
+{
+  "que": "Conjunto de confirmacion de M3: preguntas nuevas, escritas despues de la corrida del 2026-10-14 y ANTES de cualquier experimento de busqueda. No se usan para elegir nada: solo para confirmar que una mejora no es de las 45 gold con que se ajusta.",
+  "autor": "Claude, el 2026-10-14, por delegacion de Leonardo Galeano (abogado). Cada articulo gold se comprobo contra el texto del indice 19657d22583f93d0. Las preguntas se escribieron antes de buscar el articulo, en lenguaje de usuario, sin copiar la redaccion de la norma.",
+  "casos": [
+    {
+      "id": 9501,
+      "category": "Servicios publicos domiciliarios",
+      "tipo": "gold",
+      "criterio": "Debe explicar que la empresa tiene un plazo (15 días hábiles) para responder y que, si no responde, el reclamo se entiende resuelto a favor del usuario (silencio administrativo positivo); debe orientar a conservar la constancia del reclamo y a acudir a la Superintendencia de Servicios Públicos si la empresa no lo reconoce.",
+      "articulos_gold": {
+        "servicios_publicos_domiciliarios_ley_142_1994": [
+          "158"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Reclamé a la empresa de energía por una factura carísima hace casi un mes y no me han contestado nada, ¿qué pasa con mi reclamo?"
+        },
+        {
+          "role": "assistant",
+          "content": "La empresa tiene 15 días hábiles para responder reclamos, quejas y recursos. Si no responde en ese plazo, salvo que tú hayas causado la demora o se necesitaran pruebas, se entiende que el reclamo se resolvió a tu favor (silencio administrativo positivo). Guarda la constancia de radicación y, si la empresa no reconoce ese efecto, acude a la Superintendencia de Servicios Públicos Domiciliarios."
+        }
+      ]
+    },
+    {
+      "id": 9502,
+      "category": "Habeas data - datos personales",
+      "tipo": "gold",
+      "criterio": "Debe reconocer el derecho a pedir la supresión de los datos o revocar la autorización, orientar a presentar un reclamo escrito a la empresa (que tiene un plazo para responder) y, si no responde o sigue, a la Superintendencia de Industria y Comercio; debe sugerir guardar los mensajes como prueba.",
+      "articulos_gold": {
+        "habeas_data_datos_personales_ley_1581_2012": [
+          "8",
+          "15"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Una tienda donde compré una vez me sigue mandando mensajes de publicidad aunque les pedí que borraran mis datos, ¿qué puedo hacer?"
+        },
+        {
+          "role": "assistant",
+          "content": "Como titular de tus datos puedes revocar la autorización y pedir que los supriman. Presenta un reclamo por escrito a la tienda: tiene 15 días hábiles para responder. Si no responde o sigue usando tus datos, puedes quejarte ante la Superintendencia de Industria y Comercio. Guarda los mensajes y la solicitud que enviaste."
+        }
+      ]
+    },
+    {
+      "id": 9503,
+      "category": "Acoso laboral",
+      "tipo": "gold",
+      "criterio": "Debe explicar que la carga excesiva y los cambios constantes de horario para inducir la renuncia pueden ser acoso laboral (persecución laboral), orientar al comité de convivencia o procedimiento interno y a la denuncia ante el inspector de trabajo (o personería o Defensoría), y sugerir guardar pruebas.",
+      "articulos_gold": {
+        "acoso_laboral_ley_1010_2006": [
+          "2",
+          "9"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Desde que no quise firmar una renuncia, en el trabajo me cambian el turno cada semana y me ponen el triple de tareas para que me aburra y me vaya, ¿qué puedo hacer?"
+        },
+        {
+          "role": "assistant",
+          "content": "Eso puede ser acoso laboral en la modalidad de persecución: cargas excesivas y cambios permanentes de horario con el propósito de que renuncies. Acude al comité de convivencia laboral o al procedimiento interno de la empresa, y puedes denunciarlo por escrito ante el inspector de trabajo, la personería o la Defensoría del Pueblo. Guarda los horarios, las asignaciones de tareas y los mensajes, y no firmes la renuncia."
+        }
+      ]
+    },
+    {
+      "id": 9504,
+      "category": "Estabilidad laboral reforzada",
+      "tipo": "gold",
+      "criterio": "Debe explicar que no se puede despedir a alguien por su condición de salud o discapacidad sin autorización del Ministerio del Trabajo, mencionar el reintegro o la indemnización, y orientar a reunir incapacidades e historia clínica y a considerar tutela o demanda laboral.",
+      "articulos_gold": {
+        "discapacidad_estabilidad_reforzada_ley_361_1997": [
+          "26"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Me despidieron mientras estaba incapacitado por una operación de la columna y no pidieron ningún permiso, ¿eso es legal?"
+        },
+        {
+          "role": "assistant",
+          "content": "Una persona con una limitación de salud relevante no puede ser despedida por esa razón sin autorización del Ministerio del Trabajo. Si te despidieron por tu condición sin ese permiso, puedes reclamar el reintegro (por tutela, si te quedaste sin ingresos ni salud, o con demanda laboral) y una indemnización de 180 días de salario. Reúne las incapacidades, la historia clínica y la carta de despido."
+        }
+      ]
+    },
+    {
+      "id": 9505,
+      "category": "Despido",
+      "tipo": "gold",
+      "criterio": "Debe decir que el despido por embarazo está prohibido sin autorización del Ministerio del Trabajo y que se presume que fue por el embarazo, orientar a reclamar el reintegro (tutela o demanda) y a guardar pruebas de que el empleador conocía el embarazo.",
+      "articulos_gold": {
+        "codigo_sustantivo_trabajo_decreto_2663_1950": [
+          "239"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Le conté a mi jefe que estoy embarazada y a las dos semanas me dijeron que no siguiera, ¿pueden hacer eso?"
+        },
+        {
+          "role": "assistant",
+          "content": "No. Una trabajadora no puede ser despedida por embarazo sin autorización previa del Ministerio del Trabajo, y la ley presume que el despido durante el embarazo es por esa causa. Puedes pedir el reintegro y las indemnizaciones; por la urgencia, suele usarse la tutela. Guarda pruebas de que la empresa sabía del embarazo."
+        }
+      ]
+    },
+    {
+      "id": 9506,
+      "category": "Relaciones laborales",
+      "tipo": "gold",
+      "criterio": "Debe explicar que la prima equivale a 30 días de salario por año, pagada por semestres (junio y diciembre) y proporcional al tiempo trabajado, y orientar a reclamar al empleador y al inspector de trabajo si no la pagan.",
+      "articulos_gold": {
+        "codigo_sustantivo_trabajo_decreto_2663_1950": [
+          "306"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Trabajo en una empresa desde febrero y no me han pagado prima, ¿cuándo me la tienen que dar y cuánto es?"
+        },
+        {
+          "role": "assistant",
+          "content": "La prima de servicios es de 30 días de salario por año, en dos pagos: la mitad a más tardar el 30 de junio y la otra en los primeros 20 días de diciembre, proporcional al tiempo trabajado. Si no te la pagaron, reclámala por escrito al empleador y, si no responde, acude al inspector de trabajo."
+        }
+      ]
+    },
+    {
+      "id": 9507,
+      "category": "Relaciones laborales",
+      "tipo": "gold",
+      "criterio": "Debe decir que corresponden 15 días hábiles de vacaciones remuneradas por cada año trabajado y orientar a solicitarlas por escrito y a acudir al inspector de trabajo si se niegan.",
+      "articulos_gold": {
+        "codigo_sustantivo_trabajo_decreto_2663_1950": [
+          "186"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Llevo dos años en la empresa y nunca me han dado vacaciones, ¿cuántos días me corresponden?"
+        },
+        {
+          "role": "assistant",
+          "content": "Por cada año trabajado tienes derecho a 15 días hábiles consecutivos de vacaciones remuneradas, así que te corresponden los de los dos años. Pídelas por escrito al empleador; si se niega, acude al inspector de trabajo."
+        }
+      ]
+    },
+    {
+      "id": 9508,
+      "category": "Despido",
+      "tipo": "gold",
+      "criterio": "Debe explicar la indemnización por despido sin justa causa en contrato indefinido (30 días el primer año y 20 por cada año adicional para salarios menores de 10 salarios mínimos), distinguirla de la liquidación de prestaciones, y orientar a reclamar ante el inspector de trabajo o el juez laboral.",
+      "articulos_gold": {
+        "codigo_sustantivo_trabajo_decreto_2663_1950": [
+          "64"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Me echaron sin justa causa después de tres años con contrato a término indefinido, ¿cuánto me tienen que pagar?"
+        },
+        {
+          "role": "assistant",
+          "content": "Si ganas menos de 10 salarios mínimos, la indemnización por despido sin justa causa en contrato indefinido es de 30 días de salario por el primer año y 20 días por cada año siguiente, proporcional por fracción: en tu caso, unos 70 días de salario, además de la liquidación de prestaciones. Si no te la pagaron, reclama ante el inspector de trabajo o con una demanda laboral."
+        }
+      ]
+    },
+    {
+      "id": 9509,
+      "category": "Violencia intrafamiliar",
+      "tipo": "gold",
+      "criterio": "Debe orientar a pedir una medida de protección ante la comisaría de familia (o el juez municipal), mencionar que puede incluir que el agresor salga de la vivienda y que no excluye la denuncia penal, y señalar ayuda inmediata si hay riesgo.",
+      "articulos_gold": {
+        "violencia_intrafamiliar_ley_294_1996": [
+          "4"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Mi pareja me pega cuando toma y quiero que lo saquen de la casa, ¿quién me puede ayudar?"
+        },
+        {
+          "role": "assistant",
+          "content": "Puedes pedir a la comisaría de familia del lugar (o, si no hay, al juez civil o promiscuo municipal) una medida de protección inmediata, que puede incluir que tu pareja salga de la vivienda. Esto no impide denunciarlo penalmente. Si estás en peligro ahora, llama a la línea 123 o a la línea 155."
+        }
+      ]
+    },
+    {
+      "id": 9510,
+      "category": "Derecho de familia - alimentos",
+      "tipo": "gold",
+      "criterio": "Debe explicar que los alimentos incluyen sustento, salud y educación según la capacidad del obligado, orientar a la conciliación ante el defensor o comisario de familia y mencionar la cuota provisional o el proceso ante el juez de familia.",
+      "articulos_gold": {
+        "codigo_infancia_adolescencia_ley_1098_2006": [
+          "24",
+          "111"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "El papá de mi hija no me da plata para la comida ni el colegio, ¿cómo hago para que pague?"
+        },
+        {
+          "role": "assistant",
+          "content": "Tu hija tiene derecho a alimentos, que incluyen comida, vivienda, salud, educación y recreación según la capacidad del padre. Pide una audiencia de conciliación ante el defensor de familia (ICBF) o el comisario de familia; si él no va o no hay acuerdo, se fija una cuota provisional y el caso puede pasar al juez de familia. Lleva el registro civil de la niña y pruebas de los gastos."
+        }
+      ]
+    },
+    {
+      "id": 9511,
+      "category": "Educacion / convivencia escolar",
+      "tipo": "gold",
+      "criterio": "Debe orientar a exigir por escrito la activación de la ruta de atención para la convivencia escolar y la intervención del comité escolar de convivencia, y mencionar la secretaría de educación u otras autoridades si el colegio no actúa.",
+      "articulos_gold": {
+        "convivencia_escolar_ley_1620_2013": [
+          "29",
+          "31"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "A mi hijo le están haciendo matoneo en el colegio y los profesores no hacen nada, ¿qué puedo exigir?"
+        },
+        {
+          "role": "assistant",
+          "content": "El colegio debe activar la Ruta de Atención Integral para la Convivencia Escolar: el caso se remite al comité escolar de convivencia, que debe documentarlo, informar a los padres y tomar medidas según el manual de convivencia. Pide por escrito que activen la ruta. Si no actúan, acude a la secretaría de educación y, si hay afectación grave, a la comisaría de familia o a una tutela."
+        }
+      ]
+    },
+    {
+      "id": 9512,
+      "category": "Convivencia - Codigo de Policia",
+      "tipo": "gold",
+      "criterio": "Debe señalar que el ruido que perturba al vecindario es un comportamiento contrario a la convivencia, orientar a llamar a la policía y a acudir a la inspección de policía, y sugerir documentar las ocasiones.",
+      "articulos_gold": {
+        "codigo_policia_convivencia_ley_1801_2016": [
+          "33"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "El vecino pone música a todo volumen hasta las 3 de la mañana todos los fines de semana, ¿qué puedo hacer?"
+        },
+        {
+          "role": "assistant",
+          "content": "Perturbar la tranquilidad del vecindario con ruido es un comportamiento contrario a la convivencia según el Código de Policía. Llama a la policía (123) en el momento: puede desactivar la fuente del ruido. También puedes presentar una queja ante la inspección de policía. Anota fechas y horas, y si vives en propiedad horizontal, informa a la administración."
+        }
+      ]
+    },
+    {
+      "id": 9513,
+      "category": "Comparendos de transito",
+      "tipo": "gold",
+      "criterio": "Debe explicar los descuentos por pronto pago con curso (50 % dentro de 5 días y 75 % dentro de 20 días) y que, si no está de acuerdo con el comparendo, puede impugnarlo en audiencia en vez de aceptarlo.",
+      "articulos_gold": {
+        "codigo_nacional_transito_ley_769_2002": [
+          "136"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Me pusieron un comparendo de tránsito ayer, ¿hay forma de pagar menos?"
+        },
+        {
+          "role": "assistant",
+          "content": "Sí. Si aceptas la infracción, puedes pagar el 50 % de la multa dentro de los 5 días siguientes al comparendo, o el 75 % dentro de los 20 días, en ambos casos haciendo un curso sobre normas de tránsito en un organismo o centro autorizado. Después pagas el 100 % más intereses. Si no estás de acuerdo con el comparendo, no lo aceptes y pide audiencia."
+        }
+      ]
+    },
+    {
+      "id": 9514,
+      "category": "Garantias de consumo",
+      "tipo": "gold",
+      "criterio": "Debe explicar el derecho de retracto en las compras a distancia (5 días hábiles desde la entrega), que el producto se devuelve en las mismas condiciones y que se reembolsa el dinero, y orientar a ejercerlo por escrito ante el vendedor.",
+      "articulos_gold": {
+        "estatuto_consumidor_ley_1480_2011": [
+          "47"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Compré unos audífonos por internet hace tres días y me arrepentí, ¿me tienen que devolver la plata?"
+        },
+        {
+          "role": "assistant",
+          "content": "En las compras a distancia, como por internet, tienes derecho de retracto: puedes devolver el producto dentro de los 5 días hábiles siguientes a la entrega y te deben reembolsar lo que pagaste. Debes devolverlo en las mismas condiciones en que lo recibiste y asumir el costo del envío. Avísale al vendedor por escrito y guarda la factura."
+        }
+      ]
+    },
+    {
+      "id": 9515,
+      "category": "Garantias de consumo",
+      "tipo": "gold",
+      "criterio": "Debe explicar la reversión del pago en compras electrónicas con tarjeta, el plazo de 5 días hábiles, y que hay que quejarse ante el vendedor y notificar al emisor del medio de pago.",
+      "articulos_gold": {
+        "estatuto_consumidor_ley_1480_2011": [
+          "51"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Pagué con tarjeta débito una compra en una tienda virtual y el producto nunca llegó, ¿el banco me puede devolver la plata?"
+        },
+        {
+          "role": "assistant",
+          "content": "Sí, puedes pedir la reversión del pago. Dentro de los 5 días hábiles siguientes a la fecha en que debías recibir el producto, presenta la queja al vendedor y avisa al banco que emitió la tarjeta, que debe reversar el pago. Guarda la confirmación de compra y las comunicaciones."
+        }
+      ]
+    },
+    {
+      "id": 9516,
+      "category": "Reporte en centrales de riesgo",
+      "tipo": "gold",
+      "criterio": "Debe explicar que el dato negativo permanece el doble del tiempo de mora (máximo 4 años) contado desde el pago, aplicarlo al caso y orientar a reclamar a la entidad y al operador de información y, si no responden, a la superintendencia.",
+      "articulos_gold": {
+        "habeas_data_financiero_ley_1266_2008": [
+          "13"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Hace un año terminé de pagar una deuda que tuve atrasada como seis meses y sigo apareciendo reportado, ¿hasta cuándo?"
+        },
+        {
+          "role": "assistant",
+          "content": "El reporte negativo dura el doble del tiempo que estuviste en mora, con un máximo de 4 años, contado desde que pagaste. Con 6 meses de mora, el dato negativo debía salir 12 meses después del pago, así que ya debería haberse retirado. Presenta un reclamo a la entidad y al operador (Datacrédito o TransUnion) para que lo retiren; si no responden, queja ante la Superintendencia de Industria y Comercio o la Financiera."
+        }
+      ]
+    },
+    {
+      "id": 9517,
+      "category": "Accion de tutela",
+      "tipo": "gold",
+      "criterio": "Debe decir que el juez tiene 10 días para fallar la tutela y mencionar la medida provisional en casos urgentes o el incidente de desacato si no cumplen el fallo.",
+      "articulos_gold": {
+        "tutela_decreto_2591_1991": [
+          "29"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Puse una tutela porque la EPS no me autoriza una cirugía, ¿en cuánto tiempo me tienen que responder?"
+        },
+        {
+          "role": "assistant",
+          "content": "El juez debe dictar el fallo de tutela dentro de los 10 días siguientes a la presentación. Si tu caso es urgente, puedes pedir una medida provisional para que se ordene la cirugía mientras se decide. Si el fallo te favorece y no lo cumplen, puedes iniciar un incidente de desacato."
+        }
+      ]
+    },
+    {
+      "id": 9518,
+      "category": "Derecho de peticion",
+      "tipo": "gold",
+      "criterio": "Debe decir que las peticiones de documentos deben resolverse en 10 días, y que si no responden en ese plazo la solicitud se entiende aceptada y deben entregar las copias; debe orientar a guardar la constancia de radicación y, si no entregan, a insistir o acudir a la tutela o la personería.",
+      "articulos_gold": {
+        "cpaca_ley_1437_2011": [
+          "14"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Pedí en la gobernación copia del expediente de un trámite mío, ¿cuánto tiempo tienen para entregármela?"
+        },
+        {
+          "role": "assistant",
+          "content": "Las peticiones de documentos e información deben resolverse dentro de los 10 días siguientes a su recepción. Si en ese plazo no te responden, la solicitud se entiende aceptada y ya no pueden negarte las copias: deben entregarlas en los 3 días siguientes. Guarda la constancia de radicación y, si no te las entregan, insiste por escrito o acude a la personería o a una tutela por violación del derecho de petición."
+        }
+      ]
+    },
+    {
+      "id": 9519,
+      "category": "Derecho penal - denuncia",
+      "tipo": "gold",
+      "criterio": "Debe explicar que se puede denunciar verbalmente, por escrito o por medios electrónicos ante la Fiscalía o la Policía, con un relato detallado de los hechos, y sugerir pasos prácticos como bloquear el equipo.",
+      "articulos_gold": {
+        "codigo_procedimiento_penal_ley_906_2004": [
+          "67",
+          "69"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Me robaron el celular en la calle, ¿sirve de algo denunciar y cómo lo hago?"
+        },
+        {
+          "role": "assistant",
+          "content": "Sí, conviene denunciar: deja constancia de los hechos, permite que la Fiscalía investigue y te sirve ante el operador y la aseguradora. Puedes hacerlo verbalmente, por escrito o por medios electrónicos (por ejemplo, la denuncia virtual), contando con detalle qué pasó, cuándo y dónde. Bloquea además el equipo con tu operador."
+        }
+      ]
+    },
+    {
+      "id": 9520,
+      "category": "Pensiones y seguridad social",
+      "tipo": "gold",
+      "criterio": "Debe indicar la edad (57 años mujeres, 62 hombres) y las semanas mínimas (1.300) del régimen de prima media según la Ley 100 y orientar a verificar la historia laboral; si además menciona la reforma pensional, no cuenta como error.",
+      "articulos_gold": {
+        "seguridad_social_ley_100_1993": [
+          "33"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "¿Cuántas semanas y qué edad necesito para pensionarme por vejez?"
+        },
+        {
+          "role": "assistant",
+          "content": "En el régimen de prima media (Colpensiones) se requieren 57 años si eres mujer o 62 si eres hombre, y 1.300 semanas cotizadas. Revisa tu historia laboral en Colpensiones o en tu fondo para confirmar cuántas semanas tienes y, si faltan periodos, pide la corrección."
+        }
+      ]
+    },
+    {
+      "id": 9521,
+      "category": "Salud / EPS",
+      "tipo": "gold",
+      "criterio": "Debe decir que el paciente tiene derecho a consultar su historia clínica completa de forma gratuita y a obtener copia, que es reservada frente a terceros, y orientar a pedirla por escrito y, si la niegan, a la Superintendencia Nacional de Salud o a la tutela.",
+      "articulos_gold": {
+        "estatutaria_salud_ley_1751_2015": [
+          "10"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Pedí mi historia clínica en la clínica donde me operaron y me dicen que no me la pueden dar o que la tengo que pagar, ¿es así?"
+        },
+        {
+          "role": "assistant",
+          "content": "No. Como paciente tienes derecho a consultar toda tu historia clínica de forma gratuita y a obtener copia; lo que es reservado es frente a terceros, no frente a ti. Pídela por escrito a la clínica y guarda la constancia. Si te la niegan, puedes quejarte ante la Superintendencia Nacional de Salud o presentar un derecho de petición y, si persiste, una tutela."
+        }
+      ]
+    },
+    {
+      "id": 9522,
+      "category": "Conciliacion prejudicial",
+      "tipo": "gold",
+      "criterio": "Debe explicar que en los procesos civiles declarativos la conciliación es requisito previo para demandar, con excepciones (por ejemplo el proceso monitorio o cuando se piden medidas cautelares), y orientar a un centro de conciliación o a reunir pruebas de la deuda.",
+      "articulos_gold": {
+        "estatuto_conciliacion_ley_2220_2022": [
+          "67",
+          "68"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Quiero demandar a una persona que me debe plata, pero no tengo ningún papel firmado, ¿tengo que ir primero a conciliación?"
+        },
+        {
+          "role": "assistant",
+          "content": "En los procesos civiles declarativos, la conciliación extrajudicial es requisito previo para demandar si el asunto es conciliable. Hay excepciones: el proceso monitorio, pensado para cobrar deudas sin título, no la exige, y tampoco hace falta si pides medidas cautelares. Reúne las pruebas de la deuda (mensajes, transferencias, testigos) y acude a un centro de conciliación o consultorio jurídico."
+        }
+      ]
+    },
+    {
+      "id": 9523,
+      "category": "Arriendo",
+      "tipo": "gold",
+      "criterio": "Debe explicar que el arrendador solo puede terminar el contrato por las causales legales o con preaviso escrito de tres meses e indemnización en los casos que la ley prevé, y que no puede desalojar por su cuenta: la restitución la ordena un juez.",
+      "articulos_gold": {
+        "arrendamiento_vivienda_urbana_ley_820_2003": [
+          "22"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "El dueño del apartamento me dice que me tengo que ir el próximo mes aunque el contrato sigue, ¿puede sacarme así?"
+        },
+        {
+          "role": "assistant",
+          "content": "No puede sacarte por su cuenta. El arrendador solo puede terminar el contrato por las causales de la ley (por ejemplo, el no pago) o, durante las prórrogas, avisándote por escrito con al menos tres meses de anticipación y pagándote una indemnización de tres meses de arriendo. Si no cumple eso, no estás obligado a irte, y solo un juez puede ordenar la restitución del inmueble."
+        }
+      ]
+    },
+    {
+      "id": 9524,
+      "category": "Derecho comercial",
+      "tipo": "gold",
+      "criterio": "Debe decir que la acción cambiaria directa del pagaré prescribe en tres años desde el vencimiento, que aún está a tiempo, y orientar al proceso ejecutivo con el título original.",
+      "articulos_gold": {
+        "codigo_comercio_decreto_410_1971": [
+          "789"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Le presté plata a alguien con un pagaré que se venció hace dos años y no me ha pagado, ¿todavía puedo cobrarle?"
+        },
+        {
+          "role": "assistant",
+          "content": "Sí. La acción cambiaria directa para cobrar un pagaré prescribe en tres años desde el vencimiento, así que todavía estás a tiempo: te queda alrededor de un año. Puedes iniciar un proceso ejecutivo con el pagaré original; conviene presentar la demanda pronto para no dejar vencer el plazo."
+        }
+      ]
+    },
+    {
+      "id": 9525,
+      "category": "Derecho ambiental sancionatorio",
+      "tipo": "gold",
+      "criterio": "Debe orientar a presentar la queja ante la autoridad ambiental competente (corporación autónoma regional), explicar que el procedimiento sancionatorio puede iniciarse a petición de cualquier persona, y sugerir aportar pruebas.",
+      "articulos_gold": {
+        "sancionatorio_ambiental_ley_1333_2009": [
+          "18"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Una fábrica está botando desechos al río de mi vereda, ¿a quién puedo denunciar?"
+        },
+        {
+          "role": "assistant",
+          "content": "Puedes poner la queja ante la autoridad ambiental, normalmente la corporación autónoma regional de tu zona: el procedimiento sancionatorio ambiental puede iniciarse de oficio o a petición de cualquier persona, y la autoridad puede imponer medidas preventivas. Describe los hechos y el lugar y adjunta fotos o videos. También puedes informar a la alcaldía o a la Procuraduría ambiental."
+        }
+      ]
+    },
+    {
+      "id": 9526,
+      "category": "Licencias urbanisticas",
+      "tipo": "gold",
+      "criterio": "Debe explicar que toda construcción o ampliación requiere licencia urbanística previa, orientar a verificar si la obra tiene licencia (curaduría o planeación) y a presentar la queja ante la inspección de policía o la alcaldía para que actúen.",
+      "articulos_gold": {
+        "ordenamiento_territorial_ley_388_1997": [
+          "99"
+        ],
+        "codigo_policia_convivencia_ley_1801_2016": [
+          "135"
+        ]
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Eres un asistente jurídico que responde consultas de derecho colombiano a personas sin formación jurídica. Responde de forma breve y en lenguaje claro y cotidiano. Señala el mecanismo legal aplicable (tutela, derecho de petición, habeas data, conciliación, restitución de inmueble, etc.) y qué evidencia debe reunir la persona. Sé prudente: no inventes normas ni cites artículos o plazos que no puedas verificar; si no estás seguro, dilo explícitamente. Si hay riesgo para la integridad o la salud de alguien, lo primero es orientar a la ayuda inmediata."
+        },
+        {
+          "role": "user",
+          "content": "Mi vecino está construyendo un tercer piso y creo que no tiene licencia, ¿qué puedo hacer?"
+        },
+        {
+          "role": "assistant",
+          "content": "Toda obra de construcción o ampliación requiere licencia urbanística previa, y construir sin ella es un comportamiento contrario a la integridad urbanística según el Código de Policía. Pregunta en la curaduría urbana o en la oficina de planeación si la obra tiene licencia y, si no la tiene, presenta la queja ante la inspección de policía o la alcaldía, que pueden suspender la obra. Toma fotos con fechas."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "A_denso": {
+    "adversarial": {
+      "n": 30,
+      "n_total": 30,
+      "sin_veredicto": 0,
+      "cumple": 8,
+      "parcial": 9,
+      "no_cumple": 13,
+      "aprobacion": 0.2667,
+      "aprobacion_ic95": [
+        0.1418,
+        0.4445
+      ],
+      "puntaje_medio": 0.4167,
+      "con_errores_juridicos": 0.2667,
+      "errores_juridicos_total": 13,
+      "con_citas_numeradas": 10
+    },
+    "gold": {
+      "n": 45,
+      "n_total": 45,
+      "sin_veredicto": 0,
+      "cumple": 14,
+      "parcial": 22,
+      "no_cumple": 9,
+      "aprobacion": 0.3111,
+      "aprobacion_ic95": [
+        0.1953,
+        0.4567
+      ],
+      "puntaje_medio": 0.5556,
+      "con_errores_juridicos": 0.3778,
+      "errores_juridicos_total": 41,
+      "con_citas_numeradas": 37
+    }
+  }
+}

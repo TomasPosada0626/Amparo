@@ -1,0 +1,38 @@
+{
+  "referencia": {
+    "adversarial": {
+      "n": 30,
+      "n_total": 30,
+      "sin_veredicto": 0,
+      "cumple": 29,
+      "parcial": 1,
+      "no_cumple": 0,
+      "aprobacion": 0.9667,
+      "aprobacion_ic95": [
+        0.8333,
+        0.9941
+      ],
+      "puntaje_medio": 0.9833,
+      "con_errores_juridicos": 0.0333,
+      "errores_juridicos_total": 2,
+      "con_citas_numeradas": 0
+    },
+    "gold": {
+      "n": 45,
+      "n_total": 45,
+      "sin_veredicto": 0,
+      "cumple": 43,
+      "parcial": 2,
+      "no_cumple": 0,
+      "aprobacion": 0.9556,
+      "aprobacion_ic95": [
+        0.8517,
+        0.9877
+      ],
+      "puntaje_medio": 0.9778,
+      "con_errores_juridicos": 0.0,
+      "errores_juridicos_total": 0,
+      "con_citas_numeradas": 0
+    }
+  }
+}
