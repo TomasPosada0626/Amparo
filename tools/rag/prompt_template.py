@@ -91,6 +91,24 @@ reunir. No te quedes solo en citar la norma.
 relacion con la pregunta. Si algun fragmento responde aunque sea una parte, \
 responde esa parte y di que falta."""
 
+# Version 2 (2026-10-14). La 1 (arriba) se midio en la corrida final del paso 7 y
+# no se adopto: casi duplico las abstenciones (8 -> 15 en A). Causa probable: su
+# tercera linea nombra la frase de falta de informacion, y nombrarla la vuelve mas
+# probable. La 2 no la menciona (la valvula de escape del prompt de entrenamiento
+# sigue intacta delante) y pide lo que el juez del RAG vio faltar con el articulo
+# correcto en el contexto: responder la pregunta concreta y lo esencial del caso
+# (la proteccion, el plazo o la excepcion que la decide, y ante quien acudir).
+INSTRUCCIONES_DE_SERVICIO_V2 = """\
+Indicaciones para que la respuesta le sirva a quien pregunta:
+- Empieza respondiendo la pregunta concreta, apoyandote en el fragmento del \
+CONTEXTO que la responde.
+- Incluye lo esencial para que la persona pueda actuar: la proteccion, el plazo o \
+la condicion que decide su caso, que puede hacer, ante que entidad o autoridad y \
+que pruebas reunir.
+- Si hay una excepcion o un requisito previo importante, mencionalo en una frase."""
+
+VERSIONES_DE_SERVICIO = {"v1": INSTRUCCIONES_DE_SERVICIO, "v2": INSTRUCCIONES_DE_SERVICIO_V2}
+
 SIN_CONTEXTO_RELEVANTE = (
     "(No se encontro contexto relevante en la base de conocimiento.)"
 )
@@ -129,7 +147,7 @@ PREGUNTA DEL USUARIO:
 {query}"""
 
 
-def build_messages(query: str, retrieved: list[SearchResult], servicio: bool = False) -> list[dict]:
+def build_messages(query: str, retrieved: list[SearchResult], servicio: bool | str = False) -> list[dict]:
     """Las mismas 4 partes, separadas en roles system/user.
 
     Es el formato que consume apply_chat_template, y mantiene la comparabilidad
@@ -138,13 +156,15 @@ def build_messages(query: str, retrieved: list[SearchResult], servicio: bool = F
     reglas -> system; las partes 2 y 4 (contexto y pregunta) son el caso
     concreto -> user.
 
-    servicio=True agrega INSTRUCCIONES_DE_SERVICIO al final del system prompt.
-    Por defecto False: es lo que construye el dataset de entrenamiento
-    (dataset_v3, escenarios) y no debe cambiar sin reentrenar.
+    servicio agrega un bloque de servicio al final del system prompt: True o "v1"
+    (INSTRUCCIONES_DE_SERVICIO), "v2" (INSTRUCCIONES_DE_SERVICIO_V2). Por defecto
+    False: es lo que construye el dataset de entrenamiento (dataset_v3,
+    escenarios) y no debe cambiar sin reentrenar.
     """
     system = f"{INSTRUCCION}\n\n{VALVULA_DE_ESCAPE}"
     if servicio:
-        system = f"{system}\n\n{INSTRUCCIONES_DE_SERVICIO}"
+        bloque = VERSIONES_DE_SERVICIO["v1" if servicio is True else servicio]
+        system = f"{system}\n\n{bloque}"
     return [
         {"role": "system", "content": system},
         {

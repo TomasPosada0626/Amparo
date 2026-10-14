@@ -161,3 +161,21 @@ def test_el_bloque_de_servicio_no_contradice_la_valvula_de_escape():
     texto = prompt_template.INSTRUCCIONES_DE_SERVICIO
     assert "ningun fragmento tiene relacion" in texto
     assert "ante quien acudir" in texto and "responde esa parte y di que falta" in texto
+
+
+def test_la_version_2_del_bloque_tambien_empieza_identica_y_no_nombra_la_frase():
+    """La v1 casi duplico las abstenciones (8 -> 15): nombraba la frase de falta de
+    informacion. La v2 no la nombra; la valvula de escape sigue delante, intacta."""
+    entrenamiento = prompt_template.build_messages("q", [])[0]["content"]
+    v2 = prompt_template.build_messages("q", [], servicio="v2")[0]["content"]
+    assert v2.startswith(entrenamiento)
+    bloque = v2[len(entrenamiento):]
+    assert bloque.strip() == prompt_template.INSTRUCCIONES_DE_SERVICIO_V2
+    assert "falta de informacion" not in bloque
+    assert prompt_template.RESPUESTA_SIN_CONTEXTO not in bloque
+
+
+def test_servicio_true_sigue_siendo_la_version_1():
+    """Las corridas del 2026-10-14 (A_servicio, R_servicio) se hicieron con True."""
+    assert (prompt_template.build_messages("q", [], servicio=True)
+            == prompt_template.build_messages("q", [], servicio="v1"))

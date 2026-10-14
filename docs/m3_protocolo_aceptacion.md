@@ -119,6 +119,20 @@ respuestas generadas, cumple la regla de búsqueda de
 baja más de 0,03), no empeora en las preguntas nuevas y el juez del RAG no lo
 da peor que A.
 
+## 3b. Cuándo se adopta el bloque de servicio v2 (fijado el 2026-10-14, antes de generarlo)
+
+R quedó en producción; el bloque v1 no (casi duplicó las abstenciones). El v2
+(`prompt_template.INSTRUCCIONES_DE_SERVICIO_V2`) se compara contra R, una sola
+variable, y se adopta solo si cumple las tres:
+
+1. **Eval set: ≥ 18 de 45 gold bien respondidas** con el juez del RAG (la meta;
+   R da 16).
+2. **Preguntas nuevas: no menos que R** (11 de 26).
+3. **Abstención pura en gold: no más de 10** (R: 8; tolerancia de 2).
+
+Si no cumple, se queda R sin bloque y M3 se cierra con la meta no alcanzada y
+documentada.
+
 ## 4. Lo que no cambia
 
 - El sistema que se entrega sigue siendo A mientras ninguna configuración nueva

@@ -49,12 +49,13 @@ subprocess.run = run
 
 # --- Qwen falso: registra el system prompt de cada llamada -------------------
 from tools.evaluation import generation
-from tools.rag.prompt_template import INSTRUCCIONES_DE_SERVICIO
+from tools.rag.prompt_template import INSTRUCCIONES_DE_SERVICIO, INSTRUCCIONES_DE_SERVICIO_V2
 LLAMADAS = []
 generation.load_base_model = lambda *a, **k: ("modelo-falso", "tokenizer-falso")
 generation.attach_adapter = lambda model, ruta: model
 def run_chat_generation(model, tokenizer, system_prompt, user_content, max_new_tokens, return_n_tokens=False, **k):
-    LLAMADAS.append({"servicio": INSTRUCCIONES_DE_SERVICIO in system_prompt})
+    LLAMADAS.append({"servicio": INSTRUCCIONES_DE_SERVICIO in system_prompt,
+                     "servicio2": INSTRUCCIONES_DE_SERVICIO_V2 in system_prompt})
     m = re.search(r"Art[ií]culo\s+(\d+)", user_content)
     texto = f"Segun el articulo {m.group(1)} del contexto, puedes reclamar." if m else "Puedes reclamar."
     return (texto, 20) if return_n_tokens else texto
@@ -105,16 +106,19 @@ if ok:
             for p in destino.glob("eval_records_*.jsonl")}
     print("[humo] archivos:", {k: len(v) for k, v in recs.items()})
     esperado = {"A_confirmacion", "A_servicio_eval_set", "A_servicio_confirmacion",
-                "R_eval_set", "R_confirmacion", "R_servicio_eval_set", "R_servicio_confirmacion"}
+                "R_eval_set", "R_confirmacion", "R_servicio_eval_set", "R_servicio_confirmacion",
+                "R_servicio2_eval_set", "R_servicio2_confirmacion"}
+    servicio_esperado = {"A": False, "A_servicio": True, "R": False, "R_servicio": True, "R_servicio2": "v2"}
     ok &= set(recs) == esperado
     for k, v in recs.items():
         sistema = v[0]["sistema_paso7"]
         es_r = sistema.startswith("R")
         ok &= all(r["used_rerank"] == es_r for r in v)
         ok &= all((r["reranker"] == "BAAI/bge-reranker-v2-m3") == es_r for r in v)
-        ok &= all(r["prompt_servicio"] == sistema.endswith("servicio") for r in v)
+        ok &= all(r["prompt_servicio"] == servicio_esperado[sistema] for r in v)
     ok &= set(RERANKERS) == {"BAAI/bge-reranker-v2-m3"}
     ok &= any(l["servicio"] for l in LLAMADAS) and not all(l["servicio"] for l in LLAMADAS)
+    ok &= any(l["servicio2"] for l in LLAMADAS) and not any(l["servicio"] and l["servicio2"] for l in LLAMADAS)
     print("[humo] rerankers pedidos:", set(RERANKERS), "| llamadas con bloque de servicio:",
           sum(l["servicio"] for l in LLAMADAS), "de", len(LLAMADAS))
     # retoma: una segunda pasada no genera nada

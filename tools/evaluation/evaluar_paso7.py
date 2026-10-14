@@ -22,7 +22,7 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
 A_EVAL_SET = RAIZ / "results" / "m3_s10_2026-10-14" / "eval_records_una_pasada_lora.json"
-SISTEMAS = ("A", "A_servicio", "R", "R_servicio")
+SISTEMAS = ("A", "A_servicio", "R", "R_servicio", "R_servicio2")
 CONJUNTOS = ("eval_set", "confirmacion")
 
 
