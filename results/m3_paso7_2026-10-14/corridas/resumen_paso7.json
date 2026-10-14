@@ -283,6 +283,80 @@
       }
     }
   },
+  "R_servicio2/eval_set": {
+    "n": 75,
+    "acierto_top5_gold": {
+      "aciertos": 27,
+      "de": 45,
+      "ids": [
+        "9001",
+        "9002",
+        "9005",
+        "9007",
+        "9009",
+        "9031",
+        "9034",
+        "9035",
+        "9036",
+        "9037",
+        "9039",
+        "9040",
+        "9041",
+        "9043",
+        "9044",
+        "9045",
+        "9046",
+        "9052",
+        "9054",
+        "9056",
+        "9060",
+        "9063",
+        "9065",
+        "9066",
+        "9067",
+        "9068",
+        "9069"
+      ]
+    },
+    "abstencion_pura_gold": 10,
+    "segundos_media": 7.69,
+    "juez_rag": {
+      "adversarial": {
+        "n": 30,
+        "n_total": 30,
+        "sin_veredicto": 0,
+        "cumple": 11,
+        "parcial": 8,
+        "no_cumple": 11,
+        "aprobacion": 0.3667,
+        "aprobacion_ic95": [
+          0.2187,
+          0.5449
+        ],
+        "puntaje_medio": 0.5,
+        "con_errores_juridicos": 0.2333,
+        "errores_juridicos_total": 13,
+        "con_citas_numeradas": 9
+      },
+      "gold": {
+        "n": 45,
+        "n_total": 45,
+        "sin_veredicto": 0,
+        "cumple": 14,
+        "parcial": 24,
+        "no_cumple": 7,
+        "aprobacion": 0.3111,
+        "aprobacion_ic95": [
+          0.1953,
+          0.4567
+        ],
+        "puntaje_medio": 0.5778,
+        "con_errores_juridicos": 0.4222,
+        "errores_juridicos_total": 43,
+        "con_citas_numeradas": 35
+      }
+    }
+  },
   "A/confirmacion": {
     "n": 26,
     "acierto_top5_gold": {
@@ -469,6 +543,55 @@
         "puntaje_medio": 0.6923,
         "con_errores_juridicos": 0.3462,
         "errores_juridicos_total": 18,
+        "con_citas_numeradas": 25
+      }
+    }
+  },
+  "R_servicio2/confirmacion": {
+    "n": 26,
+    "acierto_top5_gold": {
+      "aciertos": 19,
+      "de": 26,
+      "ids": [
+        "9501",
+        "9502",
+        "9503",
+        "9504",
+        "9505",
+        "9506",
+        "9507",
+        "9508",
+        "9512",
+        "9513",
+        "9514",
+        "9515",
+        "9516",
+        "9519",
+        "9520",
+        "9521",
+        "9522",
+        "9523",
+        "9526"
+      ]
+    },
+    "abstencion_pura_gold": 1,
+    "segundos_media": 10.16,
+    "juez_rag": {
+      "gold": {
+        "n": 26,
+        "n_total": 26,
+        "sin_veredicto": 0,
+        "cumple": 13,
+        "parcial": 9,
+        "no_cumple": 4,
+        "aprobacion": 0.5,
+        "aprobacion_ic95": [
+          0.3206,
+          0.6794
+        ],
+        "puntaje_medio": 0.6731,
+        "con_errores_juridicos": 0.3462,
+        "errores_juridicos_total": 17,
         "con_citas_numeradas": 25
       }
     }

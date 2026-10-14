@@ -81,17 +81,18 @@ Los de M3 son el promedio de sus tres notebooks.
    `docs/m1_veredicto_v4.md`): aprendieron a abstenerse de más. De v4 queda el
    dataset sin el defecto H22 y el notebook con la prueba barata, por si se
    reentrena.
-3. **El RAG (S10) responde bien 13 de 45 consultas gold** con el juez del RAG
-   (`juez_rag.py`, 2026-10-14), que ve los fragmentos y no castiga citarlos.
-   El juez de M2 daba 1-2 de 45 porque castigaba toda cita que no podía
-   verificar. Dos problemas, no uno: el artículo que responde llega al contexto
-   en 21 de 45 casos, y aun cuando llega, el modelo a veces omite lo esencial.
-   La meta de M3 está fijada en `docs/m3_protocolo_aceptacion.md`.
+3. **El RAG responde bien 16 de 45 consultas gold** con el juez del RAG
+   (`juez_rag.py`, que ve los fragmentos; techo con respuestas de referencia:
+   43). El artículo correcto llega al contexto en 27 de 45, desde que
+   producción reordena con bge-reranker-v2-m3 (paso 7, 2026-10-14; antes 13 y
+   21). En 26 preguntas nuevas: 7 -> 11 bien respondidas. La meta
+   (`docs/m3_protocolo_aceptacion.md`: 28 y 18) no se alcanzó por 1 y 2.
 4. **Nada se entrena ni se corre en GPU sin autorización de Tomás.**
-5. **M3 se corrió con v1 el 2026-10-14.** El reordenamiento (C) pone el
-   artículo correcto más arriba, pero el modelo responde peor con ese contexto
-   (answer relevancy −0,11): la regla fijada antes dejó **A**. La mejora que
-   falta está en la búsqueda (H11, H13), no en otra corrida.
+5. **Lo que limita ahora es el modelo, no la búsqueda.** Con el artículo
+   correcto en el contexto, v1 responde bien 10 de 27 y a medias 15: omite lo
+   esencial del caso. Dos versiones de un bloque de instrucciones en el prompt
+   no lo movieron. Subir más exigiría reentrenar (v5) o un generador mayor
+   (`docs/m3_paso7_busqueda_2026-10-14.md`, sección 8).
 
 ---
 
@@ -977,8 +978,10 @@ M3 (CPU y GPU)
 19. [x]     Colab: corrida final (A100, 2026-10-14). R adoptado: RAGAS 0.536 -> 0.597,
             juez 13 -> 16, busqueda 21 -> 27; bloque de servicio NO adoptado
             (mas abstenciones). Meta no alcanzada: 27/28 y 16/18
-20. [ ]     Si se quiere llegar a la meta: reentrenar (v5) para que, con el articulo
-            en el contexto, responda completo (hoy 15 de 27 a medias). Reabre M1 y M2
+20. [x]     bloque de servicio v2 (no nombra la frase de escape): 14/45, no se adopta.
+            Paso 7 CERRADO: produccion = R; meta no alcanzada (27/28, 16/18)
+21. [ ]     Opcional, si se quiere llegar a la meta: reentrenar (v5) para que, con el
+            articulo en el contexto, responda completo (hoy 15 de 27 a medias). Reabre M1 y M2
 
 M2 (GPU + Groq)
 17. [x] H6  revision fijada; adaptador y dataset verificados por huella

@@ -158,3 +158,49 @@ contextos sin reranker, y en servicio recibe contextos mejores.
 La meta no se alcanzo (27 de 28 en busqueda; 16 de 18 en respuesta). Con el
 articulo en el contexto, el modelo responde bien 10 de 27 y a medias 15: lo que
 falta es del modelo, no de la busqueda.
+
+## 7. Segunda corrida: bloque de servicio v2 (2026-10-14)
+
+Solo se genero R_servicio2 (los siete archivos de la primera corrida llegaron
+identicos byte a byte). El manifiesto de Drive es el de la primera corrida: la
+ultima celda no se corrio esta vez. Los registros llevan `prompt_servicio: "v2"`,
+que solo existe desde el commit `101c8a2`, y el adaptador se verifica por huella
+antes de cargar el modelo.
+
+| sistema | eval set: bien respondidas | no cumple | abstencion pura | 26 nuevas: bien respondidas |
+|---|---|---|---|---|
+| R (produccion) | **16** | 4 | 8 | 11 |
+| R + bloque v1 | 15 | 7 | 10 | 13 |
+| R + bloque v2 | 14 | 7 | 10 | 13 |
+
+Criterio fijado antes (protocolo, 3b): >= 18 en el eval set, >= 11 en las nuevas,
+abstencion <= 10. **No cumple el primero: el bloque v2 no se adopta.** Los dos
+bloques dan lo mismo: no mejoran en el eval set y suben 2 en las nuevas, dentro
+del ruido del juez. El prompt no es la palanca que falta.
+
+## 8. Cierre del paso 7
+
+**Queda en produccion R** (bge-reranker-v2-m3, sin bloque de servicio). Contra la
+meta fijada antes de medir:
+
+| | antes del paso 7 | despues | meta |
+|---|---|---|---|
+| articulo correcto en el top-5 (45 gold) | 21 | **27** | 28 (falta 1) |
+| gold bien respondidas (juez del RAG) | 13 | **16** | 18 (faltan 2) |
+| respuestas que no cumplen | 10 | **4** | -- |
+| 26 preguntas nuevas: articulo / bien respondidas | 16 / 7 | **19 / 11** | no peor (cumple) |
+| RAGAS, media | 0,536 | **0,597** | -- |
+
+**La meta no se alcanza, por poco y en las dos cifras.** La mejora es real y se
+confirma en preguntas que no se usaron para ajustar nada.
+
+**Lo que limita ahora, medido:** con el articulo correcto en el contexto el
+modelo responde bien 10 de 27 y a medias 15; omite lo esencial del caso concreto
+(que no pueden desalojar sin orden judicial, que el SOAT cubre la atencion
+medica, el plazo para apelar). Ni la busqueda ni dos versiones del prompt lo
+mueven. Lo unico que podria es el modelo: reentrenar (v5) o un generador mas
+grande. No se hizo: v3 y v4 se reentrenaron y salieron peor, el dataset actual ya
+incluye via y entidad en el 82 % de las respuestas con contexto, y disenar los
+datos mirando estas 45 preguntas las contaminaria. Si se retoma, el punto de
+partida es este diagnostico y el conjunto de confirmacion (que solo se ha usado
+para confirmar, no para elegir).
