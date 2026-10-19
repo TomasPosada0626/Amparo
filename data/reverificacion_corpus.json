@@ -1,0 +1,804 @@
+{
+ "fecha": "2026-10-16",
+ "n": 66,
+ "cuenta": {
+  "coincide": 40,
+  "coincide_palabras": 15,
+  "coincide_normalizado": 0,
+  "coincide_desordenado": 8,
+  "revisar": 0,
+  "inaccesible": 2,
+  "no_aplica": 1
+ },
+ "nota": "`inaccesible` no es un fallo del fragmento: es que no se pudo leer la fuente. Confundirlo con un fallo produce alarmas falsas; confundirlo con un acierto es peor. `coincide_palabras` es cobertura >= 94%: todas las palabras estan en la fuente y en orden, y la diferencia es de formato.",
+ "resultados": [
+  {
+   "id": "CP-011",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 11 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, texto completo"
+  },
+  {
+   "id": "CP-013",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 13 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_palabras",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.9815,
+   "palabras_que_no_estan": [
+    "nacional",
+    "discriminados"
+   ],
+   "chars_del_fragmento": 692,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "CP-015",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 15 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_desordenado",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.8333,
+   "palabras_que_no_estan": [
+    "intimidad",
+    "entidades",
+    "respetaran",
+    "mediante",
+    "vigilancia",
+    "intervencion",
+    "del",
+    "podra",
+    "exigirse",
+    "presentacion",
+    "libros",
+    "de"
+   ],
+   "chars_del_fragmento": 870,
+   "declara_normalizacion": false,
+   "cobertura_de_conjunto": 1.0,
+   "nota": "estan todas o casi todas las palabras del fragmento en la fuente, pero el ORDEN no se puede comprobar porque la extraccion del PDF entrelaza las columnas. Verificacion mas debil que `coincide`: confirma el vocabulario del articulo, no su redaccion exacta."
+  },
+  {
+   "id": "CP-023",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 23 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_palabras",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.9459,
+   "palabras_que_no_estan": [
+    "peticiones",
+    "general"
+   ],
+   "chars_del_fragmento": 270,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "CP-025",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 25 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_desordenado",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.3421,
+   "palabras_que_no_estan": [
+    "goza",
+    "todas",
+    "sus",
+    "modalidades",
+    "la",
+    "especial",
+    "proteccion",
+    "consejo",
+    "superior",
+    "de",
+    "la",
+    "judicatura"
+   ],
+   "chars_del_fragmento": 222,
+   "declara_normalizacion": false,
+   "cobertura_de_conjunto": 1.0,
+   "nota": "estan todas o casi todas las palabras del fragmento en la fuente, pero el ORDEN no se puede comprobar porque la extraccion del PDF entrelaza las columnas. Verificacion mas debil que `coincide`: confirma el vocabulario del articulo, no su redaccion exacta."
+  },
+  {
+   "id": "CP-028",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 28 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_palabras",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.9694,
+   "palabras_que_no_estan": [
+    "molestado",
+    "mandamiento",
+    "formalidades"
+   ],
+   "chars_del_fragmento": 615,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "CP-029",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 29 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_palabras",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.9809,
+   "palabras_que_no_estan": [
+    "desfavorable",
+    "declarado",
+    "pruebas"
+   ],
+   "chars_del_fragmento": 931,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "CP-030",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 30 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_palabras",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.9524,
+   "palabras_que_no_estan": [
+    "creyere",
+    "persona"
+   ],
+   "chars_del_fragmento": 253,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "CP-042",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 42 CP",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/constitucion_politica_1991.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
+  },
+  {
+   "id": "CP-043",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 43 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_palabras",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.9846,
+   "palabras_que_no_estan": [
+    "clase"
+   ],
+   "chars_del_fragmento": 407,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "CP-044",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 44 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, ventana de 220 chars"
+  },
+  {
+   "id": "CP-046",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 46 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_palabras",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.98,
+   "palabras_que_no_estan": [
+    "integral"
+   ],
+   "chars_del_fragmento": 295,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "CP-048",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 48 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_desordenado",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.0381,
+   "palabras_que_no_estan": [
+    "coordinacion",
+    "habitantes",
+    "irrenunciable",
+    "estado",
+    "la",
+    "participacion",
+    "los",
+    "particulares",
+    "ampliara",
+    "progresivamente",
+    "la",
+    "cobertura"
+   ],
+   "chars_del_fragmento": 8201,
+   "declara_normalizacion": false,
+   "cobertura_de_conjunto": 0.9949,
+   "nota": "estan todas o casi todas las palabras del fragmento en la fuente, pero el ORDEN no se puede comprobar porque la extraccion del PDF entrelaza las columnas. Verificacion mas debil que `coincide`: confirma el vocabulario del articulo, no su redaccion exacta."
+  },
+  {
+   "id": "CP-049",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 49 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, ventana de 220 chars"
+  },
+  {
+   "id": "CP-053",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 53 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_desordenado",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.6441,
+   "palabras_que_no_estan": [
+    "siguientes",
+    "beneficios",
+    "capacitacion",
+    "adiestramiento",
+    "descanso",
+    "necesario",
+    "proteccion",
+    "mujer",
+    "maternidad",
+    "trabajador",
+    "menor",
+    "edad"
+   ],
+   "chars_del_fragmento": 1188,
+   "declara_normalizacion": false,
+   "cobertura_de_conjunto": 1.0,
+   "nota": "estan todas o casi todas las palabras del fragmento en la fuente, pero el ORDEN no se puede comprobar porque la extraccion del PDF entrelaza las columnas. Verificacion mas debil que `coincide`: confirma el vocabulario del articulo, no su redaccion exacta."
+  },
+  {
+   "id": "CP-067",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 67 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, ventana de 220 chars"
+  },
+  {
+   "id": "CP-079",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 79 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_palabras",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.9623,
+   "palabras_que_no_estan": [
+    "comunidad",
+    "ambiente"
+   ],
+   "chars_del_fragmento": 328,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "CP-086",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 86 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_desordenado",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.525,
+   "palabras_que_no_estan": [
+    "reclamar",
+    "resulten",
+    "constitucional",
+    "para",
+    "eventual",
+    "revision",
+    "accion",
+    "solo",
+    "procedera",
+    "cuando",
+    "el",
+    "afectado"
+   ],
+   "chars_del_fragmento": 1232,
+   "declara_normalizacion": false,
+   "cobertura_de_conjunto": 0.984,
+   "nota": "estan todas o casi todas las palabras del fragmento en la fuente, pero el ORDEN no se puede comprobar porque la extraccion del PDF entrelaza las columnas. Verificacion mas debil que `coincide`: confirma el vocabulario del articulo, no su redaccion exacta."
+  },
+  {
+   "id": "CP-087",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 87 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_palabras",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.9737,
+   "palabras_que_no_estan": [
+    "autoridad"
+   ],
+   "chars_del_fragmento": 235,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "CP-088",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 88 CP",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "estado": "coincide_desordenado",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.4368,
+   "palabras_que_no_estan": [
+    "moral",
+    "administrativa",
+    "ambiente",
+    "libre",
+    "competencia",
+    "economica",
+    "otros",
+    "similar",
+    "naturaleza",
+    "que",
+    "definen",
+    "ella"
+   ],
+   "chars_del_fragmento": 574,
+   "declara_normalizacion": false,
+   "cobertura_de_conjunto": 0.9833,
+   "nota": "estan todas o casi todas las palabras del fragmento en la fuente, pero el ORDEN no se puede comprobar porque la extraccion del PDF entrelaza las columnas. Verificacion mas debil que `coincide`: confirma el vocabulario del articulo, no su redaccion exacta."
+  },
+  {
+   "id": "D2591-01",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 1",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, ventana de 220 chars"
+  },
+  {
+   "id": "D2591-02",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 2",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, ventana de 220 chars"
+  },
+  {
+   "id": "D2591-05",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 5",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide_desordenado",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.1829,
+   "palabras_que_no_estan": [
+    "toda",
+    "las",
+    "autoridades",
+    "publicas",
+    "que",
+    "haya",
+    "violado",
+    "viole",
+    "amenace",
+    "violar",
+    "cualquiera",
+    "los"
+   ],
+   "chars_del_fragmento": 471,
+   "declara_normalizacion": false,
+   "cobertura_de_conjunto": 1.0,
+   "nota": "estan todas o casi todas las palabras del fragmento en la fuente, pero el ORDEN no se puede comprobar porque la extraccion del PDF entrelaza las columnas. Verificacion mas debil que `coincide`: confirma el vocabulario del articulo, no su redaccion exacta."
+  },
+  {
+   "id": "D2591-06",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 6",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, ventana de 220 chars"
+  },
+  {
+   "id": "D2591-07",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 7",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, texto completo"
+  },
+  {
+   "id": "D2591-08",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 8",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide_desordenado",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.4184,
+   "palabras_que_no_estan": [
+    "senalara",
+    "expresamente",
+    "que",
+    "su",
+    "orden",
+    "permanecera",
+    "vigente",
+    "solo",
+    "durante",
+    "termino",
+    "que",
+    "autoridad"
+   ],
+   "chars_del_fragmento": 589,
+   "declara_normalizacion": false,
+   "cobertura_de_conjunto": 1.0,
+   "nota": "estan todas o casi todas las palabras del fragmento en la fuente, pero el ORDEN no se puede comprobar porque la extraccion del PDF entrelaza las columnas. Verificacion mas debil que `coincide`: confirma el vocabulario del articulo, no su redaccion exacta."
+  },
+  {
+   "id": "D2591-10",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 10",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, texto completo"
+  },
+  {
+   "id": "D2591-11",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 11",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "no_aplica",
+   "motivo": "nota editorial, no transcripcion: no hay nada que cotejar contra la fuente"
+  },
+  {
+   "id": "D2591-14",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 14",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide_palabras",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.9865,
+   "palabras_que_no_estan": [
+    "violado",
+    "apoderado"
+   ],
+   "chars_del_fragmento": 889,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "D2591-23",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 23",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, texto completo"
+  },
+  {
+   "id": "D2591-25",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 25",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, texto completo"
+  },
+  {
+   "id": "D2591-27",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 27",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, ventana de 220 chars"
+  },
+  {
+   "id": "D2591-29",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 29",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, ventana de 220 chars"
+  },
+  {
+   "id": "D2591-30",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 30",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, texto completo"
+  },
+  {
+   "id": "D2591-31",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 31",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, texto completo"
+  },
+  {
+   "id": "D2591-42",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 42",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, ventana de 220 chars"
+  },
+  {
+   "id": "D2591-52",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 52",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "estado": "coincide_palabras",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.9886,
+   "palabras_que_no_estan": [
+    "senalado"
+   ],
+   "chars_del_fragmento": 538,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "L100-24",
+   "norma": "Ley 100 de 1993",
+   "articulo": "art. 24",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_0100_1993.htm",
+   "estado": "coincide",
+   "motivo": "html, ventana de 220 chars"
+  },
+  {
+   "id": "L100-51",
+   "norma": "Ley 100 de 1993",
+   "articulo": "art. 51",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_0100_1993.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
+  },
+  {
+   "id": "L1095-01",
+   "norma": "Ley 1095 de 2006",
+   "articulo": "art. 1",
+   "fuente": "https://cancilleria.gov.co/normograma/compilacion/docs/ley_1095_2006.htm",
+   "estado": "coincide",
+   "motivo": "html, ventana de 220 chars"
+  },
+  {
+   "id": "L1095-02",
+   "norma": "Ley 1095 de 2006",
+   "articulo": "art. 2",
+   "fuente": "https://cancilleria.gov.co/normograma/compilacion/docs/ley_1095_2006.htm",
+   "estado": "coincide_palabras",
+   "motivo": "html",
+   "cobertura_de_palabras": 1.0,
+   "palabras_que_no_estan": [],
+   "chars_del_fragmento": 799,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "L1095-03",
+   "norma": "Ley 1095 de 2006",
+   "articulo": "art. 3",
+   "fuente": "https://cancilleria.gov.co/normograma/compilacion/docs/ley_1095_2006.htm",
+   "estado": "coincide",
+   "motivo": "html, ventana de 220 chars"
+  },
+  {
+   "id": "L1095-05",
+   "norma": "Ley 1095 de 2006",
+   "articulo": "art. 5",
+   "fuente": "https://cancilleria.gov.co/normograma/compilacion/docs/ley_1095_2006.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
+  },
+  {
+   "id": "L1095-06",
+   "norma": "Ley 1095 de 2006",
+   "articulo": "art. 6",
+   "fuente": "https://cancilleria.gov.co/normograma/compilacion/docs/ley_1095_2006.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
+  },
+  {
+   "id": "L1098-111",
+   "norma": "Ley 1098 de 2006",
+   "articulo": "art. 111",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1098_2006.htm",
+   "estado": "coincide",
+   "motivo": "html, ventana de 220 chars"
+  },
+  {
+   "id": "L1266-13",
+   "norma": "Ley 1266 de 2008",
+   "articulo": "art. 13",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1266_2008.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
+  },
+  {
+   "id": "L1437-138",
+   "norma": "Ley 1437 de 2011",
+   "articulo": "art. 138",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1437_2011.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
+  },
+  {
+   "id": "L1581-05",
+   "norma": "Ley 1581 de 2012",
+   "articulo": "art. 5",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1581_2012.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
+  },
+  {
+   "id": "L1581-06",
+   "norma": "Ley 1581 de 2012",
+   "articulo": "art. 6",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1581_2012.htm",
+   "estado": "coincide",
+   "motivo": "html, ventana de 220 chars"
+  },
+  {
+   "id": "L1751-02",
+   "norma": "Ley 1751 de 2015",
+   "articulo": "art. 2",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_1751_2015.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, texto completo"
+  },
+  {
+   "id": "L1751-06",
+   "norma": "Ley 1751 de 2015",
+   "articulo": "art. 6",
+   "fuente": "https://www.suin-juriscol.gov.co/viewDocument.asp?ruta=Leyes/30019746",
+   "estado": "inaccesible",
+   "motivo": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate "
+  },
+  {
+   "id": "L1751-08",
+   "norma": "Ley 1751 de 2015",
+   "articulo": "art. 8",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_1751_2015.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, texto completo"
+  },
+  {
+   "id": "L1751-14",
+   "norma": "Ley 1751 de 2015",
+   "articulo": "art. 14",
+   "fuente": "https://www.suin-juriscol.gov.co/viewDocument.asp?ruta=Leyes/30019746",
+   "estado": "inaccesible",
+   "motivo": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate "
+  },
+  {
+   "id": "L1755-13",
+   "norma": "Ley 1755 de 2015",
+   "articulo": "art. 13",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1755_2015.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
+  },
+  {
+   "id": "L1755-14",
+   "norma": "Ley 1755 de 2015",
+   "articulo": "art. 14",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_1755_2015.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, ventana de 220 chars"
+  },
+  {
+   "id": "L1755-20",
+   "norma": "Ley 1755 de 2015",
+   "articulo": "art. 20",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1755_2015.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
+  },
+  {
+   "id": "L361-26",
+   "norma": "Ley 361 de 1997",
+   "articulo": "art. 26",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_0361_1997.htm",
+   "estado": "coincide_palabras",
+   "motivo": "html",
+   "cobertura_de_palabras": 1.0,
+   "palabras_que_no_estan": [],
+   "chars_del_fragmento": 812,
+   "declara_normalizacion": true,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "L393-01",
+   "norma": "Ley 393 de 1997",
+   "articulo": "art. 1",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_0393_1997.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, texto completo"
+  },
+  {
+   "id": "L393-06",
+   "norma": "Ley 393 de 1997",
+   "articulo": "art. 6",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_0393_1997.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, texto completo"
+  },
+  {
+   "id": "L393-08",
+   "norma": "Ley 393 de 1997",
+   "articulo": "art. 8",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_0393_1997.pdf",
+   "estado": "coincide_palabras",
+   "motivo": "pdf",
+   "cobertura_de_palabras": 0.9926,
+   "palabras_que_no_estan": [
+    "generare"
+   ],
+   "chars_del_fragmento": 866,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "L393-09",
+   "norma": "Ley 393 de 1997",
+   "articulo": "art. 9",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_0393_1997.pdf",
+   "estado": "coincide",
+   "motivo": "pdf, texto completo"
+  },
+  {
+   "id": "L472-02",
+   "norma": "Ley 472 de 1998",
+   "articulo": "art. 2",
+   "fuente": "https://normas.cra.gov.co/gestor/docs/ley_0472_1998.htm",
+   "estado": "coincide_palabras",
+   "motivo": "html",
+   "cobertura_de_palabras": 1.0,
+   "palabras_que_no_estan": [],
+   "chars_del_fragmento": 314,
+   "declara_normalizacion": false,
+   "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "L472-04",
+   "norma": "Ley 472 de 1998",
+   "articulo": "art. 4",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_0472_1998.htm",
+   "estado": "coincide",
+   "motivo": "html, ventana de 220 chars"
+  },
+  {
+   "id": "L472-09",
+   "norma": "Ley 472 de 1998",
+   "articulo": "art. 9",
+   "fuente": "https://normas.cra.gov.co/gestor/docs/ley_0472_1998.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
+  },
+  {
+   "id": "L472-12",
+   "norma": "Ley 472 de 1998",
+   "articulo": "art. 12",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_0472_1998.htm",
+   "estado": "coincide",
+   "motivo": "html, ventana de 220 chars"
+  },
+  {
+   "id": "L472-15",
+   "norma": "Ley 472 de 1998",
+   "articulo": "art. 15",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_0472_1998.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
+  }
+ ]
+}

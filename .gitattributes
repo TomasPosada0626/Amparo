@@ -1,0 +1,6 @@
+# El sello del manifiesto (data/subida_sellada.txt) hashea BYTES de cada
+# archivo, y `corridas.version_codigo()` hashea los src/*.py igual. Si Git
+# convierte finales de linea al clonar, las huellas de un clon no coinciden
+# con las de la entrega y `verificar_entrega.py` rechaza algo que esta bien.
+# Por eso NADA se normaliza: se guarda y se restituye byte a byte.
+* -text

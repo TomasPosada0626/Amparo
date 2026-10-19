@@ -1,0 +1,70 @@
+{
+ "n_anotados": 14,
+ "acuerdo_bruto_mecanismo": 0.8571,
+ "acuerdo_bruto_procede": 1.0,
+ "kappa_mecanismo": 0.8056,
+ "kappa_procede": 1.0,
+ "por_estrato": {
+  "juicio": {
+   "n": 3,
+   "acuerdo_bruto": 0.6667,
+   "kappa": "indefinido",
+   "desacuerdos": 1
+  },
+  "derivado": {
+   "n": 6,
+   "acuerdo_bruto": 0.8333,
+   "kappa": 0.6667,
+   "desacuerdos": 1
+  },
+  "plano": {
+   "n": 5,
+   "acuerdo_bruto": 1.0,
+   "kappa": 1.0,
+   "desacuerdos": 0
+  }
+ },
+ "nota_estratos": "la muestra tiene los dos estratos al 50% a proposito, pero en la poblacion los de `juicio` son 19 de 63. La kappa global de aqui esta por tanto sesgada A LA BAJA respecto del eval set completo: no se debe reportar como la fiabilidad del eval set, sino leerse junto con la de cada estrato.",
+ "nota_kappa": "`indefinido` significa que alguno de los dos anotadores uso una sola categoria en la muestra. La kappa entonces vale 0.0 mecanicamente y no distingue acuerdo de desacuerdo: informarla seria inventar una medicion. Mismo criterio que harness.cohen_kappa.",
+ "lectura": "la kappa aqui NO mide si el gold esta bien. Mide si el eval set es reproducible por otra persona. Un desacuerdo marca un caso discutible, que es informacion que hoy no se tiene.",
+ "desacuerdos": [
+  {
+   "id": "A08",
+   "categoria": "peticion_respondida",
+   "dificultad": "trampa",
+   "estrato": "derivado",
+   "gold": {
+    "mecanismo": "via_ordinaria",
+    "procede": false
+   },
+   "anotador_2": {
+    "mecanismo": "tutela",
+    "procede": false
+   },
+   "nota_anotador_2": "La EPS respondió dentro de diez días, por lo que no se aprecia vulneración del derecho de petición. La negativa sobre la clínica específica no muestra urgencia ni que las alternativas de la red sean inadecuadas; con estos datos no se justifica tutela.",
+   "relato": "Puse un derecho de petición en la EPS pidiendo que me autorizaran un tratamiento en una clínica específica de otra ciudad. Me contestaron a los diez días, con firma y todo, explicándome que en mi ciudad hay dos clínicas de la red que prestan ese mismo servicio. No estoy de acuerdo con esa respuesta."
+  },
+  {
+   "id": "A12",
+   "categoria": "inmediatez",
+   "dificultad": "trampa",
+   "estrato": "juicio",
+   "gold": {
+    "mecanismo": "via_ordinaria",
+    "procede": false
+   },
+   "anotador_2": {
+    "mecanismo": "tutela",
+    "procede": false
+   },
+   "nota_anotador_2": "La expulsión ocurrió en 2019 y el hijo ya terminó bachillerato y está en la universidad; no se identifica una afectación actual que requiera protección inmediata. La tutela sería extemporánea para remediar ese hecho pasado, según los datos dados.",
+   "relato": "En 2019 a mi hijo lo echaron del colegio sin ningún proceso, injustamente. Él ya terminó el bachillerato en otro lado y está en la universidad, pero yo quiero poner la tutela ahora porque eso no se puede quedar así."
+  }
+ ],
+ "_anotador": "equipo",
+ "_independencia": {
+  "independiente": false,
+  "nota": "Alguien del mismo equipo que escribio el gold: sabe de antemano que espera cada caso. Mide consistencia, no acuerdo.",
+  "que_mide": "consistencia de la rubrica --- NO acuerdo entre anotadores"
+ }
+}

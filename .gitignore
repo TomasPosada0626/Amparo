@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+runs/
+*.zip
+.ipynb_checkpoints/
+.coverage
+models/

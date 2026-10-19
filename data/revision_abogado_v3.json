@@ -1,0 +1,315 @@
+{
+ "_artefacto": "revision_abogado_v3.json",
+ "revisor": "Leonardo Galeano, abogado",
+ "papel": "responsable del corpus; aprobo el corpus y los 69 casos de v2",
+ "que_se_reviso": "los 40 casos nuevos de eval_set_v3",
+ "que_NO_se_reviso": "el mecanismo, que lo deriva reglas.decidir() del arbol del art. 6 del Decreto 2591 y que un script rechaza si no coincide con lo esperado; y los 69 casos de v2, ya aprobados y no modificados",
+ "columnas": [
+  "hechos_ok",
+  "derecho_ok",
+  "normas_ok",
+  "realista",
+  "observacion"
+ ],
+ "conteo": {
+  "hechos_ok": {
+   "si": 40
+  },
+  "derecho_ok": {
+   "si": 40
+  },
+  "normas_ok": {
+   "si": 40
+  },
+  "realista": {
+   "si": 40
+  }
+ },
+ "casos_con_reparo": [],
+ "n_casos_con_reparo": 0,
+ "observaciones": [],
+ "por_caso": {
+  "E46": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E47": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E48": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A19": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A20": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A21": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A22": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A23": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A24": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A25": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A26": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A27": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A28": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E49": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E50": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E51": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A29": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A30": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E52": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E53": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E54": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A31": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A32": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E55": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E56": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E57": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A33": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A34": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E58": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E59": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E60": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A35": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A36": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E61": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E62": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A37": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A38": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E63": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "E64": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  },
+  "A39": {
+   "hechos_ok": "si",
+   "derecho_ok": "si",
+   "normas_ok": "si",
+   "realista": "si",
+   "observacion": ""
+  }
+ },
+ "lectura": "`hechos_ok` es la columna decisiva: el motor de reglas confia en la codificacion de los hechos, asi que un relato que no la sostiene deja el gold sin respaldo y ninguna otra comprobacion del proyecto lo detecta. Un `dudoso` no dice que la etiqueta este mal: dice que el relato no permite confirmarla.",
+ "alcance": "Esto valida el GOLD, no el juez. La validacion del juez contra criterio humano independiente (M2-1b) sigue abierta y es otra cosa: aqui se revisaron las etiquetas, no las notas."
+}

@@ -1,0 +1,42 @@
+# Versiones FIJADAS DESDE LAS CORRIDAS, no elegidas a mano.
+#
+# Cada una es la que `corridas.versiones()` registro en
+# runs/<modulo>/<id>/corrida.json de las tres corridas del 2026-10-18
+# (m1 20261018T074101Z, m2 20261018T080311Z, m3 20261018T080807Z).
+# Si otro equipo instala esto, instala el entorno que produjo las cifras del
+# reporte --- que es lo unico que hace reproducible una comparacion.
+#
+# Python 3.13 (las corridas usaron 3.13.15 en GPU y 3.13.16 en CPU).
+#
+#   pip install -r requirements.txt
+#   python reproducir.py
+#
+# `torch` va sin fijar la build de CUDA a proposito: la rueda correcta
+# depende del driver de quien instala, y fijar `+cu130` aqui rompe la
+# instalacion en CPU. La version SI se fija.
+
+# --- nucleo del fine-tuning y la generacion (M1) ---
+torch==2.11.0
+transformers==5.20.1
+peft==0.21.2
+accelerate==1.15.0
+datasets==5.1.0
+
+# --- recuperacion y metricas (M2 y M3) ---
+sentence-transformers==5.7.0
+rank-bm25==0.2.2
+numpy==2.1.3
+scikit-learn==1.6.1
+pandas==2.2.3
+
+# --- el juez y el agente, que salen a la API ---
+groq==1.7.0
+
+# --- formularios de anotacion humana (.xlsx) ---
+openpyxl==3.1.5
+
+# --- NO se fija aqui ---
+# `ragas`: las tres corridas la registraron como `null`, es decir NO estaba
+# instalada. Las metricas RAGAS del reporte son implementacion propia
+# (`src/ragas_eval.py`). Poner `ragas` aqui haria creer que la libreria
+# produjo esas cifras, y no fue asi.

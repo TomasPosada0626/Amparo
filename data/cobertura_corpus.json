@@ -1,0 +1,350 @@
+{
+ "_fuentes": {
+  "corpus.json": "391ea7d3c7c61bc5",
+  "eval_set_v3.json": "7bf2101658bdb8bc",
+  "eval_set_v2.json": "0750013bb6950f4e",
+  "eval_set_m3.json": "70d88761e183dcd1"
+ },
+ "_como_comprobar": "si alguna huella de `_fuentes` no coincide con el archivo actual, esta auditoria es de otros datos: vuelve a correr `data/auditar_cobertura.py`.",
+ "corpus": {
+  "documentos": 69,
+  "chunks": 77
+ },
+ "por_eval_set": {
+  "eval_set_v3.json": {
+   "etiqueta": "los 96 juzgables de v3",
+   "casos_con_citas_esperadas": 103,
+   "sin_cobertura": 0,
+   "detalle_sin_cobertura": [],
+   "citas_esperadas_sin_fragmento": {},
+   "cubiertos_pero_fuera_del_top5_bm25": 69,
+   "cubiertos_y_en_top5_bm25": 34,
+   "peor_rango_bm25": 69,
+   "los_15_mas_hondos": [
+    {
+     "id": "A28",
+     "rango_bm25": 69,
+     "esperadas": [
+      "art. 25 CP"
+     ]
+    },
+    {
+     "id": "A27",
+     "rango_bm25": 68,
+     "esperadas": [
+      "art. 25 CP"
+     ]
+    },
+    {
+     "id": "A23",
+     "rango_bm25": 56,
+     "esperadas": [
+      "art. 25 CP"
+     ]
+    },
+    {
+     "id": "A34",
+     "rango_bm25": 51,
+     "esperadas": [
+      "art. 53 CP"
+     ]
+    },
+    {
+     "id": "A26",
+     "rango_bm25": 50,
+     "esperadas": [
+      "art. 25 CP",
+      "art. 53 CP"
+     ]
+    },
+    {
+     "id": "E29",
+     "rango_bm25": 49,
+     "esperadas": [
+      "Ley 393 de 1997",
+      "art. 87 CP"
+     ]
+    },
+    {
+     "id": "E46",
+     "rango_bm25": 48,
+     "esperadas": [
+      "art. 11 CP",
+      "art. 46 CP",
+      "art. 53 CP"
+     ]
+    },
+    {
+     "id": "E10",
+     "rango_bm25": 42,
+     "esperadas": [
+      "art. 6.1 Decreto 2591 de 1991"
+     ]
+    },
+    {
+     "id": "A07",
+     "rango_bm25": 42,
+     "esperadas": [
+      "art. 6.4 Decreto 2591 de 1991"
+     ]
+    },
+    {
+     "id": "A15",
+     "rango_bm25": 42,
+     "esperadas": [
+      "Ley 393 de 1997",
+      "art. 87 CP"
+     ]
+    },
+    {
+     "id": "E40",
+     "rango_bm25": 39,
+     "esperadas": [
+      "Ley 393 de 1997",
+      "art. 87 CP"
+     ]
+    },
+    {
+     "id": "E63",
+     "rango_bm25": 37,
+     "esperadas": [
+      "Ley 1755 de 2015",
+      "art. 23 CP"
+     ]
+    },
+    {
+     "id": "A17",
+     "rango_bm25": 35,
+     "esperadas": [
+      "Ley 472 de 1998",
+      "art. 6.3 Decreto 2591 de 1991",
+      "art. 88 CP"
+     ]
+    },
+    {
+     "id": "E30",
+     "rango_bm25": 34,
+     "esperadas": [
+      "Ley 393 de 1997",
+      "art. 87 CP"
+     ]
+    },
+    {
+     "id": "A22",
+     "rango_bm25": 34,
+     "esperadas": [
+      "art. 25 CP"
+     ]
+    }
+   ],
+   "diagnostico": "COBERTURA COMPLETA: toda cita esperada tiene fragmento. Lo que falla es el ORDEN, y ampliar el corpus lo empeoraria."
+  },
+  "eval_set_v2.json": {
+   "etiqueta": "los 63 de v2, que v3 contiene",
+   "casos_con_citas_esperadas": 63,
+   "sin_cobertura": 0,
+   "detalle_sin_cobertura": [],
+   "citas_esperadas_sin_fragmento": {},
+   "cubiertos_pero_fuera_del_top5_bm25": 42,
+   "cubiertos_y_en_top5_bm25": 21,
+   "peor_rango_bm25": 49,
+   "los_15_mas_hondos": [
+    {
+     "id": "E29",
+     "rango_bm25": 49,
+     "esperadas": [
+      "Ley 393 de 1997",
+      "art. 87 CP"
+     ]
+    },
+    {
+     "id": "E10",
+     "rango_bm25": 42,
+     "esperadas": [
+      "art. 6.1 Decreto 2591 de 1991"
+     ]
+    },
+    {
+     "id": "A07",
+     "rango_bm25": 42,
+     "esperadas": [
+      "art. 6.4 Decreto 2591 de 1991"
+     ]
+    },
+    {
+     "id": "A15",
+     "rango_bm25": 42,
+     "esperadas": [
+      "Ley 393 de 1997",
+      "art. 87 CP"
+     ]
+    },
+    {
+     "id": "E40",
+     "rango_bm25": 39,
+     "esperadas": [
+      "Ley 393 de 1997",
+      "art. 87 CP"
+     ]
+    },
+    {
+     "id": "A17",
+     "rango_bm25": 35,
+     "esperadas": [
+      "Ley 472 de 1998",
+      "art. 6.3 Decreto 2591 de 1991",
+      "art. 88 CP"
+     ]
+    },
+    {
+     "id": "E30",
+     "rango_bm25": 34,
+     "esperadas": [
+      "Ley 393 de 1997",
+      "art. 87 CP"
+     ]
+    },
+    {
+     "id": "E41",
+     "rango_bm25": 30,
+     "esperadas": [
+      "Ley 393 de 1997",
+      "art. 87 CP"
+     ]
+    },
+    {
+     "id": "E25",
+     "rango_bm25": 29,
+     "esperadas": [
+      "art. 29 CP",
+      "art. 46 CP"
+     ]
+    },
+    {
+     "id": "E42",
+     "rango_bm25": 29,
+     "esperadas": [
+      "Ley 393 de 1997",
+      "art. 87 CP"
+     ]
+    },
+    {
+     "id": "E09",
+     "rango_bm25": 27,
+     "esperadas": [
+      "Ley 472 de 1998",
+      "art. 6.3 Decreto 2591 de 1991",
+      "art. 79 CP"
+     ]
+    },
+    {
+     "id": "E16",
+     "rango_bm25": 27,
+     "esperadas": [
+      "Ley 1755 de 2015",
+      "art. 23 CP"
+     ]
+    },
+    {
+     "id": "E21",
+     "rango_bm25": 25,
+     "esperadas": [
+      "art. 42 Decreto 2591 de 1991",
+      "art. 44 CP",
+      "art. 67 CP"
+     ]
+    },
+    {
+     "id": "E44",
+     "rango_bm25": 25,
+     "esperadas": [
+      "Ley 472 de 1998",
+      "art. 6.3 Decreto 2591 de 1991",
+      "art. 88 CP"
+     ]
+    },
+    {
+     "id": "E03",
+     "rango_bm25": 22,
+     "esperadas": [
+      "Ley 1755 de 2015",
+      "art. 23 CP"
+     ]
+    }
+   ],
+   "diagnostico": "COBERTURA COMPLETA: toda cita esperada tiene fragmento. Lo que falla es el ORDEN, y ampliar el corpus lo empeoraria."
+  },
+  "eval_set_m3.json": {
+   "etiqueta": "los puntuables de m3",
+   "casos_con_citas_esperadas": 17,
+   "sin_cobertura": 0,
+   "detalle_sin_cobertura": [],
+   "citas_esperadas_sin_fragmento": {},
+   "cubiertos_pero_fuera_del_top5_bm25": 7,
+   "cubiertos_y_en_top5_bm25": 10,
+   "peor_rango_bm25": 44,
+   "los_15_mas_hondos": [
+    {
+     "id": "M09",
+     "rango_bm25": 44,
+     "esperadas": [
+      "Ley 393 de 1997",
+      "art. 87 CP"
+     ]
+    },
+    {
+     "id": "M07",
+     "rango_bm25": 37,
+     "esperadas": [
+      "Ley 472 de 1998",
+      "art. 6.3 Decreto 2591 de 1991",
+      "art. 88 CP"
+     ]
+    },
+    {
+     "id": "M04",
+     "rango_bm25": 27,
+     "esperadas": [
+      "Ley 1437 de 2011",
+      "art. 6.1 Decreto 2591 de 1991"
+     ]
+    },
+    {
+     "id": "M06",
+     "rango_bm25": 21,
+     "esperadas": [
+      "Ley 1437 de 2011",
+      "art. 6.5 Decreto 2591 de 1991"
+     ]
+    },
+    {
+     "id": "MT04",
+     "rango_bm25": 15,
+     "esperadas": [
+      "Ley 393 de 1997",
+      "art. 87 CP"
+     ]
+    },
+    {
+     "id": "M10",
+     "rango_bm25": 10,
+     "esperadas": [
+      "art. 44 CP",
+      "art. 49 CP",
+      "art. 7 Decreto 2591 de 1991"
+     ]
+    },
+    {
+     "id": "MT01",
+     "rango_bm25": 6,
+     "esperadas": [
+      "Ley 1755 de 2015",
+      "art. 23 CP"
+     ]
+    }
+   ],
+   "diagnostico": "COBERTURA COMPLETA: toda cita esperada tiene fragmento. Lo que falla es el ORDEN, y ampliar el corpus lo empeoraria."
+  }
+ },
+ "lectura": "De los 103 casos comunes, 0 no tienen fragmento para su cita esperada y 69 si lo tienen pero por debajo del puesto 5 en BM25 (el peor, en el 69 de 77). El techo que M3-4 atribuia al tamano del corpus es del ranking: la cura esta en la transformacion de consulta y el reranking, no en mas fragmentos."
+}

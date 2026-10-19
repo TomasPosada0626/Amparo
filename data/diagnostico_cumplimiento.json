@@ -1,0 +1,275 @@
+{
+ "via": "accion_cumplimiento",
+ "combinacion_minima": {
+  "incumplimiento_normativo": true,
+  "afectacion_individual": false
+ },
+ "fundamento": "art. 9 Ley 393 de 1997: la accion de cumplimiento es subsidiaria, asi que no procede cuando lo incumplido afecta un derecho fundamental del solicitante --- ahi el camino es la tutela.",
+ "motor": {
+  "n": 8,
+  "aciertan": 8,
+  "detalle": [
+   {
+    "id": "E29",
+    "categoria": "incumplimiento_norma",
+    "hechos_declarados": {
+     "incumplimiento_normativo": true
+    },
+    "motor_emite": "accion_cumplimiento",
+    "acierta": true
+   },
+   {
+    "id": "E30",
+    "categoria": "incumplimiento_norma",
+    "hechos_declarados": {
+     "incumplimiento_normativo": true
+    },
+    "motor_emite": "accion_cumplimiento",
+    "acierta": true
+   },
+   {
+    "id": "E39",
+    "categoria": "ac_comisaria_de_familia",
+    "hechos_declarados": {
+     "incumplimiento_normativo": true
+    },
+    "motor_emite": "accion_cumplimiento",
+    "acierta": true
+   },
+   {
+    "id": "E40",
+    "categoria": "ac_plan_gestion_riesgo",
+    "hechos_declarados": {
+     "incumplimiento_normativo": true
+    },
+    "motor_emite": "accion_cumplimiento",
+    "acierta": true
+   },
+   {
+    "id": "E41",
+    "categoria": "ac_cuerpo_de_bomberos",
+    "hechos_declarados": {
+     "incumplimiento_normativo": true
+    },
+    "motor_emite": "accion_cumplimiento",
+    "acierta": true
+   },
+   {
+    "id": "E42",
+    "categoria": "ac_acuerdo_sin_reglamentar",
+    "hechos_declarados": {
+     "incumplimiento_normativo": true
+    },
+    "motor_emite": "accion_cumplimiento",
+    "acierta": true
+   },
+   {
+    "id": "A15",
+    "categoria": "ac_tarifa_adulto_mayor",
+    "hechos_declarados": {
+     "incumplimiento_normativo": true
+    },
+    "motor_emite": "accion_cumplimiento",
+    "acierta": true
+   },
+   {
+    "id": "A16",
+    "categoria": "ac_norma_salud_sin_afectado",
+    "hechos_declarados": {
+     "incumplimiento_normativo": true
+    },
+    "motor_emite": "accion_cumplimiento",
+    "acierta": true
+   }
+  ]
+ },
+ "causas": {
+  "rompen": [
+   {
+    "hecho": "privacion_libertad",
+    "via_que_sale": "habeas_corpus"
+   },
+   {
+    "hecho": "derecho_colectivo",
+    "via_que_sale": "accion_popular"
+   },
+   {
+    "hecho": "acto_general",
+    "via_que_sale": "via_ordinaria"
+   },
+   {
+    "hecho": "dano_consumado",
+    "via_que_sale": "via_ordinaria"
+   },
+   {
+    "hecho": "incumplimiento_normativo",
+    "valor_que_rompe": false,
+    "via_que_sale": "tutela"
+   },
+   {
+    "hecho": "afectacion_individual",
+    "valor_que_rompe": true,
+    "via_que_sale": "tutela"
+   }
+  ],
+  "inocuos": [
+   {
+    "hecho": "titular_pide_lo_suyo",
+    "via_que_sale": "accion_cumplimiento"
+   },
+   {
+    "hecho": "continua_vulneracion",
+    "via_que_sale": "accion_cumplimiento"
+   },
+   {
+    "hecho": "otro_medio_judicial",
+    "via_que_sale": "accion_cumplimiento"
+   },
+   {
+    "hecho": "medio_eficaz",
+    "via_que_sale": "accion_cumplimiento"
+   },
+   {
+    "hecho": "perjuicio_irremediable",
+    "via_que_sale": "accion_cumplimiento"
+   },
+   {
+    "hecho": "sujeto_especial_proteccion",
+    "via_que_sale": "accion_cumplimiento"
+   }
+  ],
+  "n_causas_posibles": 6
+ },
+ "trazas": {
+  "disponible": true,
+  "n_con_traza": 8,
+  "sin_traza": [],
+  "detalle": [
+   {
+    "id": "E29",
+    "categoria": "incumplimiento_norma",
+    "hechos_extraidos": {
+     "titular_pide_lo_suyo": true,
+     "continua_vulneracion": true,
+     "incumplimiento_normativo": true,
+     "afectacion_individual": true,
+     "sujeto_especial_proteccion": true
+    },
+    "motor_emite": "tutela",
+    "causas_activadas": [
+     "afectacion_individual"
+    ]
+   },
+   {
+    "id": "E30",
+    "categoria": "incumplimiento_norma",
+    "hechos_extraidos": {
+     "derecho_colectivo": true,
+     "titular_pide_lo_suyo": true,
+     "continua_vulneracion": true,
+     "incumplimiento_normativo": true,
+     "afectacion_individual": true,
+     "otro_medio_judicial": true,
+     "medio_eficaz": true
+    },
+    "motor_emite": "accion_popular",
+    "causas_activadas": [
+     "afectacion_individual",
+     "derecho_colectivo"
+    ]
+   },
+   {
+    "id": "E39",
+    "categoria": "ac_comisaria_de_familia",
+    "hechos_extraidos": {
+     "titular_pide_lo_suyo": true,
+     "dano_consumado": true,
+     "continua_vulneracion": true,
+     "incumplimiento_normativo": true,
+     "afectacion_individual": true
+    },
+    "motor_emite": "tutela",
+    "causas_activadas": [
+     "afectacion_individual",
+     "dano_consumado"
+    ]
+   },
+   {
+    "id": "E40",
+    "categoria": "ac_plan_gestion_riesgo",
+    "hechos_extraidos": {
+     "derecho_colectivo": true,
+     "titular_pide_lo_suyo": true,
+     "continua_vulneracion": true,
+     "incumplimiento_normativo": true,
+     "afectacion_individual": true
+    },
+    "motor_emite": "accion_popular",
+    "causas_activadas": [
+     "afectacion_individual",
+     "derecho_colectivo"
+    ]
+   },
+   {
+    "id": "E41",
+    "categoria": "ac_cuerpo_de_bomberos",
+    "hechos_extraidos": {
+     "derecho_colectivo": true,
+     "titular_pide_lo_suyo": true,
+     "continua_vulneracion": true,
+     "incumplimiento_normativo": true,
+     "afectacion_individual": true
+    },
+    "motor_emite": "accion_popular",
+    "causas_activadas": [
+     "afectacion_individual",
+     "derecho_colectivo"
+    ]
+   },
+   {
+    "id": "E42",
+    "categoria": "ac_acuerdo_sin_reglamentar",
+    "hechos_extraidos": {
+     "continua_vulneracion": true,
+     "incumplimiento_normativo": true,
+     "otro_medio_judicial": true,
+     "medio_eficaz": true
+    },
+    "motor_emite": "accion_cumplimiento",
+    "causas_activadas": []
+   },
+   {
+    "id": "A15",
+    "categoria": "ac_tarifa_adulto_mayor",
+    "hechos_extraidos": {
+     "continua_vulneracion": true,
+     "incumplimiento_normativo": true
+    },
+    "motor_emite": "accion_cumplimiento",
+    "causas_activadas": []
+   },
+   {
+    "id": "A16",
+    "categoria": "ac_norma_salud_sin_afectado",
+    "hechos_extraidos": {
+     "derecho_colectivo": true,
+     "dano_consumado": true,
+     "continua_vulneracion": true,
+     "incumplimiento_normativo": true
+    },
+    "motor_emite": "accion_popular",
+    "causas_activadas": [
+     "dano_consumado",
+     "derecho_colectivo"
+    ]
+   }
+  ],
+  "causa_mas_frecuente": "afectacion_individual",
+  "conteo_por_causa": {
+   "afectacion_individual": 5,
+   "derecho_colectivo": 4,
+   "dano_consumado": 2
+  }
+ },
+ "conclusion": "El motor emite `accion_cumplimiento` en 8/8 casos con los hechos declarados: NO es el motor. El fallo esta en la extraccion, y solo 6 hechos pueden producirlo."
+}

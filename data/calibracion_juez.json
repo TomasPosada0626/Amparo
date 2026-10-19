@@ -1,0 +1,61 @@
+{
+ "n": 10,
+ "concluyente": true,
+ "modelo_a": "humano",
+ "modelo_b": "juez automatico",
+ "media_a": 3.2,
+ "media_b": 2.9,
+ "acuerdo_exacto": 0.4,
+ "acuerdo_a_un_punto": 0.7,
+ "kappa_aprueba": 0.2308,
+ "corr_spearman": 0.4388,
+ "sin_nota_en_alguno": 0,
+ "lectura": "`kappa_aprueba` es la cifra que importa: mide el acuerdo en la decision binaria que el harness usa (nota >= 4), corregida por azar. `indefinido` significa que uno de los dos jueces uso una sola categoria, y entonces la kappa vale 0.0 mecanicamente y no distingue acuerdo de desacuerdo. Una diferencia grande de medias con buena correlacion significa que los jueces ORDENAN igual pero calibran distinto: para comparar sistemas sirve, para reportar una nota absoluta no.",
+ "desacuerdos": [
+  {
+   "id": "A01",
+   "humano": 5,
+   "juez": 2,
+   "delta": -3
+  },
+  {
+   "id": "A10",
+   "humano": 1,
+   "juez": 4,
+   "delta": 3
+  },
+  {
+   "id": "E01",
+   "humano": 4,
+   "juez": 5,
+   "delta": 1
+  },
+  {
+   "id": "E05",
+   "humano": 2,
+   "juez": 1,
+   "delta": -1
+  },
+  {
+   "id": "E09",
+   "humano": 4,
+   "juez": 2,
+   "delta": -2
+  },
+  {
+   "id": "E17",
+   "humano": 4,
+   "juez": 3,
+   "delta": -1
+  }
+ ],
+ "sesgo_medio_del_juez": -0.3,
+ "_anotador": "persona-externa",
+ "_independencia": {
+  "independiente": true,
+  "nota": "Persona que no participo en escribir el gold, la rubrica ni el juez. Es la unica combinacion que responde la pregunta original: cuando el juez da un 4, una persona tambien lo daria?",
+  "que_mide": "cuando el juez da un 4, una persona ajena tambien lo daria"
+ },
+ "lectura_calibracion": "Spearman 0.4388: el juez NO preserva el orden de la persona. Esto NO es un problema de calibracion que se arregle desplazando las notas --- el sesgo medio es irrelevante cuando el orden no se mantiene, porque no hay nada que desplazar. La nota del juez esta debilmente relacionada con la de una persona ajena, asi que no sostiene ni una nota absoluta ni una comparacion entre sistemas. Lo que SI sostiene el proyecto son las metricas de dominio (`acierto_juridico`, `acc_mecanismo`, `macro_f1`), que las calcula `metricas.py` contra el gold y no pasan por el juez.",
+ "_aviso_n": "n=10. Con esta muestra el intervalo de `kappa_aprueba` es ancho: lo que se establece es que el juez NO queda validado, no que quede refutado. Son cosas distintas y la segunda necesitaria mas n."
+}

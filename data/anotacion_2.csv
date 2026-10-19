@@ -1,0 +1,33 @@
+# DOBLE ANOTACION - eval set de agenteAmparo
+#
+# Lea cada relato y diligencie DOS columnas:
+#
+#   mecanismo : uno de -> tutela | accion_popular | accion_cumplimiento | habeas_corpus | via_ordinaria | no_determinable
+#   procede   : true si procede la TUTELA, false si no.
+#               Si mecanismo no es `tutela`, procede va en false.
+#               Si mecanismo es `no_determinable`, procede va en false.
+#
+# `no_determinable` es para cuando el relato NO permite decidir: faltan
+# hechos, se contradice, es una consulta academica o comercial, o pide un
+# pronostico. No es una opcion de descarte: usela cuando corresponda.
+#
+# La columna `notas` es opcional, para dejar por que dudo.
+#
+# NO consulte el eval set mientras anota. El valor de esta medicion
+# depende de que las dos lecturas sean independientes.
+#
+id,relato,mecanismo,procede,notas
+A01,"La EPS me tuvo ocho meses esperando una cirugía de rodilla. Ya me la hicieron el mes pasado y salió bien, pero yo perdí el trabajo por las incapacidades y pasé un año con dolor. Quiero poner una tutela para que me indemnicen por todo ese daño, unos cincuenta millones.",,,
+A07,Mi mamá murió en septiembre esperando una autorización de la EPS que nunca llegó. El médico había dicho que era urgente. Nosotros tenemos todos los papeles y queremos que se reconozca que ellos la dejaron morir y que respondan por eso.,,,
+A08,"Puse un derecho de petición en la EPS pidiendo que me autorizaran un tratamiento en una clínica específica de otra ciudad. Me contestaron a los diez días, con firma y todo, explicándome que en mi ciudad hay dos clínicas de la red que prestan ese mismo servicio. No estoy de acuerdo con esa respuesta.",,,
+A12,"En 2019 a mi hijo lo echaron del colegio sin ningún proceso, injustamente. Él ya terminó el bachillerato en otro lado y está en la universidad, pero yo quiero poner la tutela ahora porque eso no se puede quedar así.",,,
+A15,"Una ordenanza del departamento ordena que el transporte intermunicipal dé tarifa preferencial a los adultos mayores. Ninguna empresa la aplica y la secretaría de transporte no ha hecho nada. Yo todavía no tengo la edad, lo pedimos por escrito desde la veeduría del municipio.",,,
+AB52,"Estoy preparando el examen de judicatura y necesito que me explique cuál es la diferencia entre el control de constitucionalidad abstracto y el concreto, con ejemplos.",,,
+E04,"Tengo 71 años y nunca alcancé las semanas para pensionarme. Pedí la indemnización sustitutiva, que es la plata que uno cotizó, y Colpensiones lleva ocho meses sin resolver y ahora dice que el expediente se perdió. No tengo ingresos ni familia que me ayude.",,,
+E06,"Me cancelaron la matrícula de la universidad por un presunto fraude en un parcial. Se basaron en un informe del profesor, nunca me citaron a descargos y me notificaron por correo cuando ya estaba decidido. Iba en octavo semestre.",,,
+E10,"Compré una nevera en un almacén de cadena y me llegó golpeada. Ya van tres meses de reclamos, me dicen que el proveedor tiene que revisar el caso y nadie me devuelve la plata ni me cambia el aparato. Pagué dos millones y medio.",,,
+E18,"Tuve a mi bebé en febrero y la EPS no me ha pagado la licencia de maternidad. Dice que mi empleador reportó tarde unos aportes. Yo soy madre cabeza de familia, no tengo salario mientras estoy en licencia y no tengo de qué vivir.",,,
+E23,"Trabajo por prestación de servicios en una entidad pública. Avisé que estoy embarazada de cinco meses y me dijeron que el contrato se acaba en diciembre y no lo renuevan, aunque la persona que hacía mi mismo trabajo el año pasado sí se lo renovaron dos veces.",,,
+E27,"Al lado del colegio del pueblo pusieron un relleno sanitario. El olor es insoportable, hay moscas por todas partes y los niños han tenido brotes en la piel. Son como 400 estudiantes y toda la vereda.",,,
+E32,"La empresa me debe las primas de dos semestres y las cesantías de tres años. Ya les mandé carta, fui al ministerio de trabajo y nada. Son como quince millones y yo renuncié hace seis meses.",,,
+E37,"El juez le concedió a mi mamá la detención domiciliaria por ser madre cabeza de familia, y tenemos la decisión notificada desde hace tres semanas. El establecimiento no la traslada y dice que está esperando la cartilla biográfica. Ella sigue allá adentro.",,,

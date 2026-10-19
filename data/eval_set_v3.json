@@ -1,0 +1,4261 @@
+{
+ "meta": {
+  "nombre": "tutela-co-triage-eval-v3",
+  "version": "3.0.0",
+  "semilla": 42,
+  "derivado_de": "data/eval_set_v2.json v2.0.0",
+  "relacion_con_v1": "SUPERCONJUNTO ESTRICTO. Los 46 casos de v1 estan incluidos sin ninguna modificacion: mismos ids, mismos relatos, mismas etiquetas. Cualquier diferencia entre las metricas de v1 y v2 es atribuible UNICAMENTE a los 23 casos agregados. v1 NO se retira: se sigue corriendo para no invalidar las once corridas previas, y las dos columnas se publican juntas.",
+  "composicion": {
+   "gold": 64,
+   "adversarial": 39,
+   "abstencion": 6
+  },
+  "balance_mecanismo": {
+   "tutela": 46,
+   "accion_popular": 8,
+   "via_ordinaria": 33,
+   "accion_cumplimiento": 8,
+   "habeas_corpus": 8
+  },
+  "baseline_clase_mayoritaria": 0.4466,
+  "baseline_v1": 0.587,
+  "por_dificultad": {
+   "rutinario": 41,
+   "frontera": 28,
+   "trampa": 40
+  },
+  "motivo": [
+   "ROADMAP #2: en v1 el macro F1 promediaba cinco clases por igual con `accion_cumplimiento` en 2 casos y `habeas_corpus` en 2. Un solo caso movia el macro F1 global cerca de 10 puntos. Las tres clases minoritarias quedan en 8.",
+   "ROADMAP #3: v1 no ejercitaba `no_determinable`, el unico valor del vocabulario sin probar en el eval principal. Se anaden 6 casos de abstencion, uno por cada familia del dataset.",
+   "ROADMAP #5: `dificultad` permite leer los resultados por nivel y no solo por tipo. Parte los gold en `rutinario` y `frontera`, que hoy se reportan como un solo numero."
+  ],
+  "disjunto_de": "data/dataset.json (train + validation) y entre si. El solape de RELATOS es cero, verificado por normalizacion (sin acentos, sin puntuacion, sin may/min) en data/construir_eval_v2.py. Las CATEGORIAS si reaparecen entre entrenamiento y evaluacion, y es deliberado: mide generalizacion dentro de las mismas familias juridicas, no en familias nuevas.",
+  "verificacion": "los 63 casos juzgables tienen `hechos` codificados a mano y el mecanismo lo DERIVA src/reglas.decidir(); si no coincide con la etiqueta, este script falla y no escribe. Los 6 de abstencion no pasan por el motor: la abstencion no es una conclusion del arbol del art. 6 sino el reconocimiento de que no hay hechos para entrar.",
+  "limites_conocidos": {
+   "A04": "tutela contra providencia judicial. Su procedencia se rige por las causales especificas de la C-590 de 2005 (defecto factico, sustantivo, procedimental), que el motor no implementa. Aqui la regla 6 llega a via_ordinaria porque el medio idoneo existio y se agoto, pero el fundamento que emite el motor (art. 6.1) no es el que un juez usaria.",
+   "A08": "el derecho de peticion FUE satisfecho (respuesta oportuna, de fondo y congruente). El motor no tiene una regla 'no hay vulneracion que amparar': llega a via_ordinaria por subsidiariedad, que es el mecanismo correcto, con un fundamento que no es el preciso."
+  },
+  "planos_del_fundamento": {
+   "por_que": "`fundamento` mezclaba dos planos. En el eval set, los 8 casos de cumplimiento citan art. 87 CP, los 8 de popular art. 88 CP y los 8 de habeas corpus art. 30 CP, pero art. 86 CP no aparecia en NINGUN fundamento aunque 27 casos son de tutela: solo 3 de esos 27 llevaban alguna cita del plano procesal, contra 8/8 en los demas mecanismos. `pertinencia_citas` comparaba contra el conjunto exacto del `fundamento`, asi que contaba como impertinente el art. 86 CP, que es la norma que crea la tutela y lo que emite reglas.decidir().",
+   "fundamento": "SIN CAMBIOS. Mover este campo invalidaria las once corridas anteriores, igual que agrandar el eval set en sitio.",
+   "fundamento_del_mecanismo": "DERIVADO de reglas.decidir(), no afirmado: por eso es consistente entre los casos del mismo mecanismo.",
+   "fundamento_del_derecho": "las citas de plano de fondo que ya estaban en `fundamento`.",
+   "particion": "la decide schema.planos_normativos() desde normas.json, no una lista a mano. Procesal = lo que crea o regula una accion; fondo = lo que reconoce un derecho. La Constitucion lo resuelve sola: su art. 30 se titula 'Habeas corpus' y su art. 28 'Libertad personal'."
+  },
+  "fiabilidad_de_las_etiquetas": {
+   "escalera": {
+    "corte_constitucional": {
+     "nivel": 1,
+     "significa": "la etiqueta la fijo un tercero: es la decision publicada de la Corte Constitucional, con numero de sentencia y expediente. Es el unico nivel con fuente externa al equipo."
+    },
+    "motor_de_reglas_plano": {
+     "nivel": 2,
+     "significa": "la etiqueta la DERIVA reglas.decidir() de hechos que se leen del relato con poco margen. Consistente con el art. 6, no independiente."
+    },
+    "motor_de_reglas_ponderado": {
+     "nivel": 3,
+     "significa": "la etiqueta la deriva el motor, pero a traves de una ponderacion (perjuicio irremediable o eficacia del otro medio) que a su vez se deriva de sus elementos con un test conjuntivo."
+    },
+    "equipo_ponderacion_afirmada": {
+     "nivel": 4,
+     "significa": "la etiqueta depende de una ponderacion AFIRMADA sin desglose. Es el nivel mas debil de los verificados."
+    },
+    "equipo_afirmado": {
+     "nivel": 4,
+     "significa": "la etiqueta se afirmo directamente, sin pasar por el motor. Son los casos de abstencion --- que no son una conclusion del arbol del art. 6 sino el reconocimiento de que no hay hechos para entrar --- y los casos sin `hechos` codificados."
+    }
+   },
+   "reparto": {
+    "motor_de_reglas_plano": 45,
+    "motor_de_reglas_ponderado": 15,
+    "equipo_ponderacion_afirmada": 3,
+    "equipo_afirmado": 6
+   },
+   "advertencia": "`motor_de_reglas` significa CONSISTENTE con el arbol del art. 6, no INDEPENDIENTE: los hechos los codifico el mismo equipo que puso la etiqueta. Lo que el motor descarta es que la etiqueta contradiga el ordenamiento, que es lo que encontro en A09."
+  },
+  "relacion_con_v2": "SUPERCONJUNTO ESTRICTO. Los 69 casos de v2 estan incluidos sin ninguna modificacion, asi que el puente `subconjunto_v1` y la comparacion contra las corridas anteriores siguen valiendo sobre el subconjunto comun.",
+  "baseline_clase_mayoritaria_v2": 0.4286,
+  "motivo_v3": [
+   "M1-4: seis clases de `derecho` tenian soporte <= 3 y `clases_con_soporte_minimo` las nombraba en cada scorecard.",
+   "T-3: el estrato adversarial tenia n=18 y los brazos 1 y 4 empataban sin que se pudiera concluir nada."
+  ],
+  "verificacion_v3": "Los casos nuevos declaran `mecanismo_esperado` y el mecanismo lo DERIVA `reglas.decidir()`: si no coinciden, el caso se rechaza. Las citas se comprueban contra `data/normas.json`. Lo hace `data/ampliar_eval_set.py`."
+ },
+ "ejemplos": [
+  {
+   "id": "E01",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "salud_no_pbs",
+   "relato": "Soy paciente de VIH y llevo tres años con el mismo tratamiento. Este mes el infectólogo me cambió a un antirretroviral nuevo porque el otro ya no me está funcionando, y la EPS responde que ese no lo tiene contratado con ningún proveedor.",
+   "derecho": "salud",
+   "fundamento": "art. 49 CP; Ley 1751 de 2015",
+   "accionado": "EPS",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "los problemas de contratación de la EPS no son oponibles al afiliado cuando hay orden del médico tratante y la interrupción compromete la vida",
+   "pretension": "autorizar y entregar el antirretroviral ordenado y garantizar su suministro continuo",
+   "hechos": {
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 49 CP",
+    "Ley 1751 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E02",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "salud_urgencias",
+   "relato": "Mi papá es venezolano, lleva dos años acá pero no ha podido regularizar los papeles y no está afiliado a nada. Se cayó de una escalera trabajando y en el hospital le hicieron lo mínimo, lo estabilizaron y lo mandaron para la casa sin la cirugía que el ortopedista dijo que necesitaba.",
+   "derecho": "salud",
+   "fundamento": "art. 49 CP; art. 13 CP; Ley 1751 de 2015",
+   "accionado": "Institución prestadora de salud y entidad territorial",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la atención de urgencias no puede condicionarse al estatus migratorio ni a la afiliación, y la estabilización incompleta deja subsistente la amenaza a la salud",
+   "pretension": "ordenar la práctica del procedimiento quirúrgico requerido con cargo a la entidad competente",
+   "hechos": {
+    "afectacion_individual": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 49 CP",
+    "art. 13 CP",
+    "Ley 1751 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E03",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "peticion_respuesta_evasiva",
+   "relato": "Le pedí por escrito a la empresa de acueducto que me explicara por qué la factura me subió de 40 mil a 300 mil en un mes. Me respondieron a los veinte días con una carta de dos párrafos que dice que el consumo fue el registrado por el medidor y que puedo pagar a cuotas. No me explicaron nada de lo que pregunté.",
+   "derecho": "peticion",
+   "fundamento": "art. 23 CP; Ley 1755 de 2015",
+   "accionado": "Empresa de servicios públicos",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "hubo respuesta formal pero no de fondo: no resuelve lo preguntado ni es congruente con la petición, lo que equivale a no responder",
+   "pretension": "ordenar respuesta de fondo, clara, precisa y congruente con lo preguntado",
+   "hechos": {
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 23 CP",
+    "Ley 1755 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E04",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "pension_perjuicio_irremediable",
+   "relato": "Tengo 71 años y nunca alcancé las semanas para pensionarme. Pedí la indemnización sustitutiva, que es la plata que uno cotizó, y Colpensiones lleva ocho meses sin resolver y ahora dice que el expediente se perdió. No tengo ingresos ni familia que me ayude.",
+   "derecho": "seguridad_social",
+   "fundamento": "art. 48 CP; art. 46 CP; art. 8 Decreto 2591 de 1991",
+   "accionado": "Colpensiones",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la edad y la carencia total de ingresos configuran perjuicio irremediable que desplaza la exigencia de agotar la vía ordinaria",
+   "pretension": "ordenar el reconocimiento y pago de la indemnización sustitutiva",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "perjuicio_irremediable": true,
+    "sujeto_especial_proteccion": true,
+    "pi_inminencia": true,
+    "pi_gravedad": true,
+    "pi_urgencia": true,
+    "pi_impostergabilidad": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela_transitoria",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [
+    "perjuicio_irremediable"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 48 CP",
+    "art. 46 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 8 Decreto 2591 de 1991",
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP",
+    "art. 8 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "E05",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "habeas_data_caducidad",
+   "relato": "Tuve una deuda con una tarjeta que dejé de pagar en 2016 y nunca la pagué, eso es cierto. Pero ya pasaron más de ocho años y sigo reportado igual que el primer día. Cada vez que intento algo en un banco me rebotan por ese reporte.",
+   "derecho": "habeas_data",
+   "fundamento": "art. 15 CP; Ley 1266 de 2008",
+   "accionado": "Entidad financiera y central de riesgo",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "el dato negativo tiene un término máximo de permanencia y su conservación indefinida convierte el reporte en una sanción perpetua",
+   "pretension": "ordenar la caducidad del dato negativo y su retiro de las bases de datos",
+   "hechos": {
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 15 CP",
+    "Ley 1266 de 2008"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E06",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "debido_proceso_disciplinario",
+   "relato": "Me cancelaron la matrícula de la universidad por un presunto fraude en un parcial. Se basaron en un informe del profesor, nunca me citaron a descargos y me notificaron por correo cuando ya estaba decidido. Iba en octavo semestre.",
+   "derecho": "debido_proceso",
+   "fundamento": "art. 29 CP; art. 42 Decreto 2591 de 1991",
+   "accionado": "Universidad",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la sanción se adoptó sin traslado de cargos ni oportunidad de defensa, y la tutela procede contra el particular que presta el servicio público de educación",
+   "pretension": "dejar sin efecto la cancelación de matrícula y rehacer el proceso disciplinario con garantías",
+   "hechos": {
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 29 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 42 Decreto 2591 de 1991",
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E07",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "educacion_inclusion",
+   "relato": "Mi hija tiene síndrome de Down y está en tercero de primaria. El colegio dice que no tiene docente de apoyo y que si no conseguimos nosotros una sombra particular no pueden recibirla el próximo año. Nosotros no tenemos cómo pagar eso.",
+   "derecho": "educacion",
+   "fundamento": "art. 13 CP; art. 44 CP; art. 67 CP",
+   "accionado": "Institución educativa y Secretaría de Educación",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "condicionar la permanencia de una menor con discapacidad a que la familia costee los apoyos traslada al particular una obligación estatal de educación inclusiva",
+   "pretension": "ordenar la asignación de los apoyos pedagógicos requeridos y garantizar la continuidad en el colegio",
+   "hechos": {
+    "afectacion_individual": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 13 CP",
+    "art. 44 CP",
+    "art. 67 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E08",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "fuero_salud",
+   "relato": "Estoy en quimioterapia desde enero. Mi contrato de prestación de servicios se vencía en marzo y la entidad decidió no renovarlo, aunque el equipo sigue funcionando y contrataron a otra persona en mi lugar. Si pierdo el contrato pierdo la afiliación y el tratamiento.",
+   "derecho": "estabilidad_laboral_reforzada",
+   "fundamento": "art. 13 CP; art. 25 CP; art. 49 CP; Ley 361 de 1997",
+   "accionado": "Entidad contratante",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la no renovación de quien está en tratamiento oncológico, subsistiendo la actividad contratada, configura despido de sujeto en debilidad manifiesta",
+   "pretension": "ordenar la renovación del vínculo y la continuidad de la afiliación al sistema de salud",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": false,
+    "sujeto_especial_proteccion": true,
+    "me_idoneo": true,
+    "me_oportuno": false,
+    "me_accesible": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 13 CP",
+    "art. 25 CP",
+    "art. 49 CP",
+    "Ley 361 de 1997"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E09",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "colectivo_ambiente",
+   "relato": "Una empresa de curtiembres está vertiendo los desechos directamente a la quebrada que pasa por el municipio. El agua bajó de color y los peces se murieron. Somos varias veredas las que tomamos agua de ahí y la corporación ambiental no ha hecho nada.",
+   "derecho": "colectivos",
+   "fundamento": "art. 79 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991",
+   "accionado": "Empresa de curtiembres y corporación autónoma regional",
+   "mecanismo": "accion_popular",
+   "procede": false,
+   "razon": "la pretensión protege el ambiente sano y la salubridad pública, derechos colectivos excluidos del ámbito de la tutela",
+   "pretension": "promover acción popular para el cese del vertimiento y la recuperación de la fuente hídrica",
+   "hechos": {
+    "derecho_colectivo": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "derechos_colectivos",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 79 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991",
+    "art. 88 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 88 CP",
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "E10",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "contractual_ordinario",
+   "relato": "Compré una nevera en un almacén de cadena y me llegó golpeada. Ya van tres meses de reclamos, me dicen que el proveedor tiene que revisar el caso y nadie me devuelve la plata ni me cambia el aparato. Pagué dos millones y medio.",
+   "derecho": "ninguno",
+   "fundamento": "art. 6.1 Decreto 2591 de 1991",
+   "accionado": "Almacén de cadena",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "es un asunto de protección al consumidor con acción específica ante la Superintendencia de Industria y Comercio, sin derecho fundamental comprometido",
+   "pretension": "acudir a la acción de protección al consumidor ante la Superintendencia de Industria y Comercio",
+   "hechos": {
+    "otro_medio_judicial": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "pi_inminencia": false,
+    "pi_gravedad": false,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "A01",
+   "split": "eval",
+   "tipo": "adversarial",
+   "trampa": "Vocabulario de salud y tono de urgencia, pero la pretensión es indemnizatoria y no hay servicio médico pendiente. El modelo tiende a clasificarlo como salud procedente por las palabras clave.",
+   "categoria": "indemnizatorio",
+   "relato": "La EPS me tuvo ocho meses esperando una cirugía de rodilla. Ya me la hicieron el mes pasado y salió bien, pero yo perdí el trabajo por las incapacidades y pasé un año con dolor. Quiero poner una tutela para que me indemnicen por todo ese daño, unos cincuenta millones.",
+   "derecho": "ninguno",
+   "fundamento": "art. 6.4 Decreto 2591 de 1991; art. 25 Decreto 2591 de 1991",
+   "accionado": "EPS",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el servicio ya fue prestado, de modo que el daño está consumado y no hay derecho fundamental que amparar; la indemnización por tutela es excepcional y en abstracto, no un sustituto de la reparación ordinaria",
+   "pretension": "acudir a la jurisdicción contencioso administrativa u ordinaria para reclamar la reparación del daño",
+   "hechos": {
+    "dano_consumado": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "dano_consumado",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "continua_vulneracion"
+   ],
+   "estrato_verificacion": "juicio",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "art. 25 Decreto 2591 de 1991",
+    "art. 6.4 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "equipo_ponderacion_afirmada",
+   "nivel_fiabilidad": 4,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.4 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "A02",
+   "split": "eval",
+   "tipo": "adversarial",
+   "trampa": "Dos problemas en un mismo relato: uno es derecho fundamental individual tutelable y el otro es un asunto de policía o colectivo. El modelo debe quedarse con el primero y no mezclar las etiquetas.",
+   "categoria": "relato_mixto",
+   "relato": "Tengo dos problemas. El primero es que la EPS no me ha entregado las muestras de patología de la biopsia que me hicieron en septiembre y el oncólogo no puede decidir el tratamiento sin eso. Y el segundo es que el vecino del 302 pone reguetón hasta las tres de la mañana todos los fines de semana y ya nadie en el edificio duerme.",
+   "derecho": "salud",
+   "fundamento": "art. 49 CP; Ley 1751 de 2015",
+   "accionado": "EPS",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "el asunto tutelable es la entrega del resultado de patología, del que depende el inicio del tratamiento oncológico; la perturbación por ruido es un asunto de convivencia ajeno a la tutela",
+   "pretension": "ordenar la entrega inmediata del resultado de patología y la definición del tratamiento",
+   "hechos": {
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 49 CP",
+    "Ley 1751 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "A03",
+   "split": "eval",
+   "tipo": "adversarial",
+   "trampa": "Caso de salud con orden médica, pero con finalidad estética y sin compromiso funcional. El modelo sobregeneraliza la regla de que toda orden del médico tratante hace procedente la tutela.",
+   "categoria": "salud_estetica",
+   "relato": "Fui a un cirujano plástico particular y me dio una orden para una abdominoplastia porque después de dos embarazos quedé con piel de más y eso me tiene con la autoestima por el piso. La EPS me la negó diciendo que es estética. Yo tengo la orden del médico.",
+   "derecho": "ninguno",
+   "fundamento": "art. 6.1 Decreto 2591 de 1991; Ley 1751 de 2015",
+   "accionado": "EPS",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el procedimiento tiene finalidad estética, no fue ordenado por el médico tratante adscrito a la red y no se acredita afectación funcional ni riesgo para la salud",
+   "pretension": "agotar la reclamación administrativa ante la EPS y, de persistir, acudir a la Superintendencia Nacional de Salud",
+   "hechos": {
+    "otro_medio_judicial": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "pi_inminencia": false,
+    "pi_gravedad": false,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "Ley 1751 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "A04",
+   "split": "eval",
+   "tipo": "adversarial",
+   "trampa": "Tutela contra providencia judicial presentada como injusticia evidente. El modelo tiende a conceder porque el relato es emotivo y menciona debido proceso.",
+   "categoria": "contra_providencia",
+   "relato": "El juez laboral falló en contra mía y le creyó a los testigos de la empresa que claramente estaban mintiendo. Yo apelé y el tribunal confirmó. Esa sentencia es una injusticia y viola mi debido proceso. Quiero una tutela para que tumben el fallo.",
+   "derecho": "debido_proceso",
+   "fundamento": "art. 29 CP; art. 6.1 Decreto 2591 de 1991",
+   "accionado": "Juzgado laboral y tribunal",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la tutela contra providencia judicial es excepcional y no procede por simple desacuerdo con la valoración probatoria; los recursos ordinarios ya fueron agotados sin que se alegue un defecto específico",
+   "pretension": "no hay mecanismo adicional disponible por mera inconformidad con la valoración de la prueba",
+   "hechos": {
+    "otro_medio_judicial": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "pi_inminencia": false,
+    "pi_gravedad": false,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "limite_del_motor": "tutela contra providencia judicial. Su procedencia se rige por las causales especificas de la C-590 de 2005 (defecto factico, sustantivo, procedimental), que el motor no implementa. Aqui la regla 6 llega a via_ordinaria porque el medio idoneo existio y se agoto, pero el fundamento que emite el motor (art. 6.1) no es el que un juez usaria.",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 29 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "E11",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "salud_cuidador",
+   "relato": "Mi papá tiene 80 años, quedó postrado después de un derrame y necesita atención las 24 horas. Yo trabajo y mi hermana también. Pedimos enfermería domiciliaria y la EPS dice que eso le corresponde a la familia.",
+   "derecho": "salud",
+   "fundamento": "art. 46 CP; art. 49 CP; Ley 1751 de 2015",
+   "accionado": "EPS",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la familia no tiene capacidad material de asumir el cuidado permanente y el paciente es sujeto de especial protección en condición de dependencia total",
+   "pretension": "ordenar el servicio de atención domiciliaria conforme a la valoración médica",
+   "hechos": {
+    "afectacion_individual": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 46 CP",
+    "art. 49 CP",
+    "Ley 1751 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E12",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "salud_insumo",
+   "relato": "Mi mamá tiene 79 años, está en cama y usa pañales y una fórmula nutricional que le pasan por sonda. La EPS entregó todo seis meses y ahora dice que eso no es un medicamento sino un insumo de aseo y que lo compremos nosotros.",
+   "derecho": "salud",
+   "fundamento": "art. 46 CP; art. 49 CP; Ley 1751 de 2015",
+   "accionado": "EPS",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "los insumos hacen parte del tratamiento ordenado y suspenderlos a una paciente dependiente desconoce la continuidad del servicio",
+   "pretension": "ordenar el suministro continuo de los insumos y la fórmula nutricional ordenados",
+   "hechos": {
+    "afectacion_individual": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 46 CP",
+    "art. 49 CP",
+    "Ley 1751 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E13",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "salud_mental",
+   "relato": "Mi hija de 16 años intentó quitarse la vida hace dos semanas. El psiquiatra de urgencias dijo que necesita hospitalización en una unidad de salud mental y la EPS contesta que no tiene convenio con ninguna y que la manejemos con consulta externa cada mes.",
+   "derecho": "salud",
+   "fundamento": "art. 44 CP; art. 49 CP; Ley 1751 de 2015",
+   "accionado": "EPS",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la salud mental es parte del derecho fundamental a la salud, existe riesgo vital inminente y se trata de una menor cuyos derechos prevalecen",
+   "pretension": "ordenar la hospitalización en unidad de salud mental y el tratamiento integral requerido",
+   "hechos": {
+    "afectacion_individual": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 44 CP",
+    "art. 49 CP",
+    "Ley 1751 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E14",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "salud_demora",
+   "relato": "Tengo una fractura mal consolidada en el brazo y el ortopedista ordenó una cirugía hace cuatro meses. La EPS dice que estoy en lista de espera y que hay 300 personas antes. Mientras tanto no puedo trabajar porque soy soldador.",
+   "derecho": "salud",
+   "fundamento": "art. 49 CP; Ley 1751 de 2015",
+   "accionado": "EPS",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la lista de espera no justifica la dilación indefinida de un procedimiento ordenado y la demora agrava la condición del paciente",
+   "pretension": "fijar fecha para el procedimiento quirúrgico en un término perentorio",
+   "hechos": {
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 49 CP",
+    "Ley 1751 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E15",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "peticion_requisitos_indebidos",
+   "relato": "Pedí a la secretaría de tránsito que me devolvieran una plata de un comparendo que ya había sido anulado. Me contestaron que para tramitar la devolución tengo que llevar un certificado notarial de que soy yo y una póliza. Eso no lo pide ninguna norma.",
+   "derecho": "peticion",
+   "fundamento": "art. 23 CP; Ley 1755 de 2015",
+   "accionado": "Secretaría de Tránsito",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "exigir requisitos no previstos en la ley para tramitar una petición equivale a negar el derecho de petición",
+   "pretension": "ordenar el trámite de la solicitud sin exigir requisitos carentes de fundamento legal",
+   "hechos": {
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 23 CP",
+    "Ley 1755 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E16",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "peticion_sin_respuesta",
+   "relato": "Soy venezolano y radiqué la solicitud del permiso de permanencia en Migración hace once meses. En la página aparece en estudio desde entonces. Sin ese documento no puedo trabajar formalmente ni afiliarme a salud.",
+   "derecho": "peticion",
+   "fundamento": "art. 23 CP; Ley 1755 de 2015",
+   "accionado": "Migración Colombia",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "el término legal de respuesta está ampliamente vencido y la indefinición del trámite bloquea el acceso a otros derechos",
+   "pretension": "ordenar respuesta de fondo y la definición del trámite migratorio",
+   "hechos": {
+    "afectacion_individual": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 23 CP",
+    "Ley 1755 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E17",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "peticion_sin_respuesta",
+   "relato": "Mi hermano murió en un accidente de trabajo y pedí a la ARL por escrito el expediente de la investigación. Van cuatro meses, me responden que es información reservada y no me dicen con base en qué norma ni me dan ningún documento.",
+   "derecho": "peticion",
+   "fundamento": "art. 23 CP; Ley 1755 de 2015",
+   "accionado": "Administradora de Riesgos Laborales",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la negativa por reserva debe ser motivada y fundada en norma expresa; una respuesta que no la invoca no satisface el derecho de petición",
+   "pretension": "ordenar respuesta motivada y la entrega de la información no sujeta a reserva legal",
+   "hechos": {
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 23 CP",
+    "Ley 1755 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E18",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "minimo_vital_licencia",
+   "relato": "Tuve a mi bebé en febrero y la EPS no me ha pagado la licencia de maternidad. Dice que mi empleador reportó tarde unos aportes. Yo soy madre cabeza de familia, no tengo salario mientras estoy en licencia y no tengo de qué vivir.",
+   "derecho": "minimo_vital",
+   "fundamento": "art. 43 CP; art. 48 CP; Ley 1751 de 2015",
+   "accionado": "EPS",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la mora del empleador no es oponible a la madre y el no pago de la licencia compromete el mínimo vital de ella y del recién nacido",
+   "pretension": "ordenar el pago de la licencia de maternidad",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": false,
+    "sujeto_especial_proteccion": true,
+    "me_idoneo": true,
+    "me_oportuno": false,
+    "me_accesible": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 43 CP",
+    "art. 48 CP",
+    "Ley 1751 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E19",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "habeas_data_publicacion",
+   "relato": "La alcaldía publicó en su página web la lista de beneficiarios de un programa social con nombre completo, cédula, dirección y diagnóstico de salud de cada uno. Yo estoy ahí con mi diagnóstico y cualquiera lo puede ver en Google.",
+   "derecho": "habeas_data",
+   "fundamento": "art. 15 CP; Ley 1581 de 2012",
+   "accionado": "Alcaldía municipal",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la divulgación de datos sensibles sin autorización del titular vulnera la intimidad y el derecho a la autodeterminación informática",
+   "pretension": "ordenar el retiro de la publicación y la supresión de los datos sensibles divulgados",
+   "hechos": {
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 15 CP",
+    "Ley 1581 de 2012"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E20",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "habeas_data_sin_notificacion",
+   "relato": "Me reportaron en una central de riesgo por una deuda de administración del apartamento que yo vendí hace tres años. La deuda es del dueño nuevo. Mandé los papeles de la venta y siguen sin corregir nada.",
+   "derecho": "habeas_data",
+   "fundamento": "art. 15 CP; Ley 1266 de 2008",
+   "accionado": "Administración del conjunto y central de riesgo",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "el dato reportado es inexacto y no corresponde al titular, pese a haberse acreditado documentalmente",
+   "pretension": "ordenar la rectificación y supresión del reporte que no corresponde al titular",
+   "hechos": {
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 15 CP",
+    "Ley 1266 de 2008"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E21",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "educacion_retencion_diploma",
+   "relato": "Mi hijo terminó once y el colegio no le entrega el diploma ni las notas porque le debemos tres meses de pensión. Sin esos papeles no puede matricularse en la universidad y ya se le venció el plazo de una.",
+   "derecho": "educacion",
+   "fundamento": "art. 44 CP; art. 67 CP; art. 42 Decreto 2591 de 1991",
+   "accionado": "Institución educativa",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "retener los documentos académicos como medio de cobro de una deuda convierte una obligación civil en barrera de acceso a la educación",
+   "pretension": "ordenar la entrega del diploma y los certificados académicos, sin perjuicio del cobro de la deuda por la vía correspondiente",
+   "hechos": {
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 44 CP",
+    "art. 67 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 42 Decreto 2591 de 1991",
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E22",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "educacion_cupo",
+   "relato": "Nos desplazamos del campo por amenazas y llegamos a la ciudad en octubre. Mis dos hijos de 7 y 11 años llevan desde entonces sin colegio porque dicen que el calendario ya empezó y que no se pueden matricular a mitad de año.",
+   "derecho": "educacion",
+   "fundamento": "art. 13 CP; art. 44 CP; art. 67 CP",
+   "accionado": "Secretaría de Educación",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "se trata de menores en situación de desplazamiento, sujetos de especial protección reforzada, y el calendario escolar no puede excluirlos del sistema",
+   "pretension": "ordenar la asignación inmediata de cupos escolares para los menores",
+   "hechos": {
+    "afectacion_individual": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 13 CP",
+    "art. 44 CP",
+    "art. 67 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E23",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "fuero_maternidad",
+   "relato": "Trabajo por prestación de servicios en una entidad pública. Avisé que estoy embarazada de cinco meses y me dijeron que el contrato se acaba en diciembre y no lo renuevan, aunque la persona que hacía mi mismo trabajo el año pasado sí se lo renovaron dos veces.",
+   "derecho": "estabilidad_laboral_reforzada",
+   "fundamento": "art. 43 CP; art. 53 CP",
+   "accionado": "Entidad contratante",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la protección a la maternidad cubre también a la contratista cuando subsiste la necesidad del servicio y hay indicio de que la no renovación obedece al embarazo",
+   "pretension": "ordenar la renovación del contrato y el reconocimiento de las prestaciones por maternidad",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": false,
+    "sujeto_especial_proteccion": true,
+    "me_idoneo": true,
+    "me_oportuno": false,
+    "me_accesible": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 43 CP",
+    "art. 53 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E24",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "fuero_salud",
+   "relato": "Me diagnosticaron esclerosis múltiple el año pasado y desde ahí he tenido varias incapacidades. La empresa me reubicó primero en otro puesto y ahora me notificó terminación de contrato por bajo rendimiento, sin pedirle permiso a nadie.",
+   "derecho": "estabilidad_laboral_reforzada",
+   "fundamento": "art. 13 CP; art. 25 CP; Ley 361 de 1997",
+   "accionado": "Empleador",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "el despido de trabajador con condición de salud conocida por el empleador requiere autorización previa del inspector de trabajo, que no se solicitó",
+   "pretension": "ordenar el reintegro, el pago de salarios dejados de percibir y la reubicación acorde con la condición de salud",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": false,
+    "sujeto_especial_proteccion": true,
+    "me_idoneo": true,
+    "me_oportuno": false,
+    "me_accesible": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 13 CP",
+    "art. 25 CP",
+    "Ley 361 de 1997"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E25",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "debido_proceso_administrativo",
+   "relato": "Me sacaron del programa de subsidio de adulto mayor de un día para otro. Me enteré porque no me llegó el giro. Nunca me notificaron una decisión, nunca me dijeron por qué, y en la oficina me dicen que fue una depuración de la base de datos.",
+   "derecho": "debido_proceso",
+   "fundamento": "art. 29 CP; art. 46 CP",
+   "accionado": "Entidad administradora del programa social",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la exclusión de un beneficio se adoptó sin acto motivado ni notificación, impidiendo cualquier defensa al afectado",
+   "pretension": "ordenar la motivación y notificación de la decisión, y el restablecimiento del beneficio mientras se surte el procedimiento",
+   "hechos": {
+    "afectacion_individual": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 29 CP",
+    "art. 46 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E26",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "pension_perjuicio_irremediable",
+   "relato": "Mi esposo murió en marzo y pedí la pensión de sobrevivientes. El fondo dice que tiene dos años para decidir y que espere. Yo tengo 68 años, nunca trabajé fuera de la casa y dependía totalmente de él. Me están sosteniendo mis hijos que también están apretados.",
+   "derecho": "seguridad_social",
+   "fundamento": "art. 46 CP; art. 48 CP; art. 8 Decreto 2591 de 1991",
+   "accionado": "Fondo de pensiones",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la dependencia económica total, la edad y la ausencia de ingresos propios configuran un perjuicio irremediable que habilita la tutela pese a existir vía ordinaria",
+   "pretension": "ordenar el reconocimiento y pago de la pensión de sobrevivientes",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "perjuicio_irremediable": true,
+    "sujeto_especial_proteccion": true,
+    "pi_inminencia": true,
+    "pi_gravedad": true,
+    "pi_urgencia": true,
+    "pi_impostergabilidad": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela_transitoria",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [
+    "perjuicio_irremediable"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 46 CP",
+    "art. 48 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 8 Decreto 2591 de 1991",
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP",
+    "art. 8 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "E27",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "colectivo_ambiente",
+   "relato": "Al lado del colegio del pueblo pusieron un relleno sanitario. El olor es insoportable, hay moscas por todas partes y los niños han tenido brotes en la piel. Son como 400 estudiantes y toda la vereda.",
+   "derecho": "colectivos",
+   "fundamento": "art. 79 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991",
+   "accionado": "Operador del relleno sanitario y autoridad ambiental",
+   "mecanismo": "accion_popular",
+   "procede": false,
+   "razon": "la afectación recae sobre la salubridad pública y el ambiente sano de una comunidad indeterminada, que son derechos colectivos",
+   "pretension": "promover acción popular para el cese de la afectación ambiental y sanitaria",
+   "hechos": {
+    "derecho_colectivo": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "derechos_colectivos",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 79 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991",
+    "art. 88 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 88 CP",
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "E28",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "colectivo_moralidad",
+   "relato": "El municipio contrató la remodelación del parque con una empresa del cuñado del alcalde, sin licitación y por el triple de lo que vale. La obra lleva año y medio parada y la plata ya se giró toda.",
+   "derecho": "colectivos",
+   "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991",
+   "accionado": "Alcaldía municipal y contratista",
+   "mecanismo": "accion_popular",
+   "procede": false,
+   "razon": "la moralidad administrativa y el patrimonio público son derechos colectivos expresamente protegidos por la acción popular",
+   "pretension": "promover acción popular en defensa de la moralidad administrativa y el patrimonio público",
+   "hechos": {
+    "derecho_colectivo": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "derechos_colectivos",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991",
+    "art. 88 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 88 CP",
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "E29",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "incumplimiento_norma",
+   "relato": "Hay un decreto nacional que obliga a todas las alcaldías a tener una oficina de atención a personas con discapacidad. En mi municipio nunca la crearon. No es que a mí me hayan negado algo puntual, es que la oficina simplemente no existe.",
+   "derecho": "ninguno",
+   "fundamento": "art. 87 CP; Ley 393 de 1997",
+   "accionado": "Alcaldía municipal",
+   "mecanismo": "accion_cumplimiento",
+   "procede": false,
+   "razon": "se reclama el acatamiento de un deber impuesto por una norma vigente, sin que se alegue la vulneración concreta de un derecho fundamental individual",
+   "pretension": "promover acción de cumplimiento para que se ejecute el mandato normativo",
+   "hechos": {
+    "incumplimiento_normativo": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "incumplimiento_normativo",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 393 de 1997",
+    "art. 87 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 87 CP",
+    "Ley 393 de 1997"
+   ]
+  },
+  {
+   "id": "E30",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "incumplimiento_norma",
+   "relato": "La ley obliga a las entidades públicas a publicar los contratos en la plataforma de contratación. La gobernación lleva dos años sin publicar nada ahí. Pedí que lo hicieran y me dijeron que están en proceso de actualización tecnológica.",
+   "derecho": "ninguno",
+   "fundamento": "art. 87 CP; Ley 393 de 1997",
+   "accionado": "Gobernación departamental",
+   "mecanismo": "accion_cumplimiento",
+   "procede": false,
+   "razon": "lo pretendido es el cumplimiento de una obligación legal de publicidad, no la protección de un derecho fundamental propio del solicitante",
+   "pretension": "promover acción de cumplimiento para que se publique la información contractual",
+   "hechos": {
+    "incumplimiento_normativo": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "incumplimiento_normativo",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 393 de 1997",
+    "art. 87 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 87 CP",
+    "Ley 393 de 1997"
+   ]
+  },
+  {
+   "id": "E31",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "libertad_personal",
+   "relato": "A mi sobrino lo cogieron el viernes en la tarde en un operativo. Ya es domingo en la noche, van más de 48 horas y no lo han llevado ante ningún juez de control de garantías. En la URI dicen que el fiscal no ha llegado.",
+   "derecho": "libertad_personal",
+   "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991",
+   "accionado": "Fiscalía y autoridad de policía judicial",
+   "mecanismo": "habeas_corpus",
+   "procede": false,
+   "razon": "se superó el término constitucional para poner al capturado a disposición del juez, supuesto propio del habeas corpus y excluido de la tutela",
+   "pretension": "interponer habeas corpus para que se resuelva de inmediato la legalidad de la privación de la libertad",
+   "hechos": {
+    "privacion_libertad": true,
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "habeas_corpus",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 28 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "Ley 1095 de 2006",
+    "art. 30 CP",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 30 CP",
+    "Ley 1095 de 2006",
+    "art. 6.2 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "E32",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "laboral_ordinario",
+   "relato": "La empresa me debe las primas de dos semestres y las cesantías de tres años. Ya les mandé carta, fui al ministerio de trabajo y nada. Son como quince millones y yo renuncié hace seis meses.",
+   "derecho": "trabajo",
+   "fundamento": "art. 25 CP; art. 6.1 Decreto 2591 de 1991",
+   "accionado": "Empleador",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "es un cobro de acreencias laborales con proceso ejecutivo propio ante la jurisdicción laboral, y no se alega afectación actual del mínimo vital",
+   "pretension": "acudir a la jurisdicción ordinaria laboral mediante proceso ejecutivo",
+   "hechos": {
+    "otro_medio_judicial": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "pi_inminencia": false,
+    "pi_gravedad": false,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 25 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "E33",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "acto_administrativo",
+   "relato": "La secretaría de hacienda me liquidó el impuesto predial sobre un avalúo que está inflado, el lote mío no vale ni la mitad de eso. Metí el recurso de reconsideración, me lo negaron y ahora me están cobrando por jurisdicción coactiva.",
+   "derecho": "ninguno",
+   "fundamento": "Ley 1437 de 2011; art. 6.1 Decreto 2591 de 1991",
+   "accionado": "Secretaría de Hacienda municipal",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la controversia versa sobre la legalidad de un acto administrativo particular, para lo cual existe el medio de control de nulidad y restablecimiento del derecho",
+   "pretension": "acudir a la jurisdicción contencioso administrativa mediante nulidad y restablecimiento del derecho",
+   "hechos": {
+    "otro_medio_judicial": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "pi_inminencia": false,
+    "pi_gravedad": false,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 1437 de 2011",
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "E34",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "contractual_ordinario",
+   "relato": "Le presté ocho millones a un socio para un negocio y firmamos un pagaré. Se venció hace un año y no me ha pagado un peso. Me cambió el número y se mudó. Yo necesito esa plata.",
+   "derecho": "ninguno",
+   "fundamento": "art. 6.1 Decreto 2591 de 1991",
+   "accionado": "Deudor particular",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "se trata del cobro de una obligación civil entre particulares con título ejecutivo, sin derecho fundamental comprometido",
+   "pretension": "acudir a la jurisdicción civil mediante proceso ejecutivo con base en el pagaré",
+   "hechos": {
+    "otro_medio_judicial": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "pi_inminencia": false,
+    "pi_gravedad": false,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "A05",
+   "split": "eval",
+   "tipo": "adversarial",
+   "trampa": "Registro culto y terminología jurídica correcta que simula un caso sólido, pero el fondo es un cobro de honorarios entre particulares. El modelo asocia lenguaje jurídico con procedencia.",
+   "categoria": "honorarios",
+   "relato": "En mi calidad de apoderado judicial suscribí contrato de prestación de servicios profesionales con una sociedad comercial, pacté honorarios por cuarenta millones y, pese a haber culminado la gestión encomendada con resultado favorable, la convocada se ha sustraído del pago. Solicito amparo de mi derecho al trabajo y al mínimo vital.",
+   "derecho": "trabajo",
+   "fundamento": "art. 25 CP; art. 6.1 Decreto 2591 de 1991",
+   "accionado": "Sociedad contratante",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "es el cobro de honorarios pactados en un contrato entre particulares, con proceso ejecutivo disponible y sin que se acredite afectación del mínimo vital de un profesional en ejercicio",
+   "pretension": "acudir a la jurisdicción civil mediante proceso ejecutivo derivado del contrato",
+   "hechos": {
+    "otro_medio_judicial": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "pi_inminencia": false,
+    "pi_gravedad": false,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 25 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "A06",
+   "split": "eval",
+   "tipo": "adversarial",
+   "trampa": "Menciona menores de edad, gatillo típico del artículo 44, pero el asunto es de familia con juez competente propio. El modelo tiende a conceder por la sola presencia de niños.",
+   "categoria": "familia_ordinario",
+   "relato": "El papá de mis hijos lleva ocho meses sin pasar la cuota de alimentos y además no respeta los días de visita que acordamos. Los niños tienen 6 y 9 años y yo sola no alcanzo con todo. Quiero una tutela para que lo obliguen a cumplir.",
+   "derecho": "ninguno",
+   "fundamento": "Ley 1098 de 2006; art. 6.1 Decreto 2591 de 1991",
+   "accionado": "Progenitor",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "existen mecanismos específicos ante la comisaría de familia y el juez de familia para fijar y ejecutar alimentos y regular visitas, que son los medios idóneos",
+   "pretension": "acudir a la comisaría de familia o al juez de familia para la fijación y ejecución de la cuota alimentaria",
+   "hechos": {
+    "otro_medio_judicial": true,
+    "sujeto_especial_proteccion": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "Ley 1098 de 2006"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "A07",
+   "split": "eval",
+   "tipo": "adversarial",
+   "trampa": "Relato de salud, emotivo y con negligencia evidente, pero el daño está consumado y lo pretendido es declaración de responsabilidad. El modelo clasifica como salud procedente por el contexto.",
+   "categoria": "dano_consumado",
+   "relato": "Mi mamá murió en septiembre esperando una autorización de la EPS que nunca llegó. El médico había dicho que era urgente. Nosotros tenemos todos los papeles y queremos que se reconozca que ellos la dejaron morir y que respondan por eso.",
+   "derecho": "ninguno",
+   "fundamento": "art. 6.4 Decreto 2591 de 1991",
+   "accionado": "EPS",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el daño está consumado y la tutela no tiene naturaleza indemnizatoria ni declarativa de responsabilidad: no hay derecho fundamental actual que amparar",
+   "pretension": "acudir a la jurisdicción competente para la declaratoria de responsabilidad y la reparación del daño",
+   "hechos": {
+    "dano_consumado": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "dano_consumado",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "continua_vulneracion"
+   ],
+   "estrato_verificacion": "juicio",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "art. 6.4 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "equipo_ponderacion_afirmada",
+   "nivel_fiabilidad": 4,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.4 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "A08",
+   "split": "eval",
+   "tipo": "adversarial",
+   "trampa": "Invoca expresamente el derecho de petición y describe una inconformidad, pero la entidad sí respondió de fondo y en término. El modelo se dispara con las palabras petición y respuesta.",
+   "categoria": "peticion_respondida",
+   "relato": "Puse un derecho de petición en la EPS pidiendo que me autorizaran un tratamiento en una clínica específica de otra ciudad. Me contestaron a los diez días, con firma y todo, explicándome que en mi ciudad hay dos clínicas de la red que prestan ese mismo servicio. No estoy de acuerdo con esa respuesta.",
+   "derecho": "peticion",
+   "fundamento": "art. 23 CP; Ley 1755 de 2015",
+   "accionado": "EPS",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "hubo respuesta oportuna, de fondo y congruente: el derecho de petición garantiza una respuesta, no que sea favorable a lo pedido",
+   "pretension": "agotar la reclamación ante la Superintendencia Nacional de Salud si persiste la inconformidad con la red prestadora",
+   "hechos": {
+    "otro_medio_judicial": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "pi_inminencia": false,
+    "pi_gravedad": false,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "limite_del_motor": "el derecho de peticion FUE satisfecho (respuesta oportuna, de fondo y congruente). El motor no tiene una regla 'no hay vulneracion que amparar': llega a via_ordinaria por subsidiariedad, que es el mecanismo correcto, con un fundamento que no es el preciso.",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 23 CP",
+    "Ley 1755 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "A09",
+   "split": "eval",
+   "tipo": "adversarial",
+   "trampa": "Trampa invertida respecto de la version anterior. Hay una norma incumplida de forma general, lo que empuja a responder 'accion de cumplimiento'. Pero el art. 9 de la Ley 393 la hace improcedente cuando el derecho puede protegerse por tutela, y aqui hay un afectado concreto. Mide si el sistema conoce la regla de subsidiariedad del cumplimiento frente a la tutela.",
+   "categoria": "incumplimiento_norma",
+   "relato": "Salió una ley que dice que los hospitales públicos deben tener intérprete de lengua de señas. En mi departamento ningún hospital lo tiene. Yo soy sordo y es una violación de nuestros derechos que no cumplan la ley que ellos mismos aprobaron.",
+   "derecho": "salud",
+   "fundamento": "art. 13 CP; art. 49 CP; Ley 1751 de 2015",
+   "accionado": "Secretaría de Salud departamental y hospitales públicos",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "el artículo 9 de la Ley 393 de 1997 hace improcedente la acción de cumplimiento cuando el derecho puede garantizarse por tutela; aquí hay una persona concreta con discapacidad auditiva a la que la falta de intérprete le impide el acceso efectivo al servicio de salud",
+   "pretension": "ordenar la disponibilidad del servicio de interpretación en lengua de señas para garantizar el acceso efectivo del accionante",
+   "nota_correccion": "Etiqueta corregida en la v1.1.0. En la v1.0.0 figuraba como 'accion_cumplimiento'. El error se detecto al construir el corpus de M3, al leer el texto del art. 9 de la Ley 393 de 1997, y lo confirmo de forma independiente el motor de reglas, que llego a 'tutela' sin conocer el caso.",
+   "hechos": {
+    "incumplimiento_normativo": true,
+    "afectacion_individual": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 13 CP",
+    "art. 49 CP",
+    "Ley 1751 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "A10",
+   "split": "eval",
+   "tipo": "adversarial",
+   "trampa": "Parece un problema administrativo o de debido proceso dentro del sistema penitenciario, pero es prolongación ilícita de la privación de la libertad. El modelo rara vez llega a habeas corpus sin la palabra captura.",
+   "categoria": "libertad_personal",
+   "relato": "Mi esposo terminó de pagar la condena el 3 de este mes, nosotros tenemos la boleta y todo. Ya llevamos doce días y no lo sueltan. En la cárcel dicen que falta un trámite del juzgado y que eso se demora.",
+   "derecho": "libertad_personal",
+   "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991",
+   "accionado": "Establecimiento penitenciario y juzgado de ejecución de penas",
+   "mecanismo": "habeas_corpus",
+   "procede": false,
+   "razon": "cumplida la pena, la permanencia en reclusión constituye prolongación ilícita de la privación de la libertad, supuesto expreso del habeas corpus",
+   "pretension": "interponer habeas corpus para obtener la libertad inmediata",
+   "hechos": {
+    "privacion_libertad": true,
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "habeas_corpus",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 28 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "Ley 1095 de 2006",
+    "art. 30 CP",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 30 CP",
+    "Ley 1095 de 2006",
+    "art. 6.2 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "A11",
+   "split": "eval",
+   "tipo": "adversarial",
+   "trampa": "Adversarial inverso: tiene todos los rasgos superficiales de la subsidiariedad (pensión, existe vía laboral ordinaria) pero sí procede por perjuicio irremediable. Castiga al modelo que memorizó la regla pensión igual vía ordinaria.",
+   "categoria": "pension_perjuicio_irremediable",
+   "relato": "Tengo 63 años y una enfermedad terminal, los médicos me dieron entre seis y ocho meses. Pedí la pensión de invalidez y el fondo la negó diciendo que la fecha de estructuración está mal. Un proceso laboral se demora tres o cuatro años.",
+   "derecho": "seguridad_social",
+   "fundamento": "art. 48 CP; art. 13 CP; art. 8 Decreto 2591 de 1991",
+   "accionado": "Fondo de pensiones",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la expectativa de vida del accionante es menor que la duración del proceso ordinario, de modo que el medio judicial existente no es eficaz y se configura perjuicio irremediable",
+   "pretension": "ordenar el reconocimiento y pago de la pensión de invalidez",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": false,
+    "perjuicio_irremediable": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela_transitoria",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 48 CP",
+    "art. 13 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 8 Decreto 2591 de 1991",
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP",
+    "art. 8 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "A12",
+   "split": "eval",
+   "tipo": "adversarial",
+   "trampa": "Hecho vulnerante real y claro pero ocurrido hace años, sin explicación de la demora: falla el requisito de inmediatez. El modelo no suele considerar el paso del tiempo.",
+   "categoria": "inmediatez",
+   "relato": "En 2019 a mi hijo lo echaron del colegio sin ningún proceso, injustamente. Él ya terminó el bachillerato en otro lado y está en la universidad, pero yo quiero poner la tutela ahora porque eso no se puede quedar así.",
+   "derecho": "debido_proceso",
+   "fundamento": "art. 29 CP; art. 6.4 Decreto 2591 de 1991",
+   "accionado": "Institución educativa",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "transcurrieron años sin justificación de la demora y la situación ya fue superada, de modo que no hay amenaza actual ni urgencia que proteger",
+   "pretension": "no hay mecanismo de amparo constitucional disponible por ausencia de inmediatez y daño superado",
+   "hechos": {
+    "dano_consumado": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "dano_consumado",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "continua_vulneracion"
+   ],
+   "estrato_verificacion": "juicio",
+   "fundamento_del_derecho": [
+    "art. 29 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 6.4 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "equipo_ponderacion_afirmada",
+   "nivel_fiabilidad": 4,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.4 Decreto 2591 de 1991"
+   ]
+  },
+  {
+   "id": "E35",
+   "tipo": "gold",
+   "dificultad": "frontera",
+   "categoria": "hc_traslado_por_proteccion_prolongado",
+   "relato": "A mi hijo lo subieron a una patrulla el sábado en la noche a la salida de un bar, dijeron que era un traslado por protección porque estaba tomado. Ya es lunes en la mañana y sigue en la estación. No lo han dejado salir ni hay ninguna denuncia contra él.",
+   "accionado": "Policía Nacional",
+   "razon": "el traslado por protección tiene un límite máximo de doce horas y su prolongación más allá de ese término convierte una medida que empezó siendo legal en privación ilegal de la libertad",
+   "pretension": "interponer habeas corpus para que se ordene la libertad inmediata por haberse superado el término máximo del traslado por protección",
+   "derecho": "libertad_personal",
+   "mecanismo": "habeas_corpus",
+   "procede": false,
+   "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991",
+   "hechos": {
+    "privacion_libertad": true,
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "habeas_corpus",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [
+    "art. 28 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "Ley 1095 de 2006",
+    "art. 30 CP",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 30 CP",
+    "Ley 1095 de 2006",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "E36",
+   "tipo": "gold",
+   "dificultad": "frontera",
+   "categoria": "hc_medida_seguridad_vencida",
+   "relato": "A mi hermano el juez le impuso una medida de seguridad en un hospital psiquiátrico por dos años, en un proceso en el que lo declararon inimputable. Los dos años se cumplieron en julio y la clínica dice que no lo puede dar de alta hasta que el juzgado mande un oficio. Ya van cuatro meses.",
+   "accionado": "Juzgado de ejecución de penas y clínica psiquiátrica",
+   "razon": "cumplido el término de la medida de seguridad fijado por el juez, la permanencia en internamiento constituye prolongación ilícita de la privación de la libertad",
+   "pretension": "interponer habeas corpus para que se ordene el egreso inmediato por cumplimiento del término de la medida",
+   "derecho": "libertad_personal",
+   "mecanismo": "habeas_corpus",
+   "procede": false,
+   "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991",
+   "hechos": {
+    "privacion_libertad": true,
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "habeas_corpus",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [
+    "art. 28 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "Ley 1095 de 2006",
+    "art. 30 CP",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 30 CP",
+    "Ley 1095 de 2006",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "E37",
+   "tipo": "gold",
+   "dificultad": "rutinario",
+   "categoria": "hc_domiciliaria_no_ejecutada",
+   "relato": "El juez le concedió a mi mamá la detención domiciliaria por ser madre cabeza de familia, y tenemos la decisión notificada desde hace tres semanas. El establecimiento no la traslada y dice que está esperando la cartilla biográfica. Ella sigue allá adentro.",
+   "accionado": "INPEC y establecimiento de reclusión",
+   "razon": "existiendo decisión judicial que sustituye la privación intramural, su no ejecución prolonga ilícitamente la detención en el establecimiento",
+   "pretension": "interponer habeas corpus para que se materialice de inmediato la detención domiciliaria concedida",
+   "derecho": "libertad_personal",
+   "mecanismo": "habeas_corpus",
+   "procede": false,
+   "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991",
+   "hechos": {
+    "privacion_libertad": true,
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "habeas_corpus",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [
+    "art. 28 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "Ley 1095 de 2006",
+    "art. 30 CP",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 30 CP",
+    "Ley 1095 de 2006",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "E38",
+   "tipo": "gold",
+   "dificultad": "frontera",
+   "categoria": "hc_retencion_por_multa",
+   "relato": "Mi primo cumplió los catorce meses de la condena el 28 del mes pasado. No lo sueltan porque dicen que debe la multa que le pusieron en la sentencia y que hasta que no pague no sale.",
+   "accionado": "Establecimiento de reclusión y juzgado de ejecución de penas",
+   "razon": "la multa es una pena pecuniaria que no se convierte en privación de la libertad, de modo que retener al condenado por su impago prolonga ilícitamente la detención",
+   "pretension": "interponer habeas corpus para que se ordene la libertad por cumplimiento de la pena privativa",
+   "derecho": "libertad_personal",
+   "mecanismo": "habeas_corpus",
+   "procede": false,
+   "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991",
+   "hechos": {
+    "privacion_libertad": true,
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "habeas_corpus",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [
+    "art. 28 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "Ley 1095 de 2006",
+    "art. 30 CP",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 30 CP",
+    "Ley 1095 de 2006",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "A13",
+   "tipo": "adversarial",
+   "dificultad": "trampa",
+   "categoria": "hc_menor_en_establecimiento_adultos",
+   "trampa": "El relato describe condiciones indignas de reclusión, lo que empuja a responder 'tutela' por dignidad humana. Pero el hecho determinante es que hay un adolescente privado de la libertad al margen del sistema que le corresponde: el supuesto es de libertad personal y el art. 6.2 excluye la tutela.",
+   "relato": "Mi hijo tiene 17 años y lo tienen en el patio de adultos de la cárcel del municipio desde hace nueve días, por un proceso que debería ir al sistema de responsabilidad penal para adolescentes. Allá adentro duerme en el piso y lo han amenazado.",
+   "accionado": "Establecimiento de reclusión y Fiscalía",
+   "razon": "la reclusión de un adolescente en establecimiento para adultos, al margen del sistema de responsabilidad penal para adolescentes, es una privación irregular de la libertad cuyo mecanismo propio es el habeas corpus",
+   "pretension": "interponer habeas corpus para que se ordene la libertad o el traslado inmediato al sistema que corresponde",
+   "derecho": "libertad_personal",
+   "mecanismo": "habeas_corpus",
+   "procede": false,
+   "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991",
+   "hechos": {
+    "privacion_libertad": true,
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "habeas_corpus",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [
+    "art. 28 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "Ley 1095 de 2006",
+    "art. 30 CP",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 30 CP",
+    "Ley 1095 de 2006",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "A14",
+   "tipo": "adversarial",
+   "dificultad": "trampa",
+   "categoria": "hc_internamiento_involuntario_particular",
+   "trampa": "El accionado es un particular y el relato habla de una clínica de reposo, lo que empuja a responder 'tutela' por salud o 'vía ordinaria' por ser un asunto de familia. Pero hay una persona retenida contra su voluntad sin orden judicial, y el habeas corpus procede también frente a particulares.",
+   "relato": "Mi hermana mayor internó a mi mamá en una clínica de reposo y no la deja salir ni recibir visitas. Mi mamá está lúcida, nos llamó a escondidas pidiendo que la saquemos, y no hay ninguna interdicción ni orden de un juez. Llevamos tres semanas así.",
+   "accionado": "Clínica de reposo y familiar",
+   "razon": "hay una persona retenida contra su voluntad sin orden de autoridad judicial competente, y el habeas corpus procede también frente a la privación de la libertad ejercida por particulares",
+   "pretension": "interponer habeas corpus para que se verifique la voluntad de la paciente y se ordene su egreso",
+   "derecho": "libertad_personal",
+   "mecanismo": "habeas_corpus",
+   "procede": false,
+   "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991",
+   "hechos": {
+    "privacion_libertad": true,
+    "afectacion_individual": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "habeas_corpus",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [
+    "art. 28 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "Ley 1095 de 2006",
+    "art. 30 CP",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 30 CP",
+    "Ley 1095 de 2006",
+    "art. 6.2 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "E39",
+   "tipo": "gold",
+   "dificultad": "rutinario",
+   "categoria": "ac_comisaria_de_familia",
+   "relato": "La ley dice que todo municipio debe tener comisaría de familia. El mío no tiene y a la gente le toca irse hasta la cabecera, a dos horas. No es que a mí me hayan negado un trámite puntual: la comisaría simplemente no existe.",
+   "accionado": "Alcaldía municipal",
+   "pretension": "ordenar al municipio crear y poner en funcionamiento la comisaría de familia",
+   "derecho": "ninguno",
+   "mecanismo": "accion_cumplimiento",
+   "procede": false,
+   "fundamento": "art. 87 CP; Ley 393 de 1997",
+   "hechos": {
+    "incumplimiento_normativo": true
+   },
+   "razon": "se reclama el acatamiento de un deber impuesto por una norma vigente, sin que se alegue la vulneración concreta de un derecho fundamental individual",
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "incumplimiento_normativo",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 393 de 1997",
+    "art. 87 CP"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 87 CP",
+    "Ley 393 de 1997"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "E40",
+   "tipo": "gold",
+   "dificultad": "rutinario",
+   "categoria": "ac_plan_gestion_riesgo",
+   "relato": "Hay una ley que obliga a cada municipio a adoptar su plan de gestión del riesgo de desastres y a tener el consejo municipal funcionando. En el mío nunca se adoptó el plan y el consejo no se reúne desde 2019.",
+   "accionado": "Alcaldía municipal",
+   "pretension": "ordenar la adopción del plan municipal de gestión del riesgo y la instalación del consejo",
+   "derecho": "ninguno",
+   "mecanismo": "accion_cumplimiento",
+   "procede": false,
+   "fundamento": "art. 87 CP; Ley 393 de 1997",
+   "hechos": {
+    "incumplimiento_normativo": true
+   },
+   "razon": "se reclama el acatamiento de un deber impuesto por una norma vigente, sin que se alegue la vulneración concreta de un derecho fundamental individual",
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "incumplimiento_normativo",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 393 de 1997",
+    "art. 87 CP"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 87 CP",
+    "Ley 393 de 1997"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "E41",
+   "tipo": "gold",
+   "dificultad": "rutinario",
+   "categoria": "ac_cuerpo_de_bomberos",
+   "relato": "La ley dice que la prestación del servicio de bomberos es obligación de los municipios, sea con cuerpo propio o por convenio. Mi municipio no tiene ni lo uno ni lo otro: cuando hay un incendio hay que llamar al municipio vecino.",
+   "accionado": "Alcaldía municipal",
+   "pretension": "ordenar al municipio garantizar el servicio de bomberos mediante cuerpo propio o convenio",
+   "derecho": "ninguno",
+   "mecanismo": "accion_cumplimiento",
+   "procede": false,
+   "fundamento": "art. 87 CP; Ley 393 de 1997",
+   "hechos": {
+    "incumplimiento_normativo": true
+   },
+   "razon": "se reclama el acatamiento de un deber impuesto por una norma vigente, sin que se alegue la vulneración concreta de un derecho fundamental individual",
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "incumplimiento_normativo",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 393 de 1997",
+    "art. 87 CP"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 87 CP",
+    "Ley 393 de 1997"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "E42",
+   "tipo": "gold",
+   "dificultad": "frontera",
+   "categoria": "ac_acuerdo_sin_reglamentar",
+   "relato": "El concejo aprobó hace dos años un acuerdo que creó el programa de apoyo a la primera infancia y le dio a la alcaldía seis meses para reglamentarlo por decreto. El decreto nunca salió y el programa no arrancó.",
+   "accionado": "Alcaldía municipal",
+   "razon": "lo pretendido es el cumplimiento de un deber de reglamentación impuesto por un acto administrativo vigente, sin que se alegue la vulneración concreta de un derecho fundamental individual",
+   "pretension": "ordenar a la alcaldía expedir el decreto reglamentario del acuerdo municipal",
+   "derecho": "ninguno",
+   "mecanismo": "accion_cumplimiento",
+   "procede": false,
+   "fundamento": "art. 87 CP; Ley 393 de 1997",
+   "hechos": {
+    "incumplimiento_normativo": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "incumplimiento_normativo",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 393 de 1997",
+    "art. 87 CP"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 87 CP",
+    "Ley 393 de 1997"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "A15",
+   "tipo": "adversarial",
+   "dificultad": "trampa",
+   "categoria": "ac_tarifa_adulto_mayor",
+   "trampa": "El relato menciona adultos mayores, sujetos de especial protección constitucional, lo que empuja a responder 'tutela'. Pero quien solicita dice expresamente que no es el afectado: sin afectación individual concreta no opera la regla del art. 9 de la Ley 393 que reencauza a tutela.",
+   "relato": "Una ordenanza del departamento ordena que el transporte intermunicipal dé tarifa preferencial a los adultos mayores. Ninguna empresa la aplica y la secretaría de transporte no ha hecho nada. Yo todavía no tengo la edad, lo pedimos por escrito desde la veeduría del municipio.",
+   "accionado": "Secretaría de transporte departamental",
+   "razon": "quien solicita no alega la afectación concreta de su propio derecho sino el acatamiento general de una norma vigente, de modo que no opera la regla del artículo 9 de la Ley 393 que reencauza el asunto a tutela",
+   "pretension": "ordenar a la autoridad hacer cumplir la tarifa preferencial fijada en la ordenanza",
+   "derecho": "ninguno",
+   "mecanismo": "accion_cumplimiento",
+   "procede": false,
+   "fundamento": "art. 87 CP; Ley 393 de 1997",
+   "hechos": {
+    "incumplimiento_normativo": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "incumplimiento_normativo",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 393 de 1997",
+    "art. 87 CP"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 87 CP",
+    "Ley 393 de 1997"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "A16",
+   "tipo": "adversarial",
+   "dificultad": "trampa",
+   "categoria": "ac_norma_salud_sin_afectado",
+   "trampa": "ESPEJO EXACTO de A09. Misma estructura de superficie (una norma de salud incumplida de forma general) pero SIN afectado concreto: el solicitante dice que a él no le afecta. A09 va a tutela por el art. 9 de la Ley 393 porque hay una persona a la que la omisión le impide el acceso; este va a cumplimiento. El par mide si el sistema aplica la regla o una heurística de superficie del tipo 'ley de salud incumplida => tutela'.",
+   "relato": "Salió una resolución que obliga a los hospitales públicos a tener una sala de lactancia. En mi departamento ninguno la tiene. Yo soy enfermero jubilado y lo vengo pidiendo desde la asociación de usuarios, pero a mí personalmente no me afecta.",
+   "accionado": "Secretaría de Salud departamental y hospitales públicos",
+   "razon": "hay una norma incumplida de forma general y el solicitante no alega la afectación concreta de un derecho fundamental propio, de modo que el mecanismo idóneo es la acción de cumplimiento y no la tutela",
+   "pretension": "ordenar a los hospitales públicos habilitar la sala de lactancia que exige la resolución",
+   "derecho": "ninguno",
+   "mecanismo": "accion_cumplimiento",
+   "procede": false,
+   "fundamento": "art. 87 CP; Ley 393 de 1997",
+   "hechos": {
+    "incumplimiento_normativo": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "incumplimiento_normativo",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 393 de 1997",
+    "art. 87 CP"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 87 CP",
+    "Ley 393 de 1997"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "E43",
+   "tipo": "gold",
+   "dificultad": "rutinario",
+   "categoria": "ap_humedal_rellenado",
+   "relato": "Están metiendo volquetadas de tierra al humedal que queda al borde del barrio para urbanizarlo. Ese humedal es área protegida, ahí anidan los patos y es lo que absorbe el agua cuando llueve fuerte. La autoridad ambiental dice que ya mandó un requerimiento y ahí quedó.",
+   "accionado": "Constructor y autoridad ambiental regional",
+   "pretension": "interponer acción popular para que se suspenda el relleno y se ordene la restauración del humedal",
+   "hechos": {
+    "derecho_colectivo": true
+   },
+   "derecho": "colectivos",
+   "mecanismo": "accion_popular",
+   "procede": false,
+   "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991",
+   "razon": "lo que se busca proteger son derechos e intereses colectivos del artículo 4 de la Ley 472, excluidos del ámbito de la tutela",
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "derechos_colectivos",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991",
+    "art. 88 CP"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 88 CP",
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "E44",
+   "tipo": "gold",
+   "dificultad": "rutinario",
+   "categoria": "ap_vertimiento_zona_banio",
+   "relato": "El emisario del alcantarillado descarga a doscientos metros de la playa donde se baña todo el mundo, incluidos los niños. El agua sale con espuma y ya hubo dos casos de infección en el puesto de salud. La empresa dice que la planta de tratamiento está en diseño.",
+   "accionado": "Empresa de servicios públicos y alcaldía",
+   "pretension": "interponer acción popular para que cesen los vertimientos y se construya el tratamiento",
+   "hechos": {
+    "derecho_colectivo": true
+   },
+   "derecho": "colectivos",
+   "mecanismo": "accion_popular",
+   "procede": false,
+   "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991",
+   "razon": "lo que se busca proteger son derechos e intereses colectivos del artículo 4 de la Ley 472, excluidos del ámbito de la tutela",
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "derechos_colectivos",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991",
+    "art. 88 CP"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 88 CP",
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "E45",
+   "tipo": "gold",
+   "dificultad": "frontera",
+   "categoria": "ap_predio_publico_cedido",
+   "relato": "El municipio le entregó a una fundación privada, por cuarenta años y sin ningún proceso, el lote donde estaba la cancha del barrio. Ya la cerraron con reja y cobran por entrar. Ese lote es un bien de uso público.",
+   "accionado": "Alcaldía municipal y fundación",
+   "razon": "la defensa del patrimonio público y del espacio público son derechos colectivos del artículo 4 de la Ley 472, excluidos del ámbito de la tutela",
+   "pretension": "interponer acción popular para que se restituya el bien de uso público y se deje sin efecto la entrega",
+   "hechos": {
+    "derecho_colectivo": true
+   },
+   "derecho": "colectivos",
+   "mecanismo": "accion_popular",
+   "procede": false,
+   "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991",
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "derechos_colectivos",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991",
+    "art. 88 CP"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 88 CP",
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "A17",
+   "tipo": "adversarial",
+   "dificultad": "trampa",
+   "categoria": "ap_colectivo_con_afectado_sin_perjuicio",
+   "trampa": "El relato identifica una afectación propia y concreta (la pared humedecida de su casa), lo que empuja a responder 'tutela' por la excepción del art. 6.3. Pero esa excepción exige DOS cosas: que el titular reclame lo suyo Y un perjuicio irremediable. Aquí falta el segundo, así que el asunto sigue siendo colectivo. Es el único caso del eval set que ejercita `titular_pide_lo_suyo`.",
+   "relato": "La tubería madre del acueducto está rota debajo de la calle y lleva ocho meses botando agua. Toda la cuadra está sin presión y a mí además se me humedeció la pared de la sala y se me está cayendo el estuco. La empresa dice que está en el plan de obras del año entrante.",
+   "accionado": "Empresa de acueducto",
+   "razon": "la afectación principal recae sobre el acceso a los servicios públicos y el espacio público, que son derechos colectivos; la excepción del artículo 6.3 exige que el titular reclame lo suyo ante un perjuicio irremediable, que aquí no se acredita",
+   "pretension": "interponer acción popular para que se repare la red y se restablezca el servicio a la comunidad",
+   "hechos": {
+    "derecho_colectivo": true,
+    "titular_pide_lo_suyo": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": true,
+    "pi_gravedad": false,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "derecho": "colectivos",
+   "mecanismo": "accion_popular",
+   "procede": false,
+   "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991",
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "derechos_colectivos",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991",
+    "art. 88 CP"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 88 CP",
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "A18",
+   "tipo": "adversarial",
+   "dificultad": "trampa",
+   "categoria": "ap_moralidad_sobrecosto",
+   "trampa": "El relato da cifras de un contrato y menciona el perjuicio al solicitante como usuario que pagará la tarifa, lo que empuja a responder 'vía ordinaria' por tratarse de una controversia contractual o tarifaria. Pero lo que se invoca es la moralidad administrativa y el patrimonio público, que tienen acción propia.",
+   "relato": "La empresa de servicios del municipio compró los medidores a cuatro veces el precio del mercado, está en la factura publicada. Eso lo vamos a pagar todos en la tarifa. Lo pusimos en conocimiento del concejo y nadie ha hecho nada.",
+   "accionado": "Empresa de servicios públicos municipal",
+   "razon": "la moralidad administrativa y la defensa del patrimonio público son derechos colectivos expresamente protegidos por la acción popular",
+   "pretension": "interponer acción popular para que se investigue el sobrecosto y se proteja el patrimonio público",
+   "hechos": {
+    "derecho_colectivo": true
+   },
+   "derecho": "colectivos",
+   "mecanismo": "accion_popular",
+   "procede": false,
+   "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991",
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "derechos_colectivos",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": [],
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991",
+    "art. 88 CP"
+   ],
+   "fundamento_del_mecanismo_derivado": [
+    "art. 88 CP",
+    "Ley 472 de 1998",
+    "art. 6.3 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2
+  },
+  {
+   "id": "AB51",
+   "dificultad": "rutinario",
+   "categoria": "ab_consulta_comercial",
+   "relato": "Tengo ahorrados veinte millones y estoy entre meterlos a un CDT o comprar dólares. ¿Qué me rinde más este año?",
+   "razon": "la consulta es sobre rentabilidad de alternativas de inversión, no sobre la vulneración o amenaza de un derecho: no hay materia para un triaje de acciones constitucionales",
+   "pretension": "derivar la consulta a una fuente de información financiera",
+   "tipo": "abstencion",
+   "derecho": "no_determinable",
+   "mecanismo": null,
+   "procede": false,
+   "fundamento": "",
+   "accionado": "no aplica",
+   "verificado_con_reglas": false,
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [],
+   "fundamento_del_mecanismo_derivado": [],
+   "origen_etiqueta": "equipo",
+   "fiabilidad_etiqueta": "equipo_afirmado",
+   "nivel_fiabilidad": 4
+  },
+  {
+   "id": "AB52",
+   "dificultad": "rutinario",
+   "categoria": "ab_pregunta_academica",
+   "relato": "Estoy preparando el examen de judicatura y necesito que me explique cuál es la diferencia entre el control de constitucionalidad abstracto y el concreto, con ejemplos.",
+   "razon": "es una pregunta conceptual con fines de estudio y no el relato de una situación concreta que requiera determinar un mecanismo",
+   "pretension": "responder como explicación académica, sin emitir un triaje",
+   "tipo": "abstencion",
+   "derecho": "no_determinable",
+   "mecanismo": null,
+   "procede": false,
+   "fundamento": "",
+   "accionado": "no aplica",
+   "verificado_con_reglas": false,
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [],
+   "fundamento_del_mecanismo_derivado": [],
+   "origen_etiqueta": "equipo",
+   "fiabilidad_etiqueta": "equipo_afirmado",
+   "nivel_fiabilidad": 4
+  },
+  {
+   "id": "AB53",
+   "dificultad": "frontera",
+   "categoria": "ab_hechos_insuficientes",
+   "relato": "Me pasó algo con una entidad del Estado y quiero poner una acción. Todavía no tengo los papeles a mano y no me acuerdo bien de las fechas, pero quiero ir adelantando.",
+   "razon": "no se identifica la entidad, el derecho invocado, la actuación reprochada ni las fechas: faltan los hechos mínimos para determinar un mecanismo",
+   "pretension": "solicitar los hechos faltantes antes de orientar",
+   "tipo": "abstencion",
+   "derecho": "no_determinable",
+   "mecanismo": null,
+   "procede": false,
+   "fundamento": "",
+   "accionado": "no aplica",
+   "verificado_con_reglas": false,
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [],
+   "fundamento_del_mecanismo_derivado": [],
+   "origen_etiqueta": "equipo",
+   "fiabilidad_etiqueta": "equipo_afirmado",
+   "nivel_fiabilidad": 4
+  },
+  {
+   "id": "AB54",
+   "dificultad": "frontera",
+   "categoria": "ab_materia_no_cubierta",
+   "relato": "Mi empresa importa repuestos y la DIAN nos abrió una investigación por la clasificación arancelaria de unas partidas. Queremos saber cómo se discute eso y qué términos tenemos.",
+   "razon": "es un asunto aduanero y tributario de una persona jurídica, ajeno al dominio de las acciones constitucionales de este sistema",
+   "pretension": "derivar a asesoría especializada en materia aduanera",
+   "tipo": "abstencion",
+   "derecho": "no_determinable",
+   "mecanismo": null,
+   "procede": false,
+   "fundamento": "",
+   "accionado": "no aplica",
+   "verificado_con_reglas": false,
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [],
+   "fundamento_del_mecanismo_derivado": [],
+   "origen_etiqueta": "equipo",
+   "fiabilidad_etiqueta": "equipo_afirmado",
+   "nivel_fiabilidad": 4
+  },
+  {
+   "id": "AB55",
+   "dificultad": "trampa",
+   "categoria": "ab_relato_contradictorio",
+   "relato": "El fondo de pensiones nunca me ha resuelto la solicitud y por eso quiero actuar. La resolución que me negó la pensión me llegó en agosto y no la impugné.",
+   "razon": "el relato se contradice: afirma que no hubo respuesta y acto seguido que la negativa llegó en agosto; sin aclarar cuál de las dos situaciones ocurrió no se puede determinar el mecanismo",
+   "pretension": "pedir que se aclare la contradicción antes de orientar",
+   "tipo": "abstencion",
+   "derecho": "no_determinable",
+   "mecanismo": null,
+   "procede": false,
+   "fundamento": "",
+   "accionado": "no aplica",
+   "verificado_con_reglas": false,
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [],
+   "fundamento_del_mecanismo_derivado": [],
+   "origen_etiqueta": "equipo",
+   "fiabilidad_etiqueta": "equipo_afirmado",
+   "nivel_fiabilidad": 4
+  },
+  {
+   "id": "AB56",
+   "dificultad": "rutinario",
+   "categoria": "ab_pide_pronostico",
+   "relato": "Puse la tutela por la cirugía y el juez ya ordenó que me la hagan. Lo que quiero saber es si la EPS va a cumplir o si se va a hacer la loca, y qué tan probable es que me toque incidente de desacato.",
+   "razon": "lo que se pide es un pronóstico sobre la conducta futura de la accionada y sobre el resultado de un trámite, no la determinación del mecanismo procedente, que ya fue ejercido",
+   "pretension": "explicar el trámite de desacato sin emitir un pronóstico",
+   "tipo": "abstencion",
+   "derecho": "no_determinable",
+   "mecanismo": null,
+   "procede": false,
+   "fundamento": "",
+   "accionado": "no aplica",
+   "verificado_con_reglas": false,
+   "split": "eval",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [],
+   "fundamento_del_mecanismo_derivado": [],
+   "origen_etiqueta": "equipo",
+   "fiabilidad_etiqueta": "equipo_afirmado",
+   "nivel_fiabilidad": 4
+  },
+  {
+   "id": "E46",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "mv_mesada_pensional_suspendida",
+   "relato": "Tengo 78 años y vivo sola. Colpensiones me dejó de pagar la mesada desde hace cuatro meses y cada vez que llamo me dicen que el expediente está en revisión. Esa mesada es lo único con lo que cuento: ya debo dos meses de arriendo y la droga para la diabetes la estoy comprando a crédito en la farmacia del barrio.",
+   "derecho": "minimo_vital",
+   "fundamento": "art. 11 CP; art. 46 CP; art. 53 CP",
+   "accionado": "Colpensiones",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "suspender la única fuente de ingreso de una persona de 78 años sin decidir nada deja sin sustento a un sujeto de especial protección, y el proceso ordinario no llega en el tiempo en que se necesita comer y tomar la droga",
+   "pretension": "ordenar el pago inmediato de las mesadas suspendidas y el restablecimiento del pago mensual mientras se decide la revisión",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": false,
+    "me_idoneo": true,
+    "me_oportuno": false,
+    "me_accesible": true,
+    "perjuicio_irremediable": true,
+    "pi_inminencia": true,
+    "pi_gravedad": true,
+    "pi_urgencia": true,
+    "pi_impostergabilidad": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela_transitoria",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 11 CP",
+    "art. 46 CP",
+    "art. 53 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E47",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "mv_licencia_paternidad_no_pagada",
+   "relato": "Mi hijo nació hace dos meses y pedí la licencia de paternidad. La EPS dice que el pago está radicado pero no me ha llegado nada. Me tocó pedir permiso sin sueldo en el trabajo para acompañar a mi esposa, que tuvo cesárea, y en la casa no está entrando plata desde entonces.",
+   "derecho": "minimo_vital",
+   "fundamento": "art. 42 CP; art. 44 CP; art. 53 CP",
+   "accionado": "la EPS",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la licencia de paternidad es la prestación que reemplaza el salario durante el cuidado del recién nacido; no pagarla deja sin ingreso al hogar justo en el periodo que la norma quiso proteger",
+   "pretension": "ordenar el pago de la licencia de paternidad reconocida y no desembolsada",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 42 CP",
+    "art. 44 CP",
+    "art. 53 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E48",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "mv_pension_invalidez_suspendida",
+   "relato": "Me reconocieron pensión de invalidez por una lesión de columna que me dejó sin poder cargar peso. El fondo me citó a revisión, no fui porque estaba hospitalizado, y me suspendieron el pago sin volver a citarme. Llevo tres meses sin un peso y no puedo trabajar en lo único que sé hacer, que es construcción.",
+   "derecho": "minimo_vital",
+   "fundamento": "art. 11 CP; art. 13 CP; art. 48 CP",
+   "accionado": "el fondo de pensiones",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "suspender la pensión de invalidez por una inasistencia justificada, sin reprogramar la revisión, corta el ingreso de quien no puede sustituirlo con trabajo",
+   "pretension": "ordenar el restablecimiento del pago de la mesada y la reprogramación de la revisión con notificación previa",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": false,
+    "me_idoneo": true,
+    "me_oportuno": false,
+    "me_accesible": true,
+    "perjuicio_irremediable": true,
+    "pi_inminencia": true,
+    "pi_gravedad": true,
+    "pi_urgencia": true,
+    "pi_impostergabilidad": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela_transitoria",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 11 CP",
+    "art. 13 CP",
+    "art. 48 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "A19",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "mv_salarios_proceso_laboral",
+   "relato": "La empresa donde trabajé me quedó debiendo tres meses de sueldo. Ya conseguí otro empleo y estoy al día con mis cosas, pero quiero que me paguen lo que me deben. La empresa sigue funcionando y tiene con qué pagar.",
+   "derecho": "minimo_vital",
+   "fundamento": "art. 53 CP",
+   "accionado": "la empresa empleadora",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el proceso laboral ordinario es idóneo y oportuno para cobrar salarios a un empleador solvente, y no concurren los cuatro elementos del perjuicio irremediable: hay un ingreso actual y nada que sea impostergable",
+   "pretension": "acudir a la jurisdicción ordinaria laboral para el cobro de los salarios adeudados",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 53 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A20",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "mv_cesantias_retenidas",
+   "relato": "Renuncié hace cinco meses y el empleador no ha consignado mis cesantías en el fondo. Las quiero para terminar el estudio de mi hija el año entrante. Tengo trabajo nuevo y salario completo, pero ese dinero es mío y lo están reteniendo.",
+   "derecho": "minimo_vital",
+   "fundamento": "art. 53 CP",
+   "accionado": "el empleador anterior",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la reclamación de cesantías tiene proceso laboral propio y efectivo; el destino previsto del dinero es futuro, así que no hay urgencia ni impostergabilidad que desplace la vía ordinaria",
+   "pretension": "acudir a la jurisdicción ordinaria laboral para que se ordene la consignación de las cesantías",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 53 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A21",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "mv_embargo_sobre_salario",
+   "relato": "Un juzgado ordenó embargar parte de mi salario por una deuda de un crédito que no pude pagar. Me están descontando y me queda muy poco para el mes. Yo creo que están descontando más de lo que la ley permite y quiero que eso se revise.",
+   "derecho": "minimo_vital",
+   "fundamento": "art. 53 CP",
+   "accionado": "el juzgado que decretó la medida y el banco acreedor",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el límite legal del embargo sobre el salario se discute ante el mismo juez del proceso ejecutivo, por los recursos previstos; existe medio idóneo, oportuno y accesible y no se alega un daño inminente e impostergable",
+   "pretension": "solicitar ante el juez del proceso ejecutivo la reducción del embargo al límite legal",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 53 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A22",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "mv_factura_contratista",
+   "relato": "Soy contratista independiente y le hice una obra a una constructora. Me firmaron el acta pero no me han pagado la última factura, que son ocho millones. Vivo de eso. Ellos dicen que hay que esperar el cierre del proyecto.",
+   "derecho": "minimo_vital",
+   "fundamento": "art. 25 CP",
+   "accionado": "la constructora contratante",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el cobro de una factura entre particulares se tramita por el proceso ejecutivo, que es idóneo y accesible con el acta firmada como título; no se acredita un perjuicio irremediable en sus cuatro elementos",
+   "pretension": "acudir al proceso ejecutivo con el acta y la factura como título para el cobro",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 25 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A23",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "tr_despido_sin_justa_causa",
+   "relato": "Me despidieron de un día para otro después de seis años en la empresa. Me dieron la liquidación pero no me dijeron ninguna razón. Quiero que me reintegren porque siento que fue por haberme quejado del jefe de área.",
+   "derecho": "trabajo",
+   "fundamento": "art. 25 CP",
+   "accionado": "la empresa empleadora",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el despido sin justa causa se discute en el proceso laboral ordinario, que puede ordenar la indemnización o el reintegro; no se invoca fuero alguno ni una condición que haga ineficaz esa vía",
+   "pretension": "acudir a la jurisdicción ordinaria laboral para discutir el despido y sus consecuencias",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 25 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A24",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "tr_horas_extras_no_pagadas",
+   "relato": "Llevo dos años trabajando turnos de doce horas y nunca me han pagado las extras ni los dominicales. Tengo las planillas de entrada y salida firmadas por el supervisor. Sigo trabajando ahí y me pagan el sueldo normal cumplido.",
+   "derecho": "trabajo",
+   "fundamento": "art. 25 CP; art. 53 CP",
+   "accionado": "la empresa empleadora",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el reconocimiento y pago de horas extras es una pretensión típicamente laboral con prueba documental disponible, y el salario ordinario se sigue pagando: la vía ordinaria es idónea y oportuna",
+   "pretension": "acudir a la jurisdicción ordinaria laboral para el reconocimiento y pago del trabajo suplementario",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 25 CP",
+    "art. 53 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A25",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "tr_contrato_realidad",
+   "relato": "Durante cuatro años me hicieron firmar contratos de prestación de servicios pero yo cumplía horario, tenía jefe y usaba el uniforme de la entidad. Quiero que reconozcan que eso era un contrato de trabajo y me paguen las prestaciones.",
+   "derecho": "trabajo",
+   "fundamento": "art. 25 CP; art. 53 CP",
+   "accionado": "la entidad contratante",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la declaratoria de contrato realidad exige valoración probatoria de la subordinación y tiene vía propia ante la jurisdicción competente; no hay urgencia que la desplace",
+   "pretension": "acudir a la jurisdicción competente para que se declare la existencia del contrato de trabajo y se paguen las prestaciones",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 25 CP",
+    "art. 53 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A26",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "tr_vacaciones_no_concedidas",
+   "relato": "Tengo acumuladas las vacaciones de tres años y cada vez que las pido me dicen que no hay quién me reemplace. Nunca me las han negado por escrito, simplemente las aplazan. Quiero que me las den o que me las paguen.",
+   "derecho": "trabajo",
+   "fundamento": "art. 25 CP; art. 53 CP",
+   "accionado": "la empresa empleadora",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la concesión o compensación de vacaciones acumuladas es una pretensión laboral ordinaria; no se alega una afectación de salud o un daño que la haga impostergable",
+   "pretension": "acudir a la jurisdicción ordinaria laboral para que se ordene conceder o compensar las vacaciones acumuladas",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 25 CP",
+    "art. 53 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A27",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "tr_acoso_laboral_sin_agotar_comite",
+   "relato": "Mi jefe me grita delante de los compañeros y me cambió de puesto a uno sin funciones claras. En la empresa hay comité de convivencia pero no he puesto la queja ahí porque no creo que sirva. Quiero que paren eso ya.",
+   "derecho": "trabajo",
+   "fundamento": "art. 25 CP",
+   "accionado": "la empresa empleadora y el jefe inmediato",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la ley previó el comité de convivencia y el procedimiento ante el inspector de trabajo como mecanismos propios y accesibles para el acoso laboral, y no se han intentado; no se acredita un riesgo inminente que justifique saltarlos",
+   "pretension": "presentar la queja ante el comité de convivencia laboral y, si procede, ante el inspector de trabajo",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 25 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A28",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "tr_reintegro_tras_renuncia",
+   "relato": "Renuncié porque el ambiente estaba muy pesado, pero firmé la carta el mismo día que me la pidieron y no me dejaron pensarlo. Ahora quiero volver a mi puesto porque creo que esa renuncia no fue voluntaria.",
+   "derecho": "trabajo",
+   "fundamento": "art. 25 CP",
+   "accionado": "la empresa empleadora",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "alegar que una renuncia fue forzada exige debate probatorio sobre el consentimiento y se tramita en el proceso laboral ordinario; no hay sujeto de especial protección ni perjuicio irremediable acreditado",
+   "pretension": "acudir a la jurisdicción ordinaria laboral para que se declare la ineficacia de la renuncia y se ordene el reintegro",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 25 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "E49",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "educacion_transporte_rural",
+   "relato": "Mi hijo tiene nueve años y la escuela más cercana queda a hora y media caminando por trocha. El municipio tenía ruta escolar y este año la quitó sin avisar. Desde febrero el niño no ha podido ir y ya perdió el primer periodo.",
+   "derecho": "educacion",
+   "fundamento": "art. 44 CP; art. 67 CP",
+   "accionado": "la alcaldía municipal y la Secretaría de Educación",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "suprimir el transporte escolar que hacía posible la asistencia de un menor en zona rural interrumpe de hecho su acceso a la educación, que el Estado debe garantizar",
+   "pretension": "ordenar el restablecimiento de la ruta escolar o una alternativa de transporte que permita la asistencia del menor",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 44 CP",
+    "art. 67 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E50",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "educacion_matricula_sin_documentos",
+   "relato": "Llegamos de Venezuela hace ocho meses. En el colegio me dicen que no pueden matricular a mis dos hijas porque no tienen documento colombiano ni los certificados de notas apostillados. Las niñas tienen 7 y 11 años y llevan todo el año sin estudiar.",
+   "derecho": "educacion",
+   "fundamento": "art. 13 CP; art. 44 CP; art. 67 CP",
+   "accionado": "la institución educativa y la Secretaría de Educación",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "exigir documentos de imposible consecución para matricular a menores migrantes convierte un requisito administrativo en una barrera de acceso a la educación, que es un derecho fundamental de los niños sin distinción de nacionalidad",
+   "pretension": "ordenar la matrícula de las menores con los documentos disponibles y la aplicación del modelo de nivelación que corresponda",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 13 CP",
+    "art. 44 CP",
+    "art. 67 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E51",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "educacion_cancelacion_por_embarazo",
+   "relato": "Tengo 16 años y estoy en once. Cuando se supo que estoy embarazada la coordinadora me dijo que me cambiara a validación los sábados para no afectar a las otras niñas. Yo quiero terminar con mi curso, no he perdido ninguna materia.",
+   "derecho": "educacion",
+   "fundamento": "art. 13 CP; art. 43 CP; art. 67 CP",
+   "accionado": "la institución educativa",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "trasladar a una estudiante a otra jornada por su embarazo, sin razón académica, es una discriminación que afecta la continuidad de su educación",
+   "pretension": "ordenar la permanencia de la estudiante en su jornada y curso, con los apoyos académicos que requiera",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 13 CP",
+    "art. 43 CP",
+    "art. 67 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "A29",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "educacion_cartera_universidad_privada",
+   "relato": "Estudio en una universidad privada y quedé debiendo media matrícula del semestre pasado. No me dejan inscribir materias hasta que pague. Yo firmé un acuerdo de pago pero me atrasé dos cuotas porque perdí el trabajo.",
+   "derecho": "educacion",
+   "fundamento": "art. 67 CP",
+   "accionado": "la universidad privada",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el incumplimiento de un acuerdo de pago en educación superior privada es una controversia contractual con vía ordinaria idónea; no se trata de educación básica obligatoria ni de un menor de edad",
+   "pretension": "acudir a la jurisdicción ordinaria para discutir el acuerdo de pago y sus condiciones",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 67 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A30",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "educacion_perdida_de_ano_academica",
+   "relato": "A mi hijo lo dejaron repitiendo quinto. Perdió cuatro materias y faltó mucho, eso es verdad, pero yo creo que los profesores le tenían bronca. Quiero que lo pasen a sexto porque ya está grande para repetir.",
+   "derecho": "educacion",
+   "fundamento": "art. 67 CP",
+   "accionado": "la institución educativa",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la promoción escolar es una valoración académica reglada que se discute por los conductos del establecimiento y de la secretaría de educación; el relato reconoce las causales objetivas y no alega discriminación acreditable",
+   "pretension": "agotar la reclamación académica ante el establecimiento y la Secretaría de Educación",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 67 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "E52",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "ss_incapacidades_no_pagadas",
+   "relato": "Tuve un accidente y llevo siete meses incapacitado. La EPS dice que después del día 180 le corresponde al fondo de pensiones, y el fondo dice que a la EPS. Llevo cuatro meses sin que nadie me pague la incapacidad y no puedo trabajar porque sigo con el brazo inmovilizado.",
+   "derecho": "seguridad_social",
+   "fundamento": "art. 48 CP; Ley 100 de 1993",
+   "accionado": "la EPS y el fondo de pensiones",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "el desacuerdo entre las entidades sobre quién paga a partir del día 181 no puede trasladarse al afiliado, que queda sin el pago que sustituye su salario mientras no puede trabajar",
+   "pretension": "ordenar el pago de las incapacidades causadas y definir la entidad obligada a continuar el pago",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 48 CP",
+    "Ley 100 de 1993"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E53",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "ss_sobrevivientes_menores",
+   "relato": "Mi esposo murió en un accidente de trabajo hace diez meses. Pedí la pensión de sobrevivientes para mí y mis dos hijos de 6 y 9 años. El fondo dice que falta una declaración de convivencia que ya mandé dos veces. Mientras tanto vivimos de lo que me da mi mamá.",
+   "derecho": "seguridad_social",
+   "fundamento": "art. 44 CP; art. 48 CP; Ley 100 de 1993",
+   "accionado": "el fondo de pensiones",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "exigir reiteradamente un documento ya aportado prolonga sin causa el reconocimiento de la prestación que sustituye el ingreso del hogar, con dos menores de edad dependientes",
+   "pretension": "ordenar la decisión de fondo sobre el reconocimiento de la pensión de sobrevivientes",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 44 CP",
+    "art. 48 CP",
+    "Ley 100 de 1993"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E54",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "ss_afiliacion_negada_discapacidad",
+   "relato": "Mi hermano tiene parálisis cerebral y 31 años. Siempre estuvo como beneficiario de mi papá, que murió. La EPS lo retiró diciendo que ya es mayor de edad y que debe afiliarse como cotizante. Él no puede trabajar y lleva dos meses sin servicio ni terapias.",
+   "derecho": "seguridad_social",
+   "fundamento": "art. 13 CP; art. 48 CP",
+   "accionado": "la EPS",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "retirar del sistema a una persona en situación de discapacidad dependiente, por un criterio de edad que no atiende su condición, interrumpe su acceso a la seguridad social y a las terapias que recibía",
+   "pretension": "ordenar la reactivación de la afiliación en calidad de beneficiario y la continuidad de las terapias",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 13 CP",
+    "art. 48 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "A31",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "ss_reliquidacion_pensional",
+   "relato": "Me pensionaron hace tres años pero creo que me liquidaron mal la mesada porque no tuvieron en cuenta unas primas. Cobro cumplidamente todos los meses. Quiero que me recalculen y me paguen el retroactivo.",
+   "derecho": "seguridad_social",
+   "fundamento": "art. 48 CP",
+   "accionado": "Colpensiones",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la reliquidación de una mesada que se viene pagando es una controversia de cálculo con proceso ordinario idóneo; no hay interrupción del ingreso ni urgencia que desplace esa vía",
+   "pretension": "acudir a la jurisdicción competente para la reliquidación de la mesada y el retroactivo",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 48 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A32",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "ss_traslado_de_regimen",
+   "relato": "Quiero devolverme del fondo privado a Colpensiones porque me conviene más, pero me dicen que ya no puedo porque me faltan menos de diez años para la edad de pensión. Yo digo que me asesoraron mal cuando me trasladé en el 2005.",
+   "derecho": "seguridad_social",
+   "fundamento": "art. 48 CP",
+   "accionado": "el fondo privado de pensiones y Colpensiones",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la nulidad del traslado por asesoría deficiente exige debate probatorio y tiene vía ordinaria propia; el afiliado sigue cotizando y no hay prestación interrumpida",
+   "pretension": "acudir a la jurisdicción ordinaria laboral para discutir la validez del traslado de régimen",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 48 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "E55",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "elr_despido_con_restricciones_medicas",
+   "relato": "Me operaron del hombro por una lesión que me dio cargando en la bodega. Volví con restricciones médicas de no levantar más de cinco kilos. A las tres semanas me liquidaron diciendo que reestructuraron el área. Nunca pidieron permiso al Ministerio.",
+   "derecho": "estabilidad_laboral_reforzada",
+   "fundamento": "art. 13 CP; art. 53 CP; Ley 361 de 1997",
+   "accionado": "la empresa empleadora",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "despedir a un trabajador con restricciones médicas conocidas, sin la autorización del inspector de trabajo, activa la presunción de despido discriminatorio que la estabilidad laboral reforzada protege",
+   "pretension": "ordenar el reintegro con reubicación acorde a las restricciones médicas y el pago de lo dejado de percibir",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 13 CP",
+    "art. 53 CP",
+    "Ley 361 de 1997"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E56",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "elr_no_reubicacion",
+   "relato": "Tengo una enfermedad en la columna calificada con pérdida de capacidad del 32%. Salud ocupacional dijo por escrito que me reubicaran en un puesto sin bipedestación prolongada. Llevo cinco meses en el mismo puesto de pie ocho horas y el dolor empeoró. Me dicen que no hay otro cargo.",
+   "derecho": "estabilidad_laboral_reforzada",
+   "fundamento": "art. 13 CP; art. 25 CP; Ley 361 de 1997",
+   "accionado": "la empresa empleadora",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "incumplir una recomendación de reubicación escrita, sosteniendo al trabajador en el puesto que agrava su condición, vulnera la estabilidad laboral reforzada sin necesidad de que haya despido",
+   "pretension": "ordenar la reubicación en un puesto compatible con las recomendaciones de salud ocupacional",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 13 CP",
+    "art. 25 CP",
+    "Ley 361 de 1997"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E57",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "elr_despido_en_incapacidad",
+   "relato": "Estaba incapacitada por una cirugía de tiroides y me llegó la carta de terminación del contrato al correo mientras seguía incapacitada. El contrato era a término fijo y dicen que simplemente se venció, pero llevaba cuatro renovaciones seguidas.",
+   "derecho": "estabilidad_laboral_reforzada",
+   "fundamento": "art. 13 CP; art. 53 CP; Ley 361 de 1997",
+   "accionado": "la empresa empleadora",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "terminar el vínculo durante una incapacidad vigente, en un contrato renovado cuatro veces, traslada al trabajador el riesgo de su estado de salud y desconoce la protección reforzada",
+   "pretension": "ordenar el reintegro y el pago de los aportes y salarios causados desde la terminación",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 13 CP",
+    "art. 53 CP",
+    "Ley 361 de 1997"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "A33",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "elr_despido_con_autorizacion",
+   "relato": "Me despidieron y yo tengo una discapacidad auditiva certificada. Pero la empresa pidió permiso al inspector de trabajo, el inspector lo autorizó porque hubo cierre total de la planta, y a todos los de mi turno los liquidaron igual. Yo quiero que me reintegren.",
+   "derecho": "estabilidad_laboral_reforzada",
+   "fundamento": "Ley 361 de 1997",
+   "accionado": "la empresa empleadora",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "con autorización previa del inspector y cierre que afectó a todo el turno, no hay presunción de despido discriminatorio; la discusión sobre la indemnización corresponde al proceso laboral ordinario",
+   "pretension": "acudir a la jurisdicción ordinaria laboral para discutir la indemnización derivada de la terminación",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "sujeto_especial_proteccion": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "Ley 361 de 1997"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A34",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "elr_prepensionado_sin_condicion_de_salud",
+   "relato": "Me faltan dos años para pensionarme y me despidieron sin justa causa. Estoy sano, nunca he tenido incapacidades. Dicen que me pagan la indemnización completa, pero yo quiero el reintegro porque soy prepensionado.",
+   "derecho": "estabilidad_laboral_reforzada",
+   "fundamento": "art. 53 CP",
+   "accionado": "la empresa empleadora",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "sin condición de salud ni fuero legal invocable, la proximidad a la pensión se discute como pretensión laboral ordinaria; la indemnización ofrecida y la ausencia de afectación actual descartan el perjuicio irremediable",
+   "pretension": "acudir a la jurisdicción ordinaria laboral para discutir el reintegro o la indemnización",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 53 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "E58",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "hd_reporte_tras_pagar",
+   "relato": "Pagué toda la deuda de la tarjeta en enero y tengo el paz y salvo del banco. En las centrales sigo apareciendo en mora nueve meses después. Pedí la actualización por escrito dos veces y no me responden. Por eso me negaron el crédito de vivienda.",
+   "derecho": "habeas_data",
+   "fundamento": "art. 15 CP; Ley 1266 de 2008",
+   "accionado": "el banco y la central de riesgo",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "mantener un reporte de mora después del pago, con paz y salvo en mano y solicitudes de actualización sin respuesta, es un dato inexacto cuya corrección el habeas data protege",
+   "pretension": "ordenar la actualización del reporte para que refleje el pago efectuado",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 15 CP",
+    "Ley 1266 de 2008"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E59",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "hd_termino_legal_excedido",
+   "relato": "Tuve una mora con una cooperativa que pagué hace seis años. El reporte negativo sigue publicado. Cuando reclamo me dicen que el dato permanece por política interna de la entidad. A mí me explicaron que eso solo podía quedarse cuatro años.",
+   "derecho": "habeas_data",
+   "fundamento": "art. 15 CP; Ley 1266 de 2008; Ley 2157 de 2021",
+   "accionado": "la cooperativa y la central de riesgo",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la permanencia del dato negativo tiene un término legal máximo y una política interna no puede extenderlo; conservarlo vencido el término vulnera el habeas data",
+   "pretension": "ordenar la eliminación del reporte negativo por haberse cumplido el término legal de permanencia",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 15 CP",
+    "Ley 1266 de 2008",
+    "Ley 2157 de 2021"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E60",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "hd_dato_de_salud_compartido",
+   "relato": "En la empresa donde me postulé me preguntaron por mi tratamiento psiquiátrico. Yo nunca lo conté: resulta que la EPS le entregó mi historia clínica a la empresa cuando pidieron el examen de ingreso. No firmé ninguna autorización para eso.",
+   "derecho": "habeas_data",
+   "fundamento": "art. 15 CP; Ley 1581 de 2012",
+   "accionado": "la EPS y la empresa",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "la historia clínica es un dato sensible y su entrega a un tercero sin autorización del titular vulnera el habeas data, con independencia de que el proceso de selección continúe",
+   "pretension": "ordenar la supresión del dato en poder de la empresa y establecer la prohibición de nuevos traslados sin autorización",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 15 CP",
+    "Ley 1581 de 2012"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "A35",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "hd_reporte_veraz_vigente",
+   "relato": "Aparezco reportado en las centrales por un crédito que efectivamente no he pagado. Sí me notificaron antes de reportarme. Pero el reporte me está cerrando puertas y quiero que lo quiten mientras me organizo para pagar.",
+   "derecho": "habeas_data",
+   "fundamento": "art. 15 CP; Ley 1266 de 2008",
+   "accionado": "el banco y la central de riesgo",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el habeas data protege la veracidad y la actualización del dato, no su supresión cuando es cierto, vigente y fue notificado; la renegociación de la deuda es un asunto contractual con vía propia",
+   "pretension": "acudir a la entidad para un acuerdo de pago y, en su caso, a la jurisdicción ordinaria por la controversia contractual",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 15 CP",
+    "Ley 1266 de 2008"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A36",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "hd_rectificacion_en_tramite",
+   "relato": "Radiqué hace cuatro días un reclamo en la central de riesgo para que corrijan mi segundo apellido, que está mal escrito. Todavía no me contestan. Quiero que un juez les ordene corregirlo ya.",
+   "derecho": "habeas_data",
+   "fundamento": "art. 15 CP; Ley 1581 de 2012",
+   "accionado": "la central de riesgo",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la ley fija un término para resolver el reclamo y aún no ha transcurrido: el mecanismo propio está en curso y es idóneo, así que no hay vulneración consumada ni urgencia que lo desplace",
+   "pretension": "esperar la respuesta al reclamo dentro del término legal y, si se incumple, reclamar ante la autoridad de protección de datos",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 15 CP",
+    "Ley 1581 de 2012"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "E61",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "dp_sancion_sin_descargos",
+   "relato": "Vivo en un conjunto residencial. La administración me puso una multa de dos millones por un daño en el ascensor que dicen que causó mi hijo. Nunca me citaron a ninguna reunión, no me dejaron explicar y ya me la están cobrando en la cuota de administración.",
+   "derecho": "debido_proceso",
+   "fundamento": "art. 29 CP",
+   "accionado": "la administración del conjunto residencial",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "imponer una sanción económica sin citación previa ni oportunidad de ser oído desconoce el debido proceso que también rige las actuaciones de los particulares que ejercen funciones de autoridad en la copropiedad",
+   "pretension": "ordenar dejar sin efecto la sanción y, si se insiste en ella, adelantar el procedimiento con citación y descargos",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 29 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E62",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "dp_notificacion_por_aviso_indebida",
+   "relato": "Me enteré por un amigo de que una entidad me había sancionado con una inhabilidad. Dicen que me notificaron por aviso en la cartelera, pero yo tengo registrada mi dirección y mi correo en esa misma entidad desde hace años y nunca me escribieron. Ya se me pasó el plazo para los recursos.",
+   "derecho": "debido_proceso",
+   "fundamento": "art. 29 CP; Ley 1437 de 2011",
+   "accionado": "la entidad que impuso la sanción",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "acudir a la notificación por aviso cuando se conoce la dirección del interesado impide de hecho el ejercicio de los recursos, y el plazo vencido convierte el defecto en irreparable por la vía ordinaria",
+   "pretension": "ordenar la notificación personal del acto sancionatorio y la reapertura del término para interponer recursos",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": false,
+    "me_idoneo": true,
+    "me_oportuno": false,
+    "me_accesible": true,
+    "perjuicio_irremediable": true,
+    "pi_inminencia": true,
+    "pi_gravedad": true,
+    "pi_urgencia": true,
+    "pi_impostergabilidad": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela_transitoria",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 29 CP",
+    "Ley 1437 de 2011"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "A37",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "dp_recursos_sin_agotar",
+   "relato": "Una entidad me negó un permiso. Me notificaron bien, en mi casa, y me dijeron que tenía diez días para el recurso de reposición. No lo puse porque me pareció que no iba a servir. Quiero que un juez revise la decisión.",
+   "derecho": "debido_proceso",
+   "fundamento": "art. 29 CP; Ley 1437 de 2011",
+   "accionado": "la entidad que negó el permiso",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el recurso de reposición estaba disponible, era accesible y se notificó en forma; no agotarlo por desconfianza no habilita el amparo, y la nulidad del acto tiene vía ordinaria propia",
+   "pretension": "agotar los recursos administrativos y, en su caso, acudir al medio de control de nulidad",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 29 CP",
+    "Ley 1437 de 2011"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "A38",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "dp_desacuerdo_con_la_prueba",
+   "relato": "En un proceso civil el juez le creyó al testigo de la otra parte y no al mío. A mí me citaron, fui, presenté mis pruebas y me dejaron alegar. Pero la sentencia me pareció injusta y quiero que la revisen.",
+   "derecho": "debido_proceso",
+   "fundamento": "art. 29 CP",
+   "accionado": "el juzgado civil",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el relato describe un proceso con citación, pruebas y alegatos: el desacuerdo con la valoración probatoria se ataca por los recursos del propio proceso, no por el amparo",
+   "pretension": "interponer los recursos previstos contra la sentencia dentro del mismo proceso",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 29 CP"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  },
+  {
+   "id": "E63",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "peticion_a_privado_servicio_publico",
+   "relato": "Le escribí a la empresa de energía hace dos meses pidiendo que me expliquen un cobro de reconexión que nunca me hicieron. Radiqué con sello, tengo el número. No me han contestado nada y el cobro sigue apareciendo cada mes.",
+   "derecho": "peticion",
+   "fundamento": "art. 23 CP; Ley 1755 de 2015",
+   "accionado": "la empresa de servicios públicos",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "el derecho de petición también se ejerce ante particulares que prestan servicios públicos, y dos meses sin respuesta a una solicitud radicada excede cualquier término legal",
+   "pretension": "ordenar la respuesta de fondo a la petición radicada sobre el cobro de reconexión",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "rutinario",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 23 CP",
+    "Ley 1755 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "E64",
+   "split": "eval",
+   "tipo": "gold",
+   "categoria": "peticion_remitida_sin_competencia",
+   "relato": "Pedí una certificación a una entidad y me contestaron que no eran competentes y que la remitían. Eso fue hace tres meses. Nunca me dijeron a quién se la mandaron ni me llegó respuesta de nadie. Cada vez que pregunto me repiten que ya la remitieron.",
+   "derecho": "peticion",
+   "fundamento": "art. 23 CP; Ley 1755 de 2015",
+   "accionado": "la entidad que recibió la petición",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "remitir por falta de competencia solo cumple el derecho de petición si se informa al peticionario a quién se remitió y la entidad competente responde; sin eso la petición queda sin respuesta de fondo",
+   "pretension": "ordenar que se informe el destinatario de la remisión y que la entidad competente resuelva de fondo",
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "tutela",
+   "dificultad": "frontera",
+   "etiqueta_pivota_en": [],
+   "estrato_verificacion": "plano",
+   "fundamento_del_derecho": [
+    "art. 23 CP",
+    "Ley 1755 de 2015"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ]
+  },
+  {
+   "id": "A39",
+   "split": "eval",
+   "tipo": "adversarial",
+   "categoria": "peticion_dentro_del_termino",
+   "relato": "Radiqué una petición hace seis días hábiles pidiendo copias de un expediente. Todavía no me responden y necesito esas copias. Quiero que un juez les ordene contestarme de una vez.",
+   "derecho": "peticion",
+   "fundamento": "art. 23 CP; Ley 1755 de 2015",
+   "accionado": "la entidad ante la que se radicó la petición",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el término legal para resolver una petición de documentos no ha transcurrido, así que no hay omisión que amparar: el mecanismo propio está corriendo y es idóneo",
+   "pretension": "esperar el vencimiento del término legal y, si se incumple, reclamar la respuesta",
+   "hechos": {
+    "afectacion_individual": true,
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "verificado_con_reglas": true,
+   "regla_que_cierra": "subsidiariedad",
+   "dificultad": "trampa",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ],
+   "estrato_verificacion": "derivado",
+   "fundamento_del_derecho": [
+    "art. 23 CP",
+    "Ley 1755 de 2015"
+   ],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_ponderado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": []
+  }
+ ]
+}

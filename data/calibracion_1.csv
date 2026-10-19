@@ -1,0 +1,109 @@
+﻿# CALIBRACION DEL JUEZ - agenteAmparo
+#
+# Califique la RESPUESTA DEL SISTEMA con un entero de 1 a 5, usando la
+# MISMA escala que usa el juez automatico. Califique SOLO la calidad del
+# razonamiento juridico, no la redaccion ni la extension:
+#
+#   5 = mecanismo correcto, razonamiento solido y fundamento pertinente
+#   4 = mecanismo correcto y razonamiento solido, con imprecisiones menores
+#   3 = mecanismo correcto pero el razonamiento es debil, generico o circular
+#   2 = mecanismo equivocado, aunque el razonamiento sea parcialmente defendible
+#   1 = mecanismo equivocado y razonamiento insuficiente o contradictorio
+#
+# La columna `notas` es opcional, para dejar por que dudo.
+#
+# NO consulte la nota del juez ni el gold completo mientras califica. El
+# valor de esta medicion depende de que las dos lecturas sean
+# independientes.
+#
+id,relato,respuesta_del_sistema,respuesta_de_referencia,nota_humana,notas
+A01,"La EPS me tuvo ocho meses esperando una cirugía de rodilla. Ya me la hicieron el mes pasado y salió bien, pero yo perdí el trabajo por las incapacidades y pasé un año con dolor. Quiero poner una tutela para que me indemnicen por todo ese daño, unos cincuenta millones.","Derecho: ninguno (art. 87 CP; Ley 1751 de 2015)
+Accionado: EPS
+Mecanismo: vía judicial ordinaria
+Procedencia: no — la tutela protege derechos fundamentales vigentes, no la indemnización de un perjuicio ya consumado
+Pretensión: acudir a la jurisdicción civil para la indemnización","Derecho: ninguno (art. 6.4 Decreto 2591 de 1991; art. 25 Decreto 2591 de 1991)
+Accionado: EPS
+Mecanismo: vía judicial ordinaria
+Procedencia: no — el servicio ya fue prestado, de modo que el daño está consumado y no hay derecho fundamental que amparar; la indemnización por tutela es excepcional y en abstracto, no un sustituto de la reparación ordinaria
+Pretensión: acudir a la jurisdicción contencioso administrativa u ordinaria para reclamar la reparación del daño",5,"Mecanismo y conclusión correctos; distingue la reparación del daño consumado y reconoce la vía ordinaria."
+A08,"Puse un derecho de petición en la EPS pidiendo que me autorizaran un tratamiento en una clínica específica de otra ciudad. Me contestaron a los diez días, con firma y todo, explicándome que en mi ciudad hay dos clínicas de la red que prestan ese mismo servicio. No estoy de acuerdo con esa respuesta.","Derecho: peticion (art. 23 CP; Ley 1745 de 2015)
+Accionado: EPS
+Mecanismo: acción de tutela
+Procedencia: sí — transcurridos diez días sin respuesta, la tutela procede como medio de control de agotamiento
+Pretensión: ordenar respuesta expresa a la petición","Derecho: peticion (art. 23 CP; Ley 1755 de 2015)
+Accionado: EPS
+Mecanismo: vía judicial ordinaria
+Procedencia: no — hubo respuesta oportuna, de fondo y congruente: el derecho de petición garantiza una respuesta, no que sea favorable a lo pedido
+Pretensión: agotar la reclamación ante la Superintendencia Nacional de Salud si persiste la inconformidad con la red prestadora",1,"Mecanismo y conclusión equivocados: sí hubo respuesta oportuna y de fondo; la tutela no sirve para imponer una respuesta favorable."
+A10,"Mi esposo terminó de pagar la condena el 3 de este mes, nosotros tenemos la boleta y todo. Ya llevamos doce días y no lo sueltan. En la cárcel dicen que falta un trámite del juzgado y que eso se demora.","Derecho: libertad_personal (art. 28 CP; art. 30 CP)
+Accionado: Establecimiento penitenciario
+Mecanismo: habeas corpus (Ley 1095 de 2006)
+Procedencia: no — transcurridos doce días hábiles desde el pago de la condena, la privación de la libertad carece de fundamento jurídico y se configura un encierro ilegal
+Pretensión: interponer habeas corpus para obtener la libertad inmediata","Derecho: libertad_personal (art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991)
+Accionado: Establecimiento penitenciario y juzgado de ejecución de penas
+Mecanismo: habeas corpus (Ley 1095 de 2006)
+Procedencia: no — cumplida la pena, la permanencia en reclusión constituye prolongación ilícita de la privación de la libertad, supuesto expreso del habeas corpus
+Pretensión: interponer habeas corpus para obtener la libertad inmediata",1,"El mecanismo es adecuado, pero la conclusión contradice el fundamento: si la pena se cumplió y persiste el encierro, el hábeas corpus procede; no corresponde marcar no procede."
+A18,"La empresa de servicios del municipio compró los medidores a cuatro veces el precio del mercado, está en la factura publicada. Eso lo vamos a pagar todos en la tarifa. Lo pusimos en conocimiento del concejo y nadie ha hecho nada.","Derecho: ninguno (art. 87 CP; Ley 393 de 1997)
+Accionado: Empresa prestadora de servicios públicos y Concejo municipal
+Mecanismo: vía judicial ordinaria
+Procedencia: no — se trata de un acto administrativo controvertido ante el control de nulidad, no de la defensa de un derecho fundamental individual
+Pretensión: acudir a la jurisdicción contencioso administrativa mediante nulidad","Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)
+Accionado: Empresa de servicios públicos municipal
+Mecanismo: acción popular (Ley 472 de 1998)
+Procedencia: no — la moralidad administrativa y la defensa del patrimonio público son derechos colectivos expresamente protegidos por la acción popular
+Pretensión: interponer acción popular para que se investigue el sobrecosto y se proteja el patrimonio público",2,"La vía ordinaria puede tener sentido para controvertir actos, pero el caso plantea derechos colectivos —moralidad administrativa y patrimonio público— y apunta a acción popular."
+E01,"Soy paciente de VIH y llevo tres años con el mismo tratamiento. Este mes el infectólogo me cambió a un antirretroviral nuevo porque el otro ya no me está funcionando, y la EPS responde que ese no lo tiene contratado con ningún proveedor.","Derecho: salud (art. 49 CP; Ley 1751 de 2015)
+Accionado: EPS
+Mecanismo: acción de tutela
+Procedencia: sí — el cambio de tratamiento fue ordenado por el médico tratante y la EPS carece del medicamento, de modo que el acceso efectivo al tratamiento interrumpe el flujo terapéutico
+Pretensión: ordenar el suministro del antirretroviral ordenado por el infectólogo","Derecho: salud (art. 49 CP; Ley 1751 de 2015)
+Accionado: EPS
+Mecanismo: acción de tutela
+Procedencia: sí — los problemas de contratación de la EPS no son oponibles al afiliado cuando hay orden del médico tratante y la interrupción compromete la vida
+Pretensión: autorizar y entregar el antirretroviral ordenado y garantizar su suministro continuo",4,"La tutela y la protección del acceso continuo al tratamiento son correctas; el razonamiento es pertinente, aunque la referencia a que la interrupción compromete la vida no está desarrollada en los hechos."
+E05,"Tuve una deuda con una tarjeta que dejé de pagar en 2016 y nunca la pagué, eso es cierto. Pero ya pasaron más de ocho años y sigo reportado igual que el primer día. Cada vez que intento algo en un banco me rebotan por ese reporte.","Derecho: ninguno (art. 87 CP; Ley 1055 de 2006)
+Accionado: Institución financiera y Entidad de Crédito
+Mecanismo: vía judicial ordinaria
+Procedencia: no — la actualidad del perjuicio y la vigencia del término de prescripción son cuestiones de fondo a resolver en el medio de control de garantías
+Pretensión: acudir a la jurisdicción ordinaria para que se determine la vigencia de la prescripción y la actualidad del perjuicio","Derecho: habeas_data (art. 15 CP; Ley 1266 de 2008)
+Accionado: Entidad financiera y central de riesgo
+Mecanismo: acción de tutela
+Procedencia: sí — el dato negativo tiene un término máximo de permanencia y su conservación indefinida convierte el reporte en una sanción perpetua
+Pretensión: ordenar la caducidad del dato negativo y su retiro de las bases de datos",2,"La vía ordinaria no es la respuesta adecuada para la permanencia de un reporte negativo; el caso se centra en hábeas data y la tutela puede proceder para solicitar retiro del dato vencido."
+E09,Una empresa de curtiembres está vertiendo los desechos directamente a la quebrada que pasa por el municipio. El agua bajó de color y los peces se murieron. Somos varias veredas las que tomamos agua de ahí y la corporación ambiental no ha hecho nada.,"Derecho: colectivos (art. 79 CP; Ley 393 de 1997)
+Accionado: Empresa de curtiembres y Corporación ambiental
+Mecanismo: acción popular (Ley 393 de 1997)
+Procedencia: no — se busca proteger el ambiente sano de un grupo indeterminado de personas, materia reservada a la acción popular
+Pretensión: promover acción popular para que se haga el saneamiento de la quebrada","Derecho: colectivos (art. 79 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)
+Accionado: Empresa de curtiembres y corporación autónoma regional
+Mecanismo: acción popular (Ley 472 de 1998)
+Procedencia: no — la pretensión protege el ambiente sano y la salubridad pública, derechos colectivos excluidos del ámbito de la tutela
+Pretensión: promover acción popular para el cese del vertimiento y la recuperación de la fuente hídrica",4,"La acción popular es el mecanismo correcto y la protección ambiental colectiva está bien identificada; hay una cita legal errónea, pero no afecta el razonamiento central."
+E12,"Mi mamá tiene 79 años, está en cama y usa pañales y una fórmula nutricional que le pasan por sonda. La EPS entregó todo seis meses y ahora dice que eso no es un medicamento sino un insumo de aseo y que lo compremos nosotros.","Derecho: salud (art. 49 CP; Ley 1751 de 2015)
+Accionado: EPS
+Mecanismo: acción de tutela
+Procedencia: sí — la continuidad del tratamiento ordenado por el médico tratante es un deber de la entidad prestadora
+Pretensión: ordenar el suministro continuo de la fórmula nutricional","Derecho: salud (art. 46 CP; art. 49 CP; Ley 1751 de 2015)
+Accionado: EPS
+Mecanismo: acción de tutela
+Procedencia: sí — los insumos hacen parte del tratamiento ordenado y suspenderlos a una paciente dependiente desconoce la continuidad del servicio
+Pretensión: ordenar el suministro continuo de los insumos y la fórmula nutricional ordenados",4,"La tutela y el principio de continuidad del tratamiento son correctos; el razonamiento es sólido aunque podría incluir con más precisión la situación de vulnerabilidad y los insumos ordenados."
+E17,"Mi hermano murió en un accidente de trabajo y pedí a la ARL por escrito el expediente de la investigación. Van cuatro meses, me responden que es información reservada y no me dicen con base en qué norma ni me dan ningún documento.","Derecho: peticion (art. 23 CP; Ley 1785 de 2016)
+Accionado: Administradora de riesgos laborales
+Mecanismo: acción de tutela
+Procedencia: sí — transcurrieron cuatro meses desde la petición y la respuesta no alega término legal para la reserva
+Pretensión: ordenar respuesta con fundamentación y entrega del expediente","Derecho: peticion (art. 23 CP; Ley 1755 de 2015)
+Accionado: Administradora de Riesgos Laborales
+Mecanismo: acción de tutela
+Procedencia: sí — la negativa por reserva debe ser motivada y fundada en norma expresa; una respuesta que no la invoca no satisface el derecho de petición
+Pretensión: ordenar respuesta motivada y la entrega de la información no sujeta a reserva legal",4,"La tutela por vulneración del derecho de petición está bien elegida; la respuesta identifica correctamente la exigencia de motivar la reserva, aunque no distingue del todo entre acceso a información reservada y entrega parcial."
+E31,"A mi sobrino lo cogieron el viernes en la tarde en un operativo. Ya es domingo en la noche, van más de 48 horas y no lo han llevado ante ningún juez de control de garantías. En la URI dicen que el fiscal no ha llegado.","Derecho: libertad_personal (art. 28 CP; art. 30 CP)
+Accionado: Fiscalía y Policía Nacional
+Mecanismo: habeas corpus (Ley 1095 de 2006)
+Procedencia: no — transcurrieron más de 48 horas sin control de garantías, vencido el término legal
+Pretensión: interponer habeas corpus para que se practique control de garantías","Derecho: libertad_personal (art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991)
+Accionado: Fiscalía y autoridad de policía judicial
+Mecanismo: habeas corpus (Ley 1095 de 2006)
+Procedencia: no — se superó el término constitucional para poner al capturado a disposición del juez, supuesto propio del habeas corpus y excluido de la tutela
+Pretensión: interponer habeas corpus para que se resuelva de inmediato la legalidad de la privación de la libertad",5,"Hábeas corpus correctamente seleccionado ante la superación del término para llevar al capturado ante juez; fundamento constitucional y pretensión pertinentes."

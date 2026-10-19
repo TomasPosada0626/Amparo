@@ -1,0 +1,1094 @@
+{
+ "meta": {
+  "nombre": "corpus-tutela-co",
+  "version": "1.5.1",
+  "unidad": "artículo — es la unidad natural de cita en derecho colombiano y la que el modelo tiene que recuperar para fundamentar",
+  "procedencia": "Texto transcrito del PDF oficial del Decreto 2591 de 1991 publicado por el Ministerio de Salud y Protección Social (copia del Diario Oficial 40.165 del 19 de noviembre de 1991), extraído con pypdf el 2026-10-14 y normalizado a mano para corregir los espacios que el extractor inserta dentro de las palabras.",
+  "licencia": "Normas colombianas: documentos oficiales de dominio público (Ley 23 de 1982, art. 41).",
+  "responsable": {
+   "aprobo_el_corpus": "Leonardo Galeano, abogado",
+   "que_significa": "Un profesional del derecho reviso y aprobo este corpus. Es quien responde por que los fragmentos seleccionados sean las normas pertinentes al triaje de acciones constitucionales y por que su lectura sea la correcta.",
+   "que_NO_significa": "No es una copia certificada ni una opinion juridica sobre ningun caso concreto. La transcripcion la hizo el equipo con script desde las fuentes citadas, y el cotejo automatico contra esas fuentes esta en `data/reverificacion_corpus.json`: la aprobacion profesional y el cotejo mecanico son dos comprobaciones distintas y las dos constan.",
+   "transcripcion": "Equipo del proyecto, con script desde las fuentes oficiales citadas en cada fragmento."
+  },
+  "que_pasa_si_el_corpus_esta_mal": "Un RAG sirve lo que recupera con apariencia de autoridad: si un artículo está mal transcrito o desactualizado, el sistema lo cita como derecho vigente y el usuario no tiene forma de notarlo. Por eso cada fragmento lleva su URL de verificación y el campo `vigencia`, y los incisos declarados inexequibles se marcan en vez de borrarse — el modelo tiene que saber que existen y que NO aplican.",
+  "verificacion_pendiente": "Cero fragmentos sin cotejar. Los cinco de la v1.0.0 se reemplazaron por transcripciones literales del normograma de la Cancilleria, extraidas con script (data/reparar_corpus.py) y no retipeadas a mano.",
+  "fecha": "2026-10-15",
+  "campo_transcripcion": "`literal` = copia del texto oficial, extraida con script del normograma y no retipeada. Desde la v1.1.0 TODOS los fragmentos son literales: no queda ninguna parafrasis que el RAG pueda servir con apariencia de ley.",
+  "total_fragmentos": 69,
+  "cambios": [
+   "1.1.0 (2026-10-15): se retiraron las cinco sintesis sin cotejar (L1581-SENS, L1437-NYR, L1098-ALIM, L1266-13, L361-26) y se reemplazaron por siete transcripciones literales del normograma de la Cancilleria. Tres de las retiradas no eran transcripciones sino prosa del equipo que el RAG servia con apariencia de ley. De la cosecha salieron dos correcciones juridicas: (1) la caducidad del dato negativo de la Ley 1266 art. 13 NO paso de 4 a 8 anos, son dos plazos con disparadores distintos que coexisten; (2) la copia oficial del art. 26 de la Ley 361 no incorpora la modificacion del Decreto-Ley 019 de 2012 que el corpus afirmaba, asi que esa afirmacion queda marcada como no cotejada. Se anaden ademas los arts. 13 y 20 de la Ley 1755 de 2015: el 13 es la base textual de la 'respuesta de fondo', que antes se sostenia solo en jurisprudencia.",
+   "1.1.0: L472-04 (catalogo de derechos colectivos) pasa de 'sintesis fiel de cada literal' a transcripcion literal del art. 4 de la Ley 472 de 1998. Era el ultimo fragmento no literal del corpus.",
+   "1.1.1 (2026-10-15): auditoria de los 54 fragmentos con data/auditar_corpus.py. Se encontraron y limpiaron restos del conversor del normograma (marcadores de 'Jurisprudencia Unificacion', encabezados de capitulo pegados al final) y frases duplicadas que el conversor produce al partir una oracion en un ancla. Los defectos aparecieron al revisar a mano el art. 4 de la Ley 472; la auditoria los busca ahora en todos los fragmentos, porque revisar uno por uno a ojo no escala y no es evidencia.",
+   "1.1.2 (2026-10-15): L1266-13 declara `tambien_cita: [Ley 2157 de 2021]`. Lo detecto la regresion: el caso M02 del eval set de M3 cita la Ley 2157 y ningun fragmento la respaldaba, aunque su texto SI esta en el corpus dentro del art. 13 de la Ley 1266.",
+   "1.2.0 (2026-10-15): entra el art. 42 CP (la familia). Lo detecto el validador del dataset al integrar los casos de fuente real: uno de ellos lo cita y no estaba ni en el corpus ni en el whitelist.",
+   "1.3.0 (2026-10-15): entran los arts. 24 y 51 de la Ley 100 de 1993. La Ley 100 estaba en el whitelist pero NO en el corpus, asi que el RAG no podia respaldar ninguna cita suya aunque el validador la aceptara. Lo detecto el chequeo de cobertura, que compara las citas de los 192 casos contra los fragmentos disponibles y ahora corre en data/auditar_corpus.py.",
+   "1.1.1 (2026-10-15): auditoria de los 54 fragmentos con data/auditar_corpus.py. Se encontraron y limpiaron restos del conversor del normograma (marcadores de 'Jurisprudencia Unificacion', encabezados de capitulo pegados al final) y frases duplicadas que el conversor produce al partir una oracion en un ancla. Los defectos aparecieron al revisar a mano el art. 4 de la Ley 472; la auditoria los busca ahora en todos los fragmentos, porque revisar uno por uno a ojo no escala y no es evidencia.",
+   "1.5.1 (2026-10-18): `responsable` nombra al abogado que aprobo el corpus (Leonardo Galeano) y separa lo que cubre su aprobacion de lo que cubre el cotejo mecanico. Se anade `cotejo_automatico`, que declara los 5 fragmentos `literal` sin cotejo exitoso --- 3 sentencias no cotejables y 2 fuentes inaccesibles --- que antes solo constaban en `reverificacion_corpus.json`."
+  ],
+  "tambien_cita": "Un fragmento puede respaldar la cita de MAS DE UNA norma cuando su texto vigente es el que introdujo otra. El art. 13 de la Ley 1266 de 2008 es, literalmente, el texto que le dio el art. 3 de la Ley 2157 de 2021: citar cualquiera de las dos remite al mismo texto. Declararlo evita dos errores opuestos: contar como no recuperada una cita que si esta respaldada, y duplicar el fragmento en el corpus, que ensuciaria la recuperacion.",
+  "verificado_el": {
+   "que_significa": "fecha en que el texto del fragmento se cotejo contra su `fuente`. `verificado: true` sin fecha no dice cuando, y una norma puede cambiar: un fragmento verificado hace dos anos no esta verificado hoy. data/reverificar_corpus.py lo vuelve a cotejar.",
+   "originales": "2026-10-15",
+   "anadidos_en_1_2_0": "2026-10-16"
+  },
+  "ampliacion_1_2_0": {
+   "anadidos": [
+    {
+     "id": "L1751-06",
+     "articulo": "art. 6",
+     "por_que": "Los principios d) Continuidad y e) Oportunidad son el fundamento exacto de los casos de servicio interrumpido por razones administrativas (E12, insumos suspendidos) y de dilacion indebida (E14, lista de espera). Antes esos casos se respaldaban con el art. 2, que define la naturaleza del derecho y no dice nada sobre continuidad ni plazos."
+    },
+    {
+     "id": "L1751-14",
+     "articulo": "art. 14",
+     "por_que": "Es el fundamento del caso mas frecuente del eval set: la EPS que niega un servicio por un tramite administrativo (E01, E02). El paragrafo 2 es explicito en que la prohibicion opera 'sin perjuicio de la tutela', que es justo lo que el sistema tiene que concluir."
+    }
+   ],
+   "procedencia": "Impresion oficial de SUIN-Juriscol (Sistema Unico de Informacion Normativa del Estado colombiano), que encabeza 'DIARIO OFICIAL. ANO CL. N. 49427. 16, FEBRERO, 2015' y 'ESTADO DE VIGENCIA: Vigente'. Texto extraido con pypdf y normalizado quitando el cromo del visor web (las cabeceras de pagina y las URLs que SUIN inserta en cada hoja). Ni una palabra del articulado se modifico.",
+   "fuente": "https://www.suin-juriscol.gov.co/viewDocument.asp?ruta=Leyes/30019746",
+   "cuellos_de_botella_que_siguen_abiertos": {
+    "Ley 1095 de 2006": {
+     "fragmentos": 1,
+     "veces_citada": 25,
+     "por_que_no_se_amplio": "Las fuentes oficiales no se pudieron leer: funcionpublica.gov.co falla la validacion del certificado TLS y secretariasenado.gov.co rechaza la conexion. La unica copia accesible (un PDF en un sitio universitario) NO PASO EL COTEJO contra el art. 1 que ya esta en el corpus: su texto no aparece ahi, asi que es otro documento o esta escaneada. Anadir texto legal de una fuente no verificable destruiria la unica propiedad que hace util este corpus."
+    },
+    "Ley 393 de 1997": {
+     "fragmentos": 3,
+     "veces_citada": 26,
+     "por_que_no_se_amplio": "pendiente, misma via que la 1751"
+    },
+    "Ley 472 de 1998": {
+     "fragmentos": 3,
+     "veces_citada": 25,
+     "por_que_no_se_amplio": "pendiente, misma via que la 1751"
+    }
+   },
+   "por_que_hacia_falta": "`cubre()` da por respaldada una cita si existe ALGUN fragmento de esa norma, asi que la cobertura salia al 100% con 2 fragmentos de la Ley 1751 contra 28 citas: el retrieval traia el articulo equivocado de la norma correcta y la auditoria no lo veia."
+  },
+  "ampliacion_1_3_0": {
+   "norma": "Ley 1095 de 2006",
+   "de": 1,
+   "a": 5,
+   "veces_citada": 25,
+   "anadidos": [
+    {
+     "id": "L1095-02",
+     "articulo": "art. 2",
+     "por_que": "Los ocho casos de habeas corpus del eval set preguntan ante quien se pide. Hasta ahora el corpus solo tenia la definicion del art. 1."
+    },
+    {
+     "id": "L1095-03",
+     "articulo": "art. 3",
+     "por_que": "Es el articulo del TERMINO DE 36 HORAS y el que dice que un tercero puede invocarlo sin mandato. Sostiene E31 (48 horas sin juez de control de garantias) y A14 (un hermano pide por su madre retenida en una clinica privada)."
+    },
+    {
+     "id": "L1095-05",
+     "articulo": "art. 5",
+     "por_que": "El tramite, incluida la entrevista con la persona privada de la libertad y el deber de informacion del director del centro de reclusion. Sostiene E37 y A13."
+    },
+    {
+     "id": "L1095-06",
+     "articulo": "art. 6",
+     "por_que": "La consecuencia: liberacion INMEDIATA por auto sin recurso. Es lo que el sistema tiene que concluir en A10 (pena cumplida) y E38 (retenido por no pagar la multa)."
+    }
+   ],
+   "fuente": "https://cancilleria.gov.co/normograma/compilacion/docs/ley_1095_2006.htm",
+   "normalizacion": "El normograma de Cancilleria intercala en el cuerpo del articulado los enlaces de su propia navegacion ('Notas de Vigencia', 'Concordancias', 'Texto del Proyecto de Ley Anterior'). No son texto de la ley sino botones de la pagina que el conversor deja caer entre las frases; se retiraron. Ni una palabra del articulado se modifico.",
+   "como_se_consiguio": "El primer intento la declaro inalcanzable por usar WebFetch, que limita las citas a 125 caracteres y solo devuelve resumenes. Pero data/reverificar_corpus.py ya leia esta misma URL para cotejar L1095-01. Este script reutiliza su `descargar()`, asi que lo transcrito es exactamente lo que el verificador comprueba.",
+   "cotejo_previo": "cada articulo se coteja contra la fuente ANTES de escribir, exigiendo cobertura de palabras >= 0.995. Si no esta, el script falla y no toca el corpus."
+  },
+  "ampliacion_1_4_0": {
+   "anadidos": [
+    {
+     "id": "L393-06",
+     "norma": "Ley 393 de 1997",
+     "articulo": "art. 6",
+     "por_que": "Sostiene los casos donde el deber incumplido recae en un particular que ejerce funcion publica --- un concesionario, una empresa de servicios --- que es el supuesto de A15 (las empresas de transporte que no aplican la tarifa de la ordenanza) y que no tenia ningun fragmento que lo respaldara."
+    },
+    {
+     "id": "L472-12",
+     "norma": "Ley 472 de 1998",
+     "articulo": "art. 12",
+     "por_que": "Responde quien puede ejercer la accion, que es justo lo que preguntan A18 (un usuario que denuncia un sobrecosto) y A15 (una veeduria municipal). El numeral 1 --- 'toda persona natural o juridica' --- es lo que desactiva la objecion de que el solicitante no es el afectado directo."
+    },
+    {
+     "id": "L472-15",
+     "norma": "Ley 472 de 1998",
+     "articulo": "art. 15",
+     "por_que": "Dice ante que jurisdiccion se lleva, que cambia segun el accionado sea publico o privado. E43 (un constructor y la autoridad ambiental) y E45 (el municipio y una fundacion) son casos mixtos."
+    }
+   ],
+   "normalizacion": "El normograma intercala los enlaces de su navegacion ('Jurisprudencia Vigencia', 'Concordancias') y los apartes de anotacion de sentencias en el cuerpo del articulado. Se retiraron los que van al final del articulo. Ni una palabra del articulado se modifico. Los articulos cuyas anotaciones quedan INTERCALADAS en medio del texto no se transcribieron --- ver `meta.ampliacion_1_4_0.no_transcritos`.",
+   "no_transcritos": {
+    "Ley 393 de 1997, art. 5": {
+     "titulo": "Autoridad publica contra quien se dirige",
+     "por_que_no": "El normograma intercala las anotaciones de jurisprudencia DENTRO del articulo: tras la primera frase mete un bloque de cuatro sentencias y el articulado se REANUDA despues con 'Si contra quien se dirige la accion no es la autoridad obligada...'. Cortar en la anotacion truncaria el articulo a la mitad. Ademas lleva un '<Aparte tachado INEXEQUIBLE>' inline, asi que transcribirlo bien exige leer la Sentencia C-157 de 1998 para saber que aparte quedo fuera. Eso es trabajo juridico, no de script."
+    }
+   },
+   "cotejo_previo": "cada articulo se coteja contra su fuente ANTES de escribir, exigiendo cobertura de palabras >= 0.995. Si no esta, el script falla y no toca el corpus."
+  },
+  "fragmentos_por_norma": {
+   "Constitución Política de Colombia": 20,
+   "Decreto 2591 de 1991": 17,
+   "Ley 1095 de 2006": 5,
+   "Ley 472 de 1998": 5,
+   "Ley 1751 de 2015": 4,
+   "Ley 393 de 1997": 4,
+   "Ley 1755 de 2015": 3,
+   "Ley 100 de 1993": 2,
+   "Ley 1581 de 2012": 2,
+   "Sentencia C-531 de 2000": 1,
+   "Sentencia C-744 de 2012": 1,
+   "Sentencia T-225 de 1993": 1,
+   "Ley 1098 de 2006": 1,
+   "Ley 1266 de 2008": 1,
+   "Ley 1437 de 2011": 1,
+   "Ley 361 de 1997": 1
+  },
+  "jurisprudencia": {
+   "n": 3,
+   "por_que": "El corpus era solo normativo y la tutela se decide tanto por jurisprudencia como por ley. Se anaden las sentencias de las que este proyecto ya DEPENDE, para que sus afirmaciones se puedan cotejar en vez de creer.",
+   "como_se_tratan": "llevan `tipo: \"jurisprudencia\"`. data/normas.json ya declara `jurisprudencia_referencia` como campo aparte que NO entra al chequeo de alucinacion normativa porque la cita jurisprudencial es mas volatil; se respeta esa decision.",
+   "anadidas": [
+    {
+     "id": "J-T225-93",
+     "sentencia": "Sentencia T-225 de 1993",
+     "por_que": "Es la fuente primaria del test que `src/reglas.py` implementa: el desglose de `perjuicio_irremediable` en inminencia, gravedad, urgencia e impostergabilidad, y la exigencia de que CONCURRAN todos. El codigo citaba esta sentencia de memoria; ahora su texto esta en el corpus y la afirmacion se puede cotejar. Las palabras 'presencia concurrente' y 'La concurrencia de los elementos' son literalmente lo que el test conjuntivo exige."
+    },
+    {
+     "id": "J-C531-00",
+     "sentencia": "Sentencia C-531 de 2000",
+     "por_que": "Es el fundamento de la ESTABILIDAD LABORAL REFORZADA, que el eval set usa en E08 (quimioterapia), E23 (embarazo) y E24 (esclerosis multiple). Y resuelve una ambiguedad que importa: la indemnizacion de 180 dias NO sanea el despido, porque este 'carece de todo efecto juridico' sin la autorizacion previa. Confirma ademas que la redaccion vigente dice 'oficina de Trabajo'."
+    },
+    {
+     "id": "J-C744-12",
+     "sentencia": "Sentencia C-744 de 2012",
+     "por_que": "Cierra el ROADMAP #26. El art. 137 SI derogo el art. 26 de la Ley 361, pero fue declarado inexequible, asi que la derogatoria no surtio efecto y el texto original sigue vigente. La version anterior del corpus afirmaba que el Decreto 019 habia trasladado la autorizacion al Ministerio del Trabajo y lo marcaba como no cotejado; ahora esta cotejado y la respuesta es que no."
+    }
+   ]
+  },
+  "atribucion_ley_361": {
+   "pregunta": "El Decreto-Ley 019 de 2012, art. 137, reescribio el art. 26 de la Ley 361 y traslado la autorizacion al Ministerio del Trabajo?",
+   "respuesta": "NO esta vigente. El art. 137 si derogo el art. 26, pero la Sentencia C-744 de 2012 lo declaro INEXEQUIBLE por exceso de facultades extraordinarias, asi que la derogatoria no surtio efecto.",
+   "fuentes_primarias": [
+    "https://www.corteconstitucional.gov.co/relatoria/2000/C-531-00.htm",
+    "https://www.corteconstitucional.gov.co/relatoria/2012/C-744-12.htm"
+   ],
+   "resuelta_el": "2026-10-16"
+  },
+  "cotejo_automatico": {
+   "cotejados": 66,
+   "de": 69,
+   "fallan": 0,
+   "sin_cotejo_exitoso": {
+    "jurisprudencia_no_cotejable": {
+     "ids": [
+      "J-C531-00",
+      "J-C744-12",
+      "J-T225-93"
+     ],
+     "por_que": "Una sentencia no es un articulo con texto estable en una URL: `reverificar_corpus.py` coteja normas, no jurisprudencia. La exclusion era real y no estaba declarada en ningun sitio, que es el problema."
+    },
+    "fuente_inaccesible": {
+     "ids": [
+      "L1751-06",
+      "L1751-14"
+     ],
+     "por_que": "La fuente no respondio al cotejar. `inaccesible` NO es un fallo del fragmento: es que no se pudo leer la fuente. Confundirlo con un fallo da alarmas falsas; confundirlo con un acierto es peor."
+    }
+   },
+   "lectura": "5 de 69 fragmentos dicen `transcripcion: literal` sin que el cotejo automatico lo haya confirmado. De los 66 cotejados, CERO fallan. Los 5 estan cubiertos por la aprobacion de Leonardo Galeano, que es una comprobacion humana, no mecanica --- y por eso se nombran aqui uno por uno en vez de quedar dentro de un 'corpus verificado'."
+  }
+ },
+ "documentos": [
+  {
+   "id": "CP-011",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 11 CP",
+   "titulo": "Derecho a la vida",
+   "texto": "El derecho a la vida es inviolable. No habrá pena de muerte.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-013",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 13 CP",
+   "titulo": "Igualdad y proteccion especial a quien esta en debilidad manifiesta",
+   "texto": "Todas las personas nacen libres e iguales ante la ley, recibirán la misma protección y trato de las autoridades y gozarán de los mismos derechos, libertades y oportunidades sin ninguna discriminación por razones de sexo, raza, origen nacional o familiar, lengua, religión, opinión política o filosófica. El Estado promoverá las condiciones para que la igualdad sea real y efectiva y adoptará medidas en favor de grupos discriminados o marginados. El Estado protegerá especialmente a aquellas personas que por su condición económica, física o mental, se encuentren en cir - Consejo Superior de la Judicatura cunstancia de debilidad manifiesta y sancionará los abusos o maltratos que contra ellas se cometan.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "Inciso 3: proteccion especial a quienes por su condicion economica, fisica o mental se encuentren en circunstancia de debilidad manifiesta. Es la base constitucional de la estabilidad laboral reforzada.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-015",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 15 CP",
+   "titulo": "Intimidad, buen nombre y habeas data",
+   "texto": "Todas las personas tienen derecho a su intimidad personal y familiar y a su buen nombre, y el Estado debe respetarlos y hacerlos respetar. De igual modo, tienen derecho a conocer, actualizar y rectificar las informaciones que se hayan recogido sobre ellas en bancos de datos y en archivos de entidades públicas y privadas. En la recolección, tratamiento y circulación de datos se respetarán la libertad y demás garantías consagradas en la Constitución. La correspondencia y demás formas de comunicación privada son inviolables. Solo pueden ser interceptadas o registradas mediante orden judicial, en los casos y con las formalidades que establezca la ley. Para efectos tributarios o judiciales y para los casos de inspección, vigilancia e intervención del Estado podrá exigirse la presentación de libros de contabilidad y demás documentos privados, en los términos que señale la ley.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "Fundamento constitucional del habeas data: derecho a conocer, actualizar y rectificar la informacion recogida en bancos de datos publicos y privados.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-023",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 23 CP",
+   "titulo": "Derecho de peticion",
+   "texto": "Toda persona tiene derecho a presentar peticiones respetuosas a las autoridades por motivos de interés general o particular y a obtener pronta resolución. El legislador podrá reglamentar su ejercicio ante organizaciones privadas para garantizar los derechos fundamentales.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-025",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 25 CP",
+   "titulo": "Derecho al trabajo",
+   "texto": "El trabajo es un derecho y una obligación social y goza, en todas sus modalidades, de la especial protección Consejo Superior de la Judicatura del Estado. Toda persona tiene derecho a un trabajo en condiciones dignas y justas.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-028",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 28 CP",
+   "titulo": "Libertad personal",
+   "texto": "Toda persona es libre. Nadie puede ser molestado en su persona o familia, ni reducido a prisión o arresto, ni detenido, ni su domicilio registrado, sino en virtud de mandamiento escrito de autoridad judicial competente, con las formalidades legales y por motivo previamente definido en la ley. La persona detenida preventivamente será puesta a disposición del juez competente dentro de las treinta y seis horas siguientes, para que este adopte la decisión correspondiente en el término que establezca la ley. En ningún caso podrá haber detención, prisión ni arresto por deudas, ni penas y medidas de seguridad imprescriptibles.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-029",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 29 CP",
+   "titulo": "Debido proceso",
+   "texto": "El debido proceso se aplicará a toda clase de actuaciones judiciales y administrativas. Nadie podrá ser juzgado sino conforme a leyes preexistentes al acto que se le imputa, ante juez o tribunal competente y con observancia de la plenitud de las formas propias de cada juicio. En materia penal, la ley permisiva o favorable, aun cuando sea posterior, se aplicará de preferencia a la restrictiva o desfavorable. Toda persona se presume inocente mientras no se la haya declarado judicialmente culpable. Quien sea sindicado tiene derecho a la defensa y a la asistencia de un abogado escogido por él, o de oficio, durante la investigación y el juzgamiento; a un debido proceso público sin dilaciones injustificadas; a presentar pruebas y a controvertir las que se alleguen en su contra; a impugnar la sentencia condenatoria, y a no ser juzgado dos veces por el mismo hecho. Es nula, de pleno derecho, la prueba obtenida con violación del debido proceso.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-030",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 30 CP",
+   "titulo": "Habeas corpus",
+   "texto": "Quien estuviere privado de su libertad, y creyere estarlo ilegalmente, tiene derecho a invocar ante cualquier autoridad judicial, en todo tiempo, por sí o por interpuesta persona, el Hábeas Corpus, el cual debe resolverse en el término de treinta y seis horas.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-042",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 42 CP",
+   "titulo": "La familia",
+   "texto": "Se constituye por vínculos naturales o jurídicos, por la decisión libre de un hombre y una mujer de contraer matrimonio o por la voluntad responsable de conformarla. El Estado y la sociedad garantizan la protección integral de la familia. La ley podrá determinar el patrimonio familiar inalienable e inembargable.",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/constitucion_politica_1991.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "Base constitucional de la UNIDAD FAMILIAR. Entro al corpus porque el validador del dataset rechazo un caso real (T-001 de 2024, expediente T-9.511.992) que la cita: la Corte amparo la unidad familiar de un soldado al que le negaron el traslado con un acto sin motivar. Si el gold cita una norma, el corpus tiene que tenerla y el whitelist permitirla.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-043",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 43 CP",
+   "titulo": "Igualdad de la mujer y proteccion durante el embarazo",
+   "texto": "La mujer y el hombre tienen iguales derechos y oportunidades. La mujer no podrá ser sometida a ninguna clase de discriminación. Durante el embarazo y después del parto Consejo Superior de la Judicatura gozará de especial asistencia y protección del Estado, y recibirá de éste subsidio alimentario si entonces estuviere desempleada o desamparada. El Estado apoyará de manera especial a la mujer cabeza de familia.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-044",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 44 CP",
+   "titulo": "Derechos fundamentales de los ninos",
+   "texto": "Son derechos fundamentales de los niños: la vida, la integridad física, la salud y la seguridad social, la alimentación equilibrada, su nombre y nacionalidad, tener una familia y no ser separados de ella, el cuidado y amor, la educación y la cultura, la recreación y la libre expresión de su opinión. Serán protegidos contra toda forma de abandono, violencia física o moral, secuestro, venta, abuso sexual, explotación laboral o económica y trabajos riesgosos. Gozarán también de los demás derechos consagrados en la Constitución, en las leyes y en los tratados internacionales ratificados por Colombia. La familia, la sociedad y el Estado tienen la obligación de asistir y proteger al niño para garantizar su desarrollo armónico e integral y el ejercicio pleno de sus derechos. Cualquier persona puede exigir de la autoridad competente su cumplimiento y la sanción de los infractores. Los derechos de los niños prevalecen sobre los derechos de los demás.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "Los derechos de los ninos PREVALECEN sobre los derechos de los demas. Es la regla que inclina los casos con menores involucrados.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-046",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 46 CP",
+   "titulo": "Proteccion y asistencia a las personas de la tercera edad",
+   "texto": "El Estado, la sociedad y la familia concurrirán para la protección y la asistencia de las personas de la tercera edad y promoverán su integración a la vida activa y comunitaria. El Estado les garantizará los servicios de la seguridad social integral y el subsidio alimentario en caso de indigencia.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-048",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 48 CP",
+   "titulo": "Seguridad social",
+   "texto": "La Seguridad Social es un servicio público de carácter obligatorio que se prestará bajo la dirección, coordinación y control del Estado, en sujeción a los principios de eficiencia, universalidad y solidaridad, en los términos que establezca la Ley. Se garantiza a todos los habitantes el derecho irrenunciable a la Seguridad Social. El Estado, con la participación de los particulares, ampliará progresivamente la cobertura de la Seguridad Social que comprenderá la prestación de los servicios en la forma que determine la Ley. La Seguridad Social podrá ser prestada por entidades públicas o privadas, de conformidad con la ley. No se podrán destinar ni utilizar los recursos de las instituciones de la Seguridad Social para fines diferentes a ella. La ley definirá los medios para que los recursos destinados a pensiones mantengan su poder adquisitivo constante. Inciso Adicionado por Acto Legislativo 1 de 2005 artículo 1º \"El Estado garantizará los derechos, la sostenibilidad financiera del Sistema Pensional, respetará los derechos adquiridos con arreglo a la ley y asumirá el pago de la deuda pensional que de Consejo Superior de la Judicatura acuerdo con la ley esté a su cargo. Las leyes en materia pensional que se expidan con posterioridad a la entrada en vigencia de este acto legislativo, deberán asegurar la sostenibilidad financiera de lo establecido en ellas. Inciso Adicionado por Acto Legislativo 1 de 2005 artículo 1º. Sin perjuicio de los descuentos, deducciones y embargos a pensiones ordenados de acuerdo con la ley, por ningún motivo podrá dejarse de pagar, congelarse o reducirse el valor de la mesada de las pensiones reconocidas conforme a derecho. Inciso Adicionado por Acto Legislativo 1 de 2005 artículo 1º. Para adquirir el derecho a la pensión será necesario cumplir con la edad, el tiempo de servicio, las semanas de cotización o el capital necesario, así como las demás condiciones que señala la ley, sin perjuicio de lo dispuesto para las pensiones de invalidez y sobrevivencia. Los requisitos y beneficios para adquirir el derecho a una pensión de invalidez o de sobrevivencia serán los establecidos por las leyes del Sistema General de Pensiones. Inciso Adicionado por Acto Legislativo 1 de 2005 artículo 1º. En materia pensional se respetarán todos los derechos adquiridos. Inciso Adicionado por Acto Legislativo 1 de 2005 artículo 1º. Los requisitos y beneficios pensionales para todas las personas, incluidos los de pensión de vejez por actividades de alto riesgo, serán los establecidos en las leyes del Sistema General de Pensiones. No podrá dictarse disposición o invocarse acuerdo alguno para apartarse de lo allí establecido. Inciso Adicionado por Acto Legislativo 1 de 2005 artículo 1º. Para la liquidación de las pensiones sólo se tendrán en cuenta los factores sobre los cuales cada persona hubiere efectuado las cotizaciones. Ninguna pensión podrá ser inferior al salario mínimo legal mensual vigente. Sin embargo, la ley podrá determinar los casos en que se puedan conceder beneficios económicos periódicos inferiores al salario mínimo, a personas de escasos recursos que no cumplan con las condiciones requeridas para tener derecho a una pensión. Inciso Adicionado por Acto Legislativo 1 de 2005 artículo 1º. A partir de la vigencia del presente Acto Legislativo, no habrá regímenes especiales ni exceptuados, sin perjuicio del aplicable a la fuerza pública, al Presidente de la República y a lo establecido en los parágrafos del presente artículo. Inciso Adicionado por Acto Legislativo 1 de 2005 artículo 1º. Las personas cuyo derecho a la pensión se cause a partir de la vigencia del presente Acto Legislativo no podrán recibir más de trece (13) mesadas pensionales al año. Se entiende que la pensión se causa cuando se cumplen todos los requisitos para acceder a ella, aun cuando no se hubiese efectuado el reconocimiento. Inciso Adicionado por Acto Legislativo 1 de 2005 artículo 1º. La ley establecerá un procedimiento breve para la revisión de las pensiones reconocidas con abuso del derecho o sin el cumplimiento de los requisitos establecidos en la ley o en las convenciones y laudos arbitrales válidamente celebrados. Parágrafo 1º. Adicionado por Acto Legislativo 1 de 2005 ar - tículo 1º. A partir del 31 de julio de 2010, no podrán causarse pensiones superiores a veinticinco (25) salarios mínimos legales mensuales vigentes, con cargo a recursos de naturaleza pública. Parágrafo 2º. Adicionado por Acto Legislativo 1 de 2005 ar - tículo 1º. A partir de la vigencia del presente Acto Legislativo no podrán establecerse en pactos, convenciones colectivas de trabajo, laudos o acto jurídico alguno, condiciones pensionales Consejo Superior de la Judicatura diferentes a las establecidas en las leyes del Sistema General de Pensiones. Parágrafo Transitorio 1. Adicionado por Acto Legislativo 1 de 2005 artículo 1º. El régimen pensional de los docentes na - cionales, nacionalizados y territoriales, vinculados al servicio público educativo oficial es el establecido para el Magisterio en las disposiciones legales vigentes con anterioridad a la en - trada en vigencia de la Ley 812 de 2003, y lo preceptuado en el artículo 81 de esta. Los docentes que se hayan vinculado o se vinculen a partir de la vigencia de la citada ley, tendrán los derechos de prima media establecidos en las leyes del Sistema General de Pensiones, en los términos del artículo 81 de la Ley 812 de 2003. Parágrafo Transitorio 2. Adicionado por Acto Legislativo 1 de 2005 artículo 1º. Sin perjuicio de los derechos adquiridos, el régimen aplicable a los miembros de la Fuerza Pública y al Presidente de la República, y lo establecido en los parágrafos del presente artículo, la vigencia de los regímenes pensionales especiales, los exceptuados, así como cualquier otro distinto al establecido de manera permanente en las leyes del Sistema General de Pensiones expirará el 31 de julio del año 2010. Parágrafo Transitorio 3. Adicionado por Acto Legislativo 1 de 2005 artículo 1º. Las reglas de carácter pensional que rigen a la fecha de vigencia de este Acto Legislativo contenidas en pactos, convenciones colectivas de trabajo, laudos o acuerdos válidamente celebrados, se mantendrán por el término inicialmente estipulado. En los pactos, convenciones o laudos que se suscriban entre la vigencia de este Acto Legislativo y el 31 de julio de 2010, no podrán estipularse condiciones pensionales más favorables que las que se encuentren actualmente vigentes. En todo caso perderán vigencia el 31 de julio de 2010. Parágrafo Transitorio 4. Adicionado por Acto Legislativo 1 de 2005 artículo 1º. El régimen de transición establecido en la Ley 100 de 1993 y demás normas que desarrollen dicho régimen, no podrá extenderse más allá del 31 de julio de 2010; excepto para los trabajadores que estando en dicho régimen, además, tengan cotizadas al menos 750 semanas o su equiva - lente en tiempo de servicios a la entrada en vigencia del pre - sente Acto Legislativo, a los cuales se les mantendrá dicho ré - gimen hasta el año 2014. Los requisitos y beneficios pensionales para las personas cobijadas por este régimen serán los exigidos por el artículo 36 de la Ley 100 de 1993 y demás normas que desarrolle dicho régimen. Parágrafo Transitorio 5. Adicionado por Acto Legislativo 1 de 2005 artículo 1º. De conformidad con lo dispuesto por el artículo 140 de la Ley 100 de 1993 y el Decreto 2090 de 2003, a partir de la entrada en vigencia de este último decreto, a los miembros del cuerpo de custodia y vigilancia Penitenciaria y Carcelaria Nacional se les aplicará el régimen de alto riesgo contemplado en el mismo. A quienes ingresaron con anterioridad a dicha fecha se aplicará el régimen hasta ese entonces vigente para dichas personas por razón de los riesgos de su labor, este es el dispuesto para el efecto por la Ley 32 de 1986, para lo cual deben haberse cubierto las cotizaciones correspondientes. Parágrafo Transitorio 6. Adicionado por Acto Legislativo 1 de 2005 artículo 1º. Se exceptúan de lo establecido por el inciso 8° del presente artículo, aquellas personas que perciban una pensión igual o inferior a tres (3) salarios mínimos legales mensuales vigentes, si la misma se causa antes del 31 de julio de 2011, quienes recibirán catorce (14) mesadas pensionales al año. Consejo Superior de la Judicatura",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-049",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 49 CP",
+   "titulo": "Atencion de la salud y saneamiento ambiental",
+   "texto": "Modificado por el Acto Legislativo 2 de 2009 artículo 1°. El cual quedará así: La atención de la salud y el saneamiento ambiental son servicios públicos a cargo del Estado. Se garantiza a todas las personas el acceso a los servicios de promoción, protección y recuperación de la salud. Corresponde al Estado organizar, dirigir y reglamentar la prestación de servicios de salud a los habitantes y de saneamiento ambiental confor me a los principios de eficiencia, universalidad y solidaridad. También, establecer las políticas para la prestación de servicios de salud por enti dades privadas, y ejercer su vigilancia y control. Así mismo, establecer las competencias de la Nación, las entidades territoriales y los particu lares y determinar los aportes a su cargo en los términos y condiciones señalados en la ley. Los servicios de salud se organizarán en forma descentralizada, por niveles de atención y con participación de la comunidad. La ley señalará los términos en los cuales la atención básica para todos los habitantes será gratuita y obligatoria. Toda persona tiene el deber de procurar el cuidado integral de su salud y de su comunidad. El porte y el consumo de sustancias estupefacientes o sicotrópicas está prohibido, salvo prescripción médica. Con fines preventivos y rehabilita dores la ley establecerá medidas y tratamientos administrativos de orden pedagógico, profiláctico o terapéutico para las personas que consuman dichas sustancias. El sometimiento a esas medidas y tratamientos requiere el consentimiento informado del adicto. Así mismo, el Estado dedicará especial atención al enfermo depen diente o adicto y a su familia para fortalecerla en valores y principios que contribuyan a prevenir comportamientos que afecten el cuidado integral de la salud de las personas y, por consiguiente, de la comunidad, y desarrollará en forma permanente campañas de prevención contra el consumo de drogas o sustancias estupefacientes y en favor de la recu peración de los adictos.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "Modificado por el Acto Legislativo 2 de 2009 articulo 1.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-053",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 53 CP",
+   "titulo": "Principios minimos fundamentales del trabajo",
+   "texto": "El Congreso expedirá el estatuto del trabajo. La ley correspondiente tendrá en cuenta por lo menos los siguientes principios mínimos fundamentales: Igualdad de oportunidades para los trabajadores; remuneración mínima vital y móvil, proporcional a la cantidad y calidad de trabajo; estabilidad en el empleo; irrenunciabilidad a los beneficios mínimos establecidos en normas laborales; facultades para transigir y conciliar sobre derechos inciertos y discutibles; situación más favorable al trabajador en caso de duda en la aplicación e interpretación de las fuentes formales de derecho; primacía de la realidad sobre formalidades establecidas por los sujetos de las relaciones laborales; garantía a la seguridad social, la capacitación, el adiestramiento y el descanso necesario; protección especial a la mujer, a la maternidad y al trabajador menor de edad. El Estado garantiza el derecho al pago oportuno y al reajuste periódico de las pensiones legales. Los convenios internacionales del trabajo debidamente ratificados, hacen parte de la legislación interna. La ley, los contratos, los acuerdos y convenios de trabajo, no pueden menoscabar la libertad, la dignidad humana ni los derechos de los trabajadores.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-067",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 67 CP",
+   "titulo": "Derecho a la educacion",
+   "texto": "La educación es un derecho de la persona y un servicio público que tiene una función social; con ella se busca el acceso al conocimiento, a la ciencia, a la técnica, y a los demás bienes y valores de la cultura. La educación formará al colombiano en el respeto a los derechos humanos, a la paz y a la democracia; y en la práctica del trabajo y la recreación, para el mejoramiento cultural, científico, tecnológico y para la protección del ambiente. El Estado, la sociedad y la familia son responsables de la educación, que será obligatoria entre los cinco y los quince años de edad y que comprenderá como mínimo, un año de preescolar y nueve de educación básica. La educación será gratuita en las instituciones del Estado, sin perjuicio del cobro de derechos académicos a quienes puedan sufragarlos. Corresponde al Estado regular y ejercer la suprema inspección y vigilancia de la educación con el fin de velar por su calidad, por el cumplimiento de sus fines y por la mejor formación moral, intelectual y física de los educandos; garantizar el adecuado cubrimiento del servicio y asegurar a los menores las condiciones necesarias para su acceso y permanencia en el sistema educativo. La Nación y las entidades territoriales participarán en la dirección, financiación y administración de los servicios educativos estatales, en los términos que señalen la Constitución y la ley.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-079",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 79 CP",
+   "titulo": "Derecho a un ambiente sano",
+   "texto": "Todas las personas tienen derecho a gozar de un ambiente sano. La ley garantizará la participación de la comunidad en las decisiones que puedan afectarlo. Es deber del Estado proteger la diversidad e integridad del ambiente, conservar las áreas de especial importancia ecológica y fomentar la educación para el logro de estos fines.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-086",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 86 CP",
+   "titulo": "Acción de tutela",
+   "texto": "Toda persona tendrá acción de tutela para reclamar ante los jueces, en todo momento y lugar, mediante un procedimiento preferente y sumario, por sí misma o por quien actúe a su nombre, la protección inmediata de sus derechos constitucionales fundamentales, cuando quiera que estos resulten vulnerados o amenazados por la acción o la omisión de cualquier autoridad pública. La protección consistirá en una orden para que aquel, respecto de quien se solicita la tutela, actúe o se abstenga de hacerlo. El fallo, que será de inmediato cumplimiento, podrá impugnarse ante el juez competente y, en todo caso, este lo remitirá a la Corte Constitucional para su eventual revisión. Esta acción solo procederá cuando el afectado no disponga de otro medio de defensa judicial, salvo que aquella se utilice como mecanismo transitorio para evitar un perjuicio irremediable. En ningún caso podrán transcurrir más de diez días entre la solicitud de tutela y su resolución. La ley establecerá los casos en los que la acción de tutela procede contra particulares encargados de la prestación de un servicio público o cuya conducta afecte grave y directamente el interés colectivo, o respecto de quienes el solicitante se halle en estado de subordinación o indefensión.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "Fundamento constitucional de la tutela. Fija el requisito de SUBSIDIARIEDAD (solo procede si no hay otro medio de defensa judicial, salvo mecanismo transitorio ante perjuicio irremediable) y el plazo maximo de DIEZ DIAS para resolver.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-087",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 87 CP",
+   "titulo": "Accion de cumplimiento",
+   "texto": "Toda persona podrá acudir ante la autoridad judicial para hacer efectivo el cumplimiento de una ley o un acto administrativo. En caso de prosperar la acción, la sentencia ordenará a la autoridad renuente el cumplimiento del deber omitido.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "Fundamento constitucional de la accion de cumplimiento, reglamentada por la Ley 393 de 1997.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "CP-088",
+   "norma": "Constitución Política de Colombia",
+   "articulo": "art. 88 CP",
+   "titulo": "Acciones populares y de grupo",
+   "texto": "La ley regulará las acciones populares para la protección de los derechos e intereses colectivos, relacionados con el patrimonio, el espacio, la seguridad y la salubridad pública, la moral administrativa, el ambiente, la libre competencia económica y otros de similar naturaleza que se definen en ella. También regulará las acciones originadas en los daños ocasionados a un número plural de personas, sin perjuicio de las correspondientes acciones particulares. Así mismo, definirá los casos de responsabilidad civil objetiva por el daño inferido a los derechos e intereses colectivos.",
+   "fuente": "https://www.ramajudicial.gov.co/documents/10228/1547471/CONSTITUCION-Interiores.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "Fundamento constitucional de las acciones populares y de grupo, reglamentadas por la Ley 472 de 1998. El art. 6.3 del Decreto 2591 remite aqui para excluir los derechos colectivos del ambito de la tutela.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-01",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 1",
+   "titulo": "Objeto",
+   "texto": "Toda persona tendrá acción de tutela para reclamar ante los jueces, en todo momento y lugar, mediante un procedimiento preferente y sumario, por sí misma o por quien actúe a su nombre, la protección inmediata de sus derechos constitucionales fundamentales, cuando quiera que éstos resulten vulnerados o amenazados por la acción o la omisión de cualquier autoridad pública o de los particulares en los casos que señala este decreto. Todos los días y horas son hábiles para interponer la acción de tutela. La acción de tutela procederá aún bajo los estados de excepción.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-02",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 2",
+   "titulo": "Derechos protegidos por la tutela",
+   "texto": "La acción de tutela garantiza los derechos constitucionales fundamentales. Cuando una decisión de tutela se refiera a un derecho no señalado expresamente por la Constitución como fundamental, pero cuya naturaleza permita su tutela para casos concretos, la Corte Constitucional le dará prelación en la revisión a esta decisión.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-05",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 5",
+   "titulo": "Procedencia de la acción de tutela",
+   "texto": "La acción de tutela procede contra toda acción u omisión de las autoridades públicas, que haya violado, viole o amenace violar cualquiera de los derechos de que trata el artículo 2 de esta ley. También procede contra acciones u omisiones de particulares, de conformidad con lo establecido en el Capítulo III de este decreto. La procedencia de la tutela en ningún caso está sujeta a que la acción de la autoridad o del particular se haya manifestado en un acto jurídico escrito.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-06",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 6",
+   "titulo": "Causales de improcedencia de la tutela",
+   "texto": "La acción de tutela no procederá: 1. Cuando existan otros recursos o medios de defensa judiciales, salvo que aquélla se utilice como mecanismo transitorio para evitar un perjuicio irremediable. La existencia de dichos medios será apreciada en concreto, en cuanto a su eficacia, atendiendo las circunstancias en que se encuentra el solicitante. 2. Cuando para proteger el derecho se pueda invocar el recurso de hábeas corpus. 3. Cuando se pretenda proteger derechos colectivos, tales como la paz y los demás mencionados en el artículo 88 de la Constitución Política. Lo anterior no obsta, para que el titular solicite la tutela de sus derechos amenazados o violados en situaciones que comprometan intereses o derechos colectivos siempre que se trate de impedir un perjuicio irremediable. 4. Cuando sea evidente que la violación del derecho originó un daño consumado, salvo cuando continúe la acción u omisión violatoria del derecho. 5. Cuando se trate de actos de carácter general, impersonal y abstracto.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente con un inciso inexequible",
+   "nota_vigencia": "El inciso del numeral 1 que decía 'Se entiende por irremediable el perjuicio que sólo pueda ser reparado en su integridad mediante una indemnización' fue declarado INEXEQUIBLE por la Sentencia C-531 de 1993. NO se transcribe en el texto porque no es derecho vigente, y se deja constancia aquí para que nadie lo cite.",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-07",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 7",
+   "titulo": "Medidas provisionales para proteger un derecho",
+   "texto": "Desde la presentación de la solicitud, cuando el juez expresamente lo considere necesario y urgente para proteger el derecho, suspenderá la aplicación del acto concreto que lo amenace o vulnere. Sin embargo, a petición de parte o de oficio, se podrá disponer la ejecución o la continuidad de la ejecución, para evitar perjuicios ciertos e inminentes al interés público. En todo caso el juez podrá ordenar lo que considere procedente para proteger los derechos y no hacer ilusorio el efecto de un eventual fallo a favor del solicitante.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-08",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 8",
+   "titulo": "La tutela como mecanismo transitorio",
+   "texto": "Aun cuando el afectado disponga de otro medio de defensa judicial, la acción de tutela procederá cuando se utilice como mecanismo transitorio para evitar un perjuicio irremediable. En el caso del inciso anterior, el juez señalará expresamente en la sentencia que su orden permanecerá vigente sólo durante el término que la autoridad judicial competente utilice para decidir de fondo sobre la acción instaurada por el afectado. En todo caso el afectado deberá ejercer dicha acción en un término máximo de cuatro (4) meses a partir del fallo de tutela. Si no la instaura, cesarán los efectos de éste.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-10",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 10",
+   "titulo": "Legitimidad e interés",
+   "texto": "La acción de tutela podrá ser ejercida, en todo momento y lugar, por cualquiera persona vulnerada o amenazada en uno de sus derechos fundamentales, quien actuará por sí misma o a través de representante. Los poderes se presumirán auténticos. También se pueden agenciar derechos ajenos cuando el titular de los mismos no esté en condiciones de promover su propia defensa. Cuando tal circunstancia ocurra, deberá manifestarse en la solicitud. También podrán ejercerla el Defensor del Pueblo y los personeros municipales.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-11",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 11",
+   "titulo": "Caducidad — DEROGADO POR INEXEQUIBILIDAD",
+   "texto": "ESTE ARTÍCULO NO ES DERECHO VIGENTE. Fue declarado INEXEQUIBLE por la Sentencia C-543 de 1992 de la Corte Constitucional. Su texto original decía que la acción de tutela podría ejercerse en todo tiempo salvo la dirigida contra sentencias o providencias judiciales que pongan fin a un proceso, la cual caducaría a los dos meses de ejecutoriada la providencia. En consecuencia, NO existe un plazo de caducidad de dos meses para la tutela: la acción puede interponerse en todo tiempo, sin perjuicio del requisito jurisprudencial de inmediatez, que exige que se interponga en un término razonable desde el hecho vulnerante.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "INEXEQUIBLE (C-543 de 1992)",
+   "nota_vigencia": "Se incluye a propósito. Varias fuentes secundarias siguen citando esta caducidad como vigente; el corpus tiene que poder contradecirlas explícitamente en vez de quedarse callado.",
+   "verificado": true,
+   "transcripcion": "nota_editorial",
+   "verificado_el": "2026-10-15",
+   "por_que_no_es_literal": "Este fragmento NO transcribe el articulo: lo explica. El art. 11 fue declarado inexequible por la C-543 de 1992, y la decision de diseno del corpus es marcar lo derogado en vez de borrarlo, para que el sistema pueda recuperarlo y contradecir a quien lo invoque como vigente. Pero el texto son palabras del equipo, no del Diario Oficial, asi que etiquetarlo `literal` era falso. Lo encontro data/reverificar_corpus.py: era el unico fragmento cuyas palabras no estan en su fuente, y las que faltaban eran justo las de la anotacion ('declarado', 'inexequible', 'vigente')."
+  },
+  {
+   "id": "D2591-14",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 14",
+   "titulo": "Contenido de la solicitud. Informalidad",
+   "texto": "En la solicitud de tutela se expresará, con la mayor claridad posible, la acción o la omisión que la motiva, el derecho que se considera violado o amenazado, el nombre de la autoridad pública, si fuere posible, o del órgano autor de la amenaza o del agravio, y la descripción de las demás circunstancias relevantes para decidir la solicitud. También contendrá el nombre y el lugar de residencia del solicitante. No será indispensable citar la norma constitucional infringida, siempre que se determine claramente el derecho violado o amenazado. La acción podrá ser ejercida, sin ninguna formalidad o autenticación, por memorial, telegrama u otro medio de comunicación que se manifieste por escrito, para lo cual se gozará de franquicia. No será necesario actuar por medio de apoderado. En caso de urgencia o cuando el solicitante no sepa escribir o sea menor de edad, la acción podrá ser ejercida verbalmente.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-23",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 23",
+   "titulo": "Protección del derecho tutelado",
+   "texto": "Cuando la solicitud se dirija contra una acción de la autoridad el fallo que conceda la tutela tendrá por objeto garantizar al agraviado el pleno goce de su derecho, y volver al estado anterior a la violación, cuando fuere posible. Cuando lo impugnado hubiere sido la denegación de un acto o una omisión, el fallo ordenará realizarlo o desarrollar la acción adecuada.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-25",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 25",
+   "titulo": "Indemnizaciones y costas",
+   "texto": "Cuando el afectado no disponga de otro medio judicial, y la violación del derecho sea manifiesta y consecuencia de una acción clara e indiscutiblemente arbitraria, además de lo dispuesto en los dos artículos anteriores, en el fallo que conceda la tutela el juez, de oficio, tiene la potestad de ordenar en abstracto la indemnización del daño emergente causado si ello fuere necesario para asegurar el goce efectivo del derecho así como el pago de las costas del proceso. La liquidación del mismo y de los demás perjuicios se hará ante la jurisdicción de lo contencioso administrativo o ante el juez competente, por el trámite incidental, dentro de los seis meses siguientes, para lo cual el juez que hubiere conocido de la tutela remitirá inmediatamente copia de toda la actuación.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "nota_vigencia": "La indemnización por tutela es EXCEPCIONAL, de oficio, en abstracto y solo del daño emergente. No es la vía para reclamar una reparación integral: eso se liquida después ante la jurisdicción competente.",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-27",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 27",
+   "titulo": "Cumplimiento del fallo",
+   "texto": "Proferido el fallo que concede la tutela, la autoridad responsable del agravio deberá cumplirla sin demora. Si no lo hiciere dentro de las cuarenta y ocho horas siguientes, el juez se dirigirá al superior del responsable y le requerirá para que lo haga cumplir y abra el correspondiente procedimiento disciplinario contra aquél. Pasadas otras cuarenta y ocho horas, ordenará abrir proceso contra el superior que no hubiere procedido conforme a lo ordenado y adoptará directamente todas las medidas para el cabal cumplimiento del mismo. El juez podrá sancionar por desacato al responsable y al superior hasta que cumplan su sentencia. En todo caso, el juez establecerá los demás efectos del fallo para el caso concreto y mantendrá la competencia hasta que esté completamente restablecido el derecho o eliminadas las causas de la amenaza.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-29",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 29",
+   "titulo": "Contenido del fallo",
+   "texto": "Dentro de los diez días siguientes a la presentación de la solicitud el juez dictará fallo, el cual deberá contener: 1. La identificación del solicitante. 2. La identificación del sujeto o sujetos de quien provenga la amenaza o vulneración. 3. La determinación del derecho tutelado. 4. La orden y la definición precisa de la conducta a cumplir con el fin de hacer efectiva la tutela. 5. El plazo perentorio para el cumplimiento de lo resuelto, que en ningún caso podrá exceder de 48 horas. 6. Cuando la violación o amenaza de violación derive de la aplicación de una norma incompatible con los derechos fundamentales, la providencia judicial que resuelva la acción interpuesta deberá además ordenar la inaplicación de la norma impugnada en el caso concreto. PARÁGRAFO. El contenido del fallo no podrá ser inhibitorio.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-30",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 30",
+   "titulo": "Notificación del fallo",
+   "texto": "El fallo se notificará por telegrama o por otro medio expedito que asegure su cumplimiento, a más tardar al día siguiente de haber sido proferido.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-31",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 31",
+   "titulo": "Impugnación del fallo",
+   "texto": "Dentro de los tres días siguientes a su notificación el fallo podrá ser impugnado por el Defensor del Pueblo, el solicitante, la autoridad pública o el representante del órgano correspondiente, sin perjuicio de su cumplimiento inmediato. Los fallos que no sean impugnados serán enviados al día siguiente a la Corte Constitucional para su revisión.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-42",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 42",
+   "titulo": "Procedencia contra particulares",
+   "texto": "La acción de tutela procederá contra acciones u omisiones de particulares en los siguientes casos: 1. Cuando contra quien se hubiere hecho la solicitud esté encargado de la prestación del servicio público de educación para proteger los derechos consagrados en los artículos 13, 15, 16, 19, 20, 23, 27, 29, 37 y 38 de la Constitución. 2. Cuando contra quien se hubiere hecho la solicitud esté encargado de la prestación del servicio público de salud para proteger los derechos a la vida, a la intimidad, a la igualdad y a la autonomía. 3. Cuando aquél contra quien se hubiere hecho la solicitud esté encargado de la prestación de servicios públicos domiciliarios. 4. Cuando la solicitud fuere dirigida contra una organización privada, contra quien la controle efectivamente o fuere el beneficiario real de la situación que motivó la acción, siempre y cuando el solicitante tenga una relación de subordinación o indefensión con tal organización.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "nota_vigencia": "Los numerales enumeran supuestos TASADOS y cada uno protege derechos específicos: el numeral 1 (educación) cubre, entre otros, el derecho de petición (art. 23 CP) y el debido proceso (art. 29 CP); el numeral 2 (salud) solo cubre vida, intimidad, igualdad y autonomía. Para otros derechos frente a un particular suele invocarse el numeral de subordinación o indefensión.",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "D2591-52",
+   "norma": "Decreto 2591 de 1991",
+   "articulo": "art. 52",
+   "titulo": "Desacato",
+   "texto": "La persona que incumpliere una orden de un juez proferida con base en el presente decreto incurrirá en desacato sancionable con arresto hasta de seis meses y multa hasta de 20 salarios mínimos mensuales, salvo que en este decreto ya se hubiere señalado una consecuencia jurídica distinta y sin perjuicio de las sanciones penales a que hubiere lugar. La sanción será impuesta por el mismo juez mediante trámite incidental y será consultada al superior jerárquico quien decidirá dentro de los tres días siguientes si debe revocarse la sanción.",
+   "fuente": "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/INEC/IGUB/decreto-2591-de-1991.pdf",
+   "vigencia": "vigente",
+   "nota_vigencia": "El primer inciso fue declarado EXEQUIBLE por la Sentencia C-367 de 2014 en el entendido de que el incidente de desacato debe resolverse en el término del artículo 86 de la Constitución.",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "J-C531-00",
+   "norma": "Sentencia C-531 de 2000",
+   "articulo": "estabilidad laboral reforzada",
+   "titulo": "El despido sin autorización previa carece de efecto jurídico",
+   "fuente": "https://www.corteconstitucional.gov.co/relatoria/2000/C-531-00.htm",
+   "texto": "Primero.- Declarar EXEQUIBLE la expresión “salvo que medie autorización de la oficina de Trabajo”, contenida en el inciso 1o. del artículo 26 de la Ley 361 de 1997. Segundo.- Declarar EXEQUIBLE el inciso 2o. del artículo 26 de la Ley 361 de 1997 bajo el supuesto de que en los términos de esta providencia y debido a los principios de respeto a la dignidad humana, solidaridad e igualdad (C.P., arts. 2o. y 13), así como de especial protección constitucional en favor de los disminuidos físicos, sensoriales y síquicos (C.P., arts. 47 y 54), carece de todo efecto jurídico el despido o la terminación del contrato de una persona por razón de su limitación sin que exista autorización previa de la oficina de Trabajo que constate la configuración de la existencia de una justa causa para el despido o terminación del respectivo contrato.",
+   "por_que_importa": "Es el fundamento de la ESTABILIDAD LABORAL REFORZADA, que el eval set usa en E08 (quimioterapia), E23 (embarazo) y E24 (esclerosis multiple). Y resuelve una ambiguedad que importa: la indemnizacion de 180 dias NO sanea el despido, porque este 'carece de todo efecto juridico' sin la autorizacion previa. Confirma ademas que la redaccion vigente dice 'oficina de Trabajo'.",
+   "tipo": "jurisprudencia",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16",
+   "nota_tipo": "Fragmento de JURISPRUDENCIA, no normativo. data/normas.json declara `jurisprudencia_referencia` como campo aparte que NO entra al chequeo de alucinacion normativa, porque la cita jurisprudencial es mas volatil. Se respeta: esto es recuperable por el RAG y no entra en las metricas que son solo de normas."
+  },
+  {
+   "id": "J-C744-12",
+   "norma": "Sentencia C-744 de 2012",
+   "articulo": "derogatoria inexequible",
+   "titulo": "Inexequible el art. 137 del Decreto Ley 19 de 2012",
+   "fuente": "https://www.corteconstitucional.gov.co/relatoria/2012/C-744-12.htm",
+   "texto": "Declarar INEXEQUIBLE el artículo 137 del Decreto Ley 19 de 2012, que derogó el artículo 26 de la Ley 361 de 1997, por el cargo de exceso en el ejercicio de las facultades extraordinarias.",
+   "por_que_importa": "Cierra el ROADMAP #26. El art. 137 SI derogo el art. 26 de la Ley 361, pero fue declarado inexequible, asi que la derogatoria no surtio efecto y el texto original sigue vigente. La version anterior del corpus afirmaba que el Decreto 019 habia trasladado la autorizacion al Ministerio del Trabajo y lo marcaba como no cotejado; ahora esta cotejado y la respuesta es que no.",
+   "tipo": "jurisprudencia",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16",
+   "nota_tipo": "Fragmento de JURISPRUDENCIA, no normativo. data/normas.json declara `jurisprudencia_referencia` como campo aparte que NO entra al chequeo de alucinacion normativa, porque la cita jurisprudencial es mas volatil. Se respeta: esto es recuperable por el RAG y no entra en las metricas que son solo de normas."
+  },
+  {
+   "id": "J-T225-93",
+   "norma": "Sentencia T-225 de 1993",
+   "articulo": "perjuicio irremediable",
+   "titulo": "Elementos concurrentes del perjuicio irremediable",
+   "fuente": "https://www.corteconstitucional.gov.co/relatoria/1993/T-225-93.htm",
+   "texto": "Para determinar la irremediabilidad del perjuicio hay que tener en cuenta la presencia concurrente de varios elementos que configuran su estructura, como la inminencia, que exige medidas inmediatas, la urgencia que tiene el sujeto de derecho por salir de ese perjuicio inminente, y la gravedad de los hechos, que hace evidente la impostergabilidad de la tutela como mecanismo necesario para la protección inmediata de los derechos constitucionales fundamentales. La concurrencia de los elementos mencionados pone de relieve la necesidad de considerar la situación fáctica que legitima la acción de tutela, como mecanismo transitorio y como medida precautelativa para garantizar la protección de los derechos fundamentales que se lesionan o que se encuentran amenazados.",
+   "por_que_importa": "Es la fuente primaria del test que `src/reglas.py` implementa: el desglose de `perjuicio_irremediable` en inminencia, gravedad, urgencia e impostergabilidad, y la exigencia de que CONCURRAN todos. El codigo citaba esta sentencia de memoria; ahora su texto esta en el corpus y la afirmacion se puede cotejar. Las palabras 'presencia concurrente' y 'La concurrencia de los elementos' son literalmente lo que el test conjuntivo exige.",
+   "tipo": "jurisprudencia",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16",
+   "nota_tipo": "Fragmento de JURISPRUDENCIA, no normativo. data/normas.json declara `jurisprudencia_referencia` como campo aparte que NO entra al chequeo de alucinacion normativa, porque la cita jurisprudencial es mas volatil. Se respeta: esto es recuperable por el RAG y no entra en las metricas que son solo de normas."
+  },
+  {
+   "id": "L100-24",
+   "norma": "Ley 100 de 1993",
+   "articulo": "art. 24",
+   "titulo": "Acciones de cobro",
+   "texto": "<Ver > Corresponde a las entidades administradoras de los diferentes regímenes adelantar las acciones de cobro con motivo del incumplimiento de las obligaciones del empleador de conformidad con la reglamentación que expida el Gobierno Nacional. Para tal efecto, la liquidación mediante la cual la administradora determine el valor adeudado, prestará mérito ejecutivo.",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_0100_1993.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "REGLA QUE IMPORTA: la obligacion de cobrar los aportes en mora es de la ADMINISTRADORA, no del afiliado. Es el fundamento de que la mora del empleador no sea oponible a quien ya tuvo el descuento en su sueldo.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L100-51",
+   "norma": "Ley 100 de 1993",
+   "articulo": "art. 51",
+   "titulo": "Auxilio funerario",
+   "texto": "La persona que compruebe haber sufragado los gastos de entierro de un afiliado o pensionado, tendrá derecho a percibir un auxilio funerario equivalente al último salario base de cotización, o al valor correspondiente a la última mesada pensional recibida, según sea el caso, sin que éste auxilio pueda ser inferior a cinco (5) salarios mínimos legales mensuales vigentes, ni superior a diez (10) veces dicho salario. Cuando los gastos funerarios por disposición legal o reglamentaria deban estar cubiertos por una póliza de seguros, el Instituto de Seguros Sociales, cajas, fondos o entidades del sector público podrán repetir contra la entidad aseguradora que lo haya amparado, por las sumas que se paguen por este concepto.",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_0100_1993.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "El auxilio funerario lo recibe QUIEN COMPRUEBE haber sufragado los gastos, sin exigir que sea un familiar directo. Exigir un parentesco que la norma no pide desconoce la finalidad de la prestacion.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L1095-01",
+   "norma": "Ley 1095 de 2006",
+   "articulo": "art. 1",
+   "titulo": "Definición del habeas corpus",
+   "texto": "El Hábeas Corpus es un derecho fundamental y, a la vez, una acción constitucional que tutela la libertad personal cuando alguien es privado de la libertad con violación de las garantías constitucionales o legales, o esta se prolongue ilegalmente. Esta acción únicamente podrá invocarse o incoarse por una sola vez y para su decisión se aplicará el principio pro homine. No se suspenderá, aun en los Estados de Excepción.",
+   "fuente": "https://cancilleria.gov.co/normograma/compilacion/docs/ley_1095_2006.htm",
+   "vigencia": "vigente; articulo CONDICIONALMENTE exequible (C-187 de 2006)",
+   "transcripcion": "literal",
+   "nota_vigencia": "REGLA DE ENRUTAMIENTO. Dos supuestos activan el habeas corpus y excluyen la tutela (art. 6.2 D.2591): (a) privacion de la libertad con violacion de garantias, y (b) PROLONGACION ILEGAL de una privacion que empezo siendo legal. El segundo supuesto cubre, por ejemplo, a quien ya cumplio la condena y sigue recluido. La expresion 'por una sola vez' se entiende referida a cada hecho o actuacion distinta.",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L1095-02",
+   "norma": "Ley 1095 de 2006",
+   "articulo": "art. 2",
+   "titulo": "Competencia para resolver el habeas corpus",
+   "texto": "COMPETENCIA. La competencia para resolver solicitudes de Hábeas Corpus se establecerá de acuerdo con las siguientes reglas: 1. Son competentes para resolver la solicitud de Hábeas Corpus todos los jueces y tribunales de la Rama Judicial del Poder Público. 2. Cuando se interponga ante una Corporación, se tendrá a cada uno de sus integrantes como juez individual para resolver las acciones de Hábeas Corpus. Si el juez al que le hubiere sido repartida la acción ya hubiere conocido con antelación sobre la actuación judicial que origina la solicitud de Hábeas Corpus, deberá declararse impedido para resolver sobre esta y trasladar las diligencias, de inmediato, al juez siguiente –o del municipio más cercano– de la misma jerarquía, quien deberá fallar sobre la acción dentro de los términos previstos para ello.",
+   "fuente": "https://cancilleria.gov.co/normograma/compilacion/docs/ley_1095_2006.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "normalizacion": "El normograma de Cancilleria intercala en el cuerpo del articulado los enlaces de su propia navegacion ('Notas de Vigencia', 'Concordancias', 'Texto del Proyecto de Ley Anterior'). No son texto de la ley sino botones de la pagina que el conversor deja caer entre las frases; se retiraron. Ni una palabra del articulado se modifico.",
+   "verificado": true,
+   "verificado_el": "2026-10-16",
+   "por_que_importa": "Los ocho casos de habeas corpus del eval set preguntan ante quien se pide. Hasta ahora el corpus solo tenia la definicion del art. 1."
+  },
+  {
+   "id": "L1095-03",
+   "norma": "Ley 1095 de 2006",
+   "articulo": "art. 3",
+   "titulo": "Garantías para el ejercicio del habeas corpus",
+   "texto": "GARANTÍAS PARA EL EJERCICIO DE LA ACCIÓN CONSTITUCIONAL DE HÁBEAS CORPUS. Quien estuviera ilegalmente privado de su libertad tiene derecho a las siguientes garantías: 1. Invocar ante cualquier autoridad judicial competente el Hábeas Corpus para que este sea resuelto en un término de treinta y seis (36) horas. 2. A que la acción pueda ser invocada por terceros en su nombre, sin necesidad de mandato alguno. 3. A que la acción pueda ser invocada en cualquier tiempo, mientras que la violación persista. Para ello, dentro de los tres (3) meses siguientes a la entrada en vigencia de la presente ley, el Consejo Superior de la Judicatura reglamentará un sistema de turnos judiciales para la atención de las solicitudes de Hábeas Corpus en el país, durante las veinticuatro (24) horas del día, los días feriados y las épocas de vacancia judicial. 4. A que la actuación no se suspenda o aplace por la interposición de días festivos o de vacancia judicial. 5. A que la Defensoría del Pueblo y la Procuraduría General de la Nación invoquen el Hábeas Corpus en su nombre.",
+   "fuente": "https://cancilleria.gov.co/normograma/compilacion/docs/ley_1095_2006.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "normalizacion": "El normograma de Cancilleria intercala en el cuerpo del articulado los enlaces de su propia navegacion ('Notas de Vigencia', 'Concordancias', 'Texto del Proyecto de Ley Anterior'). No son texto de la ley sino botones de la pagina que el conversor deja caer entre las frases; se retiraron. Ni una palabra del articulado se modifico.",
+   "verificado": true,
+   "verificado_el": "2026-10-16",
+   "por_que_importa": "Es el articulo del TERMINO DE 36 HORAS y el que dice que un tercero puede invocarlo sin mandato. Sostiene E31 (48 horas sin juez de control de garantias) y A14 (un hermano pide por su madre retenida en una clinica privada)."
+  },
+  {
+   "id": "L1095-05",
+   "norma": "Ley 1095 de 2006",
+   "articulo": "art. 5",
+   "titulo": "Trámite del habeas corpus",
+   "texto": "TRÁMITE. En los lugares donde haya dos (2) o más autoridades judiciales competentes de la misma categoría, la petición de Hábeas Corpus se someterá a reparto inmediato entre dichos funcionarios. La autoridad judicial a quien corresponda conocer del Hábeas Corpus no podrá ser recusada en ningún caso; una vez recibida la solicitud, se podrá decretar una inspección a las diligencias que pudieren existir en el asunto que dio origen a la petición. También podrá solicitar del respectivo director del centro de reclusión, y de las autoridades que considere pertinentes, información urgente sobre todo lo concerniente a la privación de la libertad. La falta de respuesta inmediata a estas solicitudes constituirá falta gravísima. La autoridad judicial competente procurará entrevistarse en todos los casos con la persona en cuyo favor se instaura la acción de Hábeas Corpus. Para ello se podrá ordenar que aquella sea presentada ante él, con el objeto de entrevistarla y verificar los hechos consignados en la petición. Con este mismo fin, podrá trasladarse al lugar donde se encuentra la persona en cuyo favor se instauró la acción, si existen motivos de conveniencia, seguridad u oportunidad que no aconsejen el traslado de la persona a la sede judicial. Con todo, la autoridad judicial podrá prescindir de esa entrevista, cuando no la considere necesaria. Los motivos de esta decisión deberán exponerse en la providencia que decida acerca del Hábeas Corpus.",
+   "fuente": "https://cancilleria.gov.co/normograma/compilacion/docs/ley_1095_2006.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "normalizacion": "El normograma de Cancilleria intercala en el cuerpo del articulado los enlaces de su propia navegacion ('Notas de Vigencia', 'Concordancias', 'Texto del Proyecto de Ley Anterior'). No son texto de la ley sino botones de la pagina que el conversor deja caer entre las frases; se retiraron. Ni una palabra del articulado se modifico.",
+   "verificado": true,
+   "verificado_el": "2026-10-16",
+   "por_que_importa": "El tramite, incluida la entrevista con la persona privada de la libertad y el deber de informacion del director del centro de reclusion. Sostiene E37 y A13."
+  },
+  {
+   "id": "L1095-06",
+   "norma": "Ley 1095 de 2006",
+   "articulo": "art. 6",
+   "titulo": "Decisión: liberación inmediata",
+   "texto": "DECISIÓN. Demostrada la violación de las garantías constitucionales o legales, la autoridad judicial competente inmediatamente ordenará la liberación de la persona privada de la libertad, por auto interlocutorio contra el cual no procede recurso alguno.",
+   "fuente": "https://cancilleria.gov.co/normograma/compilacion/docs/ley_1095_2006.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "normalizacion": "El normograma de Cancilleria intercala en el cuerpo del articulado los enlaces de su propia navegacion ('Notas de Vigencia', 'Concordancias', 'Texto del Proyecto de Ley Anterior'). No son texto de la ley sino botones de la pagina que el conversor deja caer entre las frases; se retiraron. Ni una palabra del articulado se modifico.",
+   "verificado": true,
+   "verificado_el": "2026-10-16",
+   "por_que_importa": "La consecuencia: liberacion INMEDIATA por auto sin recurso. Es lo que el sistema tiene que concluir en A10 (pena cumplida) y E38 (retenido por no pagar la multa)."
+  },
+  {
+   "id": "L1098-111",
+   "norma": "Ley 1098 de 2006",
+   "articulo": "art. 111",
+   "titulo": "Alimentos",
+   "texto": "Para la fijación de cuota alimentaria se observarán las siguientes reglas: 1. La mujer grávida podrá reclamar alimentos a favor del hijo que está por nacer, respecto del padre legítimo o del extramatrimonial que haya reconocido la paternidad. 2. Siempre que se conozca la dirección donde puede recibir notificaciones el obligado a suministrar alimentos, el defensor o comisario de familia lo citará a audiencia de conciliación. En caso contrario, elaborará informe que suplirá la demanda y lo remitirá al Juez de Familia para que inicie el respectivo proceso. Cuando habiendo sido debidamente citado a la audiencia el obligado no haya concurrido, o habiendo concurrido no se haya logrado la conciliación, fijará cuota provisional de alimentos, pero sólo se remitirá el informe al juez si alguna de las partes lo solicita dentro de los cinco días hábiles siguientes. 3. Cuando se logre conciliación se levantará acta en la que se indicará: el monto de la cuota alimentaria y la fórmula para su reajuste periódico; el lugar y la forma de su cumplimento; la persona a quien debe hacerse el pago, los descuentos salariales, las garantías que ofrece el obligado y demás aspectos que se estimen necesarios para asegurar el cabal cumplimiento de la obligación alimentaria. De ser el caso, la autoridad promoverá la conciliación sobre custodia, régimen de visitas y demás aspectos conexos. 4. Lo dispuesto en este artículo se aplicará también al ofrecimiento de alimentos a niños, las niñas o los adolescentes. 5. <Numeral derogado por el literal c) del artículo 626 de la Ley 1564 de 2012. Rige a partir del 1o. de enero de 2014. En los términos del numeral 6) del artículo 627, ver en el texto vigente hasta esta fecha>",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1098_2006.htm",
+   "vigencia": "vigente; numeral 5 derogado por la Ley 1564 de 2012",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "REGLA DE ENRUTAMIENTO. El numeral 2 describe la via propia de los alimentos: citacion a audiencia de conciliacion ante el defensor o comisario de familia y remision al Juez de Familia. Esa via especifica es la que hace improcedente la tutela por subsidiariedad (art. 6.1 del Decreto 2591 de 1991) salvo perjuicio irremediable. El numeral 4 extiende la regla al ofrecimiento de alimentos.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L1266-13",
+   "norma": "Ley 1266 de 2008",
+   "articulo": "art. 13",
+   "titulo": "Permanencia de la información",
+   "texto": "La información de carácter positivo permanecerá de manera indefinida en los bancos de datos de los operadores de información. Los datos cuyo contenido haga referencia al tiempo de mora, tipo de cobro, estado de la cartera y, en general, aquellos datos referentes a una situación de incumplimiento de obligaciones, se regirán por un término máximo de permanencia, vencido el cual deberá ser retirada de los bancos de datos por el operador, de forma que los usuarios no puedan acceder o consultar dicha información. El término de permanencia de ésta información será el doble del tiempo de la mora, máximo cuatro (4) años contados a partir de la fecha en que sean pagadas las cuotas vencidas o sea extinguida la obligación. PARÁGRAFO 1o. El dato negativo y los datos cuyo contenido haga referencia al tiempo de mora, tipo de cobro, estado de la cartera y, en general, aquellos datos referentes a una situación de incumplimiento de obligaciones caducarán una vez cumplido el término de ocho (8) años, contados a partir del momento en que entre en mora la obligación; cumplido este término deberán ser eliminados de la base de datos. PARÁGRAFO 2o. En las obligaciones inferiores o iguales al (15%) de un (1) salario mínimo legal mensual vigente, el dato negativo por obligaciones que se han constituido en mora solo será reportado después de cumplirse con al menos dos comunicaciones, ambas en días diferentes. Y debe mediar entre la última comunicación y reporte, 20 días calendario. PARÁGRAFO 3o. Toda información negativa o desfavorable que se encuentre en bases de datos y se relacione con calificaciones, récord (scorings-score), o cualquier tipo de medición financiera, comercial o crediticia, deberá ser actualizada de manera simultánea con el retiro del dato negativo o con la cesación del hecho que generó la disminución de la medición.",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1266_2008.htm",
+   "vigencia": "vigente, modificado por el art. 3 de la Ley 2157 de 2021",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "DOS PLAZOS DISTINTOS QUE COEXISTEN, y confundirlos cambia la respuesta: (a) el cuerpo del articulo fija el doble del tiempo de mora, maximo CUATRO anos, contados desde que se pagan las cuotas vencidas o se extingue la obligacion; (b) el paragrafo 1 fija una caducidad de OCHO anos contados desde que la obligacion entra en mora, cumplidos los cuales el dato debe eliminarse. El (b) aplica aunque nunca se haya pagado. Una version anterior de este corpus decia que el plazo 'paso de 4 a 8 anos': es falso, no hubo reemplazo. || Notas del texto fuente: Artículo modificado por el artículo 3 de la Ley 2157 de 2021. El nuevo texto es el siguiente:",
+   "tambien_cita": [
+    "Ley 2157 de 2021"
+   ],
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L1437-138",
+   "norma": "Ley 1437 de 2011",
+   "articulo": "art. 138",
+   "titulo": "Nulidad y restablecimiento del derecho",
+   "texto": "Toda persona que se crea lesionada en un derecho subjetivo amparado en una norma jurídica, podrá pedir que se declare la nulidad del acto administrativo particular, expreso o presunto, y se le restablezca el derecho; también podrá solicitar que se le repare el daño. La nulidad procederá por las mismas causales establecidas en el inciso segundo del artículo anterior. Igualmente podrá pretenderse la nulidad del acto administrativo general y pedirse el restablecimiento del derecho directamente violado por este al particular demandante o la reparación del daño causado a dicho particular por el mismo, siempre y cuando la demanda se presente en tiempo, esto es, dentro de los cuatro (4) meses siguientes a su publicación. Si existe un acto intermedio, de ejecución o cumplimiento del acto general, el término anterior se contará a partir de la notificación de aquel.",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1437_2011.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "REGLA DE ENRUTAMIENTO. Es el medio de control idoneo frente a un acto administrativo particular que se considera ilegal, y su existencia activa la causal de subsidiariedad del art. 6.1 del Decreto 2591 de 1991 salvo perjuicio irremediable. El plazo de cuatro meses del inciso 3 aplica al acto general.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L1581-05",
+   "norma": "Ley 1581 de 2012",
+   "articulo": "art. 5",
+   "titulo": "Datos sensibles",
+   "texto": "Para los propósitos de la presente ley, se entiende por datos sensibles aquellos que afectan la intimidad del Titular o cuyo uso indebido puede generar su discriminación, tales como aquellos que revelen el origen racial o étnico, la orientación política, las convicciones religiosas o filosóficas, la pertenencia a sindicatos, organizaciones sociales, de derechos humanos o que promueva intereses de cualquier partido político o que garanticen los derechos y garantías de partidos políticos de oposición así como los datos relativos a la salud, a la vida sexual y los datos biométricos.",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1581_2012.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "Base legal de los DATOS SENSIBLES, entre ellos los relativos a la salud. Es lo que convierte la divulgacion de un diagnostico en una vulneracion del habeas data del art. 15 CP.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L1581-06",
+   "norma": "Ley 1581 de 2012",
+   "articulo": "art. 6",
+   "titulo": "Tratamiento de datos sensibles",
+   "texto": "Se prohíbe el Tratamiento de datos sensibles, excepto cuando: a) El Titular haya dado su autorización explícita a dicho Tratamiento, salvo en los casos que por ley no sea requerido el otorgamiento de dicha autorización; b) El Tratamiento sea necesario para salvaguardar el interés vital del Titular y este se encuentre física o jurídicamente incapacitado. En estos eventos, los representantes legales deberán otorgar su autorización; c) El Tratamiento sea efectuado en el curso de las actividades legítimas y con las debidas garantías por parte de una fundación, ONG, asociación o cualquier otro organismo sin ánimo de lucro, cuya finalidad sea política, filosófica, religiosa o sindical, siempre que se refieran exclusivamente a sus miembros o a las personas que mantengan contactos regulares por razón de su finalidad. En estos eventos, los datos no se podrán suministrar a terceros sin la autorización del Titular; d) El Tratamiento se refiera a datos que sean necesarios para el reconocimiento, ejercicio o defensa de un derecho en un proceso judicial; e) El Tratamiento tenga una finalidad histórica, estadística o científica. En este evento deberán adoptarse las medidas conducentes a la supresión de identidad de los Titulares.",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1581_2012.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "El tratamiento de datos sensibles esta PROHIBIDO salvo las cinco excepciones taxativas. La primera exige autorizacion EXPLICITA del titular.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L1751-02",
+   "norma": "Ley 1751 de 2015",
+   "articulo": "art. 2",
+   "titulo": "Naturaleza y contenido del derecho fundamental a la salud",
+   "texto": "El derecho fundamental a la salud es autónomo e irrenunciable en lo individual y en lo colectivo. Comprende el acceso a los servicios de salud de manera oportuna, eficaz y con calidad para la preservación, el mejoramiento y la promoción de la salud. El Estado adoptará políticas para asegurar la igualdad de trato y oportunidades en el acceso a las actividades de promoción, prevención, diagnóstico, tratamiento, rehabilitación y paliación para todas las personas. De conformidad con el artículo 49 de la Constitución Política, su prestación como servicio público esencial obligatorio, se ejecuta bajo la indelegable dirección, supervisión, organización, regulación, coordinación y control del Estado.",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_1751_2015.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L1751-06",
+   "norma": "Ley 1751 de 2015",
+   "articulo": "art. 6",
+   "titulo": "Elementos y principios del derecho fundamental a la salud",
+   "texto": "El derecho fundamental a la salud incluye los siguientes elementos esenciales e interrelacionados: a) Disponibilidad. El Estado deberá garantizar la existencia de servicios y tecnologías e instituciones de salud, así como de programas de salud y personal médico y profesional competente; b) Aceptabilidad. Los diferentes agentes del sistema deberán ser respetuosos de la ética médica así como de las diversas culturas de las personas, minorías étnicas, pueblos y comunidades, respetando sus particularidades socioculturales y cosmovisión de la salud, permitiendo su participación en las decisiones del sistema de salud que le afecten, de conformidad con el artículo 12 de la presente ley y responder adecuadamente a las necesidades de salud relacionadas con el género y el ciclo de vida. Los establecimientos deberán prestar los servicios para mejorar el estado de salud de las personas dentro del respeto a la confidencialidad; c) Accesibilidad. Los servicios y tecnologías de salud deben ser accesibles a todos, en condiciones de igualdad, dentro del respeto a las especificidades de los diversos grupos vulnerables y al pluralismo cultural. La accesibilidad comprende la no discriminación, la accesibilidad física, la asequibilidad económica y el acceso a la información; d) Calidad e idoneidad profesional. Los establecimientos, servicios y tecnologías de salud deberán estar centrados en el usuario, ser apropiados desde el punto de vista médico y técnico y responder a estándares de calidad aceptados por las comunidades científicas. Ello requiere, entre otros, personal de la salud adecuadamente competente, enriquecida con educación continua e investigación científica y una evaluación oportuna de la calidad de los servicios y tecnologías ofrecidos. Así mismo, el derecho fundamental a la salud comporta los siguientes principios: a) Universalidad. Los residentes en el territorio colombiano gozarán efectivamente del derecho fundamental a la salud en todas las etapas de la vida; b) Pro homine. Las autoridades y demás actores del sistema de salud, adoptarán la interpretación de las normas vigentes que sea más favorable a la protección del derecho fundamental a la salud de las personas; c) Equidad. El Estado debe adoptar políticas públicas dirigidas específicamente al mejoramiento de la salud de personas de escasos recursos, de los grupos vulnerables y de los sujetos de especial protección; d) Continuidad. Las personas tienen derecho a recibir los servicios de salud de manera continua. Una vez la provisión de un servicio ha sido iniciada, este no podrá ser interrumpido por razones administrativas o económicas; e) Oportunidad. La prestación de los servicios y tecnologías de salud deben proveerse sin dilaciones; f) Prevalencia de derechos. El Estado debe implementar medidas concretas y específicas para garantizar la atención integral a niñas, niños y adolescentes. En cumplimiento de sus derechos prevalentes establecidos por la Constitución Política. Dichas medidas se formularán por ciclos vitales: prenatal hasta seis (6) años, de los (7) a los catorce (14) años, y de los quince (15) a los dieciocho (18) años; g) Progresividad del derecho. El Estado promoverá la correspondiente ampliación gradual y continua del acceso a los servicios y tecnologías de salud, la mejora en su prestación, la ampliación de capacidad instalada del sistema de salud y el mejoramiento del talento humano, así como la reducción gradual y continua de barreras culturales, económicas, geográficas, administrativas y tecnológicas que impidan el goce efectivo del derecho fundamental a la salud; h) Libre elección. Las personas tienen la libertad de elegir sus entidades de salud dentro de la oferta disponible según las normas de habilitación; i) Sostenibilidad. El Estado dispondrá, por los medios que la ley estime apropiados, los recursos necesarios y suficientes para asegurar progresivamente el goce efectivo del derecho fundamental a la salud, de conformidad con las normas constitucionales de sostenibilidad fiscal; j) Solidaridad. El sistema está basado en el mutuo apoyo entre las personas, generaciones, los sectores económicos, las regiones y las comunidades; k) Eficiencia. El sistema de salud debe procurar por la mejor utilización social y económica de los recursos, servicios y tecnologías disponibles para garantizar el derecho a la salud de toda la población; l) Interculturalidad. Es el respeto por las diferencias culturales existentes en el país y en el ámbito global, así como el esfuerzo deliberado por construir mecanismos que integren tales diferencias en la salud, en las condiciones de vida y en los servicios de atención integral de las enfermedades, a partir del reconocimiento de los saberes, prácticas y medios tradicionales, alternativos y complementarios para la recuperación de la salud en el ámbito global; m) Protección a los pueblos indígenas. Para los pueblos indígenas el Estado reconoce y garantiza el derecho fundamental a la salud integral, entendida según sus propias cosmovisiones y conceptos, que se desarrolla en el Sistema Indígena de Salud Propio e Intercultural (SISPI); n) Protección pueblos y comunidades indígenas, ROM y negras, afrocolombianas, raizales y palenqueras. Para los pueblos y comunidades indígenas, ROM y negras, afrocolombianas, raizales y palenqueras, se garantizará el derecho a la salud como fundamental y se aplicará de manera concertada con ellos, respetando sus costumbres. Parágrafo. Los principios enunciados en este artículo se deberán interpretar de manera armónica sin privilegiar alguno de ellos sobre los demás. Lo anterior no obsta para que sean adoptadas acciones afirmativas en beneficio de sujetos de especial protección constitucional como la promoción del interés superior de las niñas, niños y mujeres en estado de embarazo y personas de escasos recursos, grupos vulnerables y sujetos de especial protección.",
+   "por_que_importa": "Los principios d) Continuidad y e) Oportunidad son el fundamento exacto de los casos de servicio interrumpido por razones administrativas (E12, insumos suspendidos) y de dilacion indebida (E14, lista de espera). Antes esos casos se respaldaban con el art. 2, que define la naturaleza del derecho y no dice nada sobre continuidad ni plazos.",
+   "fuente": "https://www.suin-juriscol.gov.co/viewDocument.asp?ruta=Leyes/30019746",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16",
+   "procedencia": "Impresion oficial de SUIN-Juriscol (Sistema Unico de Informacion Normativa del Estado colombiano), que encabeza 'DIARIO OFICIAL. ANO CL. N. 49427. 16, FEBRERO, 2015' y 'ESTADO DE VIGENCIA: Vigente'. Texto extraido con pypdf y normalizado quitando el cromo del visor web (las cabeceras de pagina y las URLs que SUIN inserta en cada hoja). Ni una palabra del articulado se modifico."
+  },
+  {
+   "id": "L1751-08",
+   "norma": "Ley 1751 de 2015",
+   "articulo": "art. 8",
+   "titulo": "La integralidad",
+   "texto": "Los servicios y tecnologías de salud deberán ser suministrados de manera completa para prevenir, paliar o curar la enfermedad, con independencia del origen de la enfermedad o condición de salud, del sistema de provisión, cubrimiento o financiación definido por el legislador. No podrá fragmentarse la responsabilidad en la prestación de un servicio de salud específico en desmedro de la salud del usuario. En los casos en los que exista duda sobre el alcance de un servicio o tecnología de salud cubierto por el Estado, se entenderá que este comprende todos los elementos esenciales para lograr su objetivo médico respecto de la necesidad específica de salud diagnosticada.",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_1751_2015.pdf",
+   "vigencia": "vigente; el paragrafo del articulo fue declarado INEXEQUIBLE",
+   "transcripcion": "literal",
+   "nota_vigencia": "Este es el fundamento del 'tratamiento integral': prohibe fragmentar la prestacion en autorizaciones sucesivas y ordena resolver la duda a favor de la cobertura completa. El paragrafo del articulo fue declarado inexequible y por eso no se transcribe.",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L1751-14",
+   "norma": "Ley 1751 de 2015",
+   "articulo": "art. 14",
+   "titulo": "Prohibición de la negación de prestación de servicios",
+   "texto": "Para acceder a servicios y tecnologías de salud no se requerirá ningún tipo de autorización administrativa entre el prestador de servicios y la entidad que cumpla la función de gestión de servicios de salud cuando se trate de atención de urgencia. El Gobierno Nacional definirá los mecanismos idóneos para controlar el uso adecuado y racional de dichos servicios y tecnologías en salud. Parágrafo 1°. En los casos de negación de los servicios que comprenden el derecho fundamental a la salud con independencia a sus circunstancias, el Congreso de la República definirá mediante ley las sanciones penales y disciplinarias, tanto de los Representantes Legales de las entidades a cargo de la prestación del servicio como de las demás personas que contribuyeron a la misma. Parágrafo 2°. Lo anterior sin perjuicio de la tutela.",
+   "por_que_importa": "Es el fundamento del caso mas frecuente del eval set: la EPS que niega un servicio por un tramite administrativo (E01, E02). El paragrafo 2 es explicito en que la prohibicion opera 'sin perjuicio de la tutela', que es justo lo que el sistema tiene que concluir.",
+   "fuente": "https://www.suin-juriscol.gov.co/viewDocument.asp?ruta=Leyes/30019746",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16",
+   "procedencia": "Impresion oficial de SUIN-Juriscol (Sistema Unico de Informacion Normativa del Estado colombiano), que encabeza 'DIARIO OFICIAL. ANO CL. N. 49427. 16, FEBRERO, 2015' y 'ESTADO DE VIGENCIA: Vigente'. Texto extraido con pypdf y normalizado quitando el cromo del visor web (las cabeceras de pagina y las URLs que SUIN inserta en cada hoja). Ni una palabra del articulado se modifico."
+  },
+  {
+   "id": "L1755-13",
+   "norma": "Ley 1755 de 2015",
+   "articulo": "art. 13",
+   "titulo": "Objeto y modalidades del derecho de petición ante autoridades",
+   "texto": "Toda persona tiene derecho a presentar peticiones respetuosas a las autoridades, en los términos señalados en este código, por motivos de interés general o particular, y a obtener pronta resolución completa y de fondo sobre la misma. Toda actuación que inicie cualquier persona ante las autoridades implica el ejercicio del derecho de petición consagrado en el artículo 23 de la Constitución Política, sin que sea necesario invocarlo. Mediante él, entre otras actuaciones, se podrá solicitar: el reconocimiento de un derecho, la intervención de una entidad o funcionario, la resolución de una situación jurídica, la prestación de un servicio, requerir información, consultar, examinar y requerir copias de documentos, formular consultas, quejas, denuncias y reclamos e interponer recursos. El ejercicio del derecho de petición es gratuito y puede realizarse sin necesidad de representación a través de abogado, o de persona mayor cuando se trate de menores en relación a las entidades dedicadas a su protección o formación.",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1755_2015.htm",
+   "vigencia": "vigente; articulo CONDICIONALMENTE exequible",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "Aqui esta la base TEXTUAL de la 'respuesta de fondo', que antes se sostenia solo en jurisprudencia: el articulo exige obtener 'pronta resolucion COMPLETA Y DE FONDO'. Una respuesta formal que no resuelve lo preguntado no satisface el derecho. Tambien aclara que toda actuacion ante la autoridad es ejercicio del derecho de peticion sin necesidad de invocarlo. || Notas del texto fuente: Artículo CONDICIONALMENTE exequible",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L1755-14",
+   "norma": "Ley 1755 de 2015",
+   "articulo": "art. 14",
+   "titulo": "Términos para resolver las distintas modalidades de peticiones",
+   "texto": "Salvo norma legal especial y so pena de sanción disciplinaria, toda petición deberá resolverse dentro de los quince (15) días siguientes a su recepción. Estará sometida a término especial la resolución de las siguientes peticiones: 1. Las peticiones de documentos y de información deberán resolverse dentro de los diez (10) días siguientes a su recepción. 2. Las peticiones mediante las cuales se eleva una consulta a las autoridades en relación con las materias a su cargo deberán resolverse dentro de los treinta (30) días siguientes a su recepción. PARÁGRAFO. Cuando excepcionalmente no fuere posible resolver la petición en los plazos aquí señalados, la autoridad debe informar esta circunstancia al interesado, antes del vencimiento del término señalado en la ley expresando los motivos de la demora y señalando a la vez el plazo razonable en que se resolverá o dará respuesta, que no podrá exceder del doble del inicialmente previsto.",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_1755_2015.pdf",
+   "vigencia": "vigente",
+   "nota_vigencia": "La Ley 1755 de 2015 sustituye el Título II (Derecho de Petición) de la Parte Primera de la Ley 1437 de 2011, artículos 13 a 33, conservando la numeración. El texto dice 'quince (15) días' sin la palabra 'hábiles': el carácter hábil de los plazos se deriva de la regla general de cómputo, no de esta norma.",
+   "verificado": true,
+   "transcripcion": "literal",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L1755-20",
+   "norma": "Ley 1755 de 2015",
+   "articulo": "art. 20",
+   "titulo": "Atención prioritaria de peticiones",
+   "texto": "Las autoridades darán atención prioritaria a las peticiones de reconocimiento de un derecho fundamental cuando deban ser resueltas para evitar un perjuicio irremediable al peticionario, quien deberá probar sumariamente la titularidad del derecho y el riesgo del perjuicio invocado. Cuando por razones de salud o de seguridad personal esté en peligro inminente la vida o la integridad del destinatario de la medida solicitada, la autoridad adoptará de inmediato las medidas de urgencia necesarias para conjurar dicho peligro, sin perjuicio del trámite que deba darse a la petición. Si la petición la realiza un periodista, para el ejercicio de su actividad, se tramitará preferencialmente.",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_1755_2015.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "ATENCION PRIORITARIA cuando resolver la peticion es necesario para evitar un perjuicio irremediable, y medidas de urgencia inmediatas si hay peligro inminente para la vida o la integridad. Es el puente entre el derecho de peticion y la urgencia que habilita la tutela.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L361-26",
+   "norma": "Ley 361 de 1997",
+   "articulo": "art. 26",
+   "titulo": "No discriminación a persona en situación de discapacidad",
+   "texto": "En ningún caso la limitación de una persona, podrá ser motivo para obstaculizar una vinculación laboral, a menos que dicha limitación sea claramente demostrada como incompatible e insuperable en el cargo que se va a desempeñar. Así mismo, ninguna persona limitada podrá ser despedida o su contrato terminado por razón de su limitación, salvo que medie autorización de la oficina de Trabajo. No obstante, quienes fueren despedidos o su contrato terminado por razón de su limitación, sin el cumplimiento del requisito previsto en el inciso anterior, tendrán derecho a una indemnización equivalente a ciento ochenta días del salario, sin perjuicio de las demás prestaciones e indemnizaciones a que hubiere lugar de acuerdo con el Código Sustantivo del Trabajo y demás normas que lo modifiquen, adicionen, complementen o aclaren.",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_0361_1997.htm",
+   "vigencia": "vigente; inciso 2 CONDICIONALMENTE exequible (C-531 de 2000)",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "Fundamento de la ESTABILIDAD LABORAL REFORZADA. La Sentencia C-531 de 2000 declaro el inciso 2 exequible de forma condicionada: carece de todo efecto juridico el despido sin autorizacion previa de la autoridad de trabajo, de modo que la indemnizacion de 180 dias NO sanea el despido. || ATRIBUCION RESUELTA (2026-10-16, antes marcada como pendiente): una version anterior de este corpus afirmaba que el Decreto-Ley 019 de 2012, art. 137, reescribio el articulo y traslado la autorizacion al Ministerio del Trabajo. ES FALSO QUE ESTE VIGENTE. La Sentencia C-744 de 2012 declaro INEXEQUIBLE ese art. 137 por exceso en el ejercicio de facultades extraordinarias, asi que la derogatoria no surtio efecto y el texto original --- el de aqui, con 'oficina de Trabajo' --- sigue siendo el vigente. Lo confirma ademas la C-531 de 2000, que declaro EXEQUIBLE precisamente la expresion 'salvo que medie autorizacion de la oficina de Trabajo'. Los dos textos estan en el corpus: J-C744-12 y J-C531-00. || Notas del texto fuente: El normograma inserta en el cuerpo las sustituciones terminologicas ['discapacidad', 'en situación de discapacidad']; se retiraron para dejar el texto como fue promulgado. La Ley 1618 de 2013 sustituyo el termino 'limitacion' por 'discapacidad'.",
+   "verificado_el": "2026-10-16",
+   "atribucion_resuelta_el": "2026-10-16"
+  },
+  {
+   "id": "L393-01",
+   "norma": "Ley 393 de 1997",
+   "articulo": "art. 1",
+   "titulo": "Objeto",
+   "texto": "Toda persona podrá acudir ante la autoridad judicial definida en esta Ley para hacer efectivo el cumplimiento de normas aplicables con fuerza material de Ley o Actos Administrativos.",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_0393_1997.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L393-06",
+   "norma": "Ley 393 de 1997",
+   "articulo": "art. 6",
+   "titulo": "Acción de cumplimiento contra particulares",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_0393_1997.pdf",
+   "texto": "ACCION DE CUMPLIMIENTO CONTRA PARTICULARES. La Acción de Cumplimiento procederá contra acciones u omisiones de particulares que impliquen el incumplimiento de una norma con fuerza material de Ley o Acto administrativo, cuando el particular actúe o deba actuar en ejercicio de funciones públicas, pero sólo para el cumplimiento de las mismas. En el evento contemplado en este artículo, la Acción de Cumplimiento podrá dirigirse contra el particular o contra la autoridad competente para imponerle dicho cumplimiento al particular.",
+   "por_que_importa": "Sostiene los casos donde el deber incumplido recae en un particular que ejerce funcion publica --- un concesionario, una empresa de servicios --- que es el supuesto de A15 (las empresas de transporte que no aplican la tarifa de la ordenanza) y que no tenia ningun fragmento que lo respaldara.",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "normalizacion": "El normograma intercala los enlaces de su navegacion ('Jurisprudencia Vigencia', 'Concordancias') y los apartes de anotacion de sentencias en el cuerpo del articulado. Se retiraron los que van al final del articulo. Ni una palabra del articulado se modifico. Los articulos cuyas anotaciones quedan INTERCALADAS en medio del texto no se transcribieron --- ver `meta.ampliacion_1_4_0.no_transcritos`.",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L393-08",
+   "norma": "Ley 393 de 1997",
+   "articulo": "art. 8",
+   "titulo": "Procedibilidad",
+   "texto": "La Acción de Cumplimiento procederá contra toda acción u omisión de la autoridad que incumpla o ejecute actos o hechos que permitan deducir inminente incumplimiento de normas con fuerza de Ley o Actos Administrativos. También procederá contra acciones u omisiones de los particulares, de conformidad con lo establecido en la presente Ley. Con el propósito de constituir la renuencia, la procedencia de la acción requerirá que el accionante previamente haya reclamado el cumplimiento del deber legal o administrativo y la autoridad se haya ratificado en su incumplimiento o no contestado dentro de los diez (10) días siguientes a la presentación de la solicitud. Excepcionalmente se podrá prescindir de este requisito cuando el cumplirlo generare el inminente peligro de sufrir un perjuicio irremediable para el accionante, caso en el cual deberá ser sustentado en la demanda.",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_0393_1997.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L393-09",
+   "norma": "Ley 393 de 1997",
+   "articulo": "art. 9",
+   "titulo": "Improcedibilidad",
+   "texto": "La Acción de Cumplimiento no procederá para la protección de derechos que puedan ser garantizados mediante la Acción de Tutela. En estos eventos, el Juez le dará a la solicitud el trámite correspondiente al derecho de Tutela.",
+   "fuente": "https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/pdf/ley_0393_1997.pdf",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "nota_vigencia": "REGLA DE ENRUTAMIENTO CRITICA. La accion de cumplimiento es SUBSIDIARIA frente a la tutela: si el derecho reclamado puede protegerse por tutela, el cumplimiento NO procede y el juez reencauza la solicitud. En consecuencia, un incumplimiento normativo que ademas afecta de forma concreta a una persona identificable se tramita por TUTELA, no por cumplimiento. El cumplimiento queda para el incumplimiento general que no lesiona un derecho fundamental individual.",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L472-02",
+   "norma": "Ley 472 de 1998",
+   "articulo": "art. 2",
+   "titulo": "Acciones populares",
+   "texto": "Son los medios procesales para la protección de los derechos e intereses colectivos. Las acciones populares se ejercen para evitar el daño contingente, hacer cesar el peligro, la amenaza, la vulneración o agravio sobre los derechos e intereses colectivos, o restituir las cosas a su estado anterior cuando fuere posible.",
+   "fuente": "https://normas.cra.gov.co/gestor/docs/ley_0472_1998.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L472-04",
+   "norma": "Ley 472 de 1998",
+   "articulo": "art. 4",
+   "titulo": "Derechos e intereses colectivos",
+   "texto": "Son derechos e intereses colectivos, entre otros, los relacionados con: a) El goce de un ambiente sano, de conformidad con lo establecido en la Constitución, la ley y las disposiciones reglamentarias; b) La moralidad administrativa; c) La existencia del equilibrio ecológico y el manejo y aprovechamiento racional de los recursos naturales para garantizar su desarrollo sostenible, su conservación, restauración o sustitución. La conservación de las especies animales y vegetales, la protección de áreas de especial importancia ecológica, de los ecosistemas situados en las zonas fronterizas, así como los demás intereses de la comunidad relacionados con la preservación y restauración del medio ambiente; d) El goce del espacio público y la utilización y defensa de los bienes de uso público; e) La defensa del patrimonio público; f) La defensa del patrimonio cultural de la Nación; g) La seguridad y salubridad públicas; h) El acceso a una infraestructura de servicios que garantice la salubridad pública; i) La libre competencia económica; j) El acceso a los servicios públicos y a que su prestación sea eficiente y oportuna; k) La prohibición de la fabricación, importación, posesión, uso de armas químicas, biológicas y nucleares, así como la introducción al territorio nacional de residuos nucleares o tóxicos; l) El derecho a la seguridad y prevención de desastres previsibles técnicamente; m) La realización de las construcciones, edificaciones y desarrollos urbanos respetando las disposiciones jurídicas, de manera ordenada, y dando prevalencia al beneficio de la calidad de vida de los habitantes; n) Los derechos de los consumidores y usuarios. Igualmente son derechos e intereses colectivos los definidos como tales en la Constitución, las leyes ordinarias y los tratados de Derecho Internacional celebrados por Colombia. PARAGRAFO. Los derechos e intereses enunciados en el presente artículo estarán definidos y regulados por las normas actualmente vigentes o las que se expidan con posterioridad a la vigencia de la presente ley.",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_0472_1998.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "nota_vigencia": "Lista de los derechos e intereses colectivos. El art. 6.3 del Decreto 2591 de 1991 remite a este catalogo para excluirlos del ambito de la tutela. La enumeracion no es taxativa ('entre otros'), y el inciso final remite a la Constitucion, las leyes y los tratados ratificados para su definicion y regulacion.",
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L472-09",
+   "norma": "Ley 472 de 1998",
+   "articulo": "art. 9",
+   "titulo": "Procedencia de las acciones populares",
+   "texto": "Las acciones populares proceden contra toda acción u omisión de las autoridades públicas o de los particulares, que hayan violado o amenacen violar los derechos e intereses colectivos.",
+   "fuente": "https://normas.cra.gov.co/gestor/docs/ley_0472_1998.htm",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L472-12",
+   "norma": "Ley 472 de 1998",
+   "articulo": "art. 12",
+   "titulo": "Titulares de las acciones populares",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_0472_1998.htm",
+   "texto": "TITULARES DE LAS ACCIONES. Podrán ejercitar las acciones populares: 1. Toda persona natural o jurídica. 2. Las organizaciones No Gubernamentales, las Organizaciones Populares, Cívicas o de índole similar. 3. Las entidades públicas que cumplan funciones de control, intervención o vigilancia, siempre que la amenaza o vulneración a los derechos e intereses colectivos no se haya originado en su acción u omisión. 4. El Procurador General de la Nación, el Defensor del Pueblo y los Personeros Distritales y municipales, en lo relacionado con su competencia. 5. Los alcaldes y demás servidores públicos que por razón de sus funciones deban promover la protección y defensa de estos derechos e intereses.",
+   "por_que_importa": "Responde quien puede ejercer la accion, que es justo lo que preguntan A18 (un usuario que denuncia un sobrecosto) y A15 (una veeduria municipal). El numeral 1 --- 'toda persona natural o juridica' --- es lo que desactiva la objecion de que el solicitante no es el afectado directo.",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "normalizacion": "El normograma intercala los enlaces de su navegacion ('Jurisprudencia Vigencia', 'Concordancias') y los apartes de anotacion de sentencias en el cuerpo del articulado. Se retiraron los que van al final del articulo. Ni una palabra del articulado se modifico. Los articulos cuyas anotaciones quedan INTERCALADAS en medio del texto no se transcribieron --- ver `meta.ampliacion_1_4_0.no_transcritos`.",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  },
+  {
+   "id": "L472-15",
+   "norma": "Ley 472 de 1998",
+   "articulo": "art. 15",
+   "titulo": "Jurisdicción competente en acciones populares",
+   "fuente": "https://cancilleria.gov.co/sites/default/files/Normograma/docs/ley_0472_1998.htm",
+   "texto": "JURISDICCION. La jurisdicción de lo Contencioso Administrativo conocerá de los procesos que se susciten con ocasión del ejercicio de las Acciones Populares originadas en actos, acciones u omisiones de las entidades públicas y de las personas privadas que desempeñen funciones administrativas, de conformidad con lo dispuesto en las disposiciones vigentes sobre la materia. En los demás casos, conocerá la jurisdicción ordinaria civil.",
+   "por_que_importa": "Dice ante que jurisdiccion se lleva, que cambia segun el accionado sea publico o privado. E43 (un constructor y la autoridad ambiental) y E45 (el municipio y una fundacion) son casos mixtos.",
+   "vigencia": "vigente",
+   "transcripcion": "literal",
+   "normalizacion": "El normograma intercala los enlaces de su navegacion ('Jurisprudencia Vigencia', 'Concordancias') y los apartes de anotacion de sentencias en el cuerpo del articulado. Se retiraron los que van al final del articulo. Ni una palabra del articulado se modifico. Los articulos cuyas anotaciones quedan INTERCALADAS en medio del texto no se transcribieron --- ver `meta.ampliacion_1_4_0.no_transcritos`.",
+   "verificado": true,
+   "verificado_el": "2026-10-16"
+  }
+ ]
+}

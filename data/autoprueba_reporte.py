@@ -1,0 +1,188 @@
+"""Comprueba que la prosa del REPORTE no pueda contradecir a sus artefactos.
+
+POR QUE ESTA AQUI Y NO EN `src/autoprueba_integracion.py`
+    Porque `corridas.version_codigo()` hashea **todos** los `src/*.py`, y el
+    archivo de pruebas es uno de ellos. Anadir una prueba ahi mueve la huella
+    de codigo --- lo comprobe: `84520a06cc4e8a2a` paso a `dda6de212e018522`
+    solo por registrar una funcion de test --- y eso dejaria las tres
+    corridas entregadas (m1, m2, m3, todas a `84520a06cc4e8a2a`) sin codigo
+    que las respalde. Una prueba no cambia ningun resultado, asi que invalidar
+    la entrega para anadirla seria el peor negocio posible.
+
+    `data/*.py` entra en el sello del manifiesto pero NO en la huella de
+    codigo, asi que esto se puede correr hoy. Cuando la huella cambie por una
+    razon de verdad, esta prueba se dobla dentro de la suite principal.
+
+QUE COMPRUEBA
+    La seccion 7 del reporte tenia TRES parrafos escritos a mano y los tres
+    caducaron en la misma corrida:
+
+      - 7.2 afirmaba «los dos jueces son de la misma familia» mientras
+        `m2_acuerdo_entre_jueces.json` guardaba `misma_familia: false`
+        (`gpt-oss` contra `allam`) en la MISMA carpeta.
+      - 7.3 afirmaba que el brazo del agente «falla esa via por completo»
+        cuando el F1 ya valia 0.3636: corregir `derecho_colectivo` y
+        `acto_general` movio la cifra y la frase no se movio con ella.
+      - 7.4 afirmaba que «los intervalos se solapan» en un estrato que **no
+        publica intervalo**: `por_tipo.adversarial` trae `n` y un punto.
+
+    Una cifra equivocada se ve. Un parrafo afirmado que ya no corresponde no
+    se ve, y es el que se cita. Esto no comprueba que el texto sea bonito:
+    comprueba que **cambie** cuando cambia el dato, y que no se pueda volver
+    a escribir a mano.
+
+    Uso: `python -I data/autoprueba_reporte.py`
+"""
+import inspect
+import sys
+import tempfile
+from pathlib import Path
+
+RAIZ = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(RAIZ / "data"))
+import reporte  # noqa: E402
+
+FALLOS: list[str] = []
+
+
+def _brazo(nombre, f1_cumplimiento, adversarial):
+    return {"sistema": nombre, "n": 63,
+            "campos": {"mecanismo": {
+                "f1_por_clase": {"accion_cumplimiento": f1_cumplimiento,
+                                 "tutela": 0.9},
+                "soporte_por_clase": {"accion_cumplimiento": 8,
+                                      "tutela": 27}}},
+            "por_tipo": {"gold": {"n": 45, "acierto_juridico": 0.8},
+                         "adversarial": {"n": 18,
+                                         "acierto_juridico": adversarial}}}
+
+
+def _texto(acuerdo, f1_agente, adv_agente, adv_uno=0.8333):
+    """Las tres secciones, en minusculas, contra artefactos sinteticos."""
+    reporte._CACHE.clear()
+    reporte._FALTAN.clear()
+    reporte._CACHE["m2_acuerdo_entre_jueces.json"] = acuerdo
+    reporte._CACHE["m3_scorecards_comunes.json"] = {"datos": [
+        _brazo("1 · fine-tuned solo (M1)", 0.9412, adv_uno),
+        _brazo("4 · agente + reglas", f1_agente, adv_agente)]}
+    return ("\n".join(reporte.jueces_de_familia()).lower(),
+            "\n".join(reporte.cumplimiento_en_el_agente()).lower(),
+            "\n".join(reporte.adversarial_separa()).lower())
+
+
+def comprobar(condicion, mensaje):
+    if not condicion:
+        FALLOS.append(mensaje)
+
+
+BASE = {"kappa_aprueba": 0.3831, "media_a": 3.174, "media_b": 3.783,
+        "modelo_a": "openai/gpt-oss-120b", "modelo_b": "allam-2-7b"}
+DISTINTOS = dict(BASE, _familias={"conocido": True, "familia_a": "gpt-oss",
+                                  "familia_b": "allam",
+                                  "misma_familia": False})
+PARIENTES = dict(BASE, _familias={"conocido": True, "familia_a": "gpt-oss",
+                                  "familia_b": "gpt-oss",
+                                  "misma_familia": True,
+                                  "por_que_no_otra_familia": "ninguno"})
+
+
+def main() -> int:
+    print("=" * 78)
+    print("  LA PROSA DEL REPORTE CONTRA SUS PROPIOS ARTEFACTOS")
+    print("=" * 78)
+
+    # --- 7.2 · la familia sale del artefacto, no de la memoria -----------
+    j, _c, _a = _texto(DISTINTOS, 0.3636, 0.8333)
+    comprobar("misma familia" not in j,
+              "7.2 con `misma_familia: false` sigue diciendo «misma familia»")
+    comprobar("gpt-oss" in j and "allam" in j, "7.2 no nombra los dos linajes")
+
+    j, _c, _a = _texto(PARIENTES, 0.3636, 0.8333)
+    comprobar("misma familia" in j, "7.2 con dos parientes no lo advierte")
+
+    # Medido SIN linaje registrado no es lo mismo que NO medido. Confundir
+    # los dos fue el bug de la primera version de `jueces_de_familia()`: la
+    # corrida anterior trae kappa 0.6835 y ningun `_familias`.
+    j, _c, _a = _texto(dict(BASE), 0.3636, 0.8333)
+    comprobar("no se midio" not in j,
+              "7.2 declara no medido un acuerdo que SI tiene kappa")
+    comprobar("0.383" in j, "7.2 no reporta la kappa que existe")
+    comprobar("misma familia" not in j,
+              "7.2 afirma un linaje que nadie registro")
+
+    # --- 7.3 · «falla por completo» solo si el F1 es 0 -------------------
+    _j, c, _a = _texto(DISTINTOS, 0.0, 0.8333)
+    comprobar("falla esa via por completo" in c,
+              "7.3 con F1 0.000 no dice que falla por completo")
+    _j, c, _a = _texto(DISTINTOS, 0.3636, 0.8333)
+    comprobar("no falla por completo" in c,
+              "7.3 con F1 0.3636 no se retracta de «por completo»")
+    comprobar("falla esa via por completo" not in c,
+              "7.3 con F1 0.3636 sigue afirmando que falla por completo")
+    comprobar("0.3636" in c, "7.3 no cita el F1 medido")
+    comprobar("peor" in c, "7.3 con el F1 mas bajo de la tabla no lo dice")
+    _j, c, _a = _texto(DISTINTOS, 0.99, 0.8333)
+    comprobar("ya no es el peor" in c,
+              "7.3 no se retracta cuando el agente deja de ser el peor brazo")
+    comprobar("sigue siendo" not in c,
+              "7.3 lo llama el peor cuando es el mejor de la clase")
+
+    # --- 7.4 · un empate no es un solapamiento de intervalos ------------
+    _j, _c, a = _texto(DISTINTOS, 0.3636, 0.8333, adv_uno=0.8333)
+    comprobar("empatan" in a, "7.4 no ve el empate exacto")
+    comprobar("los intervalos se solapan" not in a,
+              "7.4 afirma un solapamiento en un estrato que no publica IC")
+    comprobar("sin ic" in a, "7.4 no advierte que el estrato no trae IC")
+    _j, _c, a = _texto(DISTINTOS, 0.3636, 0.5556, adv_uno=0.8333)
+    comprobar("empatan" not in a, "7.4 habla de empate donde hay 28 puntos")
+
+    # --- la ausencia se dice, no se rellena -----------------------------
+    guardado = reporte.RESULTS
+    try:
+        reporte.RESULTS = Path(tempfile.mkdtemp())
+        reporte._CACHE.clear()
+        reporte._FALTAN.clear()
+        j = "\n".join(reporte.jueces_de_familia()).lower()
+        c = "\n".join(reporte.cumplimiento_en_el_agente()).lower()
+        a = "\n".join(reporte.adversarial_separa()).lower()
+        comprobar("no se midio" in j, "sin artefacto 7.2 no dice que falta")
+        comprobar("no se puede sostener" in c, "sin F1 7.3 afirma igualmente")
+        comprobar("no esta en la tabla" in a, "sin estrato 7.4 afirma igual")
+        comprobar("m2_acuerdo_entre_jueces.json" in reporte._FALTAN,
+                  "el artefacto ausente no queda registrado en _FALTAN")
+    finally:
+        reporte.RESULTS = guardado
+        reporte._CACHE.clear()
+        reporte._FALTAN.clear()
+
+    # --- y que no se pueda volver a escribir a mano ---------------------
+    fuente = inspect.getsource(reporte.construir)
+    for sec in ("### 7.2", "### 7.3", "### 7.4"):
+        comprobar(sec not in fuente,
+                  f"la cabecera {sec} volvio a estar escrita a mano en "
+                  "`construir()`: ahi no se entera de que el dato cambio, que "
+                  "es exactamente lo que paso tres veces")
+
+    print()
+    if FALLOS:
+        print(f"  {len(FALLOS)} comprobaciones FALLAN:")
+        for f in FALLOS:
+            print(f"    - {f}")
+        print("=" * 78)
+        return 1
+    print("  7.2 sigue al artefacto en las cuatro situaciones posibles")
+    print("     (familias distintas · parientes · medido sin linaje · ausente)")
+    print("  7.3 sigue al F1 por clase y se retracta sola cuando deja de ser 0")
+    print("  7.4 distingue un EMPATE de un solapamiento de intervalos que no")
+    print("     se publican")
+    print("  las cabeceras de 7.2, 7.3 y 7.4 no se pueden volver a escribir")
+    print("     a mano dentro de `construir()`")
+    print()
+    print("  Lo que esto NO dice: si las cifras son correctas. Comprueba que")
+    print("  la PROSA siga al artefacto, no que el artefacto tenga razon.")
+    print("=" * 78)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

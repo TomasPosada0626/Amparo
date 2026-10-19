@@ -1,0 +1,105 @@
+{
+  "_meta": {
+    "descripcion": "Whitelist de normas citables. Toda cita que produzca el modelo debe estar aqui; si no, cuenta como alucinacion normativa.",
+    "fuentes": [
+      "Constitucion Politica de Colombia (1991) - secretariasenado.gov.co",
+      "SUIN-Juriscol - suin-juriscol.gov.co",
+      "Relatoria Corte Constitucional - relatoria.corteconstitucional.gov.co"
+    ],
+    "vigencia_verificada": "2026-10-15",
+    "licencia": "Normas colombianas: documentos oficiales de dominio publico (Ley 23 de 1982, art. 41)",
+    "nota_art_11": "El art. 11 (caducidad de 2 meses contra providencias judiciales) esta INEXEQUIBLE por C-543/1992 y por eso NO figura aqui: citarlo como fundamento vigente debe contar como alucinacion normativa. Su texto si esta en data/corpus.json, marcado, para que el sistema pueda recuperarlo y contradecir a quien lo invoque."
+  },
+  "constitucion": {
+    "art. 11 CP": "Derecho a la vida",
+    "art. 13 CP": "Igualdad y proteccion especial a personas en circunstancia de debilidad manifiesta",
+    "art. 15 CP": "Intimidad, buen nombre y habeas data",
+    "art. 23 CP": "Derecho de peticion",
+    "art. 25 CP": "Derecho al trabajo",
+    "art. 28 CP": "Libertad personal",
+    "art. 29 CP": "Debido proceso",
+    "art. 30 CP": "Habeas corpus",
+    "art. 42 CP": "La familia es el nucleo fundamental de la sociedad (unidad familiar)",
+    "art. 43 CP": "Proteccion a la mujer durante el embarazo y despues del parto",
+    "art. 44 CP": "Derechos fundamentales de los ninos, prevalentes sobre los demas",
+    "art. 46 CP": "Proteccion y asistencia a personas de la tercera edad",
+    "art. 48 CP": "Seguridad social",
+    "art. 49 CP": "Atencion de la salud y saneamiento ambiental",
+    "art. 53 CP": "Principios minimos fundamentales del trabajo",
+    "art. 67 CP": "Derecho a la educacion",
+    "art. 79 CP": "Derecho a un ambiente sano",
+    "art. 86 CP": "Accion de tutela",
+    "art. 87 CP": "Accion de cumplimiento",
+    "art. 88 CP": "Acciones populares y de grupo"
+  },
+  "decreto_2591_1991": {
+    "_titulo": "Decreto 2591 de 1991 - reglamenta la accion de tutela",
+    "art. 1": "Objeto: proteccion inmediata de derechos fundamentales",
+    "art. 2": "Derechos protegidos: garantiza los derechos constitucionales fundamentales",
+    "art. 5": "Procedencia contra toda accion u omision de autoridad publica",
+    "art. 6": "Causales de improcedencia de la tutela",
+    "art. 6.1": "Existencia de otros recursos o medios de defensa judiciales (subsidiariedad), salvo perjuicio irremediable. La eficacia del medio se aprecia EN CONCRETO. La definicion legal de perjuicio irremediable fue declarada INEXEQUIBLE (C-531/1993)",
+    "art. 6.2": "Cuando proceda el habeas corpus",
+    "art. 6.3": "Derechos colectivos: no procede la tutela, SALVO que el titular pida proteccion de sus propios derechos en una situacion que comprometa intereses colectivos y se trate de impedir un perjuicio irremediable",
+    "art. 6.4": "Dano consumado, SALVO cuando continue la accion u omision violatoria del derecho",
+    "art. 6.5": "Actos de caracter general, impersonal y abstracto",
+    "art. 7": "Medidas provisionales para proteger un derecho durante el tramite",
+    "art. 8": "Tutela como mecanismo transitorio para evitar un perjuicio irremediable",
+    "art. 10": "Legitimacion e interes: por si mismo, representante, agencia oficiosa, Defensor del Pueblo, personeros",
+    "art. 14": "Contenido de la solicitud de tutela",
+    "art. 23": "Proteccion del derecho tutelado: volver al estado anterior a la violacion",
+    "art. 25": "Indemnizacion de perjuicios: solo excepcionalmente y en abstracto",
+    "art. 27": "Cumplimiento del fallo: sin demora. A las 48 horas el juez requiere al superior del responsable",
+    "art. 29": "Contenido del fallo: debe proferirse dentro de los 10 dias siguientes",
+    "art. 30": "Notificacion del fallo: a mas tardar al dia siguiente de proferido",
+    "art. 31": "Impugnacion del fallo: dentro de los 3 dias siguientes a la notificacion",
+    "art. 42": "Procedencia contra particulares",
+    "art. 52": "Desacato: sancion por incumplimiento del fallo"
+  },
+  "leyes": {
+    "Ley 1755 de 2015": "Derecho fundamental de peticion (sustituye arts. 13 a 33 de la Ley 1437 de 2011). Art. 14: 15 dias termino general, 10 para documentos e informacion, 30 para consultas",
+    "Ley 1751 de 2015": "Ley Estatutaria de Salud. Art. 2: la salud como derecho fundamental autonomo. Art. 8: integralidad, prohibicion de fragmentar la prestacion",
+    "Ley 472 de 1998": "Acciones populares y de grupo (derechos e intereses colectivos)",
+    "Ley 393 de 1997": "Accion de cumplimiento. Art. 9: NO procede si el derecho puede garantizarse por tutela; en ese caso el juez reencauza a tutela",
+    "Ley 1095 de 2006": "Reglamenta el habeas corpus. Art. 1: procede por privacion con violacion de garantias O por prolongacion ilegal de la privacion",
+    "Ley 1266 de 2008": "Habeas data financiero y crediticio",
+    "Ley 1581 de 2012": "Proteccion de datos personales",
+    "Ley 361 de 1997": "Integracion social de personas con discapacidad. Art. 26: estabilidad laboral reforzada",
+    "Ley 100 de 1993": "Sistema de Seguridad Social Integral",
+    "Ley 1098 de 2006": "Codigo de la Infancia y la Adolescencia",
+    "Ley 1437 de 2011": "CPACA - procedimiento administrativo y contencioso administrativo",
+    "Ley 2157 de 2021": "Reforma la Ley 1266 de 2008. Caducidad del dato negativo: 8 anos desde que la obligacion entro en mora"
+  },
+  "jurisprudencia_referencia": {
+    "_nota": "Campo opcional y separado. NO entra al chequeo de alucinacion normativa porque la cita jurisprudencial es mas volatil. Verificar cada una en relatoria.corteconstitucional.gov.co antes de usarla en el informe.",
+    "T-760 de 2008": "Salud como derecho fundamental autonomo; ordenes estructurales al sistema de salud",
+    "C-590 de 2005": "Causales de procedencia excepcional de la tutela contra providencias judiciales"
+  },
+  "mecanismos": {
+    "tutela": {
+      "nombre": "accion de tutela",
+      "fundamento": "art. 86 CP; Decreto 2591 de 1991",
+      "plazo_fallo_dias_habiles": 10
+    },
+    "accion_popular": {
+      "nombre": "accion popular",
+      "fundamento": "art. 88 CP; Ley 472 de 1998",
+      "plazo_fallo_dias_habiles": null
+    },
+    "accion_cumplimiento": {
+      "nombre": "accion de cumplimiento",
+      "fundamento": "art. 87 CP; Ley 393 de 1997",
+      "plazo_fallo_dias_habiles": null
+    },
+    "habeas_corpus": {
+      "nombre": "habeas corpus",
+      "fundamento": "art. 30 CP; Ley 1095 de 2006",
+      "plazo_fallo_dias_habiles": 36
+    },
+    "via_ordinaria": {
+      "nombre": "via judicial ordinaria",
+      "fundamento": "art. 6.1 Decreto 2591 de 1991",
+      "plazo_fallo_dias_habiles": null
+    }
+  }
+}

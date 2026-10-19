@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "proposito": "Salidas reales de la corrida de M1 (Qwen2.5-7B-Instruct, 2026-10-14), guardadas como casos de regresión del parser. Si se toca schema.parse_salida, estos casos deben seguir dando el mismo resultado.",
+    "origen": "runs/m1_predicciones.json"
+  },
+  "casos": [
+    {
+      "id": "base_E01",
+      "nota": "El base imita la forma pero omite Pretensión y el mecanismo no existe en Colombia.",
+      "texto": "Derecho: Derecho a la salud.\nAccionado: Paciente.\nMecanismo: Petición de Amparo.\nProcedencia: En contra de la EPS por negativa en el suministro del medicamento necesario.",
+      "espera": {"etiquetas": 4, "derecho_valido": false, "mecanismo": null, "procede": false}
+    },
+    {
+      "id": "base_E04",
+      "nota": "Cinco etiquetas completas, pero 'Control de convencionalidad' no es un mecanismo del vocabulario.",
+      "texto": "Derecho: Derecho a la pensión.\nAccionado: Colpensiones.\nMecanismo: Control de convencionalidad.\nProcedencia: Directa.\nPretensión: Obtención de la indemnización sustitutiva.",
+      "espera": {"etiquetas": 5, "derecho_valido": false, "mecanismo": null, "procede": false}
+    },
+    {
+      "id": "base_E17",
+      "nota": "Único caso del base donde Procedencia empieza por 'Sí'.",
+      "texto": "Derecho: Derecho laboral y derecho constitucional al acceso a la información.\nAccionado: ARL (Administradora de Risk Laboral).\nMecanismo: Petición de Información por vía administrativa y posterior reclamación ante la Superintendencia de Seguros.\nProcedencia: Sí, ya que se trata de información laboral relacionada con una muerte en accidente de trabajo.",
+      "espera": {"etiquetas": 4, "derecho_valido": false, "mecanismo": null, "procede": true}
+    },
+    {
+      "id": "ft_E01",
+      "nota": "Salida ideal del modelo ajustado: vocabulario válido y coherente.",
+      "texto": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el cambio de tratamiento es una decisión médica que debe ser respetada por la EPS\nPretensión: ordenar el suministro del medicamento nuevo",
+      "espera": {"etiquetas": 5, "derecho_valido": true, "mecanismo": "tutela", "procede": true}
+    },
+    {
+      "id": "ft_A05",
+      "nota": "Dos fallos a la vez: pone un mecanismo en el campo Derecho, y dice 'no procede' manteniendo la tutela como mecanismo.",
+      "texto": "Derecho: acción de tutela (art. 29 CP; Ley 1755 de 2015)\nAccionado: sociedad comercial\nMecanismo: acción de tutela\nProcedencia: no — el contrato es de servicios profesionales y no laboral; el amparo no protege el pago de honorarios\nPretensión: acción ordinaria para reclamar el pago de los honorarios acordados",
+      "espera": {"etiquetas": 5, "derecho_valido": false, "mecanismo": "tutela", "procede": false}
+    },
+    {
+      "id": "ft_E09",
+      "nota": "Cita inventada: el art. 39 CP no trata del ambiente. Debe contar como alucinación normativa.",
+      "texto": "Derecho: acción de tutela (art. 39 CP; Ley 1751 de 2015)\nAccionado: Alcaldía municipal y Corporación Ambiental del municipio\nMecanismo: acción de tutela\nProcedencia: sí — el vertimiento de residuos sólidos al río afecta el derecho fundamental al medio ambiente sano\nPretensión: ordenar el cese inmediato del vertido y la reparación del daño ambiental",
+      "espera": {"etiquetas": 5, "derecho_valido": false, "mecanismo": "tutela", "procede": true}
+    },
+    {
+      "id": "ft_E31",
+      "nota": "El único caso en que el ajustado acertó un mecanismo distinto de la tutela.",
+      "texto": "Derecho: habeas corpus (art. 29 CP; Ley 1755 de 2015)\nAccionado: Fiscal General de la Nación\nMecanismo: habeas corpus\nProcedencia: sí — el retraso en la presentación del detenido ante el juez de control de garantías supera el término legal de 48 horas\nPretensión: ordenar la presentación inmediata del detenido",
+      "espera": {"etiquetas": 5, "derecho_valido": false, "mecanismo": "habeas_corpus", "procede": true}
+    },
+    {
+      "id": "ft_A02_doble",
+      "nota": "Relato mixto: generó DOS bloques y se cortó por max_new_tokens. El parser debe quedarse con el primero.",
+      "texto": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la falta de entrega de muestras de patología impide el tratamiento adecuado\nPretensión: entregar las muestras de patología y autorizar el tratamiento\n\nDerecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: vecino del 302\nMecanismo: acción de tutela\nProcedencia: sí — el",
+      "espera": {"etiquetas": 5, "derecho_valido": true, "mecanismo": "tutela", "procede": true}
+    }
+  ]
+}
