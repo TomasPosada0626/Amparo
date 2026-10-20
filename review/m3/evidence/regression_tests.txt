@@ -1,0 +1,43 @@
+test_cero_es_medicion_valida (test_ragas_revision.Faithfulness.test_cero_es_medicion_valida) ... ok
+test_conserva_razon_por_afirmaciones (test_ragas_revision.Faithfulness.test_conserva_razon_por_afirmaciones) ... ok
+test_excepcion_operativa_se_propaga (test_ragas_revision.Faithfulness.test_excepcion_operativa_se_propaga) ... ok
+test_longitudes_invalidas_no_llaman_al_juez (test_ragas_revision.Faithfulness.test_longitudes_invalidas_no_llaman_al_juez) ... ok
+test_lote_vacio (test_ragas_revision.Faithfulness.test_lote_vacio) ... ok
+test_parcial_declara_indices_y_denominador (test_ragas_revision.Faithfulness.test_parcial_declara_indices_y_denominador) ... ok
+test_rechaza_conteos_invalidos (test_ragas_revision.Faithfulness.test_rechaza_conteos_invalidos) ... ok
+test_sin_afirmaciones_es_no_aplicable (test_ragas_revision.Faithfulness.test_sin_afirmaciones_es_no_aplicable) ... ok
+test_sin_respuesta_no_es_cero (test_ragas_revision.Faithfulness.test_sin_respuesta_no_es_cero) ... ok
+test_evaluar_juez_invalido_publica_null_y_cobertura (test_ragas_revision.Integracion.test_evaluar_juez_invalido_publica_null_y_cobertura) ... ok
+test_evaluar_juez_valido_conserva_escala (test_ragas_revision.Integracion.test_evaluar_juez_valido_conserva_escala) ... ok
+test_exactas_siguen_iguales (test_ragas_revision.Integracion.test_exactas_siguen_iguales) ... ok
+test_imprimir_admite_null_y_cobertura (test_ragas_revision.Integracion.test_imprimir_admite_null_y_cobertura) ... ok
+test_imprimir_artefacto_previo_sin_campos_nuevos (test_ragas_revision.Integracion.test_imprimir_artefacto_previo_sin_campos_nuevos) ... ok
+test_listas_opcionales_no_se_ignoran_si_vacias (test_ragas_revision.Integracion.test_listas_opcionales_no_se_ignoran_si_vacias) ... ok
+test_no_trunca_lote (test_ragas_revision.Integracion.test_no_trunca_lote) ... ok
+test_json_con_texto (test_ragas_revision.Parseo.test_json_con_texto) ... ok
+test_json_invalido_o_tipo_incorrecto (test_ragas_revision.Parseo.test_json_invalido_o_tipo_incorrecto) ... ok
+test_average_precision_original (test_ragas_revision.Precision.test_average_precision_original) ... ok
+test_booleano_false_es_cero (test_ragas_revision.Precision.test_booleano_false_es_cero) ... ok
+test_booleano_true_es_uno (test_ragas_revision.Precision.test_booleano_true_es_uno) ... ok
+test_conserva_convencion_sin_contexto (test_ragas_revision.Precision.test_conserva_convencion_sin_contexto) ... ok
+test_json_malformado_no_es_cero (test_ragas_revision.Precision.test_json_malformado_no_es_cero) ... ok
+test_longitudes_invalidas (test_ragas_revision.Precision.test_longitudes_invalidas) ... ok
+test_lote_vacio (test_ragas_revision.Precision.test_lote_vacio) ... ok
+test_media_excluye_solo_consulta_invalida (test_ragas_revision.Precision.test_media_excluye_solo_consulta_invalida) ... ok
+test_no_convierte_strings_ni_numeros_a_bool (test_ragas_revision.Precision.test_no_convierte_strings_ni_numeros_a_bool) ... ok
+test_ranking_incompleto_no_se_comprime (test_ragas_revision.Precision.test_ranking_incompleto_no_se_comprime) ... ok
+test_encoder_no_finito_se_rechaza (test_ragas_revision.Relevancia.test_encoder_no_finito_se_rechaza) ... ok
+test_encoder_numero_incorrecto_vectores (test_ragas_revision.Relevancia.test_encoder_numero_incorrecto_vectores) ... ok
+test_lista_invalida_no_se_filtra_silenciosamente (test_ragas_revision.Relevancia.test_lista_invalida_no_se_filtra_silenciosamente) ... ok
+test_longitudes_invalidas (test_ragas_revision.Relevancia.test_longitudes_invalidas) ... ok
+test_lote_vacio (test_ragas_revision.Relevancia.test_lote_vacio) ... ok
+test_no_carga_modelo_si_juez_falla (test_ragas_revision.Relevancia.test_no_carga_modelo_si_juez_falla) ... ok
+test_parcial_declara_cobertura (test_ragas_revision.Relevancia.test_parcial_declara_cobertura) ... ok
+test_similitud_cero_valida (test_ragas_revision.Relevancia.test_similitud_cero_valida) ... ok
+test_similitud_original (test_ragas_revision.Relevancia.test_similitud_original) ... ok
+test_string_no_es_lista_de_preguntas (test_ragas_revision.Relevancia.test_string_no_es_lista_de_preguntas) ... ok
+
+----------------------------------------------------------------------
+Ran 38 tests in 0.003s
+
+OK
