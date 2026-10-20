@@ -565,9 +565,26 @@ def construir() -> list[str]:
             _FALTAN.add("data/cobertura_corpus.json (caducado)")
             c = None
     if cob.exists() and c:
-        v2 = c["por_eval_set"]["eval_set_v2.json"]
+        # EL EVAL SET VIGENTE, NO UNO ESCRITO A MANO.
+        #
+        # Esta linea tenia `c["por_eval_set"]["eval_set_v2.json"]` clavado. Al
+        # pasar el proyecto a `eval_set_v3.json` el artefacto empezo a traer
+        # las DOS entradas, y el reporte siguio leyendo la de v2: la seccion
+        # decia "de los 63 casos comunes" cuando el eval set vigente tiene
+        # 103. La cifra era real y correspondia a otro conjunto, que es la
+        # forma mas dificil de detectar de estar equivocado.
+        #
+        # Se elige la entrada con MAS casos: `auditar_cobertura.py` audita
+        # todos los eval sets y el vigente es el superconjunto de los
+        # anteriores, asi que el mayor es el vigente por construccion. Si
+        # alguna vez deja de serlo, esto se vera en el apendice, que publica
+        # de que clave salio la cifra.
+        _por = c["por_eval_set"]
+        _clave_ev = max(_por, key=lambda k: (_por[k].get(
+            "casos_con_citas_esperadas") or 0))
+        v2 = _por[_clave_ev]
         _CITAS.append(("data/cobertura_corpus.json",
-                       "por_eval_set.eval_set_v2.json",
+                       f"por_eval_set.{_clave_ev}",
                        f"sin_cobertura={v2['sin_cobertura']}"))
         a(f"**Cobertura del corpus** (`data/cobertura_corpus.json`): "
           f"{c['corpus']['documentos']} fragmentos verificados, "

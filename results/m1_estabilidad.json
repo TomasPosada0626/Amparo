@@ -1,0 +1,14 @@
+{
+  "_corrida": "20261018T200907Z",
+  "_modulo": "m1",
+  "_artefacto": "estabilidad.json",
+  "corrida_previa": "20261018T200326Z",
+  "corrida_actual": "20261018T200907Z",
+  "mismos_datos": true,
+  "mismo_codigo": true,
+  "codigo_previa": "84520a06cc4e8a2a",
+  "codigo_actual": "84520a06cc4e8a2a",
+  "artefactos": {},
+  "concluyente": false,
+  "identicas": null
+}

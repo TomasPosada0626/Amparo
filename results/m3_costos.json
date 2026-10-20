@@ -1,0 +1,61 @@
+{
+  "_corrida": "20261019T034908Z",
+  "_modulo": "m3",
+  "_artefacto": "costos.json",
+  "datos": [
+    {
+      "etiqueta": "1 · fine-tuned solo (M1)",
+      "casos": null,
+      "llamadas_reales": null,
+      "latencia_p50": null,
+      "latencia_p95": null,
+      "tokens_por_caso": null,
+      "nota": "sin instrumentar en este modulo"
+    },
+    {
+      "etiqueta": "2 · fine-tuned + RAG ingenuo",
+      "casos": 90,
+      "llamadas_reales": 90,
+      "llamadas_cache": 0,
+      "llamadas_por_caso": 1.0,
+      "latencia_p50": 8.579,
+      "latencia_p95": 10.32,
+      "latencia_media": 8.758,
+      "latencia_total_s": 788.2,
+      "tokens_entrada": 0,
+      "tokens_salida": 0,
+      "tokens_por_caso": null,
+      "llamadas_sin_usage": 90
+    },
+    {
+      "etiqueta": "3 · fine-tuned + RAG avanzado",
+      "casos": 90,
+      "llamadas_reales": 90,
+      "llamadas_cache": 0,
+      "llamadas_por_caso": 1.0,
+      "latencia_p50": 8.595,
+      "latencia_p95": 10.686,
+      "latencia_media": 8.735,
+      "latencia_total_s": 786.2,
+      "tokens_entrada": 0,
+      "tokens_salida": 0,
+      "tokens_por_caso": null,
+      "llamadas_sin_usage": 90
+    },
+    {
+      "etiqueta": "4 · agente + reglas",
+      "casos": 90,
+      "llamadas_reales": 97,
+      "llamadas_cache": 379,
+      "llamadas_por_caso": 1.08,
+      "latencia_p50": 2.692,
+      "latencia_p95": 4.74,
+      "latencia_media": 2.834,
+      "latencia_total_s": 274.9,
+      "tokens_entrada": 337272,
+      "tokens_salida": 91062,
+      "tokens_por_caso": 4759.3,
+      "llamadas_sin_usage": 0
+    }
+  ]
+}

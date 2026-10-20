@@ -1,0 +1,21 @@
+{
+  "_corrida": "20261018T200907Z",
+  "_modulo": "m1",
+  "_artefacto": "cobertura_clasificador.json",
+  "n": 160,
+  "campos_de_vocabulario_cerrado": [
+    "derecho",
+    "mecanismo",
+    "procede"
+  ],
+  "campos_de_texto_libre": [
+    "fundamento",
+    "accionado",
+    "razon",
+    "pretension"
+  ],
+  "chars_que_un_clasificador_podria_emitir": 3608,
+  "chars_de_texto_libre": 44886,
+  "cobertura_clasificador": 0.07440095681940034,
+  "lectura": "Un clasificador podría producir una fracción pequeña de la salida y ninguna de las citas normativas. El sistema quedaría sin `fundamento`, que es justo el campo que permite verificar la respuesta."
+}

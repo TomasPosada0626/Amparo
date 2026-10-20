@@ -255,6 +255,12 @@ class Juez:
         self.esfuerzo = esfuerzo
         self.json_nativo = True     # se apagan solos si el modelo no los soporta
         self.fallos_parseo = 0
+        # Notas que no venian en JSON y se rescataron del texto. Se cuentan
+        # aparte de `fallos_parseo` porque son dos cosas distintas: una nota
+        # rescatada ES una medicion; un fallo de parseo es la ausencia de una.
+        # Un juez con muchas reparadas sigue sirviendo para el acuerdo pero
+        # no esta siguiendo el formato, y eso tiene que verse.
+        self.notas_reparadas = 0
         self.ruta_cache = Path(cache)
         self.ruta_cache.parent.mkdir(parents=True, exist_ok=True)
         self.cache = (json.loads(self.ruta_cache.read_text(encoding="utf-8"))
@@ -385,17 +391,51 @@ class Juez:
         u = (f"CASO:\n{relato}\n\n"
              f"RESPUESTA DE REFERENCIA:\n{referencia}\n\n"
              f"RESPUESTA DEL SISTEMA:\n{respuesta}")
+        texto_bruto = ""
         try:
-            d = self._json(self._llamar(RUBRICA, u))
+            texto_bruto = self._llamar(RUBRICA, u)
+            d = self._json(texto_bruto)
         except Exception:
             d = {}
         nota = d.get("nota")
         if isinstance(nota, str) and nota.strip().isdigit():
             nota = int(nota)            # algunos modelos devuelven "4" con comillas
         nota = nota if isinstance(nota, int) and 1 <= nota <= 5 else None
+
+        # RESCATE DE LA NOTA CUANDO NO VIENE EN JSON --- Y CONTADO.
+        #
+        # POR QUE HIZO FALTA. En m2/20261019T170659Z el segundo juez acabo
+        # siendo `openai/gpt-oss-20b`: MISMA familia que el principal, porque
+        # "ninguno de los modelos de otra familia servidos en esta cuenta
+        # sostuvo la rubrica sobre los 25 casos". Y eso es una regresion que
+        # YO introduje: al endurecer `RUBRICA` con la defensa contra inyeccion,
+        # el prompt crecio y los modelos pequenos dejaron de devolver JSON
+        # estricto. El acuerdo entre jueces paso a medir solo RUIDO --- dos
+        # modelos del mismo linaje comparten sesgo --- por un detalle de
+        # formato, no por nada del dominio.
+        #
+        # Una nota legible en prosa ("Nota: 4") es la misma medicion que la
+        # misma nota en JSON. Asi que se rescata, pero se CUENTA aparte: un
+        # rescate silencioso convertiria un juez que no sigue instrucciones en
+        # un juez que parece seguirlas, y eso es justo lo que no se puede
+        # esconder de un instrumento de medicion.
+        # SOLO SE RESCATA LO QUE NO ADMITE DUDA. La primera version cogia el
+        # primer digito 1-5 que encontrara, y sobre "entre 2-3 puntos" devolvia
+        # 3: un rango convertido en nota por el orden de la regex. Si el texto
+        # trae mas de un valor distinto, la nota es ambigua y vale mas dejarla
+        # en `None` --- que es una ausencia honesta --- que inventar cual de
+        # los dos queria decir.
+        reparada = False
+        if nota is None:
+            cand = {int(x) for x in re.findall(r"\b([1-5])\b",
+                                               texto_bruto or "")}
+            if len(cand) == 1:
+                nota, reparada = cand.pop(), True
+                self.notas_reparadas += 1
         if nota is None:
             self.fallos_parseo += 1
-        return {"nota": nota, "justificacion": d.get("justificacion", "")}
+        return {"nota": nota, "justificacion": d.get("justificacion", ""),
+                "reparada": reparada}
 
     def comparar(self, relato: str, referencia: str, a: str, b: str) -> str | None:
         """Pairwise. Devuelve 'A', 'B', 'empate' o None si no se pudo leer.
@@ -485,6 +525,135 @@ def respuesta_floja(e: dict, render_ref) -> str:
     malo["razon"] = "no se explica por que"
     malo["pretension"] = "acudir al juez competente"
     return render_ref(malo)
+
+
+NORMA_FALSA = "Ley 9999 de 2024"
+"""Una norma que no existe, para la sonda de validez. Si algun dia entrara al
+whitelist, `experimento_validez` lo detecta y lo dice en vez de medir nada."""
+
+
+def _degradar(e: dict, modo: str) -> dict:
+    """El gold con UN defecto, y solo uno.
+
+    Separar los defectos es el punto. `respuesta_floja` corrompe el mecanismo
+    Y vacia el fundamento a la vez --- bien para la inyeccion, donde solo hace
+    falta que la respuesta sea mala --- pero entonces una nota baja no dice
+    cual de los dos defectos pesó. Aqui se mide uno a uno.
+    """
+    d = dict(e)
+    if modo == "mecanismo_cambiado":
+        # El defecto que de verdad importa: la conclusion juridica es otra.
+        # `procede` se alinea con el mecanismo falso para que la salida sea
+        # internamente coherente; si fuera incoherente el juez la hundiria por
+        # esa razon y no por la que se quiere medir.
+        d["mecanismo"] = ("via_ordinaria" if e.get("mecanismo") != "via_ordinaria"
+                          else "tutela")
+        d["procede"] = d["mecanismo"] == "tutela"
+    elif modo == "norma_inventada":
+        # Mecanismo y razonamiento intactos: lo unico mal es la cita.
+        d["fundamento"] = NORMA_FALSA
+    elif modo == "razonamiento_vacio":
+        # Mecanismo y fundamento correctos; el razonamiento es circular.
+        d["razon"] = "procede porque se cumplen los requisitos para que proceda"
+    else:
+        raise ValueError(f"modo desconocido: {modo}")
+    return d
+
+
+def experimento_validez(juez, casos: list[dict], render_ref,
+                        n: int = 10) -> dict:
+    """¿El juez distingue una respuesta correcta de una rota? La prueba que faltaba.
+
+    POR QUE ES LA MAS IMPORTANTE DE LAS SONDAS
+
+    Las otras cuatro miden si el juez se puede ENGANAR: por posicion, por
+    longitud, por su propia familia o por una instruccion incrustada. Ninguna
+    comprueba lo primero que habria que comprobar --- que el instrumento mida
+    algo. Un juez que puntuara al azar pasaria las cuatro: no tiene sesgo de
+    posicion, no premia la longitud, no prefiere a su linaje y no obedece
+    inyecciones. Y sus notas no valdrian nada.
+
+    Aqui se le pone delante el gold del caso y el MISMO gold con un defecto, y
+    se mira si la nota baja. Tres defectos, cada uno aislado:
+
+      `mecanismo_cambiado`  la conclusion juridica es otra. **Este es el
+                            numero.** Si el juez no lo castiga, sus notas no
+                            miden correccion juridica y ninguna comparacion
+                            entre brazos que dependa de ellas se sostiene.
+      `norma_inventada`     mecanismo y razonamiento intactos, cita falsa.
+      `razonamiento_vacio`  conclusion correcta, razonamiento circular.
+
+    Es validez de construccion, no acuerdo con un humano: dice que el
+    instrumento responde al defecto, no que coincida con un abogado. M2-1b
+    sigue abierto y esto no lo cierra.
+
+    Cuesta 4 llamadas por caso --- el gold y tres degradaciones --- y la del
+    gold se reutiliza entre los tres margenes.
+    """
+    sub = [e for e in casos if e.get("mecanismo")][:n]
+    modos = ("mecanismo_cambiado", "norma_inventada", "razonamiento_vacio")
+    por_modo = {m: {"n": 0, "margenes": [], "inversiones": 0,
+                    "ilegibles": 0} for m in modos}
+    detalle = []
+
+    for e in sub:
+        base = juez.puntuar(e["relato"], render_ref(e), render_ref(e))
+        fila = {"id": e["id"], "nota_gold": base["nota"]}
+        for m in modos:
+            roto = juez.puntuar(e["relato"], render_ref(e),
+                                render_ref(_degradar(e, m)))
+            d = por_modo[m]
+            d["n"] += 1
+            if base["nota"] is None or roto["nota"] is None:
+                d["ilegibles"] += 1
+                fila[m] = None
+                continue
+            margen = base["nota"] - roto["nota"]
+            d["margenes"].append(margen)
+            # `>= 0` y no `> 0`: empatar ya es no distinguir.
+            if margen <= 0:
+                d["inversiones"] += 1
+            fila[m] = roto["nota"]
+        detalle.append(fila)
+    juez.guardar_cache()
+
+    for m, d in por_modo.items():
+        ms = d.pop("margenes")
+        # None, no 0.0, cuando no hubo ninguna comparacion legible: un 0 se
+        # leeria como "el juez no distingue" y lo cierto seria "no se midio".
+        d["margen_medio"] = round(sum(ms) / len(ms), 3) if ms else None
+        d["margen_minimo"] = min(ms) if ms else None
+        d["tasa_inversion"] = (round(d["inversiones"] / len(ms), 4)
+                               if ms else None)
+        d["ic_margen"] = metricas.bootstrap_ic(ms) if len(ms) > 1 else None
+
+    mec = por_modo["mecanismo_cambiado"]
+    return {
+        "n": len(sub),
+        "modelo_juez": juez.modelo,
+        "llamadas": len(sub) * (1 + len(modos)),
+        "norma_falsa_usada": NORMA_FALSA,
+        "norma_falsa_sigue_fuera_del_whitelist": NORMA_FALSA not in cargar_normas(),
+        "por_modo": por_modo,
+        # EL TITULAR: cuanto baja la nota cuando el mecanismo esta mal.
+        "margen_por_mecanismo": mec["margen_medio"],
+        "tasa_inversion_mecanismo": mec["tasa_inversion"],
+        "detalle": detalle,
+        "lectura": (
+            "`margen_por_mecanismo` es la cifra que importa: cuanto baja la "
+            "nota del juez cuando la unica diferencia es que el mecanismo esta "
+            "equivocado. Un margen <= 0 significa que el juez NO distingue una "
+            "conclusion juridica correcta de una incorrecta, y entonces sus "
+            "notas no miden derecho y ninguna comparacion que dependa de ellas "
+            "se sostiene --- empezando por el acuerdo entre jueces, que mediria "
+            "dos instrumentos igual de ciegos. `tasa_inversion` cuenta los "
+            "casos en que la respuesta ROTA saco nota mayor o igual."),
+        "lo_que_no_dice": (
+            "Esto es validez de CONSTRUCCION: dice que el instrumento responde "
+            "al defecto. NO dice que el juez coincida con un abogado, que es "
+            "M2-1b y sigue abierto. Un juez puede castigar el mecanismo "
+            "equivocado y seguir puntuando distinto que una persona."),
+    }
 
 
 def experimento_inyeccion(juez, casos: list[dict], render_ref) -> dict:

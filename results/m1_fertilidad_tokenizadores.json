@@ -1,0 +1,47 @@
+{
+  "_corrida": "20261018T200907Z",
+  "_modulo": "m1",
+  "_artefacto": "fertilidad_tokenizadores.json",
+  "datos": [
+    {
+      "modelo": "dccuchile/bert-base-spanish-wwm-cased",
+      "params": "0.1B",
+      "licencia": "CC-BY-4.0",
+      "vocab": 31002,
+      "fertilidad": 1.238,
+      "genera": "no"
+    },
+    {
+      "modelo": "BSC-LT/salamandra-2b-instruct",
+      "params": "2.3B",
+      "licencia": "Apache-2.0",
+      "vocab": 256000,
+      "fertilidad": 1.29,
+      "genera": "si"
+    },
+    {
+      "modelo": "Qwen/Qwen2.5-7B-Instruct",
+      "params": "7.6B",
+      "licencia": "Apache-2.0",
+      "vocab": 151643,
+      "fertilidad": 1.465,
+      "genera": "si"
+    },
+    {
+      "modelo": "Qwen/Qwen2.5-0.5B",
+      "params": "0.5B",
+      "licencia": "Apache-2.0",
+      "vocab": 151643,
+      "fertilidad": 1.465,
+      "genera": "si"
+    },
+    {
+      "modelo": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+      "params": "1.7B",
+      "licencia": "Apache-2.0",
+      "vocab": 49152,
+      "fertilidad": 1.903,
+      "genera": "si"
+    }
+  ]
+}

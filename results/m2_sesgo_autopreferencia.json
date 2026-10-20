@@ -1,0 +1,161 @@
+{
+  "_corrida": "20261018T080311Z",
+  "_modulo": "m2",
+  "_artefacto": "sesgo_autopreferencia.json",
+  "n": 15,
+  "modelo_juez": "openai/gpt-oss-120b",
+  "etiquetas": {
+    "x": "openai/gpt-oss-20b (familia del juez)",
+    "y": "Qwen2.5-7B ajustado (evaluado)"
+  },
+  "por_estrato": {
+    "empate_correctas": {
+      "n": 2,
+      "prefiere_familia": 0,
+      "prefiere_ajeno": 2,
+      "empate": 0,
+      "inconsistente": 0
+    },
+    "empate_fallan": {
+      "n": 1,
+      "prefiere_familia": 0,
+      "prefiere_ajeno": 0,
+      "empate": 0,
+      "inconsistente": 1
+    },
+    "gana_familia": {
+      "n": 0,
+      "prefiere_familia": 0,
+      "prefiere_ajeno": 0,
+      "empate": 0,
+      "inconsistente": 0
+    },
+    "gana_ajeno": {
+      "n": 12,
+      "prefiere_familia": 0,
+      "prefiere_ajeno": 12,
+      "empate": 0,
+      "inconsistente": 0
+    }
+  },
+  "preferencia_familia_con_calidad_empatada": 0.0,
+  "ic": {
+    "ic_bajo": 0.0,
+    "ic_alto": 0.6576,
+    "amplitud": 0.6576,
+    "nivel": 0.95,
+    "n": 2,
+    "punto": 0.0,
+    "metodo": "wilson",
+    "nota": "todas las observaciones son iguales, asi que el bootstrap no puede variar y daria un intervalo de amplitud cero. Se informa Wilson, que si esta definido en los extremos."
+  },
+  "n_decididos_en_el_empate": 2,
+  "lectura": "el numero que importa es `preferencia_familia_con_calidad_empatada`: 0.5 es ausencia de auto-preferencia. Fuera del estrato de empate la preferencia puede ser merito y no sesgo, por eso no se agrega todo en una sola cifra. `indefinida` significa que no hubo pares con las dos respuestas correctas y el experimento no puede informar: con n pequeno pasa, y es mejor decirlo que promediar estratos que miden cosas distintas.",
+  "detalle": [
+    {
+      "id": "E01",
+      "estrato": "empate_correctas",
+      "acerto_familia": true,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "E02",
+      "estrato": "gana_ajeno",
+      "acerto_familia": false,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "E03",
+      "estrato": "gana_ajeno",
+      "acerto_familia": false,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "E04",
+      "estrato": "gana_ajeno",
+      "acerto_familia": false,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "E05",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "inconsistente"
+    },
+    {
+      "id": "E06",
+      "estrato": "gana_ajeno",
+      "acerto_familia": false,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "E07",
+      "estrato": "gana_ajeno",
+      "acerto_familia": false,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "E08",
+      "estrato": "gana_ajeno",
+      "acerto_familia": false,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "E09",
+      "estrato": "gana_ajeno",
+      "acerto_familia": false,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "E10",
+      "estrato": "gana_ajeno",
+      "acerto_familia": false,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "A01",
+      "estrato": "gana_ajeno",
+      "acerto_familia": false,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "A02",
+      "estrato": "gana_ajeno",
+      "acerto_familia": false,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "A03",
+      "estrato": "gana_ajeno",
+      "acerto_familia": false,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "A04",
+      "estrato": "gana_ajeno",
+      "acerto_familia": false,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "E11",
+      "estrato": "empate_correctas",
+      "acerto_familia": true,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    }
+  ]
+}

@@ -38,9 +38,65 @@ INSTRUCCION_RAG = (
 )
 
 
+def cita_completa(f: dict) -> str:
+    """La cita de un fragmento en la forma que SE PUEDE VERIFICAR.
+
+    POR QUE EXISTE ESTA FUNCION
+
+    Los brazos 2 y 3 salieron con **7.9%** y **10.1%** de citas `incompleta`
+    en m3/20261019T173316Z: «art. 6» sin decir de que norma. El medidor las
+    separa de `inventada` a proposito --- no dijo de que ley habla no es se lo
+    invento --- pero una cita sin norma no se puede comprobar, que es justo lo
+    que el corpus verificado existe para garantizar.
+
+    La causa no estaba en el modelo: estaba en como se le ensenaba el corpus.
+    La cabecera era `[{norma}, {articulo} — {titulo}]`, con la norma SEPARADA
+    del articulo por una coma, asi que «art. 6» aparecia como una pieza suelta
+    y el modelo la copiaba suelta. Medido con el clasificador real sobre los
+    69 fragmentos: **12 de 16** formas distintas salian `incompleta` con el
+    articulo solo, y **ninguna** con el articulo pegado a su norma.
+
+    No se concatena a ciegas: `articulo` YA trae la norma cuando es
+    constitucional (`art. 11 CP`), y pegarle el nombre daria «art. 11 CP
+    Constitucion Politica de Colombia». Y un fragmento de jurisprudencia se
+    cita por la sentencia, no por un articulo.
+
+    LO QUE NO ES DERECHO VIGENTE NO SE SIRVE LISTO PARA COPIAR.
+
+    `data/normas.json` excluye el art. 11 del Decreto 2591 a proposito, y lo
+    dice: esta INEXEQUIBLE por C-543/1992, su texto vive en el corpus
+    "para que el sistema pueda recuperarlo y contradecir a quien lo invoque",
+    y citarlo como fundamento vigente DEBE contar como alucinacion.
+
+    La primera version de esta funcion le habria servido
+    `[art. 11 Decreto 2591 de 1991 — ...]` --- una cita impecable, lista para
+    copiar --- justo del unico articulo que el proyecto quiere que NO se cite.
+    Habria sido ayudar al modelo a fallar la metrica que mas cuida.
+
+    Asi que para un fragmento no vigente se devuelve la forma SEPARADA, que es
+    la que el clasificador deja en `incompleta`, con el aviso delante. Es el
+    unico sitio del codigo donde una cita peor es la cita correcta.
+    """
+    art = (f.get("articulo") or "").strip()
+    norma = (f.get("norma") or "").strip()
+    vig = (f.get("vigencia") or "").strip()
+    if vig and not vig.lower().startswith("vigente"):
+        return f"NO ES DERECHO VIGENTE ({vig}) · {norma}, {art}"
+    if norma.lower().startswith("sentencia"):
+        return norma
+    if not art:
+        return norma
+    if art.upper().endswith(" CP") or "constituci" in art.lower():
+        return art
+    return f"{art} {norma}" if norma else art
+
+
 def formatear_contexto(frags: list[dict]) -> str:
+    # La cabecera lleva la cita COMPLETA y lista para copiar: es lo unico que
+    # el modelo tiene delante cuando decide como citar. La excepcion son los
+    # fragmentos no vigentes --- ver `cita_completa`.
     return "\n\n".join(
-        f"[{f['norma']}, {f['articulo']} — {f['titulo']}]\n{f['texto']}" for f in frags)
+        f"[{cita_completa(f)} — {f['titulo']}]\n{f['texto']}" for f in frags)
 
 
 class SistemaRAG:
@@ -68,10 +124,17 @@ class SistemaRAG:
                    f"{schema.PROMPT.format(relato=relato)}")
         _t = time.perf_counter()
         salida = self.generar(INSTRUCCION_RAG, usuario)
-        # `generar` es una clausura del notebook y no devuelve `usage`, asi que
-        # aqui se mide latencia y llamadas pero no tokens. Queda contado en
-        # `llamadas_sin_usage` en vez de sumar 0, que se leeria como gratis.
-        self.costos.registrar(time.perf_counter() - _t)
+        # Tokens de un modelo LOCAL. `usage` solo existe si la llamada fue
+        # a una API; `model.generate()` no devuelve nada parecido, y por eso
+        # los brazos 2 y 3 salieron con `llamadas_sin_usage: 90` y
+        # `tokens_por_caso: null` en m3/20261019T173316Z. El tokenizador si
+        # los cuenta, asi que el generador los publica en `ultimos_tokens` y
+        # se leen AQUI, justo despues de la llamada propia: entre una cosa y
+        # la otra no corre nada, asi que dos brazos que comparten generador no
+        # pueden mezclar su contabilidad.
+        _tk = getattr(self.generar, "ultimos_tokens", None)
+        self.costos.registrar(time.perf_counter() - _t, tokens=_tk,
+                              fuente_tokens="tokenizador" if _tk else None)
         self.trazas.append({"relato": relato[:80], "consulta": consulta[:120],
                             "recuperados": [f["id"] for f in frags],
                             "contexto": [f"{f['articulo']} {f['norma']}" for f in frags]})
@@ -159,7 +222,17 @@ class SistemaOraculo:
                    f"{schema.PROMPT.format(relato=relato)}")
         _t = time.perf_counter()
         salida = self.generar(INSTRUCCION_RAG, usuario)
-        self.costos.registrar(time.perf_counter() - _t)
+        # Tokens de un modelo LOCAL. `usage` solo existe si la llamada fue
+        # a una API; `model.generate()` no devuelve nada parecido, y por eso
+        # los brazos 2 y 3 salieron con `llamadas_sin_usage: 90` y
+        # `tokens_por_caso: null` en m3/20261019T173316Z. El tokenizador si
+        # los cuenta, asi que el generador los publica en `ultimos_tokens` y
+        # se leen AQUI, justo despues de la llamada propia: entre una cosa y
+        # la otra no corre nada, asi que dos brazos que comparten generador no
+        # pueden mezclar su contabilidad.
+        _tk = getattr(self.generar, "ultimos_tokens", None)
+        self.costos.registrar(time.perf_counter() - _t, tokens=_tk,
+                              fuente_tokens="tokenizador" if _tk else None)
         self.trazas.append({
             "relato": relato[:80],
             "id": caso["id"] if caso else None,
@@ -553,7 +626,17 @@ class SistemaHibrido:
         _t = time.perf_counter()
         hechos, libres = extraer_hechos(self.generar, relato,
                                         self.fallos_extraccion)
-        self.costos.registrar(time.perf_counter() - _t)
+        # Tokens de un modelo LOCAL. `usage` solo existe si la llamada fue
+        # a una API; `model.generate()` no devuelve nada parecido, y por eso
+        # los brazos 2 y 3 salieron con `llamadas_sin_usage: 90` y
+        # `tokens_por_caso: null` en m3/20261019T173316Z. El tokenizador si
+        # los cuenta, asi que el generador los publica en `ultimos_tokens` y
+        # se leen AQUI, justo despues de la llamada propia: entre una cosa y
+        # la otra no corre nada, asi que dos brazos que comparten generador no
+        # pueden mezclar su contabilidad.
+        _tk = getattr(self.generar, "ultimos_tokens", None)
+        self.costos.registrar(time.perf_counter() - _t, tokens=_tk,
+                              fuente_tokens="tokenizador" if _tk else None)
         dec = decidir(hechos)
 
         # Fundamento determinista: el artículo del derecho sale de un mapa

@@ -1,0 +1,67 @@
+{
+  "_corrida": "20261018T080807Z",
+  "_modulo": "m3",
+  "_artefacto": "ragas.json",
+  "datos": [
+    {
+      "sistema": "2 · fine-tuned + RAG ingenuo",
+      "n": 90,
+      "exactas": {
+        "faithfulness": 0.6063829787234043,
+        "context_precision": 0.3925694444444444,
+        "context_recall": 0.3284313725490196
+      },
+      "juez": {
+        "faithfulness": 0.13392857142857142,
+        "context_precision": 0.4599382716049384,
+        "answer_relevancy": 0.3980532303452492
+      },
+      "_implementacion": "implementacion propia (src/ragas_eval.py); la libreria `ragas` NO esta instalada",
+      "_divergencia_exacta_vs_juez": {
+        "faithfulness": -0.4725,
+        "context_precision": 0.0674
+      },
+      "_lectura": "`exactas` se calcula contra el gold con reglas deterministas; `juez` lo puntua un LLM. Divergen, y no con un desfase constante: en esta corrida el juez fue mucho mas severo en faithfulness y mas generoso en context_precision. Ninguna de las dos se puede reportar sola. Coherente con la dimension 2 de M2, donde el juez coincide con otro juez (kappa 0.76) mucho mejor que con la verdad de dominio (0.26)."
+    },
+    {
+      "sistema": "3 · fine-tuned + RAG avanzado",
+      "n": 90,
+      "exactas": {
+        "faithfulness": 0.75,
+        "context_precision": 0.6260416666666666,
+        "context_recall": 0.4852941176470588
+      },
+      "juez": {
+        "faithfulness": 0.21238938053097345,
+        "context_precision": 0.7273765432098769,
+        "answer_relevancy": 0.4031903468072414
+      },
+      "_implementacion": "implementacion propia (src/ragas_eval.py); la libreria `ragas` NO esta instalada",
+      "_divergencia_exacta_vs_juez": {
+        "faithfulness": -0.5376,
+        "context_precision": 0.1013
+      },
+      "_lectura": "`exactas` se calcula contra el gold con reglas deterministas; `juez` lo puntua un LLM. Divergen, y no con un desfase constante: en esta corrida el juez fue mucho mas severo en faithfulness y mas generoso en context_precision. Ninguna de las dos se puede reportar sola. Coherente con la dimension 2 de M2, donde el juez coincide con otro juez (kappa 0.76) mucho mejor que con la verdad de dominio (0.26)."
+    },
+    {
+      "sistema": "4 · agente + reglas",
+      "n": 90,
+      "exactas": {
+        "faithfulness": 0.3232758620689655,
+        "context_precision": 0.47203152056277053,
+        "context_recall": 0.5098039215686274
+      },
+      "juez": {
+        "faithfulness": 0.210412147505423,
+        "context_precision": 0.5259411674768039,
+        "answer_relevancy": 0.3887274991539824
+      },
+      "_implementacion": "implementacion propia (src/ragas_eval.py); la libreria `ragas` NO esta instalada",
+      "_divergencia_exacta_vs_juez": {
+        "faithfulness": -0.1129,
+        "context_precision": 0.0539
+      },
+      "_lectura": "`exactas` se calcula contra el gold con reglas deterministas; `juez` lo puntua un LLM. Divergen, y no con un desfase constante: en esta corrida el juez fue mucho mas severo en faithfulness y mas generoso en context_precision. Ninguna de las dos se puede reportar sola. Coherente con la dimension 2 de M2, donde el juez coincide con otro juez (kappa 0.76) mucho mejor que con la verdad de dominio (0.26)."
+    }
+  ]
+}

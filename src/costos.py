@@ -43,19 +43,50 @@ class Costos:
         self.tokens_entrada = 0
         self.tokens_salida = 0
         self.sin_usage = 0          # llamadas reales cuya API no reportó usage
+        # De donde salieron los tokens: `api_usage` si los facturó la API,
+        # `tokenizador` si los contó el tokenizador de un modelo local. La
+        # tabla de costes no puede presentar las dos como la misma cifra sin
+        # decirlo.
+        self.fuentes_tokens: set[str] = set()
         self.casos = 0
 
     def nuevo_caso(self) -> None:
         self.casos += 1
 
     def registrar(self, segundos: float | None = None, usage=None,
-                  cacheada: bool = False) -> None:
+                  cacheada: bool = False,
+                  tokens: tuple[int, int] | None = None,
+                  fuente_tokens: str | None = None) -> None:
+        """Una llamada al modelo. `tokens` es para los modelos LOCALES.
+
+        POR QUE HACEN FALTA DOS CAMINOS
+
+        `usage` solo existe si la llamada fue a una API. Los brazos 2 y 3 de M3
+        corren sobre el adaptador LOCAL con `model.generate()`, que no devuelve
+        ningun `usage`: en m3/20261019T173316Z salieron con
+        `llamadas_sin_usage: 90` y `tokens_por_caso: null`. Eso no era un fallo
+        de contabilidad --- era la verdad, no habia nada que contar --- pero
+        dejaba la tabla de costes sin la mitad de las filas.
+
+        Los tokens de un modelo local SI se pueden contar: el tokenizador los
+        da exactos. Asi que se aceptan por `tokens=(entrada, salida)` y se
+        registra DE DONDE salieron en `fuente_tokens`. Dos fuentes distintas
+        para la misma cifra se tienen que poder distinguir: lo que la API
+        factura y lo que el tokenizador cuenta no son necesariamente iguales,
+        y sumarlas sin decirlo seria inventar una precision que no hay.
+        """
         if cacheada:
             self.llamadas_cache += 1
             return
         self.llamadas_reales += 1
         if segundos is not None:
             self.segundos.append(segundos)
+        if tokens is not None:
+            ent, sal = tokens
+            self.tokens_entrada += int(ent or 0)
+            self.tokens_salida += int(sal or 0)
+            self.fuentes_tokens.add(fuente_tokens or "sin_declarar")
+            return
         if usage is None:
             self.sin_usage += 1
             return
@@ -71,6 +102,7 @@ class Costos:
             return
         self.tokens_entrada += int(ent or 0)
         self.tokens_salida += int(sal or 0)
+        self.fuentes_tokens.add("api_usage")
 
     # ------------------------------------------------------------------
     def _pct(self, q: float) -> float | None:
@@ -102,6 +134,13 @@ class Costos:
             "tokens_por_caso": (round(tot / n, 1) if tot
                                 else (None if self.sin_usage else 0)),
             "llamadas_sin_usage": self.sin_usage,
+            # De donde salieron los tokens. `api_usage` es lo que la API
+            # factura; `tokenizador` es lo que el tokenizador cuenta en un
+            # modelo local. Comparar un brazo que corre en la API contra uno
+            # que corre en GPU local por su cuenta de tokens solo tiene
+            # sentido si se sabe que no es la misma medicion.
+            "fuente_tokens": (sorted(self.fuentes_tokens)
+                              if self.fuentes_tokens else None),
         }
 
 

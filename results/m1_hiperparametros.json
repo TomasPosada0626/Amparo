@@ -1,0 +1,59 @@
+{
+  "_corrida": "20261018T200907Z",
+  "_modulo": "m1",
+  "_artefacto": "hiperparametros.json",
+  "modelo_base": "Qwen/Qwen2.5-7B-Instruct",
+  "semilla": 42,
+  "max_len": 661,
+  "lora": {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "o_proj",
+      "up_proj",
+      "v_proj",
+      "k_proj",
+      "down_proj",
+      "gate_proj"
+    ]
+  },
+  "entrenamiento": {
+    "seed": 42,
+    "data_seed": 42,
+    "learning_rate": 0.0001,
+    "lr_scheduler_type": "cosine",
+    "num_train_epochs": 8,
+    "per_device_train_batch_size": 2,
+    "gradient_accumulation_steps": 4,
+    "per_device_eval_batch_size": 2,
+    "logging_steps": 1,
+    "gradient_checkpointing": true,
+    "gradient_checkpointing_kwargs": {
+      "use_reentrant": false
+    },
+    "save_strategy": "epoch",
+    "save_total_limit": 2,
+    "load_best_model_at_end": true,
+    "metric_for_best_model": "eval_loss",
+    "greater_is_better": false,
+    "bf16": true,
+    "report_to": "none",
+    "eval_strategy": "epoch"
+  },
+  "entrenamiento_omitido": {
+    "warmup_ratio": 0.05
+  },
+  "versiones": {
+    "torch": "2.11.0+cu130",
+    "transformers": "5.20.1",
+    "peft": "0.21.2",
+    "datasets": "5.1.0"
+  },
+  "splits": {
+    "train": 123,
+    "validation": 37,
+    "eval": 69
+  }
+}

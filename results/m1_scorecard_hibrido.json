@@ -1,0 +1,365 @@
+{
+  "_corrida": "20261018T074101Z",
+  "_modulo": "m1",
+  "_artefacto": "scorecard_hibrido.json",
+  "sistema": "base extrae + reglas deciden",
+  "n": 63,
+  "campos": {
+    "derecho": {
+      "accuracy": 0.3333333333333333,
+      "macro_f1": 0.22344750765803398,
+      "baseline_mayoritaria": 0.23809523809523808,
+      "soporte_por_clase": {
+        "minimo_vital": 1,
+        "seguridad_social": 3,
+        "ninguno": 15,
+        "educacion": 3,
+        "trabajo": 2,
+        "salud": 8,
+        "debido_proceso": 4,
+        "peticion": 5,
+        "estabilidad_laboral_reforzada": 3,
+        "colectivos": 8,
+        "libertad_personal": 8,
+        "habeas_data": 3
+      },
+      "f1_por_clase": {
+        "minimo_vital": 0.0,
+        "seguridad_social": 0.0,
+        "ninguno": 0.0,
+        "educacion": 0.8,
+        "trabajo": 0.6667,
+        "salud": 0.5714,
+        "debido_proceso": 0.0,
+        "peticion": 0.0,
+        "estabilidad_laboral_reforzada": 0.0,
+        "colectivos": 0.2222,
+        "libertad_personal": 0.4211,
+        "habeas_data": 0.0
+      },
+      "clases_con_soporte_minimo": [
+        "educacion",
+        "estabilidad_laboral_reforzada",
+        "habeas_data",
+        "minimo_vital",
+        "seguridad_social",
+        "trabajo"
+      ]
+    },
+    "mecanismo": {
+      "accuracy": 0.6190476190476191,
+      "macro_f1": 0.6157692307692308,
+      "baseline_mayoritaria": 0.42857142857142855,
+      "soporte_por_clase": {
+        "habeas_corpus": 8,
+        "tutela": 27,
+        "accion_popular": 8,
+        "accion_cumplimiento": 8,
+        "via_ordinaria": 12
+      },
+      "f1_por_clase": {
+        "habeas_corpus": 1.0,
+        "tutela": 0.6538,
+        "accion_popular": 0.625,
+        "accion_cumplimiento": 0.3333,
+        "via_ordinaria": 0.4667
+      },
+      "clases_con_soporte_minimo": []
+    },
+    "procede": {
+      "accuracy": 0.7142857142857143,
+      "macro_f1": 0.7053014553014553,
+      "baseline_mayoritaria": 0.5714285714285714,
+      "soporte_por_clase": {
+        "False": 36,
+        "True": 27
+      },
+      "f1_por_clase": {
+        "False": 0.7568,
+        "True": 0.6538
+      },
+      "clases_con_soporte_minimo": []
+    }
+  },
+  "n_abstencion": 6,
+  "abstencion": {
+    "n_sin_respuesta_correcta": 6,
+    "acierto_abstencion": 0.0,
+    "forzo_etiqueta": 6,
+    "n_con_respuesta_correcta": 63,
+    "abstencion_indebida": 0.0,
+    "abstenciones_indebidas": 0,
+    "cero_abstenciones_es_decision_de_diseno": {
+      "decision": "ante un hecho dudoso, no se activa causal de improcedencia",
+      "donde": "sistema.extraer_hechos · todo lo que no llegue como booleano se asume False",
+      "por_que": "en un triaje, el error caro no es sugerir una via de mas: es cerrarle la puerta a quien si tenia un mecanismo. El motor solo propone la via y dice que dato la cambiaria; no decide nada que no se pueda revisar.",
+      "coste_simetrico": "el mismo defecto que produce CERO abstenciones indebidas produce CERO abstenciones correctas. El brazo que usa el motor nunca dice `ninguno`: para el, siempre hay una via.",
+      "como_NO_leer_la_cifra": "`acierto_abstencion: 0.0` en el brazo del motor no mide que no sepa callarse --- mide que se le pidio no callarse. Lo que si seria un hallazgo es `abstencion_indebida > 0`, y vale 0.",
+      "que_lo_cambiaria": "un umbral de confianza en la extraccion, o una causal de improcedencia activable por defecto en los hechos que el extractor marque como no vistos. Ninguna de las dos esta implementada, y ninguna se puede evaluar con n=6 abstenciones."
+    },
+    "lectura_abstencion": "0 de 6 abstenciones correctas y 0 de 63 indebidas. Los dos numeros salen del mismo defecto: ante la duda no se activa causal de improcedencia. No se puede celebrar el segundo y llamar fallo al primero.",
+    "por_familia": {
+      "ab_consulta_comercial": false,
+      "ab_pregunta_academica": false,
+      "ab_hechos_insuficientes": false,
+      "ab_materia_no_cubierta": false,
+      "ab_relato_contradictorio": false,
+      "ab_pide_pronostico": false
+    },
+    "forzo_en": [
+      {
+        "id": "AB51",
+        "familia": "ab_consulta_comercial"
+      },
+      {
+        "id": "AB52",
+        "familia": "ab_pregunta_academica"
+      },
+      {
+        "id": "AB53",
+        "familia": "ab_hechos_insuficientes"
+      },
+      {
+        "id": "AB54",
+        "familia": "ab_materia_no_cubierta"
+      },
+      {
+        "id": "AB55",
+        "familia": "ab_relato_contradictorio"
+      },
+      {
+        "id": "AB56",
+        "familia": "ab_pide_pronostico"
+      }
+    ],
+    "indebidas_en": []
+  },
+  "adherencia_estructural_total": 1.0,
+  "adherencia_estructural": 1.0,
+  "adherencia_vocabulario": 1.0,
+  "coherencia": 0.9523809523809523,
+  "acierto_juridico": 0.6190476190476191,
+  "alucinacion_normativa": {
+    "jurisprudencia": {
+      "en_fundamento": 0,
+      "en_fundamento_sin_verificar": 0,
+      "en_toda_la_salida": 0,
+      "en_toda_la_salida_sin_verificar": 0,
+      "ejemplos": [],
+      "ejemplos_sin_verificar": [],
+      "lectura": "`data/normas.json` declara que la cita jurisprudencial NO entra al chequeo de alucinacion normativa porque es mas volatil. Se cuenta aqui y no en `inventada`: un modelo que cita la C-531 de 2000 --- el fundamento de la estabilidad laboral reforzada, que esta en el corpus --- estaba siendo penalizado por acertar. `sin_verificar` son referencias bien formadas a sentencias que el proyecto no declara: no se aprueban en bloque, porque no hay whitelist completo de la jurisprudencia colombiana y fingir que si seria peor."
+    },
+    "constitucional_sin_verificar": {
+      "en_fundamento": 0,
+      "en_toda_la_salida": 0,
+      "ejemplos": [],
+      "lectura": "Articulos de la Constitucion con numero existente (1-380) que `normas.json` no declara, porque declara los 20 que el proyecto usa. Antes caian en `inventada` y la tasa de alucinacion los contaba: en m1/20261016T174233Z eran 2 de 6. Que el articulo exista NO dice que venga al caso --- eso lo mide `pertinencia_citas`, donde siguen contando como impertinentes si no corresponden. Las tasas de alucinacion de las corridas anteriores a este cambio NO son comparables con las de ahora: median otra cosa."
+    },
+    "citas_totales": 160,
+    "citas_inventadas": 0,
+    "tasa_alucinacion": 0.0,
+    "ejemplos": [],
+    "citas_incompletas": 0,
+    "tasa_incompletas": 0.0,
+    "ejemplos_incompletas": [],
+    "citas_totales_salida": 180,
+    "citas_inventadas_salida": 0,
+    "tasa_alucinacion_salida": 0.0,
+    "citas_incompletas_salida": 0,
+    "ejemplos_salida": [],
+    "inventadas_fuera_del_fundamento": []
+  },
+  "pertinencia_citas": {
+    "citas_emitidas": 160,
+    "correctas": 69,
+    "impertinentes": 91,
+    "inventadas": 0,
+    "incompletas": 0,
+    "precision_citas": 0.43125,
+    "recall_citas": 0.42592592592592593,
+    "ejemplos_impertinentes": [
+      [
+        "art. 86 CP",
+        25
+      ],
+      [
+        "art. 28 CP",
+        22
+      ],
+      [
+        "art. 49 CP",
+        11
+      ],
+      [
+        "art. 6.4 Decreto 2591 de 1991",
+        6
+      ],
+      [
+        "art. 6.1 Decreto 2591 de 1991",
+        5
+      ]
+    ],
+    "por_plano": {
+      "disponible": true,
+      "cajas": {
+        "derecho_correcto": 22,
+        "mecanismo_correcto": 66,
+        "mecanismo_equivocado": 36,
+        "derecho_impertinente": 36
+      },
+      "precision_mecanismo": 0.6470588235294118,
+      "precision_derecho": 0.3793103448275862,
+      "recall_mecanismo": 0.6,
+      "recall_derecho": 0.2682926829268293,
+      "citas_clasificadas": 160,
+      "ejemplos_mecanismo_equivocado": [
+        [
+          "art. 86 CP",
+          8
+        ],
+        [
+          "art. 6.4 Decreto 2591 de 1991",
+          6
+        ],
+        [
+          "art. 6.1 Decreto 2591 de 1991",
+          5
+        ],
+        [
+          "art. 88 CP",
+          3
+        ],
+        [
+          "Ley 472 de 1998",
+          3
+        ]
+      ],
+      "ejemplos_derecho_impertinente": [
+        [
+          "art. 28 CP",
+          22
+        ],
+        [
+          "art. 49 CP",
+          11
+        ],
+        [
+          "art. 48 CP",
+          2
+        ],
+        [
+          "art. 25 CP",
+          1
+        ]
+      ],
+      "lectura": "`precision_citas` de arriba sigue siendo el numero comparable con las once corridas anteriores. Esta particion dice ADEMAS cual de los dos razonamientos falla: equivocar el mecanismo es un error sobre la via procesal; citar un derecho impertinente es un error sobre el fondo."
+    }
+  },
+  "ic": {
+    "acc_mecanismo": {
+      "n": 63,
+      "punto": 0.619,
+      "ic_bajo": 0.4921,
+      "ic_alto": 0.746,
+      "amplitud": 0.254,
+      "nivel": 0.95,
+      "metodo": "bootstrap_percentil",
+      "remuestreos": 2000,
+      "semilla": 42
+    },
+    "acierto_juridico": {
+      "n": 63,
+      "punto": 0.619,
+      "ic_bajo": 0.4921,
+      "ic_alto": 0.746,
+      "amplitud": 0.254,
+      "nivel": 0.95,
+      "metodo": "bootstrap_percentil",
+      "remuestreos": 2000,
+      "semilla": 42
+    },
+    "por_tipo": {
+      "gold": {
+        "n": 45,
+        "punto": 0.6444,
+        "ic_bajo": 0.4889,
+        "ic_alto": 0.7778,
+        "amplitud": 0.2889,
+        "nivel": 0.95,
+        "metodo": "bootstrap_percentil",
+        "remuestreos": 2000,
+        "semilla": 42
+      },
+      "adversarial": {
+        "n": 18,
+        "punto": 0.5556,
+        "ic_bajo": 0.3333,
+        "ic_alto": 0.7778,
+        "amplitud": 0.4444,
+        "nivel": 0.95,
+        "metodo": "bootstrap_percentil",
+        "remuestreos": 2000,
+        "semilla": 42
+      }
+    },
+    "lectura": "si los intervalos de dos brazos se solapan, la tabla no sostiene que uno sea mejor que el otro. `metricas.ic_se_solapan()` lo comprueba. El estrato adversarial es el mas pequeño y por eso el de intervalo mas ancho: es justo donde no hay que sobreleer."
+  },
+  "rouge_l": 0.21648582423900528,
+  "similitud_embeddings": 0.781829297542572,
+  "por_tipo": {
+    "gold": {
+      "n": 45,
+      "acierto_juridico": 0.6444444444444445
+    },
+    "adversarial": {
+      "n": 18,
+      "acierto_juridico": 0.5555555555555556
+    }
+  },
+  "por_fiabilidad_etiqueta": {
+    "motor_de_reglas_plano": {
+      "nivel": 2,
+      "n": 45,
+      "acc_mecanismo": 0.6222222222222222,
+      "acierto_juridico": 0.6222222222222222
+    },
+    "motor_de_reglas_ponderado": {
+      "nivel": 3,
+      "n": 15,
+      "acc_mecanismo": 0.6,
+      "acierto_juridico": 0.6
+    },
+    "equipo_ponderacion_afirmada": {
+      "nivel": 4,
+      "n": 3,
+      "acc_mecanismo": 0.6666666666666666,
+      "acierto_juridico": 0.6666666666666666
+    },
+    "_lectura": "`motor_de_reglas` significa CONSISTENTE con el arbol del art. 6, no INDEPENDIENTE: los hechos los codifico el mismo equipo que puso la etiqueta. Solo el nivel 1 tiene fuente externa."
+  },
+  "errores_por_categoria": {
+    "ac_acuerdo_sin_reglamentar": "1/1",
+    "ac_comisaria_de_familia": "1/1",
+    "ac_norma_salud_sin_afectado": "1/1",
+    "ac_plan_gestion_riesgo": "1/1",
+    "ap_colectivo_con_afectado_sin_perjuicio": "1/1",
+    "ap_moralidad_sobrecosto": "1/1",
+    "colectivo_moralidad": "1/1",
+    "contra_providencia": "1/1",
+    "debido_proceso_administrativo": "1/1",
+    "debido_proceso_disciplinario": "1/1",
+    "familia_ordinario": "1/1",
+    "habeas_data_caducidad": "1/1",
+    "habeas_data_publicacion": "1/1",
+    "habeas_data_sin_notificacion": "1/1",
+    "incumplimiento_norma": "2/3",
+    "inmediatez": "1/1",
+    "minimo_vital_licencia": "1/1",
+    "pension_perjuicio_irremediable": "1/3",
+    "peticion_requisitos_indebidos": "1/1",
+    "peticion_respondida": "1/1",
+    "peticion_sin_respuesta": "1/2",
+    "salud_estetica": "1/1",
+    "salud_urgencias": "1/1"
+  }
+}

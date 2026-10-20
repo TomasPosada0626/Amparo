@@ -1,0 +1,6 @@
+{
+  "_corrida": "20261019T034908Z",
+  "_modulo": "m3",
+  "_artefacto": "ragas_libreria.json",
+  "error": "No module named 'langchain_community.chat_models.vertexai'"
+}

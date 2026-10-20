@@ -1,0 +1,559 @@
+{
+  "_corrida": "20261018T200907Z",
+  "_modulo": "m1",
+  "_artefacto": "predicciones.json",
+  "datos": [
+    {
+      "id": "E01",
+      "tipo": "gold",
+      "categoria": "salud_no_pbs",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: salud\nAccionado: EPS\nMecanismo: tutela\nProcedencia: La EPS debe garantizar el acceso a medicamentos necesarios para el tratamiento del VIH, incluso si cambia el protocolo terapéutico.\nPretension: Que la EPS ofrezca el antirretroviral necesario para continuar el tratamiento.",
+      "finetuned": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el cambio de tratamiento fue ordenado por el médico tratante y la EPS carece del medicamento, de modo que el acceso efectivo al servicio está interrumpido\nPretensión: ordenar el suministro del antirretroviral ordenado por el médico tratante"
+    },
+    {
+      "id": "E02",
+      "tipo": "gold",
+      "categoria": "salud_urgencias",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: salud\nAccionado: estado\nMecanismo: acción de protección\nProcedencia: se evidencia una vulneración al derecho a la salud, ya que no se brindó el tratamiento adecuado debido a la situación migratoria del paciente.",
+      "finetuned": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS y autoridad de control\nMecanismo: acción de tutela\nProcedencia: sí — el acceso a la salud es un derecho fundamental y la omisión de un procedimiento ordenado por el médico tratante desconoce el principio de oportunidad\nPretensión: ordenar la realización de la cirugía ordenada por el médico tratante"
+    },
+    {
+      "id": "E03",
+      "tipo": "gold",
+      "categoria": "peticion_respuesta_evasiva",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: seguridad_social  \nMecanismo: peticion  \nProcedencia: La solicitud de explicación sobre el aumento excesivo en la factura de agua no se relaciona directamente con derechos constitucionales específicos como la seguridad social, el mínimo vital, la estabilidad laboral o la libertad de información. Falta especificar un derecho fundamental que se esté vulnerando.",
+      "finetuned": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Empresa prestadora de servicios públicos\nMecanismo: acción de tutela\nProcedencia: sí — la respuesta fue parcial y no satisface la petición formulada, de modo que no queda medio de control efectivo de lo ordenado\nPretensión: ordenar respuesta integral a la petición formulada"
+    },
+    {
+      "id": "E04",
+      "tipo": "gold",
+      "categoria": "pension_perjuicio_irremediable",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: seguridad_social\nAccionado: Colpensiones\nMecanismo: tutela\nProcedencia: Existe una pretensión clara sobre una prestación del sistema de seguridad social, y se evidencia una omisión en el trámite de la indemnización sustitutiva.",
+      "finetuned": "Derecho: seguridad_social (art. 49 CP; Ley 100 de 1993)\nAccionado: Colpensiones\nMecanismo: acción de tutela\nProcedencia: sí — la demora extrema y la carencia de ingresos propician un perjuicio irremediable\nPretensión: ordenar el pago de la indemnización sustitutiva"
+    },
+    {
+      "id": "E05",
+      "tipo": "gold",
+      "categoria": "habeas_data_caducidad",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: estabilidad_laboral_reforzada  \nAccionado: banco  \nMecanismo: tutela  \nProcedencia: Falta especificidad sobre un derecho fundamental vulnerado, pero el reporte negativo afecta la estabilidad laboral.",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 1055 de 2006)\nAccionado: Institución financiera y Entidad de Crédito\nMecanismo: vía judicial ordinaria\nProcedencia: no — la tutela no protege el buen nombre, que es un derecho subjetivo propio del proceso civil\nPretensión: acudir a la jurisdicción civil para que se actualice el reporte de crédito"
+    },
+    {
+      "id": "E06",
+      "tipo": "gold",
+      "categoria": "debido_proceso_disciplinario",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: Estabilidad_laboral_reforzada  \nAccionado: Universidad  \nMecanismo: Recurso de reposición  \nProcedencia: Falta la oportunidad de defensa y notificación adecuada antes de la decisión.",
+      "finetuned": "Derecho: debido_proceso (art. 29 CP; Ley 1095 de 2006)\nAccionado: Universidad\nMecanismo: acción de tutela\nProcedencia: sí — la sanción se adoptó sin que el estudiante tuviera oportunidad de descargos, desconociendo el debido proceso\nPretensión: dejar sin efecto la sanción y reestablecer la matrícula"
+    },
+    {
+      "id": "E07",
+      "tipo": "gold",
+      "categoria": "educacion_inclusion",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: estabilidad_laboral_reforzada\nAccionado: colegio\nMecanismo: tutela\nProcedencia: Falta el recurso interno del colegio para resolver la situación antes de acudir a la justicia.",
+      "finetuned": "Derecho: educacion (art. 44 CP; art. 67 CP)\nAccionado: Institución educativa\nMecanismo: acción de tutela\nProcedencia: sí — la carencia de recursos humanos adecuados impide el acceso efectivo a la educación de una niña con discapacidad, frente a quien el Estado y la administración educativa tienen obligación de adaptar los medios y los métodos de enseñanza\nPretensión: ordenar la matrícula y el acceso a la educación con los medios y métodos adecuados"
+    },
+    {
+      "id": "E08",
+      "tipo": "gold",
+      "categoria": "fuero_salud",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: estabilidad_laboral_reforzada\nAccionado: entidad prestataria de salud\nMecanismo: tutela\nProcedencia: Falta justificación para no renovar el contrato mientras el trabajador está bajo tratamiento médico.\nPretension: Conservación del contrato y afiliación.",
+      "finetuned": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: Entidad prestadora de salud\nMecanismo: acción de tutela\nProcedencia: sí — la interrupción del servicio de quimioterapia dejaría al paciente sin tratamiento durante el proceso de control y decisión\nPretensión: ordenar la renovación del contrato hasta que finalice el tratamiento"
+    },
+    {
+      "id": "E09",
+      "tipo": "gold",
+      "categoria": "colectivo_ambiente",
+      "gold_mecanismo": "accion_popular",
+      "base": "Derecho: Derecho al medio ambiente\nAccionado: Municipio y veredas afectadas\nMecanismo: Acción de tutela\nProcedencia: Se vulnera el derecho al medio ambiente y la corporación ambiental no actúa.",
+      "finetuned": "Derecho: colectivos (art. 79 CP; Ley 393 de 1997)\nAccionado: Empresa de curtiembres y Corporación ambiental\nMecanismo: acción popular (Ley 393 de 1997)\nProcedencia: no — se busca proteger el ambiente sano de un grupo indeterminado de personas, que es el objeto propio de la acción popular\nPretensión: promover acción popular para que se haga el saneamiento de la quebrada"
+    },
+    {
+      "id": "E10",
+      "tipo": "gold",
+      "categoria": "contractual_ordinario",
+      "gold_mecanismo": "via_ordinaria",
+      "base": "Derecho: ninguno\nMecanismo: no determinable\nProcedencia: Falta un derecho fundamental vulnerado en el relato.",
+      "finetuned": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Almacén de cadena y proveedor\nMecanismo: vía judicial ordinaria\nProcedencia: no — se reclama la restitución de un bien vendido, objeto de controversia contractual entre particulares, sin que se alegue afectación de derechos fundamentales\nPretensión: acudir a la jurisdicción civil para la restitución del valor y reposición del electrodoméstico"
+    },
+    {
+      "id": "A01",
+      "tipo": "adversarial",
+      "categoria": "indemnizatorio",
+      "gold_mecanismo": "via_ordinaria",
+      "base": "Derecho: salud\nAccionado: EPS\nMecanismo: tutela\nProcedencia: Existe una vulneración potencial del derecho a la salud, dado el retraso en la cirugía.\nPretension: Indemnización por daños y perjuicios.",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — la tutela protege derechos fundamentales vigentes, no la indemnización de un perjuicio ya consumado\nPretensión: acudir a la jurisdicción civil para la indemnización del perjuicio"
+    },
+    {
+      "id": "A02",
+      "tipo": "adversarial",
+      "categoria": "relato_mixto",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: salud\nAccionado: EPS\nMecanismo: Acceso a la información\nProcedencia: Falta la entrega de muestras médicas necesarias para el tratamiento\nDerecho: paz_y_",
+      "finetuned": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la omisión de entrega de resultados a un paciente diagnosticado compromete el acceso efectivo al servicio\nDerecho: ninguno (art. 87 CP)\nAccionado: vecino\nMecanismo: vía judicial ordinaria\nProcedencia: no — la molestia sonora no afecta un derecho fundamental individual y se puede acudir a la jurisdicción contencioso administrativa"
+    },
+    {
+      "id": "A03",
+      "tipo": "adversarial",
+      "categoria": "salud_estetica",
+      "gold_mecanismo": "via_ordinaria",
+      "base": "Derecho: salud\nAccionado: EPS\nMecanismo: tutela\nProcedencia: Existe una controversia sobre la cobertura de la cirugía, aunque la EPS argumenta que es estética, el paciente considera que es necesaria para su salud mental.\nPretension: Que se ordene a la EPS la cobertura de la cirugía abdominoplastia.",
+      "finetuned": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — la orden fue emitida por un médico y la decisión de cobertura recae sobre la relación entre asegurador y asegurado, materia de la jurisdicción contencioso administrativa\nPretensión: acudir a la jurisdicción contencioso administrativa para que se determine la cobertura"
+    },
+    {
+      "id": "A04",
+      "tipo": "adversarial",
+      "categoria": "contra_providencia",
+      "gold_mecanismo": "via_ordinaria",
+      "base": "Derecho: debido proceso\nAccionado: juez y tribunal\nMecanismo: tutela\nProcedencia: Se cumple con todos los requisitos, ya que se vulneró el derecho al debido proceso.",
+      "finetuned": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Tribunal Superior\nMecanismo: vía judicial ordinaria\nProcedencia: no — la tutela protege la legalidad del acto y la vigencia del proceso, no su rectificación: el medio de control de nulidad es el propio sistema judicial\nPretensión: acudir a la jurisdicción contenciosa administrativa para la nulidad del fallo"
+    },
+    {
+      "id": "E11",
+      "tipo": "gold",
+      "categoria": "salud_cuidador",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: seguridad_social\nAccionado: EPS\nMecanismo: tutela\nProcedencia: Se requiere una prestación del sistema de seguridad social para el cuidado de un adulto mayor con discapacidad, y la entidad responsable no la está brindando.\nPretension: Que la EPS otorgue la enfermería domiciliaria necesaria.",
+      "finetuned": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el paciente es adulto mayor y la prestación fue negada sin examen de conveniencia, dejando al paciente sin cuidados\nPretensión: ordenar la autorización y prestación de enfermería domiciliaria"
+    },
+    {
+      "id": "E12",
+      "tipo": "gold",
+      "categoria": "salud_insumo",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: seguridad_social\nAccionado: EPS\nMecanismo: tutela\nProcedencia: Se trata de una prestación del sistema de seguridad social que no está siendo otorgada correctamente.\nPretension: Que la EPS reconsidere su decisión y continúe proporcionando la fórmula nutricional como parte de la prestación.",
+      "finetuned": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la continuidad del tratamiento ordenado por el médico tratante es un deber de la entidad prestadora\nPretensión: ordenar el suministro continuo de la fórmula nutricional"
+    },
+    {
+      "id": "E13",
+      "tipo": "gold",
+      "categoria": "salud_mental",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: salud\nAccionado: EPS\nMecanismo: tutela\nProcedencia: La EPS rechaza proporcionar la atención necesaria para la salud mental de la menor, violando su derecho a la salud.",
+      "finetuned": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la condición de vulnerabilidad y la orden de hospitalización hacen que el servicio sea inmediato y efectivo\nPretensión: ordenar la hospitalización inmediata de la paciente"
+    },
+    {
+      "id": "E14",
+      "tipo": "gold",
+      "categoria": "salud_demora",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: seguridad_social  \nAccionado: EPS  \nMecanismo: tutela  \nProcedencia: Existe una vulneración al derecho a la salud, ya que se está retrasando indebidamente la cirugía necesaria.",
+      "finetuned": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la demora excesiva en el acceso al servicio ordenado por el médico tratante deja al paciente sin trabajo y sin ingresos\nPretensión: ordenar el acceso inmediato a la cirugía ordenada"
+    },
+    {
+      "id": "E15",
+      "tipo": "gold",
+      "categoria": "peticion_requisitos_indebidos",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: seguridad_social  \nAccionado: secretaría de tránsito  \nMecanismo: amparo  \nProcedencia: Existe una exigencia ilegal para obtener una devolución que debería ser automática.",
+      "finetuned": "Derecho: peticion (art. 23 CP; Ley 1765 de 2015)\nAccionado: Secretaría de Tránsito\nMecanismo: acción de tutela\nProcedencia: sí — la respuesta impuesta exige requisitos que la ley no establece y hace innecesario el trámite notarial\nPretensión: ordenar la respuesta efectiva a la petición"
+    },
+    {
+      "id": "E16",
+      "tipo": "gold",
+      "categoria": "peticion_sin_respuesta",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: seguridad_social\nAccionado: Migración\nMecanismo: tutela\nProcedencia: El ciudadano radica una solicitud de permiso de permanencia que ha estado en estudio durante once meses, lo cual afecta su capacidad para trabajar formalmente y acceder a servicios de salud, violando su derecho a la seguridad social.",
+      "finetuned": "Derecho: seguridad_social (art. 49 CP; Ley 100 de 1993)\nAccionado: Migración Colombia\nMecanismo: acción de tutela\nProcedencia: sí — la demora extrema en la tramitación impide el acceso efectivo a la salud y al trabajo, derechos fundamentales\nPretensión: ordenar el trámite y expedición del permiso de permanencia"
+    },
+    {
+      "id": "E17",
+      "tipo": "gold",
+      "categoria": "peticion_sin_respuesta",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: Seguridad social\nAccionado: ARL\nMecanismo: Petición\nProcedencia: Falta la respuesta a la solicitud formalizada por el hermano, indicando el retraso injustificado en la entrega del expediente.",
+      "finetuned": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Administradora de riesgos laborales\nMecanismo: acción de tutela\nProcedencia: sí — transcurrieron cuatro meses desde la petición y la respuesta no alega término legal para la reserva\nPretensión: ordenar respuesta con fundamentación y entrega del expediente"
+    },
+    {
+      "id": "E18",
+      "tipo": "gold",
+      "categoria": "minimo_vital_licencia",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: seguridad_social\nAccionado: EPS\nMecanismo: tutela\nProcedencia: La EPS no ha pagado la licencia de maternidad, afectando la subsistencia de la madre cabeza de familia.\nPretension: Que se ordene el pago de la licencia de maternidad y se garantice la estabilidad laboral.",
+      "finetuned": "Derecho: seguridad_social (art. 49 CP; Ley 100 de 1993)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la carencia de ingresos durante la licencia de maternidad deja al titular sin medios de subsistencia\nPretensión: ordenar el pago de la licencia de maternidad"
+    },
+    {
+      "id": "E19",
+      "tipo": "gold",
+      "categoria": "habeas_data_publicacion",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: derecho a la privacidad\nAccionado: alcaldía\nMecanismo: habeas data\nProcedencia: se vulnera el derecho a la privacidad al publicar información personal y sensible sin consentimiento\nPretension: que se retiren los datos y se garantice la confidencialidad del diagnóstico",
+      "finetuned": "Derecho: habeas_data (art. 15 CP; Ley 1266 de 2008)\nAccionado: Alcaldía municipal\nMecanismo: acción de tutela\nProcedencia: sí — la publicación de datos personales sensibles sin consentimiento ni legalidad previa vulnera el habeas data y la intimidad personal\nPretensión: ordenar la supresión de los datos personales sensibles de los beneficiarios"
+    },
+    {
+      "id": "E20",
+      "tipo": "gold",
+      "categoria": "habeas_data_sin_notificacion",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: Habeas data\nAccionado: Central de riesgos\nMecanismo: Habeas data\nProcedencia: Falta de justificación en el reporte negativo\nPretension: Corrección del reporte y daño moral",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 1755 de 2015)\nAccionado: Central de riesgo\nMecanismo: acción de tutela\nProcedencia: sí — el titular del dato no autorizó la inclusión y la actualización de la información está vedada por la Ley 1755 de 2015\nPretensión: ordenar la actualización de la información conforme a la Ley 1755 de 2015"
+    },
+    {
+      "id": "E21",
+      "tipo": "gold",
+      "categoria": "educacion_retencion_diploma",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: estabilidad_laboral_reforzada\nAccionado: colegio\nMecanismo: tutela\nProcedencia: Falta el pago de la pensión, pero el caso se centra en la entrega del diploma y notas, lo cual afecta la estabilidad laboral futura del menor.\nPretension: Que se ordene al colegio la entrega del diploma y notas.",
+      "finetuned": "Derecho: educacion (art. 42 CP; art. 67 CP)\nAccionado: Institución educativa\nMecanismo: acción de tutela\nProcedencia: sí — la omisión de entrega de documentos académicos a un estudiante que finalizó su ciclo escolar desconoce el derecho a la educación y afecta el acceso a la educación superior\nPretensión: ordenar la entrega de las notas y diploma"
+    },
+    {
+      "id": "E22",
+      "tipo": "gold",
+      "categoria": "educacion_cupo",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: Educación\nAccionado: Ministerio de Educación Nacional\nMecanismo: Acción de tutela\nProcedencia: Falta de atención a un derecho fundamental de los menores de edad.",
+      "finetuned": "Derecho: educacion (art. 42 CP; art. 68 CP)\nAccionado: Secretaría de Educación municipal\nMecanismo: acción de tutela\nProcedencia: sí — la interrupción de la escolaridad de menores en proceso de desplazamiento obliga a matricularlos de inmediato, sin que transcurra un período escolar completo\nPretensión: ordenar la matrícula y el inicio de clases de los menores"
+    },
+    {
+      "id": "E23",
+      "tipo": "gold",
+      "categoria": "fuero_maternidad",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: estabilidad_laboral_reforzada\nAccionado: entidad pública\nMecanismo: tutela\nProcedencia: Existe una posible violación a la estabilidad laboral reforzada durante el embarazo, dado que la trabajadora fue notificada de la terminación del contrato en un momento en que la ley protege su estabilidad.\nPretension: Que se ordene la renovación del contrato hasta el parto y se garantice la estabilidad laboral durante el período de maternidad.",
+      "finetuned": "Derecho: estabilidad_laboral_reforzada (art. 13 CP; Ley 100 de 1993)\nAccionado: Entidad pública\nMecanismo: acción de tutela\nProcedencia: sí — la terminación del contrato durante el embarazo avanza sobre la estabilidad reforzada de la trabajadora gestante\nPretensión: ordenar la renovación del contrato hasta la fecha de parto"
+    },
+    {
+      "id": "E24",
+      "tipo": "gold",
+      "categoria": "fuero_salud",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: estabilidad_laboral_reforzada\nAccionado: empresa\nMecanismo: tutela\nProcedencia: La empresa no solicitó permiso para la reubicación y posteriormente terminó el contrato sin considerar la condición de salud del trabajador, violando su estabilidad laboral reforzada.",
+      "finetuned": "Derecho: estabilidad_laboral_reforzada (art. 23 CP; Ley 100 de 1993)\nAccionado: Empleador\nMecanismo: acción de tutela\nProcedencia: sí — la reubicación y despido sin autorización del trabajador enfermo desconocen su estabilidad laboral reforzada\nPretensión: dejar sin efecto la reubicación y despido"
+    },
+    {
+      "id": "E25",
+      "tipo": "gold",
+      "categoria": "debido_proceso_administrativo",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: seguridad_social\nAccionado: institución_gubernamental\nMecanismo: tutela\nProcedencia: Falta notificación y razón de la decisión, violando el derecho a la seguridad social.",
+      "finetuned": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Entidad administradora del subsidio\nMecanismo: acción de tutela\nProcedencia: sí — la omisión de notificación y motivación de la decisión que produce el despido de un adulto mayor carece de término legal y afecta el mínimo indispensable de seguridad social\nPretensión: ordenar la notificación y motivación de la decisión que desligó al accionante del subsidio"
+    },
+    {
+      "id": "E26",
+      "tipo": "gold",
+      "categoria": "pension_perjuicio_irremediable",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: seguridad_social\nAccionado: fondo_de_seguridad_social\nMecanismo: acción de tutela\nProcedencia: Existe una pretensión clara sobre una prestación del sistema de seguridad social, la cual no ha sido atendida en el plazo establecido.",
+      "finetuned": "Derecho: seguridad_social (art. 49 CP; Ley 100 de 1993)\nAccionado: Fondo de pensiones\nMecanismo: acción de tutela\nProcedencia: sí — la dependencia total y la edad avanzada hacen que el término legal sea insuficiente para proteger la subsistencia de la beneficiaria\nPretensión: ordenar el pago de la pensión de sobrevivientes de forma inmediata"
+    },
+    {
+      "id": "E27",
+      "tipo": "gold",
+      "categoria": "colectivo_ambiente",
+      "gold_mecanismo": "accion_popular",
+      "base": "Derecho: Salud\nAccionado: Comunidad\nMecanismo: Acción de tutela\nProcedencia: La contaminación ambiental afecta la salud de los niños, vulnerando su derecho a la salud.",
+      "finetuned": "Derecho: colectivos (art. 79 CP; Ley 472 de 1998)\nAccionado: Empresa prestadora del servicio y alcaldía municipal\nMecanismo: acción popular (Ley 472 de 1998)\nProcedencia: no — se alega afectación del ambiente sano de un grupo indeterminado de personas, materia de la acción popular\nPretensión: promover acción popular para que se adopten las medidas de control y saneamiento"
+    },
+    {
+      "id": "E28",
+      "tipo": "gold",
+      "categoria": "colectivo_moralidad",
+      "gold_mecanismo": "accion_popular",
+      "base": "Derecho: Contratación pública\nAccionado: Alcalde y empresa contratista\nMecanismo: Amparo por ilegalidad\nProcedencia: Cumplimiento de la ley de contratación pública",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Alcaldía municipal\nMecanismo: acción de tutela\nProcedencia: sí — la contratación irregulada afecta el patrimonio público y la confianza legítima, derechos protegidos indirectamente por la tutela\nPretensión: ordenar la restitución del dinero girado y la ejecución de la obra mediante licitación"
+    },
+    {
+      "id": "E29",
+      "tipo": "gold",
+      "categoria": "incumplimiento_norma",
+      "gold_mecanismo": "accion_cumplimiento",
+      "base": "Derecho: Estabilidad_laboral_reforzada  \nAccionado: Alcaldía  \nMecanismo: Acción de tutela  \nProcedencia: Se cumple el requisito de urgencia y necesidad ya que se trata de una oficina que debe existir desde un decreto nacional.",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Alcaldía municipal\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — se reclama el acatamiento de un deber legal de creación de una oficina, sin que se alegue la vulneración concreta de un derecho fundamental de una persona determinada\nPretensión: promover acción de cumplimiento para que se ejecute el decreto"
+    },
+    {
+      "id": "E30",
+      "tipo": "gold",
+      "categoria": "incumplimiento_norma",
+      "gold_mecanismo": "accion_cumplimiento",
+      "base": "Derecho: Libertad de información\nAccionado: Gobernación\nMecanismo: Acción de tutela\nProcedencia: Existe una ley que obliga a publicar contratos y se omite su cumplimiento\nPretension: Forzar la publicación de los contratos en la plataforma de contratación",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Gobernación departamental\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — se reclama el acceso a la información pública, que es un deber legal y no un derecho fundamental propio\nPretensión: promover acción de cumplimiento para que se publiquen los contratos"
+    },
+    {
+      "id": "E31",
+      "tipo": "gold",
+      "categoria": "libertad_personal",
+      "gold_mecanismo": "habeas_corpus",
+      "base": "Derecho: Libertad personal\nAccionado: Policía Nacional\nMecanismo: Amparo de libertad\nProcedencia: Existe una detención ilegal sin presentación ante juez de control de garantías dentro del plazo constitucional.",
+      "finetuned": "Derecho: libertad_personal (art. 28 CP; art. 30 CP)\nAccionado: Fiscalía y Policía Nacional\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — transcurrieron más de 48 horas sin control de garantías, vencido el término legal\nPretensión: interponer habeas corpus para que se practique control de garantías"
+    },
+    {
+      "id": "E32",
+      "tipo": "gold",
+      "categoria": "laboral_ordinario",
+      "gold_mecanismo": "via_ordinaria",
+      "base": "Derecho: trabajo\nAccionado: empresa\nMecanismo: acción de tutela\nProcedencia: se vulnera el derecho al salario y a la cesantía, justificando el uso del mecanismo.\nPretension: cobro de salarios y cesantías adeudados.",
+      "finetuned": "Derecho: trabajo (art. 12 CP; Ley 301 de 1999)\nAccionado: Empleador\nMecanismo: acción de tutela\nProcedencia: sí — la mora supera el término legal y la tutela es medio idóneo de cobro efectivo\nPretensión: ordenar el pago de salarios y cesantías adeudados"
+    },
+    {
+      "id": "E33",
+      "tipo": "gold",
+      "categoria": "acto_administrativo",
+      "gold_mecanismo": "via_ordinaria",
+      "base": "Derecho: propiedad\nAccionado: secretaría de hacienda\nMecanismo: amparo\nProcedencia: se vulnera el derecho a la propiedad y a la justicia efectiva",
+      "finetuned": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Secretaría de Hacienda municipal\nMecanismo: vía judicial ordinaria\nProcedencia: no — se controvierte la legalidad de un acto administrativo, materia de control de nulidad ante el juez contencioso\nPretensión: acudir a la jurisdicción contencioso administrativa mediante nulidad"
+    },
+    {
+      "id": "E34",
+      "tipo": "gold",
+      "categoria": "contractual_ordinario",
+      "gold_mecanismo": "via_ordinaria",
+      "base": "Derecho: no determinable\nMecanismo: no determinable\nProcedencia: Falta la descripción de una vulneración o amenaza a un derecho fundamental. El caso parece ser un pleito contractual.",
+      "finetuned": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Socio de negocio\nMecanismo: vía judicial ordinaria\nProcedencia: no — se trata de un contrato entre particulares cuyo incumplimiento se afronta ante el juez civil\nPretensión: acudir a la jurisdicción civil mediante proceso de ejecución"
+    },
+    {
+      "id": "A05",
+      "tipo": "adversarial",
+      "categoria": "honorarios",
+      "gold_mecanismo": "via_ordinaria",
+      "base": "Derecho: trabajo  \nAccionado: convocada  \nMecanismo: tutela  \nProcedencia: Falta especificidad en el reclamo, el caso parece más un pleito contractual que una violación de derechos fundamentales.",
+      "finetuned": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Sociedad comercial contratante\nMecanismo: vía judicial ordinaria\nProcedencia: no — se reclama el pago de un contrato de servicios entre particulares, materia de la jurisdicción civil\nPretensión: acudir a la jurisdicción civil mediante proceso de cobro"
+    },
+    {
+      "id": "A06",
+      "tipo": "adversarial",
+      "categoria": "familia_ordinario",
+      "gold_mecanismo": "via_ordinaria",
+      "base": "Derecho: estabilidad_laboral_reforzada\nAccionado: papá de los hijos\nMecanismo: tutela\nProcedencia: se vulnera la estabilidad laboral reforzada de la madre y los derechos de los menores a la alimentación y compañía parental\nPretension: obligar al accionado a pagar la cuota de alimentos y respetar los días de visita acordados",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 1035 de 2006)\nAccionado: padre biological\nMecanismo: acción de tutela\nProcedencia: sí — la omisión de alimentos y la privación de la tutela y compañía de los menores afectan la sana alimentación y el desarrollo integral de los menores, derechos de la infancia y adolescencia\nPretensión: ordenar el pago de los alimentos adeudados y el cumplimiento de los días de visita acordados"
+    },
+    {
+      "id": "A07",
+      "tipo": "adversarial",
+      "categoria": "dano_consumado",
+      "gold_mecanismo": "via_ordinaria",
+      "base": "Derecho: seguridad_social  \nAccionado: EPS  \nMecanismo: tutela  \nProcedencia: Existe una violación al derecho a la salud, ya que la EPS no otorgó la autorización médica en tiempo y forma, lo cual afectó la vida de la paciente.",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — se busca responsabilizar penal y civilmente a la EPS por omisión, materia de proceso penal y civil, no de control de actuación administrativa\nPretensión: acudir a la jurisdicción civil y penal"
+    },
+    {
+      "id": "A08",
+      "tipo": "adversarial",
+      "categoria": "peticion_respondida",
+      "gold_mecanismo": "via_ordinaria",
+      "base": "Derecho: salud\nAccionado: EPS\nMecanismo: Petición\nProcedencia: Falta una respuesta adecuada al derecho a la salud, no la falta de respuesta misma.\nPretension: Que se autorice el tratamiento en la clínica específica.",
+      "finetuned": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la respuesta fue oportunamente dada y el término de diez días transcurrió desde la presentación del derecho, por lo que no subsiste objeto de tutela\nPretensión: dejar sin efecto la respuesta y ordenar la autorización del tratamiento solicitado"
+    },
+    {
+      "id": "A09",
+      "tipo": "adversarial",
+      "categoria": "incumplimiento_norma",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: Libertad de comunicación\nAccionado: Gobierno departamental\nMecanismo: Acción de tutela\nProcedencia: La ley está vigente y no se está cumpliendo, afectando derechos fundamentales.",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Secretaría de Salud departamental y hospitales públicos\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — se pide el cumplimiento de una norma vigente, sin que se alegue la vulneración concreta de un derecho fundamental propio\nPretensión: promover acción de cumplimiento para que se preste el intérprete de lengua de señas"
+    },
+    {
+      "id": "A10",
+      "tipo": "adversarial",
+      "categoria": "libertad_personal",
+      "gold_mecanismo": "habeas_corpus",
+      "base": "Derecho: libertad personal\nAccionado: Estado\nMecanismo: Amparo de libertad\nProcedencia: El retenimiento ilegal de una persona tras cumplir su condena constituye una violación a la libertad personal.",
+      "finetuned": "Derecho: libertad_personal (art. 28 CP; art. 30 CP)\nAccionado: Establecimiento penitenciario\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — transcurrido el término legal de siete días hábiles desde el pago de la condena, la privación de la libertad carece de fundamento jurídico y se configura un habeas corpus inmediato\nPretensión: interponer habeas corpus para obtener la libertad inmediata"
+    },
+    {
+      "id": "A11",
+      "tipo": "adversarial",
+      "categoria": "pension_perjuicio_irremediable",
+      "gold_mecanismo": "tutela",
+      "base": "Derecho: seguridad_social\nAccionado: fondo_de_seguridad_social\nMecanismo: acción de tutela\nProcedencia: Existe una pretensión clara sobre una prestación del sistema de seguridad social, y el plazo judicial es largo.\nPretension: Obtención de la pensión de invalidez.",
+      "finetuned": "Derecho: seguridad_social (art. 49 CP; Ley 100 de 1993)\nAccionado: Fondo de pensiones\nMecanismo: acción de tutela\nProcedencia: sí — la negación de una pensión de invalidez a un paciente terminal desconoce el principio de humanidad y la finalidad de la seguridad social\nPretensión: ordenar el reconocimiento y pago de la pensión de invalidez"
+    },
+    {
+      "id": "A12",
+      "tipo": "adversarial",
+      "categoria": "inmediatez",
+      "gold_mecanismo": "via_ordinaria",
+      "base": "Derecho: Estabilidad laboral reforzada\nAccionado: Director del colegio\nMecanismo: Tutela\nProcedencia: Falta de proceso justo y estabilidad laboral reforzada\nPretension: Que se declare la ilegalidad de la expulsión y se ordene un proceso justo",
+      "finetuned": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Institución educativa\nMecanismo: vía judicial ordinaria\nProcedencia: no — la tutela tiene finalidad preventiva y restitutiva, y la omisión de la decisión de expulsión se produjo hace más de dos años\nPretensión: acudir a la jurisdicción ordinaria para que se pronuncie sobre la legalidad de la expulsión"
+    },
+    {
+      "id": "E35",
+      "tipo": "gold",
+      "categoria": "hc_traslado_por_proteccion_prolongado",
+      "gold_mecanismo": "habeas_corpus",
+      "base": "Derecho: libertad personal\nAccionado: hijo\nMecanismo: habeas corpus\nProcedencia: Se vulnera la libertad personal al ser retenido ilegalmente sin causa justificada.\nPretension: Que se ordene su liberación inmediata.",
+      "finetuned": "Derecho: libertad_personal (art. 28 CP; art. 30 CP)\nAccionado: Policía Nacional\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — la privación de la libertad carece de orden judicial y se prolonga más allá del término legal\nPretensión: interponer habeas corpus para obtener la libertad inmediata"
+    },
+    {
+      "id": "E36",
+      "tipo": "gold",
+      "categoria": "hc_medida_seguridad_vencida",
+      "gold_mecanismo": "habeas_corpus",
+      "base": "Derecho: Estabilidad laboral reforzada\nAccionado: Juzgado\nMecanismo: Amparo preventivo\nProcedencia: Existe una demora injustificada en la liberación del paciente tras cumplir su medida de seguridad.",
+      "finetuned": "Derecho: ninguno (art. 28 CP; Ley 1095 de 2006)\nAccionado: Juez y autoridad de control\nMecanismo: acción de tutela\nProcedencia: sí — transcurrido el término legal sin que se dictara la orden de libertad, la tutela es el medio idóneo para ordenar el despacho de la medida\nPretensión: ordenar la libertad inmediata y el despacho de la medida"
+    },
+    {
+      "id": "E37",
+      "tipo": "gold",
+      "categoria": "hc_domiciliaria_no_ejecutada",
+      "gold_mecanismo": "habeas_corpus",
+      "base": "Derecho: Libertad personal\nAccionado: Establecimiento penitenciario\nMecanismo: Amparo preventivo\nProcedencia: Se vulnera la libertad personal al no cumplirse la decisión judicial de detención domiciliaria.",
+      "finetuned": "Derecho: libertad_personal (art. 28 CP; art. 30 CP)\nAccionado: Establecimiento penitenciario\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — la tutela procede contra el encargado del cumplimiento de la sentencia, quien tiene la obligación de ejecutarla inmediatamente\nPretensión: ordenar el traslado al domicilio indicado en la orden de detención domiciliaria"
+    },
+    {
+      "id": "E38",
+      "tipo": "gold",
+      "categoria": "hc_retencion_por_multa",
+      "gold_mecanismo": "habeas_corpus",
+      "base": "Derecho: Libertad personal\nAccionado: Estado\nMecanismo: Habeas corpus\nProcedencia: Cumplimiento de la sentencia penal\nPretension: Liberación inmediata del detenido",
+      "finetuned": "Derecho: libertad_personal (art. 28 CP; art. 30 CP)\nAccionado: Institución penitenciaria\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — la libertad no puede suspenderse por un pago que no está consagrado como requisito de ejecución de la pena\nPretensión: interponer habeas corpus para que se ordene la libertad inmediata"
+    },
+    {
+      "id": "A13",
+      "tipo": "adversarial",
+      "categoria": "hc_menor_en_establecimiento_adultos",
+      "gold_mecanismo": "habeas_corpus",
+      "base": "Derecho: Libertad personal\nAccionado: Estado\nMecanismo: Amparo preventivo\nProcedencia: Vulneración inmediata y grave de libertad personal\nPretension: Liberación inmediata y medidas cautelares",
+      "finetuned": "Derecho: libertad_personal (art. 28 CP; art. 30 CP)\nAccionado: Establecimiento penitenciario municipal\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — la privación de la libertad se ordenó a un adolescente, quien carece de la capacidad de discernimiento para autorizarla\nPretensión: interponer habeas corpus para obtener la libertad inmediata"
+    },
+    {
+      "id": "A14",
+      "tipo": "adversarial",
+      "categoria": "hc_internamiento_involuntario_particular",
+      "gold_mecanismo": "habeas_corpus",
+      "base": "Derecho: libertad personal\nAccionado: Estado\nMecanismo: Amparo\nProcedencia: Se vulnera la libertad personal de la madre al ser privada ilegalmente de su libertad y de recibir visitas.",
+      "finetuned": "Derecho: libertad_personal (art. 28 CP; art. 30 CP)\nAccionado: Administradora de la clínica y familiares\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — la privación de la libertad carece de autorización judicial y se mantiene sobre una persona en estado de lucidez\nPretensión: interponer habeas corpus para obtener la libertad inmediata"
+    },
+    {
+      "id": "E39",
+      "tipo": "gold",
+      "categoria": "ac_comisaria_de_familia",
+      "gold_mecanismo": "accion_cumplimiento",
+      "base": "Derecho: Estabilidad_laboral_reforzada  \nAccionado: Estado  \nMecanismo: Acción de tutela  \nProcedencia: La falta de una comisaría de familia viola la garantía constitucional de acceso a servicios públicos esenciales, afectando la estabilidad laboral y familiar.",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Alcaldía municipal y autoridad departamental\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — se reclama el cumplimiento de un deber legal de organización administrativa, no la protección de un derecho fundamental individual\nPretensión: promover acción de cumplimiento para que se organice la comisaría de familia"
+    },
+    {
+      "id": "E40",
+      "tipo": "gold",
+      "categoria": "ac_plan_gestion_riesgo",
+      "gold_mecanismo": "accion_cumplimiento",
+      "base": "Derecho: Constitucional\nAccionado: Municipio\nMecanismo: Acción de tutela\nProcedencia: Existe una norma legal que se ha incumplido, permitiendo la acción de tutela para exigir el cumplimiento.",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Alcaldía municipal y concejo municipal\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — se reclama el acatamiento de un deber legal propio de la administración pública, sin que se alegue la vulneración concreta de un derecho fundamental de un particular\nPretensión: promover acción de cumplimiento para que se adopte el plan de gestión y se reúna el consejo municipal"
+    },
+    {
+      "id": "E41",
+      "tipo": "gold",
+      "categoria": "ac_cuerpo_de_bomberos",
+      "gold_mecanismo": "accion_cumplimiento",
+      "base": "Derecho: seguridad_social  \nAccionado: municipio  \nMecanismo: acción de tutela  \nProcedencia: la ley establece la obligación municipal de proveer el servicio de bomberos, lo cual afecta la seguridad social de la comunidad.",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Alcaldía municipal\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — se reclama el acatamiento de un deber legal de organización del servicio, sin que se alegue la vulneración concreta de un derecho fundamental\nPretensión: promover acción de cumplimiento para que se organice el servicio de bomberos"
+    },
+    {
+      "id": "E42",
+      "tipo": "gold",
+      "categoria": "ac_acuerdo_sin_reglamentar",
+      "gold_mecanismo": "accion_cumplimiento",
+      "base": "Derecho: Estabilidad_laboral_reforzada  \nAccionado: Alcaldía  \nMecanismo: Amparo de inconstitucionalidad  \nProcedencia: Falta reglamentación del acuerdo municipal dentro del plazo estipulado.",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Alcaldía municipal\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — se reclama el acatamiento de un acto administrativo ya promulgado, sin que se alegue la vulneración de un derecho fundamental\nPretensión: promover acción de cumplimiento para que se emita el decreto reglamentario"
+    },
+    {
+      "id": "A15",
+      "tipo": "adversarial",
+      "categoria": "ac_tarifa_adulto_mayor",
+      "gold_mecanismo": "accion_cumplimiento",
+      "base": "Derecho: Estabilidad laboral reforzada  \nAccionado: Secretaría de Transporte  \nMecanismo: Tutela  \nProcedencia: Falta de acción por parte de la autoridad para garantizar la tarifa preferencial a los adultos mayores.",
+      "finetuned": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Secretaría de Transporte municipal\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — se pide el cumplimiento de una ordenanza vigente, sin que se alegue la vulneración de un derecho fundamental propio\nPretensión: promover acción de cumplimiento para que se aplique la tarifa preferencial"
+    },
+    {
+      "id": "A16",
+      "tipo": "adversarial",
+      "categoria": "ac_norma_salud_sin_afectado",
+      "gold_mecanismo": "accion_cumplimiento",
+      "base": "Derecho: estabilidad_laboral_reforzada  \nAccionado: gobierno departamental  \nMecanismo: tutela  \nProcedencia: La pretensión no se dirige a un derecho individual sino a una medida colectiva, por lo que no se puede aplicar un mecanismo constitucional.",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Secretaría de Salud departamental\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — se reclama el cumplimiento de un deber de orden público, sin que se alegue la vulneración concreta de un derecho fundamental propio\nPretensión: promover acción de cumplimiento para que se concrete la sala de lactancia"
+    },
+    {
+      "id": "E43",
+      "tipo": "gold",
+      "categoria": "ap_humedal_rellenado",
+      "gold_mecanismo": "accion_popular",
+      "base": "Derecho: Derecho a un ambiente libre de contaminación y daño\nAccionado: Autoridad ambiental\nMecanismo: Acción de tutela\nProcedencia: Falta de respuesta efectiva ante la vulneración del derecho a un ambiente sano\nPretension: Que se suspenda y se condene la obra y se adopten medidas correctivas",
+      "finetuned": "Derecho: colectivos (art. 79 CP; Ley 393 de 1997)\nAccionado: Secretaría de Ambiente y Desarrollo Sostenible\nMecanismo: acción popular (Ley 393 de 1997)\nProcedencia: no — se busca proteger un bien público de uso común, objeto de la acción popular\nPretensión: promover acción popular para frenar la urbanización"
+    },
+    {
+      "id": "E44",
+      "tipo": "gold",
+      "categoria": "ap_vertimiento_zona_banio",
+      "gold_mecanismo": "accion_popular",
+      "base": "Derecho: Salud\nAccionado: Empresa\nMecanismo: Acción de tutela\nProcedencia: Se vulnera el derecho a la salud y a la seguridad ambiental de la población.\nPretension: Que se adopten medidas inmediatas para evitar la contaminación y se garantice la salud de los ciudadanos.",
+      "finetuned": "Derecho: colectivos (art. 79 CP; Ley 393 de 1997)\nAccionado: Empresa prestadora del servicio de alcantarillado\nMecanismo: acción popular (Ley 393 de 1997)\nProcedencia: no — se protege el ambiente sano de una comunidad indeterminada, que carece de representante legal propio\nPretensión: promover acción popular para que se realice el tratamiento adecuado de los desechos"
+    },
+    {
+      "id": "E45",
+      "tipo": "gold",
+      "categoria": "ap_predio_publico_cedido",
+      "gold_mecanismo": "accion_popular",
+      "base": "Derecho: Régimen de Bienes Públicos\nAccionado: Municipio\nMecanismo: Amparo\nProcedencia: El municipio ha transferido ilegalmente un bien de uso público a una fundación privada, afectando el derecho al disfrute de bienes públicos.\nPretension: Que se declare la nulidad de la transferencia y se restituya el bien al estado.",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Alcaldía municipal y fundación privada\nMecanismo: acción de tutela\nProcedencia: sí — la entrega de un bien de uso público sin proceso de licitación afecta derechos de la colectividad, que son tutelables aunque no se identifique un titular concreto\nPretensión: ordenar la restitución del predio a la comunidad"
+    },
+    {
+      "id": "A17",
+      "tipo": "adversarial",
+      "categoria": "ap_colectivo_con_afectado_sin_perjuicio",
+      "gold_mecanismo": "accion_popular",
+      "base": "Derecho: Haber habitable\nAccionado: Empresa de acueducto\nMecanismo: Acción de tutela\nProcedencia: Falta de atención inmediata a una condición de habitabilidad necesaria",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Empresa prestadora del servicio público de acueducto\nMecanismo: acción popular (Ley 393 de 1997)\nProcedencia: no — se reclama el acceso a un servicio público y la tutela de la seguridad pública, derechos colectivos que no derivan de un derecho fundamental individual\nPretensión: promover acción popular para que se repara la infraestructura y se restablezca el servicio"
+    },
+    {
+      "id": "A18",
+      "tipo": "adversarial",
+      "categoria": "ap_moralidad_sobrecosto",
+      "gold_mecanismo": "accion_popular",
+      "base": "Derecho: estabilidad_laboral_reforzada  \nAccionado: concejo municipal  \nMecanismo: control de convencionalidad  \nProcedencia: falta acción correctiva por parte del órgano competente",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Empresa prestadora de servicios públicos y Concejo municipal\nMecanismo: acción popular (Ley 393 de 1997)\nProcedencia: no — se reclama la defensa de un interés público y la tutela de derechos colectivos, materia de la acción popular\nPretensión: promover acción popular para que se declare nula la compra y se restituya el perjuicio"
+    },
+    {
+      "id": "AB51",
+      "tipo": "abstencion",
+      "categoria": "ab_consulta_comercial",
+      "gold_mecanismo": null,
+      "base": "Derecho: no determinable\nMecanismo: no determinable\nProcedencia: Falta la vulneración o amenaza a un derecho fundamental.",
+      "finetuned": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — la consulta es sobre inversiones y no sobre la protección de un derecho fundamental\nPretensión: orientar al usuario sobre el mecanismo idóneo para la protección de derechos fundamentales"
+    },
+    {
+      "id": "AB52",
+      "tipo": "abstencion",
+      "categoria": "ab_pregunta_academica",
+      "gold_mecanismo": null,
+      "base": "Derecho: no determinable\nMecanismo: no determinable\nProcedencia: Falta la descripción de una vulneración o amenaza a un derecho fundamental.\nPretension: Información educativa sobre conceptos jurídicos.",
+      "finetuned": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — se pide explicar conceptos legales sin que se alegue la vulneración concreta de un derecho fundamental\nPretensión: orientar al usuario sobre los conceptos pedidos"
+    },
+    {
+      "id": "AB53",
+      "tipo": "abstencion",
+      "categoria": "ab_hechos_insuficientes",
+      "gold_mecanismo": null,
+      "base": "Derecho: no determinable\nMecanismo: no determinable\nProcedencia: Falta el detalle del hecho y el derecho vulnerado para determinar el mecanismo constitucional.",
+      "finetuned": "Derecho: no determinable\nAccionado: no determinable\nMecanismo: no determinable\nProcedencia: no — se solicita un mecanismo sin que se indique cuál derecho se pretende proteger ni se aporte información mínima sobre el hecho\nPretensión: solicitar al usuario la información necesaria para determinar el mecanismo y el derecho"
+    },
+    {
+      "id": "AB54",
+      "tipo": "abstencion",
+      "categoria": "ab_materia_no_cubierta",
+      "gold_mecanismo": null,
+      "base": "Derecho: no determinable\nMecanismo: no determinable\nProcedencia: Falta el elemento de vulneración o amenaza a un derecho fundamental.",
+      "finetuned": "Derecho: ninguno (art. 87 CP; Ley 1755 de 2015)\nAccionado: Administración tributaria\nMecanismo: vía judicial ordinaria\nProcedencia: no — se trata de un conflicto de control de legalidad entre particulares, objeto de la jurisdicción contencioso administrativa\nPretensión: acudir a la jurisdicción contencioso administrativa para discutir la actuación de la autoridad"
+    },
+    {
+      "id": "AB55",
+      "tipo": "abstencion",
+      "categoria": "ab_relato_contradictorio",
+      "gold_mecanismo": null,
+      "base": "Derecho: seguridad_social\nAccionado: fondo_de_pensiones\nMecanismo: tutela\nProcedencia: Falta de impugnación previa\nPretension: Resolución de la solicitud de pensión",
+      "finetuned": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Administradora de pensiones\nMecanismo: vía judicial ordinaria\nProcedencia: no — la omisión de la administradora se alega como antecedente de la pretensión, pero no se sostiene la actual vulneración de un derecho fundamental\nPretensión: acudir a la jurisdicción laboral para que se ordene el trámite de la solicitud"
+    },
+    {
+      "id": "AB56",
+      "tipo": "abstencion",
+      "categoria": "ab_pide_pronostico",
+      "gold_mecanismo": null,
+      "base": "Derecho: salud\nAccionado: EPS\nMecanismo: tutela\nProcedencia: El caso se centra en la ejecución de una orden judicial relacionada con un servicio médico.\nPretension: Que se garantice el cumplimiento de la orden judicial para recibir la cirugía.",
+      "finetuned": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — la orden de tutela ya fue emitida y lo que se busca es el control de cumplimiento, que es materia de la jurisdicción ordinaria\nPretensión: acudir a la jurisdicción ordinaria para el control de cumplimiento"
+    }
+  ]
+}

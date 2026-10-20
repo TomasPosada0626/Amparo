@@ -216,6 +216,17 @@ class Agente:
             "pasos_agotados": 0,
             "casos_sin_ninguna_tool": 0,
             "hechos_no_parseados": 0,
+            # Una busqueda cuyos fragmentos ya estaban todos en las
+            # observaciones anteriores: informacion cero. Se mide porque es la
+            # mitad de la explicacion de por que el 62% de los casos agotaba
+            # el presupuesto.
+            "busqueda_sin_novedad": 0,
+            # Iteraciones que no cobraron paso, por repeticion o por no
+            # aportar fragmentos nuevos. `pasos_cobrados` + esto = iteraciones.
+            "paso_no_cobrado": 0,
+            # El modelo daba vueltas sin aportar y lo paro el techo de
+            # iteraciones, no el presupuesto. Es otra forma de no converger.
+            "techo_iteraciones": 0,
         }
         from costos import Costos
         self.costos = Costos(etiqueta)
@@ -321,7 +332,32 @@ class Agente:
         vistas: set[tuple[str, str]] = set()
         info = {"pasos": 0, "agotado": False, "cierre": "el modelo concluyo"}
 
-        for paso in range(self.max_pasos):
+        # EL PRESUPUESTO CUENTA PASOS PRODUCTIVOS, NO LLAMADAS AL MODELO.
+        #
+        # Medido en m3/20261019T173316Z: **81 de 130 casos (62%)** agotaron los
+        # 5 pasos, asi que `pasos_promedio` salio censurado por arriba y la
+        # cifra de cabecera es una cota inferior. `veredicto_presupuesto()` ya
+        # habia dictaminado, con umbral fijado de antemano, que subir
+        # `max_pasos` solo mueve el techo.
+        #
+        # La causa no era el techo: era que se cobraban pasos que no aportaban
+        # nada. Dos clases, las dos ya medidas en los contadores:
+        #
+        #   - `llamada_repetida` (12 casos): la repeticion se detectaba, se le
+        #     avisaba al modelo... y el `for paso` avanzaba igual.
+        #   - una busqueda cuyos fragmentos YA estaban todos en las
+        #     observaciones anteriores. Es informacion cero, y
+        #     `reg["recuperados"]` trae los ids para saberlo sin coste.
+        #
+        # Asi que el paso se cobra solo si la iteracion aporto algo nuevo. El
+        # techo de ITERACIONES existe aparte: una llamada al modelo cuesta
+        # dinero aunque no aporte, y sin ese tope un modelo que repitiera
+        # siempre giraria sin fin.
+        TECHO_ITERACIONES = self.max_pasos + 3
+        fragmentos_vistos: set = set()
+        paso, iteraciones, cerro_solo = 0, 0, False
+        while paso < self.max_pasos and iteraciones < TECHO_ITERACIONES:
+            iteraciones += 1
             info["pasos"] = paso + 1
             clave = self._clave("agente", json.dumps(mensajes, ensure_ascii=False))
             if clave in self._cache:
@@ -346,6 +382,7 @@ class Agente:
 
             if not bruto["tool_calls"]:
                 mensajes.append({"role": "assistant", "content": bruto["content"]})
+                cerro_solo = True
                 break
 
             mensajes.append({
@@ -356,28 +393,59 @@ class Agente:
                     for tc in bruto["tool_calls"]],
             })
 
+            aporto = False
             for tc in bruto["tool_calls"]:
                 huella = (tc["name"], tc["arguments"])
                 if huella in vistas:
                     self.contadores["llamada_repetida"] += 1
                     obs = ("ERROR: ya llamaste esta herramienta con estos mismos "
                            "argumentos y tienes la observacion arriba. No la repitas: "
-                           "usa lo que ya tienes o concluye.")
+                           "usa lo que ya tienes o concluye. Este paso NO se te "
+                           "cobra del presupuesto.")
                     registros.append({"herramienta": tc["name"],
                                       "falla": "llamada_repetida"})
                 else:
                     vistas.add(huella)
                     obs, reg = self._ejecutar(tc["name"], tc["arguments"])
                     registros.append(reg)
+                    recup = reg.get("recuperados")
+                    if recup is None:
+                        # `calcular_termino` no recupera fragmentos: si no fue
+                        # una repeticion, aporto por definicion.
+                        aporto = aporto or not reg.get("falla")
+                    else:
+                        nuevos = [x for x in recup if x not in fragmentos_vistos]
+                        reg["fragmentos_nuevos"] = len(nuevos)
+                        if nuevos:
+                            fragmentos_vistos.update(nuevos)
+                            aporto = True
+                        else:
+                            # Informacion cero: los fragmentos ya estaban todos
+                            # en las observaciones de arriba.
+                            self.contadores["busqueda_sin_novedad"] += 1
+                            reg["falla"] = "busqueda_sin_novedad"
+                            obs += ("\n\n[aviso] Todos estos fragmentos ya "
+                                    "estaban en tus observaciones anteriores: "
+                                    "esta busqueda no aporto nada nuevo y NO se "
+                                    "te cobra del presupuesto. Cambia la "
+                                    "consulta o concluye.")
                 mensajes.append({"role": "tool", "tool_call_id": tc["id"],
                                  "content": obs})
+
+            if aporto:
+                paso += 1
+            else:
+                self.contadores["paso_no_cobrado"] += 1
 
             # El presupuesto restante viaja con la ultima observacion. El
             # prompt lo anunciaba una vez al principio y el modelo no lleva la
             # cuenta: medido, agotaba los 5 pasos en 39 de 61 casos. Esto es
             # informacion que si usa para decidir entre seguir buscando y
             # concluir, y no cuesta una llamada extra.
-            restantes = self.max_pasos - (paso + 1)
+            # `paso` ya cuenta los pasos COBRADOS, asi que no se le suma 1: si
+            # la iteracion no aporto, el presupuesto no se movio y el aviso
+            # tiene que decir lo mismo que la vez anterior.
+            restantes = self.max_pasos - paso
             if restantes == 0:
                 aviso = ("Era tu ultimo paso de herramienta. Responde AHORA en "
                          "texto breve con los hechos relevantes que encontraste.")
@@ -388,7 +456,8 @@ class Agente:
             else:
                 aviso = f"Te quedan {restantes} pasos de herramienta."
             mensajes[-1]["content"] += f"\n\n[presupuesto] {aviso}"
-        else:
+
+        if not cerro_solo:
             # Pasos agotados: el modelo seguia pidiendo herramientas. Se cuenta
             # --- es informacion real sobre si converge --- pero ya no se cierra
             # a oscuras: se le da UNA llamada mas sin herramientas disponibles,
@@ -397,7 +466,18 @@ class Agente:
             # agente, trabajando solo con las observaciones crudas.
             self.contadores["pasos_agotados"] += 1
             info["agotado"] = True
-            info["cierre"] = "pasos agotados: cierre forzado con resumen"
+            # Dos formas distintas de no converger, y conviene distinguirlas:
+            # gastar el presupuesto buscando cosas nuevas es trabajo; dar
+            # vueltas sin aportar nada es otra cosa, y el techo de iteraciones
+            # es lo que la detiene.
+            if iteraciones >= TECHO_ITERACIONES and paso < self.max_pasos:
+                self.contadores["techo_iteraciones"] += 1
+                info["cierre"] = (
+                    f"techo de iteraciones ({TECHO_ITERACIONES}) con solo "
+                    f"{paso} de {self.max_pasos} pasos cobrados: daba vueltas "
+                    "sin aportar fragmentos nuevos")
+            else:
+                info["cierre"] = "pasos agotados: cierre forzado con resumen"
             try:
                 clave_f = self._clave("agente_cierre",
                                       json.dumps(mensajes, ensure_ascii=False))
@@ -433,6 +513,11 @@ class Agente:
         if not any("observacion" in r for r in registros):
             self.contadores["casos_sin_ninguna_tool"] += 1
 
+        # `pasos_cobrados` es lo que el presupuesto cuenta; `iteraciones` es lo
+        # que se le pago a la API. Publicar las dos es lo que permite leer si
+        # un caso agoto el presupuesto trabajando o dando vueltas.
+        info["iteraciones"] = iteraciones
+        info["pasos_cobrados"] = paso
         return mensajes, {**info, "registros": registros}
 
     # -- fase 2: extraccion de hechos -----------------------------------
