@@ -5,16 +5,16 @@
   "idioma": "es-CO",
   "semilla": 42,
   "splits": {
-   "train": 106,
+   "train": 123,
    "validation": 37
   },
   "balance_mecanismo": {
-   "tutela": 50,
-   "via_ordinaria": 27,
+   "tutela": 62,
+   "via_ordinaria": 30,
    "abstencion": 18,
-   "accion_popular": 16,
-   "accion_cumplimiento": 16,
-   "habeas_corpus": 16
+   "accion_cumplimiento": 17,
+   "habeas_corpus": 17,
+   "accion_popular": 16
   },
   "fuentes": {
    "real": "Casos de sentencias de la Corte Constitucional (relatoria oficial), con numero de sentencia y de expediente en cada registro. La ETIQUETA es la que decidio la Corte; el RELATO son los hechos condensados a registro de ciudadano por el equipo, porque los hechos de una sentencia estan en registro judicial y el sistema recibe lenguaje de ciudadano. Tres de los cinco son carencia actual de objeto, una categoria que el dataset escrito por el equipo no tenia: la realidad produce supuestos que no se inventan.",

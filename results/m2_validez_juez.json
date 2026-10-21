@@ -1,0 +1,145 @@
+{
+  "_corrida": "20261021T124137Z",
+  "_modulo": "m2",
+  "_artefacto": "validez_juez.json",
+  "n": 10,
+  "modelo_juez": "openai/gpt-oss-120b",
+  "llamadas": 40,
+  "norma_falsa_usada": "Ley 9999 de 2024",
+  "norma_falsa_sigue_fuera_del_whitelist": true,
+  "por_modo": {
+    "mecanismo_cambiado": {
+      "n": 10,
+      "inversiones": 0,
+      "ilegibles": 0,
+      "margen_medio": 3.5,
+      "margen_minimo": 3,
+      "tasa_inversion": 0.0,
+      "ic_margen": {
+        "n": 10,
+        "punto": 3.5,
+        "ic_bajo": 3.2,
+        "ic_alto": 3.8,
+        "amplitud": 0.6,
+        "nivel": 0.95,
+        "metodo": "bootstrap_percentil",
+        "remuestreos": 2000,
+        "semilla": 42
+      }
+    },
+    "norma_inventada": {
+      "n": 10,
+      "inversiones": 0,
+      "ilegibles": 0,
+      "margen_medio": 1.5,
+      "margen_minimo": 1,
+      "tasa_inversion": 0.0,
+      "ic_margen": {
+        "n": 10,
+        "punto": 1.5,
+        "ic_bajo": 1.2,
+        "ic_alto": 1.8,
+        "amplitud": 0.6,
+        "nivel": 0.95,
+        "metodo": "bootstrap_percentil",
+        "remuestreos": 2000,
+        "semilla": 42
+      }
+    },
+    "razonamiento_vacio": {
+      "n": 10,
+      "inversiones": 2,
+      "ilegibles": 0,
+      "margen_medio": 1.3,
+      "margen_minimo": 0,
+      "tasa_inversion": 0.2,
+      "ic_margen": {
+        "n": 10,
+        "punto": 1.3,
+        "ic_bajo": 0.7,
+        "ic_alto": 2.0,
+        "amplitud": 1.3,
+        "nivel": 0.95,
+        "metodo": "bootstrap_percentil",
+        "remuestreos": 2000,
+        "semilla": 42
+      }
+    }
+  },
+  "margen_por_mecanismo": 3.5,
+  "tasa_inversion_mecanismo": 0.0,
+  "detalle": [
+    {
+      "id": "E01",
+      "nota_gold": 5,
+      "mecanismo_cambiado": 1,
+      "norma_inventada": 4,
+      "razonamiento_vacio": 5
+    },
+    {
+      "id": "E02",
+      "nota_gold": 5,
+      "mecanismo_cambiado": 2,
+      "norma_inventada": 4,
+      "razonamiento_vacio": 4
+    },
+    {
+      "id": "E03",
+      "nota_gold": 5,
+      "mecanismo_cambiado": 2,
+      "norma_inventada": 3,
+      "razonamiento_vacio": 4
+    },
+    {
+      "id": "E04",
+      "nota_gold": 5,
+      "mecanismo_cambiado": 1,
+      "norma_inventada": 4,
+      "razonamiento_vacio": 4
+    },
+    {
+      "id": "E05",
+      "nota_gold": 5,
+      "mecanismo_cambiado": 1,
+      "norma_inventada": 3,
+      "razonamiento_vacio": 4
+    },
+    {
+      "id": "E06",
+      "nota_gold": 5,
+      "mecanismo_cambiado": 2,
+      "norma_inventada": 4,
+      "razonamiento_vacio": 5
+    },
+    {
+      "id": "E07",
+      "nota_gold": 5,
+      "mecanismo_cambiado": 1,
+      "norma_inventada": 4,
+      "razonamiento_vacio": 4
+    },
+    {
+      "id": "E08",
+      "nota_gold": 5,
+      "mecanismo_cambiado": 1,
+      "norma_inventada": 3,
+      "razonamiento_vacio": 3
+    },
+    {
+      "id": "E09",
+      "nota_gold": 5,
+      "mecanismo_cambiado": 2,
+      "norma_inventada": 3,
+      "razonamiento_vacio": 2
+    },
+    {
+      "id": "E10",
+      "nota_gold": 5,
+      "mecanismo_cambiado": 2,
+      "norma_inventada": 3,
+      "razonamiento_vacio": 2
+    }
+  ],
+  "lectura": "`margen_por_mecanismo` es la cifra que importa: cuanto baja la nota del juez cuando la unica diferencia es que el mecanismo esta equivocado. Un margen <= 0 significa que el juez NO distingue una conclusion juridica correcta de una incorrecta, y entonces sus notas no miden derecho y ninguna comparacion que dependa de ellas se sostiene --- empezando por el acuerdo entre jueces, que mediria dos instrumentos igual de ciegos. `tasa_inversion` cuenta los casos en que la respuesta ROTA saco nota mayor o igual.",
+  "lo_que_no_dice": "Esto es validez de CONSTRUCCION: dice que el instrumento responde al defecto. NO dice que el juez coincida con un abogado, que es M2-1b y sigue abierto. Un juez puede castigar el mecanismo equivocado y seguir puntuando distinto que una persona."
+}

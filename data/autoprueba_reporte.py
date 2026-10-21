@@ -127,6 +127,92 @@ def main() -> int:
     comprobar("sigue siendo" not in c,
               "7.3 lo llama el peor cuando es el mejor de la clase")
 
+    # --- 7.1 · la validacion humana se afirma solo si existe ------------
+    #
+    # El parrafo decia «queda abierta». Es verdad hoy y deja de serlo en
+    # cuanto el abogado devuelva el formulario, y entonces el reporte
+    # afirmaria una limitacion que su propio artefacto desmiente. Es el mismo
+    # fallo que 7.2, 7.3 y 7.4, asi que se ata igual: los TRES estados.
+    reporte._CACHE.clear()
+    reporte._FALTAN.clear()
+    # EL ESTADO "SIN ARTEFACTO" SE INYECTA, NO SE SIMULA BORRANDO LA CACHE.
+    #
+    # La version anterior limpiaba `_CACHE` y confiaba en que
+    # `data/validacion_juez.json` no existiera. Dejo de funcionar en cuanto el
+    # abogado devolvio el formulario: `_cargar_data` encontraba el archivo de
+    # verdad y la comprobacion fallaba sobre una seccion correcta. Una prueba
+    # que depende de que un archivo NO exista caduca el dia que se produce, y
+    # justamente ese dia es cuando hay que seguir comprobando el otro camino.
+    reporte._CACHE["data/validacion_juez.json"] = reporte.Ausente(
+        "inyectado por la autoprueba")
+    h = "\n".join(reporte.juez_vs_humano()).lower()
+    comprobar("no esta validado" in h,
+              "sin artefacto, 7.1 no declara que la validacion falta")
+    comprobar("nadie lo ha rellenado" in h,
+              "sin artefacto, 7.1 no dice que el formulario esta sin rellenar")
+    comprobar("revision_abogado_v3" in h,
+              "7.1 no distingue la validacion del JUEZ de la del GOLD, que es "
+              "la confusion que ya hubo una vez (4.9/5 valido el gold)")
+
+    # Con cifra: 7.1 deja de decir que falta y reporta el acuerdo.
+    reporte._CACHE.clear()
+    reporte._FALTAN.clear()
+    reporte._CACHE["data/validacion_juez.json"] = {
+        "acuerdo": {"concluyente": True, "n": 25, "kappa_aprueba": 0.72,
+                    "corr_spearman": 0.81, "acuerdo_exacto": 0.56,
+                    "acuerdo_a_un_punto": 0.92},
+        "desacuerdos_de_2_o_mas": [{"id": "A07"}]}
+    h = "\n".join(reporte.juez_vs_humano()).lower()
+    comprobar("no esta validado" not in h,
+              "7.1 sigue diciendo que no hay validacion con kappa 0.72 "
+              "guardada al lado")
+    comprobar("0.72" in h, "7.1 no reporta la kappa que existe")
+    comprobar("sesgada a proposito" in h,
+              "7.1 publica el acuerdo sin declarar que la muestra no es "
+              "proporcional: la cifra se leeria como el acuerdo del eval set "
+              "entero, y no lo es")
+    comprobar("acuerdo, no" in h and "verdad" in h,
+              "7.1 no advierte que mide acuerdo y no verdad")
+
+    # A medias: el formulario existe y nadie lo relleno.
+    reporte._CACHE.clear()
+    reporte._FALTAN.clear()
+    reporte._CACHE["data/validacion_juez.json"] = {
+        "acuerdo": {"concluyente": False, "motivo": "ninguna nota"},
+        "n_sin_nota": 25}
+    h = "\n".join(reporte.juez_vs_humano()).lower()
+    comprobar("sin cifra" in h or "no se completo" in h,
+              "con el formulario vacio, 7.1 no distingue «no se midio» de "
+              "«acuerdo bajo»")
+
+    # --- 7.1.1 · la adherencia no se confunde con la kappa --------------
+    reporte._CACHE.clear()
+    reporte._FALTAN.clear()
+    reporte._CACHE["m2_scorecard_finetuned.json"] = {"juez": {
+        "kappa_vs_dominio": 0.361,
+        "adherencia_a_la_rubrica": {"concluyente": True, "n": 103,
+                                    "adherencia": 0.9417,
+                                    "incumple_generoso": 4,
+                                    "incumple_severo": 2}}}
+    r = "\n".join(reporte.adherencia_del_juez()).lower()
+    comprobar("0.361" in r, "7.1.1 no cita la kappa contra el dominio")
+    comprobar("no seria una mejora" in r,
+              "7.1.1 no dice que subir la kappa contra el dominio NO es una "
+              "mejora: es la lectura equivocada que la seccion existe para "
+              "impedir")
+    comprobar("generosas" in r and "4" in r,
+              "7.1.1 no separa las notas generosas de las severas")
+
+    reporte._CACHE.clear()
+    reporte._FALTAN.clear()
+    reporte._CACHE["m2_scorecard_finetuned.json"] = {"juez": {
+        "kappa_vs_dominio": 0.361}}
+    r = "\n".join(reporte.adherencia_del_juez()).lower()
+    comprobar("no se midio" in r,
+              "en una corrida sin la medicion, 7.1.1 no dice que falta")
+    reporte._CACHE.clear()
+    reporte._FALTAN.clear()
+
     # --- 7.4 · un empate no es un solapamiento de intervalos ------------
     _j, _c, a = _texto(DISTINTOS, 0.3636, 0.8333, adv_uno=0.8333)
     comprobar("empatan" in a, "7.4 no ve el empate exacto")
@@ -157,7 +243,7 @@ def main() -> int:
 
     # --- y que no se pueda volver a escribir a mano ---------------------
     fuente = inspect.getsource(reporte.construir)
-    for sec in ("### 7.2", "### 7.3", "### 7.4"):
+    for sec in ("### 7.1 ", "#### 7.1.1", "### 7.2", "### 7.3", "### 7.4"):
         comprobar(sec not in fuente,
                   f"la cabecera {sec} volvio a estar escrita a mano en "
                   "`construir()`: ahi no se entera de que el dato cambio, que "
@@ -175,8 +261,11 @@ def main() -> int:
     print("  7.3 sigue al F1 por clase y se retracta sola cuando deja de ser 0")
     print("  7.4 distingue un EMPATE de un solapamiento de intervalos que no")
     print("     se publican")
-    print("  las cabeceras de 7.2, 7.3 y 7.4 no se pueden volver a escribir")
-    print("     a mano dentro de `construir()`")
+    print("  7.1 solo afirma validacion humana si el artefacto existe, y")
+    print("     distingue la del JUEZ de la del GOLD (4.9/5 fue el gold)")
+    print("  7.1.1 dice que subir la kappa contra el dominio NO es una mejora")
+    print("  las cabeceras de 7.1, 7.1.1, 7.2, 7.3 y 7.4 no se pueden volver")
+    print("     a escribir a mano dentro de `construir()`")
     print()
     print("  Lo que esto NO dice: si las cifras son correctas. Comprueba que")
     print("  la PROSA siga al artefacto, no que el artefacto tenga razon.")

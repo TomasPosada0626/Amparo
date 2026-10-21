@@ -69,12 +69,36 @@ def bootstrap_ic(aciertos: list[bool], nivel: float = 0.95,
     # igual que informar kappa 0.0 cuando el estadístico no puede variar.
     # En ese caso se usa Wilson, que está bien definido en los extremos.
     if len(set(aciertos)) < 2:
-        return {**_wilson(sum(aciertos), n, nivel), "n": n,
-                "punto": round(punto, 4), "metodo": "wilson",
-                "nota": "todas las observaciones son iguales, asi que el "
-                        "bootstrap no puede variar y daria un intervalo de "
-                        "amplitud cero. Se informa Wilson, que si esta "
-                        "definido en los extremos."}
+        # WILSON SOLO ESTA DEFINIDO PARA UNA PROPORCION: `k` exitos de `n`.
+        #
+        # Esta función se escribió para proporciones y se acabó usando con
+        # valores que no lo son: los MARGENES de `juez.experimento_validez`
+        # son diferencias de nota (2, 3, -1...). Con ellos
+        # `_wilson(sum(aciertos), n)` recibe k > n --- 20 "exitos" de 10 ---
+        # y revienta con `ValueError: math domain error`. Medido al integrar
+        # la sonda de validez.
+        #
+        # La aritmética de arriba (media y percentiles del bootstrap) sí vale
+        # para cualquier lista numérica, así que la función se queda; lo que
+        # se separa es el caso degenerado, que es el único que necesita saber
+        # de qué tipo son los datos.
+        if set(aciertos) <= {0, 1, True, False}:
+            return {**_wilson(sum(aciertos), n, nivel), "n": n,
+                    "punto": round(punto, 4), "metodo": "wilson",
+                    "nota": "todas las observaciones son iguales, asi que el "
+                            "bootstrap no puede variar y daria un intervalo "
+                            "de amplitud cero. Se informa Wilson, que si esta "
+                            "definido en los extremos."}
+        # No es una proporción y no varía: no hay intervalo que estimar. Se
+        # dice, en vez de inventar [v, v] --- que se leería como certeza
+        # absoluta y es lo contrario --- o de reventar.
+        return {"n": n, "punto": round(punto, 4),
+                "ic_bajo": None, "ic_alto": None, "amplitud": None,
+                "metodo": "sin estimar",
+                "nota": "los valores son todos iguales y NO son una "
+                        "proporcion, asi que el bootstrap no puede variar y "
+                        "Wilson no aplica. El punto es exacto; el intervalo "
+                        "no se estima."}
 
     rnd = random.Random(semilla)
     medias = []

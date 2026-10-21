@@ -12,10 +12,11 @@
   },
   "balance_mecanismo": {
    "tutela": 46,
-   "accion_popular": 8,
    "via_ordinaria": 33,
+   "accion_popular": 8,
    "accion_cumplimiento": 8,
-   "habeas_corpus": 8
+   "habeas_corpus": 8,
+   "abstencion": 6
   },
   "baseline_clase_mayoritaria": 0.4466,
   "baseline_v1": 0.587,

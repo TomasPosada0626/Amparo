@@ -28,6 +28,19 @@ delatara, y esa comprobación es lo único que lo impide.
 El motor también rechaza codificaciones incoherentes: no se puede afirmar
 `perjuicio_irremediable=False` si los cuatro elementos del test concurren.
 
+Y el motor puede **callarse**. Ante un hecho dudoso no activa causal de
+improcedencia —el error caro en un triaje no es sugerir una vía de más, es
+cerrarle la puerta a quien sí tenía mecanismo—, pero eso no es lo mismo que
+responder cuando **no hay caso**: una consulta de inversión, una pregunta de
+examen o un pronóstico sobre lo que hará una EPS no son triajes con un dato
+incierto. Así que al extractor se le hace una pregunta más, y es de hecho:
+¿hay una situación propia del solicitante, con accionado y con una orden que
+pedir? Si no la hay, el sistema emite la abstención del formato en vez de
+proponer una vía. La pregunta está definida **una vez**
+(`schema.PREGUNTA_TRIABLE`) y la usan los tres brazos que deciden con el
+motor: dos copias divergirían y dos brazos se abstendrían con criterios
+distintos sin que nada lo dijera.
+
 ### 2 · Las etiquetas vienen con su fiabilidad
 
 No todas valen lo mismo, y el set lo dice caso por caso en una escalera de
@@ -56,12 +69,30 @@ sostenían.
 | | qué hace | entorno |
 |---|---|---|
 | **M1** `notebooks/M1_finetuning.ipynb` | Fine-tuning LoRA de Qwen2.5-7B-Instruct contra un baseline sin ajustar, con intervalos de confianza bootstrap | GPU (A100) |
-| **M2** `notebooks/M2_harness.ipynb` | Harness de evaluación en tres dimensiones, con LLM-as-a-judge y **cuatro sondas de sesgo** del juez: posición, longitud, auto-preferencia e inyección de prompt | API |
+| **M2** `notebooks/M2_harness.ipynb` | Harness de evaluación en tres dimensiones, con LLM-as-a-judge y **cinco sondas** sobre el juez: posición, longitud, auto-preferencia, inyección de prompt y **validez** | API |
 | **M3** `notebooks/M3_rag.ipynb` | Cuatro arquitecturas comparadas sobre los mismos casos: solo fine-tuned, RAG ingenuo, RAG avanzado y agente con motor de reglas | API |
 
 Corren **en ese orden**. M2 necesita las predicciones de M1 y M3 necesita los
 artefactos de M2; `src/arranque.py` lo declara y lo comprueba antes de gastar
 GPU o llamadas.
+
+La quinta sonda de M2 es la que faltaba, y no mide lo mismo que las otras
+cuatro. Esas cuatro miden si al juez se le puede **engañar**; ninguna
+comprueba lo primero, que el instrumento **mida algo**. Un juez que puntuara
+al azar las pasaría todas —no tiene sesgo de posición, no premia la longitud,
+no prefiere a su linaje y no obedece inyecciones— y sus notas no valdrían
+nada. La sonda de validez le pone delante el gold del caso y el mismo gold con
+un defecto aislado —mecanismo cambiado, norma inventada, razonamiento vacío— y
+mira si la nota baja.
+
+Hay además una comprobación del juez **contra su propia escala**. La rúbrica
+define `nota >= 3` como «mecanismo correcto», y eso se verifica contra el gold
+sin preguntarle a nadie: una nota de 4 sobre una respuesta con el mecanismo
+equivocado no es severidad ni generosidad, es incumplir la escala que se le
+dio. Es distinto de la kappa contra las métricas de dominio, que **no tiene
+por qué ser alta**: un juez que coincidiera con `acierto_juridico` sería una
+copia ruidosa de esa métrica y no aportaría el razonamiento, que es
+exactamente lo que la accuracy no ve.
 
 ---
 
@@ -93,12 +124,17 @@ implícito.
 ### Las comprobaciones, por separado
 
 ```bash
-python -I src/autoprueba_integracion.py   # 68 pruebas: toda la fontanería, sin GPU ni API
+python -I src/autoprueba_integracion.py   # toda la fontanería, sin GPU ni API
 python -I data/auditar_notebooks.py       # orden de celdas, numeración y enganche entre notebooks
+python -I data/auditar_proyecto.py        # coherencia entre capas: corpus, gold, motor, reporte
 python -I data/autoprueba_reporte.py      # que la prosa del reporte siga a sus artefactos
 python -I data/verificar_entrega.py       # que los artefactos sean del mismo experimento
 python -I data/ampliar_eval_set.py        # que cada etiqueta la respalde el motor de reglas
 ```
+
+El número de pruebas no se escribe aquí por la misma razón que no se escriben
+las cifras: un conteo clavado queda obsoleto en el siguiente commit y nadie se
+entera. La salida de cada script lo dice.
 
 `auditar_notebooks.py` comprueba con `ast` que **ninguna celda use un nombre
 que ninguna anterior defina**. Es la única comprobación que detecta de verdad
@@ -147,14 +183,32 @@ persona real sobre su caso.**
 Esta sección existe porque es la más útil del repositorio.
 
 - **El juez automático no está validado contra criterio humano
-  independiente.** El instrumental está completo y exige declarar quién
-  anotó, pero el gold, la rúbrica y el juez los escribió el mismo equipo: si
-  ese equipo puntúa, lo que mide es si una aplicación de su propia rúbrica
-  coincide con otra aplicación de su propia rúbrica. Eso es **consistencia**,
-  no acuerdo entre anotadores. Solo lo cierra una persona externa, y el
-  artefacto lo dice con esas palabras.
+  independiente.** El instrumental está completo —`data/validacion_juez.py`
+  escribe el formulario con la **misma** rúbrica que se le dio al modelo, le
+  oculta al revisor la nota del juez para no anclarla, y `--leer` calcula el
+  acuerdo con `harness.acuerdo_entre_jueces`, la misma función que mide el
+  acuerdo entre modelos— y **falta que una persona lo rellene**. El gold, la
+  rúbrica y el juez los escribió el mismo equipo: si ese equipo puntúa, lo que
+  mide es si una aplicación de su propia rúbrica coincide con otra aplicación
+  de su propia rúbrica. Eso es **consistencia**, no acuerdo entre anotadores.
+  Cuando el artefacto exista, `REPORTE.md` §7.1 lo dirá solo: esa sección se
+  deriva del archivo, no está escrita a mano.
+- **La muestra de esa validación estará sesgada a propósito.** Se toman hasta
+  cinco casos de *cada* nota del juez, porque una muestra proporcional serían
+  25 casos con casi toda la varianza en un punto. El acuerdo que resulte
+  estima el acuerdo **condicionado a esos estratos**, no el del set entero, y
+  el artefacto lo declara donde va la cifra.
 - **La revisión del abogado valida las etiquetas, no al juez.** Son dos
-  validaciones distintas y la segunda no se cubre con la primera.
+  validaciones distintas y la segunda no se cubre con la primera. La nota
+  global de `data/revision_abogado_v3.json` es sobre el **gold**; leerla como
+  una validación del juez sería confundir los datos con el instrumento que los
+  puntúa.
+- **La abstención del motor se mide con n=6.** El criterio de triabilidad se
+  escribió sabiendo que esos seis casos existen, y seis casos no validan
+  ningún criterio de abstención. Lo que sí se puede falsar es el otro lado, y
+  ahí la muestra es diecisiete veces mayor: `abstencion_indebida` sobre los
+  casos **con** respuesta correcta sube si el criterio se abstiene de más. Es
+  el número que hay que mirar, no el acierto sobre los seis.
 - **El acuerdo entre los dos jueces** se mide entre modelos de familias
   distintas a propósito, y su cifra dice si la nota es una propiedad de la
   respuesta o del juez. Cuando es baja, la nota sirve para **ordenar
@@ -183,3 +237,31 @@ una corrida comparó contra la anterior con los mismos datos, salió distinta, y
 la celda de estabilidad avisó de no-determinismo del hardware cuando la causa
 era que se había cambiado el código en medio. Una advertencia falsa es peor
 que no avisar, porque manda a buscar donde no hay nada.
+
+---
+
+## Reproducibilidad: la semilla no basta
+
+Sembrar `random`, `numpy` y `torch` fija de dónde salen los números
+aleatorios. No fija el **orden** en que la GPU los suma: cuBLAS elige su
+reducción según el workspace libre y cuDNN autotunea la convolución en la
+primera llamada, así que la misma operación en bf16 puede acumular en dos
+órdenes distintos —y sumar en otro orden, en coma flotante, da otro número.
+Sobre 7·10⁹ parámetros eso llega a cambiar un token generado, que es un campo
+distinto en el scorecard.
+
+`corridas.sembrar()` añade los interruptores de kernel y **devuelve lo que
+consiguió**, con sus límites, para que `corrida.json` lo registre.
+`CUBLAS_WORKSPACE_CONFIG` se pone al **importar** el módulo, porque cuBLAS la
+lee cuando crea su handle y ponerla después no da error: no hace nada.
+
+Dos cosas quedan declaradas y no resueltas.
+`torch.use_deterministic_algorithms` va con `warn_only=True` a propósito: con
+`warn_only=False`, una sola operación sin kernel determinista levanta
+`RuntimeError` y se lleva por delante cincuenta minutos de A100. Eso es
+**menos** determinismo, y el artefacto lo dice en vez de prometerlo. Y los
+flags fijan el algoritmo, **no el hardware**: dos corridas en GPUs distintas
+pueden diferir igual, por lo que la celda de estabilidad compara también el
+modelo de GPU y separa las tres causas posibles —hardware distinto, corrida
+previa sin flags, y no-determinismo residual real— en vez de ofrecer una sola
+hipótesis.

@@ -1,5 +1,5 @@
 {
-  "_corrida": "20261018T200907Z",
+  "_corrida": "20261021T115654Z",
   "_modulo": "m1",
   "_artefacto": "hiperparametros.json",
   "modelo_base": "Qwen/Qwen2.5-7B-Instruct",
@@ -10,13 +10,13 @@
     "alpha": 32,
     "dropout": 0.05,
     "target_modules": [
-      "q_proj",
+      "gate_proj",
       "o_proj",
+      "down_proj",
+      "q_proj",
       "up_proj",
       "v_proj",
-      "k_proj",
-      "down_proj",
-      "gate_proj"
+      "k_proj"
     ]
   },
   "entrenamiento": {
@@ -40,10 +40,22 @@
     "greater_is_better": false,
     "bf16": true,
     "report_to": "none",
-    "eval_strategy": "epoch"
+    "eval_strategy": "epoch",
+    "warmup_steps": 6
   },
-  "entrenamiento_omitido": {
-    "warmup_ratio": 0.05
+  "entrenamiento_omitido": {},
+  "entrenamiento_traducido": {
+    "warmup_ratio->warmup_steps": {
+      "ratio": 0.05,
+      "pasos": 6,
+      "pasos_totales_estimados": 120
+    }
+  },
+  "early_stopping": {
+    "activo": true,
+    "paciencia": 2,
+    "metrica": "eval_loss",
+    "techo_epocas": 8
   },
   "versiones": {
     "torch": "2.11.0+cu130",
@@ -54,6 +66,6 @@
   "splits": {
     "train": 123,
     "validation": 37,
-    "eval": 69
+    "eval": 109
   }
 }

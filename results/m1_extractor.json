@@ -1,20 +1,20 @@
 {
-  "_corrida": "20261018T200907Z",
+  "_corrida": "20261021T115654Z",
   "_modulo": "m1",
   "_artefacto": "extractor.json",
   "sonda_ajustado": {
     "casos": 10,
     "sin_json": 10,
-    "muestra": "{\n  \"privacion_libertad\": false,\n  \"derecho_colectivo\": false,\n  \"titular_pide_lo_suyo\": true,\n  \"acto_general\": false,\n  \"dano_consumado\": false,\n  \"continua_vulneracion\": true,\n  \"incumplimiento_normativo\": true,\n  \"afectacion_individual\": false,\n  \"otro_medio_judicial\": false,\n  \"medio_eficaz\": true,\n  \"perjuicio_irremediable\": false,\n  \"sujeto_especial_proteccion\": false,\n  \"derecho\": ninguno,\n  \"accionado\": EPS,\n  \"pretensión\": ordenar el suministro del antirretroviral ordenado por el médico tratante\n}",
-    "chars": 512,
+    "muestra": "{\n  \"privacion_libertad\": false,\n  \"derecho_colectivo\": false,\n  \"titular_pide_lo_suyo\": false,\n  \"acto_general\": false,\n  \"dano_consumado\": false,\n  \"continua_vulneracion\": false,\n  \"incumplimiento_normativo\": false,\n  \"afectacion_individual\": false,\n  \"otro_medio_judicial\": false,\n  \"medio_eficaz\": false,\n  \"perjuicio_irremediable\": false,\n  \"sujeto_especial_proteccion\": false,\n  \"derecho\": ninguno,\n  \"accionado\": EPS,\n  \"pretensión\": no aplica: la pretensión es que se suministre el medicamento ordenado por el médico tratante,\n  \"caso_triable\": false,\n  \"motivo_no_triable\": la pretensión es que se suministre el medicamento ordenado por el médico tratante, no que se ordene un acto u omisión",
+    "chars": 728,
     "empieza": "{",
     "cierra": true,
     "cierran": 10,
-    "chars_max": 538
+    "chars_max": 728
   },
   "lectura": "El adaptador NO colapsa sobre el bloque de cinco lineas: emite JSON bien formado, con las doce claves booleanas correctas, que abre y cierra y no esta truncado. Lo que falla es que los valores de CADENA van sin comillas (`\"derecho\": salud`), y `json.loads` muere en esa linea. Mirar `muestra` y `cierran` antes de creerle a esta frase. Por eso la extraccion del brazo hibrido se hace con `model.disable_adapter()` --- con el adaptador apagado el mismo extractor falla 1 de 69 --- y por eso el brazo ya no se llama 'el mismo modelo con otro decisor'.",
   "brazo_base": {
-    "casos": 69,
-    "sin_json": 0
+    "casos": 109,
+    "sin_json": 1
   }
 }

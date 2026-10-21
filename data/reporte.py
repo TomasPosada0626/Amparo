@@ -83,6 +83,22 @@ def _cargar(archivo: str):
     return v
 
 
+def _cargar_data(archivo: str):
+    """Como `_cargar`, pero de `data/`. Para los artefactos que NO son de una
+    corrida: la validacion humana la produce una persona, no un notebook, y
+    vive en `data/` por eso mismo."""
+    clave = f"data/{archivo}"
+    if clave in _CACHE:
+        return _CACHE[clave]
+    p = RAIZ / "data" / archivo
+    if not p.exists():
+        _FALTAN.add(clave)
+        _CACHE[clave] = Ausente(f"{clave} no existe")
+    else:
+        _CACHE[clave] = json.loads(p.read_text(encoding="utf-8"))
+    return _CACHE[clave]
+
+
 def d(archivo: str, *claves, dec: int = 3):
     """Un dato del artefacto, registrado. `claves` es la ruta dentro del JSON."""
     v = _cargar(archivo)
@@ -304,6 +320,120 @@ def separacion() -> dict:
 # el dato que la sostenia se movio. Ahora salen del artefacto, como
 # `separacion()`, y cambian solas o dicen que no pueden concluir.
 # ---------------------------------------------------------------------------
+def juez_vs_humano() -> list[str]:
+    """7.1 · el juez contra un criterio humano independiente.
+
+    ESTABA ESCRITA A MANO Y AFIRMABA QUE NO EXISTIA.
+
+    El parrafo decia «la validacion independiente requiere una persona externa
+    y queda abierta», que era verdad cuando se escribio. Deja de serlo en
+    cuanto `data/validacion_juez.py --leer` publica el acuerdo con el abogado,
+    y entonces el reporte afirmaria una limitacion que su propio artefacto
+    desmiente. Es el mismo fallo que 7.2, 7.3 y 7.4 ya corrigieron: una
+    seccion que contradice un artefacto guardado al lado parece verificada.
+
+    Tres estados, como en 7.2: sin artefacto, con artefacto no concluyente
+    (el formulario existe y nadie lo relleno), y con cifra.
+    """
+    v = _cargar_data("validacion_juez.json")
+    if isinstance(v, Ausente):
+        return ["### 7.1 · El juez no esta validado contra criterio humano "
+                "independiente", "",
+                "El instrumental esta completo —`data/validacion_juez.py` "
+                "escribe el formulario con la **misma** rubrica que se le dio "
+                "al modelo, le oculta al abogado la nota del juez para no "
+                "anclarla, y `--leer` calcula el acuerdo con "
+                "`harness.acuerdo_entre_jueces`, la misma funcion que mide el "
+                "acuerdo entre modelos— y **nadie lo ha rellenado todavia**. "
+                "Yo escribi el gold, la rubrica y el juez: si yo puntuo, lo "
+                "que se mide es si una aplicacion de mi rubrica coincide con "
+                "otra aplicacion de mi rubrica. Eso es *consistencia*, no "
+                "acuerdo entre anotadores, y el campo `_independencia` del "
+                "artefacto lo dice con esas palabras.", "",
+                "**No confundir con `revision_abogado_v3.json`**, que si esta "
+                "y salio 40/40. Aquello valido el **gold** —si los casos "
+                "estan bien codificados—, que es un resultado sobre los "
+                "datos. Esto es sobre el instrumento que los puntua, y un "
+                "eval set impecable puntuado por un juez ciego da cifras "
+                "inservibles igual."]
+
+    ac = v.get("acuerdo") or {}
+    if not ac.get("concluyente"):
+        return ["### 7.1 · La validacion humana del juez esta empezada y sin "
+                "cifra", "",
+                f"El formulario existe y trae {v.get('n_sin_nota', '?')} "
+                "filas sin nota, asi que no hay acuerdo que reportar. Eso "
+                "**no** es un acuerdo bajo: es una medicion que no se "
+                f"completo. Motivo: {ac.get('motivo', '(no lo dice)')}."]
+
+    n = ac.get("n")
+    kap, sp = ac.get("kappa_aprueba"), ac.get("corr_spearman")
+    exacto, a1 = ac.get("acuerdo_exacto"), ac.get("acuerdo_a_un_punto")
+    desac = v.get("desacuerdos_de_2_o_mas") or []
+    return [f"### 7.1 · El juez contra un abogado: kappa **{kap}** sobre "
+            f"{n} casos", "",
+            "Es la unica cifra del proyecto en la que uno de los dos "
+            "evaluadores **no es un modelo**, asi que es la unica de la que "
+            "se puede afirmar que no comparte linaje con el juez. Mide "
+            f"*validez de criterio*: acuerdo exacto **{exacto}**, a un punto "
+            f"**{a1}**, Spearman **{sp}**, con "
+            f"{len(desac)} desacuerdo(s) de dos puntos o mas.", "",
+            "**Lo que esta cifra no dice, en dos cosas.** Primero, la muestra "
+            "la pone una persona a mano y esta **sesgada a proposito**: se "
+            "tomaron hasta cinco casos de *cada* nota del juez, porque una "
+            "muestra proporcional serian 25 casos con casi toda la varianza "
+            "en un punto. Asi que estima el acuerdo condicionado a esos "
+            "estratos, no el del eval set entero. Segundo, mide **acuerdo, no "
+            "verdad**: donde el juez y el abogado coinciden en una nota "
+            "equivocada, esto no lo ve."]
+
+
+def adherencia_del_juez() -> list[str]:
+    """7.1.1 · el juez contra SU PROPIA escala, que es otra pregunta.
+
+    Hace falta porque `kappa_vs_dominio` se lee mal. La cifra es baja (0.361
+    en la ultima corrida) y la lectura tentadora es «el juez es malo». No lo
+    es: si el juez coincidiera con la metrica de dominio seria una copia
+    ruidosa de `acierto_juridico`, y entonces no aportaria nada que esa
+    metrica no diga mas barato. Un acuerdo imperfecto es lo ESPERABLE.
+
+    Lo que si tiene respuesta correcta es si el juez aplica la escala que se
+    le dio: la rubrica define `nota >= 3` como «mecanismo correcto», y eso se
+    comprueba contra el gold. Eso es lo que esta seccion reporta.
+    """
+    ad = d("m2_scorecard_finetuned.json", "juez", "adherencia_a_la_rubrica")
+    kap = d("m2_scorecard_finetuned.json", "juez", "kappa_vs_dominio")
+    if isinstance(ad, Ausente) or not isinstance(ad, dict):
+        return ["#### 7.1.1 · La adherencia del juez a su rubrica no se midio",
+                "", "La corrida es anterior a esta medicion. La kappa contra "
+                f"el dominio vale **{kap}**, y sola no distingue «el juez mide "
+                "otra cosa» de «el juez no aplica su escala»."]
+    if not ad.get("concluyente"):
+        return ["#### 7.1.1 · La adherencia del juez a su rubrica no se pudo "
+                "medir", "", f"Motivo: {ad.get('motivo', '(no lo dice)')}."]
+    gen, sev = ad.get("incumple_generoso"), ad.get("incumple_severo")
+    return [f"#### 7.1.1 · El juez respeta su propia escala en "
+            f"**{ad.get('adherencia')}** de {ad.get('n')} notas", "",
+            f"La kappa contra el dominio vale **{kap}**, y subirla **no "
+            "seria una mejora**: un juez que coincidiera con "
+            "`acierto_juridico` seria una copia ruidosa de esa metrica y no "
+            "aportaria el razonamiento, que es lo que la accuracy no ve. La "
+            "pregunta que si tiene respuesta correcta es otra: la rubrica "
+            "define `nota >= 3` como «mecanismo correcto», asi que el juez se "
+            "puede auditar **contra su propia definicion** sin preguntarle a "
+            "nadie.", "",
+            f"Resultado: **{gen}** notas generosas —`nota >= 3` con el "
+            f"mecanismo equivocado— y **{sev}** severas. Las generosas son "
+            "las graves: inflan la dimension 2. Las dos direcciones se "
+            "cuentan por separado porque cuestan distinto.", "",
+            "Leidas juntas, las dos cifras se interpretan asi: kappa baja con "
+            "adherencia **alta** significa que el juez mide algo que la "
+            "accuracy no ve, que es para lo que existe; kappa baja con "
+            "adherencia **baja** significaria que sus notas no quieren decir "
+            "lo que la rubrica dice, y entonces la dimension 2 entera no se "
+            "puede leer con esa escala."]
+
+
 def jueces_de_familia() -> list[str]:
     """7.2 · el artefacto dice si los dos jueces son parientes.
 
@@ -450,6 +580,59 @@ def adversarial_separa() -> list[str]:
     return [titulo, "", cuerpo, "", f"Orden en el estrato: {orden}.", "",
             "Ampliar el estrato invalida la comparabilidad con estas "
             "corridas, asi que es trabajo del siguiente ciclo y no un ajuste."]
+
+
+def descomposicion_del_salto() -> list[str]:
+    """Cuanto del salto de cabecera es razonamiento y cuanto es formato.
+
+    Sale de `data/descomposicion_baseline.json`, que lo produce
+    `data/descomponer_baseline.py` leyendo `results/m1_predicciones.json`.
+    Si el artefacto no esta, se dice --- no se calcula aqui a mano, que es
+    como una cifra acaba sin procedencia.
+    """
+    p = RAIZ / "data" / "descomposicion_baseline.json"
+    if not p.exists():
+        _FALTAN.add("data/descomposicion_baseline.json")
+        return ["> **La descomposicion del salto no esta medida.** Falta "
+                "`data/descomposicion_baseline.json`: correr "
+                "`python -I data/descomponer_baseline.py`. Sin ella, el salto "
+                "de cabecera mezcla cumplimiento de formato con correccion "
+                "juridica y no se puede saber en que proporcion."]
+    c = json.loads(p.read_text(encoding="utf-8"))
+    salto = c.get("salto_de_cabecera_acierto_juridico")
+    raz = c.get("diferencia_de_mecanismo")
+    fmt = c.get("atribuible_a_formato_del_base")
+    base = (c.get("por_brazo") or {}).get("base") or {}
+    _CITAS.append(("data/descomposicion_baseline.json",
+                   "salto_de_cabecera_acierto_juridico",
+                   f"{salto} = mecanismo {raz} + formato {fmt}"))
+    if salto is None:
+        return ["> La descomposicion existe pero no trae el salto."]
+    return [
+        "### 3.1 · Cuanto del salto es razonamiento y cuanto es formato",
+        "",
+        f"El salto de cabecera es **{_pct(salto)}** de acierto juridico. No "
+        "todo es razonamiento, y el propio dato lo dice:",
+        "",
+        f"- **{_pct(raz)}** es diferencia de **mecanismo**: el afinado acierta "
+        "mas veces la via procesal. Esto si es una afirmacion sobre derecho.",
+        f"- **{_pct(fmt)}** es lo que el base pierde por **formato** con el "
+        f"mecanismo YA acertado: escribe prosa donde el esquema pide `si|no` y "
+        f"el parser la lee `False`, correctamente. En "
+        f"{base.get('mecanismo_ilegible')} de {base.get('n')} salidas ni el "
+        "mecanismo se puede leer.",
+        "",
+        "Las dos son ganancias reales del fine-tuning --- sin bloque parseable "
+        "no hay sistema --- pero **solo la primera es una afirmacion sobre "
+        "derecho**, y sumarlas en una sola cifra exagera lo que este trabajo "
+        "demuestra. Por eso la tabla de arriba lleva la columna del "
+        "**hibrido**, que es el base con el motor de reglas decidiendo: aisla "
+        "el razonamiento del formato.",
+        "",
+        "> Lo senalo una auditoria externa, y al medirlo tenia razon. Queda "
+        "pendiente el baseline de formato --- el base con few-shot del bloque "
+        "de cinco lineas --- que exige una corrida.",
+    ]
 
 
 def construir() -> list[str]:
@@ -602,27 +785,44 @@ def construir() -> list[str]:
     # ---- 3 · M1 ---------------------------------------------------------
     a("## 3 · M1 · el sistema afinado")
     a("")
-    a("LoRA sobre Qwen2.5-7B-Instruct. Dos cifras de cabecera, las dos con "
-      "intervalo bootstrap percentil:")
+    a("LoRA sobre Qwen2.5-7B-Instruct. Las cifras de cabecera, con intervalo "
+      "bootstrap percentil, y **las tres columnas que hacen falta para "
+      "leerlas**:")
     a("")
-    L += _tabla(["metrica", "base", "afinado"],
+    # TRES COLUMNAS, NO DOS.
+    #
+    # La tabla comparaba `base` contra `afinado` y nada mas, y asi el salto se
+    # lee como ganancia de razonamiento juridico. No lo es del todo: el base
+    # acierta el mecanismo una de cada tres veces y pierde el acierto conjunto
+    # porque escribe prosa donde el esquema pide `si|no`. El brazo HIBRIDO ---
+    # el base extrae los hechos, el motor de reglas decide --- aisla el
+    # razonamiento del formato, y ya se publicaba sin aparecer en el titular.
+    L += _tabla(["metrica", "base", "hibrido (base + reglas)", "afinado"],
                 [["acierto juridico",
                   ic("m1_scorecard_base.json", "ic", "acierto_juridico"),
+                  ic("m1_scorecard_hibrido.json", "ic", "acierto_juridico"),
                   ic("m1_scorecard_finetuned.json", "ic", "acierto_juridico")],
                  ["acierto de mecanismo",
                   ic("m1_scorecard_base.json", "ic", "acc_mecanismo"),
+                  ic("m1_scorecard_hibrido.json", "ic", "acc_mecanismo"),
                   ic("m1_scorecard_finetuned.json", "ic", "acc_mecanismo")],
                  ["macro-F1 de mecanismo",
                   d("m1_scorecard_base.json", "campos", "mecanismo", "macro_f1"),
+                  d("m1_scorecard_hibrido.json", "campos", "mecanismo",
+                    "macro_f1"),
                   d("m1_scorecard_finetuned.json", "campos", "mecanismo",
                     "macro_f1")],
                  ["base mayoritaria",
                   d("m1_scorecard_base.json", "campos", "mecanismo",
                     "baseline_mayoritaria"),
+                  d("m1_scorecard_hibrido.json", "campos", "mecanismo",
+                    "baseline_mayoritaria"),
                   d("m1_scorecard_finetuned.json", "campos", "mecanismo",
                     "baseline_mayoritaria")],
                  ["alucinacion normativa",
                   d("m1_scorecard_base.json", "alucinacion_normativa",
+                    "tasa_alucinacion"),
+                  d("m1_scorecard_hibrido.json", "alucinacion_normativa",
                     "tasa_alucinacion"),
                   d("m1_scorecard_finetuned.json", "alucinacion_normativa",
                     "tasa_alucinacion")]])
@@ -630,6 +830,9 @@ def construir() -> list[str]:
     a("**El acierto juridico es la metrica de cabecera y no la accuracy de "
       "mecanismo.** Acertar `tutela` por la causal equivocada no es acertar: "
       "exige mecanismo, procedencia y fundamento a la vez.")
+    a("")
+    for _linea in descomposicion_del_salto():
+        a(_linea)
     a("")
     fiab = d("m1_scorecard_finetuned.json", "por_fiabilidad_etiqueta")
     if isinstance(fiab, dict):
@@ -856,17 +1059,11 @@ def construir() -> list[str]:
       "el dominio. Un proyecto que dice eso vale mas que uno que publica la "
       "cifra sin decirlo.")
     a("")
-    a("### 7.1 · El juez no esta validado contra criterio humano independiente")
+    for _linea in juez_vs_humano():
+        a(_linea)
     a("")
-    a("El instrumental esta completo —`data/calibracion_juez.py` y "
-      "`data/doble_anotacion.py`, los dos con `--anotador` **obligatorio**— y "
-      "los dos scripts se niegan a producir una cifra sin decir quien anoto. "
-      "Pero yo escribi el gold, la rubrica y el juez. Si yo puntuo, lo que se "
-      "mide es si una aplicacion de mi rubrica coincide con otra aplicacion "
-      "de mi rubrica: eso es **consistencia**, no acuerdo entre anotadores, y "
-      "el campo `_independencia` del artefacto lo dice con esas palabras. La "
-      "validacion independiente **requiere una persona externa** y queda "
-      "abierta.")
+    for _linea in adherencia_del_juez():
+        a(_linea)
     a("")
     for _linea in jueces_de_familia():
         a(_linea)

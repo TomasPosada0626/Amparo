@@ -44,6 +44,7 @@ EL FLAG `valida`
 from __future__ import annotations
 import csv
 import json
+import os
 import platform
 import shutil
 import sys
@@ -64,6 +65,26 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 SEMILLA = 42
+
+# CUBLAS_WORKSPACE_CONFIG SE PONE AL IMPORTAR, Y ESO ES DELIBERADO.
+#
+# cuBLAS lee esta variable cuando crea su handle --- en la primera
+# multiplicacion de matrices --- y no vuelve a mirarla. Ponerla despues no da
+# error: no hace nada, que es peor.
+#
+# El sitio natural seria la celda que siembra (`sembrar()`, mas abajo), y ahi
+# llega tarde: `Corrida.__init__` llama a `hardware()`, que llama a
+# `get_device_properties(0)`, que inicializa CUDA. Esa celda es la PRIMERA del
+# notebook, doce antes de la que siembra. Asi que la variable tiene que estar
+# puesta antes de que alguien importe este modulo para otra cosa, y el unico
+# momento garantizado es el import.
+#
+# Un efecto de import que toca `os.environ` se mira con razon de reojo. La
+# alternativa era confiar en que una linea quede en la celda correcta de tres
+# notebooks, que es exactamente la clase de orden que este proyecto ya tuvo
+# que atar con una prueba (la 68). Es inocuo donde no hay GPU: M2 y M3 corren
+# en CPU y contra una API, y la variable solo la lee cuBLAS.
+os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
 
 LIBRERIAS = ("torch", "transformers", "peft", "datasets", "accelerate",
              "sentence_transformers", "numpy", "sklearn", "groq", "ragas",
@@ -95,6 +116,123 @@ def hardware() -> dict:
     except Exception:
         pass
     return out
+
+
+def sembrar(semilla: int = SEMILLA, determinista: bool = True) -> dict:
+    """Siembra el azar Y pide kernels deterministas. Devuelve lo que consiguio.
+
+    POR QUE NO BASTA CON LA SEMILLA, Y QUE NUMERO LO DICE
+
+    M1 ya sembraba `random`, `numpy` y `torch`, y aun asi dos corridas con los
+    mismos datos, el mismo codigo y la misma semilla pueden dar artefactos
+    distintos. La semilla fija de donde salen los numeros aleatorios; no fija
+    el ORDEN en que la GPU los suma. cuBLAS elige su algoritmo de reduccion
+    segun el workspace que tenga libre y cuDNN "autotunea" la convolucion en
+    la primera llamada, asi que la misma operacion en bf16 puede acumular en
+    dos ordenes distintos --- y en coma flotante sumar en otro orden da otro
+    numero. Sobre 7 000 millones de parametros, esa diferencia se propaga
+    hasta cambiar un token generado, que es un campo distinto en el scorecard.
+
+    La generacion ya es greedy (`do_sample=False` en las dos celdas que
+    generan), asi que el muestreo no es la causa y esto es lo que queda.
+
+    LOS CUATRO INTERRUPTORES, Y EL LIMITE DE CADA UNO
+
+      CUBLAS_WORKSPACE_CONFIG   ya la pone el import de este modulo, que es
+                                el unico momento garantizado (ver la nota
+                                junto a `SEMILLA`). Aqui solo se COMPRUEBA, y
+                                se comprueba con una medida conservadora:
+                                `cublas_a_tiempo` dice si CUDA todavia no
+                                estaba inicializado, lo que basta para
+                                afirmar que llego a tiempo. Al reves no
+                                concluye: cuBLAS cachea la variable cuando
+                                crea su handle, en la primera matmul, que
+                                puede no haber ocurrido aun. Asi que un False
+                                es "no se puede afirmar", no "llego tarde".
+      cudnn.deterministic       obliga a cuDNN a usar kernels reproducibles.
+      cudnn.benchmark = False   le quita el autotune, que es lo que hace que
+                                la primera llamada elija algoritmo sola.
+      use_deterministic_algorithms   la red de seguridad: hace fallar (o
+                                avisar) cualquier op sin kernel determinista.
+
+    `warn_only=True` ES UNA DECISION, NO UN DESCUIDO. Con `warn_only=False`
+    una sola op sin kernel determinista --- y en un `Trainer` con atencion
+    SDPA hay varias --- levanta `RuntimeError` y se lleva por delante un
+    entrenamiento de 50 minutos de A100. Con `True` avisa y usa el kernel no
+    determinista. Eso es MENOS determinismo, y el dict que se devuelve lo dice
+    para que `corrida.json` lo registre: "pedido" no es "conseguido", y
+    `estabilidad` se tiene que poder leer sabiendo cual de los dos fue.
+
+    LO QUE ESTO NO ARREGLA: dos corridas en GPUs DISTINTAS. Los flags fijan el
+    algoritmo, no el hardware; una A100 y una L4 pueden diferir igual. Por eso
+    `hardware()` viaja en la misma meta.
+    """
+    import os
+    import random
+    estado = {"semilla": semilla, "determinista_pedido": determinista}
+
+    random.seed(semilla)
+    try:
+        import numpy as np
+        np.random.seed(semilla)
+        estado["numpy"] = True
+    except Exception:                                      # noqa: BLE001
+        estado["numpy"] = False
+
+    try:
+        import torch
+    except Exception:                                      # noqa: BLE001
+        estado["torch"] = False
+        return estado
+    estado["torch"] = torch.__version__
+
+    torch.manual_seed(semilla)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(semilla)
+
+    if not determinista:
+        return estado
+
+    # La variable ya esta puesta desde el import; aqui se comprueba y se
+    # registra, que es lo que permite leer `estabilidad` despues.
+    ya = torch.cuda.is_available() and torch.cuda.is_initialized()
+    estado["cublas_workspace_config"] = os.environ.get(
+        "CUBLAS_WORKSPACE_CONFIG")
+    estado["cublas_a_tiempo"] = not ya
+    if estado["cublas_workspace_config"] not in (":4096:8", ":16:8"):
+        estado["aviso_cublas"] = (
+            "CUBLAS_WORKSPACE_CONFIG vale "
+            f"{estado['cublas_workspace_config']!r}, que no es un valor "
+            "determinista. Alguien la cambio despues de importar `corridas`.")
+    elif ya:
+        estado["aviso_cublas"] = (
+            "CUDA ya estaba inicializado al llamar a sembrar(), asi que no se "
+            "puede AFIRMAR que la variable llegara antes de la primera matmul "
+            "(cuBLAS la cachea al crear su handle). El import de `corridas` "
+            "la pone antes que nada, asi que lo normal es que si; esto queda "
+            "registrado para no afirmar lo que no se comprobo.")
+
+    try:
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+        estado["cudnn_deterministic"] = True
+    except Exception as ex:                                # noqa: BLE001
+        estado["cudnn_deterministic"] = f"no se pudo: {type(ex).__name__}"
+
+    try:
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        estado["use_deterministic_algorithms"] = "True (warn_only)"
+    except Exception as ex:                                # noqa: BLE001
+        estado["use_deterministic_algorithms"] = f"no se pudo: {type(ex).__name__}"
+
+    estado["lectura"] = (
+        "Determinismo PEDIDO, no garantizado: `warn_only=True` deja pasar las "
+        "ops sin kernel determinista en vez de tumbar el entrenamiento. Si "
+        "`estabilidad.identicas` sale False con mismos datos y mismo codigo, "
+        "mirar el hardware de las dos corridas antes de concluir nada.")
+    if "aviso_cublas" in estado:
+        estado["lectura"] += " OJO: " + estado["aviso_cublas"]
+    return estado
 
 
 def version_codigo() -> dict:
@@ -276,6 +414,18 @@ class Corrida:
     # -- cierre ---------------------------------------------------------
     def nota(self, texto: str) -> None:
         self.meta["notas"].append(texto)
+        self._escribir_meta()
+
+    def registrar(self, clave: str, valor) -> None:
+        """Mete un dato en la meta y lo escribe YA, sin esperar a `cerrar`.
+
+        Hace falta para lo que describe la corrida y no es un artefacto --- el
+        estado del determinismo, por ejemplo. Asignar a `self.meta` a secas
+        tambien funciona, pero solo llega al disco si la corrida llega a
+        `cerrar()`, y justo las corridas que se caen a mitad son las que hay
+        que poder leer despues.
+        """
+        self.meta[clave] = valor
         self._escribir_meta()
 
     def cerrar(self, valida: bool, notas: str | list[str] | None = None) -> dict:

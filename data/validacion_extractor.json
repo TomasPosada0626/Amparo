@@ -1,0 +1,111 @@
+{
+ "via": "accion_cumplimiento",
+ "n_objetivo": 8,
+ "n_control": 0,
+ "derecho_colectivo_en_objetivo": 0,
+ "acto_general_en_objetivo": 0,
+ "aciertan_objetivo": 7,
+ "aciertan_control": 0,
+ "antes": {
+  "derecho_colectivo": 8,
+  "acto_general": 6,
+  "aciertan_objetivo": 0,
+  "corrida": "m3/20261018T080807Z"
+ },
+ "detalle": [
+  {
+   "id": "E29",
+   "grupo": "objetivo",
+   "gold": "accion_cumplimiento",
+   "motor_emite": "accion_cumplimiento",
+   "acierta": true,
+   "derecho_colectivo": false,
+   "acto_general": false,
+   "incumplimiento_normativo": true,
+   "afectacion_individual": false
+  },
+  {
+   "id": "E30",
+   "grupo": "objetivo",
+   "gold": "accion_cumplimiento",
+   "motor_emite": "via_ordinaria",
+   "acierta": false,
+   "derecho_colectivo": false,
+   "acto_general": false,
+   "incumplimiento_normativo": true,
+   "afectacion_individual": true
+  },
+  {
+   "id": "E39",
+   "grupo": "objetivo",
+   "gold": "accion_cumplimiento",
+   "motor_emite": "accion_cumplimiento",
+   "acierta": true,
+   "derecho_colectivo": false,
+   "acto_general": false,
+   "incumplimiento_normativo": true,
+   "afectacion_individual": false
+  },
+  {
+   "id": "E40",
+   "grupo": "objetivo",
+   "gold": "accion_cumplimiento",
+   "motor_emite": "accion_cumplimiento",
+   "acierta": true,
+   "derecho_colectivo": false,
+   "acto_general": false,
+   "incumplimiento_normativo": true,
+   "afectacion_individual": false
+  },
+  {
+   "id": "E41",
+   "grupo": "objetivo",
+   "gold": "accion_cumplimiento",
+   "motor_emite": "accion_cumplimiento",
+   "acierta": true,
+   "derecho_colectivo": false,
+   "acto_general": false,
+   "incumplimiento_normativo": true,
+   "afectacion_individual": false
+  },
+  {
+   "id": "E42",
+   "grupo": "objetivo",
+   "gold": "accion_cumplimiento",
+   "motor_emite": "accion_cumplimiento",
+   "acierta": true,
+   "derecho_colectivo": false,
+   "acto_general": false,
+   "incumplimiento_normativo": true,
+   "afectacion_individual": false
+  },
+  {
+   "id": "A15",
+   "grupo": "objetivo",
+   "gold": "accion_cumplimiento",
+   "motor_emite": "accion_cumplimiento",
+   "acierta": true,
+   "derecho_colectivo": false,
+   "acto_general": false,
+   "incumplimiento_normativo": true,
+   "afectacion_individual": false
+  },
+  {
+   "id": "A16",
+   "grupo": "objetivo",
+   "gold": "accion_cumplimiento",
+   "motor_emite": "accion_cumplimiento",
+   "acierta": true,
+   "derecho_colectivo": false,
+   "acto_general": false,
+   "incumplimiento_normativo": true,
+   "afectacion_individual": false
+  }
+ ],
+ "lectura": "Mejora parcial: 7 de 8 contra 0 antes, con el control SIN MEDIR (--control 0). Siguen fallando 1 del objetivo.",
+ "_no_es_una_corrida": "Esto valida SOLO la extraccion de hechos. No mide el brazo 4 completo --- que incluye el bucle de herramientas, la recuperacion y el juez --- ni sustituye a correr M3. Sirve para saber si vale la pena correrlo.",
+ "linea_base_control": {
+  "valor": 0,
+  "de_donde": "la medicion anterior"
+ }
+}

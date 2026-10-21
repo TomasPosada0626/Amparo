@@ -201,10 +201,125 @@ class Recolector(ast.NodeVisitor):
         self.define.update(n.names)
 
 
+# --------------------------------------------------------------------------
+# LAS CIFRAS DEL MARKDOWN CONTRA LOS ARCHIVOS DE DATOS
+#
+# Tres cifras del texto llevaban dos ampliaciones sin actualizarse:
+#
+#   M1, cabecera   «dataset v3.1.0: 143 ejemplos, 106 de train»  -> 160 y 123
+#   M3, seccion 9  «el corpus tiene 57 fragmentos ... 19 de la CP» -> 69 y 20
+#   M3, seccion 9  «el eval compartido tiene 69 casos»            -> 109
+#
+# Ninguna rompia nada al correr, y eso es justo lo que las hacia durar: un
+# notebook que documenta un dataset que ya no existe se lee igual de bien.
+#
+# EL PROBLEMA DE COMPROBARLO: casi todas las cifras del markdown son
+# HISTORICAS y deben quedarse como estan. «`_json_de` devolvia {} en 62 de 63
+# casos» describe una corrida concreta; actualizarla la volveria falsa. Asi
+# que no se escanea el texto buscando numeros --- eso daria decenas de falsos
+# positivos y se acabaria ignorando el auditor, que es peor que no tenerlo.
+#
+# Se comprueban SOLO las lineas que se declaran como estado actual, con un
+# prefijo explicito: `**Datos:**`, `**Corpus:**`, `**Eval:**`. El marcador es
+# lo que separa «esto describe el proyecto de hoy» de «esto cuenta lo que
+# paso», y lo pone quien escribe.
+MARCADORES = ("Datos", "Corpus", "Eval")
+
+
+def _cifras_reales() -> dict[str, dict[str, int | str]]:
+    """Lo que los archivos de datos dicen de verdad, hoy."""
+    import collections
+    d = json.loads((RAIZ / "data" / "dataset.json").read_text(encoding="utf-8"))
+    ej = d["ejemplos"]
+    sp = collections.Counter(e["split"] for e in ej)
+
+    co = json.loads((RAIZ / "data" / "corpus.json").read_text(encoding="utf-8"))
+    por_norma = collections.Counter(x.get("norma") or "?"
+                                    for x in co["documentos"])
+
+    def n_ej(archivo):
+        p = RAIZ / "data" / archivo
+        return (len(json.loads(p.read_text(encoding="utf-8"))["ejemplos"])
+                if p.exists() else None)
+
+    return {
+        "Datos": {"version": d["meta"]["version"], "ejemplos": len(ej),
+                  "train": sp["train"], "validation": sp["validation"]},
+        "Corpus": {"fragmentos": len(co["documentos"]),
+                   "constitucion": por_norma["Constitución Política de Colombia"],
+                   "decreto": por_norma["Decreto 2591 de 1991"]},
+        "Eval": {"compartido": n_ej(arranque.ARCHIVO_EVAL)
+                 if hasattr(arranque, "ARCHIVO_EVAL") else n_ej("eval_set_v3.json"),
+                 "m3": n_ej("eval_set_m3.json")},
+    }
+
+
+def cifras_del_markdown(mod: str, celdas: list[dict]) -> None:
+    """Toda cifra de una linea marcada tiene que estar en los archivos."""
+    real = _cifras_reales()
+    vistos = 0
+    for i, c in enumerate(celdas):
+        if c["cell_type"] != "markdown":
+            continue
+        for linea in "".join(c["source"]).splitlines():
+            m = re.match(r"\s*[-*]?\s*\*\*(%s):\*\*(.*)"
+                         % "|".join(MARCADORES), linea)
+            if not m:
+                continue
+            etiqueta, resto = m.group(1), m.group(2)
+            vistos += 1
+            esperadas = real[etiqueta]
+            # LAS REFERENCIAS A NORMAS SE QUITAN ANTES DE CONTAR. «Decreto
+            # 2591 de 1991» lleva tres numeros y ninguno es un conteo; sin
+            # esto, la primera version de esta comprobacion marcaba 2591 como
+            # cifra inventada. Un auditor que grita sobre el numero de un
+            # decreto ensena a ignorarlo.
+            limpio = re.sub(
+                r"\b(?:Decreto|Ley|Sentencia)\s+[A-Z]?-?\d+(?:\s+de\s+\d{4})?"
+                r"|\bart[íi]?culos?\.?\s*\d+\w*|\bart\.?\s*\d+\w*", "", resto)
+            # Cada numero de la linea tiene que ser uno de los reales. Es
+            # deliberadamente laxo en QUE numero va donde --- la prosa cambia
+            # --- y estricto en que ninguno sea inventado, que es el fallo.
+            nums = {int(x.replace(".", "").replace(",", ""))
+                    for x in re.findall(r"\b\d[\d.,]*\b", limpio)
+                    if x.strip(".,").isdigit()}
+            validos = {v for v in esperadas.values() if isinstance(v, int)}
+            # Un numero de version (`v3.5.0`) no es un conteo: se comprueba
+            # aparte, contra `meta.version`, y no cuenta como cifra.
+            vers = re.findall(r"\bv(\d+\.\d+\.\d+)\b", resto)
+            for v in vers:
+                if v != esperadas.get("version"):
+                    HALLAZGOS.append(
+                        (mod, "GRAVE",
+                         f"c{i}: `**{etiqueta}:**` dice version v{v} y "
+                         f"`dataset.json` es v{esperadas.get('version')}"))
+            nums -= {int(p) for v in vers for p in v.split(".")}
+            inventados = sorted(nums - validos)
+            if inventados:
+                HALLAZGOS.append(
+                    (mod, "GRAVE",
+                     f"c{i}: `**{etiqueta}:**` cita {inventados} y los "
+                     f"archivos dan {sorted(validos)}. Esa linea se declara "
+                     "como estado ACTUAL, asi que no puede llevar una cifra "
+                     "de otra version"))
+            faltan = sorted(validos - nums)
+            if faltan and etiqueta in ("Datos", "Corpus"):
+                HALLAZGOS.append(
+                    (mod, "AVISO",
+                     f"c{i}: `**{etiqueta}:**` no menciona {faltan}"))
+    if not vistos and mod in ("m1", "m3"):
+        HALLAZGOS.append(
+            (mod, "AVISO", "ninguna linea `**Datos:**` / `**Corpus:**` / "
+                           "`**Eval:**`: las cifras del estado actual quedan "
+                           "sin comprobar contra los archivos"))
+
+
 def auditar(mod: str, nombre: str) -> None:
     p = RAIZ / "notebooks" / nombre
     nb = json.load(io.open(p, encoding="utf-8"))
     celdas = nb["cells"]
+
+    cifras_del_markdown(mod, celdas)
 
     # ---- 1 · dependencias entre celdas ---------------------------------
     disponibles, roto = set(BUILTINS), False

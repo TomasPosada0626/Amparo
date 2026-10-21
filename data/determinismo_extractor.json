@@ -1,0 +1,90 @@
+{
+ "_medido": "2026-10-21, contra la API de Groq, sin cache",
+ "_corrida_de_referencia": "m3/20261021T140413Z",
+ "_que_casos": "los 5 primeros de los 8 de `accion_cumplimiento` del eval v3",
+ "concentracion_en_hechos_de_juicio": {
+  "variaciones_en_hechos_de_juicio": 7,
+  "variaciones_totales": 13,
+  "proporcion": 0.538,
+  "de_los_4_de_juicio_varian": 3,
+  "de_los_12_extraibles_varian": 6,
+  "lectura": "`reglas.HECHOS_DE_JUICIO` ya declaraba, ANTES de esta medicion, que `medio_eficaz`, `perjuicio_irremediable`, `titular_pide_lo_suyo` y `continua_vulneracion` no se leen del relato: se ponderan. La inestabilidad se concentra ahi --- 3 de esos 4 varian y son el 54% de las variaciones --- lo cual es coherente con la taxonomia del proyecto y no con un fallo del prompt. Pero NO se agota ahi: `otro_medio_judicial`, `afectacion_individual` y `dano_consumado` tambien bailan, y esos estan en el texto o no estan. Decir que solo varian las ponderaciones seria sobreleer el dato."
+ },
+ "n_casos": 5,
+ "repeticiones": 4,
+ "llamadas_reales": 20,
+ "casos_estables": 0,
+ "tasa_estabilidad": 0.0,
+ "extracciones_distintas_media": 2.4,
+ "extracciones_distintas_maximo": 3,
+ "casos_inestables": [
+  "E29",
+  "E30",
+  "E39",
+  "E40",
+  "E41"
+ ],
+ "por_caso": [
+  {
+   "id": "E29",
+   "extracciones_distintas": 2,
+   "repeticiones": 4,
+   "estable": false,
+   "fallos": 0,
+   "hechos_que_varian": [
+    "medio_eficaz",
+    "otro_medio_judicial"
+   ]
+  },
+  {
+   "id": "E30",
+   "extracciones_distintas": 2,
+   "repeticiones": 4,
+   "estable": false,
+   "fallos": 0,
+   "hechos_que_varian": [
+    "afectacion_individual",
+    "titular_pide_lo_suyo"
+   ]
+  },
+  {
+   "id": "E39",
+   "extracciones_distintas": 3,
+   "repeticiones": 4,
+   "estable": false,
+   "fallos": 0,
+   "hechos_que_varian": [
+    "dano_consumado",
+    "medio_eficaz",
+    "otro_medio_judicial",
+    "titular_pide_lo_suyo"
+   ]
+  },
+  {
+   "id": "E40",
+   "extracciones_distintas": 2,
+   "repeticiones": 4,
+   "estable": false,
+   "fallos": 0,
+   "hechos_que_varian": [
+    "medio_eficaz",
+    "otro_medio_judicial"
+   ]
+  },
+  {
+   "id": "E41",
+   "extracciones_distintas": 3,
+   "repeticiones": 4,
+   "estable": false,
+   "fallos": 0,
+   "hechos_que_varian": [
+    "afectacion_individual",
+    "perjuicio_irremediable",
+    "titular_pide_lo_suyo"
+   ]
+  }
+ ],
+ "sin_bucle_de_herramientas": true,
+ "lectura": "`tasa_estabilidad` dice cada cuanto el extractor devuelve los MISMOS hechos ante la misma entrada. Si es menor que 1, toda cifra del brazo 4 que dependa de una sola corrida --- el F1 por clase, sobre todo en las clases de soporte pequeno --- es una tirada y no una medicion, y la diferencia entre dos brazos menor que ese ruido no se puede leer. `hechos_que_varian` dice CUALES bailan: los de ponderacion (`medio_eficaz`, `perjuicio_irremediable`) varian con mas motivo que los que estan en el texto o no estan.",
+ "lo_que_no_dice": "por que varia. `temperature=0` y `seed=42` hacen la reproducibilidad probable, no segura, y desde aqui no se distingue el lote del servicio, la version del modelo o el hardware. Tampoco mide el BUCLE: eso se compara aparte con `data/validar_extractor.py`."
+}

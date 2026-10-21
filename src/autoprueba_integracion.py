@@ -2394,6 +2394,290 @@ def t_orden_de_notebooks():
             "repetir ni desordenar, arranque en orden y nada sin publicar")
 
 
+@prueba("los tres brazos del motor pueden abstenerse, y con el mismo criterio")
+def t_abstencion_del_motor():
+    """`schema.PREGUNTA_TRIABLE` y sus dos lectores, fijados.
+
+    POR QUE EXISTE ESTA PRUEBA
+
+    En m3/20261019T173316Z los tres brazos de LLM acertaron 3 de 6
+    abstenciones y el brazo del motor 0 de 6, porque el motor siempre
+    encuentra una via: `DEFECTO_PRO_HOMINE`. La correccion no toca el motor
+    --- sigue decidiendo solo --- sino que le anade al extractor UNA pregunta
+    de hecho: si hay o no un caso que triar.
+
+    QUE SE FIJA AQUI, Y POR QUE CADA COSA
+
+      - QUE ESTE EN LOS DOS PROMPTS Y SEA LA MISMA CADENA. `sistema` y
+        `agente` tienen prompts de hechos separados y casi identicos. Si la
+        pregunta se escribe dos veces, el primer arreglo a una sola deja al
+        brazo hibrido y al del agente abstenidose con criterios distintos, y
+        nada en la salida lo diria.
+      - QUE LOS TRES BRAZOS LA USEN. `SistemaReglas`, `SistemaHibrido` y
+        `Agente` son los tres que deciden con el motor. Uno que se quede
+        fuera no es un brazo con menos abstenciones: es un brazo que no
+        responde a la misma pregunta, y la tabla los compara como si si.
+      - QUE EL DEFAULT SEA TRIABLE. Si el JSON se trunca o el modelo ignora
+        la clave, no se abstiene. Una abstencion por omision es exactamente
+        el error que `DEFECTO_PRO_HOMINE` existe para no cometer.
+      - QUE LA SALIDA SEA DETECTABLE. `se_abstuvo` tiene que verla, el
+        mecanismo tiene que parsear a None, y las citas tienen que
+        desaparecer: afirmar "no determinable" con el art. 49 debajo es
+        incoherente, y `metricas` mide la pertinencia de esas citas contra un
+        gold que en un caso de abstencion no tiene ninguna.
+
+    LO QUE ESTA PRUEBA NO DICE: si el criterio acierta. Eso solo lo dice una
+    corrida, y el numero que lo falsa no es el 0 de 6 --- n=6 no valida nada
+    --- sino `abstencion_indebida` sobre los 103 casos CON respuesta
+    correcta, que hoy vale 0.0.
+    """
+    import inspect
+    import agente
+    import schema
+    import sistema
+
+    # 1 · la misma cadena, una vez, en los dos prompts
+    p_sis = sistema._prompt_hechos()
+    p_ag = schema.con_pregunta_triable(agente.PROMPT_HECHOS_AGENTE)
+    for n, p in (("sistema._prompt_hechos", p_sis),
+                 ("agente.PROMPT_HECHOS_AGENTE", p_ag)):
+        assert schema.PREGUNTA_TRIABLE in p, (
+            f"{n}: la pregunta de triabilidad no esta, o se reescribio a mano "
+            "en vez de salir de `schema.PREGUNTA_TRIABLE`")
+        assert p.count('"caso_triable"') == 1, f"{n}: duplicada"
+        assert p.rstrip().endswith("}"), f"{n}: el JSON ya no cierra"
+
+    # 2 · los tres brazos del motor, ninguno fuera
+    for cls in (sistema.SistemaReglas, sistema.SistemaHibrido, agente.Agente):
+        src = inspect.getsource(cls.__call__)
+        assert "schema.abstenerse" in src, (
+            f"{cls.__name__} decide con el motor y no puede abstenerse: "
+            "la tabla lo compararia con brazos que si")
+
+    # 3 · el default es triable, y las tres formas de false se leen
+    for d in ({}, {"derecho": "salud"}, {"caso_triable": True},
+              {"caso_triable": "true"}):
+        assert schema.leer_triable(d) == (False, ""), (
+            f"{d}: una abstencion por omision es el error caro")
+    for d in ({"caso_triable": False}, {"caso_triable": "false"},
+              {"caso_triable": "no"}):
+        assert schema.leer_triable(d)[0] is True, d
+
+    # 4 · la salida que produce es una abstencion para la metrica
+    campos = {"derecho": "salud", "fundamento": "art. 49 CP; art. 6 D2591",
+              "accionado": "EPS Sanitas", "mecanismo": "tutela",
+              "procede": True, "razon": "procede por perjuicio irremediable",
+              "pretension": "ordenar la cirugia"}
+    assert not schema.se_abstuvo(schema.render_salida(campos))
+    ab = schema.render_salida(schema.abstenerse(campos, "pide un pronostico"))
+    assert schema.se_abstuvo(ab), ab
+    assert schema.parse_salida(ab).get("mecanismo") is None, ab
+    assert "art. 49" not in ab, "las citas tenian que desaparecer:\n" + ab
+    assert "EPS Sanitas" not in ab, (
+        "nombrar al accionado contradice a la razon de la linea siguiente, "
+        "que dice que no hay accionado identificable:\n" + ab)
+
+    # 5 · de punta a punta, con un generador falso y sin red
+    import json as _json
+
+    def _no_triable(_s, _u):
+        return _json.dumps({"derecho": "ninguno", "caso_triable": False,
+                            "motivo_no_triable": "pide un pronostico"})
+
+    hib = sistema.SistemaHibrido(_no_triable)
+    salida = hib("Quiero saber si la EPS va a cumplir el fallo o no.")
+    assert schema.se_abstuvo(salida), salida
+    t = hib.trazas[-1]
+    assert t["no_triable"] is True and t["mecanismo"] is None, t
+    assert t["mecanismo_del_motor"], (
+        "la traza tiene que guardar lo que el motor HABRIA dicho: es el dato "
+        "que permite ver si la abstencion tapo una via correcta")
+
+    def _triable(_s, _u):
+        return _json.dumps({"derecho": "salud", "afectacion_individual": True,
+                            "continua_vulneracion": True,
+                            "caso_triable": True})
+
+    hib2 = sistema.SistemaHibrido(_triable)
+    assert not schema.se_abstuvo(
+        hib2("Mi EPS me niega una cirugia urgente y tengo 78 anos.")), (
+        "un caso con derecho afectado no puede abstenerse")
+
+    return ("la pregunta es una sola cadena en los 2 prompts, los 3 brazos "
+            "del motor la usan, el default es triable y la salida la detecta "
+            "`se_abstuvo`")
+
+
+@prueba("el meta de un set de datos no puede contradecir a sus ejemplos")
+def t_meta_contra_ejemplos():
+    """Lo que `data/ampliar_categorias.py` rompio en silencio.
+
+    EL FALLO, MEDIDO
+
+    Ese script anadio 17 casos al dataset (143 -> 160), subio la version a
+    3.5.0 y NO toco `meta`. Quedo asi:
+
+        meta.splits             {"train": 106, "validation": 37}  suma 143
+        real                    {"train": 123, "validation": 37}  suma 160
+        meta.balance_mecanismo  sumaba 143 sobre 160 ejemplos
+
+    No se queda en el archivo. La cabecera de M1 citaba «143 ejemplos, 106 de
+    train» porque eso es lo que el meta decia, y cualquiera que leyera el
+    balance para justificar el tamano de una clase estaba leyendo el reparto
+    de una version anterior. Un meta que contradice a sus propios `ejemplos`
+    es peor que no tenerlo: parece verificado.
+
+    Es el mismo patron que ya costo dos veces en este proyecto: la cobertura
+    leida de `eval_set_v2.json` cuando el vigente era v3, y mi propio
+    `baseline_clase_mayoritaria` sin recalcular sobre un conjunto de otra
+    composicion. Una cifra derivada que se escribe a mano caduca sin avisar.
+
+    POR QUE EL v1 QUEDA FUERA, Y NO ES UNA EXCEPCION DE CONVENIENCIA
+
+    `eval_set.json` declara `{"tutela": 27, "no_tutela": 19,
+    "baseline_clase_mayoritaria": 0.587}`: el esquema BINARIO de antes de que
+    el vocabulario fuera de cinco mecanismos, con una proporcion en el mismo
+    dict. No esta mal, esta en otro formato --- y v1 es el puente de
+    comparacion, que otra prueba exige intacto byte a byte. Reescribirlo
+    romperia justo lo que lo hace util. La comprobacion distingue los dos
+    casos mirando si las claves son del vocabulario de mecanismos, en vez de
+    llevar una lista de excepciones a mano.
+    """
+    sys.path.insert(0, str(DATA))
+    import reparar_meta
+
+    revisados, mal = [], []
+    for ruta in sorted(DATA.glob("*.json")):
+        d = json.loads(ruta.read_text(encoding="utf-8"))
+        if not isinstance(d, dict) or "ejemplos" not in d:
+            continue
+        if ruta.name in reparar_meta.INTOCABLES:
+            continue
+        revisados.append(ruta.name)
+        for clave, declarado, real in reparar_meta.revisar(ruta):
+            mal.append(f"{ruta.name}:{clave} declara "
+                       f"{json.dumps(declarado, ensure_ascii=False)} y los "
+                       f"ejemplos dan {json.dumps(real, ensure_ascii=False)}")
+    assert revisados, "no se encontro ningun set con `ejemplos`"
+    assert not mal, (
+        "el meta contradice a los ejemplos: " + " · ".join(mal)
+        + ". Corre `python -I data/reparar_meta.py --escribir`, y si lo rompio "
+          "un script de ampliacion, hazlo recalcular el meta ahi.")
+
+    # Y que el v1 siga reconocido como de otro esquema: si alguien "arregla"
+    # su balance al vocabulario nuevo, esta prueba empezaria a exigirselo y el
+    # puente de comparacion se reescribiria.
+    v1 = json.loads((DATA / "eval_set.json").read_text(encoding="utf-8"))
+    assert not reparar_meta._es_vocabulario_de_mecanismos(
+        v1["meta"].get("balance_mecanismo")), (
+        "el balance del eval v1 paso a usar el vocabulario de mecanismos. "
+        "Era binario a proposito: v1 es el puente y no se toca.")
+    return (f"{len(revisados)} sets con meta derivado y coherente; el v1 "
+            "queda fuera por esquema, no por excepcion")
+
+
+@prueba("la sonda de validez corre de verdad, no solo esta declarada")
+def t_sonda_validez_ejecuta():
+    """Los tres `NameError` que costaron una corrida de M2.
+
+    QUE PASO
+
+    `juez.experimento_validez` se escribio, se declaro en `arranque.ORDEN` y
+    se integro en una celda de M2. La prueba 56 comprobaba que el artefacto
+    estuviera declarado; la 63, que se publicara despues de generarse; la 68,
+    que la celda no usara nombres sin definir. Las tres pasaban.
+
+    Y en la corrida 20261021T124137Z la funcion reventó tres veces seguidas:
+
+        NameError: name 'metricas' is not defined          (linea 677)
+        ValueError: math domain error                      (bootstrap_ic)
+        NameError: name 'cargar_normas' is not defined     (ultima linea)
+
+    El tercero salta DESPUES de gastar las 40 llamadas a la API, que es lo
+    caro. M2 se saco adelante con un parche en la celda; el parche ya se
+    quito y los imports estan en `juez.py`.
+
+    POR QUE NINGUNA PRUEBA LO VIO, QUE ES LA LECCION
+
+    Ninguna LLAMABA a la funcion. "Declarado y publicado" no es "ejecutado":
+    un `import` que falta solo existe en tiempo de ejecucion, y el analisis
+    estatico de la prueba 68 mira las celdas del notebook, no el interior de
+    los modulos de `src/`.
+
+    No se llamaba porque llamar cuesta API. Esta prueba la llama con un juez
+    de mentira --- cuatro llamadas por caso, todas locales --- y asi el coste
+    es cero. Se cubren los dos escenarios que importan: margenes variados y
+    margenes TODOS IGUALES, que es el que disparaba el `math domain error` y
+    es el mas probable con el juez a temperatura 0.
+    """
+    import json as _json
+    import juez
+    import schema
+
+    casos = [e for e in _cargar("eval_set_v3.json")
+             if e.get("mecanismo")][:4]
+    assert len(casos) == 4, "hacen falta 4 casos con mecanismo"
+
+    class JuezDeMentira:
+        """Puntua sin red. `constante` imita al juez a temperatura 0."""
+
+        def __init__(self, constante):
+            self.constante = constante
+            self.modelo = "de-mentira"
+            self.n = 0
+
+        def guardar_cache(self):
+            pass
+
+        def puntuar(self, relato, referencia, respuesta):
+            self.n += 1
+            intacta = respuesta == referencia
+            if self.constante:
+                nota = 5 if intacta else 2
+            else:
+                nota = (5 if intacta else 2) - (self.n % 2)
+            return {"nota": nota, "justificacion": "de mentira"}
+
+    for constante in (True, False):
+        j = JuezDeMentira(constante)
+        # Si falta un import, esto levanta NameError y la prueba falla aqui.
+        val = juez.experimento_validez(j, casos, schema.render_salida, n=4)
+
+        assert j.n == 4 * 4, f"esperaba 16 llamadas, hubo {j.n}"
+        assert val["n"] == 4 and val["llamadas"] == 16, val
+        assert set(val["por_modo"]) == {"mecanismo_cambiado", "norma_inventada",
+                                        "razonamiento_vacio"}, val["por_modo"]
+        # El margen del mecanismo tiene que ser POSITIVO con este juez, que
+        # por construccion castiga la respuesta degradada.
+        assert val["margen_por_mecanismo"] > 0, val["margen_por_mecanismo"]
+        # Y el `ic_margen` tiene que existir sin reventar en los dos casos.
+        ic = val["por_modo"]["mecanismo_cambiado"]["ic_margen"]
+        assert isinstance(ic, dict), ic
+        if constante:
+            assert ic["metodo"] == "sin estimar", (
+                "con los margenes todos iguales el intervalo no se puede "
+                f"estimar, y `bootstrap_ic` devolvio {ic.get('metodo')}. Si "
+                "esto es `wilson`, volvio el `math domain error`: Wilson solo "
+                "esta definido para una proporcion")
+        # La ultima linea de la funcion, que es donde saltaba el tercer bug.
+        assert val["norma_falsa_sigue_fuera_del_whitelist"] is True, (
+            f"`{val['norma_falsa_usada']}` entro al whitelist: la degradacion "
+            "`norma_inventada` ya no degrada nada")
+        _json.dumps(val)        # el artefacto tiene que ser serializable
+
+    # Y que los imports esten DONDE se usan, no parcheados desde una celda.
+    import inspect
+    fuente = inspect.getsource(juez)
+    assert "import metricas" in fuente, (
+        "`juez.py` usa `metricas` y no lo importa. M2 lo parcheaba desde la "
+        "celda; el parche se quito")
+    assert "cargar_normas" in fuente.split("def experimento_validez")[0], (
+        "`cargar_normas` se usa y no se importa arriba")
+
+    return ("`experimento_validez` corre con juez de mentira en los dos "
+            "escenarios (margenes variados e iguales), 16 llamadas, sin API")
+
+
 # ==========================================================================
 def main() -> int:
     print("=" * 84)

@@ -122,6 +122,93 @@ def harness(eval_set: list[dict], salidas, etiqueta: str, juez=None) -> dict:
     return sc
 
 
+def adherencia_a_la_rubrica(notas: list[dict], salidas: list,
+                            eval_set: list[dict]) -> dict:
+    """¿El juez aplica SU PROPIA escala? Es validez de construcción.
+
+    POR QUÉ ESTO NO ES `kappa_vs_dominio` OTRA VEZ, Y POR QUÉ HACÍA FALTA
+
+    `kappa_vs_dominio` compara "el juez aprueba (nota >= 4)" con "el dominio
+    acierta". Salió 0.361, y subirla NO es una mejora: un juez que coincidiera
+    con la métrica de dominio sería una copia ruidosa de `acierto_juridico` y
+    no aportaría nada que esa métrica no diga ya más barato. El juez existe
+    para medir el RAZONAMIENTO, que es lo que la accuracy no ve, así que un
+    acuerdo imperfecto es lo esperable y 0.361 es informativo.
+
+    Lo que faltaba es otra pregunta, y esta sí tiene una respuesta correcta.
+    La rúbrica define el corte entre 2 y 3 así, literalmente:
+
+        3 = mecanismo CORRECTO pero el razonamiento es débil
+        2 = mecanismo EQUIVOCADO, aunque el razonamiento sea defendible
+
+    O sea: `nota >= 3` significa "el mecanismo es correcto", y eso es un hecho
+    comprobable contra el gold sin preguntarle a nadie. Así que el juez puede
+    ser auditado contra su propia definición. Un juez que ponga 4 a una
+    respuesta con el mecanismo equivocado no está siendo severo ni generoso:
+    está incumpliendo la escala que se le dio, y entonces la nota no significa
+    lo que la rúbrica dice que significa.
+
+    La diferencia con `kappa_vs_dominio` en una línea: aquella pregunta si el
+    juez COINCIDE con la métrica de dominio (y no tiene por qué); esta
+    pregunta si el juez SE CONTRADICE (y no puede).
+
+    Las dos direcciones se cuentan por separado porque cuestan distinto:
+
+      generoso   mecanismo equivocado y nota >= 3. Es el grave: infla las
+                 notas de respuestas incorrectas, que es exactamente el modo
+                 de fallo que haría inservible toda la dimensión 2.
+      severo     mecanismo correcto y nota <= 2. Penaliza una respuesta
+                 correcta. Es un fallo, pero no pone cifras de más.
+    """
+    import schema
+    pares = []
+    for n, s, e in zip(notas, salidas, eval_set):
+        if n.get("nota") is None:
+            continue
+        # Los casos de abstención no tienen mecanismo correcto que comprobar:
+        # su gold es `None` y la escala de la rúbrica no habla de ellos. Se
+        # excluyen y se cuentan, en vez de colarlos con un criterio inventado.
+        if e.get("mecanismo") is None:
+            continue
+        pares.append((n["nota"],
+                      schema.parse_salida(s).get("mecanismo") == e["mecanismo"],
+                      e.get("id")))
+
+    if not pares:
+        return {"n": 0, "concluyente": False,
+                "motivo": "ningun caso con nota y con mecanismo gold"}
+
+    generoso = [i for nota, ok, i in pares if not ok and nota >= 3]
+    severo = [i for nota, ok, i in pares if ok and nota <= 2]
+    coherentes = len(pares) - len(generoso) - len(severo)
+    return {
+        "n": len(pares),
+        "concluyente": True,
+        "excluidos_por_abstencion": sum(
+            1 for n, _, e in zip(notas, salidas, eval_set)
+            if n.get("nota") is not None and e.get("mecanismo") is None),
+        "que_comprueba": (
+            "la rubrica define `nota >= 3` como `mecanismo correcto`. Eso es "
+            "comprobable contra el gold, asi que el juez se audita contra su "
+            "propia escala. NO es `kappa_vs_dominio`: aquella mide si el juez "
+            "coincide con la metrica de dominio --- y no tiene por que ---, "
+            "esta mide si se contradice, y no puede."),
+        "adherencia": round(coherentes / len(pares), 4),
+        "incumple_generoso": len(generoso),
+        "incumple_severo": len(severo),
+        "casos_generoso": generoso[:20],
+        "casos_severo": severo[:20],
+        "lectura": (
+            f"{coherentes} de {len(pares)} notas respetan el corte de la "
+            f"rubrica. {len(generoso)} son generosas --- nota >= 3 con el "
+            "mecanismo equivocado, que es el fallo grave porque infla la "
+            f"dimension 2 --- y {len(severo)} severas. Una adherencia baja no "
+            "significa que el juez sea mal evaluador: significa que sus notas "
+            "no quieren decir lo que la rubrica dice, y entonces no se pueden "
+            "leer con esa escala."),
+    }
+
+
 def resumen_juez(notas: list[dict], salidas: list, eval_set: list[dict],
                  modelo: str) -> dict:
     """Agrega las notas del juez caso por caso.
@@ -142,6 +229,8 @@ def resumen_juez(notas: list[dict], salidas: list, eval_set: list[dict],
         "distribucion": dict(sorted(Counter(validas).items())),
         "sin_parsear": len(notas) - len(validas),
         "kappa_vs_dominio": cohen_kappa(aprueba, acierta),
+        "adherencia_a_la_rubrica": adherencia_a_la_rubrica(
+            notas, salidas, eval_set),
         "notas": notas,
     }
     por_tipo = {}
@@ -477,11 +566,32 @@ def sesgo_autopreferencia(juez, eval_set, salidas_familia_juez: list[str],
 def _lectura_familias(a: str, b: str) -> dict:
     """De que linaje es cada juez, y que se puede concluir de eso."""
     try:
-        from juez import FAMILIA, misma_familia
+        from juez import FAMILIA, JUEZ_HUMANO, misma_familia
     except ImportError:                                     # noqa: BLE001
         return {"conocido": False,
                 "nota": "no se pudo leer `juez.FAMILIA`"}
     misma = misma_familia(a, b)
+    # EL ACUERDO CON UNA PERSONA NO MIDE LO MISMO, Y NO SE PUEDE ETIQUETAR
+    # IGUAL. Los otros pares son modelo contra modelo: coincidir dice que la
+    # nota es una propiedad de la respuesta y no del juez. Contra un abogado
+    # dice algo distinto y mas fuerte --- que la nota se parece al criterio
+    # juridico, que es lo unico que el proyecto quiere de ella --- y tambien
+    # algo mas debil: la muestra la pone una persona, asi que es pequena.
+    if JUEZ_HUMANO in (a, b):
+        return {
+            "conocido": True,
+            "familia_a": "humano" if a == JUEZ_HUMANO else FAMILIA.get(a),
+            "familia_b": "humano" if b == JUEZ_HUMANO else FAMILIA.get(b),
+            "misma_familia": False,
+            "que_mide": (
+                "VALIDEZ DE CRITERIO, no ruido ni sesgo de familia: uno de "
+                "los dos evaluadores es una persona. Es el unico par del "
+                "proyecto del que se puede afirmar que no comparte linaje, y "
+                "por tanto el unico cuyo acuerdo dice que la nota se parece "
+                "al criterio juridico y no a una peculiaridad de los "
+                "modelos. A cambio la muestra es la que una persona puede "
+                "puntuar a mano: la cifra es informativa y no es precisa."),
+        }
     if misma is None:
         return {"conocido": False, "familia_a": FAMILIA.get(a),
                 "familia_b": FAMILIA.get(b),
@@ -775,6 +885,16 @@ def a_csv(scorecards: list[dict], ruta: str = "runs/scorecard_baseline.csv") -> 
             f["juez_nota_adversarial"] = round(j["nota_media_por_tipo"].get("adversarial", 0), 3)
             k = j["kappa_vs_dominio"]
             f["juez_kappa_vs_dominio"] = round(k, 3) if k is not None else "indefinido"
+            # La adherencia va EN LA MISMA FILA que la kappa a proposito: son
+            # las dos cifras que hay sobre el juez y se leen una contra otra.
+            # Una kappa baja con adherencia alta dice "el juez mide otra cosa",
+            # que es lo que se quiere; con adherencia baja dice "el juez no
+            # aplica su escala", que invalida la dimension 2 entera.
+            ad = j.get("adherencia_a_la_rubrica") or {}
+            f["juez_adherencia_rubrica"] = (ad.get("adherencia")
+                                            if ad.get("concluyente")
+                                            else "sin medir")
+            f["juez_notas_generosas"] = ad.get("incumple_generoso", "sin medir")
             f["juez_sin_parsear"] = j["sin_parsear"]
         filas.append(f)
 

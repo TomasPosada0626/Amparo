@@ -1,6 +1,9 @@
 {
-  "_corrida": "20261019T034908Z",
+  "_corrida": "20261021T140413Z",
   "_modulo": "m3",
   "_artefacto": "ragas_libreria.json",
-  "error": "No module named 'langchain_community.chat_models.vertexai'"
+  "error": "No module named 'langchain_community.chat_models.vertexai'",
+  "pin_intentado": "0.2.15",
+  "llm_juez_intentado": "openai/gpt-oss-120b",
+  "lectura": "El contraste contra la libreria no se pudo correr. Las metricas RAGAS que el reporte publica son implementacion propia (`src/ragas_eval.py`) y no dependen de esto; lo que falta es el contraste que diria si apuntan en la misma direccion."
 }

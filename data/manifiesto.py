@@ -58,7 +58,32 @@ EXCLUIR = {"reverificacion_corpus.json", "acuerdo_anotadores.json",
            # siguiente comprobacion del manifiesto denunciara su propia
            # salida y bloqueara el arranque. La prueba 33 ya no deja que se
            # olvide un cuarto.
-           "validacion_extractor.json"}
+           "validacion_extractor.json",
+           # Salida de `descomponer_baseline.py`, que lee
+           # `results/m1_predicciones.json`. Cuarta vez que un artefacto
+           # DERIVADO entra en `data/`: si estuviera en la huella, descomponer
+           # el baseline entre M1 y M2 les daria huellas distintas y
+           # `verificar_entrega.py` diria que no son el mismo experimento por
+           # una razon que no tiene nada que ver con el codigo.
+           "descomposicion_baseline.json",
+           # Salida de `validacion_juez.py --leer`, que lee
+           # `results/m2_scorecard_por_caso.csv`. QUINTA vez. Esta es la mas
+           # facil de pasar por alto porque PARECE una anotacion humana ---
+           # como `revision_abogado_v3.json`, que si esta en la huella y debe
+           # estarlo --- y no lo es: aquella depende solo del eval set, y esta
+           # depende de una CORRIDA. Leer la validacion del juez entre M2 y M3
+           # les daria huellas de codigo distintas.
+           "validacion_juez.json",
+           # Salida de `validacion_juez.py --simular`. Depende de una
+           # CORRIDA igual que la anterior, y ademas es una simulacion:
+           # si entrara en la huella, probar la tuberia contaria como
+           # cambiar el codigo.
+           "validacion_juez_simulacion.json",
+           # Salida de `Agente.determinismo_extractor`. Son 20 llamadas
+           # a la API, no una corrida, y se puede repetir cuando se
+           # quiera: si entrara en la huella, medir el ruido del
+           # extractor contaria como cambiar el codigo.
+           "determinismo_extractor.json"}
 """Salidas de los verificadores y de las auditorias: cambian solas, no
 afectan a una corrida, y meterlas en la huella haria que mirar los datos
 contara como cambiar el codigo."""
@@ -103,6 +128,18 @@ def _canonico(p: Path) -> bytes:
         celda.pop("id", None)
         # `metadata` de celda acumula ids de ejecucion de Colab.
         celda["metadata"] = {}
+        # EL SALTO DE LINEA FINAL TAMPOCO CUENTA. Pegar una celda en Colab le
+        # anade `\n` al final del `source`, que en el JSON son DOS bytes.
+        # Medido: M3 se nego a arrancar porque `M2_harness.ipynb` daba 48257
+        # en vez de 48255 --- dos bytes de espacio en blanco que no cambian
+        # ninguna cifra --- y costo una ronda de subida. Es ruido de la misma
+        # clase que las `outputs` y los ids, asi que se normaliza igual: una
+        # celda editada sigue moviendo la huella; pegarla, no.
+        if isinstance(celda.get("source"), list) and celda["source"]:
+            celda["source"] = [ln for ln in celda["source"]]
+            celda["source"][-1] = celda["source"][-1].rstrip("\r\n")
+            if not celda["source"][-1]:
+                celda["source"].pop()
     nb.pop("metadata", None)
     return json.dumps(nb, ensure_ascii=False, sort_keys=True,
                       separators=(",", ":")).encode("utf-8")

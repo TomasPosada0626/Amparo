@@ -1,11 +1,11 @@
 {
-  "_corrida": "20261018T074101Z",
+  "_corrida": "20261021T115654Z",
   "_modulo": "m1",
   "_artefacto": "degeneracion.json",
   "base": {
-    "n": 1,
-    "de": 69,
-    "tasa": 0.014492753623188406,
+    "n": 2,
+    "de": 109,
+    "tasa": 0.01834862385321101,
     "casos": [
       {
         "id": "A02",
@@ -16,21 +16,32 @@
         "marcas_de_chat": [],
         "chars_cjk": 9,
         "muestra_cola": "安静模式，请稍后重试~"
+      },
+      {
+        "id": "A35",
+        "categoria": "hd_reporte_veraz_vigente",
+        "chars_cola": 4,
+        "recortada": true,
+        "sintoma": "prosa_extra",
+        "marcas_de_chat": [],
+        "chars_cjk": 4,
+        "muestra_cola": "发展继续"
       }
     ],
     "n_no_cortadas": 0,
     "casos_no_cortados": [],
-    "n_total_con_cola": 1,
-    "tasa_total": 0.014492753623188406,
+    "n_total_con_cola": 2,
+    "tasa_total": 0.01834862385321101,
     "nota_no_cortadas": "`n` cuenta las que el recortador corta (CJK o marca de turno). `n_no_cortadas` son colas que el recortador NO ve --- repeticion o prosa extra en el mismo turno --- y que por tanto llegan enteras a las metricas y al juez de M2. Se cuentan aqui para que el defecto sea visible; cortarlas cambiaria lo que miden las once corridas anteriores y es una decision aparte.",
     "por_sintoma": {
-      "otro_idioma": 1
+      "otro_idioma": 1,
+      "prosa_extra": 1
     },
     "lectura": "`sintoma` dice QUE hizo el modelo en vez de parar, que es lo que senala el arreglo. `abrio_turno` significa que emitio la marca de fin y siguio: el adaptador no aprendio a parar, y la cura esta en el entrenamiento (reforzar EOS) o en los tokens de parada de la generacion. `repitio` es degeneracion clasica por falta de senal de fin. `otro_idioma` suele acompanar a las dos. `prosa_extra` es el caso leve: el modelo siguio hablando en el mismo turno, y eso se corrige con el prompt, no con el entrenamiento."
   },
   "finetuned": {
     "n": 0,
-    "de": 69,
+    "de": 109,
     "tasa": 0.0,
     "casos": [],
     "n_no_cortadas": 0,

@@ -1,5 +1,5 @@
 {
-  "_corrida": "20261019T034908Z",
+  "_corrida": "20261021T140413Z",
   "_modulo": "m3",
   "_artefacto": "costos.json",
   "datos": [
@@ -14,48 +14,57 @@
     },
     {
       "etiqueta": "2 · fine-tuned + RAG ingenuo",
-      "casos": 90,
-      "llamadas_reales": 90,
+      "casos": 130,
+      "llamadas_reales": 130,
       "llamadas_cache": 0,
       "llamadas_por_caso": 1.0,
-      "latencia_p50": 8.579,
-      "latencia_p95": 10.32,
-      "latencia_media": 8.758,
-      "latencia_total_s": 788.2,
-      "tokens_entrada": 0,
-      "tokens_salida": 0,
-      "tokens_por_caso": null,
-      "llamadas_sin_usage": 90
+      "latencia_p50": 13.665,
+      "latencia_p95": 16.095,
+      "latencia_media": 13.792,
+      "latencia_total_s": 1793.0,
+      "tokens_entrada": 270229,
+      "tokens_salida": 14578,
+      "tokens_por_caso": 2190.8,
+      "llamadas_sin_usage": 0,
+      "fuente_tokens": [
+        "tokenizador"
+      ]
     },
     {
       "etiqueta": "3 · fine-tuned + RAG avanzado",
-      "casos": 90,
-      "llamadas_reales": 90,
+      "casos": 130,
+      "llamadas_reales": 130,
       "llamadas_cache": 0,
       "llamadas_por_caso": 1.0,
-      "latencia_p50": 8.595,
-      "latencia_p95": 10.686,
-      "latencia_media": 8.735,
-      "latencia_total_s": 786.2,
-      "tokens_entrada": 0,
-      "tokens_salida": 0,
-      "tokens_por_caso": null,
-      "llamadas_sin_usage": 90
+      "latencia_p50": 13.002,
+      "latencia_p95": 16.521,
+      "latencia_media": 13.393,
+      "latencia_total_s": 1741.1,
+      "tokens_entrada": 265295,
+      "tokens_salida": 14126,
+      "tokens_por_caso": 2149.4,
+      "llamadas_sin_usage": 0,
+      "fuente_tokens": [
+        "tokenizador"
+      ]
     },
     {
       "etiqueta": "4 · agente + reglas",
-      "casos": 90,
-      "llamadas_reales": 97,
-      "llamadas_cache": 379,
-      "llamadas_por_caso": 1.08,
-      "latencia_p50": 2.692,
-      "latencia_p95": 4.74,
-      "latencia_media": 2.834,
-      "latencia_total_s": 274.9,
-      "tokens_entrada": 337272,
-      "tokens_salida": 91062,
-      "tokens_por_caso": 4759.3,
-      "llamadas_sin_usage": 0
+      "casos": 130,
+      "llamadas_reales": 369,
+      "llamadas_cache": 478,
+      "llamadas_por_caso": 2.84,
+      "latencia_p50": 1.664,
+      "latencia_p95": 4.018,
+      "latencia_media": 2.021,
+      "latencia_total_s": 745.9,
+      "tokens_entrada": 1488518,
+      "tokens_salida": 213266,
+      "tokens_por_caso": 13090.6,
+      "llamadas_sin_usage": 0,
+      "fuente_tokens": [
+        "api_usage"
+      ]
     }
   ]
 }

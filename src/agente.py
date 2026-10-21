@@ -224,6 +224,12 @@ class Agente:
             # Iteraciones que no cobraron paso, por repeticion o por no
             # aportar fragmentos nuevos. `pasos_cobrados` + esto = iteraciones.
             "paso_no_cobrado": 0,
+            # El extractor dijo que no hay caso que triar y el brazo se
+            # abstuvo en vez de proponer una via. Se cuenta aparte porque es
+            # la unica salida del brazo que NO sale del motor, y porque el
+            # numero que la puede falsar --- `abstencion_indebida` sobre los
+            # 103 casos con respuesta correcta --- se lee contra este.
+            "abstencion_por_no_triable": 0,
             # El modelo daba vueltas sin aportar y lo paro el techo de
             # iteraciones, no el presupuesto. Es otra forma de no converger.
             "techo_iteraciones": 0,
@@ -522,7 +528,10 @@ class Agente:
 
     # -- fase 2: extraccion de hechos -----------------------------------
     def _hechos(self, mensajes: list[dict], relato: str) -> tuple[Hechos, dict]:
-        prompt = PROMPT_HECHOS_AGENTE.replace(
+        # La MISMA pregunta de triabilidad que `sistema._prompt_hechos`,
+        # desde `schema`. Escribirla dos veces haria que el brazo hibrido y
+        # el del agente se abstuvieran con criterios distintos en silencio.
+        prompt = schema.con_pregunta_triable(PROMPT_HECHOS_AGENTE).replace(
             "VOCABULARIO", ", ".join(sorted(schema.DERECHOS)))
         observaciones = "\n\n".join(
             f"[{m['role']}] {m['content']}" for m in mensajes[2:]
@@ -610,7 +619,116 @@ class Agente:
             "accionado": (d.get("accionado") or "autoridad o particular accionado").strip(),
             "pretension": (d.get("pretension") or "amparar el derecho invocado").strip(),
         }
+        libres["no_triable"], libres["motivo_no_triable"] = schema.leer_triable(d)
+        if libres["no_triable"]:
+            self.contadores["abstencion_por_no_triable"] += 1
         return Hechos(**booleanos), libres
+
+    def determinismo_extractor(self, casos: list[dict], n_casos: int = 5,
+                               repeticiones: int = 4) -> dict:
+        """¿Extrae el modelo los MISMOS hechos de la misma entrada?
+
+        POR QUE HACE FALTA, CON EL NUMERO QUE LO MOTIVA
+
+        `data/validar_extractor.py --via accion_cumplimiento --control 0`
+        corrido cinco veces seguidas, sin cache, dio **7, 8, 6, 7, 7** de 8 ---
+        y fallando casos distintos cada vez: `E40` en una pasada, `E41` en
+        otra, `E30` en la tercera. A `temperature=0` y `seed=42`.
+
+        Eso cambia como se leen varias cifras de M3. El F1 de
+        `accion_cumplimiento` del brazo 4 no es una medicion estable: es UNA
+        TIRADA de una distribucion cuyo ancho nadie habia medido. Lo mismo que
+        ya se midio del juez (`juez.determinismo_lote`), en el otro componente
+        que sale a la API.
+
+        QUE SE MIDE, Y POR QUE NO LA VIA
+
+        Se mide la ESTABILIDAD DE LOS HECHOS, no de la via. La via la calcula
+        el motor, que es determinista: si los hechos repiten, la via repite
+        por construccion. Medir la via confundiria el ruido del extractor con
+        la sensibilidad del arbol del art. 6, que son dos cosas y solo una es
+        del modelo.
+
+        Se mide SIN bucle de herramientas a proposito. Con bucle habria dos
+        fuentes de variacion --- que busque distinto y que extraiga distinto
+        --- y el numero no diria cual. El bucle se compara aparte: el dato de
+        `validar_extractor` es que `derecho_colectivo` sale True en 0-1 de 8
+        sin bucle y en 4 de 8 con bucle.
+
+        Cuesta `n_casos * repeticiones` llamadas reales. Salta el cache, que
+        es la unica forma de que la medicion pueda fallar.
+        """
+        import statistics
+        sub = casos[:n_casos]
+        por_caso, inestables = [], []
+        for e in sub:
+            vistos, fallos = [], 0
+            for _ in range(repeticiones):
+                # Sin bucle: `mensajes` minimo, como en `validar_extractor`.
+                msgs = [{"role": "system", "content": "extraccion"},
+                        {"role": "user", "content": e["relato"]}]
+                clave_antes = dict(self._cache)
+                try:
+                    hechos, libres = self._hechos(msgs, e["relato"])
+                    # La huella de la extraccion: los hechos en True, en
+                    # orden. Es lo que el motor consume.
+                    vistos.append(tuple(sorted(
+                        k for k, v in hechos.__dict__.items() if v is True)))
+                except Exception:                              # noqa: BLE001
+                    fallos += 1
+                # El cache haria que la 2a repeticion devolviera la 1a, y
+                # entonces la prueba no podria fallar.
+                self._cache = clave_antes
+            distintas = len(set(vistos))
+            estable = distintas == 1 and not fallos
+            if not estable:
+                inestables.append(e.get("id"))
+            por_caso.append({
+                "id": e.get("id"), "extracciones_distintas": distintas,
+                "repeticiones": repeticiones, "estable": estable,
+                "fallos": fallos,
+                # Que hechos bailan, que es lo diagnosticable. Un extractor
+                # que varia en `medio_eficaz` --- una ponderacion --- no es lo
+                # mismo que uno que varia en `privacion_libertad`, que esta en
+                # el texto o no esta.
+                "hechos_que_varian": sorted(
+                    {h for v in vistos for h in v}
+                    - {h for v in vistos for h in v if
+                       all(h in w for w in vistos)}),
+            })
+
+        est = sum(1 for x in por_caso if x["estable"])
+        ds = [x["extracciones_distintas"] for x in por_caso]
+        out = {
+            "n_casos": len(por_caso), "repeticiones": repeticiones,
+            "llamadas_reales": len(por_caso) * repeticiones,
+            "casos_estables": est,
+            "tasa_estabilidad": (round(est / len(por_caso), 4)
+                                 if por_caso else None),
+            "extracciones_distintas_media": (round(statistics.mean(ds), 3)
+                                             if ds else None),
+            "extracciones_distintas_maximo": max(ds) if ds else None,
+            "casos_inestables": inestables,
+            "por_caso": por_caso,
+            "sin_bucle_de_herramientas": True,
+            "lectura": (
+                "`tasa_estabilidad` dice cada cuanto el extractor devuelve los "
+                "MISMOS hechos ante la misma entrada. Si es menor que 1, toda "
+                "cifra del brazo 4 que dependa de una sola corrida --- el F1 "
+                "por clase, sobre todo en las clases de soporte pequeno --- es "
+                "una tirada y no una medicion, y la diferencia entre dos "
+                "brazos menor que ese ruido no se puede leer. `hechos_que_"
+                "varian` dice CUALES bailan: los de ponderacion (`medio_"
+                "eficaz`, `perjuicio_irremediable`) varian con mas motivo que "
+                "los que estan en el texto o no estan."),
+            "lo_que_no_dice": (
+                "por que varia. `temperature=0` y `seed=42` hacen la "
+                "reproducibilidad probable, no segura, y desde aqui no se "
+                "distingue el lote del servicio, la version del modelo o el "
+                "hardware. Tampoco mide el BUCLE: eso se compara aparte con "
+                "`data/validar_extractor.py`."),
+        }
+        return out
 
     # -- ejecucion completa ---------------------------------------------
     def __call__(self, relato: str) -> str:
@@ -639,7 +757,7 @@ class Agente:
         elif termino:
             razon += ". No fue posible calcular el termino: " + termino["motivo"]
 
-        salida = schema.render_salida({
+        campos = {
             "derecho": libres["derecho"],
             "fundamento": "; ".join(dict.fromkeys(citas)),
             "accionado": libres["accionado"],
@@ -647,7 +765,10 @@ class Agente:
             "procede": dec.procede_tutela,
             "razon": razon,
             "pretension": libres["pretension"],
-        })
+        }
+        if libres.get("no_triable"):
+            campos = schema.abstenerse(campos, libres["motivo_no_triable"])
+        salida = schema.render_salida(campos)
 
         # TODO lo que el agente llego a leer, en el orden en que lo leyo y sin
         # repetidos. Es la union de las busquedas del caso, porque el agente
@@ -667,7 +788,12 @@ class Agente:
             "fallas": [r["falla"] for r in info["registros"] if "falla" in r],
             "hechos": {k: v for k, v in hechos.__dict__.items() if v},
             "regla": dec.regla,
-            "mecanismo": dec.mecanismo,
+            # Lo EMITIDO, no lo que dijo el motor: ver la nota equivalente
+            # en `sistema.SistemaReglas`. Las dos cosas se guardan.
+            "mecanismo": None if libres.get("no_triable") else dec.mecanismo,
+            "mecanismo_del_motor": dec.mecanismo,
+            "no_triable": bool(libres.get("no_triable")),
+            "motivo_no_triable": libres.get("motivo_no_triable") or "",
             "termino": termino,
             "segundos": round(time.perf_counter() - t0, 2),
             "registros": info["registros"],

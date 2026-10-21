@@ -186,6 +186,120 @@ def render_salida(ej: dict) -> str:
     )
 
 
+# --------------------------------------------------------------------------
+# CUANDO se abstiene el motor. El "como" esta arriba (MECANISMO_ESCAPE); esto
+# es el criterio, y hasta ahora no existia.
+#
+# POR QUE HACIA FALTA, CON EL NUMERO QUE LO MOTIVA
+#
+# En m3/20261019T173316Z los tres brazos de LLM acertaron 3 de 6 abstenciones
+# y el brazo del motor 0 de 6. `sistema.DEFECTO_PRO_HOMINE` explica ese cero y
+# lo explica bien para lo que cubre: ante un hecho DUDOSO no se activa causal
+# de improcedencia, porque el error caro es cerrarle la puerta a quien si tenia
+# un mecanismo. Pero los seis casos de abstencion no son hechos dudosos. Son
+# una consulta de inversion, una pregunta de examen, un relato sin fechas, una
+# investigacion arancelaria, un relato que se contradice y un pronostico sobre
+# lo que hara una EPS. En ninguno hay un dato incierto: no hay caso.
+#
+# Pro homine responde "ante la duda, que proceda". No responde "ante la
+# ausencia de caso, inventa uno". Lo segundo no es generosidad con el
+# solicitante: es darle una via que no le sirve.
+#
+# QUE SE PREGUNTA, Y QUE NO
+#
+# Se pregunta un HECHO --- hay o no una situacion propia del solicitante, con
+# accionado y con una orden que pedir --- y no una cuestion de derecho. El
+# extractor sigue sin elegir mecanismo; el motor sigue siendo el unico que
+# decide. Las tres razones son generales (no es su caso / no hay a quien
+# dirigirla / el relato no se sostiene), no una lista copiada de las familias
+# del eval set: una taxonomia ajustada a los seis casos que hay que acertar no
+# mediria nada.
+#
+# HONESTAMENTE: el criterio se escribio SABIENDO que esos seis existen, y n=6
+# no valida ningun criterio de abstencion. Lo que si se puede falsar es el otro
+# lado, y ahi la muestra es 17 veces mayor: `abstencion_indebida` sobre los 103
+# casos CON respuesta correcta vale 0.0 hoy, y si este criterio se abstiene de
+# mas, sube. Es el numero que hay que mirar en la proxima corrida, no el 0 de 6.
+#
+# UNA DE LAS SEIS SE QUEDA FUERA A PROPOSITO. La investigacion arancelaria de
+# la DIAN (AB54) tiene accionado identificable y pretension concreta: pasa el
+# criterio y el motor le propondra `via_ordinaria`, que no es una respuesta
+# absurda. Cazarla exigiria un filtro de "materia no constitucional", que es
+# una competencia juridica, no un hecho --- justo el tipo de juicio que este
+# proyecto le quita al modelo. Se prefiere fallar ese caso a mover la frontera.
+PREGUNTA_TRIABLE = (
+    '  "caso_triable": ¿el relato pide el triaje de una situación PROPIA del '
+    'solicitante, con una autoridad o un particular identificable y una '
+    'pretensión concreta que un juez podría ordenar? Va **false** solo por una '
+    'de estas tres razones DE HECHO: (a) no es su caso —una pregunta de '
+    'doctrina, una consulta de negocio, o un pronóstico sobre lo que hará un '
+    'tercero—; (b) no hay a quién dirigir la acción ni orden que pedir; (c) el '
+    'propio relato dice que todavía no tiene los hechos, o afirma dos hechos '
+    'esenciales que no pueden ser ciertos a la vez. Ante la duda va **true**: '
+    'cerrarle la puerta a quien sí tenía un mecanismo es el error caro,\n'
+    '  "motivo_no_triable": si lo anterior es false, en una frase, cuál de las '
+    'tres razones y por qué; si es true, cadena vacía'
+)
+"""Las dos lineas que se anaden al JSON de los prompts de hechos.
+
+Una sola definicion para los dos prompts (`sistema.PROMPT_HECHOS` y
+`agente.PROMPT_HECHOS_AGENTE`). Dos copias divergirian en el primer arreglo
+que se hiciera a una sola, y entonces el brazo hibrido y el del agente se
+abstendrian con criterios distintos sin que nada lo dijera."""
+
+
+def con_pregunta_triable(prompt: str) -> str:
+    """Anade `PREGUNTA_TRIABLE` al final del objeto JSON de un prompt."""
+    i = prompt.rfind("\n}")
+    if i < 0:
+        raise ValueError("el prompt de hechos no termina en un objeto JSON")
+    return prompt[:i] + ",\n" + PREGUNTA_TRIABLE + prompt[i:]
+
+
+def leer_triable(d: dict) -> tuple[bool, str]:
+    """Dijo el extractor que NO hay caso que triar, y por que.
+
+    Devuelve `(no_triable, motivo)`. El default es triable: si la clave falta
+    --- porque el JSON se trunco, porque el modelo la ignoro, o porque el
+    prompt es de una version anterior --- no se abstiene. Es el mismo criterio
+    pro homine que el resto del extractor, aplicado al sitio donde ahora
+    importa: una abstencion por omision seria exactamente el error caro.
+    """
+    v = d.get("caso_triable", True)
+    if isinstance(v, str):
+        v = v.strip().lower() not in ("false", "no", "0", "")
+    if v:
+        return False, ""
+    return True, str(d.get("motivo_no_triable") or "").strip()[:300]
+
+
+def abstenerse(campos: dict, motivo: str = "") -> dict:
+    """Los campos de una salida, convertidos en la abstencion del formato.
+
+    UNA funcion para los tres brazos que deciden con el motor
+    (`SistemaReglas`, `SistemaHibrido` y `Agente`). Tres copias del `if`
+    divergen en el primer arreglo que se haga a una sola, y entonces dos
+    brazos se abstendrian escribiendo cosas distintas --- que es justo lo que
+    `se_abstuvo` no podria detectar igual en los dos.
+
+    Se borran el FUNDAMENTO, el ACCIONADO y la PRETENSION a proposito. El
+    fundamento, porque citar articulos mientras se escribe "no determinable"
+    es incoherente y `metricas` mide la pertinencia de las citas contra el
+    gold, que en un caso de abstencion no tiene ninguna. Los otros dos, porque
+    la razon que se escribe justo debajo dice que no hay accionado ni
+    pretension identificables: nombrarlos en la linea de arriba contradiria a
+    la de abajo en la misma salida de cinco lineas.
+    """
+    razon = ("el relato no plantea el triaje de una situación propia del "
+             "solicitante, con accionado y pretensión identificables, así que "
+             "no hay mecanismo que proponer")
+    if motivo:
+        razon += ". " + motivo[0].upper() + motivo[1:]
+    return {**campos, "derecho": DERECHO_ESCAPE, "fundamento": "",
+            "accionado": "no aplica", "pretension": "no aplica",
+            "mecanismo": None, "procede": False, "razon": razon}
+
+
 def se_abstuvo(salida: str) -> bool:
     """¿La respuesta se abstuvo en vez de afirmar un mecanismo?
 

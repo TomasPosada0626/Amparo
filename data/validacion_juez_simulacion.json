@@ -1,0 +1,179 @@
+{
+ "ESTO_NO_ES_UNA_VALIDACION": "Las notas de la columna B las DERIVO un script de la misma rubrica que aplica el juez, a partir de si el mecanismo coincide con el gold. NINGUNA persona las puso, y por tanto esto no mide acuerdo con un criterio independiente. M2-1b sigue ABIERTO.",
+ "por_que_no_mide_nada": "Lo circular es el ORDEN, no el nivel. Las dos columnas se derivan de la misma senal --- si el mecanismo coincide con el gold --- asi que la Spearman sale alta por construccion y no dice nada. El `acuerdo_exacto` y la `kappa_aprueba`, en cambio, salen BAJOS, porque dentro de cada banda la nota simulada se sortea y no imita como el juez reparte el 3, el 4 y el 5. Una primera version de esta nota decia que el acuerdo saldria alto en bloque: la propia simulacion lo desmintio y queda corregido aqui en vez de borrado.",
+ "para_que_sirve": "para comprobar que la tuberia funciona antes de gastar el tiempo de una persona: que el formulario se lee, que los ids se emparejan, que `acuerdo_entre_jueces` acepta el par y que el artefacto sale completo",
+ "simulacion": true,
+ "semilla": 42,
+ "acuerdo": {
+  "n": 25,
+  "concluyente": true,
+  "modelo_a": "openai/gpt-oss-120b",
+  "modelo_b": "simulacion derivada de la rubrica",
+  "_familias": {
+   "conocido": false,
+   "familia_a": "gpt-oss",
+   "familia_b": null,
+   "nota": "alguno de los dos modelos no esta en `juez.FAMILIA`: no se puede afirmar si son parientes, y por tanto tampoco que esta cifra controle sesgo compartido."
+  },
+  "media_a": 3.0,
+  "media_b": 3.16,
+  "acuerdo_exacto": 0.32,
+  "acuerdo_a_un_punto": 0.72,
+  "kappa_aprueba": 0.0984,
+  "corr_spearman": 0.6711,
+  "sin_nota_en_alguno": 0,
+  "lectura": "`kappa_aprueba` es la cifra que importa: mide el acuerdo en la decision binaria que el harness usa (nota >= 4), corregida por azar. `indefinido` significa que uno de los dos jueces uso una sola categoria, y entonces la kappa vale 0.0 mecanicamente y no distingue acuerdo de desacuerdo. Una diferencia grande de medias con buena correlacion significa que los jueces ORDENAN igual pero calibran distinto: para comparar sistemas sirve, para reportar una nota absoluta no."
+ },
+ "pares": [
+  {
+   "id": "A02",
+   "nota_juez": 4,
+   "nota_simulada": 5,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "A18",
+   "nota_juez": 1,
+   "nota_simulada": 1,
+   "mecanismo_correcto": false
+  },
+  {
+   "id": "A22",
+   "nota_juez": 2,
+   "nota_simulada": 3,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "A29",
+   "nota_juez": 3,
+   "nota_simulada": 5,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "A33",
+   "nota_juez": 3,
+   "nota_simulada": 4,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "A35",
+   "nota_juez": 2,
+   "nota_simulada": 1,
+   "mecanismo_correcto": false
+  },
+  {
+   "id": "A37",
+   "nota_juez": 2,
+   "nota_simulada": 1,
+   "mecanismo_correcto": false
+  },
+  {
+   "id": "A38",
+   "nota_juez": 2,
+   "nota_simulada": 1,
+   "mecanismo_correcto": false
+  },
+  {
+   "id": "AB51",
+   "nota_juez": 5,
+   "nota_simulada": 5,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "AB55",
+   "nota_juez": 4,
+   "nota_simulada": 3,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "AB56",
+   "nota_juez": 5,
+   "nota_simulada": 5,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "E05",
+   "nota_juez": 1,
+   "nota_simulada": 1,
+   "mecanismo_correcto": false
+  },
+  {
+   "id": "E18",
+   "nota_juez": 3,
+   "nota_simulada": 5,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "E20",
+   "nota_juez": 2,
+   "nota_simulada": 4,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "E22",
+   "nota_juez": 1,
+   "nota_simulada": 1,
+   "mecanismo_correcto": false
+  },
+  {
+   "id": "E26",
+   "nota_juez": 4,
+   "nota_simulada": 3,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "E33",
+   "nota_juez": 4,
+   "nota_simulada": 3,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "E41",
+   "nota_juez": 5,
+   "nota_simulada": 3,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "E42",
+   "nota_juez": 5,
+   "nota_simulada": 3,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "E43",
+   "nota_juez": 4,
+   "nota_simulada": 5,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "E51",
+   "nota_juez": 1,
+   "nota_simulada": 1,
+   "mecanismo_correcto": false
+  },
+  {
+   "id": "E52",
+   "nota_juez": 1,
+   "nota_simulada": 1,
+   "mecanismo_correcto": false
+  },
+  {
+   "id": "E57",
+   "nota_juez": 3,
+   "nota_simulada": 5,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "E60",
+   "nota_juez": 3,
+   "nota_simulada": 5,
+   "mecanismo_correcto": true
+  },
+  {
+   "id": "E63",
+   "nota_juez": 5,
+   "nota_simulada": 5,
+   "mecanismo_correcto": true
+  }
+ ]
+}

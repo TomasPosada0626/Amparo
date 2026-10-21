@@ -1,17 +1,33 @@
 {
-  "_corrida": "20261018T080311Z",
+  "_corrida": "20261021T124137Z",
   "_modulo": "m2",
   "_artefacto": "acuerdo_entre_jueces.json",
   "n": 25,
   "concluyente": true,
   "modelo_a": "openai/gpt-oss-120b",
   "modelo_b": "openai/gpt-oss-20b",
-  "media_a": 3.24,
-  "media_b": 2.84,
+  "_familias": {
+    "conocido": true,
+    "familia_a": "gpt-oss",
+    "familia_b": "gpt-oss",
+    "misma_familia": true,
+    "tamano_declarado_b": 20.0,
+    "que_mide": "RUIDO del juez, no sesgo compartido: los dos jueces son del mismo linaje, asi que un acuerdo alto es compatible con que los dos se equivoquen igual.",
+    "descartados": [
+      {
+        "modelo": "allam-2-7b",
+        "familia": "allam",
+        "motivo": "1 de 25 sin nota"
+      }
+    ],
+    "por_que_no_otra_familia": "ninguno de los modelos de otra familia servidos en esta cuenta sostuvo la rubrica sobre los 25 casos"
+  },
+  "media_a": 3.28,
+  "media_b": 3.0,
   "acuerdo_exacto": 0.48,
-  "acuerdo_a_un_punto": 0.96,
-  "kappa_aprueba": 0.6835,
-  "corr_spearman": 0.8962,
+  "acuerdo_a_un_punto": 0.88,
+  "kappa_aprueba": 0.4444,
+  "corr_spearman": 0.7853,
   "sin_nota_en_alguno": 0,
   "lectura": "`kappa_aprueba` es la cifra que importa: mide el acuerdo en la decision binaria que el harness usa (nota >= 4), corregida por azar. `indefinido` significa que uno de los dos jueces uso una sola categoria, y entonces la kappa vale 0.0 mecanicamente y no distingue acuerdo de desacuerdo. Una diferencia grande de medias con buena correlacion significa que los jueces ORDENAN igual pero calibran distinto: para comparar sistemas sirve, para reportar una nota absoluta no."
 }

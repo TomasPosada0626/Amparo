@@ -35,8 +35,37 @@ groq==1.7.0
 # --- formularios de anotacion humana (.xlsx) ---
 openpyxl==3.1.5
 
-# --- NO se fija aqui ---
-# `ragas`: las tres corridas la registraron como `null`, es decir NO estaba
-# instalada. Las metricas RAGAS del reporte son implementacion propia
-# (`src/ragas_eval.py`). Poner `ragas` aqui haria creer que la libreria
-# produjo esas cifras, y no fue asi.
+# --- el contraste contra la libreria `ragas` (solo M3, seccion 7) ---
+#
+# ESTE BLOQUE DECIA QUE `ragas` NO SE FIJABA AQUI, Y ESO CADUCO.
+#
+# Era verdad mientras la libreria no corria: las tres corridas del 2026-10-18
+# la registraron como `null`, y poner `ragas` aqui habria hecho creer que
+# produjo las cifras RAGAS del reporte. No las produjo --- son implementacion
+# propia (`src/ragas_eval.py`) --- y eso SIGUE SIENDO CIERTO.
+#
+# Lo que cambio es que M3 ahora si la instala, con pin, para el CONTRASTE de
+# la seccion 7: la libreria le pregunta a un LLM si el contexto sostiene cada
+# afirmacion y la nuestra comprueba si cada CITA esta respaldada. No miden lo
+# mismo y no deberian coincidir; el contraste sirve para ver si apuntan en la
+# misma direccion, no para validar una con la otra.
+#
+# EL PIN QUE IMPORTA ES EL DE `langchain-community`, Y COSTO CUATRO CORRIDAS.
+#
+# Las cuatro registraron el mismo error:
+#   No module named 'langchain_community.chat_models.vertexai'
+#
+# Durante tres se atribuyo a la version de `ragas`. La cuarta salio IDENTICA
+# ya con `ragas==0.2.15`, asi que esa hipotesis era falsa. La causa,
+# reproducida en un entorno aislado: `ragas/llms/base.py` linea 8 hace un
+# import INCONDICIONAL de `langchain_community.chat_models.vertexai`, y
+# `langchain-community` 0.4.x elimino ese modulo. `0.3.27` es la ultima que lo
+# tiene, asi que se fija aqui en vez de dejarlo resolver a pip --- que trae la
+# ultima y vuelve a romperlo.
+#
+# `langchain-openai` es el envoltorio que ragas acepta, y hace falta porque el
+# juez se le pasa EXPLICITO: sin `llm=`, `evaluate()` apunta a OpenAI y este
+# proyecto solo tiene clave de Groq.
+ragas==0.2.15
+langchain-community==0.3.27
+langchain-openai

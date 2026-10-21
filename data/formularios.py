@@ -162,19 +162,35 @@ def exigir(ruta: Path, columnas_de_la_persona: tuple[str, ...]) -> dict:
 # con BOM --- para quien use Google Sheets, un editor de texto o `git diff`.
 
 ANCHOS = {"id": 8, "relato": 90, "mecanismo": 22, "procede": 10, "notas": 34,
-          "respuesta_del_sistema": 70, "respuesta_de_referencia": 70,
-          "nota_humana": 12}
+          "respuesta_del_sistema": 58, "respuesta_de_referencia": 58,
+          "nota_humana": 12, "nota": 10, "comentario": 32, "caso": 62,
+          "tipo": 13, "categoria": 26}
+
+# Las columnas que llevan texto largo y necesitan `wrap_text`. Era una lista
+# escrita dentro del bucle y se dejaba fuera `caso`, que es la mas larga de
+# todas: 62 de ancho sin ajuste deja el relato cortado en una sola linea.
+COLUMNAS_LARGAS = ("relato", "caso", "respuesta_del_sistema",
+                   "respuesta_de_referencia", "notas")
 
 
 def escribir_xlsx(ruta, instrucciones: list[str], cabecera: list[str],
                   filas: list[list], columnas_persona: tuple[str, ...],
-                  opciones: dict[str, list[str]] | None = None) -> bool:
+                  opciones: dict[str, list[str]] | None = None,
+                  congelar_columnas: int = 0) -> bool:
     """Escribe el formulario como .xlsx. Devuelve False si falta openpyxl.
 
     `opciones` pone un desplegable en esa columna. No es adorno: un
     `accion_popular` mal escrito se cuenta como desacuerdo, asi que la
     medicion sale peor por un error de teclado. Con lista cerrada no puede
     pasar.
+
+    `congelar_columnas` deja fijas las N primeras columnas al desplazarse a
+    la derecha. Hace falta cuando el formulario tiene columnas de texto largo:
+    en `validacion_juez` el caso, la referencia y la respuesta sumaban 160 de
+    ancho, asi que la columna donde hay que ESCRIBIR quedaba fuera de la
+    pantalla y quien rellenaba tenia que buscarla veinticinco veces. Un
+    formulario incomodo no mide peor el criterio de la persona: mide su
+    paciencia con Excel.
     """
     try:
         from openpyxl import Workbook
@@ -211,11 +227,11 @@ def escribir_xlsx(ruta, instrucciones: list[str], cabecera: list[str],
     for i, fila in enumerate(filas, start=fila_cab + 1):
         for j, v in enumerate(fila, start=1):
             c = ws.cell(row=i, column=j, value=v)
-            if cabecera[j - 1] in ("relato", "respuesta_del_sistema",
-                                   "respuesta_de_referencia"):
+            if cabecera[j - 1] in COLUMNAS_LARGAS:
                 c.alignment = Alignment(wrap_text=True, vertical="top")
             elif cabecera[j - 1] in columnas_persona:
                 c.fill = amarillo
+                c.alignment = Alignment(horizontal="center", vertical="top")
 
     for col, vals in (opciones or {}).items():
         if col not in cabecera:
@@ -228,7 +244,8 @@ def escribir_xlsx(ruta, instrucciones: list[str], cabecera: list[str],
         ws.add_data_validation(dv)
         dv.add(f"{j}{fila_cab + 1}:{j}{fila_cab + len(filas)}")
 
-    ws.freeze_panes = ws.cell(row=fila_cab + 1, column=1)
+    ws.freeze_panes = ws.cell(row=fila_cab + 1,
+                              column=congelar_columnas + 1)
     wb.save(str(ruta))
     return True
 

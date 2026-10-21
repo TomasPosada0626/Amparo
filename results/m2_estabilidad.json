@@ -1,12 +1,12 @@
 {
-  "_corrida": "20261019T034128Z",
+  "_corrida": "20261021T124137Z",
   "_modulo": "m2",
   "_artefacto": "estabilidad.json",
-  "corrida_1": "20261019T034128Z",
-  "corrida_2": "20261019T034302Z",
+  "corrida_1": "20261021T124137Z",
+  "corrida_2": "20261021T125432Z",
   "artefacto": "scorecard_por_caso",
   "tipo": "csv",
-  "n_filas": 69,
+  "n_filas": 109,
   "columnas": "todas",
   "identicas": true,
   "diferencias": []

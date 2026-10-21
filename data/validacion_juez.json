@@ -1,0 +1,199 @@
+{
+ "corrida_de_las_respuestas": "20261021T115654Z",
+ "corrida_de_las_notas_del_juez": "m2/20261021T124137Z",
+ "procedencia": "las 25 respuestas calificadas son las del brazo `finetuned` de m1/20261021T115654Z, y las notas del juez con las que se comparan son de m2/20261021T124137Z. Si M1 vuelve a entrenar, esas respuestas se reemplazan: el acuerdo medido aqui sigue siendo una propiedad del juez, que no cambio, pero queda referido a ESTAS respuestas y no a las nuevas. Volver a correr M1 no invalida la cifra; la deja anclada a una corrida anterior, y eso hay que poder decirlo.",
+ "que_mide": "acuerdo entre el juez automático y un abogado sobre las MISMAS respuestas y con la MISMA rúbrica (M2-1b)",
+ "no_confundir_con": "`revision_abogado_v3.json`, que validó el GOLD (40/40, 4.9/5). Eso es un resultado sobre los datos; esto es sobre el instrumento que los puntúa.",
+ "acuerdo": {
+  "n": 25,
+  "concluyente": true,
+  "modelo_a": "openai/gpt-oss-120b",
+  "modelo_b": "abogado (humano)",
+  "_familias": {
+   "conocido": true,
+   "familia_a": "gpt-oss",
+   "familia_b": "humano",
+   "misma_familia": false,
+   "que_mide": "VALIDEZ DE CRITERIO, no ruido ni sesgo de familia: uno de los dos evaluadores es una persona. Es el unico par del proyecto del que se puede afirmar que no comparte linaje, y por tanto el unico cuyo acuerdo dice que la nota se parece al criterio juridico y no a una peculiaridad de los modelos. A cambio la muestra es la que una persona puede puntuar a mano: la cifra es informativa y no es precisa."
+  },
+  "media_a": 3.0,
+  "media_b": 2.92,
+  "acuerdo_exacto": 0.68,
+  "acuerdo_a_un_punto": 0.92,
+  "kappa_aprueba": 0.5763,
+  "corr_spearman": 0.8339,
+  "sin_nota_en_alguno": 0,
+  "lectura": "`kappa_aprueba` es la cifra que importa: mide el acuerdo en la decision binaria que el harness usa (nota >= 4), corregida por azar. `indefinido` significa que uno de los dos jueces uso una sola categoria, y entonces la kappa vale 0.0 mecanicamente y no distingue acuerdo de desacuerdo. Una diferencia grande de medias con buena correlacion significa que los jueces ORDENAN igual pero calibran distinto: para comparar sistemas sirve, para reportar una nota absoluta no."
+ },
+ "muestra_no_proporcional": "la muestra tomó hasta 5 casos por nota del juez, así que sobre-representa las notas bajas. El acuerdo estima el acuerdo CONDICIONADO a esos estratos, no el del eval set entero.",
+ "n_sin_nota": 0,
+ "sin_nota": [],
+ "n_no_numericas": 0,
+ "no_numericas": [],
+ "desacuerdos_de_2_o_mas": [
+  {
+   "id": "A22",
+   "nota_juez": 2,
+   "nota_abogado": 4,
+   "comentario": ""
+  },
+  {
+   "id": "AB56",
+   "nota_juez": 5,
+   "nota_abogado": 3,
+   "comentario": "Acertó en abstenerse, pero la pretensión propone un supuesto medio de control de cumplimiento de sentencia, sin desarrollar adecuadamente la orientación solicitada."
+  }
+ ],
+ "pares": [
+  {
+   "id": "A02",
+   "nota_juez": 4,
+   "nota_abogado": 4,
+   "comentario": ""
+  },
+  {
+   "id": "A18",
+   "nota_juez": 1,
+   "nota_abogado": 1,
+   "comentario": ""
+  },
+  {
+   "id": "A22",
+   "nota_juez": 2,
+   "nota_abogado": 4,
+   "comentario": ""
+  },
+  {
+   "id": "A29",
+   "nota_juez": 3,
+   "nota_abogado": 4,
+   "comentario": ""
+  },
+  {
+   "id": "A33",
+   "nota_juez": 3,
+   "nota_abogado": 3,
+   "comentario": "El mecanismo coincide, pero la explicación altera hechos: habla de licencia autorizada y niega despido en masa, aunque el relato dice que hubo cierre total y liquidaron a todo el turno. Fundamento impreciso."
+  },
+  {
+   "id": "A35",
+   "nota_juez": 2,
+   "nota_abogado": 1,
+   "comentario": ""
+  },
+  {
+   "id": "A37",
+   "nota_juez": 2,
+   "nota_abogado": 2,
+   "comentario": "La referencia señala vía ordinaria y agotamiento de recursos; el sistema se abstiene sin que el relato sea indeterminable. La salida evita una tutela improcedente, pero el mecanismo queda mal clasificado."
+  },
+  {
+   "id": "A38",
+   "nota_juez": 2,
+   "nota_abogado": 2,
+   "comentario": "La referencia es vía ordinaria mediante recursos del mismo proceso. El sistema se abstiene y menciona casación, que no es necesariamente el recurso disponible; parcialmente reconoce que hay una vía judicial."
+  },
+  {
+   "id": "AB51",
+   "nota_juez": 5,
+   "nota_abogado": 4,
+   "comentario": ""
+  },
+  {
+   "id": "AB55",
+   "nota_juez": 4,
+   "nota_abogado": 3,
+   "comentario": "Acertó en no determinar mecanismo, pero la justificación no identifica la contradicción central entre decir que no hubo respuesta y que llegó una resolución denegatoria."
+  },
+  {
+   "id": "AB56",
+   "nota_juez": 5,
+   "nota_abogado": 3,
+   "comentario": "Acertó en abstenerse, pero la pretensión propone un supuesto medio de control de cumplimiento de sentencia, sin desarrollar adecuadamente la orientación solicitada."
+  },
+  {
+   "id": "E05",
+   "nota_juez": 1,
+   "nota_abogado": 1,
+   "comentario": ""
+  },
+  {
+   "id": "E18",
+   "nota_juez": 3,
+   "nota_abogado": 3,
+   "comentario": "Mecanismo correcto y pretensión adecuada, pero la clasificación del derecho y las citas (art. 47 CP y art. 6.1 del Decreto 2591) son imprecisas para el caso de licencia de maternidad y mínimo vital."
+  },
+  {
+   "id": "E20",
+   "nota_juez": 2,
+   "nota_abogado": 3,
+   "comentario": "La tutela es el mecanismo correcto y detecta la inexactitud del dato, pero clasifica el derecho como ninguno y la justificación cita una norma de subsidiariedad que no fundamenta el problema de habeas data."
+  },
+  {
+   "id": "E22",
+   "nota_juez": 1,
+   "nota_abogado": 1,
+   "comentario": ""
+  },
+  {
+   "id": "E26",
+   "nota_juez": 4,
+   "nota_abogado": 3,
+   "comentario": "Mecanismo correcto y razonamiento general adecuado, pero las citas normativas no corresponden bien al fundamento gold del perjuicio irremediable y la pensión de sobrevivientes."
+  },
+  {
+   "id": "E33",
+   "nota_juez": 4,
+   "nota_abogado": 4,
+   "comentario": ""
+  },
+  {
+   "id": "E41",
+   "nota_juez": 5,
+   "nota_abogado": 5,
+   "comentario": ""
+  },
+  {
+   "id": "E42",
+   "nota_juez": 5,
+   "nota_abogado": 5,
+   "comentario": ""
+  },
+  {
+   "id": "E43",
+   "nota_juez": 4,
+   "nota_abogado": 4,
+   "comentario": ""
+  },
+  {
+   "id": "E51",
+   "nota_juez": 1,
+   "nota_abogado": 1,
+   "comentario": ""
+  },
+  {
+   "id": "E52",
+   "nota_juez": 1,
+   "nota_abogado": 1,
+   "comentario": ""
+  },
+  {
+   "id": "E57",
+   "nota_juez": 3,
+   "nota_abogado": 3,
+   "comentario": "Mecanismo y pretensión correctos, pero cita el art. 6.1 del Decreto 2591, que no fundamenta la protección reforzada frente al despido durante incapacidad."
+  },
+  {
+   "id": "E60",
+   "nota_juez": 3,
+   "nota_abogado": 3,
+   "comentario": "La tutela es correcta, pero confunde habeas data con una categoría genérica de privacidad, cita Ley 1266 en vez de Ley 1581 para datos sensibles y formula una pretensión poco precisa."
+  },
+  {
+   "id": "E63",
+   "nota_juez": 5,
+   "nota_abogado": 5,
+   "comentario": ""
+  }
+ ]
+}

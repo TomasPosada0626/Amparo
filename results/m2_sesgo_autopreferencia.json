@@ -1,27 +1,46 @@
 {
-  "_corrida": "20261018T080311Z",
+  "_corrida": "20261021T124137Z",
   "_modulo": "m2",
   "_artefacto": "sesgo_autopreferencia.json",
-  "n": 15,
+  "n": 30,
   "modelo_juez": "openai/gpt-oss-120b",
   "etiquetas": {
     "x": "openai/gpt-oss-20b (familia del juez)",
     "y": "Qwen2.5-7B ajustado (evaluado)"
   },
+  "disponibles_por_estrato": {
+    "empate_correctas": 9,
+    "empate_fallan": 27,
+    "gana_familia": 2,
+    "gana_ajeno": 71
+  },
+  "seleccion": {
+    "estratificada": true,
+    "prioridad": [
+      "empate_correctas",
+      "empate_fallan",
+      "gana_ajeno",
+      "gana_familia"
+    ],
+    "presupuesto_pares": 30,
+    "casos_disponibles": 109,
+    "por_que": "clasificar un par en su estrato es gratis (compara el mecanismo contra el gold, sin llamar al juez), asi que las llamadas se gastan empezando por `empate_correctas`, que es el unico estrato donde una preferencia sistematica ES sesgo. Se selecciona por VERDAD DE DOMINIO, que es independiente del veredicto del juez: seleccionar por el veredicto si sesgaria la medicion.",
+    "antes": "m2/20261019T034128Z tomaba los primeros 15 casos y salio `indefinida` con n=2 en el estrato decisivo, IC [0.0, 0.6576]"
+  },
   "por_estrato": {
     "empate_correctas": {
-      "n": 2,
+      "n": 9,
       "prefiere_familia": 0,
-      "prefiere_ajeno": 2,
+      "prefiere_ajeno": 9,
       "empate": 0,
       "inconsistente": 0
     },
     "empate_fallan": {
-      "n": 1,
-      "prefiere_familia": 0,
-      "prefiere_ajeno": 0,
+      "n": 21,
+      "prefiere_familia": 5,
+      "prefiere_ajeno": 8,
       "empate": 0,
-      "inconsistente": 1
+      "inconsistente": 8
     },
     "gana_familia": {
       "n": 0,
@@ -31,9 +50,9 @@
       "inconsistente": 0
     },
     "gana_ajeno": {
-      "n": 12,
+      "n": 0,
       "prefiere_familia": 0,
-      "prefiere_ajeno": 12,
+      "prefiere_ajeno": 0,
       "empate": 0,
       "inconsistente": 0
     }
@@ -41,15 +60,15 @@
   "preferencia_familia_con_calidad_empatada": 0.0,
   "ic": {
     "ic_bajo": 0.0,
-    "ic_alto": 0.6576,
-    "amplitud": 0.6576,
+    "ic_alto": 0.2992,
+    "amplitud": 0.2992,
     "nivel": 0.95,
-    "n": 2,
+    "n": 9,
     "punto": 0.0,
     "metodo": "wilson",
     "nota": "todas las observaciones son iguales, asi que el bootstrap no puede variar y daria un intervalo de amplitud cero. Se informa Wilson, que si esta definido en los extremos."
   },
-  "n_decididos_en_el_empate": 2,
+  "n_decididos_en_el_empate": 9,
   "lectura": "el numero que importa es `preferencia_familia_con_calidad_empatada`: 0.5 es ausencia de auto-preferencia. Fuera del estrato de empate la preferencia puede ser merito y no sesgo, por eso no se agrega todo en una sola cifra. `indefinida` significa que no hubo pares con las dos respuestas correctas y el experimento no puede informar: con n pequeno pasa, y es mejor decirlo que promediar estratos que miden cosas distintas.",
   "detalle": [
     {
@@ -60,23 +79,58 @@
       "veredicto": "y"
     },
     {
-      "id": "E02",
-      "estrato": "gana_ajeno",
-      "acerto_familia": false,
+      "id": "E11",
+      "estrato": "empate_correctas",
+      "acerto_familia": true,
       "acerto_ajeno": true,
       "veredicto": "y"
     },
     {
-      "id": "E03",
-      "estrato": "gana_ajeno",
-      "acerto_familia": false,
+      "id": "E26",
+      "estrato": "empate_correctas",
+      "acerto_familia": true,
       "acerto_ajeno": true,
       "veredicto": "y"
     },
     {
-      "id": "E04",
-      "estrato": "gana_ajeno",
-      "acerto_familia": false,
+      "id": "AB51",
+      "estrato": "empate_correctas",
+      "acerto_familia": true,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "AB52",
+      "estrato": "empate_correctas",
+      "acerto_familia": true,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "AB53",
+      "estrato": "empate_correctas",
+      "acerto_familia": true,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "AB54",
+      "estrato": "empate_correctas",
+      "acerto_familia": true,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "AB56",
+      "estrato": "empate_correctas",
+      "acerto_familia": true,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
+      "id": "E49",
+      "estrato": "empate_correctas",
+      "acerto_familia": true,
       "acerto_ajeno": true,
       "veredicto": "y"
     },
@@ -88,74 +142,144 @@
       "veredicto": "inconsistente"
     },
     {
-      "id": "E06",
-      "estrato": "gana_ajeno",
-      "acerto_familia": false,
-      "acerto_ajeno": true,
-      "veredicto": "y"
-    },
-    {
       "id": "E07",
-      "estrato": "gana_ajeno",
+      "estrato": "empate_fallan",
       "acerto_familia": false,
-      "acerto_ajeno": true,
-      "veredicto": "y"
-    },
-    {
-      "id": "E08",
-      "estrato": "gana_ajeno",
-      "acerto_familia": false,
-      "acerto_ajeno": true,
-      "veredicto": "y"
-    },
-    {
-      "id": "E09",
-      "estrato": "gana_ajeno",
-      "acerto_familia": false,
-      "acerto_ajeno": true,
-      "veredicto": "y"
-    },
-    {
-      "id": "E10",
-      "estrato": "gana_ajeno",
-      "acerto_familia": false,
-      "acerto_ajeno": true,
-      "veredicto": "y"
+      "acerto_ajeno": false,
+      "veredicto": "inconsistente"
     },
     {
       "id": "A01",
-      "estrato": "gana_ajeno",
+      "estrato": "empate_fallan",
       "acerto_familia": false,
-      "acerto_ajeno": true,
-      "veredicto": "y"
-    },
-    {
-      "id": "A02",
-      "estrato": "gana_ajeno",
-      "acerto_familia": false,
-      "acerto_ajeno": true,
-      "veredicto": "y"
-    },
-    {
-      "id": "A03",
-      "estrato": "gana_ajeno",
-      "acerto_familia": false,
-      "acerto_ajeno": true,
+      "acerto_ajeno": false,
       "veredicto": "y"
     },
     {
       "id": "A04",
-      "estrato": "gana_ajeno",
+      "estrato": "empate_fallan",
       "acerto_familia": false,
-      "acerto_ajeno": true,
+      "acerto_ajeno": false,
       "veredicto": "y"
     },
     {
-      "id": "E11",
-      "estrato": "empate_correctas",
-      "acerto_familia": true,
-      "acerto_ajeno": true,
+      "id": "E21",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "x"
+    },
+    {
+      "id": "E24",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "x"
+    },
+    {
+      "id": "E28",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "inconsistente"
+    },
+    {
+      "id": "E34",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
       "veredicto": "y"
+    },
+    {
+      "id": "A08",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "x"
+    },
+    {
+      "id": "A09",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "inconsistente"
+    },
+    {
+      "id": "A12",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "y"
+    },
+    {
+      "id": "E36",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "inconsistente"
+    },
+    {
+      "id": "E37",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "inconsistente"
+    },
+    {
+      "id": "A16",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "y"
+    },
+    {
+      "id": "A18",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "inconsistente"
+    },
+    {
+      "id": "A20",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "x"
+    },
+    {
+      "id": "A28",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "y"
+    },
+    {
+      "id": "E51",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "y"
+    },
+    {
+      "id": "A30",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "y"
+    },
+    {
+      "id": "E52",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "inconsistente"
+    },
+    {
+      "id": "E55",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "x"
     }
   ]
 }

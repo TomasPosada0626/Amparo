@@ -1,0 +1,69 @@
+{
+ "_artefacto": "descomposicion_baseline.json",
+ "_corrida_de_las_predicciones": "20261021T115654Z",
+ "por_brazo": {
+  "base": {
+   "n": 103,
+   "acc_mecanismo": 0.3204,
+   "acc_procedencia": 0.5534,
+   "acierto_juridico_parcial": 0.0194,
+   "mecanismo_ilegible": 36,
+   "procedencia_ilegible": 0,
+   "brecha_formato": 0.301,
+   "ejemplos_mecanismo_ok_procedencia_mal": [
+    {
+     "id": "E01",
+     "procede_gold": true,
+     "procede_leido": false,
+     "salida": "Derecho: salud\nAccionado: EPS\nMecanismo: tutela\nProcedencia: La EPS debe garantizar el acceso a medicamentos necesarios para el tratamiento del VIH, incluso si cambia el protocolo terapéutico.\nPretension: Que la EPS ofre"
+    },
+    {
+     "id": "E04",
+     "procede_gold": true,
+     "procede_leido": false,
+     "salida": "Derecho: seguridad_social\nAccionado: Colpensiones\nMecanismo: tutela\nProcedencia: Existe una pretensión clara sobre una prestación del sistema de seguridad social, y se evidencia una omisión en el trámite de la indemnizac"
+    },
+    {
+     "id": "E05",
+     "procede_gold": true,
+     "procede_leido": false,
+     "salida": "Derecho: estabilidad_laboral_reforzada  \nAccionado: banco  \nMecanismo: tutela  \nProcedencia: Falta especificidad sobre un derecho fundamental vulnerado, pero el reporte negativo afecta la estabilidad laboral."
+    },
+    {
+     "id": "E07",
+     "procede_gold": true,
+     "procede_leido": false,
+     "salida": "Derecho: estabilidad_laboral_reforzada\nAccionado: colegio\nMecanismo: tutela\nProcedencia: Falta el recurso interno del colegio para resolver la situación antes de acudir a la justicia."
+    },
+    {
+     "id": "E08",
+     "procede_gold": true,
+     "procede_leido": false,
+     "salida": "Derecho: estabilidad_laboral_reforzada\nAccionado: entidad prestataria de salud\nMecanismo: tutela\nProcedencia: Falta justificación para no renovar el contrato mientras el trabajador está bajo tratamiento médico.\nPretensio"
+    },
+    {
+     "id": "E11",
+     "procede_gold": true,
+     "procede_leido": false,
+     "salida": "Derecho: seguridad_social\nAccionado: EPS\nMecanismo: tutela\nProcedencia: Se requiere una prestación del sistema de seguridad social para el cuidado de un adulto mayor con discapacidad, y la entidad responsable no la está "
+    }
+   ]
+  },
+  "finetuned": {
+   "n": 103,
+   "acc_mecanismo": 0.7184,
+   "acc_procedencia": 0.8155,
+   "acierto_juridico_parcial": 0.7184,
+   "mecanismo_ilegible": 9,
+   "procedencia_ilegible": 0,
+   "brecha_formato": 0.0,
+   "ejemplos_mecanismo_ok_procedencia_mal": []
+  }
+ },
+ "salto_de_cabecera_acierto_juridico": 0.699,
+ "atribuible_a_formato_del_base": 0.301,
+ "diferencia_de_mecanismo": 0.398,
+ "lectura": "`salto_de_cabecera_acierto_juridico` es la cifra que el reporte publica. `diferencia_de_mecanismo` es la parte que SI es razonamiento juridico: cuanto mas acierta el afinado la via procesal. `atribuible_a_formato_del_base` es lo que el base pierde por no responder en el formato que el esquema pide, con el mecanismo ya acertado. Las dos son ganancias reales del fine-tuning --- sin bloque parseable no hay sistema --- pero solo la segunda es una afirmacion sobre derecho, y presentarlas sumadas exagera lo que el trabajo demuestra.",
+ "por_que_importa": "Un baseline que falla por formato es un hombre de paja: hace que cualquier modelo que respete el esquema parezca enormemente mejor. La comparacion justa contra el base es el brazo HIBRIDO --- el base extrae los hechos y el motor de reglas decide ---, que ya se publica en `m1_scorecard_hibrido.json` y que aisla el razonamiento del formato.",
+ "lo_que_no_mide": "No da el baseline justo, solo lo cuantifica. Un baseline de formato --- el base con few-shot del bloque de cinco lineas --- exige una corrida y queda pendiente."
+}

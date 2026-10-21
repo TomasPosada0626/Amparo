@@ -89,6 +89,12 @@ ORDEN = {
                     "results/m2_sesgo_autopreferencia.json",
                     "results/m2_determinismo_juez.json",
                     "results/m2_estabilidad.json",
+                    # La sonda de VALIDEZ: si el juez no distingue una
+                    # conclusion juridica correcta de una rota, las otras
+                    # cuatro sondas son compatibles con un juez que puntua al
+                    # azar y ninguna cifra que dependa de sus notas se
+                    # sostiene. Se declara para que falte si no se publica.
+                    "results/m2_validez_juez.json",
                     "results/m2_rouge_vs_acierto.json"],
         "nota": "Cambiar de GPU a CPU reinicia la sesion de Colab y vuelve a "
                 "pedir el montaje de Drive. Es esperado.",

@@ -331,6 +331,18 @@ def main() -> int:
 
     d["ejemplos"] = casos
     subir_version(d["meta"], "3.5.0")
+    # EL META SE RECALCULA, NO SE DEJA COMO ESTABA.
+    #
+    # Esta era la version que anadia 17 casos (143 -> 160), subia la version y
+    # dejaba `meta.splits` diciendo 106 de train cuando ya habia 123, y
+    # `balance_mecanismo` sumando 143. Un meta que contradice a sus propios
+    # `ejemplos` es peor que no tenerlo: parece verificado, y la cabecera de M1
+    # citaba esas cifras. `data/reparar_meta.py` tiene el calculo y la prueba
+    # 70 no deja que vuelva a pasar.
+    sys.path.insert(0, str(RAIZ / "data"))
+    import reparar_meta
+    d["meta"]["splits"] = reparar_meta.splits(casos)
+    d["meta"]["balance_mecanismo"] = reparar_meta.balance(casos)
     d["meta"]["cobertura_por_categoria"] = {
         "casos": len(casos),
         "categorias": len(cat_despues),

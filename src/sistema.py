@@ -272,7 +272,10 @@ Devuelve SOLO este JSON, con booleanos:
 
 
 def _prompt_hechos() -> str:
-    return PROMPT_HECHOS.replace("VOCABULARIO", ", ".join(sorted(schema.DERECHOS)))
+    # La pregunta de triabilidad se anade desde `schema`, no se escribe
+    # aqui: el prompt del agente usa LA MISMA, y dos copias divergirian.
+    return schema.con_pregunta_triable(PROMPT_HECHOS).replace(
+        "VOCABULARIO", ", ".join(sorted(schema.DERECHOS)))
 
 
 def _json_de(texto: str) -> dict:
@@ -388,6 +391,10 @@ def extraer_hechos(generar, relato: str,
         "accionado": (d.get("accionado") or "autoridad o particular accionado").strip(),
         "pretension": (d.get("pretension") or "amparar el derecho invocado").strip(),
     }
+    # Si el extractor dijo que no hay caso que triar, viaja en `libres`: el
+    # motor no puede recibirlo --- no es uno de los hechos del art. 6 --- y
+    # quien renderiza la salida si tiene que verlo. Ver `schema.leer_triable`.
+    libres["no_triable"], libres["motivo_no_triable"] = schema.leer_triable(d)
     return Hechos(**booleanos), libres
 
 
@@ -544,7 +551,7 @@ class SistemaReglas:
         elif termino:
             razon += ". No fue posible calcular el término: " + termino["motivo"]
 
-        salida = schema.render_salida({
+        campos = {
             "derecho": libres["derecho"],
             "fundamento": self._fundamento(dec, libres, frags),
             "accionado": libres["accionado"],
@@ -552,13 +559,25 @@ class SistemaReglas:
             "procede": dec.procede_tutela,
             "razon": razon,
             "pretension": libres["pretension"],
-        })
+        }
+        if libres.get("no_triable"):
+            campos = schema.abstenerse(campos, libres["motivo_no_triable"])
+        salida = schema.render_salida(campos)
 
         self.trazas.append({
             "relato": relato[:80],
             "hechos": {k: v for k, v in hechos.__dict__.items() if v},
             "regla": dec.regla,
-            "mecanismo": dec.mecanismo,
+            # Lo que el brazo EMITIO, que con abstencion no es lo que el
+            # motor dijo. Las dos cosas se guardan: una traza que dijera
+            # `tutela` donde la salida dice "no determinable" enganaria a
+            # quien la lee para diagnosticar, y perder lo que el motor
+            # habria dicho tambien cuesta --- es el dato que permite ver
+            # si la abstencion tapo una via correcta.
+            "mecanismo": None if libres.get("no_triable") else dec.mecanismo,
+            "mecanismo_del_motor": dec.mecanismo,
+            "no_triable": bool(libres.get("no_triable")),
+            "motivo_no_triable": libres.get("motivo_no_triable") or "",
             "recuperados": [f["id"] for f in frags],
             "termino": termino,
             "traza_reglas": dec.traza,
@@ -648,7 +667,7 @@ class SistemaHibrido:
             citas.append(art)
         citas += [c.strip() for c in dec.fundamento.split(";") if c.strip()]
 
-        salida = schema.render_salida({
+        campos = {
             "derecho": libres["derecho"],
             "fundamento": "; ".join(dict.fromkeys(citas)),
             "accionado": libres["accionado"],
@@ -656,12 +675,18 @@ class SistemaHibrido:
             "procede": dec.procede_tutela,
             "razon": dec.razon,
             "pretension": libres["pretension"],
-        })
+        }
+        if libres.get("no_triable"):
+            campos = schema.abstenerse(campos, libres["motivo_no_triable"])
+        salida = schema.render_salida(campos)
         self.trazas.append({
             "relato": relato[:80],
             "hechos": {k: v for k, v in hechos.__dict__.items() if v},
             "regla": dec.regla,
-            "mecanismo": dec.mecanismo,
+            "mecanismo": None if libres.get("no_triable") else dec.mecanismo,
+            "mecanismo_del_motor": dec.mecanismo,
+            "no_triable": bool(libres.get("no_triable")),
+            "motivo_no_triable": libres.get("motivo_no_triable") or "",
             "traza_reglas": dec.traza,
         })
         return salida

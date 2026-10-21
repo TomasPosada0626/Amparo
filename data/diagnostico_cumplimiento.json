@@ -149,16 +149,11 @@
     "id": "E29",
     "categoria": "incumplimiento_norma",
     "hechos_extraidos": {
-     "titular_pide_lo_suyo": true,
      "continua_vulneracion": true,
-     "incumplimiento_normativo": true,
-     "afectacion_individual": true,
-     "sujeto_especial_proteccion": true
+     "incumplimiento_normativo": true
     },
-    "motor_emite": "tutela",
-    "causas_activadas": [
-     "afectacion_individual"
-    ]
+    "motor_emite": "accion_cumplimiento",
+    "causas_activadas": []
    },
    {
     "id": "E30",
@@ -166,6 +161,7 @@
     "hechos_extraidos": {
      "derecho_colectivo": true,
      "titular_pide_lo_suyo": true,
+     "dano_consumado": true,
      "continua_vulneracion": true,
      "incumplimiento_normativo": true,
      "afectacion_individual": true,
@@ -175,6 +171,7 @@
     "motor_emite": "accion_popular",
     "causas_activadas": [
      "afectacion_individual",
+     "dano_consumado",
      "derecho_colectivo"
     ]
    },
@@ -182,31 +179,22 @@
     "id": "E39",
     "categoria": "ac_comisaria_de_familia",
     "hechos_extraidos": {
-     "titular_pide_lo_suyo": true,
-     "dano_consumado": true,
      "continua_vulneracion": true,
-     "incumplimiento_normativo": true,
-     "afectacion_individual": true
+     "incumplimiento_normativo": true
     },
-    "motor_emite": "tutela",
-    "causas_activadas": [
-     "afectacion_individual",
-     "dano_consumado"
-    ]
+    "motor_emite": "accion_cumplimiento",
+    "causas_activadas": []
    },
    {
     "id": "E40",
     "categoria": "ac_plan_gestion_riesgo",
     "hechos_extraidos": {
      "derecho_colectivo": true,
-     "titular_pide_lo_suyo": true,
      "continua_vulneracion": true,
-     "incumplimiento_normativo": true,
-     "afectacion_individual": true
+     "incumplimiento_normativo": true
     },
     "motor_emite": "accion_popular",
     "causas_activadas": [
-     "afectacion_individual",
      "derecho_colectivo"
     ]
    },
@@ -218,9 +206,12 @@
      "titular_pide_lo_suyo": true,
      "continua_vulneracion": true,
      "incumplimiento_normativo": true,
-     "afectacion_individual": true
+     "afectacion_individual": true,
+     "otro_medio_judicial": true,
+     "medio_eficaz": true,
+     "perjuicio_irremediable": true
     },
-    "motor_emite": "accion_popular",
+    "motor_emite": "tutela",
     "causas_activadas": [
      "afectacion_individual",
      "derecho_colectivo"
@@ -231,9 +222,7 @@
     "categoria": "ac_acuerdo_sin_reglamentar",
     "hechos_extraidos": {
      "continua_vulneracion": true,
-     "incumplimiento_normativo": true,
-     "otro_medio_judicial": true,
-     "medio_eficaz": true
+     "incumplimiento_normativo": true
     },
     "motor_emite": "accion_cumplimiento",
     "causas_activadas": []
@@ -255,7 +244,9 @@
      "derecho_colectivo": true,
      "dano_consumado": true,
      "continua_vulneracion": true,
-     "incumplimiento_normativo": true
+     "incumplimiento_normativo": true,
+     "otro_medio_judicial": true,
+     "medio_eficaz": true
     },
     "motor_emite": "accion_popular",
     "causas_activadas": [
@@ -264,10 +255,10 @@
     ]
    }
   ],
-  "causa_mas_frecuente": "afectacion_individual",
+  "causa_mas_frecuente": "derecho_colectivo",
   "conteo_por_causa": {
-   "afectacion_individual": 5,
    "derecho_colectivo": 4,
+   "afectacion_individual": 2,
    "dano_consumado": 2
   }
  },

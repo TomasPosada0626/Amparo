@@ -1,5 +1,5 @@
 {
-  "_corrida": "20261019T034908Z",
+  "_corrida": "20261021T140413Z",
   "_modulo": "m3",
   "_artefacto": "decision_retrieval.json",
   "elegida": "hibrido + multiconsulta",
@@ -8,10 +8,10 @@
     "reranked"
   ],
   "traza": [
-    "baseline (ingenuo): recall@5 = 31.0%",
-    "DESCALIFICADA hibrido: recall@5 23.8% < 31.0% del ingenuo (guarda de seguridad)",
-    "DESCALIFICADA reranked: recall@5 23.1% < 31.0% del ingenuo (guarda de seguridad)",
-    "mejor recall@5 = 46.4% · 1 estrategia(s) dentro de la tolerancia de 1%",
+    "baseline (ingenuo): recall@5 = 30.6%",
+    "DESCALIFICADA hibrido: recall@5 24.9% < 30.6% del ingenuo (guarda de seguridad)",
+    "DESCALIFICADA reranked: recall@5 28.7% < 30.6% del ingenuo (guarda de seguridad)",
+    "mejor recall@5 = 54.6% · 1 estrategia(s) dentro de la tolerancia de 1%",
     "ELEGIDA: hibrido + multiconsulta"
   ],
   "regla": "Regla de decision de la estrategia de recuperacion, FIJADA ANTES DE CORRER\n(version 2026-10-15, anterior a la primera corrida de M3):\n\n  0. GUARDA DE SEGURIDAD. Una estrategia queda descalificada si su recall@k es\n     INFERIOR al del RAG ingenuo. Una tecnica avanzada que recupera menos que el\n     baseline no entra al sistema por mas elegante que sea.\n  1. Mayor recall@k.\n  2. Empate (diferencia <= 0.01): mayor mrr@10 -- premia traer lo relevante arriba.\n  3. Empate: menor latencia p95 del retrieval.\n  4. Empate: menos casos sin recuperar ningun articulo esperado.\n\nSe escribe aqui, en el codigo y con fecha, para que la eleccion no se haga\ndespues de ver los numeros. Es la diferencia entre elegir una estrategia y\njustificar la que salio mejor."

@@ -5,3 +5,9 @@ runs/
 .ipynb_checkpoints/
 .coverage
 models/
+
+# Auditorias externas y material de trabajo que NO va al repositorio.
+# `Auditoria Amparo - rama 3.5.pdf` es una auditoria que hizo Martin en su
+# propio Claude sobre la rama `m3.5` del proyecto ANTERIOR, no sobre este
+# codigo. Se lee como insumo y se queda fuera del repo.
+*.pdf

@@ -1,13 +1,13 @@
 {
-  "_corrida": "20261019T034128Z",
+  "_corrida": "20261021T124137Z",
   "_modulo": "m2",
   "_artefacto": "determinismo_juez.json",
   "repeticiones": 3,
   "notas": [
-    5,
+    4,
     5,
     5
   ],
-  "deterministico": true,
+  "deterministico": false,
   "ilegibles": 0
 }

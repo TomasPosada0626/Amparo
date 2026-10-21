@@ -35,6 +35,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -45,7 +46,17 @@ import agente as ag_mod                                     # noqa: E402
 import rag                                                  # noqa: E402
 from reglas import HECHOS_EXTRAIBLES, Hechos, decidir       # noqa: E402
 
-VIA = "accion_cumplimiento"
+VIA_POR_DEFECTO = "accion_cumplimiento"
+"""La via que motivo este script. Dejo de estar fija a proposito.
+
+En m3/20261021T140413Z `accion_cumplimiento` subio a F1 0.5455 en el brazo 4
+--- venia de 0.000 y luego 0.3636 --- y la clase PEOR paso a ser
+`accion_popular`, con 0.4286. Un diagnosticador que solo sabe mirar la clase
+de ayer no sirve para la de hoy, asi que la via se pide por `--via`.
+
+El eval set tambien: `eval_set_v2.json` estaba escrito a mano aqui mientras
+el vigente era v3, o sea que el diagnostico se hacia sobre 69 casos de los
+109 que de verdad se evaluan."""
 RUTA_OUT = RAIZ / "data" / "validacion_extractor.json"
 
 
@@ -91,17 +102,48 @@ def _clave_groq() -> str:
 
 
 def _eval() -> list[dict]:
-    return json.loads(
-        (RAIZ / "data" / "eval_set_v2.json").read_text(
-            encoding="utf-8"))["ejemplos"]
+    """El eval set VIGENTE, derivado y no recordado.
+
+    Estaba escrito a mano como `eval_set_v2.json` mientras el que se evalúa
+    de verdad es v3: el diagnóstico se hacía sobre 69 casos de los 109, y los
+    40 que faltaban son justo los que se añadieron. Es el mismo fallo que ya
+    costó una corrida en `data/reporte.py`, donde la cobertura se leyó del
+    eval set anterior durante toda una entrega.
+
+    Se toma el de versión mayor más alta entre los `eval_set*.json` que
+    declaran `split: eval`, que es lo que define «el vigente» sin que nadie
+    tenga que acordarse de actualizar una constante.
+    """
+    def clave(p):
+        m = re.search(r"v(\d+)", p.stem)
+        return int(m.group(1)) if m else 0
+
+    cands = []
+    for p in (RAIZ / "data").glob("eval_set*.json"):
+        try:
+            ej = json.loads(p.read_text(encoding="utf-8"))["ejemplos"]
+        except Exception:                                  # noqa: BLE001
+            continue
+        if ej and any(e.get("split") == "eval" for e in ej):
+            cands.append((clave(p), p, ej))
+    if not cands:
+        raise SystemExit("no hay ningun eval_set*.json con `split: eval`")
+    _, ruta, ej = max(cands, key=lambda t: (t[0], len(t[2])))
+    print(f"  eval set: {ruta.name} · {len(ej)} casos (derivado, no fijado)")
+    return ej
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--via", default=VIA_POR_DEFECTO,
+                    help="que mecanismo diagnosticar (por defecto "
+                         f"{VIA_POR_DEFECTO}). En la corrida del 2026-10-21 "
+                         "la clase peor del brazo 4 es `accion_popular`")
     ap.add_argument("--control", type=int, default=12,
                     help="cuantos casos de OTRAS vias mirar, para detectar "
                          "si el arreglo rompio algo (0 los omite)")
     a = ap.parse_args()
+    VIA = a.via
 
     clave = _clave_groq()
     if not clave:
@@ -225,13 +267,30 @@ def main() -> int:
 
     rotos_obj = [r for r in rotos if r[1] == "objetivo"]
     rotos_ctl = [r for r in rotos if r[1] == "control"]
-    regresion = ac_ctl < base_ctl
+    # SIN CASOS DE CONTROL NO HAY REGRESION QUE DETECTAR, Y DECIR QUE LA HAY
+    # ES PEOR QUE CALLARSE.
+    #
+    # `ac_ctl < base_ctl` con `--control 0` da 0 < 9 y el script gritaba
+    # "REGRESION: el control baja de 9 a 0, NO corras M1-M2-M3" --- sobre una
+    # medicion en la que nadie pidio control. Paso de verdad al diagnosticar
+    # `accion_cumplimiento`, y una alarma falsa en el unico mensaje que este
+    # script existe para dar ensena a ignorarlo.
+    #
+    # Tambien se exige que la linea base venga de OTRA medicion: comparar
+    # contra uno mismo no puede dar regresion, y si `primera_vez`, `base_ctl`
+    # ES `ac_ctl`.
+    regresion = bool(ctl) and not primera_vez and ac_ctl < base_ctl
     cerrado = ac_obj == len(obj)
     mejora = ac_obj > antes_obj
 
     print(f"  objetivo: {ac_obj} de {len(obj)}  (antes {antes_obj})")
-    print(f"  control : {ac_ctl} de {len(ctl)}  (linea base {base_ctl}"
-          f"{', primera medicion' if primera_vez else ''})")
+    if not ctl:
+        print("  control : SIN MEDIR (se pidio --control 0). No es que no "
+              "haya regresion:")
+        print("            es que no se pudo comprobar, y son cosas distintas.")
+    else:
+        print(f"  control : {ac_ctl} de {len(ctl)}  (linea base {base_ctl}"
+              f"{', primera medicion' if primera_vez else ''})")
     print("=" * 76)
 
     if regresion:
@@ -246,20 +305,31 @@ def main() -> int:
         print("  NO corras M1-M2-M3: arreglar una via rompiendo otras no es")
         print("  un arreglo, y la corrida costaria 80 minutos en decirlo.")
         cod = 1
+    # "SIN REGRESION" SOLO SE PUEDE DECIR SI EL CONTROL SE MIDIO. Con
+    # `--control 0` no se midio, y afirmar que aguanta es afirmar lo que no se
+    # comprobo --- la misma distincion que `acierto_abstencion: None`.
     elif cerrado:
+        _ctl_txt = (f"y el control se mantiene en {ac_ctl} sobre una linea "
+                    f"base de {base_ctl}" if ctl else
+                    "y el control NO se midio (--control 0)")
         out["lectura"] = (f"El arreglo cierra la via: {ac_obj} de {len(obj)}, "
-                          f"y el control se mantiene en {ac_ctl} sobre una "
-                          f"linea base de {base_ctl}. Vale la pena re-correr.")
+                          f"{_ctl_txt}. Vale la pena re-correr.")
         print(f"  EL ARREGLO FUNCIONA. El motor emite la via correcta en los")
-        print(f"  {len(obj)} casos objetivo y el control no empeora.")
+        print(f"  {len(obj)} casos objetivo"
+              + (" y el control no empeora." if ctl else
+                 ". El control no se midio."))
         print("  Ahora si vale la pena gastar la corrida.")
         cod = 0
     elif mejora:
+        _ctl_txt = ("sin regresion en el control" if ctl else
+                    "con el control SIN MEDIR (--control 0)")
         out["lectura"] = (f"Mejora parcial: {ac_obj} de {len(obj)} contra "
-                          f"{antes_obj} antes, sin regresion en el control. "
+                          f"{antes_obj} antes, {_ctl_txt}. "
                           f"Siguen fallando {len(rotos_obj)} del objetivo.")
-        print(f"  MEJORA PARCIAL, SIN REGRESION. De {antes_obj} a {ac_obj} de")
-        print(f"  {len(obj)} en el objetivo, y el control aguanta.")
+        print(f"  MEJORA PARCIAL. De {antes_obj} a {ac_obj} de {len(obj)} en "
+              "el objetivo,")
+        print("  " + ("y el control aguanta." if ctl else
+                      "y el control sin medir."))
         print(f"  Siguen fallando {len(rotos_obj)} caso(s) del objetivo:")
         for i, g, gold, via in rotos_obj:
             print(f"    {i:6s} [{g}] gold={gold} -> {via}")
