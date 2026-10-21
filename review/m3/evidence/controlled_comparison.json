@@ -1,0 +1,11 @@
+{
+  "casos_invalidos": [
+    {"caso": "booleano_string", "original": 1.0, "propuesta": null},
+    {"caso": "fallo_parseo", "original": 0.0, "propuesta": null},
+    {"caso": "conteo_negativo", "original": -1.0, "propuesta": null},
+    {"caso": "conteo_booleano", "original": 1.0, "propuesta": null},
+    {"caso": "conteo_excesivo", "original": 1.0, "propuesta": null}
+  ],
+  "rankings_booleanos_validos_equivalentes": 126,
+  "alcance": "dobles controlados, no resultados históricos del estudiante"
+}

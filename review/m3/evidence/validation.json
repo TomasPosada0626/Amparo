@@ -1,0 +1,37 @@
+{
+  "base_commit": "f0328fead270ad8e91b950b988c4a59292b1f1b6",
+  "scope": "seguimiento de octubre; sin cambios al M3 historico",
+  "python": "3.13.5",
+  "numpy": "2.3.5",
+  "tests": 38,
+  "failures": 0,
+  "tests_after_git_apply": 38,
+  "git_apply_check": true,
+  "equivalence_checks_valid_rankings": 126,
+  "exact_functions_unchanged_ast": true,
+  "source_full_module": true,
+  "dependency_stubs": ["schema", "rag"],
+  "doubles": ["juez", "encoder"],
+  "models_api_full_pipeline_run": false,
+  "full_team_suite_run": false,
+  "files": [
+    {
+      "path": "original/src/ragas_eval.py",
+      "bytes": 11065,
+      "git_blob": "e794383d4ec844038f32b268f1a973bd3df84128",
+      "sha256": "1b522e3f52ae02d788c19011b331a8affb5565681dd482ccfea5ffa2ce1fa77a"
+    },
+    {
+      "path": "propuesta/src/ragas_eval.py",
+      "bytes": 15337,
+      "git_blob": "6a1eab1706742b6519c956c99408a39931214bc9",
+      "sha256": "d951a49fcdddce879ed209b0233ae2affbd8ff529f143572525d953386947848"
+    },
+    {
+      "path": "propuesta/review/m3/tests/test_ragas_revision.py",
+      "bytes": 11323,
+      "git_blob": "be50ab162dba988763c729cbd99e13d5a23c4cfd",
+      "sha256": "35050484d199e02e72f9df29a1293593fc6cc734a2c69bedd8a8ff70e8b194f0"
+    }
+  ]
+}
