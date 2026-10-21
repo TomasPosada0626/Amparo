@@ -266,6 +266,54 @@ def escribir() -> int:
     return 0
 
 
+def _casos_que_se_movieron(filas: list[dict]) -> list[dict]:
+    """Que casos del formulario ya no describen la corrida vigente.
+
+    Compara lo que el abogado TENIA DELANTE --- la columna
+    `respuesta_del_sistema` del formulario que devolvio --- con lo que
+    `results/` publica hoy. Si no coinciden, su nota puntua una salida que ya
+    no existe.
+
+    Se normalizan los finales de linea y los espacios de los extremos: Excel
+    los reescribe al guardar y eso no es un cambio de la respuesta. Nada mas.
+    """
+    try:
+        respuestas = _respuestas()
+    except Exception:                                          # noqa: BLE001
+        # Sin predicciones no se puede comparar; `escribir` ya tiene su propia
+        # guarda para eso y `leer` no debe inventarse una conclusion.
+        return []
+    por_id_juez = {f["id"]: f for f in _filas_del_juez()}
+
+    def norm(x) -> str:
+        return "\n".join(l.rstrip() for l in str(x or "")
+                          .replace("\r\n", "\n").split("\n")).strip()
+
+    movidas = []
+    for f in filas:
+        if not (f.get("nota") or "").strip():
+            continue        # sin nota no hay nada que invalidar
+        cid = f["id"]
+        vista = norm(f.get("respuesta_del_sistema"))
+        ahora = norm(respuestas.get(cid))
+        if not vista:
+            # Formulario antiguo sin la columna: no se puede comprobar, y
+            # decirlo es mejor que dar por bueno lo que no se miro.
+            movidas.append({"id": cid, "que_cambio":
+                            "el formulario no trae `respuesta_del_sistema`, "
+                            "asi que no se puede comprobar contra que puntuo"})
+            continue
+        if vista != ahora:
+            movidas.append({"id": cid, "que_cambio":
+                            f"la respuesta del sistema cambio "
+                            f"({len(vista)} -> {len(ahora)} caracteres)"})
+            continue
+        if cid not in por_id_juez:
+            movidas.append({"id": cid, "que_cambio":
+                            "el juez vigente no puntuo este caso"})
+    return movidas
+
+
 def leer() -> int:
     ruta = next((p for p in (SALIDA.with_suffix(".xlsx"),
                              SALIDA.with_suffix(".csv")) if p.exists()), None)
@@ -275,6 +323,7 @@ def leer() -> int:
     leido = formularios.leer(ruta, COLUMNAS_PERSONA)
     filas = leido["filas"]
     por_id_juez = {f["id"]: f for f in _filas_del_juez()}
+    movidas = _casos_que_se_movieron(filas)
 
     pares, invalidas, sin_nota = [], [], []
     for f in filas:
@@ -310,6 +359,33 @@ def leer() -> int:
     if invalidas:
         print(f"  NO numericas   : {len(invalidas)}  {invalidas[:4]}")
     print()
+
+    if movidas:
+        # NO SE PUBLICA LA KAPPA. No es un aviso: es que la cifra no existe.
+        print("=" * 76)
+        print(f"  LAS NOTAS SON DE OTRA CORRIDA · {len(movidas)} de "
+              f"{len(filas)} casos")
+        print("=" * 76)
+        for m in movidas[:6]:
+            print(f"  {m['id']:<6} {m['que_cambio']}")
+        if len(movidas) > 6:
+            print(f"  ... y {len(movidas) - 6} mas")
+        print()
+        print("  El abogado puntuo la respuesta que tenia delante. Si la")
+        print("  respuesta del sistema cambio, su nota no es una lectura de")
+        print("  la salida que el juez puntuo, y la kappa entre las dos no")
+        print("  mide el acuerdo de dos criterios: mide dos corridas.")
+        print()
+        print("  Las dos salidas honestas:")
+        print("    1. conservar la medicion vieja Y los artefactos de la")
+        print("       corrida con la que se hizo, y citarla con su corrida;")
+        print("    2. volver a escribir el formulario con las respuestas")
+        print("       nuevas y pedir que se puntue otra vez.")
+        print()
+        print("  Lo que NO es una opcion es recalcular la kappa con las notas")
+        print("  viejas sobre las respuestas nuevas.")
+        print("=" * 76)
+        return 1
 
     if not pares:
         # El fallo que `formularios` existe para no repetir: informar "cero

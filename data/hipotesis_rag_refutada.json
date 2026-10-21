@@ -1,0 +1,142 @@
+{
+  "_que_es": "una hipotesis sobre el RAG, PROBADA Y REFUTADA. Se publica porque el resultado negativo es el resultado.",
+  "hipotesis": "el brazo 4 falla accion_cumplimiento porque el extractor de hechos recibe los TEXTOS de los articulos recuperados, y eso le empuja derecho_colectivo=True en casos de incumplimiento. El arreglo propuesto: pasarle solo los hechos que las herramientas establecen (el calculo de terminos) y no el texto legal.",
+  "por_que_parecia_cierta": " medía el extractor SIN bucle y daba 6-8 de 8 en la via correcta con derecho_colectivo en 0-1 de 8; el brazo 4 CON bucle daba 4 de 8 con colectivo en 4 de 8. Y en las trazas colectivo era un predictor perfecto del fallo.",
+  "experimento": "el agente COMPLETO --- mismas herramientas, mismo bucle, mismo presupuesto --- cambiando una sola cosa: si el extractor ve el texto de los articulos. 8 casos de cumplimiento y 8 de control de otras vias.",
+  "resultado": {
+    "con_texto_legal": {
+      "cumplimiento_ok": 5,
+      "n_objetivo": 8,
+      "colectivo_true": 0,
+      "control_ok": 7,
+      "n_control": 8,
+      "detalle": [
+        {
+          "id": "E29",
+          "gold": "accion_cumplimiento",
+          "via": "accion_cumplimiento",
+          "colectivo": false,
+          "ok": true
+        },
+        {
+          "id": "E30",
+          "gold": "accion_cumplimiento",
+          "via": "accion_cumplimiento",
+          "colectivo": false,
+          "ok": true
+        },
+        {
+          "id": "E39",
+          "gold": "accion_cumplimiento",
+          "via": "accion_cumplimiento",
+          "colectivo": false,
+          "ok": true
+        },
+        {
+          "id": "E40",
+          "gold": "accion_cumplimiento",
+          "via": "accion_cumplimiento",
+          "colectivo": false,
+          "ok": true
+        },
+        {
+          "id": "E41",
+          "gold": "accion_cumplimiento",
+          "via": "tutela",
+          "colectivo": false,
+          "ok": false
+        },
+        {
+          "id": "E42",
+          "gold": "accion_cumplimiento",
+          "via": null,
+          "colectivo": false,
+          "ok": false
+        },
+        {
+          "id": "A15",
+          "gold": "accion_cumplimiento",
+          "via": null,
+          "colectivo": false,
+          "ok": false
+        },
+        {
+          "id": "A16",
+          "gold": "accion_cumplimiento",
+          "via": "accion_cumplimiento",
+          "colectivo": false,
+          "ok": true
+        }
+      ]
+    },
+    "sin_texto_legal": {
+      "cumplimiento_ok": 3,
+      "n_objetivo": 8,
+      "colectivo_true": 2,
+      "control_ok": 5,
+      "n_control": 8,
+      "detalle": [
+        {
+          "id": "E29",
+          "gold": "accion_cumplimiento",
+          "via": "accion_cumplimiento",
+          "colectivo": false,
+          "ok": true
+        },
+        {
+          "id": "E30",
+          "gold": "accion_cumplimiento",
+          "via": "tutela",
+          "colectivo": false,
+          "ok": false
+        },
+        {
+          "id": "E39",
+          "gold": "accion_cumplimiento",
+          "via": "accion_cumplimiento",
+          "colectivo": false,
+          "ok": true
+        },
+        {
+          "id": "E40",
+          "gold": "accion_cumplimiento",
+          "via": "accion_popular",
+          "colectivo": true,
+          "ok": false
+        },
+        {
+          "id": "E41",
+          "gold": "accion_cumplimiento",
+          "via": "accion_popular",
+          "colectivo": true,
+          "ok": false
+        },
+        {
+          "id": "E42",
+          "gold": "accion_cumplimiento",
+          "via": null,
+          "colectivo": false,
+          "ok": false
+        },
+        {
+          "id": "A15",
+          "gold": "accion_cumplimiento",
+          "via": null,
+          "colectivo": false,
+          "ok": false
+        },
+        {
+          "id": "A16",
+          "gold": "accion_cumplimiento",
+          "via": "accion_cumplimiento",
+          "colectivo": false,
+          "ok": true
+        }
+      ]
+    }
+  },
+  "veredicto": "REFUTADA. Quitar el texto legal EMPEORA: cumplimiento 5/8 -> 3/8, control 7/8 -> 5/8, y derecho_colectivo=True SUBE de 0/8 a 2/8. El cambio se revirtio.",
+  "por_que_la_evidencia_anterior_enganaba": "porque el extractor NO es determinista. Medido en : 0 de 5 casos estables, hasta 3 extracciones distintas de 4, y  corrido cinco veces dio 7, 8, 6, 7, 7 de 8. Con n=8 por lado y esa varianza, una diferencia de dos casos no distingue una causa de una tirada. La comparacion anterior tenia n=1 en el lado del bucle.",
+  "que_queda": "no hay arreglo de codigo para el RAG. La causa que Lucas señalo sigue siendo la mejor explicacion --- el modelo se entreno sin contexto y el contexto lo descoloca --- y lo unico que la ataca es fine-tuning CON contexto, que es una corrida completa de M1.",
+  "leccion": "una hipotesis con un predictor perfecto en n=8 y un instrumento no determinista no es una causa: es una correlacion dentro del ruido. Medirla costo 32 llamadas y evito enviar un cambio que empeora el sistema."
+}

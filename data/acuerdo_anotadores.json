@@ -1,9 +1,9 @@
 {
- "n_anotados": 14,
- "acuerdo_bruto_mecanismo": 0.9286,
- "acuerdo_bruto_procede": 1.0,
- "kappa_mecanismo": 0.9014,
- "kappa_procede": 1.0,
+ "n_anotados": 30,
+ "acuerdo_bruto_mecanismo": 0.8667,
+ "acuerdo_bruto_procede": 0.9,
+ "kappa_mecanismo": 0.803,
+ "kappa_procede": 0.7945,
  "por_estrato": {
   "juicio": {
    "n": 3,
@@ -12,27 +12,65 @@
    "desacuerdos": 1
   },
   "derivado": {
-   "n": 6,
-   "acuerdo_bruto": 1.0,
-   "kappa": 1.0,
-   "desacuerdos": 0
+   "n": 12,
+   "acuerdo_bruto": 0.9167,
+   "kappa": 0.8235,
+   "desacuerdos": 1
   },
   "plano": {
-   "n": 5,
-   "acuerdo_bruto": 1.0,
-   "kappa": 1.0,
-   "desacuerdos": 0
+   "n": 15,
+   "acuerdo_bruto": 0.8667,
+   "kappa": 0.8,
+   "desacuerdos": 2
   }
  },
- "nota_estratos": "la muestra tiene los dos estratos al 50% a proposito, pero en la poblacion los de `juicio` son 19 de 63. La kappa global de aqui esta por tanto sesgada A LA BAJA respecto del eval set completo: no se debe reportar como la fiabilidad del eval set, sino leerse junto con la de cada estrato.",
+ "poblacion_por_estrato": {
+  "plano": 70,
+  "derivado": 36,
+  "juicio": 3
+ },
+ "nota_estratos": "la muestra sobrerrepresenta los estratos dificiles a proposito: derivado 12 juicio 3 plano 15 frente a una poblacion de derivado 36 juicio 3 plano 70. La kappa global de aqui esta por tanto sesgada A LA BAJA respecto del eval set completo: no se debe reportar como la fiabilidad del eval set, sino leerse junto con la de cada estrato. `juicio` no se puede ampliar --- la cuota ya toma los 3 que existen ---.",
  "nota_kappa": "`indefinido` significa que alguno de los dos anotadores uso una sola categoria en la muestra. La kappa entonces vale 0.0 mecanicamente y no distingue acuerdo de desacuerdo: informarla seria inventar una medicion. Mismo criterio que harness.cohen_kappa.",
  "lectura": "la kappa aqui NO mide si el gold esta bien. Mide si el eval set es reproducible por otra persona. Un desacuerdo marca un caso discutible, que es informacion que hoy no se tiene.",
+ "bajo_la_convencion_del_formulario": {
+  "_que_es": "la misma anotacion, releida con las dos reglas de codificacion que el formulario enuncia. La cifra que se reporta es la bruta; esta separa el desacuerdo juridico del incumplimiento de una regla de codificacion, que es lo unico que permite interpretar la bruta.",
+  "_por_que_no_es_circular": "la normalizacion se aplica a las 30 filas antes de comparar con el gold y las dos reglas estan escritas en el formulario que recibio quien anoto, no se eligieron viendo los numeros. Ver `normalizar_convencion`.",
+  "acuerdo_bruto_mecanismo": 0.9333,
+  "acuerdo_bruto_procede": 0.9333,
+  "kappa_mecanismo": 0.9021,
+  "kappa_procede": 0.8618,
+  "desacuerdos_de_convencion": 3,
+  "desacuerdos_juridicos": 2,
+  "nota": "que la aclaracion siga sin bastar es en si un resultado: el bloque \"QUE SIGNIFICA `mecanismo`\" se anadio al formulario DESPUES de que los 2 desacuerdos de la primera anotacion (n=14) salieran de ahi, y con n=30 volvieron a salir 3. La distincion entre la via que corresponde y la via que se invoca no se comunica con una instruccion; habria que separar la pregunta en dos columnas."
+ },
  "desacuerdos": [
+  {
+   "id": "A09",
+   "categoria": "incumplimiento_norma",
+   "dificultad": "trampa",
+   "estrato": "plano",
+   "tipo": "juridico",
+   "gold": {
+    "mecanismo": "tutela",
+    "procede": true
+   },
+   "anotador_2": {
+    "mecanismo": "accion_cumplimiento",
+    "procede": false
+   },
+   "anotador_2_normalizado": {
+    "mecanismo": "accion_cumplimiento",
+    "procede": false
+   },
+   "nota_anotador_2": "Se alega incumplimiento general de un mandato legal concreto de instalar intérpretes. La acción de cumplimiento busca hacer efectiva esa obligación; no se describen hechos individuales que sustenten tutela urgente.",
+   "relato": "Salió una ley que dice que los hospitales públicos deben tener intérprete de lengua de señas. En mi departamento ningún hospital lo tiene. Yo soy sordo y es una violación de nuestros derechos que no cumplan la ley que ellos mismos aprobaron."
+  },
   {
    "id": "A12",
    "categoria": "inmediatez",
    "dificultad": "trampa",
    "estrato": "juicio",
+   "tipo": "convencion",
    "gold": {
     "mecanismo": "via_ordinaria",
     "procede": false
@@ -41,14 +79,81 @@
     "mecanismo": "tutela",
     "procede": false
    },
-   "nota_anotador_2": "La expulsión ocurrió en 2019 y el estudiante terminó el bachillerato en otra institución; el relato no muestra una afectación actual que haga procedente la tutela tardía.",
+   "anotador_2_normalizado": {
+    "mecanismo": "via_ordinaria",
+    "procede": false
+   },
+   "nota_anotador_2": "La expulsión ocurrió en 2019 y el hijo ya terminó bachillerato y está en la universidad; no se identifica una afectación actual que justifique tutela y la inmediatez es problemática.",
    "relato": "En 2019 a mi hijo lo echaron del colegio sin ningún proceso, injustamente. Él ya terminó el bachillerato en otro lado y está en la universidad, pero yo quiero poner la tutela ahora porque eso no se puede quedar así."
+  },
+  {
+   "id": "A36",
+   "categoria": "hd_rectificacion_en_tramite",
+   "dificultad": "trampa",
+   "estrato": "derivado",
+   "tipo": "convencion",
+   "gold": {
+    "mecanismo": "via_ordinaria",
+    "procede": false
+   },
+   "anotador_2": {
+    "mecanismo": "tutela",
+    "procede": false
+   },
+   "anotador_2_normalizado": {
+    "mecanismo": "via_ordinaria",
+    "procede": false
+   },
+   "nota_anotador_2": "La corrección de datos personales puede protegerse mediante tutela/hábeas data, pero solo han transcurrido cuatro días desde el reclamo y no consta respuesta adversa ni vencimiento del plazo para responder.",
+   "relato": "Radiqué hace cuatro días un reclamo en la central de riesgo para que corrijan mi segundo apellido, que está mal escrito. Todavía no me contestan. Quiero que un juez les ordene corregirlo ya."
+  },
+  {
+   "id": "E15",
+   "categoria": "peticion_requisitos_indebidos",
+   "dificultad": "frontera",
+   "estrato": "plano",
+   "tipo": "juridico",
+   "gold": {
+    "mecanismo": "tutela",
+    "procede": true
+   },
+   "anotador_2": {
+    "mecanismo": "via_ordinaria",
+    "procede": false
+   },
+   "anotador_2_normalizado": {
+    "mecanismo": "via_ordinaria",
+    "procede": false
+   },
+   "nota_anotador_2": "Se discute la legalidad de requisitos impuestos por una autoridad y la devolución de dinero; la controversia administrativa tiene vías ordinarias y no se relata una urgencia fundamental.",
+   "relato": "Pedí a la secretaría de tránsito que me devolvieran una plata de un comparendo que ya había sido anulado. Me contestaron que para tramitar la devolución tengo que llevar un certificado notarial de que soy yo y una póliza. Eso no lo pide ninguna norma."
+  },
+  {
+   "id": "E31",
+   "categoria": "libertad_personal",
+   "dificultad": "rutinario",
+   "estrato": "plano",
+   "tipo": "convencion",
+   "gold": {
+    "mecanismo": "habeas_corpus",
+    "procede": false
+   },
+   "anotador_2": {
+    "mecanismo": "habeas_corpus",
+    "procede": true
+   },
+   "anotador_2_normalizado": {
+    "mecanismo": "habeas_corpus",
+    "procede": false
+   },
+   "nota_anotador_2": "La persona lleva más de 48 horas sin ser presentada ante juez de control de garantías, lo que plantea una posible prolongación ilegal de la privación de libertad.",
+   "relato": "A mi sobrino lo cogieron el viernes en la tarde en un operativo. Ya es domingo en la noche, van más de 48 horas y no lo han llevado ante ningún juez de control de garantías. En la URI dicen que el fiscal no ha llegado."
   }
  ],
- "_anotador": "persona-externa",
+ "_anotador": "persona-externa-2",
  "_independencia": {
   "independiente": true,
-  "nota": "Persona que no participo en escribir el gold. Es la unica combinacion que mide ACUERDO ENTRE ANOTADORES.",
+  "nota": "Segunda persona que no participo en escribir el gold. Independiente igual que `persona-externa`, y su anotacion se mide aparte: dos muestras independientes no se promedian, se comparan.",
   "que_mide": "acuerdo entre anotadores independientes"
  }
 }

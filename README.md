@@ -182,22 +182,31 @@ persona real sobre su caso.**
 
 Esta sección existe porque es la más útil del repositorio.
 
-- **El juez automático no está validado contra criterio humano
-  independiente.** El instrumental está completo —`data/validacion_juez.py`
-  escribe el formulario con la **misma** rúbrica que se le dio al modelo, le
-  oculta al revisor la nota del juez para no anclarla, y `--leer` calcula el
-  acuerdo con `harness.acuerdo_entre_jueces`, la misma función que mide el
-  acuerdo entre modelos— y **falta que una persona lo rellene**. El gold, la
-  rúbrica y el juez los escribió el mismo equipo: si ese equipo puntúa, lo que
-  mide es si una aplicación de su propia rúbrica coincide con otra aplicación
-  de su propia rúbrica. Eso es **consistencia**, no acuerdo entre anotadores.
-  Cuando el artefacto exista, `REPORTE.md` §7.1 lo dirá solo: esa sección se
-  deriva del archivo, no está escrita a mano.
-- **La muestra de esa validación estará sesgada a propósito.** Se toman hasta
-  cinco casos de *cada* nota del juez, porque una muestra proporcional serían
-  25 casos con casi toda la varianza en un punto. El acuerdo que resulte
-  estima el acuerdo **condicionado a esos estratos**, no el del set entero, y
-  el artefacto lo declara donde va la cifra.
+- **El juez automático concuerda con el criterio humano de forma moderada, y
+  eso limita lo que sus notas pueden sostener.** Un abogado externo puntuó 25
+  casos con la **misma** rúbrica que se le dio al modelo y sin ver la nota del
+  juez: κ **0.5763** en la decisión de aprobar, Spearman **0.8339**, acuerdo
+  exacto **68%** y a un punto **92%**. Leído honestamente: el juez **ordena**
+  los casos como un jurista, pero el **umbral** de aprobar no está calibrado
+  con él. Las notas sirven para comparar brazos entre sí, que es para lo que se
+  usan; no para afirmar que una salida concreta es jurídicamente aceptable.
+  `REPORTE.md` §7.1 lo deriva del artefacto, no está escrito a mano.
+- **El gold es reproducible, no verificado.** Una segunda persona que no lo
+  escribió anotó a ciegas una muestra estratificada de 30 casos: κ **0.803** en
+  mecanismo y **0.7945** en procedencia —**0.9021** y **0.8618** releyendo las
+  3 filas que incumplían una regla de codificación del formulario—.
+  Reproducible **no es correcto**: dos personas pueden coincidir y
+  equivocarse. Y la κ del estrato `juicio` sale **indefinida** y seguirá
+  saliendo así —el eval set tiene 3 casos de `juicio` entre 109 y la cuota ya
+  los toma todos—, así que el estrato donde el gold es más discutible es el
+  único sin cifra de fiabilidad. `REPORTE.md` §2.1.
+- **Las dos muestras están sesgadas a propósito, y por eso ninguna de las dos
+  κ es la del conjunto.** En la del juez se toman hasta cinco casos de *cada*
+  nota, porque una proporcional serían 25 casos con casi toda la varianza en
+  un punto; en la del gold se sobrerrepresentan los estratos difíciles, porque
+  la pregunta no es la fiabilidad media sino **dónde** está el desacuerdo. Las
+  dos estiman el acuerdo **condicionado a sus estratos** y los dos artefactos
+  lo declaran donde va la cifra.
 - **La revisión del abogado valida las etiquetas, no al juez.** Son dos
   validaciones distintas y la segunda no se cubre con la primera. La nota
   global de `data/revision_abogado_v3.json` es sobre el **gold**; leerla como

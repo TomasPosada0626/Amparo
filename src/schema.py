@@ -300,6 +300,115 @@ def abstenerse(campos: dict, motivo: str = "") -> dict:
             "mecanismo": None, "procede": False, "razon": razon}
 
 
+# --------------------------------------------------------------------------
+# NORMAS QUE NO PUEDEN FUNDAR UN DERECHO
+#
+# Los numerales del art. 6 del Decreto 2591 dicen CUANDO LA TUTELA NO PROCEDE.
+# No dicen que derecho esta en juego, asi que citarlos en el slot del derecho
+# es un error de categoria, no una cita discutible: ninguna lectura del art.
+# 6.1 lo convierte en el fundamento de la salud o del habeas data.
+#
+# Igual el art. 8 (tutela como mecanismo transitorio), el 42 (competencia y
+# reparto) y la Ley 1437 (procedimiento contencioso).
+#
+# QUE SE PUEDE Y QUE NO SE PUEDE QUITAR
+#
+# Esta lista es CERRADA y solo tiene normas puramente procesales. NO incluye
+# `art. 30 CP`, `art. 87 CP` ni `art. 88 CP`, que son de DOBLE USO ---
+# fundamentan el mecanismo Y el derecho de fondo --- y quitarlas seria quitar
+# una cita correcta. La distincion se establecio midiendo:
+# `data/causas_abiertas.json`.
+#
+# POR QUE SE DEPURA EN VEZ DE SOLO MEDIRLO
+#
+# Medir no cambia la salida, asi que no sube la precision. Y esto no es
+# maquillaje: el modelo emite `art. 6.1 Decreto 2591` en el slot del derecho
+# **26 veces** porque 59 de 123 ejemplos de entrenamiento se lo ensenan ---
+# el objetivo fusiona `fundamento_del_derecho` con `fundamento_del_mecanismo`.
+# La causa esta en el formato del dataset y el arreglo de raiz es separarlos,
+# que exige reentrenar. Mientras eso no pase, dejar pasar una cita que por
+# construccion no puede ser correcta es publicar un error evitable.
+#
+# Se publica SIEMPRE la cifra con y sin depurar, para que la mejora no se
+# confunda con el modelo habiendo mejorado.
+# Y A QUE MECANISMO CORRESPONDE CADA UNA. La primera version de esto quitaba
+# toda norma procesal del slot del derecho, y MEDIDO sobre las 109 salidas
+# quitaba 42 citas de las que **12 contaban como correctas**: precision subia
+# 0.5506 -> 0.6324 y recall BAJABA 0.4135 -> 0.3629.
+#
+# La razon es que el gold tiene UN SOLO slot de fundamento, asi que para un
+# caso de `via_ordinaria` el `art. 6.1` SI es lo que pide. Dentro del formato
+# actual, quitarlo es quitar una cita correcta.
+#
+# Lo que si es un error de categoria en cualquier lectura: citar la causal de
+# un mecanismo en un caso de OTRO mecanismo --- el art. 6.1, que es
+# subsidiariedad, sobre una tutela que procede. Eso es lo que se depura, y es
+# la misma logica que `metricas.pertinencia_por_plano` ya usa para clasificar.
+MECANISMO_DE_LA_NORMA_PROCESAL = {
+    "art. 6.1 Decreto 2591 de 1991": "via_ordinaria",
+    "art. 6.2 Decreto 2591 de 1991": "habeas_corpus",
+    "art. 6.3 Decreto 2591 de 1991": "accion_popular",
+    "art. 6.4 Decreto 2591 de 1991": "via_ordinaria",
+    "art. 6.5 Decreto 2591 de 1991": "via_ordinaria",
+    "art. 42 Decreto 2591 de 1991": None,   # competencia: ningun mecanismo
+    "Ley 1437 de 2011": "via_ordinaria",
+    # `art. 8` es la tutela como mecanismo TRANSITORIO: corresponde a tutela.
+    "art. 8 Decreto 2591 de 1991": "tutela",
+}
+
+NORMAS_NO_FUNDAN_DERECHO = frozenset(MECANISMO_DE_LA_NORMA_PROCESAL)
+
+
+def depurar_citas(salida: str) -> tuple[str, list[str]]:
+    """Quita del slot del derecho las normas que no pueden fundar un derecho.
+
+    Devuelve `(salida_depurada, quitadas)`. Solo toca la linea `Derecho:` y
+    solo quita miembros de `NORMAS_NO_FUNDAN_DERECHO`, que es una lista
+    cerrada de normas PROCESALES. Si no queda ninguna cita, el parentesis
+    desaparece en vez de quedarse vacio.
+
+    Lo que NO hace, a proposito:
+
+      - no anade citas. Poner la correcta seria que el motor decidiera el
+        fundamento, y eso ya lo hacen los brazos hibrido y agente: seria otro
+        brazo, no una depuracion.
+      - no toca el resto de la salida. El mecanismo, la procedencia y la
+        pretension salen igual, asi que el `acierto_juridico` no se mueve ---
+        y esa es la comprobacion de que esto no maquilla el numero que importa.
+    """
+    lineas = salida.split("\n")
+    quitadas = []
+    for i, ln in enumerate(lineas):
+        if not ln.startswith("Derecho:"):
+            continue
+        ini, fin = ln.find("("), ln.rfind(")")
+        if ini < 0 or fin < ini:
+            break
+        dentro = ln[ini + 1:fin]
+        partes = [x.strip() for x in dentro.split(";") if x.strip()]
+        # Se quita una norma procesal SOLO si no corresponde al mecanismo
+        # que la propia salida emite. Ver la nota de
+        # `MECANISMO_DE_LA_NORMA_PROCESAL`: quitarlas todas tiraba 12 citas
+        # que el gold cuenta como correctas.
+        mec_emitido = parse_salida(salida).get("mecanismo")
+
+        def sobra(x):
+            if x not in MECANISMO_DE_LA_NORMA_PROCESAL:
+                return False
+            suyo = MECANISMO_DE_LA_NORMA_PROCESAL[x]
+            return suyo is None or suyo != mec_emitido
+
+        quedan = [x for x in partes if not sobra(x)]
+        quitadas = [x for x in partes if sobra(x)]
+        if not quitadas:
+            break
+        val = ln[len("Derecho:"):ini].strip()
+        lineas[i] = (f"Derecho: {val} ({'; '.join(quedan)})" if quedan
+                     else f"Derecho: {val}")
+        break
+    return "\n".join(lineas), quitadas
+
+
 def se_abstuvo(salida: str) -> bool:
     """¿La respuesta se abstuvo en vez de afirmar un mecanismo?
 

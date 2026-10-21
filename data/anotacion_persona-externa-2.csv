@@ -1,0 +1,68 @@
+﻿# DOBLE ANOTACION - eval set de agenteAmparo
+#
+# Lea cada relato y diligencie DOS columnas:
+#
+#   mecanismo : uno de -> tutela | accion_popular | accion_cumplimiento | habeas_corpus | via_ordinaria | no_determinable
+#   procede   : true si procede la TUTELA, false si no.
+#               Si mecanismo no es `tutela`, procede va en false.
+#               Si mecanismo es `no_determinable`, procede va en false.
+#
+# QUE SIGNIFICA `mecanismo` --- LEA ESTO, ES LA UNICA PARTE AMBIGUA
+#
+# Ponga la VIA QUE DE VERDAD CORRESPONDE al caso, no la que la persona
+# invoca o menciona. Son cosas distintas y se confunden facil:
+#
+#   Si la persona pide tutela y usted cree que la tutela NO procede
+#   porque el asunto corresponde a la justicia ordinaria, ponga
+#   `via_ordinaria` --- NO ponga `tutela` con procede=false.
+#
+#   `tutela` con procede=false se reserva para cuando la tutela ES la
+#   via correcta del caso y aun asi no procede por una causal propia
+#   (por ejemplo, dano ya consumado sobre un derecho fundamental).
+#
+# Por que se aclara: medido con la primera anotacion, los DOS unicos
+# desacuerdos de 14 venian de aqui y no de una diferencia juridica --- en
+# los dos, la nota del anotador razonaba lo mismo que la etiqueta. Un
+# desacuerdo que mide la redaccion del formulario, y no el criterio de
+# quien lee, es un desacuerdo que no sirve para nada.
+#
+# `no_determinable` es para cuando el relato NO permite decidir: faltan
+# hechos, se contradice, es una consulta academica o comercial, o pide un
+# pronostico. No es una opcion de descarte: usela cuando corresponda.
+#
+# La columna `notas` es opcional, para dejar por que dudo.
+#
+# NO consulte el eval set mientras anota. El valor de esta medicion
+# depende de que las dos lecturas sean independientes.
+#
+id,relato,mecanismo,procede,notas
+A01,"La EPS me tuvo ocho meses esperando una cirugía de rodilla. Ya me la hicieron el mes pasado y salió bien, pero yo perdí el trabajo por las incapacidades y pasé un año con dolor. Quiero poner una tutela para que me indemnicen por todo ese daño, unos cincuenta millones.",,,
+A02,Tengo dos problemas. El primero es que la EPS no me ha entregado las muestras de patología de la biopsia que me hicieron en septiembre y el oncólogo no puede decidir el tratamiento sin eso. Y el segundo es que el vecino del 302 pone reguetón hasta las tres de la mañana todos los fines de semana y ya nadie en el edificio duerme.,,,
+A07,Mi mamá murió en septiembre esperando una autorización de la EPS que nunca llegó. El médico había dicho que era urgente. Nosotros tenemos todos los papeles y queremos que se reconozca que ellos la dejaron morir y que respondan por eso.,,,
+A09,Salió una ley que dice que los hospitales públicos deben tener intérprete de lengua de señas. En mi departamento ningún hospital lo tiene. Yo soy sordo y es una violación de nuestros derechos que no cumplan la ley que ellos mismos aprobaron.,,,
+A11,"Tengo 63 años y una enfermedad terminal, los médicos me dieron entre seis y ocho meses. Pedí la pensión de invalidez y el fondo la negó diciendo que la fecha de estructuración está mal. Un proceso laboral se demora tres o cuatro años.",,,
+A12,"En 2019 a mi hijo lo echaron del colegio sin ningún proceso, injustamente. Él ya terminó el bachillerato en otro lado y está en la universidad, pero yo quiero poner la tutela ahora porque eso no se puede quedar así.",,,
+A18,"La empresa de servicios del municipio compró los medidores a cuatro veces el precio del mercado, está en la factura publicada. Eso lo vamos a pagar todos en la tarifa. Lo pusimos en conocimiento del concejo y nadie ha hecho nada.",,,
+A19,"La empresa donde trabajé me quedó debiendo tres meses de sueldo. Ya conseguí otro empleo y estoy al día con mis cosas, pero quiero que me paguen lo que me deben. La empresa sigue funcionando y tiene con qué pagar.",,,
+A23,Me despidieron de un día para otro después de seis años en la empresa. Me dieron la liquidación pero no me dijeron ninguna razón. Quiero que me reintegren porque siento que fue por haberme quejado del jefe de área.,,,
+A26,"Tengo acumuladas las vacaciones de tres años y cada vez que las pido me dicen que no hay quién me reemplace. Nunca me las han negado por escrito, simplemente las aplazan. Quiero que me las den o que me las paguen.",,,
+A33,"Me despidieron y yo tengo una discapacidad auditiva certificada. Pero la empresa pidió permiso al inspector de trabajo, el inspector lo autorizó porque hubo cierre total de la planta, y a todos los de mi turno los liquidaron igual. Yo quiero que me reintegren.",,,
+A36,"Radiqué hace cuatro días un reclamo en la central de riesgo para que corrijan mi segundo apellido, que está mal escrito. Todavía no me contestan. Quiero que un juez les ordene corregirlo ya.",,,
+A37,"Una entidad me negó un permiso. Me notificaron bien, en mi casa, y me dijeron que tenía diez días para el recurso de reposición. No lo puse porque me pareció que no iba a servir. Quiero que un juez revise la decisión.",,,
+AB53,"Me pasó algo con una entidad del Estado y quiero poner una acción. Todavía no tengo los papeles a mano y no me acuerdo bien de las fechas, pero quiero ir adelantando.",,,
+E01,"Soy paciente de VIH y llevo tres años con el mismo tratamiento. Este mes el infectólogo me cambió a un antirretroviral nuevo porque el otro ya no me está funcionando, y la EPS responde que ese no lo tiene contratado con ningún proveedor.",,,
+E04,"Tengo 71 años y nunca alcancé las semanas para pensionarme. Pedí la indemnización sustitutiva, que es la plata que uno cotizó, y Colpensiones lleva ocho meses sin resolver y ahora dice que el expediente se perdió. No tengo ingresos ni familia que me ayude.",,,
+E06,"Me cancelaron la matrícula de la universidad por un presunto fraude en un parcial. Se basaron en un informe del profesor, nunca me citaron a descargos y me notificaron por correo cuando ya estaba decidido. Iba en octavo semestre.",,,
+E08,"Estoy en quimioterapia desde enero. Mi contrato de prestación de servicios se vencía en marzo y la entidad decidió no renovarlo, aunque el equipo sigue funcionando y contrataron a otra persona en mi lugar. Si pierdo el contrato pierdo la afiliación y el tratamiento.",,,
+E09,Una empresa de curtiembres está vertiendo los desechos directamente a la quebrada que pasa por el municipio. El agua bajó de color y los peces se murieron. Somos varias veredas las que tomamos agua de ahí y la corporación ambiental no ha hecho nada.,,,
+E10,"Compré una nevera en un almacén de cadena y me llegó golpeada. Ya van tres meses de reclamos, me dicen que el proveedor tiene que revisar el caso y nadie me devuelve la plata ni me cambia el aparato. Pagué dos millones y medio.",,,
+E15,Pedí a la secretaría de tránsito que me devolvieran una plata de un comparendo que ya había sido anulado. Me contestaron que para tramitar la devolución tengo que llevar un certificado notarial de que soy yo y una póliza. Eso no lo pide ninguna norma.,,,
+E18,"Tuve a mi bebé en febrero y la EPS no me ha pagado la licencia de maternidad. Dice que mi empleador reportó tarde unos aportes. Yo soy madre cabeza de familia, no tengo salario mientras estoy en licencia y no tengo de qué vivir.",,,
+E26,"Mi esposo murió en marzo y pedí la pensión de sobrevivientes. El fondo dice que tiene dos años para decidir y que espere. Yo tengo 68 años, nunca trabajé fuera de la casa y dependía totalmente de él. Me están sosteniendo mis hijos que también están apretados.",,,
+E31,"A mi sobrino lo cogieron el viernes en la tarde en un operativo. Ya es domingo en la noche, van más de 48 horas y no lo han llevado ante ningún juez de control de garantías. En la URI dicen que el fiscal no ha llegado.",,,
+E33,"La secretaría de hacienda me liquidó el impuesto predial sobre un avalúo que está inflado, el lote mío no vale ni la mitad de eso. Metí el recurso de reconsideración, me lo negaron y ahora me están cobrando por jurisdicción coactiva.",,,
+E39,"La ley dice que todo municipio debe tener comisaría de familia. El mío no tiene y a la gente le toca irse hasta la cabecera, a dos horas. No es que a mí me hayan negado un trámite puntual: la comisaría simplemente no existe.",,,
+E40,Hay una ley que obliga a cada municipio a adoptar su plan de gestión del riesgo de desastres y a tener el consejo municipal funcionando. En el mío nunca se adoptó el plan y el consejo no se reúne desde 2019.,,,
+E46,Tengo 78 años y vivo sola. Colpensiones me dejó de pagar la mesada desde hace cuatro meses y cada vez que llamo me dicen que el expediente está en revisión. Esa mesada es lo único con lo que cuento: ya debo dos meses de arriendo y la droga para la diabetes la estoy comprando a crédito en la farmacia del barrio.,,,
+E47,"Mi hijo nació hace dos meses y pedí la licencia de paternidad. La EPS dice que el pago está radicado pero no me ha llegado nada. Me tocó pedir permiso sin sueldo en el trabajo para acompañar a mi esposa, que tuvo cesárea, y en la casa no está entrando plata desde entonces.",,,
+E64,Pedí una certificación a una entidad y me contestaron que no eran competentes y que la remitían. Eso fue hace tres meses. Nunca me dijeron a quién se la mandaron ni me llegó respuesta de nadie. Cada vez que pregunto me repiten que ya la remitieron.,,,

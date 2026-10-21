@@ -266,6 +266,79 @@ def main() -> int:
     reporte._CACHE.clear()
     reporte._FALTAN.clear()
 
+    # --- 2.1 · la cifra del titular es la BRUTA, no la ajustada ---------
+    #
+    # Es la comprobacion que esta seccion necesita y no la trae ninguna otra.
+    # 2.1 publica DOS kappas ---la bruta y la releida bajo la convencion del
+    # formulario--- y la tentacion de la seccion es titular con la segunda,
+    # que es mas alta. Si eso pasa, el informe estaria reportando como
+    # fiabilidad del gold una cifra ajustada por quien escribio el gold.
+    reporte._CACHE.clear()
+    reporte._FALTAN.clear()
+    ARTEFACTO = "data/acuerdo_anotadores_persona-externa-2.json"
+    reporte._CACHE[ARTEFACTO] = {
+        "n_anotados": 30,
+        "acuerdo_bruto_mecanismo": 0.8667, "acuerdo_bruto_procede": 0.9,
+        "kappa_mecanismo": 0.803, "kappa_procede": 0.7945,
+        "por_estrato": {
+            "juicio": {"n": 3, "acuerdo_bruto": 0.6667,
+                       "kappa": "indefinido", "desacuerdos": 1},
+            "plano": {"n": 15, "acuerdo_bruto": 0.8667,
+                      "kappa": 0.8, "desacuerdos": 2}},
+        "bajo_la_convencion_del_formulario": {
+            "acuerdo_bruto_mecanismo": 0.9333, "acuerdo_bruto_procede": 0.9333,
+            "kappa_mecanismo": 0.9021, "kappa_procede": 0.8618,
+            "desacuerdos_de_convencion": 3, "desacuerdos_juridicos": 2,
+            "nota": "la aclaracion no basto"},
+        "desacuerdos": [
+            {"id": "A09", "tipo": "juridico", "estrato": "plano",
+             "dificultad": "trampa", "categoria": "incumplimiento_norma",
+             "gold": {"mecanismo": "tutela", "procede": True},
+             "anotador_2": {"mecanismo": "accion_cumplimiento",
+                            "procede": False},
+             "nota_anotador_2": "la accion de cumplimiento hace efectiva"},
+            {"id": "A12", "tipo": "convencion", "estrato": "plano",
+             "dificultad": "trampa", "categoria": "inmediatez",
+             "gold": {"mecanismo": "via_ordinaria", "procede": False},
+             "anotador_2": {"mecanismo": "tutela", "procede": False},
+             "nota_anotador_2": "no hay afectacion actual"}],
+        "_independencia": {"independiente": True,
+                           "nota": "no participo en escribir el gold"},
+    }
+    h = "\n".join(reporte.acuerdo_entre_anotadores())
+    bajo = h.lower()
+    comprobar(h.split(chr(10))[0].count("0.803") == 1,
+              "el titular de 2.1 no lleva la kappa BRUTA (0.803)")
+    comprobar("0.9021" not in h.split(chr(10))[0],
+              "el titular de 2.1 lleva la kappa AJUSTADA, que es la que no se "
+              "puede reportar como fiabilidad del gold")
+    comprobar("0.9021" in h,
+              "2.1 esconde la cifra ajustada en vez de publicar las dos")
+    comprobar("sigue siendo la bruta" in bajo,
+              "2.1 publica las dos kappas sin decir cual es la que se reporta")
+    comprobar("indefinida" in bajo and "3 casos de `juicio` entre 109" in h,
+              "2.1 no declara que la kappa de `juicio` es indefinida por un "
+              "limite de la POBLACION y no del muestreo")
+    comprobar("a09" in bajo and "ley 393" in bajo,
+              "2.1 no explica el unico desacuerdo que coincide con el error "
+              "que la auditoria externa reporta del modelo")
+    comprobar("declaracion de procedencia" in bajo,
+              "2.1 afirma independencia sin decir que es una declaracion que "
+              "el codigo no puede verificar")
+    comprobar("no dice que el gold sea correcto" in bajo,
+              "2.1 no distingue reproducible de correcto")
+
+    # Y sin artefacto, lo dice en vez de callarse.
+    reporte._CACHE.clear()
+    reporte._FALTAN.clear()
+    reporte._CACHE[ARTEFACTO] = reporte.Ausente("inyectado por la autoprueba")
+    v = "\n".join(reporte.acuerdo_entre_anotadores()).lower()
+    comprobar("no se midio" in v,
+              "sin artefacto, 2.1 no dice que el acuerdo falta")
+    comprobar("0.803" not in v, "sin artefacto, 2.1 cita una cifra igualmente")
+    reporte._CACHE.clear()
+    reporte._FALTAN.clear()
+
     # --- 7.4 · un empate no es un solapamiento de intervalos ------------
     _j, _c, a = _texto(DISTINTOS, 0.3636, 0.8333, adv_uno=0.8333)
     comprobar("empatan" in a, "7.4 no ve el empate exacto")
@@ -296,8 +369,8 @@ def main() -> int:
 
     # --- y que no se pueda volver a escribir a mano ---------------------
     fuente = inspect.getsource(reporte.construir)
-    for sec in ("### 4.4", "### 7.1 ", "#### 7.1.1", "### 7.2", "### 7.3",
-                "### 7.4"):
+    for sec in ("### 2.1 ", "### 4.4", "### 7.1 ", "#### 7.1.1", "### 7.2",
+                "### 7.3", "### 7.4"):
         comprobar(sec not in fuente,
                   f"la cabecera {sec} volvio a estar escrita a mano en "
                   "`construir()`: ahi no se entera de que el dato cambio, que "
@@ -310,6 +383,9 @@ def main() -> int:
             print(f"    - {f}")
         print("=" * 78)
         return 1
+    print("  2.1 titula con la kappa BRUTA, publica la ajustada aparte,")
+    print("     declara el limite de poblacion de `juicio` y no confunde")
+    print("     reproducible con correcto")
     print("  7.2 sigue al artefacto en las cuatro situaciones posibles")
     print("     (familias distintas · parientes · medido sin linaje · ausente)")
     print("  7.3 sigue al F1 por clase y se retracta sola cuando deja de ser 0")
@@ -320,8 +396,8 @@ def main() -> int:
     print("  7.1 solo afirma validacion humana si el artefacto existe, y")
     print("     distingue la del JUEZ de la del GOLD (4.9/5 fue el gold)")
     print("  7.1.1 dice que subir la kappa contra el dominio NO es una mejora")
-    print("  las cabeceras de 7.1, 7.1.1, 7.2, 7.3 y 7.4 no se pueden volver")
-    print("     a escribir a mano dentro de `construir()`")
+    print("  las cabeceras de 2.1, 7.1, 7.1.1, 7.2, 7.3 y 7.4 no se pueden")
+    print("     volver a escribir a mano dentro de `construir()`")
     print()
     print("  Lo que esto NO dice: si las cifras son correctas. Comprueba que")
     print("  la PROSA siga al artefacto, no que el artefacto tenga razon.")

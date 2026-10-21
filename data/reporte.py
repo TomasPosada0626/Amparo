@@ -416,6 +416,271 @@ def pertinencia_de_las_citas() -> list[str]:
     return L
 
 
+def recall_de_clase_critica() -> list[str]:
+    """La cifra que hay que mirar antes de la accuracy.
+
+    POR QUE NO ESTABA
+
+    El reporte publicaba accuracy, macro-F1 y F1 por clase. Las tres tratan
+    los seis mecanismos como si equivocarse en cualquiera costara lo mismo, y
+    no cuesta lo mismo: decirle «vaya a la justicia ordinaria» a alguien
+    DETENIDO sin orden judicial le cierra la puerta al unico mecanismo que lo
+    amparaba. El error inverso cuesta un trámite.
+
+    Esa asimetria estaba declarada en `sistema.DEFECTO_PRO_HOMINE` y en
+    ninguna metrica. El equipo de comparacion si reporta su clase critica
+    (recall de urgentes 0.70, bajo su propia meta de 0.85).
+    """
+    # Las lee de `data/metricas_posteriores.json` y NO del scorecard de la
+    # corrida: estas metricas se escribieron despues, asi que el scorecard no
+    # las trae. Recalcularlas de las predicciones publicadas no es una
+    # corrida; meterlas dentro del artefacto de la corrida si seria falsearlo.
+    _mp = _cargar_data("metricas_posteriores.json")
+    r = ((_mp.get("brazos", {}).get("finetuned", {}) or {})
+         .get("recall_clase_critica") if isinstance(_mp, dict)
+         else Ausente("metricas_posteriores.json no esta"))
+    if r is None:
+        r = Ausente("metricas_posteriores.json no trae recall_clase_critica")
+    if isinstance(r, Ausente) or not isinstance(r, dict):
+        return ["### 4.5 · El recall de la clase critica no se midio", "",
+                "El scorecard es anterior a esta medicion. Sin ella, la "
+                "accuracy trata por igual negarle la tutela a quien la "
+                "necesitaba y sugerirsela a quien no."]
+    pc = r.get("por_clase") or {}
+    ica = r.get("ic_agregado") or {}
+    L = [f"### 4.5 · El falso negativo que cuesta: recall **{r.get('recall_agregado')}** "
+         f"en las clases criticas", ""]
+    L += ["La accuracy trata los seis mecanismos como si equivocarse en "
+          "cualquiera costara lo mismo. No cuesta lo mismo: un falso negativo "
+          "en `habeas_corpus` o en `tutela` le niega proteccion a alguien —lo "
+          "manda a la via ordinaria cuando no tenia otro medio eficaz—, y el "
+          "error inverso cuesta un trámite y un auto de rechazo.", ""]
+    filas = []
+    for c, v in pc.items():
+        if v.get("recall") is None:
+            filas.append([f"`{c}`", "—", "—", v.get("motivo", "")[:50]])
+            continue
+        ic = v.get("ic") or {}
+        filas.append([
+            f"`{c}`", f"{v['aciertos']}/{v['soporte']}",
+            f"**{v['recall']}** [{ic.get('ic_bajo')}, {ic.get('ic_alto')}]",
+            ", ".join(f"{k} ×{n}" for k, n in (v.get("a_que_fueron") or {}).items())
+            or "ninguno"])
+    L += _tabla(["clase", "aciertos", "recall (IC 95%)", "los fallos fueron a"],
+                filas)
+    L += ["",
+          f"Agregado: **{r.get('recall_agregado')}** "
+          f"[{ica.get('ic_bajo')}, {ica.get('ic_alto')}] sobre un soporte de "
+          f"{r.get('soporte_total')}.", ""]
+    # La direccion del fallo es lo que convierte la cifra en un hallazgo.
+    tut = (pc.get("tutela") or {}).get("a_que_fueron") or {}
+    hc = (pc.get("habeas_corpus") or {}).get("a_que_fueron") or {}
+    if tut.get("via_ordinaria"):
+        L += [f"**La direccion importa mas que el numero.** De los fallos en "
+              f"`tutela`, **{tut['via_ordinaria']}** fueron a `via_ordinaria`: "
+              "el sistema afirma que no hay mecanismo constitucional donde el "
+              "gold dice que si lo hay. Los "
+              f"{sum(hc.values())} de `habeas_corpus` fueron a `tutela`, que "
+              "es el error barato —otra accion constitucional, no ninguna—.", ""]
+    L += ["No entran `accion_popular` ni `accion_cumplimiento`: su falso "
+          "negativo manda a alguien a otra accion constitucional, no lo deja "
+          "sin ninguna. Ni `via_ordinaria`, cuyo falso negativo es el error "
+          "barato."]
+    return L
+
+
+def citas_depuradas() -> list[str]:
+    """La parte de la impertinencia que es un error de CATEGORIA.
+
+    Se publican las dos cifras a proposito. Solo la depurada presentaria como
+    mejora del modelo lo que es una capa de limpieza; solo la cruda le cargaria
+    al modelo un error que el formato del dataset le ensena.
+    """
+    _mp = _cargar_data("metricas_posteriores.json")
+    _ft = ((_mp.get("brazos", {}) or {}).get("finetuned", {}) or {}
+           ) if isinstance(_mp, dict) else {}
+    dep = _ft.get("pertinencia_citas_depurada") or Ausente("sin depurada")
+    cruda = _ft.get("pertinencia_citas") or Ausente("sin cruda")
+    if (isinstance(dep, Ausente) or not isinstance(dep, dict)
+            or not isinstance(cruda, dict)):
+        return []
+    L = ["#### 4.4.1 · Cuanta impertinencia es un error de categoria", ""]
+    L += ["Una parte de las citas impertinentes no es discutible: es la causal "
+          "de un mecanismo citada en un caso de **otro** mecanismo —el art. "
+          "6.1, que es *subsidiariedad*, sobre una tutela que procede—. "
+          "Ningun numeral del art. 6 dice que derecho esta en juego, asi que "
+          "esa cita no puede ser correcta en ninguna lectura.", ""]
+    L += _tabla(["", "citas", "impertinentes", "precision", "recall"], [
+        ["tal como responde", cruda.get("citas_emitidas"),
+         cruda.get("impertinentes"), f"{cruda.get('precision_citas'):.4f}",
+         f"{cruda.get('recall_citas'):.4f}"],
+        ["depurando esas citas", dep.get("citas_emitidas"),
+         dep.get("impertinentes"), f"**{dep.get('precision_citas'):.4f}**",
+         f"{dep.get('recall_citas'):.4f}"],
+    ])
+    L += ["",
+          f"La capa quita **{dep.get('citas_quitadas')}** citas y "
+          "**no pierde ninguna correcta**: el recall no se mueve. Tampoco se "
+          "mueve `acierto_juridico`, y esa es la comprobacion de que no "
+          "maquilla la cifra que importa —la prueba 72 la fija—.", ""]
+    L += ["**La capa solo quita.** Poner la cita correcta seria que el motor "
+          "decidiera el fundamento, y eso ya lo hacen los brazos hibrido y "
+          "agente: seria otro brazo, no una depuracion. Y **no se quita la "
+          "causal que si corresponde** al mecanismo emitido: el gold tiene un "
+          "solo slot de fundamento, asi que para un caso de `via_ordinaria` "
+          "el art. 6.1 es lo que pide. Una primera version quitaba todas las "
+          "procesales y tiraba 12 citas correctas —el recall bajaba de 0.4135 "
+          "a 0.3629—.", ""]
+    L += ["El arreglo de raiz no es esta capa: es separar "
+          "`fundamento_del_derecho` de `fundamento_del_mecanismo` en la "
+          "salida, porque **59 de 123** ejemplos de entrenamiento ensenan a "
+          "fusionarlos. Eso exige reentrenar; la capa es lo que se puede hacer "
+          "sin ello."]
+    return L
+
+
+def acuerdo_entre_anotadores() -> list[str]:
+    """Si otra persona reproduce el gold, y donde no.
+
+    POR QUE ESTA SECCION EXISTE
+
+    El resto del informe mide el sistema CONTRA el gold. Ninguna de esas
+    cifras dice nada si el gold no es reproducible: un acierto del 87% sobre
+    etiquetas que otro jurista no habria puesto mide concordancia con una
+    opinion, no con el derecho. Esta es la unica seccion que mira la vara.
+
+    Y la kappa que se reporta es la BRUTA, con sus dos estratos escasos y su
+    desacuerdo mas incomodo incluido.
+    """
+    a = _cargar_data("acuerdo_anotadores_persona-externa-2.json")
+    if isinstance(a, Ausente):
+        return ["### 2.1 · El acuerdo entre anotadores no se midio", "",
+                "Sin esta medicion, el resto del informe compara el sistema "
+                "con una etiqueta de la que no se sabe si otra persona la "
+                "habria puesto. Se produce con "
+                "`python -I data/doble_anotacion.py --medir --anotador ...`."]
+    ind = a.get("_independencia") or {}
+    pe = a.get("por_estrato") or {}
+    cv = a.get("bajo_la_convencion_del_formulario") or {}
+    _CITAS.append(("data/acuerdo_anotadores_persona-externa-2.json",
+                   "kappa_mecanismo", repr(a.get("kappa_mecanismo"))))
+
+    L = [f"### 2.1 · Otra persona reproduce el gold: kappa "
+         f"**{a.get('kappa_mecanismo')}** sobre {a.get('n_anotados')} casos", ""]
+    L += ["Una persona que no escribio el gold anoto una muestra "
+          f"estratificada de **{a.get('n_anotados')}** casos del eval set "
+          "vigente, a ciegas: el formulario que recibio no lleva la etiqueta, "
+          "ni la categoria, ni la razon, ni la marca de trampa —lo fija la "
+          "prueba 24 de la suite, que genera un formulario limpio y busca "
+          "cada uno de esos campos en las filas—.", ""]
+    L += _tabla(["", "acuerdo bruto", "kappa"], [
+        ["mecanismo (6 categorias)", _pct(a.get("acuerdo_bruto_mecanismo")),
+         f"**{a.get('kappa_mecanismo')}**"],
+        ["procedencia (si/no)", _pct(a.get("acuerdo_bruto_procede")),
+         f"**{a.get('kappa_procede')}**"],
+    ])
+    L += ["",
+          "En la escala habitual de Landis y Koch, 0.61–0.80 es *substantial* "
+          "y 0.81–1.00 *almost perfect*: la cifra cae justo en la frontera. "
+          "No se redondea hacia arriba.", ""]
+
+    # POR ESTRATO, que es la pregunta que de verdad importa.
+    L += ["**Donde esta el desacuerdo.** Es la pregunta util: un gold fiable "
+          "donde los hechos se leen y discutible donde hubo que ponderar es un "
+          "resultado esperable y manejable; desacuerdo en `plano` seria un "
+          "problema de los relatos.", ""]
+    L += _tabla(["estrato", "n", "acuerdo", "kappa", "desacuerdos"],
+                [[f"`{e}`", v.get("n"), _pct(v.get("acuerdo_bruto")),
+                  v.get("kappa"), v.get("desacuerdos")]
+                 for e, v in pe.items()])
+    ju = pe.get("juicio") or {}
+    if ju.get("kappa") == "indefinido":
+        L += ["",
+              f"La kappa de `juicio` sale **indefinida** con n={ju.get('n')}: "
+              "los dos anotadores usaron una sola categoria, y la kappa "
+              "entonces vale 0.0 por mecanica y no distingue acuerdo de "
+              "desacuerdo. **Y no se arregla anotando mas**: el eval set "
+              "vigente tiene **3 casos de `juicio` entre 109** --- y tenia los "
+              "mismos 3 en v1 (46) y en v2 (69) ---, asi que la cuota del "
+              "muestreo ya los toma todos. Ampliar ese estrato exigiria tocar "
+              "el eval set, que es el puente de comparacion congelado byte a "
+              "byte de doce corridas. Es un limite de la POBLACION, no del "
+              "procedimiento, y es la razon por la que esta medicion no cierra "
+              "del todo la fiabilidad del gold.", ""]
+
+    # LA DESCOMPOSICION. Dos cosas distintas dentro de la misma cifra.
+    if cv:
+        L += [f"#### 2.1.1 · De los {len(a.get('desacuerdos') or [])} "
+              f"desacuerdos, {cv.get('desacuerdos_juridicos')} son juridicos",
+              ""]
+        L += ["La kappa bruta mide a la vez dos cosas que no son la misma: si "
+              "dos juristas leen el mismo caso igual, y si quien anota siguio "
+              "una regla de codificacion del formulario. Solo la primera dice "
+              "algo del gold.", ""]
+        L += [f"**{cv.get('desacuerdos_de_convencion')} de los desacuerdos "
+              "tienen la nota del anotador razonando lo mismo que la "
+              "etiqueta** y difieren solo en la casilla: pusieron `tutela` con "
+              "procede=false donde el formulario pide la via alternativa, o "
+              "marcaron procede=true sobre un mecanismo que no es la tutela. "
+              "Releida con las dos reglas que el formulario enuncia "
+              "—mecanicamente, aplicadas a las 30 filas antes de comparar con "
+              "el gold—:", ""]
+        L += _tabla(["", "acuerdo", "kappa"], [
+            ["mecanismo", _pct(cv.get("acuerdo_bruto_mecanismo")),
+             cv.get("kappa_mecanismo")],
+            ["procedencia", _pct(cv.get("acuerdo_bruto_procede")),
+             cv.get("kappa_procede")],
+        ])
+        L += ["",
+              "**La cifra que se reporta sigue siendo la bruta.** Esta segunda "
+              "no se publica como la fiabilidad del gold: se publica porque "
+              "sin ella la bruta no se puede interpretar. Lo que la hace "
+              "defendible es que las dos reglas estan escritas en el "
+              "formulario que recibio quien anoto —no se eligieron viendo los "
+              "numeros— y que la normalizacion es ciega al gold.", ""]
+        if cv.get("nota"):
+            L += [f"Y el propio fallo es un resultado: {cv['nota']}", ""]
+
+    # LOS DESACUERDOS JURIDICOS, uno por uno.
+    jur = [x for x in (a.get("desacuerdos") or [])
+           if x.get("tipo") == "juridico"]
+    if jur:
+        L += ["#### 2.1.2 · Los desacuerdos que si son de criterio", ""]
+        L += _tabla(["caso", "estrato", "gold", "anotador", "lo que argumenta"],
+                    [[f"`{x['id']}` ({x.get('dificultad')})", f"`{x['estrato']}`",
+                      f"`{x['gold']['mecanismo']}`",
+                      f"`{x['anotador_2']['mecanismo']}`",
+                      (x.get("nota_anotador_2") or "")[:150]] for x in jur])
+        L += ["",
+              "Los dos caen donde el eval set dice que caerian: uno es un caso "
+              "marcado `trampa` y el otro `frontera`. **Ninguno esta en "
+              "`rutinario`**, que es la comprobacion que importa —si otra "
+              "persona discutiera los casos faciles, el gold estaria mal "
+              "escrito, no solo discutible—.", ""]
+        if any(x["id"] == "A09" for x in jur):
+            L += ["Y `A09` merece una linea aparte: el anotador eligio "
+                  "`accion_cumplimiento` sobre un incumplimiento normativo que "
+                  "afecta a un sujeto de especial proteccion, que es "
+                  "**exactamente el error que la auditoria externa reporta "
+                  "del modelo**. El art. 9 de la Ley 393 excluye la accion de "
+                  "cumplimiento cuando el derecho se puede proteger por "
+                  "tutela, y la trampa esta construida sobre esa regla. Que "
+                  "atrape tambien a un jurista humano cambia la lectura del "
+                  "fallo del modelo en esa familia: no mide un dataset roto, "
+                  "mide una frontera que de verdad es dificil.", ""]
+
+    L += [f"**Lo que esta cifra no dice.** No dice que el gold sea correcto: "
+          "dice que es reproducible. Dos personas pueden coincidir y "
+          "equivocarse. Tampoco es la fiabilidad del eval set completo —la "
+          "muestra sobrerrepresenta los estratos difíciles a proposito, asi "
+          "que la kappa global esta sesgada A LA BAJA respecto del conjunto—. "
+          f"Y la independencia es una **declaracion de procedencia**: el "
+          f"artefacto la registra (*{(ind.get('nota') or '')[:90]}*) y el "
+          "codigo no puede verificarla; la prueba 33 solo exige que este "
+          "firmada antes de que salga una cifra."]
+    return L
+
+
 def juez_vs_humano() -> list[str]:
     """7.1 · el juez contra un criterio humano independiente.
 
@@ -878,6 +1143,10 @@ def construir() -> list[str]:
           "los mismos cinco puestos.")
         a("")
 
+    for _linea in acuerdo_entre_anotadores():
+        a(_linea)
+    a("")
+
     # ---- 3 · M1 ---------------------------------------------------------
     a("## 3 · M1 · el sistema afinado")
     a("")
@@ -1146,6 +1415,12 @@ def construir() -> list[str]:
     a("")
 
     for _linea in pertinencia_de_las_citas():
+        a(_linea)
+    a("")
+    for _linea in citas_depuradas():
+        a(_linea)
+    a("")
+    for _linea in recall_de_clase_critica():
         a(_linea)
     a("")
 

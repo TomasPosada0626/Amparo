@@ -1,0 +1,908 @@
+{
+ "_que_es": "casos de entrenamiento PROPUESTOS para la proxima corrida. Todavia NO estan en `dataset.json`.",
+ "_como_incorporarlos": "anadir `ejemplos` a `dataset.json`, recalcular el meta con `data/reparar_meta.py --escribir`, y volver a correr el pipeline de constructores COMPLETO para que `construir_eval_v2.py` converja --- lee el dataset. Despues reentrenar.",
+ "_procedencia": "redactados por el asistente con autorizacion expresa del profesor, porque el abogado del proyecto no tuvo tiempo. NO equivalen a `revision_abogado_v3.json`, donde un abogado reviso 40 casos y firmo 40/40. Lo que SI garantiza el motor: `decidir(hechos).mecanismo` coincide con el mecanismo declarado en los 20 casos juzgables, o no habrian entrado.",
+ "_que_fronteras_ataca": {
+  "abstencion_vs_via_ordinaria": "6 pares. El modelo se abstenia en 9 casos CON respuesta, 8 de ellos con gold `via_ordinaria`. Los relatos de las dos clases en el train compartian los marcadores de superficie --- 12 puntos porcentuales de diferencia media ---, asi que la frontera no era aprendible. Cada par se parece por fuera y difiere en si hay un problema juridico accionable.",
+  "tutela_vs_via_ordinaria": "4 pares. 10 de los 13 fallos del recall de clase critica van de tutela a via_ordinaria. Cada par mantiene el escenario y cambia solo el criterio del art. 6.1 leido EN CONCRETO: si el otro medio es eficaz para ESA persona, atendiendo su edad, su salud y su urgencia.",
+  "cobertura_de_citas": "3 casos. El eval pide la Ley 1581 de 2012 (datos sensibles) y la Ley 2157 de 2021 (caducidad del dato negativo), y el train ensenaba SOLO la Ley 1266 de 2008 (dato crediticio). Los tres CONTRASTAN los tres regimenes en vez de anadir volumen: el modelo no puede acertar una norma que nunca vio."
+ },
+ "n": 23,
+ "ejemplos": [
+  {
+   "id": "PM01",
+   "split": "train",
+   "categoria": "pm_deuda_civil",
+   "relato": "Le presté veinte millones a un socio y firmamos un pagaré con fecha de vencimiento en marzo. No me ha pagado nada y ya le escribí dos veces. Quiero que me devuelva la plata.",
+   "derecho": "ninguno",
+   "fundamento": "",
+   "accionado": "el socio deudor",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "hay un título ejecutivo y la jurisdicción civil es el medio idóneo y oportuno para cobrarlo; no se alega la vulneración de un derecho fundamental",
+   "pretension": "acudir al juez civil para iniciar el proceso ejecutivo con el pagaré como título",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_derivado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false,
+    "afectacion_individual": false,
+    "continua_vulneracion": true
+   },
+   "regla_que_cierra": "subsidiariedad",
+   "estrato_verificacion": "derivado",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ]
+  },
+  {
+   "id": "PM02",
+   "split": "train",
+   "categoria": "pm_deuda_sin_hechos",
+   "relato": "Le presté plata a un socio y no me ha pagado. Todavía no tengo el pagaré a mano y no me acuerdo bien de las fechas ni de cuánto fue exactamente, pero quiero ir adelantando.",
+   "derecho": "no_determinable",
+   "fundamento": "",
+   "accionado": "no aplica",
+   "mecanismo": null,
+   "procede": false,
+   "razon": "el propio relato dice que no se tienen los hechos: sin monto, sin fecha y sin el título no hay nada que un juez pueda resolver todavía",
+   "pretension": "no aplica",
+   "tipo": "abstencion",
+   "verificado_con_reglas": false,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "redaccion_del_asistente",
+   "fiabilidad_etiqueta": "sin_verificacion_del_motor",
+   "nivel_fiabilidad": 1,
+   "por_que_no_se_verifica": "un caso de abstención no tiene hechos que codificar: su etiqueta afirma que no hay nada que decidir, así que el motor no puede confirmarla. Es el mismo tratamiento que los 18 de abstención que ya estaban."
+  },
+  {
+   "id": "PM03",
+   "split": "train",
+   "categoria": "pm_despido_ordinario",
+   "relato": "Me despidieron sin justa causa después de cuatro años. Tengo 38 años, estoy sano y ya encontré otro trabajo, pero quiero que me paguen la indemnización que me corresponde.",
+   "derecho": "trabajo",
+   "fundamento": "art. 25 CP",
+   "accionado": "el empleador",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la jurisdicción laboral es idónea y oportuna para la indemnización, y no concurre perjuicio irremediable: hay ingresos y no hay riesgo para la subsistencia",
+   "pretension": "demandar ante el juez laboral el pago de la indemnización por despido sin justa causa",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [
+    "art. 25 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_derivado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false,
+    "afectacion_individual": false,
+    "continua_vulneracion": false
+   },
+   "regla_que_cierra": "subsidiariedad",
+   "estrato_verificacion": "derivado",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ]
+  },
+  {
+   "id": "PM04",
+   "split": "train",
+   "categoria": "pm_despido_pronostico",
+   "relato": "Me despidieron el mes pasado. Lo que quiero saber es si la empresa va a terminar pagándome o si se va a hacer la loca, y qué tan probable es que yo gane si demando.",
+   "derecho": "no_determinable",
+   "fundamento": "",
+   "accionado": "no aplica",
+   "mecanismo": null,
+   "procede": false,
+   "razon": "lo que se pide es un pronóstico sobre la conducta de un tercero y sobre el resultado de un proceso, no el triaje de una situación propia",
+   "pretension": "no aplica",
+   "tipo": "abstencion",
+   "verificado_con_reglas": false,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "redaccion_del_asistente",
+   "fiabilidad_etiqueta": "sin_verificacion_del_motor",
+   "nivel_fiabilidad": 1,
+   "por_que_no_se_verifica": "un caso de abstención no tiene hechos que codificar: su etiqueta afirma que no hay nada que decidir, así que el motor no puede confirmarla. Es el mismo tratamiento que los 18 de abstención que ya estaban."
+  },
+  {
+   "id": "PM05",
+   "split": "train",
+   "categoria": "pm_arriendo_restitucion",
+   "relato": "Tengo un local arrendado y el inquilino lleva cinco meses sin pagar. El contrato está firmado y vencido desde junio. Quiero que me devuelvan el local.",
+   "derecho": "ninguno",
+   "fundamento": "",
+   "accionado": "el arrendatario",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "existe el proceso de restitución como medio idóneo y oportuno; no hay derecho fundamental del solicitante en juego",
+   "pretension": "promover el proceso de restitución de inmueble arrendado ante el juez civil",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_derivado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false,
+    "afectacion_individual": false,
+    "continua_vulneracion": true
+   },
+   "regla_que_cierra": "subsidiariedad",
+   "estrato_verificacion": "derivado",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ]
+  },
+  {
+   "id": "PM06",
+   "split": "train",
+   "categoria": "pm_arriendo_consulta",
+   "relato": "Estoy pensando en arrendar un local y quiero saber qué me conviene más, firmar a un año o a tres, y cómo me protejo mejor si el inquilino no paga.",
+   "derecho": "no_determinable",
+   "fundamento": "",
+   "accionado": "no aplica",
+   "mecanismo": null,
+   "procede": false,
+   "razon": "es una consulta de negocio sobre una situación futura: no hay accionado, no hay hecho ocurrido y no hay orden que pedir",
+   "pretension": "no aplica",
+   "tipo": "abstencion",
+   "verificado_con_reglas": false,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "redaccion_del_asistente",
+   "fiabilidad_etiqueta": "sin_verificacion_del_motor",
+   "nivel_fiabilidad": 1,
+   "por_que_no_se_verifica": "un caso de abstención no tiene hechos que codificar: su etiqueta afirma que no hay nada que decidir, así que el motor no puede confirmarla. Es el mismo tratamiento que los 18 de abstención que ya estaban."
+  },
+  {
+   "id": "PM07",
+   "split": "train",
+   "categoria": "pm_transito_perjuicios",
+   "relato": "Un bus me chocó el carro en noviembre. El conductor aceptó la culpa en el croquis y la empresa no me responde por los arreglos, que fueron ocho millones. Quiero que me paguen.",
+   "derecho": "ninguno",
+   "fundamento": "",
+   "accionado": "la empresa de transporte",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la acción de responsabilidad civil es el medio idóneo para los perjuicios materiales, y no se alega afectación de un derecho fundamental",
+   "pretension": "demandar la reparación de perjuicios ante el juez civil",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_derivado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false,
+    "afectacion_individual": false,
+    "continua_vulneracion": false
+   },
+   "regla_que_cierra": "subsidiariedad",
+   "estrato_verificacion": "derivado",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ]
+  },
+  {
+   "id": "PM08",
+   "split": "train",
+   "categoria": "pm_transito_contradictorio",
+   "relato": "Un bus me chocó y la empresa nunca me ha respondido nada. La carta en que me negaron el pago me llegó en octubre y no la contesté porque ya me habían pagado todo.",
+   "derecho": "no_determinable",
+   "fundamento": "",
+   "accionado": "no aplica",
+   "mecanismo": null,
+   "procede": false,
+   "razon": "el relato afirma a la vez que nunca hubo respuesta, que hubo una negativa escrita y que ya le pagaron: tres hechos esenciales que no pueden ser ciertos al mismo tiempo",
+   "pretension": "no aplica",
+   "tipo": "abstencion",
+   "verificado_con_reglas": false,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "redaccion_del_asistente",
+   "fiabilidad_etiqueta": "sin_verificacion_del_motor",
+   "nivel_fiabilidad": 1,
+   "por_que_no_se_verifica": "un caso de abstención no tiene hechos que codificar: su etiqueta afirma que no hay nada que decidir, así que el motor no puede confirmarla. Es el mismo tratamiento que los 18 de abstención que ya estaban."
+  },
+  {
+   "id": "PM09",
+   "split": "train",
+   "categoria": "pm_predial_contencioso",
+   "relato": "La secretaría de hacienda me liquidó el predial sobre un área mayor de la que tiene el lote. Me notificaron en agosto, presenté el recurso de reconsideración y me lo negaron. Tengo 50 años y un negocio estable.",
+   "derecho": "debido_proceso",
+   "fundamento": "art. 29 CP",
+   "accionado": "Secretaría de Hacienda municipal",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "agotada la vía gubernativa, el medio de control de nulidad y restablecimiento del derecho es idóneo y oportuno; no concurre perjuicio irremediable",
+   "pretension": "demandar la nulidad del acto de liquidación ante la jurisdicción de lo contencioso administrativo",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [
+    "art. 29 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_derivado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false,
+    "afectacion_individual": false,
+    "continua_vulneracion": true
+   },
+   "regla_que_cierra": "subsidiariedad",
+   "estrato_verificacion": "derivado",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ]
+  },
+  {
+   "id": "PM10",
+   "split": "train",
+   "categoria": "pm_predial_academica",
+   "relato": "Estoy preparando el examen de la especialización y necesito que me explique la diferencia entre el recurso de reconsideración y el medio de control de nulidad, con ejemplos de predial.",
+   "derecho": "no_determinable",
+   "fundamento": "",
+   "accionado": "no aplica",
+   "mecanismo": null,
+   "procede": false,
+   "razon": "se pide una explicación de doctrina para un examen, no el triaje de un caso propio",
+   "pretension": "no aplica",
+   "tipo": "abstencion",
+   "verificado_con_reglas": false,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "redaccion_del_asistente",
+   "fiabilidad_etiqueta": "sin_verificacion_del_motor",
+   "nivel_fiabilidad": 1,
+   "por_que_no_se_verifica": "un caso de abstención no tiene hechos que codificar: su etiqueta afirma que no hay nada que decidir, así que el motor no puede confirmarla. Es el mismo tratamiento que los 18 de abstención que ya estaban."
+  },
+  {
+   "id": "PM11",
+   "split": "train",
+   "categoria": "pm_servicios_reclamo",
+   "relato": "La empresa de energía me cobró el triple en el recibo de septiembre. Puse el reclamo, me lo negaron y la Superintendencia confirmó la negativa. Tengo 41 años y trabajo formal.",
+   "derecho": "ninguno",
+   "fundamento": "",
+   "accionado": "la empresa de energía",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la vía contenciosa es idónea y oportuna tras el silencio administrativo resuelto, y no hay riesgo para la subsistencia que habilite la tutela",
+   "pretension": "demandar ante la jurisdicción contenciosa el acto que resolvió el recurso",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_derivado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false,
+    "afectacion_individual": false,
+    "continua_vulneracion": true
+   },
+   "regla_que_cierra": "subsidiariedad",
+   "estrato_verificacion": "derivado",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ]
+  },
+  {
+   "id": "PM12",
+   "split": "train",
+   "categoria": "pm_societario_materia_ajena",
+   "relato": "Somos tres socios de una SAS y uno quiere vender su parte a un tercero. Queremos saber cómo se hace eso, si hay derecho de preferencia y qué plazos corren para los demás socios.",
+   "derecho": "no_determinable",
+   "fundamento": "",
+   "accionado": "no aplica",
+   "mecanismo": null,
+   "procede": false,
+   "razon": "se pide información societaria sobre procedimiento y plazos, no el triaje de una afectación a un derecho fundamental del solicitante",
+   "pretension": "no aplica",
+   "tipo": "abstencion",
+   "verificado_con_reglas": false,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [],
+   "fundamento_del_mecanismo": [],
+   "origen_etiqueta": "redaccion_del_asistente",
+   "fiabilidad_etiqueta": "sin_verificacion_del_motor",
+   "nivel_fiabilidad": 1,
+   "por_que_no_se_verifica": "un caso de abstención no tiene hechos que codificar: su etiqueta afirma que no hay nada que decidir, así que el motor no puede confirmarla. Es el mismo tratamiento que los 18 de abstención que ya estaban."
+  },
+  {
+   "id": "PM13",
+   "split": "train",
+   "categoria": "pm_pension_medio_sirve",
+   "relato": "Mi esposo murió en enero y pedí la pensión de sobrevivientes. El fondo me la negó porque dice que faltan semanas. Tengo 44 años, trabajo como contadora y no dependo de ese ingreso.",
+   "derecho": "seguridad_social",
+   "fundamento": "art. 48 CP",
+   "accionado": "Fondo de pensiones",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "la jurisdicción laboral es idónea y oportuna para esta persona: tiene ingresos propios, no es sujeto de especial protección y la espera del proceso no hace inútil la protección",
+   "pretension": "demandar ante el juez laboral el reconocimiento de la pensión de sobrevivientes",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [
+    "art. 48 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_derivado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false,
+    "afectacion_individual": true,
+    "continua_vulneracion": true
+   },
+   "regla_que_cierra": "subsidiariedad",
+   "estrato_verificacion": "derivado",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ]
+  },
+  {
+   "id": "PM14",
+   "split": "train",
+   "categoria": "pm_pension_medio_no_sirve",
+   "relato": "Mi esposo murió en enero y pedí la pensión de sobrevivientes. El fondo me la negó porque dice que faltan semanas. Tengo 79 años, no tengo ingresos, vivo de lo que me dan mis vecinos y estoy en tratamiento por un cáncer.",
+   "derecho": "seguridad_social",
+   "fundamento": "art. 48 CP",
+   "accionado": "Fondo de pensiones",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "el proceso laboral existe pero no es eficaz en concreto: a los 79 años, sin ingresos y con enfermedad en curso, la espera haría inútil la protección y concurren los cuatro elementos del perjuicio irremediable",
+   "pretension": "amparar el mínimo vital y ordenar el reconocimiento de la pensión de sobrevivientes",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [
+    "art. 48 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP",
+    "art. 8 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP",
+    "art. 8 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": false,
+    "me_idoneo": true,
+    "me_oportuno": false,
+    "me_accesible": true,
+    "perjuicio_irremediable": true,
+    "pi_inminencia": true,
+    "pi_gravedad": true,
+    "pi_urgencia": true,
+    "pi_impostergabilidad": true,
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true
+   },
+   "regla_que_cierra": "tutela_transitoria",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": []
+  },
+  {
+   "id": "PM15",
+   "split": "train",
+   "categoria": "pm_reintegro_medio_sirve",
+   "relato": "Me despidieron hace dos meses y creo que fue por haberme afiliado al sindicato. Tengo 35 años, buena salud y estoy trabajando por contrato en otra parte.",
+   "derecho": "trabajo",
+   "fundamento": "art. 25 CP",
+   "accionado": "el antiguo empleador",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el proceso laboral ordinario es idóneo y oportuno para discutir el despido, y no se acredita perjuicio irremediable",
+   "pretension": "demandar el reintegro ante el juez laboral",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [
+    "art. 25 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_derivado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false,
+    "afectacion_individual": true,
+    "continua_vulneracion": false
+   },
+   "regla_que_cierra": "subsidiariedad",
+   "estrato_verificacion": "derivado",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ]
+  },
+  {
+   "id": "PM16",
+   "split": "train",
+   "categoria": "pm_reintegro_medio_no_sirve",
+   "relato": "Me despidieron hace dos meses, estando yo en tratamiento de quimioterapia y con la EPS afiliada por la empresa. Al salir perdí el servicio y el oncólogo dice que no puedo interrumpir los ciclos. No tengo otra forma de pagarlos.",
+   "derecho": "estabilidad_laboral_reforzada",
+   "fundamento": "art. 13 CP",
+   "accionado": "el antiguo empleador",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "el proceso laboral no es oportuno frente a un tratamiento que no admite interrupción: concurren inminencia, gravedad, urgencia e impostergabilidad, y hay debilidad manifiesta",
+   "pretension": "amparar la estabilidad laboral reforzada y ordenar el reintegro con la afiliación al sistema de salud",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [
+    "art. 13 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP",
+    "art. 8 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP",
+    "art. 8 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": false,
+    "me_idoneo": true,
+    "me_oportuno": false,
+    "me_accesible": true,
+    "perjuicio_irremediable": true,
+    "pi_inminencia": true,
+    "pi_gravedad": true,
+    "pi_urgencia": true,
+    "pi_impostergabilidad": true,
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true
+   },
+   "regla_que_cierra": "tutela_transitoria",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": []
+  },
+  {
+   "id": "PM17",
+   "split": "train",
+   "categoria": "pm_educacion_medio_sirve",
+   "relato": "A mi hijo de 16 años le negaron el traslado al colegio que queda más cerca de la casa porque no había cupo. Sigue estudiando en el que estaba, a veinte minutos en bus.",
+   "derecho": "educacion",
+   "fundamento": "art. 67 CP",
+   "accionado": "Secretaría de Educación",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "el menor conserva el servicio educativo y la negativa no interrumpe su derecho: la vía contenciosa es idónea y no hay perjuicio irremediable",
+   "pretension": "demandar ante la jurisdicción contenciosa la negativa del traslado",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [
+    "art. 67 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_derivado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false,
+    "afectacion_individual": true,
+    "continua_vulneracion": false
+   },
+   "regla_que_cierra": "subsidiariedad",
+   "estrato_verificacion": "derivado",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ]
+  },
+  {
+   "id": "PM18",
+   "split": "train",
+   "categoria": "pm_educacion_medio_no_sirve",
+   "relato": "Nos desplazamos del campo por amenazas y llegamos en febrero. Mi hija de 8 años no ha podido entrar a ningún colegio porque dicen que el año ya empezó y no hay cupo. Lleva dos meses sin estudiar.",
+   "derecho": "educacion",
+   "fundamento": "art. 67 CP",
+   "accionado": "Secretaría de Educación",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "hay interrupción actual del servicio educativo de una menor en situación de desplazamiento: ningún medio ordinario resuelve en el tiempo del año escolar y concurren los cuatro elementos del perjuicio irremediable",
+   "pretension": "amparar el derecho a la educación y ordenar la asignación inmediata de cupo escolar",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [
+    "art. 67 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP",
+    "art. 8 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP",
+    "art. 8 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": false,
+    "me_idoneo": true,
+    "me_oportuno": false,
+    "me_accesible": true,
+    "perjuicio_irremediable": true,
+    "pi_inminencia": true,
+    "pi_gravedad": true,
+    "pi_urgencia": true,
+    "pi_impostergabilidad": true,
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true
+   },
+   "regla_que_cierra": "tutela_transitoria",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": []
+  },
+  {
+   "id": "PM19",
+   "split": "train",
+   "categoria": "pm_incapacidad_medio_sirve",
+   "relato": "La EPS me debe dos incapacidades de hace tres meses. Son ochocientos mil pesos en total. Tengo 33 años, sigo trabajando y recibo mi sueldo normal.",
+   "derecho": "seguridad_social",
+   "fundamento": "art. 48 CP",
+   "accionado": "EPS",
+   "mecanismo": "via_ordinaria",
+   "procede": false,
+   "razon": "hay un medio laboral idóneo y oportuno y el salario cubre la subsistencia: no concurre perjuicio irremediable",
+   "pretension": "reclamar el pago de las incapacidades ante el juez laboral",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [
+    "art. 48 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_derivado",
+   "nivel_fiabilidad": 3,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 6.1 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": true,
+    "me_idoneo": true,
+    "me_oportuno": true,
+    "me_accesible": true,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false,
+    "afectacion_individual": true,
+    "continua_vulneracion": true
+   },
+   "regla_que_cierra": "subsidiariedad",
+   "estrato_verificacion": "derivado",
+   "etiqueta_pivota_en": [
+    "medio_eficaz"
+   ]
+  },
+  {
+   "id": "PM20",
+   "split": "train",
+   "categoria": "pm_incapacidad_medio_no_sirve",
+   "relato": "Llevo siete meses incapacitado por un accidente y la EPS no me ha pagado ninguna incapacidad. Es mi único ingreso, vivo con mis dos hijos menores y ya me atrasé dos meses del arriendo.",
+   "derecho": "minimo_vital",
+   "fundamento": "art. 53 CP",
+   "accionado": "EPS",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "siete meses sin el único ingreso, con menores a cargo, hacen que el proceso laboral no sea oportuno: concurren los cuatro elementos del perjuicio irremediable",
+   "pretension": "amparar el mínimo vital y ordenar el pago de las incapacidades causadas",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [
+    "art. 53 CP"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP",
+    "art. 8 Decreto 2591 de 1991"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP",
+    "art. 8 Decreto 2591 de 1991"
+   ],
+   "hechos": {
+    "otro_medio_judicial": true,
+    "medio_eficaz": false,
+    "me_idoneo": true,
+    "me_oportuno": false,
+    "me_accesible": true,
+    "perjuicio_irremediable": true,
+    "pi_inminencia": true,
+    "pi_gravedad": true,
+    "pi_urgencia": true,
+    "pi_impostergabilidad": true,
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "sujeto_especial_proteccion": true
+   },
+   "regla_que_cierra": "tutela_transitoria",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": []
+  },
+  {
+   "id": "PM21",
+   "split": "train",
+   "categoria": "pm_hd_credito_1266",
+   "relato": "Aparezco reportado en una central de riesgo por una deuda de tarjeta que pagué hace dos años. Llevo tres meses pidiéndole al banco que actualice el dato y no lo hace, y por eso me negaron un crédito de vivienda.",
+   "derecho": "habeas_data",
+   "fundamento": "art. 15 CP; Ley 1266 de 2008",
+   "accionado": "el banco y la central de riesgo",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "el dato financiero es inexacto y sigue publicado: no existe otro medio judicial idóneo para la corrección y la vulneración continúa",
+   "pretension": "amparar el habeas data y ordenar la actualización del reporte negativo",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [
+    "art. 15 CP",
+    "Ley 1266 de 2008"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ],
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "otro_medio_judicial": false,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "regla_que_cierra": "tutela",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": []
+  },
+  {
+   "id": "PM22",
+   "split": "train",
+   "categoria": "pm_hd_sensible_1581",
+   "relato": "En la empresa donde me postulé me pidieron el examen y después le mandaron mi diagnóstico de VIH al jefe del área y a dos compañeros. Nunca autoricé que compartieran eso y sigue circulando por el chat del equipo.",
+   "derecho": "habeas_data",
+   "fundamento": "art. 15 CP; Ley 1581 de 2012",
+   "accionado": "la empresa y el área de recursos humanos",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "se trata de un dato sensible de salud divulgado sin autorización, cuyo tratamiento la ley prohíbe salvo excepciones; la divulgación continúa y no hay otro medio judicial idóneo",
+   "pretension": "amparar el habeas data y ordenar la supresión del dato sensible y el cese de su circulación",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [
+    "art. 15 CP",
+    "Ley 1581 de 2012"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ],
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "otro_medio_judicial": false,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "regla_que_cierra": "tutela",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": []
+  },
+  {
+   "id": "PM23",
+   "split": "train",
+   "categoria": "pm_hd_caducidad_2157",
+   "relato": "Tuve una deuda que dejé de pagar en 2016 y la pagué toda en 2021. La central me sigue mostrando el reporte negativo ahora, más de cuatro años después de haberla pagado, y ya pedí por escrito que lo quiten.",
+   "derecho": "habeas_data",
+   "fundamento": "art. 15 CP; Ley 2157 de 2021",
+   "accionado": "la central de información crediticia",
+   "mecanismo": "tutela",
+   "procede": true,
+   "razon": "el término máximo de permanencia del dato negativo ya venció y el reporte sigue publicado: la vulneración es actual y no hay otro medio idóneo",
+   "pretension": "amparar el habeas data y ordenar la eliminación del reporte por haber caducado el término de permanencia",
+   "verificado_con_reglas": true,
+   "tipo_fuente": "redactado por el asistente (autorizado por el profesor)",
+   "fundamento_del_derecho": [
+    "art. 15 CP",
+    "Ley 2157 de 2021"
+   ],
+   "fundamento_del_mecanismo": [
+    "art. 86 CP"
+   ],
+   "origen_etiqueta": "motor_de_reglas",
+   "fiabilidad_etiqueta": "motor_de_reglas_plano",
+   "nivel_fiabilidad": 2,
+   "fundamento_del_mecanismo_derivado": [
+    "art. 86 CP"
+   ],
+   "hechos": {
+    "afectacion_individual": true,
+    "continua_vulneracion": true,
+    "otro_medio_judicial": false,
+    "perjuicio_irremediable": false,
+    "pi_inminencia": false,
+    "pi_gravedad": true,
+    "pi_urgencia": false,
+    "pi_impostergabilidad": false
+   },
+   "regla_que_cierra": "tutela",
+   "estrato_verificacion": "plano",
+   "etiqueta_pivota_en": []
+  }
+ ]
+}

@@ -586,9 +586,17 @@ def t_anotacion():
         ",".join(str(v or "") for v in f.values()) for f in filas)
     assert set(filas[0]) == {"id", "relato", "mecanismo", "procede", "notas"}, \
         f"columnas de mas: {set(filas[0])}"
-    v2 = {c["id"]: c for c in _cargar("eval_set_v2.json")}
+    # EL EVAL SET QUE USA EL MODULO, no uno fijado aqui.
+    #
+    # Esto leia `eval_set_v2.json` a mano. En cuanto `doble_anotacion` paso su
+    # `RUTA_EVAL` a v3 --- y la muestra crecio a 30 --- la prueba fallo con
+    # `KeyError: 'A19'`: un caso que existe en v3 y no en v2. El fallo no era
+    # del formulario. Una prueba que fija la version del archivo mide si la
+    # version cambio, no si el formulario filtra.
+    ev = {c["id"]: c for c in json.loads(
+        da.RUTA_EVAL.read_text(encoding="utf-8"))["ejemplos"]}
     for f in filas:
-        c = v2[f["id"]]
+        c = ev[f["id"]]
         # `categoria`, `razon` y `trampa` no deben aparecer en ningun sitio de
         # las filas: pistan la respuesta. El MECANISMO si aparece en la
         # cabecera, porque el anotador necesita el vocabulario; lo que no puede
@@ -606,7 +614,7 @@ def t_anotacion():
                 f"{f['id']}: el mecanismo esta en su propia fila"
     sys.path.insert(0, str(DATA))
     from doble_anotacion import estrato
-    ests = {estrato(v2[f["id"]]) for f in filas}
+    ests = {estrato(ev[f["id"]]) for f in filas}
     assert ests == {"plano", "derivado", "juicio"}, f"estratos: {ests}"
     return f"{len(filas)} casos, sin etiquetas filtradas, los 3 estratos cubiertos"
 
@@ -991,10 +999,26 @@ def t_anotador_obligatorio():
     import doble_anotacion as da
     indep_cj = sorted(k for k, v in cj.ANOTADORES.items() if v["independiente"])
     indep_da = sorted(k for k, v in da.ANOTADORES.items() if v[0])
+    # LA LISTA SE ENUMERA, no se cuenta.
+    #
+    # La guarda no existe para que haya UNA ranura independiente: existe para
+    # que anadir una no se pueda hacer en silencio. `doble_anotacion` tiene
+    # hoy dos --- la segunda hizo falta porque la guarda de `--preparar`
+    # protege el trabajo de la primera, y preparar un formulario para otra
+    # persona no puede exigir borrar el de quien ya anoto ---. Enumerarlas
+    # mantiene el freno: una tercera sigue rompiendo esto y obliga a que
+    # alguien escriba por que cuenta como independiente.
+    #
+    # Y lo que esta lista NO comprueba: que quien anoto fuera de verdad ajeno
+    # al gold. Eso no es verificable desde el codigo --- es una declaracion
+    # de procedencia, y el artefacto la publica como tal en
+    # `_independencia` ---. La guarda cubre lo unico que si es verificable:
+    # que la declaracion este escrita y firmada antes de que salga una cifra.
     assert indep_cj == ["persona-externa"], indep_cj
-    assert indep_da == ["persona-externa"], indep_da
+    assert indep_da == ["persona-externa", "persona-externa-2"], indep_da
     return ("los dos scripts salen con exit 2 sin --anotador · "
-            "1 sola opcion cuenta como independiente")
+            f"calibracion {len(indep_cj)} ranura independiente, "
+            f"doble anotacion {len(indep_da)}, todas declaradas")
 
 
 # ==========================================================================
@@ -2676,6 +2700,201 @@ def t_sonda_validez_ejecuta():
 
     return ("`experimento_validez` corre con juez de mentira en los dos "
             "escenarios (margenes variados e iguales), 16 llamadas, sin API")
+
+
+@prueba("la validacion del abogado caduca con la corrida, y lo dice")
+def t_validacion_caduca():
+    """La guarda que hace falta justo antes de volver a correr los notebooks.
+
+    EL FALLO QUE EVITA
+
+    `validacion_juez.py --leer` emparejaba por `id` y nada mas: la nota del
+    abogado de la fila `A07` del formulario contra la nota del juez de la fila
+    `A07` del CSV vigente. El abogado puntuo la respuesta que tenia delante.
+    Si se vuelve a correr M1 la respuesta cambia, y `--leer` seguiria dando una
+    kappa --- entre la lectura que el abogado hizo de una salida y la nota que
+    el juez puso a OTRA ---. Un numero plausible y sin sentido.
+
+    Y no hacia falta un archivo paralelo: la columna `respuesta_del_sistema`
+    del formulario que el abogado devolvio lleva el texto que vio. La guarda
+    es comparar.
+
+    QUE SE FIJA AQUI
+
+      1. Con la respuesta intacta, `_casos_que_se_movieron` no inventa un
+         desacuerdo. Una guarda que salta siempre se desactiva en una semana.
+      2. Si la respuesta cambia, lo detecta.
+      3. Si el formulario no trae la columna, dice que NO SE PUEDE comprobar
+         en vez de dar por bueno lo que no miro.
+      4. `leer()` devuelve 1 y no escribe el artefacto cuando algo se movio.
+    """
+    sys.path.insert(0, str(DATA))
+    import validacion_juez as vj
+
+    respuestas = vj._respuestas()
+    # UN ID QUE ESTE EN EL FORMULARIO, no solo en el CSV del juez.
+    #
+    # Esto tomaba el primer id de `_filas_del_juez()`, que son los 109 casos
+    # puntuados; el formulario tiene la MUESTRA de 25. El caso elegido no
+    # estaba en el formulario, `leer()` no encontraba nada movido y la prueba
+    # fallaba sobre una guarda correcta.
+    sys.path.insert(0, str(DATA))
+    import formularios as _f
+    _ruta = next(p for p in (vj.SALIDA.with_suffix(".xlsx"),
+                             vj.SALIDA.with_suffix(".csv")) if p.exists())
+    _form = _f.leer(_ruta, vj.COLUMNAS_PERSONA)["filas"]
+    cid = next(x["id"] for x in _form
+               if (x.get("nota") or "").strip() and x["id"] in respuestas)
+
+    # 1 · intacta: no se mueve nada.
+    fila = {"id": cid, "nota": "4",
+            "respuesta_del_sistema": respuestas[cid]}
+    assert vj._casos_que_se_movieron([fila]) == [], \
+        "la guarda marca como movido un caso cuya respuesta es la vigente"
+
+    # Y los finales de linea que Excel reescribe no son un cambio.
+    fila_crlf = dict(fila, respuesta_del_sistema=str(
+        respuestas[cid]).replace("\n", "\r\n") + "\n")
+    assert vj._casos_que_se_movieron([fila_crlf]) == [], \
+        "la guarda confunde el CRLF de Excel con un cambio de la respuesta"
+
+    # 2 · la respuesta cambio.
+    m = vj._casos_que_se_movieron(
+        [dict(fila, respuesta_del_sistema="Mecanismo: otra cosa")])
+    assert len(m) == 1 and "cambio" in m[0]["que_cambio"], \
+        f"no detecta que la respuesta puntuada ya no existe: {m}"
+
+    # 3 · formulario sin la columna: se declara, no se da por bueno.
+    m = vj._casos_que_se_movieron([{"id": cid, "nota": "4"}])
+    assert len(m) == 1 and "no se puede comprobar" in m[0]["que_cambio"], \
+        f"un formulario sin la columna pasa como valido: {m}"
+
+    # 4 · sin nota no hay nada que invalidar: el abogado no puntuo esa fila.
+    assert vj._casos_que_se_movieron(
+        [{"id": cid, "nota": "", "respuesta_del_sistema": "cualquier cosa"}]) \
+        == [], "invalida una fila que nadie puntuo"
+
+    # 5 · y `leer()` se niega de verdad, sin tocar el artefacto.
+    import shutil
+    import tempfile
+    tmp = Path(tempfile.mkdtemp(prefix="prueba_caduca_"))
+    orig_preds, orig_out = vj.PREDS, vj.RUTA_OUT
+    antes = (vj.RUTA_OUT.read_bytes() if vj.RUTA_OUT.exists() else None)
+    try:
+        # Unas predicciones con la respuesta cambiada, y nada mas.
+        d = json.loads(orig_preds.read_text(encoding="utf-8"))
+        filas = d.get("datos", d) if isinstance(d, dict) else d
+        for p in filas:
+            if p["id"] == cid:
+                p["finetuned"] = "Mecanismo: otra cosa"
+        vj.PREDS = tmp / "m1_predicciones.json"
+        vj.PREDS.write_text(json.dumps(d, ensure_ascii=False),
+                            encoding="utf-8")
+        vj.RUTA_OUT = tmp / "validacion_juez.json"
+        assert vj.leer() == 1, \
+            "`--leer` publica una kappa con las notas de otra corrida"
+        assert not vj.RUTA_OUT.exists(), \
+            "`--leer` escribio el artefacto aunque las notas no son validas"
+    finally:
+        vj.PREDS, vj.RUTA_OUT = orig_preds, orig_out
+        if antes is not None:
+            vj.RUTA_OUT.write_bytes(antes)
+        shutil.rmtree(tmp, ignore_errors=True)
+
+    return (f"intacta no salta, CRLF tampoco, respuesta cambiada y columna "
+            f"ausente si · `leer()` devuelve 1 sin escribir el artefacto")
+
+
+@prueba("depurar las citas no puede mover el acierto juridico")
+def t_depurar_citas():
+    """La capa que quita citas imposibles, y la comprobacion que la limita.
+
+    QUE HACE Y POR QUE EXISTE
+
+    El modelo emite `art. 6.1 Decreto 2591` --- la causal de SUBSIDIARIEDAD
+    --- en el slot del derecho de casos que no son `via_ordinaria`. No es una
+    cita discutible: es un error de categoria, porque ningun numeral del art.
+    6 dice que derecho esta en juego. Y lo emite porque 59 de 123 ejemplos de
+    entrenamiento se lo ensenan (`data/causas_abiertas.json`): el objetivo
+    fusiona `fundamento_del_derecho` con `fundamento_del_mecanismo`.
+
+    Medido sobre las 109 salidas: quita 13 citas impertinentes, no pierde
+    ninguna correcta, y `precision_citas` pasa de 0.5506 a 0.5939 con el
+    recall intacto.
+
+    LO QUE ESTA PRUEBA FIJA, Y ES LO IMPORTANTE
+
+      1. `acierto_juridico` IDENTICO con y sin depurar. Si cambiara, la capa
+         estaria tocando el mecanismo o la procedencia, y entonces seria
+         maquillaje y no limpieza.
+      2. NO quita la norma que SI corresponde al mecanismo emitido. La
+         primera version quitaba todas las procesales y tiraba 12 citas que
+         el gold cuenta como correctas: el recall bajaba de 0.4135 a 0.3629.
+         El gold tiene UN solo slot, asi que para `via_ordinaria` el art. 6.1
+         es lo que pide.
+      3. No anade citas nunca. Anadir seria decidir el fundamento, que es lo
+         que hacen los brazos del motor: otro brazo, no una depuracion.
+    """
+    import metricas
+    import schema as schema_mod
+    schema = schema_mod
+
+    base = {"derecho": "salud", "accionado": "EPS", "procede": True,
+            "razon": "procede", "pretension": "ordenar la cirugia"}
+
+    # 1 - la causal de OTRO mecanismo se quita
+    t = schema.render_salida({**base, "mecanismo": "tutela",
+                              "fundamento": "art. 49 CP; art. 6.1 Decreto 2591 de 1991"})
+    dep, quit_ = schema.depurar_citas(t)
+    assert quit_ == ["art. 6.1 Decreto 2591 de 1991"], quit_
+    assert "art. 49 CP" in dep and "6.1" not in dep, dep
+
+    # 2 - la que SI corresponde al mecanismo emitido se queda
+    vo = schema.render_salida({**base, "mecanismo": "via_ordinaria",
+                               "procede": False,
+                               "fundamento": "art. 48 CP; art. 6.1 Decreto 2591 de 1991"})
+    dep2, quit2 = schema.depurar_citas(vo)
+    assert quit2 == [], (
+        "quito la causal del mecanismo que la salida SI emite. El gold tiene "
+        "un solo slot de fundamento: para `via_ordinaria` el art. 6.1 es lo "
+        f"que pide, y quitarlo baja el recall. Quito: {quit2}")
+    assert dep2 == vo, "toco una salida que no habia que tocar"
+
+    # 3 - una salida sin citas procesales queda intacta
+    limpia = schema.render_salida({**base, "mecanismo": "tutela",
+                                   "fundamento": "art. 49 CP; Ley 1751 de 2015"})
+    assert schema.depurar_citas(limpia) == (limpia, [])
+
+    # 4 - si no queda ninguna cita, el parentesis desaparece
+    sola = schema.render_salida({**base, "mecanismo": "tutela",
+                                 "fundamento": "art. 6.1 Decreto 2591 de 1991"})
+    dep4, _ = schema.depurar_citas(sola)
+    assert "()" not in dep4 and "Derecho: salud" in dep4, dep4
+
+    # 5 - LA COMPROBACION QUE LIMITA LA CAPA: el acierto no se mueve
+    casos = [e for e in _cargar("eval_set_v3.json") if e.get("mecanismo")][:20]
+    salidas, deps = [], []
+    for i, e in enumerate(casos):
+        # se corrompe la cita de la mitad, dejando el mecanismo intacto
+        f = e.get("fundamento") or "art. 49 CP"
+        if i % 2:
+            f += "; art. 6.3 Decreto 2591 de 1991"
+        x = schema.render_salida({**e, "fundamento": f})
+        salidas.append(x)
+        deps.append(schema.depurar_citas(x)[0])
+    a = metricas.acierto_juridico([schema.parse_salida(x) for x in salidas], casos)
+    b = metricas.acierto_juridico([schema.parse_salida(x) for x in deps], casos)
+    assert a == b, (
+        f"depurar movio el acierto juridico de {a} a {b}. La capa solo puede "
+        "quitar citas; si toca el mecanismo o la procedencia es maquillaje")
+
+    # 6 - y el scorecard publica LAS DOS, no solo la depurada
+    sc = metricas.scorecard(salidas, casos, "prueba")
+    assert "pertinencia_citas" in sc and "pertinencia_citas_depurada" in sc, (
+        "el scorecard tiene que publicar la cruda Y la depurada: solo la "
+        "depurada presentaria como mejora del modelo una capa de limpieza")
+    return ("quita la causal de otro mecanismo, conserva la del propio, y el "
+            "acierto juridico sale identico con y sin depurar")
 
 
 # ==========================================================================

@@ -153,6 +153,105 @@ def f1_por_clase(pred: list, gold: list) -> dict[str, dict]:
     return out
 
 
+# --------------------------------------------------------------------------
+# EL FALSO NEGATIVO QUE DE VERDAD CUESTA
+#
+# La accuracy y el macro-F1 tratan los seis mecanismos como si equivocarse en
+# cualquiera costara lo mismo. No cuesta lo mismo.
+#
+# Decirle "vaya a la justicia ordinaria" a alguien que esta DETENIDO sin orden
+# judicial, o a alguien con un derecho fundamental vulnerado y sin otro medio,
+# es cerrarle la puerta al unico mecanismo que lo protegia. El error inverso
+# --- sugerir una tutela donde procedia la via ordinaria --- cuesta un trámite
+# y un auto de rechazo.
+#
+# Esa asimetria es la misma que `sistema.DEFECTO_PRO_HOMINE` ya declara en el
+# motor de reglas, y hasta ahora no estaba en NINGUNA metrica: el scorecard
+# publicaba F1 por clase, donde el recall de habeas corpus pesa igual que la
+# precision de accion popular.
+#
+# El equipo de comparacion si reporta su clase critica (recall de urgentes
+# 0.70, por debajo de su propia meta de 0.85). Aqui el equivalente son dos
+# clases y se publica con intervalo, porque es una proporcion sobre un soporte
+# pequeno y un caso vale varios puntos.
+CLASES_CRITICAS = ("habeas_corpus", "tutela")
+"""Las clases donde un FALSO NEGATIVO le niega proteccion a alguien.
+
+`habeas_corpus`: art. 30 CP, privacion de la libertad. Es el error mas caro
+del sistema y no admite comparacion con los demas.
+
+`tutela`: art. 86 CP. Un falso negativo manda a la via ordinaria a quien no
+tenia otro medio eficaz, que es justo el supuesto que la tutela cubre.
+
+NO estan `accion_popular` ni `accion_cumplimiento`: su falso negativo manda a
+alguien a otra accion constitucional, no lo deja sin ninguna. Y no esta
+`via_ordinaria`, cuyo falso negativo es el error BARATO --- una tutela de mas.
+"""
+
+
+def recall_clase_critica(pred: list, gold: list, nivel: float = 0.95) -> dict:
+    """Recall de las clases cuyo falso negativo le niega proteccion a alguien.
+
+    POR QUE RECALL Y NO F1
+
+    El F1 promedia precision y recall, y aqui no son intercambiables. Un falso
+    negativo en habeas corpus deja a una persona detenida sin la unica via que
+    la amparaba; un falso positivo le hace perder un trámite. Promediarlos
+    oculta la asimetria que el proyecto declara en todas partes menos en sus
+    cifras.
+
+    Devuelve el recall POR CLASE y el agregado sobre la union, los dos con
+    intervalo: son proporciones sobre soportes de dos digitos, asi que un caso
+    vale varios puntos y publicar el punto solo invita a sobreleerlo.
+
+    `fallos` nombra los casos, porque un recall de 0.93 sobre soporte 15 son
+    exactamente dos personas y el objetivo es poder leerlos, no contarlos.
+    """
+    porc = f1_por_clase(pred, gold)
+    detalle, tp_tot, n_tot = {}, 0, 0
+    for c in CLASES_CRITICAS:
+        d = porc.get(c)
+        if not d or not d["soporte"]:
+            detalle[c] = {"soporte": 0, "recall": None,
+                          "motivo": "la clase no tiene soporte en este "
+                                    "conjunto: no hay nada que medir"}
+            continue
+        tp = sum(p == c and g == c for p, g in zip(pred, gold))
+        detalle[c] = {
+            "soporte": d["soporte"], "aciertos": tp,
+            "recall": round(d["recall"], 4),
+            "ic": bootstrap_ic([p == c for p, g in zip(pred, gold) if g == c],
+                               nivel=nivel),
+            "fallos": [i for i, (p, g) in enumerate(zip(pred, gold))
+                       if g == c and p != c],
+            "a_que_fueron": dict(Counter(
+                str(p) for p, g in zip(pred, gold) if g == c and p != c)),
+        }
+        tp_tot += tp
+        n_tot += d["soporte"]
+
+    aciertos = [p == g for p, g in zip(pred, gold) if g in CLASES_CRITICAS]
+    return {
+        "clases": list(CLASES_CRITICAS),
+        "por_que_estas": (
+            "un falso negativo en `habeas_corpus` o `tutela` le niega "
+            "proteccion a alguien: lo manda a la via ordinaria cuando no tenia "
+            "otro medio eficaz. El error inverso cuesta un trámite. Las demas "
+            "clases no entran: su falso negativo manda a otra accion "
+            "constitucional, no deja sin ninguna."),
+        "por_clase": detalle,
+        "soporte_total": n_tot,
+        "recall_agregado": round(tp_tot / n_tot, 4) if n_tot else None,
+        "ic_agregado": bootstrap_ic(aciertos, nivel=nivel) if aciertos else None,
+        "lectura": (
+            "es la cifra que hay que mirar antes de la accuracy. Con soportes "
+            "de dos digitos un caso vale varios puntos, asi que se publica con "
+            "intervalo; y `a_que_fueron` dice a donde se desvio cada fallo, "
+            "porque mandar un habeas corpus a tutela no es lo mismo que "
+            "mandarlo a la via ordinaria."),
+    }
+
+
 def macro_f1(pred: list, gold: list) -> float:
     """Macro sobre las clases CON soporte: una clase que nunca aparece en el
     gold no debe premiar ni castigar al modelo."""
@@ -1115,6 +1214,63 @@ def scorecard(salidas: list[str], golds: list[dict], etiqueta: str = "sistema") 
     sc["por_tipo"] = {
         t: {"n": len(v["golds"]), "acierto_juridico": acierto_juridico(v["preds"], v["golds"])}
         for t, v in por_tipo.items()
+    }
+
+    # EL FALSO NEGATIVO QUE CUESTA, como cifra de cabecera.
+    #
+    # El scorecard publicaba F1 por clase, donde el recall de habeas corpus
+    # pesa igual que la precision de accion popular. No pesan igual: un falso
+    # negativo en habeas corpus o en tutela le niega proteccion a alguien, y
+    # el error inverso cuesta un trámite. La asimetria estaba declarada en
+    # `sistema.DEFECTO_PRO_HOMINE` y en ninguna metrica. Ver
+    # `recall_clase_critica`.
+    _pm = [p.get("mecanismo") for p in preds]
+    _gm = [g.get("mecanismo") for g in golds]
+    sc["recall_clase_critica"] = recall_clase_critica(_pm, _gm)
+
+    # LA MISMA PERTINENCIA, DEPURANDO LAS CITAS QUE NO PUEDEN SER CORRECTAS.
+    #
+    # Se publican LAS DOS a proposito. La de arriba es la del sistema tal como
+    # responde y es la comparable con las corridas anteriores; esta dice
+    # cuanto de la impertinencia es un error de CATEGORIA --- citar la causal
+    # de un mecanismo en un caso de otro --- que una capa de salida puede
+    # quitar sin inventar nada.
+    #
+    # Publicar solo la depurada seria presentar como mejora del modelo lo que
+    # es una capa de limpieza. Publicar solo la cruda seria cargarle al modelo
+    # un error que el formato del dataset le ensena (59 de 123 ejemplos; ver
+    # `data/causas_abiertas.json`).
+    #
+    # `acierto_juridico` NO se mueve al depurar, y esa es la comprobacion de
+    # que esto no maquilla la cifra que importa: la prueba 72 la fija.
+    # El modulo importa de `schema` por nombre (ver la cabecera), no el
+    # modulo entero: se sigue el mismo patron que `se_abstuvo` y
+    # `recortar_al_bloque` mas arriba.
+    from schema import depurar_citas
+    _dep, _quitadas = [], []
+    for _s in salidas:
+        _d, _q = depurar_citas(_s)
+        _dep.append(_d)
+        _quitadas += _q
+    _pd = pertinencia_citas(_dep, golds)
+    sc["pertinencia_citas_depurada"] = {
+        **{k: v for k, v in _pd.items() if k != "por_plano"},
+        "citas_quitadas": len(_quitadas),
+        "quitadas_por_norma": dict(Counter(_quitadas).most_common()),
+        "que_se_quito": (
+            "normas puramente procesales citadas en el slot del DERECHO de un "
+            "caso cuyo mecanismo NO es el suyo --- el art. 6.1, que es "
+            "subsidiariedad, sobre una tutela que procede. No se quita la que "
+            "si corresponde al mecanismo emitido: el gold tiene un solo slot "
+            "de fundamento, asi que para un caso de `via_ordinaria` el art. "
+            "6.1 es lo que pide."),
+        "no_anade_nada": (
+            "la capa solo QUITA. Poner la cita correcta seria que el motor "
+            "decidiera el fundamento, y eso ya lo hacen los brazos hibrido y "
+            "agente: seria otro brazo, no una depuracion."),
+        "comprobacion": (
+            "`acierto_juridico` tiene que salir IDENTICO con y sin depurar. "
+            "Si cambia, la capa toco algo mas que las citas."),
     }
 
     # Acierto segmentado por FIABILIDAD DE LA ETIQUETA (ROADMAP #8).

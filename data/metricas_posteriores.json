@@ -1,0 +1,266 @@
+{
+  "_que_es": "metricas anadidas DESPUES de la corrida, recalculadas de sus artefactos. No es una corrida: no toca el modelo, solo lee las predicciones publicadas.",
+  "_corrida_de_las_predicciones": "20261021T115654Z",
+  "_por_que_no_va_en_el_scorecard": "`m1_scorecard_finetuned.json` es el artefacto de una corrida y lleva su `_corrida`. Meterle cifras calculadas despues lo convertiria en un registro falso de lo que esa corrida produjo.",
+  "brazos": {
+    "finetuned": {
+      "n": 109,
+      "recall_clase_critica": {
+        "clases": [
+          "habeas_corpus",
+          "tutela"
+        ],
+        "por_que_estas": "un falso negativo en `habeas_corpus` o `tutela` le niega proteccion a alguien: lo manda a la via ordinaria cuando no tenia otro medio eficaz. El error inverso cuesta un trámite. Las demas clases no entran: su falso negativo manda a otra accion constitucional, no deja sin ninguna.",
+        "por_clase": {
+          "habeas_corpus": {
+            "soporte": 8,
+            "aciertos": 6,
+            "recall": 0.75,
+            "ic": {
+              "n": 8,
+              "punto": 0.75,
+              "ic_bajo": 0.5,
+              "ic_alto": 1.0,
+              "amplitud": 0.5,
+              "nivel": 0.95,
+              "metodo": "bootstrap_percentil",
+              "remuestreos": 2000,
+              "semilla": 42
+            },
+            "fallos": [
+              47,
+              48
+            ],
+            "a_que_fueron": {
+              "tutela": 2
+            }
+          },
+          "tutela": {
+            "soporte": 46,
+            "aciertos": 35,
+            "recall": 0.7609,
+            "ic": {
+              "n": 46,
+              "punto": 0.7609,
+              "ic_bajo": 0.6304,
+              "ic_alto": 0.8696,
+              "amplitud": 0.2391,
+              "nivel": 0.95,
+              "metodo": "bootstrap_percentil",
+              "remuestreos": 2000,
+              "semilla": 42
+            },
+            "fallos": [
+              4,
+              6,
+              24,
+              25,
+              27,
+              42,
+              84,
+              87,
+              92,
+              98,
+              102
+            ],
+            "a_que_fueron": {
+              "via_ordinaria": 10,
+              "accion_cumplimiento": 1
+            }
+          }
+        },
+        "soporte_total": 54,
+        "recall_agregado": 0.7593,
+        "ic_agregado": {
+          "n": 54,
+          "punto": 0.7593,
+          "ic_bajo": 0.6296,
+          "ic_alto": 0.8704,
+          "amplitud": 0.2407,
+          "nivel": 0.95,
+          "metodo": "bootstrap_percentil",
+          "remuestreos": 2000,
+          "semilla": 42
+        },
+        "lectura": "es la cifra que hay que mirar antes de la accuracy. Con soportes de dos digitos un caso vale varios puntos, asi que se publica con intervalo; y `a_que_fueron` dice a donde se desvio cada fallo, porque mandar un habeas corpus a tutela no es lo mismo que mandarlo a la via ordinaria."
+      },
+      "pertinencia_citas": {
+        "citas_emitidas": 178,
+        "correctas": 98,
+        "impertinentes": 80,
+        "inventadas": 0,
+        "incompletas": 0,
+        "precision_citas": 0.550561797752809,
+        "recall_citas": 0.41350210970464135,
+        "ejemplos_impertinentes": [
+          [
+            "art. 6.1 Decreto 2591 de 1991",
+            26
+          ],
+          [
+            "art. 47 CP",
+            9
+          ],
+          [
+            "Ley 100 de 1993",
+            8
+          ],
+          [
+            "art. 43 CP",
+            7
+          ],
+          [
+            "Ley 1095 de 2006",
+            4
+          ]
+        ]
+      },
+      "pertinencia_citas_depurada": {
+        "citas_emitidas": 165,
+        "correctas": 98,
+        "impertinentes": 67,
+        "inventadas": 0,
+        "incompletas": 0,
+        "precision_citas": 0.593939393939394,
+        "recall_citas": 0.41350210970464135,
+        "ejemplos_impertinentes": [
+          [
+            "art. 6.1 Decreto 2591 de 1991",
+            15
+          ],
+          [
+            "art. 47 CP",
+            9
+          ],
+          [
+            "Ley 100 de 1993",
+            8
+          ],
+          [
+            "art. 43 CP",
+            7
+          ],
+          [
+            "Ley 1095 de 2006",
+            4
+          ]
+        ],
+        "citas_quitadas": 13
+      },
+      "acierto_juridico_sin_depurar": 0.7339,
+      "acierto_juridico_depurado": 0.7339
+    },
+    "base": {
+      "n": 109,
+      "recall_clase_critica": {
+        "clases": [
+          "habeas_corpus",
+          "tutela"
+        ],
+        "por_que_estas": "un falso negativo en `habeas_corpus` o `tutela` le niega proteccion a alguien: lo manda a la via ordinaria cuando no tenia otro medio eficaz. El error inverso cuesta un trámite. Las demas clases no entran: su falso negativo manda a otra accion constitucional, no deja sin ninguna.",
+        "por_clase": {
+          "habeas_corpus": {
+            "soporte": 8,
+            "aciertos": 2,
+            "recall": 0.25,
+            "ic": {
+              "n": 8,
+              "punto": 0.25,
+              "ic_bajo": 0.0,
+              "ic_alto": 0.5,
+              "amplitud": 0.5,
+              "nivel": 0.95,
+              "metodo": "bootstrap_percentil",
+              "remuestreos": 2000,
+              "semilla": 42
+            },
+            "fallos": [
+              34,
+              43,
+              47,
+              48,
+              50,
+              51
+            ],
+            "a_que_fueron": {
+              "None": 6
+            }
+          },
+          "tutela": {
+            "soporte": 46,
+            "aciertos": 31,
+            "recall": 0.6739,
+            "ic": {
+              "n": 46,
+              "punto": 0.6739,
+              "ic_bajo": 0.5435,
+              "ic_alto": 0.8043,
+              "amplitud": 0.2609,
+              "nivel": 0.95,
+              "metodo": "bootstrap_percentil",
+              "remuestreos": 2000,
+              "semilla": 42
+            },
+            "fallos": [
+              1,
+              2,
+              5,
+              11,
+              18,
+              20,
+              22,
+              23,
+              70,
+              84,
+              97,
+              99,
+              102,
+              103,
+              107
+            ],
+            "a_que_fueron": {
+              "None": 15
+            }
+          }
+        },
+        "soporte_total": 54,
+        "recall_agregado": 0.6111,
+        "ic_agregado": {
+          "n": 54,
+          "punto": 0.6111,
+          "ic_bajo": 0.4815,
+          "ic_alto": 0.7407,
+          "amplitud": 0.2593,
+          "nivel": 0.95,
+          "metodo": "bootstrap_percentil",
+          "remuestreos": 2000,
+          "semilla": 42
+        },
+        "lectura": "es la cifra que hay que mirar antes de la accuracy. Con soportes de dos digitos un caso vale varios puntos, asi que se publica con intervalo; y `a_que_fueron` dice a donde se desvio cada fallo, porque mandar un habeas corpus a tutela no es lo mismo que mandarlo a la via ordinaria."
+      },
+      "pertinencia_citas": {
+        "citas_emitidas": 0,
+        "correctas": 0,
+        "impertinentes": 0,
+        "inventadas": 0,
+        "incompletas": 0,
+        "precision_citas": 0.0,
+        "recall_citas": 0.0,
+        "ejemplos_impertinentes": []
+      },
+      "pertinencia_citas_depurada": {
+        "citas_emitidas": 0,
+        "correctas": 0,
+        "impertinentes": 0,
+        "inventadas": 0,
+        "incompletas": 0,
+        "precision_citas": 0.0,
+        "recall_citas": 0.0,
+        "ejemplos_impertinentes": [],
+        "citas_quitadas": 0
+      },
+      "acierto_juridico_sin_depurar": 0.055,
+      "acierto_juridico_depurado": 0.055
+    }
+  }
+}

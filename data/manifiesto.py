@@ -96,7 +96,19 @@ EXCLUIR = {"reverificacion_corpus.json", "acuerdo_anotadores.json",
            # contraste con la libreria `ragas`. Dependen de `results/`,
            # asi que valen lo mismo que las demas derivadas.
            "determinismo_juez_lote.json",
-           "ragas_libreria_local.json"}
+           "ragas_libreria_local.json",
+           # Salida de `medir_metricas_nuevas.py`: metricas anadidas
+           # DESPUES de la corrida y recalculadas de sus predicciones.
+           # Lee `results/`, asi que depende de una corrida.
+           "metricas_posteriores.json",
+           # Casos de entrenamiento PROPUESTOS por `pares_minimos.py`.
+           # No son datos del experimento todavia --- no estan en
+           # `dataset.json` --- y regenerarlos no puede mover la huella
+           # de la corrida que ya se entrego.
+           "pares_minimos_propuestos.json",
+           # Una hipotesis sobre el RAG, probada y refutada. Lee
+           # `results/` y se puede repetir: no puede mover la huella.
+           "hipotesis_rag_refutada.json"}
 """Salidas de los verificadores y de las auditorias: cambian solas, no
 afectan a una corrida, y meterlas en la huella haria que mirar los datos
 contara como cambiar el codigo."""

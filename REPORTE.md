@@ -2,7 +2,7 @@
 
 **Fine-tuning, evaluacion y RAG sobre el mecanismo procedente ante un relato ciudadano.**
 
-> Generado por `data/reporte.py` el 2026-10-21 13:40 (America/Bogota). Ninguna cifra de este documento esta escrita a mano: todas salen de un artefacto de `results/`, y el apendice dice de cual y de que clave. Una cifra sin artefacto hace fallar al generador.
+> Generado por `data/reporte.py` el 2026-10-21 18:44 (America/Bogota). Ninguna cifra de este documento esta escrita a mano: todas salen de un artefacto de `results/`, y el apendice dice de cual y de que clave. Una cifra sin artefacto hace fallar al generador.
 
 ## 0 · Que afirma este trabajo, y que no
 
@@ -35,6 +35,55 @@ Tres niveles de verificacion, y la diferencia entre ellos es lo que permite leer
 El motor de reglas del art. 6 reproduce la etiqueta de los casos del eval set, pero eso significa **consistente** con el arbol, no **independiente** de el: el campo `por_fiabilidad_etiqueta` de cada scorecard lo dice con esas palabras para que nadie lea la consistencia como validacion.
 
 **Cobertura del corpus** (`data/cobertura_corpus.json`): 69 fragmentos verificados, 77 chunks. De los 103 casos comunes, **0** citan una norma que no esta en el corpus y **69** la tienen pero por debajo del puesto 5 en BM25 (la peor, en el puesto 69 de 77). El techo de recuperacion es de **ranking**, no de cobertura — y ampliar el corpus lo empeoraria, porque mete mas candidatos a competir por los mismos cinco puestos.
+
+### 2.1 · Otra persona reproduce el gold: kappa **0.803** sobre 30 casos
+
+Una persona que no escribio el gold anoto una muestra estratificada de **30** casos del eval set vigente, a ciegas: el formulario que recibio no lleva la etiqueta, ni la categoria, ni la razon, ni la marca de trampa —lo fija la prueba 24 de la suite, que genera un formulario limpio y busca cada uno de esos campos en las filas—.
+
+|  | acuerdo bruto | kappa |
+|---|---|---|
+| mecanismo (6 categorias) | 86.7% | **0.803** |
+| procedencia (si/no) | 90.0% | **0.7945** |
+
+En la escala habitual de Landis y Koch, 0.61–0.80 es *substantial* y 0.81–1.00 *almost perfect*: la cifra cae justo en la frontera. No se redondea hacia arriba.
+
+**Donde esta el desacuerdo.** Es la pregunta util: un gold fiable donde los hechos se leen y discutible donde hubo que ponderar es un resultado esperable y manejable; desacuerdo en `plano` seria un problema de los relatos.
+
+| estrato | n | acuerdo | kappa | desacuerdos |
+|---|---|---|---|---|
+| `juicio` | 3 | 66.7% | indefinido | 1 |
+| `derivado` | 12 | 91.7% | 0.8235 | 1 |
+| `plano` | 15 | 86.7% | 0.8 | 2 |
+
+La kappa de `juicio` sale **indefinida** con n=3: los dos anotadores usaron una sola categoria, y la kappa entonces vale 0.0 por mecanica y no distingue acuerdo de desacuerdo. **Y no se arregla anotando mas**: el eval set vigente tiene **3 casos de `juicio` entre 109** --- y tenia los mismos 3 en v1 (46) y en v2 (69) ---, asi que la cuota del muestreo ya los toma todos. Ampliar ese estrato exigiria tocar el eval set, que es el puente de comparacion congelado byte a byte de doce corridas. Es un limite de la POBLACION, no del procedimiento, y es la razon por la que esta medicion no cierra del todo la fiabilidad del gold.
+
+#### 2.1.1 · De los 5 desacuerdos, 2 son juridicos
+
+La kappa bruta mide a la vez dos cosas que no son la misma: si dos juristas leen el mismo caso igual, y si quien anota siguio una regla de codificacion del formulario. Solo la primera dice algo del gold.
+
+**3 de los desacuerdos tienen la nota del anotador razonando lo mismo que la etiqueta** y difieren solo en la casilla: pusieron `tutela` con procede=false donde el formulario pide la via alternativa, o marcaron procede=true sobre un mecanismo que no es la tutela. Releida con las dos reglas que el formulario enuncia —mecanicamente, aplicadas a las 30 filas antes de comparar con el gold—:
+
+|  | acuerdo | kappa |
+|---|---|---|
+| mecanismo | 93.3% | 0.9021 |
+| procedencia | 93.3% | 0.8618 |
+
+**La cifra que se reporta sigue siendo la bruta.** Esta segunda no se publica como la fiabilidad del gold: se publica porque sin ella la bruta no se puede interpretar. Lo que la hace defendible es que las dos reglas estan escritas en el formulario que recibio quien anoto —no se eligieron viendo los numeros— y que la normalizacion es ciega al gold.
+
+Y el propio fallo es un resultado: que la aclaracion siga sin bastar es en si un resultado: el bloque "QUE SIGNIFICA `mecanismo`" se anadio al formulario DESPUES de que los 2 desacuerdos de la primera anotacion (n=14) salieran de ahi, y con n=30 volvieron a salir 3. La distincion entre la via que corresponde y la via que se invoca no se comunica con una instruccion; habria que separar la pregunta en dos columnas.
+
+#### 2.1.2 · Los desacuerdos que si son de criterio
+
+| caso | estrato | gold | anotador | lo que argumenta |
+|---|---|---|---|---|
+| `A09` (trampa) | `plano` | `tutela` | `accion_cumplimiento` | Se alega incumplimiento general de un mandato legal concreto de instalar intérpretes. La acción de cumplimiento busca hacer efectiva esa obligación; n |
+| `E15` (frontera) | `plano` | `tutela` | `via_ordinaria` | Se discute la legalidad de requisitos impuestos por una autoridad y la devolución de dinero; la controversia administrativa tiene vías ordinarias y no |
+
+Los dos caen donde el eval set dice que caerian: uno es un caso marcado `trampa` y el otro `frontera`. **Ninguno esta en `rutinario`**, que es la comprobacion que importa —si otra persona discutiera los casos faciles, el gold estaria mal escrito, no solo discutible—.
+
+Y `A09` merece una linea aparte: el anotador eligio `accion_cumplimiento` sobre un incumplimiento normativo que afecta a un sujeto de especial proteccion, que es **exactamente el error que la auditoria externa reporta del modelo**. El art. 9 de la Ley 393 excluye la accion de cumplimiento cuando el derecho se puede proteger por tutela, y la trampa esta construida sobre esa regla. Que atrape tambien a un jurista humano cambia la lectura del fallo del modelo en esa familia: no mide un dataset roto, mide una frontera que de verdad es dificil.
+
+**Lo que esta cifra no dice.** No dice que el gold sea correcto: dice que es reproducible. Dos personas pueden coincidir y equivocarse. Tampoco es la fiabilidad del eval set completo —la muestra sobrerrepresenta los estratos difíciles a proposito, asi que la kappa global esta sesgada A LA BAJA respecto del conjunto—. Y la independencia es una **declaracion de procedencia**: el artefacto la registra (*Segunda persona que no participo en escribir el gold. Independiente igual que `persona-ext*) y el codigo no puede verificarla; la prueba 33 solo exige que este firmada antes de que salga una cifra.
 
 ## 3 · M1 · el sistema afinado
 
@@ -161,6 +210,36 @@ La cita que mas se equivoca de plano es `art. 6.1 Decreto 2591 de 1991` (26 vece
 
 **Corroborado por una via independiente.** El abogado que valido al juez (§7.1) senalo citas que no corresponden en **5 de sus 10** comentarios, sin haber visto ninguna de estas cifras. Dos mediciones independientes apuntando al mismo defecto es la evidencia mas fuerte de este reporte.
 
+#### 4.4.1 · Cuanta impertinencia es un error de categoria
+
+Una parte de las citas impertinentes no es discutible: es la causal de un mecanismo citada en un caso de **otro** mecanismo —el art. 6.1, que es *subsidiariedad*, sobre una tutela que procede—. Ningun numeral del art. 6 dice que derecho esta en juego, asi que esa cita no puede ser correcta en ninguna lectura.
+
+|  | citas | impertinentes | precision | recall |
+|---|---|---|---|---|
+| tal como responde | 178 | 80 | 0.5506 | 0.4135 |
+| depurando esas citas | 165 | 67 | **0.5939** | 0.4135 |
+
+La capa quita **13** citas y **no pierde ninguna correcta**: el recall no se mueve. Tampoco se mueve `acierto_juridico`, y esa es la comprobacion de que no maquilla la cifra que importa —la prueba 72 la fija—.
+
+**La capa solo quita.** Poner la cita correcta seria que el motor decidiera el fundamento, y eso ya lo hacen los brazos hibrido y agente: seria otro brazo, no una depuracion. Y **no se quita la causal que si corresponde** al mecanismo emitido: el gold tiene un solo slot de fundamento, asi que para un caso de `via_ordinaria` el art. 6.1 es lo que pide. Una primera version quitaba todas las procesales y tiraba 12 citas correctas —el recall bajaba de 0.4135 a 0.3629—.
+
+El arreglo de raiz no es esta capa: es separar `fundamento_del_derecho` de `fundamento_del_mecanismo` en la salida, porque **59 de 123** ejemplos de entrenamiento ensenan a fusionarlos. Eso exige reentrenar; la capa es lo que se puede hacer sin ello.
+
+### 4.5 · El falso negativo que cuesta: recall **0.7593** en las clases criticas
+
+La accuracy trata los seis mecanismos como si equivocarse en cualquiera costara lo mismo. No cuesta lo mismo: un falso negativo en `habeas_corpus` o en `tutela` le niega proteccion a alguien —lo manda a la via ordinaria cuando no tenia otro medio eficaz—, y el error inverso cuesta un trámite y un auto de rechazo.
+
+| clase | aciertos | recall (IC 95%) | los fallos fueron a |
+|---|---|---|---|
+| `habeas_corpus` | 6/8 | **0.75** [0.5, 1.0] | tutela ×2 |
+| `tutela` | 35/46 | **0.7609** [0.6304, 0.8696] | via_ordinaria ×10, accion_cumplimiento ×1 |
+
+Agregado: **0.7593** [0.6296, 0.8704] sobre un soporte de 54.
+
+**La direccion importa mas que el numero.** De los fallos en `tutela`, **10** fueron a `via_ordinaria`: el sistema afirma que no hay mecanismo constitucional donde el gold dice que si lo hay. Los 2 de `habeas_corpus` fueron a `tutela`, que es el error barato —otra accion constitucional, no ninguna—.
+
+No entran `accion_popular` ni `accion_cumplimiento`: su falso negativo manda a alguien a otra accion constitucional, no lo deja sin ninguna. Ni `via_ordinaria`, cuyo falso negativo es el error barato.
+
 ## 7 · Limitaciones · lo que este trabajo no puede concluir
 
 Esta seccion es el resultado mas importante del documento. El juez automatico coincide con las metricas de dominio en kappa **0.431**, y no sabemos si una persona coincidiria con el juez o con el dominio. Un proyecto que dice eso vale mas que uno que publica la cifra sin decirlo.
@@ -211,6 +290,7 @@ Relatos sinteticos, no expedientes. Nada de lo medido aqui autoriza a usar el si
 |---|---|---|
 | `m3_scorecards_comunes.json` | `ic.acierto_juridico` | `mejor=4 · agente + reglas, solapan=3` |
 | `data/cobertura_corpus.json` | `por_eval_set.eval_set_v3.json` | `sin_cobertura=0` |
+| `data/acuerdo_anotadores_persona-externa-2.json` | `kappa_mecanismo` | `0.803` |
 | `m1_scorecard_base.json` | `ic.acierto_juridico` | `0.0194 [0.0, 0.0485]` |
 | `m1_scorecard_hibrido.json` | `ic.acierto_juridico` | `0.6408 [0.5437, 0.7379]` |
 | `m1_scorecard_finetuned.json` | `ic.acierto_juridico` | `0.7184 [0.6311, 0.8058]` |
@@ -268,7 +348,7 @@ Relatos sinteticos, no expedientes. Nada de lo medido aqui autoriza a usar el si
 
 El valor va **sin redondear**: es lo que trae el artefacto, no lo que el reporte imprime. Si los dos no coinciden, el que vale es este.
 
-56 lecturas de 17 artefactos distintos.
+57 lecturas de 18 artefactos distintos.
 
 ---
 
