@@ -1,0 +1,377 @@
+{
+  "_que_es": "la CAUSA de los defectos abiertos, medida en los datos. No mide el sistema: mide si el train hace aprendible lo que el eval exige.",
+  "sobrecarga_del_fundamento": {
+    "n_train": 123,
+    "ejemplos_con_norma_PROCESAL_en_la_linea_del_DERECHO": 59,
+    "proporcion": 0.4797,
+    "normas_intrusas": {
+      "art. 6.1 Decreto 2591 de 1991": 17,
+      "art. 6.3 Decreto 2591 de 1991": 14,
+      "art. 6.2 Decreto 2591 de 1991": 13,
+      "art. 42 Decreto 2591 de 1991": 7,
+      "art. 6.4 Decreto 2591 de 1991": 5,
+      "Ley 1437 de 2011": 5,
+      "art. 8 Decreto 2591 de 1991": 2,
+      "art. 6.5 Decreto 2591 de 1991": 1
+    },
+    "normas_de_doble_uso_NO_contadas": {
+      "Ley 393 de 1997": 13,
+      "Ley 1095 de 2006": 13,
+      "Ley 472 de 1998": 12,
+      "art. 30 CP": 12,
+      "art. 87 CP": 12,
+      "art. 88 CP": 10
+    },
+    "por_que_no_se_cuentan": "`art. 30 CP` fundamenta el habeas corpus Y la libertad personal; `art. 87 CP` la accion de cumplimiento Y el deber incumplido; `art. 88 CP` la accion popular Y el derecho colectivo. Citarlas en la linea del derecho no esta mal. La primera version de esta auditoria las contaba y daba 72 de 123 (59%): un sobre-recuento que habria mandado a arreglar lo que no estaba roto.",
+    "mecanismos_afectados": {
+      "tutela": 11,
+      "via_ordinaria": 23,
+      "accion_popular": 12,
+      "habeas_corpus": 13
+    },
+    "casos": [
+      {
+        "id": "T09",
+        "derecho": "peticion",
+        "mecanismo": "tutela",
+        "intrusas": [
+          "art. 42 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "T11",
+        "derecho": "seguridad_social",
+        "mecanismo": "via_ordinaria",
+        "intrusas": [
+          "art. 6.1 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "T18",
+        "derecho": "colectivos",
+        "mecanismo": "accion_popular",
+        "intrusas": [
+          "art. 6.3 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "T20",
+        "derecho": "libertad_personal",
+        "mecanismo": "habeas_corpus",
+        "intrusas": [
+          "art. 6.2 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "V04",
+        "derecho": "ninguno",
+        "mecanismo": "via_ordinaria",
+        "intrusas": [
+          "art. 6.1 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "V05",
+        "derecho": "colectivos",
+        "mecanismo": "accion_popular",
+        "intrusas": [
+          "art. 6.3 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "V08",
+        "derecho": "peticion",
+        "mecanismo": "tutela",
+        "intrusas": [
+          "art. 42 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "V10",
+        "derecho": "trabajo",
+        "mecanismo": "via_ordinaria",
+        "intrusas": [
+          "art. 6.1 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "HC01",
+        "derecho": "libertad_personal",
+        "mecanismo": "habeas_corpus",
+        "intrusas": [
+          "art. 6.2 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "HC02",
+        "derecho": "libertad_personal",
+        "mecanismo": "habeas_corpus",
+        "intrusas": [
+          "art. 6.2 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "HC04",
+        "derecho": "libertad_personal",
+        "mecanismo": "habeas_corpus",
+        "intrusas": [
+          "art. 6.2 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "HC05",
+        "derecho": "libertad_personal",
+        "mecanismo": "habeas_corpus",
+        "intrusas": [
+          "art. 6.2 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "HC06",
+        "derecho": "libertad_personal",
+        "mecanismo": "habeas_corpus",
+        "intrusas": [
+          "art. 6.2 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "HC08",
+        "derecho": "libertad_personal",
+        "mecanismo": "habeas_corpus",
+        "intrusas": [
+          "art. 6.2 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "HC09",
+        "derecho": "libertad_personal",
+        "mecanismo": "habeas_corpus",
+        "intrusas": [
+          "art. 6.2 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "HC10",
+        "derecho": "libertad_personal",
+        "mecanismo": "habeas_corpus",
+        "intrusas": [
+          "art. 6.2 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "HC11",
+        "derecho": "libertad_personal",
+        "mecanismo": "habeas_corpus",
+        "intrusas": [
+          "art. 6.2 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "HC12",
+        "derecho": "libertad_personal",
+        "mecanismo": "habeas_corpus",
+        "intrusas": [
+          "art. 6.2 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "HC14",
+        "derecho": "libertad_personal",
+        "mecanismo": "habeas_corpus",
+        "intrusas": [
+          "art. 6.2 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "AP01",
+        "derecho": "colectivos",
+        "mecanismo": "accion_popular",
+        "intrusas": [
+          "art. 6.3 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "AP02",
+        "derecho": "colectivos",
+        "mecanismo": "accion_popular",
+        "intrusas": [
+          "art. 6.3 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "AP03",
+        "derecho": "colectivos",
+        "mecanismo": "accion_popular",
+        "intrusas": [
+          "art. 6.3 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "AP05",
+        "derecho": "colectivos",
+        "mecanismo": "accion_popular",
+        "intrusas": [
+          "art. 6.3 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "AP06",
+        "derecho": "colectivos",
+        "mecanismo": "accion_popular",
+        "intrusas": [
+          "art. 6.3 Decreto 2591 de 1991"
+        ]
+      },
+      {
+        "id": "AP07",
+        "derecho": "colectivos",
+        "mecanismo": "accion_popular",
+        "intrusas": [
+          "art. 6.3 Decreto 2591 de 1991"
+        ]
+      }
+    ],
+    "diagnostico": "el objetivo de entrenamiento fusiona `fundamento_del_derecho` y `fundamento_del_mecanismo` en un solo campo `fundamento`, que se renderiza en la linea `Derecho:`. El modelo aprende a citar ahi la norma procesal del mecanismo.",
+    "arreglo": "separar los dos en `schema.render_salida`: el fundamento del DERECHO en la linea `Derecho:` y el del MECANISMO en la linea `Procedencia:`, donde pertenece. Los dos campos YA existen en el dataset, asi que no hay que anotar nada --- es un cambio de FORMATO. Exige reentrenar para que surta efecto, y mientras no se haga, `precision_citas` no puede subir por mucho que se entrene."
+  },
+  "citas_no_aprendibles": {
+    "derechos_con_hueco": 8,
+    "casos_del_eval_afectados": 28,
+    "detalle": [
+      {
+        "derecho": "debido_proceso",
+        "citas_que_el_eval_pide_y_el_train_no_ensena": {
+          "art. 46 CP": 1,
+          "Ley 1437 de 2011": 2
+        },
+        "lo_que_el_train_ensena": {
+          "art. 29 CP": 6,
+          "art. 44 CP": 1,
+          "art. 48 CP": 1,
+          "art. 13 CP": 1,
+          "art. 25 CP": 1
+        }
+      },
+      {
+        "derecho": "educacion",
+        "citas_que_el_eval_pide_y_el_train_no_ensena": {
+          "art. 13 CP": 4
+        },
+        "lo_que_el_train_ensena": {
+          "art. 43 CP": 1,
+          "art. 44 CP": 5,
+          "art. 67 CP": 6,
+          "art. 29 CP": 1,
+          "Ley 1098 de 2006": 1
+        }
+      },
+      {
+        "derecho": "estabilidad_laboral_reforzada",
+        "citas_que_el_eval_pide_y_el_train_no_ensena": {
+          "art. 49 CP": 1
+        },
+        "lo_que_el_train_ensena": {
+          "art. 43 CP": 2,
+          "art. 53 CP": 2,
+          "art. 13 CP": 3,
+          "art. 25 CP": 3,
+          "art. 48 CP": 1,
+          "Ley 361 de 1997": 2
+        }
+      },
+      {
+        "derecho": "habeas_data",
+        "citas_que_el_eval_pide_y_el_train_no_ensena": {
+          "Ley 1581 de 2012": 3,
+          "Ley 2157 de 2021": 1
+        },
+        "lo_que_el_train_ensena": {
+          "art. 15 CP": 4,
+          "Ley 1266 de 2008": 4
+        }
+      },
+      {
+        "derecho": "minimo_vital",
+        "citas_que_el_eval_pide_y_el_train_no_ensena": {
+          "art. 48 CP": 2,
+          "Ley 1751 de 2015": 1,
+          "art. 11 CP": 2,
+          "art. 46 CP": 1,
+          "art. 42 CP": 1,
+          "art. 44 CP": 1,
+          "art. 13 CP": 1,
+          "art. 25 CP": 1
+        },
+        "lo_que_el_train_ensena": {
+          "art. 43 CP": 1,
+          "art. 53 CP": 2
+        }
+      },
+      {
+        "derecho": "ninguno",
+        "citas_que_el_eval_pide_y_el_train_no_ensena": {
+          "Ley 1751 de 2015": 1,
+          "Ley 1098 de 2006": 1
+        },
+        "lo_que_el_train_ensena": {}
+      },
+      {
+        "derecho": "seguridad_social",
+        "citas_que_el_eval_pide_y_el_train_no_ensena": {
+          "art. 44 CP": 1
+        },
+        "lo_que_el_train_ensena": {
+          "art. 48 CP": 6,
+          "Ley 100 de 1993": 2,
+          "art. 13 CP": 1,
+          "art. 46 CP": 1
+        }
+      },
+      {
+        "derecho": "trabajo",
+        "citas_que_el_eval_pide_y_el_train_no_ensena": {
+          "art. 53 CP": 3
+        },
+        "lo_que_el_train_ensena": {
+          "art. 25 CP": 1
+        }
+      }
+    ],
+    "diagnostico": "el eval set exige citas que el train no contiene ni una vez. El techo de `precision_citas` no lo pone el modelo: lo pone la cobertura del entrenamiento.",
+    "arreglo": "anadir casos de entrenamiento para cada hueco, y que CONTRASTEN con los que ya estan --- para `habeas_data`, casos de dato SENSIBLE (Ley 1581) frente a los de reporte CREDITICIO (Ley 1266), que es la distincion que el eval evalua."
+  },
+  "frontera_abstencion_via_ordinaria": {
+    "n_abstencion_train": 12,
+    "n_via_ordinaria_train": 23,
+    "marcadores": {
+      "menciona una entidad": {
+        "abstencion": "5/12",
+        "via_ordinaria": "8/23",
+        "diferencia_pp": 6.9
+      },
+      "pide algo concreto": {
+        "abstencion": "6/12",
+        "via_ordinaria": "7/23",
+        "diferencia_pp": 19.6
+      },
+      "dice que no sabe o no tiene": {
+        "abstencion": "1/12",
+        "via_ordinaria": "2/23",
+        "diferencia_pp": -0.4
+      },
+      "menciona una fecha": {
+        "abstencion": "0/12",
+        "via_ordinaria": "4/23",
+        "diferencia_pp": -17.4
+      },
+      "menciona un proceso judicial": {
+        "abstencion": "4/12",
+        "via_ordinaria": "4/23",
+        "diferencia_pp": 15.9
+      }
+    },
+    "diferencia_media_pp": 12.0,
+    "diagnostico": "los relatos de `abstencion` y `via_ordinaria` comparten los marcadores de superficie, asi que la frontera entre «no hay mecanismo constitucional, vaya a la ordinaria» y «no se puede determinar nada» no se puede aprender de ellos. Anadir mas ejemplos de abstencion sin contrastarlos moveria la cifra sin ensenar la distincion.",
+    "arreglo": "pares MINIMOS: para cada caso de abstencion, un `via_ordinaria` que se le parezca en superficie y difiera en lo unico que importa --- que haya o no un problema juridico accionable. Es el mismo criterio que `ampliar_categorias.py` ya aplica («cada par es un contraste»), aplicado a esta frontera."
+  }
+}

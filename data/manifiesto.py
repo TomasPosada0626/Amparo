@@ -83,7 +83,20 @@ EXCLUIR = {"reverificacion_corpus.json", "acuerdo_anotadores.json",
            # a la API, no una corrida, y se puede repetir cuando se
            # quiera: si entrara en la huella, medir el ruido del
            # extractor contaria como cambiar el codigo.
-           "determinismo_extractor.json"}
+           "determinismo_extractor.json",
+           # Salida de `auditar_causas_abiertas.py` y de la medicion del
+           # acuerdo entre familias. Las dos leen `results/`, asi que
+           # dependen de una CORRIDA: si entraran en la huella,
+           # establecer la causa de un defecto contaria como cambiar el
+           # codigo. Septima y octava vez.
+           "causas_abiertas.json",
+           "acuerdo_entre_familias.json",
+           # Mediciones hechas EN LOCAL contra la API, no por un
+           # notebook: la resolucion del juez con la sonda nueva y el
+           # contraste con la libreria `ragas`. Dependen de `results/`,
+           # asi que valen lo mismo que las demas derivadas.
+           "determinismo_juez_lote.json",
+           "ragas_libreria_local.json"}
 """Salidas de los verificadores y de las auditorias: cambian solas, no
 afectan a una corrida, y meterlas en la huella haria que mirar los datos
 contara como cambiar el codigo."""

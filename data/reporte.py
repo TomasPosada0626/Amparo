@@ -320,6 +320,102 @@ def separacion() -> dict:
 # el dato que la sostenia se movio. Ahora salen del artefacto, como
 # `separacion()`, y cambian solas o dicen que no pueden concluir.
 # ---------------------------------------------------------------------------
+def pertinencia_de_las_citas() -> list[str]:
+    """La cifra mas baja de M1, que el reporte no publicaba.
+
+    DOS NUMEROS Y NO UNO, Y LA RAZON NO ES COSMETICA
+
+    `precision_citas` compara contra el conjunto EXACTO del `fundamento` del
+    gold, y ese campo mezcla dos preguntas --- que norma funda el DERECHO y
+    que norma funda el MECANISMO --- de forma ASIMETRICA: incluye las
+    procesales del mecanismo para via_ordinaria, popular y habeas corpus, y
+    OMITE `art. 86 CP` en los 62 casos de tutela del dataset.
+
+    Consecuencia medida: un modelo que cita el art. 86 CP --- la norma que
+    crea la tutela, y exactamente lo que emite `reglas.decidir()` --- cuenta
+    como impertinente. `metricas.pertinencia_por_plano` existe por eso y
+    reparte cada cita en cinco cajas.
+
+    POR QUE LA ASIMETRIA NO SE ARREGLA
+
+    `fundamento` es uno de los campos que `t_superconjunto` congela: v2
+    contiene a v1 y v3 a v2 byte a byte, y eso es lo que permite el puente
+    `subconjunto_v1` de cada scorecard. Cambiarlo destruiria doce corridas de
+    comparabilidad sin que ninguna cifra lo delatara. Asi que el agregado se
+    publica POR COMPARABILIDAD y la particion por planos POR LECTURA.
+    """
+    pc = d("m1_scorecard_finetuned.json", "pertinencia_citas")
+    if isinstance(pc, Ausente) or not isinstance(pc, dict):
+        return ["### 4.4 · La pertinencia de las citas no se midio", "",
+                "El scorecard no trae `pertinencia_citas`. No es que las "
+                "citas vengan al caso: es que no se comprobo."]
+    plano = pc.get("por_plano") or {}
+    L = [f"### 4.4 · Las citas existen ({d('m1_scorecard_finetuned.json', 'alucinacion_normativa', 'tasa_alucinacion')}"
+         " de alucinacion) y no siempre vienen al caso", ""]
+    L += [f"De **{pc.get('citas_emitidas')}** citas emitidas por el brazo "
+          f"ajustado, **{pc.get('correctas')}** vienen al caso y "
+          f"**{pc.get('impertinentes')}** no. Ninguna esta inventada "
+          f"(**{pc.get('inventadas')}**) y ninguna queda incompleta "
+          f"(**{pc.get('incompletas')}**).", ""]
+    L += [f"| | precision | recall |", "|---|---|---|",
+          f"| agregado (`precision_citas`) | **{pc.get('precision_citas'):.4f}** "
+          f"| {pc.get('recall_citas'):.4f} |"]
+    if plano.get("disponible"):
+        L += [f"| plano del MECANISMO | {plano['precision_mecanismo']:.4f} "
+              f"| {plano['recall_mecanismo']:.4f} |",
+              f"| plano del DERECHO | {plano['precision_derecho']:.4f} "
+              f"| {plano['recall_derecho']:.4f} |"]
+    L += [""]
+    L += ["**El agregado esta sesgado, y por una asimetria del gold que no se "
+          "puede corregir.** El campo `fundamento` del eval set incluye las "
+          "normas procesales del mecanismo —`art. 6.1` para `via_ordinaria`, "
+          "`art. 6.2` y la Ley 1095 para habeas corpus— y **omite `art. 86 "
+          "CP`** en los casos de tutela. Asi que un modelo que cita el art. 86 "
+          "—la norma que crea la tutela, y justo lo que emite "
+          "`reglas.decidir()`— cuenta como impertinente.", ""]
+    L += ["No se arregla porque `fundamento` es uno de los campos que el "
+          "puente de comparacion congela: v2 contiene a v1 y v3 a v2 byte a "
+          "byte, y cambiarlo destruiria doce corridas de comparabilidad. El "
+          "agregado se publica **por comparabilidad**; la particion por "
+          "planos, **por lectura**.", ""]
+    if plano.get("cajas"):
+        c = plano["cajas"]
+        # `_tabla` devuelve una LISTA de lineas: va concatenada, no anidada.
+        # Anidarla metia una lista dentro de `lineas` y `NL.join` reventaba al
+        # escribir el archivo, 151 elementos despues.
+        L += ["Donde cae cada cita:", ""] + _tabla(
+            ["caja", "citas", "que significa"], [
+                  ["`mecanismo_correcto`", c.get("mecanismo_correcto"),
+                   "acerto el plano procesal"],
+                  ["`mecanismo_equivocado`", c.get("mecanismo_equivocado"),
+                   "cito OTRO mecanismo — error de razonamiento sobre la via"],
+                  ["`derecho_correcto`", c.get("derecho_correcto"),
+                   "acerto el derecho de fondo"],
+                  ["`derecho_impertinente`", c.get("derecho_impertinente"),
+                   "cito un derecho que no viene al caso"],
+                  ["`inventada`", plano.get("cajas", {}).get("inventada", 0),
+                   "la norma no existe"],
+            ])
+        L += [""]
+    top = (plano.get("ejemplos_mecanismo_equivocado") or [])[:3]
+    if top:
+        L += ["La cita que mas se equivoca de plano es "
+              + ", ".join(f"`{n}` ({v} veces)" for n, v in top)
+              + ". `data/causas_abiertas.json` establece de donde sale: **59 "
+                "de 123 ejemplos de train** ensenan al modelo a citar una "
+                "norma PROCESAL en la linea del derecho, porque el objetivo "
+                "de entrenamiento fusiona `fundamento_del_derecho` con "
+                "`fundamento_del_mecanismo`. Los dos campos ya existen "
+                "separados en el dataset: es un cambio de formato, no de "
+                "anotacion.", ""]
+    L += ["**Corroborado por una via independiente.** El abogado que valido al "
+          "juez (§7.1) senalo citas que no corresponden en **5 de sus 10** "
+          "comentarios, sin haber visto ninguna de estas cifras. Dos "
+          "mediciones independientes apuntando al mismo defecto es la "
+          "evidencia mas fuerte de este reporte."]
+    return L
+
+
 def juez_vs_humano() -> list[str]:
     """7.1 · el juez contra un criterio humano independiente.
 
@@ -1047,6 +1143,10 @@ def construir() -> list[str]:
       "cero abstenciones indebidas. No se puede celebrar lo segundo y llamar "
       "fallo a lo primero: la declaracion va dentro del artefacto, en "
       "`cero_abstenciones_es_decision_de_diseno`.")
+    a("")
+
+    for _linea in pertinencia_de_las_citas():
+        a(_linea)
     a("")
 
     # ---- 7 · limitaciones ----------------------------------------------

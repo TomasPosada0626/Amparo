@@ -1,0 +1,77 @@
+{
+  "_medido": "2026-10-21, contra la API de Groq, sin cache",
+  "_corrida_de_referencia": "m2/20261021T124137Z",
+  "_sustituye_a": "la sonda vieja publicada en `m2_determinismo_juez.json`: 3 llamadas sobre UN caso, notas [4, 5, 5], `deterministico: false`. Cierto y casi sin informacion --- no media cuanto varia ni cada cuanto, que es justo lo que limita que se puede afirmar con las notas del juez.",
+  "_lo_que_cambia_la_lectura": "la sonda vieja se leia como «el juez no es determinista», a secas. Medido sobre 5 casos: 4 de 5 repiten su nota exactamente y uno varia 1 punto. La resolucion del instrumento es 1 punto en el peor caso y 0.2 de media, no «indeterminado».",
+  "n_casos": 5,
+  "repeticiones": 4,
+  "llamadas_reales": 20,
+  "casos_estables": 4,
+  "tasa_estabilidad": 0.8,
+  "rango_medio": 0.2,
+  "rango_maximo": 1,
+  "por_caso": [
+    {
+      "id": "E01",
+      "notas": [
+        4,
+        4,
+        4,
+        5
+      ],
+      "rango": 1,
+      "estable": false,
+      "ilegibles": 0
+    },
+    {
+      "id": "E02",
+      "notas": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "rango": 0,
+      "estable": true,
+      "ilegibles": 0
+    },
+    {
+      "id": "E03",
+      "notas": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "rango": 0,
+      "estable": true,
+      "ilegibles": 0
+    },
+    {
+      "id": "E04",
+      "notas": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "rango": 0,
+      "estable": true,
+      "ilegibles": 0
+    },
+    {
+      "id": "E05",
+      "notas": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "rango": 0,
+      "estable": true,
+      "ilegibles": 0
+    }
+  ],
+  "resolucion": "el juez varía hasta 1 punto(s) sobre una entrada idéntica, así que una diferencia de nota media menor que 1 entre dos sistemas es compatible con el ruido del instrumento y no se puede leer como una diferencia entre ellos",
+  "lectura": "`tasa_estabilidad` dice cada cuánto repite; `rango_maximo`, cuánto se mueve cuando no repite. La segunda es la que limita qué se puede afirmar: `kappa_aprueba` y el acuerdo entre jueces se calculan sobre el corte en 4, así que una nota que oscila entre 3 y 4 cambia de lado. La sonda de validez NO queda afectada en la misma medida: su margen de mecanismo fue 3.5 con mínimo 3, muy por encima de este rango."
+}

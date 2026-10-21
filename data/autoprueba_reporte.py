@@ -127,7 +127,60 @@ def main() -> int:
     comprobar("sigue siendo" not in c,
               "7.3 lo llama el peor cuando es el mejor de la clase")
 
-    # --- 7.1 · la validacion humana se afirma solo si existe ------------
+    # --- 4.4 - las citas: dos planos, y la asimetria declarada ----------
+    #
+    # La seccion no existia: `precision_citas` 0.5506 se calculaba, se
+    # publicaba en el artefacto y NO llegaba al reporte --- la cifra mas baja
+    # de M1 y la unica corroborada por una via independiente. Y al anadirla no
+    # basta el agregado: esta sesgado por una asimetria del gold que NO se
+    # puede corregir, porque `fundamento` es un campo congelado del puente.
+    # Publicar el agregado sin esa declaracion seria publicar un numero que
+    # penaliza al modelo por citar la norma correcta de la tutela.
+    reporte._CACHE.clear()
+    reporte._FALTAN.clear()
+    reporte._CACHE["m1_scorecard_finetuned.json"] = {
+        "alucinacion_normativa": {"tasa_alucinacion": 0.0},
+        "pertinencia_citas": {
+            "citas_emitidas": 178, "correctas": 98, "impertinentes": 80,
+            "inventadas": 0, "incompletas": 0,
+            "precision_citas": 0.5506, "recall_citas": 0.4135,
+            "por_plano": {
+                "disponible": True,
+                "precision_mecanismo": 0.5682, "recall_mecanismo": 0.3876,
+                "precision_derecho": 0.5556, "recall_derecho": 0.3185,
+                "cajas": {"mecanismo_correcto": 50, "mecanismo_equivocado": 38,
+                          "derecho_correcto": 50, "derecho_impertinente": 40},
+                "ejemplos_mecanismo_equivocado": [
+                    ["art. 6.1 Decreto 2591 de 1991", 26]]}}}
+    c44 = chr(10).join(reporte.pertinencia_de_las_citas()).lower()
+    comprobar("0.5506" in c44, "4.4 no publica `precision_citas`")
+    comprobar("0.5682" in c44 and "0.5556" in c44,
+              "4.4 publica el agregado sin la particion por planos, que es la "
+              "unica que se puede leer")
+    comprobar("art. 86 cp" in c44,
+              "4.4 no declara la asimetria del gold: omite art. 86 CP en los "
+              "casos de tutela, asi que penaliza al modelo por citar la norma "
+              "que crea la tutela")
+    comprobar("byte a byte" in c44 or "comparabilidad" in c44,
+              "4.4 no dice POR QUE la asimetria no se arregla (el puente "
+              "congela `fundamento`), y sin eso parece un descuido")
+    comprobar("59 de 123" in c44,
+              "4.4 no cita la causa establecida en `causas_abiertas.json`")
+    comprobar("5 de sus 10" in c44 or "5 de 10" in c44,
+              "4.4 no menciona que el abogado lo corroboro por otra via")
+
+    # Sin el artefacto, lo dice en vez de callarlo.
+    reporte._CACHE.clear()
+    reporte._FALTAN.clear()
+    reporte._CACHE["m1_scorecard_finetuned.json"] = {}
+    c44 = chr(10).join(reporte.pertinencia_de_las_citas()).lower()
+    comprobar("no se midio" in c44,
+              "sin `pertinencia_citas`, 4.4 no distingue «las citas vienen al "
+              "caso» de «no se comprobo»")
+    reporte._CACHE.clear()
+    reporte._FALTAN.clear()
+
+    # --- 7.1 - la validacion humana se afirma solo si existe ------------
     #
     # El parrafo decia «queda abierta». Es verdad hoy y deja de serlo en
     # cuanto el abogado devuelva el formulario, y entonces el reporte
@@ -243,7 +296,8 @@ def main() -> int:
 
     # --- y que no se pueda volver a escribir a mano ---------------------
     fuente = inspect.getsource(reporte.construir)
-    for sec in ("### 7.1 ", "#### 7.1.1", "### 7.2", "### 7.3", "### 7.4"):
+    for sec in ("### 4.4", "### 7.1 ", "#### 7.1.1", "### 7.2", "### 7.3",
+                "### 7.4"):
         comprobar(sec not in fuente,
                   f"la cabecera {sec} volvio a estar escrita a mano en "
                   "`construir()`: ahi no se entera de que el dato cambio, que "
@@ -261,6 +315,8 @@ def main() -> int:
     print("  7.3 sigue al F1 por clase y se retracta sola cuando deja de ser 0")
     print("  7.4 distingue un EMPATE de un solapamiento de intervalos que no")
     print("     se publican")
+    print("  4.4 publica los DOS planos de la cita y declara la asimetria")
+    print("     del gold que el puente de comparacion impide corregir")
     print("  7.1 solo afirma validacion humana si el artefacto existe, y")
     print("     distingue la del JUEZ de la del GOLD (4.9/5 fue el gold)")
     print("  7.1.1 dice que subir la kappa contra el dominio NO es una mejora")

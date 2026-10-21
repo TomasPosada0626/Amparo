@@ -1,0 +1,58 @@
+{
+  "_medido": "2026-10-21, contra la API de Groq",
+  "_corrida_de_referencia": "20261021T124137Z",
+  "_que_casos": "los 25 primeros de eval_set_v3, los mismos de la corrida",
+  "por_que_existe": "La corrida publico el acuerdo con `openai/gpt-oss-20b` --- MISMA familia que el juez --- y descarto `allam-2-7b` por «1 de 25 sin nota», concluyendo que «ninguno de los modelos de otra familia sostuvo la rubrica». Eso era una afirmacion sin cifra: no permitia distinguir «el candidato no sirve» de «no se intento». Aqui se mide.",
+  "modelos_servidos_por_la_cuenta": {
+    "total": 12,
+    "candidatos_reales_a_segundo_juez": [
+      "allam-2-7b",
+      "openai/gpt-oss-20b"
+    ],
+    "por_que_no_qwen": "`qwen/qwen3.6-27b` y `qwen/qwen3.8-27b` estan servidos y son de otra familia que el JUEZ, pero de la MISMA que el sistema evaluado (Qwen2.5-7B): usarlos reintroduciria la auto-preferencia por la otra puerta. Excluidos por diseno, no por disponibilidad.",
+    "por_que_no_los_demas": "whisper (ASR), orpheus (TTS) y llama-prompt-guard (clasificadores de seguridad, no modelos de chat). `juez.NO_JUZGAN` los filtra."
+  },
+  "comparacion": {
+    "misma_familia": {
+      "modelo_b": "openai/gpt-oss-20b",
+      "familia_b": "gpt-oss",
+      "n": 25,
+      "kappa_aprueba": 0.4444,
+      "corr_spearman": 0.7853,
+      "acuerdo_exacto": 0.48,
+      "acuerdo_a_un_punto": 0.88,
+      "sin_nota": 0
+    },
+    "otra_familia": {
+      "modelo_b": "allam-2-7b",
+      "familia_b": "allam",
+      "n": 24,
+      "kappa_aprueba": 0.3191,
+      "corr_spearman": 0.3206,
+      "acuerdo_exacto": 0.375,
+      "acuerdo_a_un_punto": 0.75,
+      "sin_nota": 1
+    }
+  },
+  "adherencia_de_cada_juez": {
+    "openai/gpt-oss-120b": {
+      "adherencia": 0.84,
+      "n": 25,
+      "generosas": 0,
+      "severas": 4
+    },
+    "allam-2-7b": {
+      "adherencia": 0.7917,
+      "n": 24,
+      "generosas": 2,
+      "severas": 3,
+      "casos_generosos": [
+        "A01",
+        "E21"
+      ]
+    }
+  },
+  "a_que_se_atribuye_el_acuerdo_bajo": "El acuerdo entre familias es bajo (Spearman 0.3206 frente a 0.7853 entre parientes) y eso admite dos lecturas opuestas: que las notas del juez principal sean una propiedad del juez y no de la respuesta, o que el candidato de otra familia no sostenga la tarea. La adherencia a la rubrica las separa: `allam-2-7b` da nota >= 3 a 2 respuestas cuyo mecanismo esta OBJETIVAMENTE equivocado contra el gold (A01, E21), y el juez principal no lo hace ni una vez --- ni en estos 25 ni en los 103 de la corrida. Incumplir la rubrica en la direccion grave es lo que descalifica a un evaluador, asi que el acuerdo bajo se atribuye al candidato y no al juez principal.",
+  "lo_que_esto_NO_dice": "que el juez principal tenga razon. La adherencia comprueba que aplica su propia escala, no que acierte; eso lo mide la validacion humana (`validacion_juez.json`, M2-1b). Y con un solo candidato de otra familia --- un 7B --- no se puede concluir que el sesgo de familia del juez principal sea pequeno: se puede concluir que ESTE candidato no sirve para medirlo. La limitacion sigue abierta y ahora tiene cifra.",
+  "decision": "la corrida hizo bien en usar el juez competente de la misma familia y declarar la limitacion. Lo que faltaba era publicar TAMBIEN la comparacion entre familias con su atribucion, en vez de descartarla: dos cifras con su lectura informan mas que una con una excusa."
+}

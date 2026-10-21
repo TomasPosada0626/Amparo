@@ -24,11 +24,12 @@ data/ampliar_corpus_393_472.py 12096 4e794b12c6386380
 data/ampliar_corpus_jurisprudencia.py 14718 eda4f1e818c8a6d0
 data/ampliar_eval_set.py 63902 180733283d4866da
 data/anotar_fundamentos.py 13901 a2d8c4ca96b9dedc
+data/auditar_causas_abiertas.py 13434 2e60e6557d4e4db7
 data/auditar_cobertura.py 8326 97139be7586fbfd5
 data/auditar_corpus.py 8297 e7aa334303268801
 data/auditar_notebooks.py 18311 5a71ea21d021d84c
 data/auditar_proyecto.py 15496 770294249bd3f0e6
-data/autoprueba_reporte.py 13457 45c4097448b31373
+data/autoprueba_reporte.py 16530 49acfb06a9eae06f
 data/calibracion_juez.py 18070 1d3e2576517c18ee
 data/casos_reales.py 16822 ac9d1ef1123e9326
 data/codificar_hechos_dataset.py 17101 33f74b1d9ddf6883
@@ -42,7 +43,7 @@ data/descomponer_baseline.py 7934 58aa455723ac5b0c
 data/diagnostico_cumplimiento.py 11752 93bb3008c9dc896c
 data/doble_anotacion.py 26049 f1ae4702739b125d
 data/formularios.py 12508 5c997e1d98f28b1b
-data/manifiesto.py 12325 8924fe5bda8e5ba1
+data/manifiesto.py 13074 255e2845e88580a3
 data/medir_redaccion.py 8397 615e6377a5cf2d5e
 data/nuevos_a.py 30974 3ac26573e786722c
 data/nuevos_b.py 37186 25c29a638a1bfbc5
@@ -52,10 +53,10 @@ data/preparar_subida.py 9877 37f79abf7fdeab20
 data/publicar_rezagados.py 4407 2c291d63ab4fb31f
 data/reparar_corpus.py 11901 1fbcac92d83f066d
 data/reparar_meta.py 5643 4c5894fb4779bc29
-data/reporte.py 57942 8367553c5fb40219
+data/reporte.py 63584 b12cd15ee467b714
 data/reverificar_corpus.py 21098 81823de94149f6c7
 data/revision_abogado_v3.py 10681 990b382d9ffa5e24
-data/validacion_juez.py 34247 592d2656f18cf810
+data/validacion_juez.py 36408 81e63de887f175e1
 data/validar_extractor.py 16624 4c689d526ae16045
 data/verificar_entrega.py 11807 1cfee21fd8aa9f36
 data/corpus.json 125864 391ea7d3c7c61bc5
@@ -69,6 +70,6 @@ data/inyecciones.json 21555 7b50eedf62875fd1
 data/normas.json 6784 eeb451b814fa25b7
 data/revision_abogado_v3.json 6593 77ddde52b17e46e8
 notebooks/M1_finetuning.ipynb 99406 5364c0be530a925a
-notebooks/M2_harness.ipynb 60709 f5ad672278d5dbde
+notebooks/M2_harness.ipynb 65576 2a61240c93144a70
 notebooks/M3_rag.ipynb 76960 a4b4f52e65b9e0b3
-_TOTAL 2372951 95bb3920cf77b591
+_TOTAL 2402877 db4b79f9966cd26a

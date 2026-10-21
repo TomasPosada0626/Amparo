@@ -2,7 +2,7 @@
 
 **Fine-tuning, evaluacion y RAG sobre el mecanismo procedente ante un relato ciudadano.**
 
-> Generado por `data/reporte.py` el 2026-10-21 13:02 (America/Bogota). Ninguna cifra de este documento esta escrita a mano: todas salen de un artefacto de `results/`, y el apendice dice de cual y de que clave. Una cifra sin artefacto hace fallar al generador.
+> Generado por `data/reporte.py` el 2026-10-21 13:40 (America/Bogota). Ninguna cifra de este documento esta escrita a mano: todas salen de un artefacto de `results/`, y el apendice dice de cual y de que clave. Una cifra sin artefacto hace fallar al generador.
 
 ## 0 · Que afirma este trabajo, y que no
 
@@ -133,6 +133,34 @@ No son ruido: son el precio de la arquitectura, y van como hallazgo porque no ap
 
 **Cero abstenciones correctas no siempre es un fallo.** El brazo del motor de reglas no se abstiene nunca porque `extraer_hechos` no activa causal de improcedencia ante la duda. El **mismo** defecto produce sus cero abstenciones indebidas. No se puede celebrar lo segundo y llamar fallo a lo primero: la declaracion va dentro del artefacto, en `cero_abstenciones_es_decision_de_diseno`.
 
+### 4.4 · Las citas existen (0.0 de alucinacion) y no siempre vienen al caso
+
+De **178** citas emitidas por el brazo ajustado, **98** vienen al caso y **80** no. Ninguna esta inventada (**0**) y ninguna queda incompleta (**0**).
+
+| | precision | recall |
+|---|---|---|
+| agregado (`precision_citas`) | **0.5506** | 0.4135 |
+| plano del MECANISMO | 0.5682 | 0.3876 |
+| plano del DERECHO | 0.5556 | 0.3185 |
+
+**El agregado esta sesgado, y por una asimetria del gold que no se puede corregir.** El campo `fundamento` del eval set incluye las normas procesales del mecanismo —`art. 6.1` para `via_ordinaria`, `art. 6.2` y la Ley 1095 para habeas corpus— y **omite `art. 86 CP`** en los casos de tutela. Asi que un modelo que cita el art. 86 —la norma que crea la tutela, y justo lo que emite `reglas.decidir()`— cuenta como impertinente.
+
+No se arregla porque `fundamento` es uno de los campos que el puente de comparacion congela: v2 contiene a v1 y v3 a v2 byte a byte, y cambiarlo destruiria doce corridas de comparabilidad. El agregado se publica **por comparabilidad**; la particion por planos, **por lectura**.
+
+Donde cae cada cita:
+
+| caja | citas | que significa |
+|---|---|---|
+| `mecanismo_correcto` | 50 | acerto el plano procesal |
+| `mecanismo_equivocado` | 38 | cito OTRO mecanismo — error de razonamiento sobre la via |
+| `derecho_correcto` | 50 | acerto el derecho de fondo |
+| `derecho_impertinente` | 40 | cito un derecho que no viene al caso |
+| `inventada` | 0 | la norma no existe |
+
+La cita que mas se equivoca de plano es `art. 6.1 Decreto 2591 de 1991` (26 veces), `Ley 1095 de 2006` (4 veces), `art. 6.3 Decreto 2591 de 1991` (2 veces). `data/causas_abiertas.json` establece de donde sale: **59 de 123 ejemplos de train** ensenan al modelo a citar una norma PROCESAL en la linea del derecho, porque el objetivo de entrenamiento fusiona `fundamento_del_derecho` con `fundamento_del_mecanismo`. Los dos campos ya existen separados en el dataset: es un cambio de formato, no de anotacion.
+
+**Corroborado por una via independiente.** El abogado que valido al juez (§7.1) senalo citas que no corresponden en **5 de sus 10** comentarios, sin haber visto ninguna de estas cifras. Dos mediciones independientes apuntando al mismo defecto es la evidencia mas fuerte de este reporte.
+
 ## 7 · Limitaciones · lo que este trabajo no puede concluir
 
 Esta seccion es el resultado mas importante del documento. El juez automatico coincide con las metricas de dominio en kappa **0.431**, y no sabemos si una persona coincidiria con el juez o con el dominio. Un proyecto que dice eso vale mas que uno que publica la cifra sin decirlo.
@@ -229,6 +257,7 @@ Relatos sinteticos, no expedientes. Nada de lo medido aqui autoriza a usar el si
 | `m3_ganadores.json` | `adversarial` | `'4 · agente + reglas'` |
 | `m3_agente.json` | `casos` | `130` |
 | `m3_agente.json` | `pasos_promedio_censura.como_citar` | `'pasos/caso >= 4.15 (cota INFERIOR: 65 de 130 casos, 50%, se` |
+| `m1_scorecard_finetuned.json` | `pertinencia_citas` | `{'citas_emitidas': 178, 'correctas': 98, 'impertinentes': 80` |
 | `m2_scorecard_finetuned.json` | `juez.kappa_vs_dominio` | `0.4311244662343824` |
 | `m2_scorecard_finetuned.json` | `juez.adherencia_a_la_rubrica` | `{'n': 103, 'concluyente': True, 'excluidos_por_abstencion': ` |
 | `m2_acuerdo_entre_jueces.json` | `_familias` | `{'conocido': True, 'familia_a': 'gpt-oss', 'familia_b': 'gpt` |
@@ -239,7 +268,7 @@ Relatos sinteticos, no expedientes. Nada de lo medido aqui autoriza a usar el si
 
 El valor va **sin redondear**: es lo que trae el artefacto, no lo que el reporte imprime. Si los dos no coinciden, el que vale es este.
 
-55 lecturas de 17 artefactos distintos.
+56 lecturas de 17 artefactos distintos.
 
 ---
 

@@ -354,6 +354,43 @@ def leer() -> int:
     _c_m2 = (_lado.read_text(encoding="utf-8").strip()
              if _lado.exists() else None)
 
+    # SI LAS RESPUESTAS YA NO SON LAS QUE SE CALIFICARON, ESTO SE PARA.
+    #
+    # Registrar la procedencia no basta. Si M1 vuelve a entrenar,
+    # `m1_predicciones.json` se reemplaza y M2 re-puntua las respuestas
+    # NUEVAS; las 25 notas del abogado son sobre las VIEJAS. Emparejar por
+    # `id` daria una kappa sobre pares que no se corresponden, y saldria sin
+    # una queja --- el peor tipo de fallo de este proyecto: una cifra
+    # plausible e inservible que nada delata.
+    #
+    # La comparacion correcta es contra la procedencia que el artefacto
+    # anterior guardo, no contra una constante: asi el guardian vale para
+    # cualquier corrida futura y no hay nada que acordarse de actualizar.
+    if RUTA_OUT.exists():
+        try:
+            _ant = json.loads(RUTA_OUT.read_text(encoding="utf-8"))
+        except Exception:                                  # noqa: BLE001
+            _ant = {}
+        _antes_m1 = _ant.get("corrida_de_las_respuestas")
+        if _antes_m1 and _c_m1 and _antes_m1 != _c_m1:
+            raise SystemExit(
+                "\n" + "=" * 72 + "\n"
+                "  NO SE RECALCULA: las respuestas cambiaron de corrida.\n"
+                + "=" * 72 + "\n"
+                f"  el abogado califico las respuestas de m1/{_antes_m1}\n"
+                f"  y `results/m1_predicciones.json` ahora es de m1/{_c_m1}\n\n"
+                "  Emparejar por `id` daria una kappa sobre pares que no se\n"
+                "  corresponden, y saldria sin avisar. Dos salidas:\n\n"
+                "   1. Conservar la medicion anterior. Sigue siendo valida:\n"
+                "      el JUEZ es lo que se validaba y no cambio. Queda\n"
+                f"      anclada a m1/{_antes_m1}, y el artefacto lo dice.\n"
+                "   2. Volver a pedirle al abogado que califique, sobre las\n"
+                "      respuestas nuevas:\n"
+                "         python -I data/validacion_juez.py --html\n"
+                "      y despues `--leer` con el formulario nuevo.\n\n"
+                "  Lo que NO hay es una tercera: recalcular con estas notas\n"
+                "  sobre esas respuestas no mide nada.\n" + "=" * 72)
+
     out = {
         "corrida_de_las_respuestas": _c_m1,
         "corrida_de_las_notas_del_juez": _c_m2,

@@ -1,0 +1,31 @@
+{
+  "_medido": "2026-10-21, en local, contra la API de Groq",
+  "_por_que_en_local": "cuatro corridas de M3 no midieron esto, siempre con el mismo error de import. El arreglo --- pinear `langchain-community==0.3.27`, no `ragas` --- se verifico en un entorno aislado, y medirlo no necesita Colab ni GPU: necesita la API. Los contextos se reconstruyen de `m3_agente_trazas.json` (los ids de `recuperados`) mas `data/corpus.json`, que es la misma entrada que armaria la celda 34.",
+  "version_ragas": "0.2.15",
+  "pin_que_lo_arreglo": "langchain-community==0.3.27",
+  "llm_juez_de_ragas": "openai/gpt-oss-120b",
+  "muestra": 8,
+  "ids": [
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E06",
+    "E07",
+    "E08"
+  ],
+  "brazo": "4 · agente + reglas",
+  "resultado": {
+    "faithfulness": 0.1408
+  },
+  "resultado_crudo": "{'faithfulness': 0.1408}",
+  "lectura": "La libreria y la metrica propia NO miden lo mismo y no deberian coincidir: la libreria le pregunta a un LLM si el contexto sostiene cada afirmacion, y `src/ragas_eval.py` comprueba si cada CITA esta respaldada por el contexto. El contraste sirve para ver si apuntan en la misma direccion, no para validar una con la otra.",
+  "contraste_con_la_implementacion_propia": {
+    "libreria_ragas_faithfulness": 0.1408,
+    "nuestra_con_juez_faithfulness": 0.182,
+    "nuestra_exacta_faithfulness": 0.3498,
+    "lectura": "las dos medidas basadas en LLM quedan cerca --- libreria 0.1408 y la nuestra con juez 0.1820 --- y la EXACTA queda mas alta (0.3498) porque mide otra cosa: si cada CITA esta respaldada por el contexto, no si un LLM considera que el contexto sostiene cada afirmacion. Que las dos de LLM apunten en la misma direccion es justo el contraste que esto venia a dar, y durante cuatro corridas no se pudo hacer.",
+    "lo_que_no_dice": "con 8 casos ninguna de las tres cifras tiene precision. El contraste dice que apuntan igual, no cuanto valen."
+  }
+}
