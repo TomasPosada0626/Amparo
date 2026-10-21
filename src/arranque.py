@@ -64,6 +64,16 @@ ORDEN = {
                     "results/m1_cobertura_clasificador.json",
                     "results/m1_predicciones.json",
                     "results/m1_scorecard_base.json",
+                    # EL BASELINE DE FORMATO. El brazo `base` falla por
+                    # formato --- 36 de 103 salidas con el mecanismo ilegible
+                    # --- y comparar contra eso infla el salto del
+                    # fine-tuning. Este brazo es el mismo modelo con el
+                    # esquema DEMOSTRADO en tres turnos, asi que lo que queda
+                    # entre los dos brazos es formato y entre este y el
+                    # afinado es razonamiento. Declararlo aqui es lo que hace
+                    # que `verificar_entrega.py` lo eche de menos si una
+                    # corrida se lo salta.
+                    "results/m1_scorecard_base_few_shot.json",
                     "results/m1_scorecard_finetuned.json",
                     "results/m1_hiperparametros.json",
                     "results/m1_seleccion_checkpoint.json",

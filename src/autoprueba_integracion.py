@@ -2702,6 +2702,90 @@ def t_sonda_validez_ejecuta():
             "escenarios (margenes variados e iguales), 16 llamadas, sin API")
 
 
+@prueba("el few-shot del baseline no filtra el eval ni ensena una clase")
+def t_few_shot():
+    """El brazo que le quita al baseline la excusa del formato.
+
+    QUE MIDE EL BRAZO
+
+    El base acierta el mecanismo en 32.0% y los dos campos en 1.9%: 36 de 103
+    salidas tienen el mecanismo ilegible. Un baseline que falla por formato es
+    un hombre de paja. Este brazo le ensena el esquema por demostracion --- lo
+    unico que cambia --- para que la comparacion con el afinado sea sobre el
+    razonamiento.
+
+    LAS DOS COSAS QUE PUEDEN ARRUINARLO, Y QUE ESTO FIJA
+
+      1. FUGA. Una demostracion que este en el eval set convierte la cifra en
+         memorizacion: el modelo no acierta el caso, lo lleva en su prompt.
+      2. UNA CLASE EN VEZ DE UN FORMATO. Con tres ejemplos, si los tres son
+         del mismo mecanismo --- o si son los tres RAROS, que es lo que daba
+         el orden alfabetico --- el prompt empuja la respuesta y el brazo mide
+         el sesgo del few-shot. Por eso van los mas frecuentes del train:
+         `tutela` y `via_ordinaria` son 92 de los 142 etiquetados y son el par
+         entre el que el modelo colapsa.
+
+    Y deterministas: dos corridas tienen que mandar el mismo prompt, o la
+    celda de estabilidad mide el muestreo del few-shot en vez del modelo.
+    """
+    tr = json.loads((DATA / "dataset.json").read_text(encoding="utf-8"))
+    tr = tr["ejemplos"]
+    ids_eval = set()
+    for a in ("eval_set.json", "eval_set_v2.json", "eval_set_v3.json",
+              "eval_set_m3.json"):
+        ids_eval |= {c["id"] for c in _cargar(a)}
+
+    dem = schema.demostraciones_few_shot(tr, ids_eval)
+    assert len(dem) == schema.N_FEW_SHOT, f"{len(dem)} demostraciones"
+
+    # 1 · ninguna en NINGUN eval set, ni por id ni por relato.
+    relatos_eval = {c["relato"].strip() for a in
+                    ("eval_set.json", "eval_set_v2.json", "eval_set_v3.json",
+                     "eval_set_m3.json") for c in _cargar(a)}
+    for d in dem:
+        assert d["id"] not in ids_eval, f"{d['id']} esta en un eval set"
+        assert d["relato"].strip() not in relatos_eval, \
+            f"{d['id']}: su relato esta en un eval set con otro id"
+
+    # 2 · mecanismos distintos, y los frecuentes presentes.
+    mecs = [d["mecanismo"] for d in dem]
+    assert len(set(mecs)) == len(mecs), f"mecanismo repetido: {mecs}"
+    assert {"tutela", "via_ordinaria"} <= set(mecs), (
+        f"el few-shot no demuestra tutela ni via_ordinaria ({mecs}): son 92 "
+        "de 142 en el train y el par donde el modelo colapsa, asi que un "
+        "prompt sin ellos empuja la respuesta en vez de ensenar el formato")
+    assert all(d.get("mecanismo") for d in dem), \
+        "una demostracion de abstencion ensena otro formato"
+
+    # 3 · deterministas.
+    assert [d["id"] for d in schema.demostraciones_few_shot(tr, ids_eval)] == \
+        [d["id"] for d in dem], "la seleccion no es determinista"
+
+    # 4 · y el prohibido se respeta de verdad.
+    sin_primero = schema.demostraciones_few_shot(
+        tr, ids_eval | {dem[0]["id"]})
+    assert dem[0]["id"] not in [d["id"] for d in sin_primero], \
+        "ids_prohibidos no excluye"
+
+    # 5 · la forma de los mensajes: el sistema es el MISMO que el del brazo
+    # base, y el ultimo turno es el caso a resolver, sin su respuesta.
+    caso = next(c for c in _cargar("eval_set_v3.json") if c["mecanismo"])
+    msgs = schema.mensajes_few_shot("SISTEMA DEL BRAZO BASE", caso, dem)
+    assert [m["role"] for m in msgs] == (
+        ["system"] + ["user", "assistant"] * len(dem) + ["user"]), \
+        [m["role"] for m in msgs]
+    assert msgs[0]["content"] == "SISTEMA DEL BRAZO BASE", (
+        "mensajes_few_shot reescribe la instruccion: los dos brazos tienen "
+        "que llevar el mismo `system` o la diferencia medida es la del prompt")
+    ultimo = msgs[-1]["content"]
+    assert caso["relato"] in ultimo, "el ultimo turno no trae el caso"
+    assert schema.render_salida(caso) not in ultimo, \
+        "el ultimo turno trae la RESPUESTA del caso a resolver"
+
+    return (f"{len(dem)} demostraciones del train ({', '.join(mecs)}), "
+            f"0 en los 4 eval sets, deterministas")
+
+
 @prueba("la validacion del abogado caduca con la corrida, y lo dice")
 def t_validacion_caduca():
     """La guarda que hace falta justo antes de volver a correr los notebooks.

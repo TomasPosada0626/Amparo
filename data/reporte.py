@@ -1022,10 +1022,71 @@ def descomposicion_del_salto() -> list[str]:
         "**hibrido**, que es el base con el motor de reglas decidiendo: aisla "
         "el razonamiento del formato.",
         "",
-        "> Lo senalo una auditoria externa, y al medirlo tenia razon. Queda "
-        "pendiente el baseline de formato --- el base con few-shot del bloque "
-        "de cinco lineas --- que exige una corrida.",
+        "> Lo senalo una auditoria externa, y al medirlo tenia razon.",
+        "",
+        *_baseline_de_formato(),
     ]
+
+
+def _baseline_de_formato() -> list[str]:
+    """El tercer brazo: el base con el esquema DEMOSTRADO.
+
+    Es lo que la auditoria externa pidio literalmente, y cierra la
+    descomposicion: entre `base` y `base+few-shot` lo que cambia es el
+    formato; entre `base+few-shot` y el afinado, el razonamiento --- ya sin
+    la excusa del formato ---.
+
+    Mientras el artefacto no exista se dice que falta y se dice como se
+    produce. Lo que no se hace es estimar el numero: una cifra de un brazo
+    que no se ha corrido no es una cifra.
+    """
+    fs = _cargar("m1_scorecard_base_few_shot.json")
+    if isinstance(fs, Ausente):
+        return ["> **El baseline de formato todavia no se ha corrido.** El "
+                "brazo esta en el notebook (M1, seccion 4.1: mismo modelo, "
+                "misma instruccion, el esquema demostrado en tres turnos del "
+                "train) y `arranque.ORDEN` ya declara "
+                "`results/m1_scorecard_base_few_shot.json`, asi que "
+                "`verificar_entrega.py` lo echa de menos hasta que una "
+                "corrida lo produzca. Sin el, el hueco entre el base y el "
+                "afinado se puede atribuir al formato pero no se puede "
+                "**acotar**."]
+    aj_fs = (fs or {}).get("acierto_juridico")
+    aj_b = d("m1_scorecard_base.json", "acierto_juridico")
+    aj_ft = d("m1_scorecard_finetuned.json", "acierto_juridico")
+    _CITAS.append(("m1_scorecard_base_few_shot.json", "acierto_juridico",
+                   repr(aj_fs)))
+    if aj_fs is None or isinstance(aj_b, Ausente) or isinstance(aj_ft, Ausente):
+        return ["> El baseline de formato existe pero no trae "
+                "`acierto_juridico`."]
+    L = ["#### 3.1.1 · El baseline de formato: "
+         f"**{_pct(aj_fs)}** con el esquema demostrado", ""]
+    L += ["Mismo modelo base, misma instruccion, misma generacion "
+          "determinista: lo **unico** que cambia es que el esquema va "
+          "demostrado en tres turnos de ejemplo del train en vez de solo "
+          "descrito. Es el baseline que la auditoria externa pidio, y parte "
+          "el hueco en dos tramos que se leen por separado:", ""]
+    L += _tabla(["tramo", "de", "a", "diferencia", "que mide"], [
+        ["formato", f"**{_pct(aj_b)}**", f"**{_pct(aj_fs)}**",
+         f"**{_pct(aj_fs - aj_b)}**",
+         "lo que el base recupera solo por ver el esquema"],
+        ["razonamiento", f"**{_pct(aj_fs)}**", f"**{_pct(aj_ft)}**",
+         f"**{_pct(aj_ft - aj_fs)}**",
+         "lo que queda del fine-tuning sin la excusa del formato"],
+    ])
+    L += ["",
+          "**Y el segundo tramo es el que sostiene o no la tesis de M1.** Si "
+          "el few-shot cerrara casi todo el hueco, lo que este trabajo "
+          "demuestra seria mucho mas modesto de lo que la cifra de cabecera "
+          "sugiere; que quede un tramo grande es lo que convierte el salto en "
+          "una afirmacion sobre derecho y no sobre adherencia a un esquema.", ""]
+    L += ["**Lo que este brazo no es.** No es el techo del modelo base: es "
+          "**un** prompt con tres demostraciones, no una busqueda de prompts. "
+          "Un baseline mas fuerte sigue siendo posible, y las demostraciones "
+          "salen del train y cubren los mecanismos mas frecuentes a proposito "
+          "--- la prueba 74 lo fija --- porque tres ejemplos de las clases "
+          "raras ensenarian una clase en vez de un formato."]
+    return L
 
 
 def construir() -> list[str]:
@@ -1255,12 +1316,40 @@ def construir() -> list[str]:
       f"{d('m1_degeneracion.json', 'finetuned', 'de')}**. El recorte de "
       "generacion la acota, no la cura (ROADMAP3 · M1-1).")
     a("")
-    a("**Estabilidad entre corridas.** "
-      f"`identicas: {d('m1_estabilidad.json', 'identicas')}`. Dos corridas "
-      "con el mismo codigo y los mismos datos no dan bit a bit lo mismo, y "
-      "por eso el adaptador se versiona con la corrida que lo produjo y "
-      "registra la huella de sus pesos: un resultado del que no se pueden "
-      "recuperar los pesos no es reproducible, es anecdotico.")
+    # LA ATRIBUCION SALE DEL ARTEFACTO, NO DE UNA FRASE FIJA.
+    #
+    # Esto decia, escrito a mano: «Dos corridas con el mismo codigo y los
+    # mismos datos no dan bit a bit lo mismo». El artefacto de esta corrida
+    # dice `mismo_codigo: false`. O sea que la frase afirmaba
+    # no-determinismo donde lo que hay es un cambio de codigo entre las dos
+    # corridas --- y la propia celda de estabilidad avisa de eso ---. Una
+    # prosa que contradice el artefacto que tiene al lado es peor que no
+    # tenerla: parece verificada.
+    _ident = d('m1_estabilidad.json', 'identicas')
+    _cod = d('m1_estabilidad.json', 'mismo_codigo')
+    _dat = d('m1_estabilidad.json', 'mismos_datos')
+    a("**Estabilidad entre corridas.** " + (
+        f"`identicas: {_ident}`, con `mismo_codigo: {_cod}` y "
+        f"`mismos_datos: {_dat}`. "
+        + ("Mismo codigo, mismos datos y misma semilla: una diferencia aqui "
+           "SI es no-determinismo, y por eso el adaptador se versiona con la "
+           "corrida que lo produjo y registra la huella de sus pesos --- un "
+           "resultado del que no se pueden recuperar los pesos no es "
+           "reproducible, es anecdotico."
+           if (_cod is True and _dat is True and _ident is False) else
+           "Mismo codigo y mismos datos: las dos corridas coinciden bit a "
+           "bit y la reproducibilidad queda establecida."
+           if (_cod is True and _dat is True) else
+           "**La diferencia no se puede atribuir**: el codigo cambio entre "
+           "las dos corridas, asi que `identicas: False` lo explica el "
+           "cambio y no hace falta invocar no-determinismo. Decir lo "
+           "contrario seria afirmar un hallazgo que esta comparacion no "
+           "sostiene. Lo que falta para resolverlo son **dos corridas "
+           "consecutivas con `src/` sin tocar en medio**: entonces "
+           "`identicas` significa algo en los dos sentidos. Mientras tanto "
+           "el adaptador se versiona con su corrida y registra la huella de "
+           "sus pesos, que es lo que permite volver a los pesos que dieron "
+           "la cifra que se reporta.")))
     a("")
     a("**Capa de redaccion.** `m1_redaccion.json` mide la capa que convierte "
       "el bloque de triaje en lenguaje natural sin dejarle inventar normas: "

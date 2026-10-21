@@ -2,7 +2,7 @@
 
 **Fine-tuning, evaluacion y RAG sobre el mecanismo procedente ante un relato ciudadano.**
 
-> Generado por `data/reporte.py` el 2026-10-21 18:50 (America/Bogota). Ninguna cifra de este documento esta escrita a mano: todas salen de un artefacto de `results/`, y el apendice dice de cual y de que clave. Una cifra sin artefacto hace fallar al generador.
+> Generado por `data/reporte.py` el 2026-10-21 18:59 (America/Bogota). Ninguna cifra de este documento esta escrita a mano: todas salen de un artefacto de `results/`, y el apendice dice de cual y de que clave. Una cifra sin artefacto hace fallar al generador.
 
 ## 0 · Que afirma este trabajo, y que no
 
@@ -108,7 +108,9 @@ El salto de cabecera es **69.9%** de acierto juridico. No todo es razonamiento, 
 
 Las dos son ganancias reales del fine-tuning --- sin bloque parseable no hay sistema --- pero **solo la primera es una afirmacion sobre derecho**, y sumarlas en una sola cifra exagera lo que este trabajo demuestra. Por eso la tabla de arriba lleva la columna del **hibrido**, que es el base con el motor de reglas decidiendo: aisla el razonamiento del formato.
 
-> Lo senalo una auditoria externa, y al medirlo tenia razon. Queda pendiente el baseline de formato --- el base con few-shot del bloque de cinco lineas --- que exige una corrida.
+> Lo senalo una auditoria externa, y al medirlo tenia razon.
+
+> **El baseline de formato todavia no se ha corrido.** El brazo esta en el notebook (M1, seccion 4.1: mismo modelo, misma instruccion, el esquema demostrado en tres turnos del train) y `arranque.ORDEN` ya declara `results/m1_scorecard_base_few_shot.json`, asi que `verificar_entrega.py` lo echa de menos hasta que una corrida lo produzca. Sin el, el hueco entre el base y el afinado se puede atribuir al formato pero no se puede **acotar**.
 
 Por estrato de fiabilidad de la etiqueta:
 
@@ -122,7 +124,7 @@ Por estrato de fiabilidad de la etiqueta:
 
 **Degeneracion.** `m1_degeneracion.json` mide la cola repetitiva y los caracteres imposibles en un triaje colombiano: base 2 de 109 salidas, afinado **0 de 109**. El recorte de generacion la acota, no la cura (ROADMAP3 · M1-1).
 
-**Estabilidad entre corridas.** `identicas: False`. Dos corridas con el mismo codigo y los mismos datos no dan bit a bit lo mismo, y por eso el adaptador se versiona con la corrida que lo produjo y registra la huella de sus pesos: un resultado del que no se pueden recuperar los pesos no es reproducible, es anecdotico.
+**Estabilidad entre corridas.** `identicas: False`, con `mismo_codigo: False` y `mismos_datos: True`. **La diferencia no se puede atribuir**: el codigo cambio entre las dos corridas, asi que `identicas: False` lo explica el cambio y no hace falta invocar no-determinismo. Decir lo contrario seria afirmar un hallazgo que esta comparacion no sostiene. Lo que falta para resolverlo son **dos corridas consecutivas con `src/` sin tocar en medio**: entonces `identicas` significa algo en los dos sentidos. Mientras tanto el adaptador se versiona con su corrida y registra la huella de sus pesos, que es lo que permite volver a los pesos que dieron la cifra que se reporta.
 
 **Capa de redaccion.** `m1_redaccion.json` mide la capa que convierte el bloque de triaje en lenguaje natural sin dejarle inventar normas: 109 casos, **0** con normas que no estaban en el bloque, mecanismo dicho en 99.1% y procedencia en 100.0%. La guarda es estructural: el texto solo puede citar lo que el motor ya decidio. Las dos coberturas tienen que valer 1.0 --- son lo que permite que un error del triaje siga siendo detectable por quien lee el texto.
 
@@ -288,6 +290,10 @@ Relatos sinteticos, no expedientes. Nada de lo medido aqui autoriza a usar el si
 
 ## 8 · Apendice · cada cifra y su artefacto
 
+**Artefactos o claves que no estaban**, y donde el reporte lo dice en vez de callarlo:
+
+- `m1_scorecard_base_few_shot.json`
+
 | artefacto | clave | valor leido |
 |---|---|---|
 | `m3_scorecards_comunes.json` | `ic.acierto_juridico` | `mejor=4 · agente + reglas, solapan=3` |
@@ -315,6 +321,8 @@ Relatos sinteticos, no expedientes. Nada de lo medido aqui autoriza a usar el si
 | `m1_degeneracion.json` | `finetuned.n` | `0` |
 | `m1_degeneracion.json` | `finetuned.de` | `109` |
 | `m1_estabilidad.json` | `identicas` | `False` |
+| `m1_estabilidad.json` | `mismo_codigo` | `False` |
+| `m1_estabilidad.json` | `mismos_datos` | `True` |
 | `m1_redaccion.json` | `n` | `109` |
 | `m1_redaccion.json` | `textos_con_citas_intrusas` | `0` |
 | `m1_redaccion.json` | `dicen_el_mecanismo` | `0.9908` |
@@ -350,7 +358,7 @@ Relatos sinteticos, no expedientes. Nada de lo medido aqui autoriza a usar el si
 
 El valor va **sin redondear**: es lo que trae el artefacto, no lo que el reporte imprime. Si los dos no coinciden, el que vale es este.
 
-57 lecturas de 18 artefactos distintos.
+59 lecturas de 18 artefactos distintos.
 
 ---
 

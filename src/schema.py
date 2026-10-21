@@ -711,3 +711,92 @@ def cargar(split: str | None = None, archivo: str = "dataset.json") -> list[dict
     datos = json.loads((DATA / archivo).read_text(encoding="utf-8"))
     ejemplos = datos["ejemplos"] if isinstance(datos, dict) else datos
     return [e for e in ejemplos if split is None or e["split"] == split]
+
+# --------------------------------------------------------------------------
+# El baseline de formato: few-shot para el modelo sin ajustar
+# --------------------------------------------------------------------------
+N_FEW_SHOT = 3
+"""Cuantas demostraciones. Tres, no diez, y la razon es lo que se quiere
+medir: el objetivo es ensenarle el ESQUEMA, no darle casos parecidos de los
+que copiar la respuesta. Cuantos mas ejemplos, mas se parece esto a una
+recuperacion y menos a un baseline de formato."""
+
+
+def demostraciones_few_shot(entrenamiento: list[dict],
+                            ids_prohibidos: set[str] | None = None,
+                            n: int = N_FEW_SHOT) -> list[dict]:
+    """`n` ejemplos del TRAIN para ensenar el formato, deterministas.
+
+    TRES CONDICIONES, Y LAS TRES IMPORTAN
+
+      1. SALEN DEL TRAIN. `ids_prohibidos` recibe los ids del eval set y
+         ninguno puede entrar. Una demostracion que esta en el eval convierte
+         la cifra del brazo en memorizacion: el modelo no acierta el caso,
+         lo ha leido en su propio prompt.
+      2. MECANISMOS DISTINTOS, POR FRECUENCIA DESCENDENTE. Uno de cada
+         mecanismo para que tres ejemplos no ensenen una clase; y los mas
+         frecuentes del train primero.
+
+         Lo segundo no es cosmetico, y la primera version lo tenia al
+         contrario. Ordenando por nombre salian `accion_cumplimiento`,
+         `accion_popular` y `habeas_corpus`: los tres mecanismos RAROS, y
+         ninguna demostracion de `tutela` ni de `via_ordinaria`, que son 92
+         de los 142 casos etiquetados del train y justo el par entre el que
+         el modelo colapsa. Un prompt donde ninguna respuesta es «tutela» no
+         es neutro --- empuja al modelo a evitarla ---, y entonces el brazo
+         mediria el sesgo del few-shot y no el formato. Por frecuencia salen
+         `tutela`, `via_ordinaria` y `accion_cumplimiento`: la distribucion
+         demostrada se parece a la que vio el afinado, asi que entre los dos
+         brazos la diferencia que queda es el formato.
+
+      3. DETERMINISTAS. Sin azar: dentro de cada mecanismo se ordena por `id`
+         y se toma el primero. Dos corridas tienen que mandar EL MISMO
+         prompt, o la comparacion de estabilidad mide el muestreo del
+         few-shot y no el modelo.
+
+    No se incluye ningun ejemplo de abstencion a proposito: el brazo mide
+    adherencia al formato de los cinco campos, y la salida de abstencion es
+    otro formato. Mezclarlos ensenaria dos cosas con tres ejemplos.
+    """
+    prohibidos = ids_prohibidos or set()
+    por_mecanismo: dict[str, list[dict]] = {}
+    for e in sorted(entrenamiento, key=lambda x: x["id"]):
+        mec = e.get("mecanismo")
+        if not mec or e["id"] in prohibidos:
+            continue
+        por_mecanismo.setdefault(mec, []).append(e)
+    # Frecuencia descendente, y el nombre solo para desempatar: sin el
+    # segundo criterio el orden dependeria del de insercion del dict.
+    orden = sorted(por_mecanismo, key=lambda m: (-len(por_mecanismo[m]), m))
+    sel = [por_mecanismo[m][0] for m in orden][:n]
+    if len(sel) < n:
+        raise ValueError(
+            f"solo hay {len(sel)} mecanismos disponibles para {n} "
+            "demostraciones: el few-shot ensenaria una clase, no un formato")
+    return sel
+
+
+def mensajes_few_shot(sistema: str, ejemplo: dict,
+                      demostraciones: list[dict]) -> list[dict]:
+    """`[system, (user, assistant) x k, user]` --- el formato ensenado por
+    turnos, no descrito en la instruccion.
+
+    POR QUE POR TURNOS Y NO EN EL `system`
+
+    El `system` ya describe el esquema en palabras y el modelo base no lo
+    sigue: eso es lo que mide `descomposicion_baseline.json`. Lo que no se ha
+    probado es ensenarselo por demostracion, que es como se usa un modelo
+    instruido en la practica. Meter los ejemplos dentro del `system` los
+    convertiria en mas texto de la instruccion --- lo mismo que ya falla ---;
+    como turnos de chat, el modelo los ve como respuestas suyas anteriores.
+
+    El `system` se pasa como argumento y no se construye aqui para que sea
+    EXACTAMENTE el mismo que recibe el brazo base: si los dos brazos llevan
+    instrucciones distintas, la diferencia que se mida es la de los prompts.
+    """
+    msgs = [{"role": "system", "content": sistema}]
+    for d in demostraciones:
+        msgs.append({"role": "user", "content": render_entrada(d)})
+        msgs.append({"role": "assistant", "content": render_salida(d)})
+    msgs.append({"role": "user", "content": render_entrada(ejemplo)})
+    return msgs
