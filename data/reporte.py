@@ -731,8 +731,8 @@ def juez_vs_humano() -> list[str]:
     kap, sp = ac.get("kappa_aprueba"), ac.get("corr_spearman")
     exacto, a1 = ac.get("acuerdo_exacto"), ac.get("acuerdo_a_un_punto")
     desac = v.get("desacuerdos_de_2_o_mas") or []
-    return [f"### 7.1 · El juez contra un abogado: kappa **{kap}** sobre "
-            f"{n} casos", "",
+    L = [f"### 7.1 · El juez contra un abogado: kappa **{kap}** sobre "
+         f"{n} casos", "",
             "Es la unica cifra del proyecto en la que uno de los dos "
             "evaluadores **no es un modelo**, asi que es la unica de la que "
             "se puede afirmar que no comparte linaje con el juez. Mide "
@@ -747,6 +747,38 @@ def juez_vs_humano() -> list[str]:
             "estratos, no el del eval set entero. Segundo, mide **acuerdo, no "
             "verdad**: donde el juez y el abogado coinciden en una nota "
             "equivocada, esto no lo ve."]
+
+    # DE QUE CORRIDA ES ESTA CIFRA.
+    #
+    # El abogado puntuo las respuestas que tenia delante. Si M1 se vuelve a
+    # correr y las respuestas cambian, esta kappa sigue siendo una medicion
+    # valida --- de la corrida en la que se hizo --- y deja de describir al
+    # juez de la corrida nueva. La diferencia entre esas dos cosas es toda la
+    # seccion, asi que se compara y se dice aqui, en vez de depender de que
+    # alguien se acuerde de ponerlo despues de correr.
+    _resp = v.get("corrida_de_las_respuestas")
+    _m1 = procedencia().get("m1", {}).get("corrida")
+    if _resp and _m1 and _resp != _m1:
+        L += ["",
+              f"> **Esta cifra es de otra corrida, y vale como tal.** El "
+              f"abogado puntuo las respuestas de `m1/{_resp}`; este informe se "
+              f"construye sobre `m1/{_m1}`. Una validacion humana no caduca "
+              "porque exista una corrida posterior: lo que caduca es "
+              "presentarla como validacion de **esta**. Las notas siguen "
+              "siendo la lectura que un jurista externo hizo de unas salidas "
+              "concretas y se citan ancladas a ellas. "
+              "`data/validacion_juez.py --leer` se niega a recalcular la "
+              "kappa con las notas viejas sobre las respuestas nuevas, y la "
+              "prueba 73 lo fija."]
+    elif _resp:
+        L += ["",
+              f"Las notas son de las respuestas de **esta misma corrida** "
+              f"(`m1/{_resp}`): el abogado leyo el texto que el juez puntuo, "
+              "no otro. `--leer` lo comprueba comparando la columna "
+              "`respuesta_del_sistema` del formulario que devolvio con lo que "
+              "`results/` publica hoy, y se niega a dar la cifra si algo se "
+              "movio."]
+    return L
 
 
 def adherencia_del_juez() -> list[str]:

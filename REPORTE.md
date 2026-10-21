@@ -2,7 +2,7 @@
 
 **Fine-tuning, evaluacion y RAG sobre el mecanismo procedente ante un relato ciudadano.**
 
-> Generado por `data/reporte.py` el 2026-10-21 18:44 (America/Bogota). Ninguna cifra de este documento esta escrita a mano: todas salen de un artefacto de `results/`, y el apendice dice de cual y de que clave. Una cifra sin artefacto hace fallar al generador.
+> Generado por `data/reporte.py` el 2026-10-21 18:50 (America/Bogota). Ninguna cifra de este documento esta escrita a mano: todas salen de un artefacto de `results/`, y el apendice dice de cual y de que clave. Una cifra sin artefacto hace fallar al generador.
 
 ## 0 · Que afirma este trabajo, y que no
 
@@ -249,6 +249,8 @@ Esta seccion es el resultado mas importante del documento. El juez automatico co
 Es la unica cifra del proyecto en la que uno de los dos evaluadores **no es un modelo**, asi que es la unica de la que se puede afirmar que no comparte linaje con el juez. Mide *validez de criterio*: acuerdo exacto **0.68**, a un punto **0.92**, Spearman **0.8339**, con 2 desacuerdo(s) de dos puntos o mas.
 
 **Lo que esta cifra no dice, en dos cosas.** Primero, la muestra la pone una persona a mano y esta **sesgada a proposito**: se tomaron hasta cinco casos de *cada* nota del juez, porque una muestra proporcional serian 25 casos con casi toda la varianza en un punto. Asi que estima el acuerdo condicionado a esos estratos, no el del eval set entero. Segundo, mide **acuerdo, no verdad**: donde el juez y el abogado coinciden en una nota equivocada, esto no lo ve.
+
+Las notas son de las respuestas de **esta misma corrida** (`m1/20261021T115654Z`): el abogado leyo el texto que el juez puntuo, no otro. `--leer` lo comprueba comparando la columna `respuesta_del_sistema` del formulario que devolvio con lo que `results/` publica hoy, y se niega a dar la cifra si algo se movio.
 
 #### 7.1.1 · El juez respeta su propia escala en **0.8058** de 103 notas
 
