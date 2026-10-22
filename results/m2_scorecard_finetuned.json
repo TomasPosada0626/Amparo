@@ -1,5 +1,5 @@
 {
-  "_corrida": "20261022T093420Z",
+  "_corrida": "20261022T125415Z",
   "_modulo": "m2",
   "_artefacto": "scorecard_finetuned.json",
   "sistema": "M1 fine-tuned LoRA",
@@ -10,32 +10,32 @@
       "macro_f1": 0.6212820561504772,
       "baseline_mayoritaria": 0.14563106796116504,
       "soporte_por_clase": {
-        "estabilidad_laboral_reforzada": 8,
-        "trabajo": 8,
         "colectivos": 8,
-        "libertad_personal": 8,
-        "salud": 8,
-        "habeas_data": 8,
+        "estabilidad_laboral_reforzada": 8,
         "minimo_vital": 8,
         "debido_proceso": 8,
-        "ninguno": 15,
+        "habeas_data": 8,
         "peticion": 8,
+        "educacion": 8,
+        "ninguno": 15,
+        "libertad_personal": 8,
         "seguridad_social": 8,
-        "educacion": 8
+        "trabajo": 8,
+        "salud": 8
       },
       "f1_por_clase": {
-        "estabilidad_laboral_reforzada": 0.8571,
-        "trabajo": 0.5714,
         "colectivos": 0.8,
-        "libertad_personal": 0.9333,
-        "salud": 0.8,
-        "habeas_data": 0.2222,
+        "estabilidad_laboral_reforzada": 0.8571,
         "minimo_vital": 0.0,
         "debido_proceso": 0.4,
-        "ninguno": 0.55,
+        "habeas_data": 0.2222,
         "peticion": 0.7368,
+        "educacion": 0.8571,
+        "ninguno": 0.55,
+        "libertad_personal": 0.9333,
         "seguridad_social": 0.7273,
-        "educacion": 0.8571
+        "trabajo": 0.5714,
+        "salud": 0.8
       },
       "clases_con_soporte_minimo": []
     },
@@ -44,18 +44,18 @@
       "macro_f1": 0.8082080200501253,
       "baseline_mayoritaria": 0.44660194174757284,
       "soporte_por_clase": {
-        "accion_cumplimiento": 8,
-        "accion_popular": 8,
+        "tutela": 46,
         "via_ordinaria": 33,
         "habeas_corpus": 8,
-        "tutela": 46
+        "accion_popular": 8,
+        "accion_cumplimiento": 8
       },
       "f1_por_clase": {
-        "accion_cumplimiento": 0.75,
-        "accion_popular": 0.8571,
+        "tutela": 0.875,
         "via_ordinaria": 0.7018,
         "habeas_corpus": 0.8571,
-        "tutela": 0.875
+        "accion_popular": 0.8571,
+        "accion_cumplimiento": 0.75
       },
       "clases_con_soporte_minimo": []
     },
@@ -554,27 +554,27 @@
     "notas": [
       {
         "nota": 5,
-        "justificacion": "Razonamiento jurídico correcto y fundamentado, sin errores relevantes",
+        "justificacion": "Razonamiento jurídico sólido y adecuado, con fundamento normativo pertinente",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Razonamiento sólido y correcto, pero omite referencias normativas y parte demandada del caso.",
+        "justificacion": "Razonamiento jurídico sólido y correcto, aunque omite la entidad territorial como accionado.",
         "reparada": false
       },
       {
         "nota": 5,
-        "justificacion": "Razonamiento jurídico correcto y congruente con la referencia",
+        "justificacion": "Razonamiento jurídico correcto y congruente con la referencia, identifica adecuadamente tutela y falta de respuesta de fondo.",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Razonamiento correcto pero incluye pretensión no requerida y citas normativas incompletas.",
+        "justificacion": "Razonamiento sólido y procedencia correcta, pero cita normativa menos precisa y añade pretensión no requerida.",
         "reparada": false
       },
       {
         "nota": 1,
-        "justificacion": "Mecanismo y fundamento jurídico incorrectos; no reconoce el habeas data ni la procedencia de la tutela.",
+        "justificacion": "Mecanismo y fundamento jurídico incorrectos; no reconoce acción de tutela ni habeas data aplicable.",
         "reparada": false
       },
       {

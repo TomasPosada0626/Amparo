@@ -1,5 +1,5 @@
 {
-  "_corrida": "20261022T093420Z",
+  "_corrida": "20261022T125415Z",
   "_modulo": "m2",
   "_artefacto": "determinismo_juez.json",
   "n_casos": 5,
@@ -15,7 +15,7 @@
       "notas": [
         5,
         4,
-        4,
+        5,
         5
       ],
       "rango": 1,

@@ -1,5 +1,5 @@
 {
-  "_corrida": "20261022T093420Z",
+  "_corrida": "20261022T125415Z",
   "_modulo": "m2",
   "_artefacto": "acuerdo_entre_jueces.json",
   "n": 25,
@@ -23,11 +23,11 @@
     "por_que_no_otra_familia": "ninguno de los modelos de otra familia servidos en esta cuenta puntuo los 25 sin huecos, asi que el juez B elegido es pariente del principal. La comparacion entre familias NO se pierde: va en `acuerdo_entre_familias`, con su atribucion"
   },
   "media_a": 3.48,
-  "media_b": 3.0,
+  "media_b": 3.08,
   "acuerdo_exacto": 0.56,
   "acuerdo_a_un_punto": 0.8,
   "kappa_aprueba": 0.4807,
-  "corr_spearman": 0.7866,
+  "corr_spearman": 0.7596,
   "sin_nota_en_alguno": 0,
   "lectura": "`kappa_aprueba` es la cifra que importa: mide el acuerdo en la decision binaria que el harness usa (nota >= 4), corregida por azar. `indefinido` significa que uno de los dos jueces uso una sola categoria, y entonces la kappa vale 0.0 mecanicamente y no distingue acuerdo de desacuerdo. Una diferencia grande de medias con buena correlacion significa que los jueces ORDENAN igual pero calibran distinto: para comparar sistemas sirve, para reportar una nota absoluta no.",
   "acuerdo_entre_familias": {

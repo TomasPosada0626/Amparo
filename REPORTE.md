@@ -2,7 +2,7 @@
 
 **Fine-tuning, evaluacion y RAG sobre el mecanismo procedente ante un relato ciudadano.**
 
-> Generado por `data/reporte.py` el 2026-10-22 07:57 (America/Bogota). Ninguna cifra de este documento esta escrita a mano: todas salen de un artefacto de `results/`, y el apendice dice de cual y de que clave. Una cifra sin artefacto hace fallar al generador.
+> Generado por `data/reporte.py` el 2026-10-22 08:12 (America/Bogota). Ninguna cifra de este documento esta escrita a mano: todas salen de un artefacto de `results/`, y el apendice dice de cual y de que clave. Una cifra sin artefacto hace fallar al generador.
 
 ## 0 · Que afirma este trabajo, y que no
 
@@ -19,7 +19,7 @@ Las tres corridas comparten huella de codigo, asi que la comparacion entre modul
 | modulo | corrida | huella de codigo | valida | artefactos |
 |---|---|---|---|---|
 | m1 | 20261022T044802Z | `a76e86cbb80081ed` | True | 15 |
-| m2 | 20261022T093420Z | `a76e86cbb80081ed` | True | 12 |
+| m2 | 20261022T125415Z | `a76e86cbb80081ed` | True | 12 |
 | m3 | 20261022T105449Z | `a76e86cbb80081ed` | True | 18 |
 
 `data/verificar_entrega.py` comprueba esto mismo de forma ejecutable: que los artefactos esten, que sean de la misma corrida de su modulo, que las huellas de codigo coincidan y que la version de datos sea la misma en los tres.
@@ -151,7 +151,7 @@ Un juez LLM que no se audita no es una medicion, es una opinion con decimales. L
 
 La inyeccion se mide con **tres sondas por estilo** precisamente porque con una sola no se puede distinguir un estilo que funciona siempre de uno que acerto por suerte; el desglose va en `inyeccion.por_estilo`, y los estilos que se quedaron con una sola sonda van nombrados en `estilos_con_una_sola_sonda` en vez de promediados con los demas.
 
-**Acuerdo entre jueces.** `m2_acuerdo_entre_jueces.json`: kappa 0.481, Spearman 0.787. Si el segundo juez no estuvo servido, el artefacto no existe y esta linea lo dice: publicar un archivo vacio seria peor que no publicarlo.
+**Acuerdo entre jueces.** `m2_acuerdo_entre_jueces.json`: kappa 0.481, Spearman 0.76. Si el segundo juez no estuvo servido, el artefacto no existe y esta linea lo dice: publicar un archivo vacio seria peor que no publicarlo.
 
 **Determinismo del juez.** `m2_determinismo_juez.json`: **4** de 5 casos dan la misma nota en 4 repeticiones sin cache (rango medio 0.2, maximo 1). el juez varía hasta 1 punto(s) sobre una entrada idéntica, así que una diferencia de nota media menor que 1 entre dos sistemas es compatible con el ruido del instrumento y no se puede leer como una diferencia entre ellos
 
@@ -347,7 +347,7 @@ Relatos sinteticos, no expedientes. Nada de lo medido aqui autoriza a usar el si
 | `m2_sesgos.json` | `inyeccion.n` | `18` |
 | `m2_sesgos.json` | `inyeccion.lectura_estilo` | `'La tasa agregada esconde CUAL forma de inyeccion funciona. ` |
 | `m2_acuerdo_entre_jueces.json` | `kappa_aprueba` | `0.4807` |
-| `m2_acuerdo_entre_jueces.json` | `corr_spearman` | `0.7866` |
+| `m2_acuerdo_entre_jueces.json` | `corr_spearman` | `0.7596` |
 | `m2_determinismo_juez.json` | `casos_estables` | `4` |
 | `m2_determinismo_juez.json` | `n_casos` | `5` |
 | `m2_determinismo_juez.json` | `repeticiones` | `4` |
@@ -368,7 +368,7 @@ Relatos sinteticos, no expedientes. Nada de lo medido aqui autoriza a usar el si
 | `m2_scorecard_finetuned.json` | `juez.adherencia_a_la_rubrica` | `{'n': 103, 'concluyente': True, 'excluidos_por_abstencion': ` |
 | `m2_acuerdo_entre_jueces.json` | `_familias` | `{'conocido': True, 'familia_a': 'gpt-oss', 'familia_b': 'gpt` |
 | `m2_acuerdo_entre_jueces.json` | `media_a` | `3.48` |
-| `m2_acuerdo_entre_jueces.json` | `media_b` | `3.0` |
+| `m2_acuerdo_entre_jueces.json` | `media_b` | `3.08` |
 | `m3_scorecards_comunes.json` | `campos.mecanismo.f1_por_clase.accion_cumplimiento` | `agente=0.4615 otros=[0.75, 0.7619, 0.8421]` |
 | `m3_scorecards_comunes.json` | `por_tipo.adversarial` | `top=0.7435897435897436 primeros=['4 · agente + reglas'] n=39` |
 
