@@ -121,6 +121,10 @@ ORDEN = {
                     "results/m3_costos.json",
                     "results/m3_scorecard_comunes.csv",
                     "results/m3_scorecards_comunes.json",
+                    # La matriz por caso y brazo: define el techo de
+                    # cualquier combinacion de brazos, que con solo los
+                    # agregados habia que estimar por categoria.
+                    "results/m3_por_caso.json",
                     "results/m3_ganadores.json",
                     "results/m3_decision_retrieval.json",
                     "results/m3_ragas_libreria.json",
