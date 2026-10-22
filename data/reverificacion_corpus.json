@@ -1,8 +1,8 @@
 {
- "fecha": "2026-10-16",
- "n": 66,
+ "fecha": "2026-10-21",
+ "n": 69,
  "cuenta": {
-  "coincide": 40,
+  "coincide": 43,
   "coincide_palabras": 15,
   "coincide_normalizado": 0,
   "coincide_desordenado": 8,
@@ -545,6 +545,30 @@
    "chars_del_fragmento": 538,
    "declara_normalizacion": false,
    "nota": "todas o casi todas las palabras del fragmento estan en la fuente y en orden; la diferencia con la busqueda literal es de formato o de texto insertado por la fuente entre ellas"
+  },
+  {
+   "id": "J-C531-00",
+   "norma": "Sentencia C-531 de 2000",
+   "articulo": "estabilidad laboral reforzada",
+   "fuente": "https://www.corteconstitucional.gov.co/relatoria/2000/C-531-00.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
+  },
+  {
+   "id": "J-C744-12",
+   "norma": "Sentencia C-744 de 2012",
+   "articulo": "derogatoria inexequible",
+   "fuente": "https://www.corteconstitucional.gov.co/relatoria/2012/C-744-12.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
+  },
+  {
+   "id": "J-T225-93",
+   "norma": "Sentencia T-225 de 1993",
+   "articulo": "perjuicio irremediable",
+   "fuente": "https://www.corteconstitucional.gov.co/relatoria/1993/T-225-93.htm",
+   "estado": "coincide",
+   "motivo": "html, texto completo"
   },
   {
    "id": "L100-24",

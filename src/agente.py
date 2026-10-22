@@ -62,30 +62,25 @@ import schema
 import terminos
 from reglas import HECHOS_EXTRAIBLES, Hechos, decidir
 
-MAX_PASOS = 8
-"""El techo de pasos PRODUCTIVOS de herramienta.
+MAX_PASOS = 5
+"""El techo de pasos PRODUCTIVOS de herramienta. NO SE SUBE, Y ESTA MEDIDO.
 
-POR QUE SUBE DE 5 A 8, Y POR QUE ESA NO ES LA RAZON QUE PARECE
+Se subio a 8 una vez, para descensurar la media de pasos ---52% de los casos
+tocaban el techo, asi que `pasos/caso` solo se podia citar como cota
+inferior---. Se revirtio por dos razones, y la segunda es la que manda:
 
-Medido en m3/20261021T140413Z: 65 de 130 casos (50%) agotaron los 5 pasos. El
-artefacto ya no podia publicar una media de pasos ---la declara como cota
-inferior, `pasos/caso >= 4.15`--- porque con la mitad de la muestra censurada
-en el techo, la media mide el techo y no el comportamiento.
+  1. `veredicto_presupuesto()` lleva escrito, con umbral fijado de antemano,
+     que «subir max_pasos solo mueve el techo, y el problema puede estar en
+     que el agente no sabe cuando ha recuperado suficiente».
+  2. Subirlo cambia los resultados del brazo que se reporta. Hacerlo despues
+     de ver los numeros es un cambio del experimento, no una mejora del
+     sistema, aunque la intencion sea medir mejor.
 
-Lo que NO es la razon: «mas pasos, mejor resultado». Eso no esta medido y
-subir el techo no lo demuestra. Las busquedas improductivas ya son gratis
----no se cobran del presupuesto, y hubo 158--- y el cierre forzado con resumen
-ya existe, asi que agotar el techo no deja al extractor a oscuras. Un caso que
-se corta en 5 no pierde informacion: pierde la posibilidad de MEDIR cuantos
-pasos habria necesitado.
-
-La razon es esa: con el techo en 8, si la mayoria cierra sola antes, la media
-deja de estar censurada y se puede publicar. Y si siguen agotandolo, entonces
-el hallazgo es que el agente no converge ---que tambien es un resultado, y hoy
-no se puede distinguir de «el techo estaba bajo»---.
-
-El coste es real y acotado: el presupuesto solo cuenta pasos productivos, asi
-que lo que sube es el maximo, no el gasto tipico. `costos` lo mide por corrida.
+El techo se ataca por donde el veredicto dice: con un criterio de parada
+---ver `CRITERIO_DE_PARADA` en `INSTRUCCION_AGENTE`---. Si la tasa de casos
+que lo agotan baja, la media se descensura sola y sin tocar el parametro. Si
+no baja, el hallazgo es que el agente no converge, que es un resultado y no
+un ajuste pendiente.
 """
 MODELO = "openai/gpt-oss-120b"
 
@@ -150,8 +145,28 @@ Tienes dos herramientas. CRITERIO DE INVOCACION:
 - Si el relato no describe un problema juridico, no fuerces ninguna herramienta.
 
 No llames la misma herramienta con los mismos argumentos dos veces: si ya tienes la
-observacion, usala. Cuando tengas lo que necesitas, responde en texto breve resumiendo
-los hechos relevantes que encontraste. Maximo %d pasos de herramienta.""" % MAX_PASOS
+observacion, usala.
+
+CUANDO PARAR. Esto no es una cuestion de criterio: el componente que decide necesita
+exactamente estos cuatro hechos, y son los unicos para los que hace falta leer una
+norma:
+
+  1. hay alguien privado de la libertad?
+  2. lo que se reclama es un interes colectivo de una comunidad indeterminada?
+  3. se impugna una norma o acto general, sin acto concreto de aplicacion?
+  4. hay un incumplimiento de un mandato normativo claro?
+
+Los demas hechos ---si el dano ya se consumo, si sigue la vulneracion, si hay otro
+medio judicial, si el sujeto es de especial proteccion, si el perjuicio es
+irremediable--- se leen DEL RELATO y ninguna norma los va a contestar. Buscar mas
+articulos no los hace aparecer.
+
+Asi que: en cuanto puedas responder esos cuatro con lo que ya tienes, PARA y responde.
+Una busqueda mas que no cambie ninguna de las cuatro respuestas no aporta nada ---y
+medido, 158 de las busquedas de la ultima corrida fueron exactamente eso---.
+
+Cuando pares, responde en texto breve resumiendo los hechos relevantes que
+encontraste. Maximo %d pasos de herramienta.""" % MAX_PASOS
 
 
 # POR QUE ESTE PROMPT DICE "OJO" DOS VECES
