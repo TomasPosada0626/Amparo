@@ -1,5 +1,5 @@
 {
-  "_corrida": "20261021T115654Z",
+  "_corrida": "20261022T044802Z",
   "_modulo": "m1",
   "_artefacto": "hiperparametros.json",
   "modelo_base": "Qwen/Qwen2.5-7B-Instruct",
@@ -10,13 +10,13 @@
     "alpha": 32,
     "dropout": 0.05,
     "target_modules": [
-      "gate_proj",
-      "o_proj",
       "down_proj",
-      "q_proj",
+      "k_proj",
       "up_proj",
       "v_proj",
-      "k_proj"
+      "gate_proj",
+      "q_proj",
+      "o_proj"
     ]
   },
   "entrenamiento": {

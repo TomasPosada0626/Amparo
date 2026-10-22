@@ -1,9 +1,11 @@
 {
-  "_corrida": "20261021T140413Z",
+  "_corrida": "20261022T105449Z",
   "_modulo": "m3",
   "_artefacto": "ragas_libreria.json",
-  "error": "No module named 'langchain_community.chat_models.vertexai'",
-  "pin_intentado": "0.2.15",
-  "llm_juez_intentado": "openai/gpt-oss-120b",
-  "lectura": "El contraste contra la libreria no se pudo correr. Las metricas RAGAS que el reporte publica son implementacion propia (`src/ragas_eval.py`) y no dependen de esto; lo que falta es el contraste que diria si apuntan en la misma direccion."
+  "muestra": 8,
+  "resultado": "{'faithfulness': 0.0637}",
+  "nuestro_exacto": 0.1111111111111111,
+  "version_ragas": "0.2.15",
+  "llm_juez_de_ragas": "openai/gpt-oss-120b",
+  "lectura": "La libreria y la metrica propia NO miden lo mismo y no deberian coincidir: la libreria le pregunta a un LLM si el contexto sostiene cada afirmacion; la nuestra comprueba si cada CITA esta respaldada por el contexto. El contraste sirve para ver si apuntan en la misma direccion, no para validar una con la otra."
 }

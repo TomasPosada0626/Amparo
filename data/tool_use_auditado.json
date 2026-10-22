@@ -4,25 +4,31 @@
  "n": 130,
  "termino": {
   "elegibles": 11,
-  "la_usaron": 5,
-  "no_la_usaron": 6,
-  "de_esas_habrian_calculado": 6,
-  "usada_fuera_de_criterio": 0,
-  "cobertura": 0.4545,
-  "ids_perdidos": [
-   "A36",
-   "A39",
-   "E13",
-   "E63",
-   "E64",
-   "MT05"
-  ],
-  "ids_fuera": []
+  "la_usaron": 11,
+  "no_la_usaron": 0,
+  "de_esas_habrian_calculado": 0,
+  "usada_fuera_de_criterio": 12,
+  "cobertura": 1.0,
+  "ids_perdidos": [],
+  "ids_fuera": [
+   "A20",
+   "AB55",
+   "E03",
+   "E04",
+   "E14",
+   "E16",
+   "E17",
+   "E31",
+   "E32",
+   "E37",
+   "E47",
+   "E52"
+  ]
  },
  "techo": {
   "techo": 5,
-  "casos_en_el_techo": 67,
-  "tasa": 0.5154,
+  "casos_en_el_techo": 20,
+  "tasa": 0.1538,
   "lectura": "mientras una parte de la muestra se corte en el techo, la media de pasos mide el techo y no el comportamiento: hay que citarla como cota inferior. No implica perdida de informacion --- el cierre forzado con resumen existe ---, implica que no se puede medir cuantos pasos habria hecho falta."
  },
  "casos": [
@@ -34,9 +40,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "A02",
@@ -46,9 +52,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "A03",
@@ -59,12 +65,24 @@
    "uso_la_herramienta": false,
    "habria_calculado": null,
    "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 7
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 4
   },
   {
    "id": "A04",
    "categoria": "contra_providencia",
+   "fecha_legible": false,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": false,
+   "habria_calculado": null,
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
+  },
+  {
+   "id": "A05",
+   "categoria": "honorarios",
    "fecha_legible": false,
    "plazo_en_juego": false,
    "elegible": false,
@@ -75,18 +93,6 @@
    "n_busquedas": 1
   },
   {
-   "id": "A05",
-   "categoria": "honorarios",
-   "fecha_legible": false,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 4,
-   "cierre": "el modelo concluyo",
-   "n_busquedas": 6
-  },
-  {
    "id": "A06",
    "categoria": "familia_ordinario",
    "fecha_legible": false,
@@ -94,9 +100,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 3
+   "n_busquedas": 1
   },
   {
    "id": "A07",
@@ -106,9 +112,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 3,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 2
+   "n_busquedas": 1
   },
   {
    "id": "A08",
@@ -118,9 +124,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
+   "pasos": 3,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 6
+   "n_busquedas": 2
   },
   {
    "id": "A09",
@@ -154,9 +160,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 6
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "A12",
@@ -178,7 +184,7 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
+   "pasos": 4,
    "cierre": "el modelo concluyo",
    "n_busquedas": 5
   },
@@ -202,9 +208,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 6
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "A16",
@@ -214,9 +220,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 7
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "A17",
@@ -226,9 +232,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 6
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 5
   },
   {
    "id": "A18",
@@ -238,7 +244,7 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 5,
    "cierre": "el modelo concluyo",
    "n_busquedas": 4
   },
@@ -250,9 +256,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "A20",
@@ -260,11 +266,11 @@
    "fecha_legible": true,
    "plazo_en_juego": false,
    "elegible": false,
-   "uso_la_herramienta": false,
+   "uso_la_herramienta": true,
    "habria_calculado": null,
-   "pasos": 4,
-   "cierre": "techo de iteraciones (8) con solo 3 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "pasos": 5,
+   "cierre": "pasos agotados: cierre forzado con resumen",
+   "n_busquedas": 6
   },
   {
    "id": "A21",
@@ -275,7 +281,7 @@
    "uso_la_herramienta": false,
    "habria_calculado": null,
    "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
+   "cierre": "el modelo concluyo",
    "n_busquedas": 5
   },
   {
@@ -286,9 +292,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
-   "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "A23",
@@ -300,7 +306,7 @@
    "habria_calculado": null,
    "pasos": 4,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 5
+   "n_busquedas": 4
   },
   {
    "id": "A24",
@@ -310,8 +316,8 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
+   "pasos": 4,
+   "cierre": "techo de iteraciones (8) con solo 3 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
    "n_busquedas": 8
   },
   {
@@ -322,9 +328,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
-   "cierre": "techo de iteraciones (8) con solo 3 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 2
   },
   {
    "id": "A26",
@@ -347,8 +353,8 @@
    "uso_la_herramienta": false,
    "habria_calculado": null,
    "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 6
+   "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
+   "n_busquedas": 8
   },
   {
    "id": "A28",
@@ -358,9 +364,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 7
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 3
   },
   {
    "id": "A29",
@@ -370,9 +376,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 7
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "A30",
@@ -382,9 +388,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 7
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "A31",
@@ -394,9 +400,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
-   "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "A32",
@@ -406,9 +412,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 3,
-   "cierre": "techo de iteraciones (8) con solo 2 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "A33",
@@ -418,9 +424,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 6
+   "n_busquedas": 1
   },
   {
    "id": "A34",
@@ -431,8 +437,8 @@
    "uso_la_herramienta": false,
    "habria_calculado": null,
    "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 6
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 4
   },
   {
    "id": "A35",
@@ -442,9 +448,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 2,
-   "cierre": "techo de iteraciones (8) con solo 1 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "A36",
@@ -452,11 +458,11 @@
    "fecha_legible": true,
    "plazo_en_juego": true,
    "elegible": true,
-   "uso_la_herramienta": false,
-   "habria_calculado": true,
-   "pasos": 4,
-   "cierre": "techo de iteraciones (8) con solo 3 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "uso_la_herramienta": true,
+   "habria_calculado": null,
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "A37",
@@ -466,9 +472,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 3,
-   "cierre": "techo de iteraciones (8) con solo 3 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "pasos": 4,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 3
   },
   {
    "id": "A38",
@@ -478,9 +484,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 7
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "A39",
@@ -488,11 +494,11 @@
    "fecha_legible": true,
    "plazo_en_juego": true,
    "elegible": true,
-   "uso_la_herramienta": false,
-   "habria_calculado": true,
-   "pasos": 3,
+   "uso_la_herramienta": true,
+   "habria_calculado": null,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 2
+   "n_busquedas": 0
   },
   {
    "id": "AB51",
@@ -538,9 +544,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 7
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "AB55",
@@ -548,11 +554,11 @@
    "fecha_legible": false,
    "plazo_en_juego": false,
    "elegible": false,
-   "uso_la_herramienta": false,
+   "uso_la_herramienta": true,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "AB56",
@@ -562,9 +568,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 1,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 3
+   "n_busquedas": 0
   },
   {
    "id": "E01",
@@ -574,9 +580,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 5
+   "n_busquedas": 1
   },
   {
    "id": "E02",
@@ -596,11 +602,11 @@
    "fecha_legible": false,
    "plazo_en_juego": true,
    "elegible": false,
-   "uso_la_herramienta": false,
+   "uso_la_herramienta": true,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "E04",
@@ -608,11 +614,11 @@
    "fecha_legible": false,
    "plazo_en_juego": false,
    "elegible": false,
-   "uso_la_herramienta": false,
+   "uso_la_herramienta": true,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
+   "pasos": 4,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "E05",
@@ -622,9 +628,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 2
   },
   {
    "id": "E06",
@@ -634,9 +640,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
+   "pasos": 4,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 5
+   "n_busquedas": 7
   },
   {
    "id": "E07",
@@ -646,9 +652,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 5
+   "n_busquedas": 2
   },
   {
    "id": "E08",
@@ -658,9 +664,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 5
+   "n_busquedas": 1
   },
   {
    "id": "E09",
@@ -670,9 +676,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 4
+   "n_busquedas": 1
   },
   {
    "id": "E10",
@@ -683,8 +689,8 @@
    "uso_la_herramienta": false,
    "habria_calculado": null,
    "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 7
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 6
   },
   {
    "id": "E11",
@@ -696,7 +702,7 @@
    "habria_calculado": null,
    "pasos": 4,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 3
+   "n_busquedas": 4
   },
   {
    "id": "E12",
@@ -706,9 +712,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "E13",
@@ -716,11 +722,11 @@
    "fecha_legible": true,
    "plazo_en_juego": true,
    "elegible": true,
-   "uso_la_herramienta": false,
-   "habria_calculado": true,
+   "uso_la_herramienta": true,
+   "habria_calculado": null,
    "pasos": 4,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 3
+   "n_busquedas": 2
   },
   {
    "id": "E14",
@@ -728,9 +734,9 @@
    "fecha_legible": true,
    "plazo_en_juego": false,
    "elegible": false,
-   "uso_la_herramienta": false,
+   "uso_la_herramienta": true,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 5,
    "cierre": "el modelo concluyo",
    "n_busquedas": 4
   },
@@ -742,9 +748,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
+   "pasos": 3,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 4
+   "n_busquedas": 2
   },
   {
    "id": "E16",
@@ -752,11 +758,11 @@
    "fecha_legible": true,
    "plazo_en_juego": false,
    "elegible": false,
-   "uso_la_herramienta": false,
+   "uso_la_herramienta": true,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 7
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "E17",
@@ -764,11 +770,11 @@
    "fecha_legible": false,
    "plazo_en_juego": true,
    "elegible": false,
-   "uso_la_herramienta": false,
+   "uso_la_herramienta": true,
    "habria_calculado": null,
    "pasos": 4,
-   "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 2
   },
   {
    "id": "E18",
@@ -780,7 +786,7 @@
    "habria_calculado": null,
    "pasos": 5,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 7
+   "n_busquedas": 4
   },
   {
    "id": "E19",
@@ -790,9 +796,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 1,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 0
+   "n_busquedas": 1
   },
   {
    "id": "E20",
@@ -802,9 +808,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 3,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 6
+   "n_busquedas": 2
   },
   {
    "id": "E21",
@@ -814,9 +820,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 3,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 3
+   "n_busquedas": 2
   },
   {
    "id": "E22",
@@ -826,9 +832,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "E23",
@@ -838,9 +844,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "E24",
@@ -862,9 +868,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 5,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 3
+   "n_busquedas": 4
   },
   {
    "id": "E26",
@@ -874,145 +880,13 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
-   "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "E27",
    "categoria": "colectivo_ambiente",
-   "fecha_legible": false,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 4,
-   "cierre": "el modelo concluyo",
-   "n_busquedas": 4
-  },
-  {
-   "id": "E28",
-   "categoria": "colectivo_moralidad",
-   "fecha_legible": false,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
-  },
-  {
-   "id": "E29",
-   "categoria": "incumplimiento_norma",
-   "fecha_legible": false,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
-  },
-  {
-   "id": "E30",
-   "categoria": "incumplimiento_norma",
-   "fecha_legible": false,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 4,
-   "cierre": "el modelo concluyo",
-   "n_busquedas": 6
-  },
-  {
-   "id": "E31",
-   "categoria": "libertad_personal",
-   "fecha_legible": false,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 4,
-   "cierre": "el modelo concluyo",
-   "n_busquedas": 4
-  },
-  {
-   "id": "E32",
-   "categoria": "laboral_ordinario",
-   "fecha_legible": true,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
-  },
-  {
-   "id": "E33",
-   "categoria": "acto_administrativo",
-   "fecha_legible": false,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 8
-  },
-  {
-   "id": "E34",
-   "categoria": "contractual_ordinario",
-   "fecha_legible": true,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 4,
-   "cierre": "techo de iteraciones (8) con solo 3 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
-  },
-  {
-   "id": "E35",
-   "categoria": "hc_traslado_por_proteccion_prolongado",
-   "fecha_legible": false,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 4,
-   "cierre": "el modelo concluyo",
-   "n_busquedas": 4
-  },
-  {
-   "id": "E36",
-   "categoria": "hc_medida_seguridad_vencida",
-   "fecha_legible": false,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
-  },
-  {
-   "id": "E37",
-   "categoria": "hc_domiciliaria_no_ejecutada",
-   "fecha_legible": true,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
-  },
-  {
-   "id": "E38",
-   "categoria": "hc_retencion_por_multa",
    "fecha_legible": false,
    "plazo_en_juego": false,
    "elegible": false,
@@ -1023,56 +897,20 @@
    "n_busquedas": 2
   },
   {
-   "id": "E39",
-   "categoria": "ac_comisaria_de_familia",
+   "id": "E28",
+   "categoria": "colectivo_moralidad",
    "fecha_legible": false,
    "plazo_en_juego": false,
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 6
-  },
-  {
-   "id": "E40",
-   "categoria": "ac_plan_gestion_riesgo",
-   "fecha_legible": false,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
-  },
-  {
-   "id": "E41",
-   "categoria": "ac_cuerpo_de_bomberos",
-   "fecha_legible": false,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 7
-  },
-  {
-   "id": "E42",
-   "categoria": "ac_acuerdo_sin_reglamentar",
-   "fecha_legible": true,
-   "plazo_en_juego": false,
-   "elegible": false,
-   "uso_la_herramienta": false,
-   "habria_calculado": null,
-   "pasos": 5,
+   "pasos": 1,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 5
+   "n_busquedas": 0
   },
   {
-   "id": "E43",
-   "categoria": "ap_humedal_rellenado",
+   "id": "E29",
+   "categoria": "incumplimiento_norma",
    "fecha_legible": false,
    "plazo_en_juego": false,
    "elegible": false,
@@ -1083,6 +921,174 @@
    "n_busquedas": 4
   },
   {
+   "id": "E30",
+   "categoria": "incumplimiento_norma",
+   "fecha_legible": false,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": false,
+   "habria_calculado": null,
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
+  },
+  {
+   "id": "E31",
+   "categoria": "libertad_personal",
+   "fecha_legible": false,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": true,
+   "habria_calculado": null,
+   "pasos": 4,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
+  },
+  {
+   "id": "E32",
+   "categoria": "laboral_ordinario",
+   "fecha_legible": true,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": true,
+   "habria_calculado": null,
+   "pasos": 5,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 5
+  },
+  {
+   "id": "E33",
+   "categoria": "acto_administrativo",
+   "fecha_legible": false,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": false,
+   "habria_calculado": null,
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
+  },
+  {
+   "id": "E34",
+   "categoria": "contractual_ordinario",
+   "fecha_legible": true,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": false,
+   "habria_calculado": null,
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
+  },
+  {
+   "id": "E35",
+   "categoria": "hc_traslado_por_proteccion_prolongado",
+   "fecha_legible": false,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": false,
+   "habria_calculado": null,
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 2
+  },
+  {
+   "id": "E36",
+   "categoria": "hc_medida_seguridad_vencida",
+   "fecha_legible": false,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": false,
+   "habria_calculado": null,
+   "pasos": 5,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 5
+  },
+  {
+   "id": "E37",
+   "categoria": "hc_domiciliaria_no_ejecutada",
+   "fecha_legible": true,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": true,
+   "habria_calculado": null,
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
+  },
+  {
+   "id": "E38",
+   "categoria": "hc_retencion_por_multa",
+   "fecha_legible": false,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": false,
+   "habria_calculado": null,
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
+  },
+  {
+   "id": "E39",
+   "categoria": "ac_comisaria_de_familia",
+   "fecha_legible": false,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": false,
+   "habria_calculado": null,
+   "pasos": 5,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 4
+  },
+  {
+   "id": "E40",
+   "categoria": "ac_plan_gestion_riesgo",
+   "fecha_legible": false,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": false,
+   "habria_calculado": null,
+   "pasos": 5,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 4
+  },
+  {
+   "id": "E41",
+   "categoria": "ac_cuerpo_de_bomberos",
+   "fecha_legible": false,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": false,
+   "habria_calculado": null,
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 2
+  },
+  {
+   "id": "E42",
+   "categoria": "ac_acuerdo_sin_reglamentar",
+   "fecha_legible": true,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": false,
+   "habria_calculado": null,
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 2
+  },
+  {
+   "id": "E43",
+   "categoria": "ap_humedal_rellenado",
+   "fecha_legible": false,
+   "plazo_en_juego": false,
+   "elegible": false,
+   "uso_la_herramienta": false,
+   "habria_calculado": null,
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 2
+  },
+  {
    "id": "E44",
    "categoria": "ap_vertimiento_zona_banio",
    "fecha_legible": false,
@@ -1090,9 +1096,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "E45",
@@ -1102,9 +1108,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "el modelo concluyo",
-   "n_busquedas": 6
+   "pasos": 4,
+   "cierre": "techo de iteraciones (8) con solo 3 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
+   "n_busquedas": 8
   },
   {
    "id": "E46",
@@ -1114,9 +1120,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 6
+   "pasos": 4,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 4
   },
   {
    "id": "E47",
@@ -1124,11 +1130,11 @@
    "fecha_legible": true,
    "plazo_en_juego": false,
    "elegible": false,
-   "uso_la_herramienta": false,
+   "uso_la_herramienta": true,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 6
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "E48",
@@ -1152,7 +1158,7 @@
    "habria_calculado": null,
    "pasos": 4,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 6
+   "n_busquedas": 3
   },
   {
    "id": "E50",
@@ -1162,9 +1168,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 2
   },
   {
    "id": "E51",
@@ -1184,11 +1190,11 @@
    "fecha_legible": false,
    "plazo_en_juego": true,
    "elegible": false,
-   "uso_la_herramienta": false,
+   "uso_la_herramienta": true,
    "habria_calculado": null,
-   "pasos": 5,
+   "pasos": 4,
    "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "n_busquedas": 7
   },
   {
    "id": "E53",
@@ -1198,9 +1204,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 6
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "E54",
@@ -1210,9 +1216,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "E55",
@@ -1222,9 +1228,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
+   "pasos": 4,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 3
   },
   {
    "id": "E56",
@@ -1234,9 +1240,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 3,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 2
+   "n_busquedas": 1
   },
   {
    "id": "E57",
@@ -1246,8 +1252,8 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "techo de iteraciones (8) con solo 4 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
+   "pasos": 3,
+   "cierre": "techo de iteraciones (8) con solo 3 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
    "n_busquedas": 8
   },
   {
@@ -1258,9 +1264,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 5
+   "n_busquedas": 3
   },
   {
    "id": "E59",
@@ -1270,9 +1276,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 3,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 3
+   "n_busquedas": 1
   },
   {
    "id": "E60",
@@ -1282,9 +1288,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 3,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 6
+   "n_busquedas": 2
   },
   {
    "id": "E61",
@@ -1295,8 +1301,8 @@
    "uso_la_herramienta": false,
    "habria_calculado": null,
    "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 6
   },
   {
    "id": "E62",
@@ -1307,8 +1313,8 @@
    "uso_la_herramienta": false,
    "habria_calculado": null,
    "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 5
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 6
   },
   {
    "id": "E63",
@@ -1316,11 +1322,11 @@
    "fecha_legible": true,
    "plazo_en_juego": true,
    "elegible": true,
-   "uso_la_herramienta": false,
-   "habria_calculado": true,
-   "pasos": 4,
-   "cierre": "techo de iteraciones (8) con solo 3 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "uso_la_herramienta": true,
+   "habria_calculado": null,
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "E64",
@@ -1328,11 +1334,11 @@
    "fecha_legible": true,
    "plazo_en_juego": true,
    "elegible": true,
-   "uso_la_herramienta": false,
-   "habria_calculado": true,
-   "pasos": 5,
+   "uso_la_herramienta": true,
+   "habria_calculado": null,
+   "pasos": 3,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 4
+   "n_busquedas": 1
   },
   {
    "id": "M01",
@@ -1342,9 +1348,9 @@
    "elegible": true,
    "uso_la_herramienta": true,
    "habria_calculado": null,
-   "pasos": 5,
+   "pasos": 3,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 3
+   "n_busquedas": 1
   },
   {
    "id": "M02",
@@ -1354,9 +1360,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 3,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 2
+   "n_busquedas": 1
   },
   {
    "id": "M03",
@@ -1368,7 +1374,7 @@
    "habria_calculado": null,
    "pasos": 3,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 4
+   "n_busquedas": 2
   },
   {
    "id": "M04",
@@ -1378,9 +1384,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
-   "cierre": "techo de iteraciones (8) con solo 3 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "pasos": 1,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "M05",
@@ -1402,9 +1408,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 5
+   "n_busquedas": 1
   },
   {
    "id": "M07",
@@ -1414,9 +1420,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 1,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 7
+   "n_busquedas": 0
   },
   {
    "id": "M08",
@@ -1427,8 +1433,8 @@
    "uso_la_herramienta": false,
    "habria_calculado": null,
    "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 6
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 7
   },
   {
    "id": "M09",
@@ -1438,9 +1444,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 3,
-   "cierre": "techo de iteraciones (8) con solo 2 de 5 pasos cobrados: daba vueltas sin aportar fragmentos nuevos",
-   "n_busquedas": 8
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 1
   },
   {
    "id": "M10",
@@ -1450,9 +1456,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 4
+   "n_busquedas": 1
   },
   {
    "id": "M11",
@@ -1486,9 +1492,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 6
+   "pasos": 3,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 2
   },
   {
    "id": "M14",
@@ -1510,9 +1516,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 3
+   "n_busquedas": 1
   },
   {
    "id": "MT01",
@@ -1522,9 +1528,9 @@
    "elegible": true,
    "uso_la_herramienta": true,
    "habria_calculado": null,
-   "pasos": 3,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 1
+   "n_busquedas": 0
   },
   {
    "id": "MT02",
@@ -1534,9 +1540,9 @@
    "elegible": true,
    "uso_la_herramienta": true,
    "habria_calculado": null,
-   "pasos": 5,
+   "pasos": 3,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 3
+   "n_busquedas": 1
   },
   {
    "id": "MT03",
@@ -1558,9 +1564,9 @@
    "elegible": true,
    "uso_la_herramienta": true,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 3,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 2
+   "n_busquedas": 1
   },
   {
    "id": "MT05",
@@ -1568,11 +1574,11 @@
    "fecha_legible": true,
    "plazo_en_juego": true,
    "elegible": true,
-   "uso_la_herramienta": false,
-   "habria_calculado": true,
-   "pasos": 5,
-   "cierre": "pasos agotados: cierre forzado con resumen",
-   "n_busquedas": 6
+   "uso_la_herramienta": true,
+   "habria_calculado": null,
+   "pasos": 2,
+   "cierre": "el modelo concluyo",
+   "n_busquedas": 0
   },
   {
    "id": "MT06",
@@ -1582,9 +1588,9 @@
    "elegible": false,
    "uso_la_herramienta": false,
    "habria_calculado": null,
-   "pasos": 4,
+   "pasos": 2,
    "cierre": "el modelo concluyo",
-   "n_busquedas": 3
+   "n_busquedas": 1
   }
  ]
 }

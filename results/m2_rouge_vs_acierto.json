@@ -1,24 +1,24 @@
 {
-  "_corrida": "20261021T124137Z",
+  "_corrida": "20261022T093420Z",
   "_modulo": "m2",
   "_artefacto": "rouge_vs_acierto.json",
-  "medio_acierta": 0.32368426518903565,
-  "medio_falla": 0.21893178771147512,
+  "medio_acierta": 0.3160205119378132,
+  "medio_falla": 0.21712279447632207,
   "enganosos": [
     {
-      "id": "E24",
-      "categoria": "fuero_salud",
-      "rouge": 0.4197530864197531
+      "id": "E34",
+      "categoria": "contractual_ordinario",
+      "rouge": 0.4
+    },
+    {
+      "id": "E36",
+      "categoria": "hc_medida_seguridad_vencida",
+      "rouge": 0.29333333333333333
     },
     {
       "id": "A16",
       "categoria": "ac_norma_salud_sin_afectado",
-      "rouge": 0.31818181818181823
-    },
-    {
-      "id": "E34",
-      "categoria": "contractual_ordinario",
-      "rouge": 0.30188679245283023
+      "rouge": 0.28260869565217395
     },
     {
       "id": "A09",
@@ -26,9 +26,9 @@
       "rouge": 0.2765957446808511
     },
     {
-      "id": "E61",
-      "categoria": "dp_sancion_sin_descargos",
-      "rouge": 0.26966292134831465
+      "id": "A01",
+      "categoria": "indemnizatorio",
+      "rouge": 0.26666666666666666
     },
     {
       "id": "A20",

@@ -1,5 +1,5 @@
 {
-  "_corrida": "20261021T124137Z",
+  "_corrida": "20261022T093420Z",
   "_modulo": "m2",
   "_artefacto": "sesgo_autopreferencia.json",
   "n": 30,
@@ -9,10 +9,10 @@
     "y": "Qwen2.5-7B ajustado (evaluado)"
   },
   "disponibles_por_estrato": {
-    "empate_correctas": 9,
-    "empate_fallan": 27,
-    "gana_familia": 2,
-    "gana_ajeno": 71
+    "empate_correctas": 11,
+    "empate_fallan": 23,
+    "gana_familia": 0,
+    "gana_ajeno": 75
   },
   "seleccion": {
     "estratificada": true,
@@ -29,18 +29,18 @@
   },
   "por_estrato": {
     "empate_correctas": {
-      "n": 9,
+      "n": 11,
       "prefiere_familia": 0,
       "prefiere_ajeno": 9,
       "empate": 0,
-      "inconsistente": 0
+      "inconsistente": 2
     },
     "empate_fallan": {
-      "n": 21,
-      "prefiere_familia": 5,
-      "prefiere_ajeno": 8,
+      "n": 19,
+      "prefiere_familia": 4,
+      "prefiere_ajeno": 9,
       "empate": 0,
-      "inconsistente": 8
+      "inconsistente": 6
     },
     "gana_familia": {
       "n": 0,
@@ -86,11 +86,18 @@
       "veredicto": "y"
     },
     {
+      "id": "E22",
+      "estrato": "empate_correctas",
+      "acerto_familia": true,
+      "acerto_ajeno": true,
+      "veredicto": "inconsistente"
+    },
+    {
       "id": "E26",
       "estrato": "empate_correctas",
       "acerto_familia": true,
       "acerto_ajeno": true,
-      "veredicto": "y"
+      "veredicto": "inconsistente"
     },
     {
       "id": "AB51",
@@ -135,18 +142,18 @@
       "veredicto": "y"
     },
     {
+      "id": "E61",
+      "estrato": "empate_correctas",
+      "acerto_familia": true,
+      "acerto_ajeno": true,
+      "veredicto": "y"
+    },
+    {
       "id": "E05",
       "estrato": "empate_fallan",
       "acerto_familia": false,
       "acerto_ajeno": false,
-      "veredicto": "inconsistente"
-    },
-    {
-      "id": "E07",
-      "estrato": "empate_fallan",
-      "acerto_familia": false,
-      "acerto_ajeno": false,
-      "veredicto": "inconsistente"
+      "veredicto": "y"
     },
     {
       "id": "A01",
@@ -154,20 +161,6 @@
       "acerto_familia": false,
       "acerto_ajeno": false,
       "veredicto": "y"
-    },
-    {
-      "id": "A04",
-      "estrato": "empate_fallan",
-      "acerto_familia": false,
-      "acerto_ajeno": false,
-      "veredicto": "y"
-    },
-    {
-      "id": "E21",
-      "estrato": "empate_fallan",
-      "acerto_familia": false,
-      "acerto_ajeno": false,
-      "veredicto": "x"
     },
     {
       "id": "E24",
@@ -202,7 +195,7 @@
       "estrato": "empate_fallan",
       "acerto_familia": false,
       "acerto_ajeno": false,
-      "veredicto": "inconsistente"
+      "veredicto": "x"
     },
     {
       "id": "A12",
@@ -216,7 +209,7 @@
       "estrato": "empate_fallan",
       "acerto_familia": false,
       "acerto_ajeno": false,
-      "veredicto": "inconsistente"
+      "veredicto": "y"
     },
     {
       "id": "E37",
@@ -224,6 +217,13 @@
       "acerto_familia": false,
       "acerto_ajeno": false,
       "veredicto": "inconsistente"
+    },
+    {
+      "id": "E40",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "y"
     },
     {
       "id": "A16",
@@ -254,13 +254,6 @@
       "veredicto": "y"
     },
     {
-      "id": "E51",
-      "estrato": "empate_fallan",
-      "acerto_familia": false,
-      "acerto_ajeno": false,
-      "veredicto": "y"
-    },
-    {
       "id": "A30",
       "estrato": "empate_fallan",
       "acerto_familia": false,
@@ -275,11 +268,18 @@
       "veredicto": "inconsistente"
     },
     {
-      "id": "E55",
+      "id": "A33",
       "estrato": "empate_fallan",
       "acerto_familia": false,
       "acerto_ajeno": false,
-      "veredicto": "x"
+      "veredicto": "inconsistente"
+    },
+    {
+      "id": "A35",
+      "estrato": "empate_fallan",
+      "acerto_familia": false,
+      "acerto_ajeno": false,
+      "veredicto": "inconsistente"
     }
   ]
 }

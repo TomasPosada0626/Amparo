@@ -1,5 +1,5 @@
 {
-  "_corrida": "20261021T140413Z",
+  "_corrida": "20261022T105449Z",
   "_modulo": "m3",
   "_artefacto": "ragas.json",
   "datos": [
@@ -47,19 +47,19 @@
       "sistema": "4 · agente + reglas",
       "n": 130,
       "exactas": {
-        "faithfulness": 0.34983498349834985,
-        "context_precision": 0.5081691082156771,
-        "context_recall": 0.5627240143369175
+        "faithfulness": 0.16722408026755853,
+        "context_precision": 0.4306610449735449,
+        "context_recall": 0.3333333333333333
       },
       "juez": {
-        "faithfulness": 0.18195488721804512,
-        "context_precision": 0.5206629450337703,
-        "answer_relevancy": 0.3892889678478241
+        "faithfulness": 0.08452722063037249,
+        "context_precision": 0.48205828893328895,
+        "answer_relevancy": 0.38257191432281756
       },
       "_implementacion": "libreria ragas",
       "_divergencia_exacta_vs_juez": {
-        "context_precision": 0.0125,
-        "faithfulness": -0.1679
+        "context_precision": 0.0514,
+        "faithfulness": -0.0827
       },
       "_lectura": "`exactas` se calcula contra el gold con reglas deterministas; `juez` lo puntua un LLM. Divergen, y no con un desfase constante: en esta corrida el juez fue mucho mas severo en faithfulness y mas generoso en context_precision. Ninguna de las dos se puede reportar sola. Coherente con la dimension 2 de M2, donde el juez coincide con otro juez (kappa 0.76) mucho mejor que con la verdad de dominio (0.26)."
     }

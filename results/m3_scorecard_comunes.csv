@@ -1,5 +1,5 @@
 sistema,n,acc_derecho,acc_mecanismo,acc_procede,macroF1_mecanismo,baseline_mayoritaria,rouge_l,similitud_embeddings,adherencia_estructural,adherencia_vocabulario,coherencia,acierto_juridico,acierto_gold,acierto_adversarial,tasa_alucinacion,tasa_alucinacion_salida,inventadas_fuera_del_fundamento,precision_citas,recall_citas,citas_impertinentes,precision_citas_mecanismo,precision_citas_fondo,citas_via_equivocada
-1 · fine-tuned solo (M1),103,0.6311,0.7184,0.8155,0.7919,0.4466,0.3002,0.8394,1.0,0.8932,1.0,0.7184,0.7812,0.6154,0.0,0.0,0,0.5506,0.4135,80,0.5682,0.5556,38
+1 · fine-tuned solo (M1),103,0.6214,0.7767,0.8738,0.8082,0.4466,0.298,0.8376,1.0,0.8932,0.9894,0.767,0.8594,0.6154,0.0,0.0,0,0.5056,0.3797,88,0.5059,0.5269,42
 2 · fine-tuned + RAG ingenuo,103,0.2621,0.6019,0.6796,0.5772,0.4466,0.2633,0.8072,1.0,0.8835,0.9697,0.5922,0.7812,0.2821,0.0673,0.0305,3,0.2692,0.1181,69,0.24,0.3056,19
 3 · fine-tuned + RAG avanzado,103,0.2718,0.6311,0.6602,0.6053,0.4466,0.2606,0.7968,1.0,0.8252,0.93,0.6019,0.6875,0.4615,0.0385,0.0156,2,0.3173,0.1392,67,0.125,0.4412,28
-4 · agente + reglas,103,0.6602,0.7282,0.7864,0.6858,0.4466,0.2157,0.8024,1.0,0.9709,1.0,0.7282,0.6875,0.7949,0.0,0.0,0,0.4444,0.4726,140,0.5183,0.7273,79
+4 · agente + reglas,103,0.6505,0.6796,0.7379,0.6696,0.4466,0.2269,0.7953,1.0,0.9806,1.0,0.6796,0.6406,0.7436,0.0,0.0,0,0.4582,0.4852,136,0.5188,0.7033,77

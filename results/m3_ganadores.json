@@ -1,9 +1,9 @@
 {
-  "_corrida": "20261021T140413Z",
+  "_corrida": "20261022T105449Z",
   "_modulo": "m3",
   "_artefacto": "ganadores.json",
   "subconjunto": "los 109 casos de eval_set_v3.json, comunes a los cuatro brazos",
-  "agregado": "4 · agente + reglas",
+  "agregado": "1 · fine-tuned solo (M1)",
   "gold": "1 · fine-tuned solo (M1)",
   "adversarial": "4 · agente + reglas"
 }

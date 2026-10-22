@@ -1,5 +1,5 @@
 {
-  "_corrida": "20261021T115654Z",
+  "_corrida": "20261022T044802Z",
   "_modulo": "m1",
   "_artefacto": "degeneracion.json",
   "base": {
@@ -37,6 +37,19 @@
       "otro_idioma": 1,
       "prosa_extra": 1
     },
+    "lectura": "`sintoma` dice QUE hizo el modelo en vez de parar, que es lo que senala el arreglo. `abrio_turno` significa que emitio la marca de fin y siguio: el adaptador no aprendio a parar, y la cura esta en el entrenamiento (reforzar EOS) o en los tokens de parada de la generacion. `repitio` es degeneracion clasica por falta de senal de fin. `otro_idioma` suele acompanar a las dos. `prosa_extra` es el caso leve: el modelo siguio hablando en el mismo turno, y eso se corrige con el prompt, no con el entrenamiento."
+  },
+  "base_few_shot": {
+    "n": 0,
+    "de": 109,
+    "tasa": 0.0,
+    "casos": [],
+    "n_no_cortadas": 0,
+    "casos_no_cortados": [],
+    "n_total_con_cola": 0,
+    "tasa_total": 0.0,
+    "nota_no_cortadas": "`n` cuenta las que el recortador corta (CJK o marca de turno). `n_no_cortadas` son colas que el recortador NO ve --- repeticion o prosa extra en el mismo turno --- y que por tanto llegan enteras a las metricas y al juez de M2. Se cuentan aqui para que el defecto sea visible; cortarlas cambiaria lo que miden las once corridas anteriores y es una decision aparte.",
+    "por_sintoma": {},
     "lectura": "`sintoma` dice QUE hizo el modelo en vez de parar, que es lo que senala el arreglo. `abrio_turno` significa que emitio la marca de fin y siguio: el adaptador no aprendio a parar, y la cura esta en el entrenamiento (reforzar EOS) o en los tokens de parada de la generacion. `repitio` es degeneracion clasica por falta de senal de fin. `otro_idioma` suele acompanar a las dos. `prosa_extra` es el caso leve: el modelo siguio hablando en el mismo turno, y eso se corrige con el prompt, no con el entrenamiento."
   },
   "finetuned": {

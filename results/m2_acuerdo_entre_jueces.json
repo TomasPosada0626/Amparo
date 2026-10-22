@@ -1,5 +1,5 @@
 {
-  "_corrida": "20261021T124137Z",
+  "_corrida": "20261022T093420Z",
   "_modulo": "m2",
   "_artefacto": "acuerdo_entre_jueces.json",
   "n": 25,
@@ -20,14 +20,63 @@
         "motivo": "1 de 25 sin nota"
       }
     ],
-    "por_que_no_otra_familia": "ninguno de los modelos de otra familia servidos en esta cuenta sostuvo la rubrica sobre los 25 casos"
+    "por_que_no_otra_familia": "ninguno de los modelos de otra familia servidos en esta cuenta puntuo los 25 sin huecos, asi que el juez B elegido es pariente del principal. La comparacion entre familias NO se pierde: va en `acuerdo_entre_familias`, con su atribucion"
   },
-  "media_a": 3.28,
+  "media_a": 3.48,
   "media_b": 3.0,
-  "acuerdo_exacto": 0.48,
-  "acuerdo_a_un_punto": 0.88,
-  "kappa_aprueba": 0.4444,
-  "corr_spearman": 0.7853,
+  "acuerdo_exacto": 0.56,
+  "acuerdo_a_un_punto": 0.8,
+  "kappa_aprueba": 0.4807,
+  "corr_spearman": 0.7866,
   "sin_nota_en_alguno": 0,
-  "lectura": "`kappa_aprueba` es la cifra que importa: mide el acuerdo en la decision binaria que el harness usa (nota >= 4), corregida por azar. `indefinido` significa que uno de los dos jueces uso una sola categoria, y entonces la kappa vale 0.0 mecanicamente y no distingue acuerdo de desacuerdo. Una diferencia grande de medias con buena correlacion significa que los jueces ORDENAN igual pero calibran distinto: para comparar sistemas sirve, para reportar una nota absoluta no."
+  "lectura": "`kappa_aprueba` es la cifra que importa: mide el acuerdo en la decision binaria que el harness usa (nota >= 4), corregida por azar. `indefinido` significa que uno de los dos jueces uso una sola categoria, y entonces la kappa vale 0.0 mecanicamente y no distingue acuerdo de desacuerdo. Una diferencia grande de medias con buena correlacion significa que los jueces ORDENAN igual pero calibran distinto: para comparar sistemas sirve, para reportar una nota absoluta no.",
+  "acuerdo_entre_familias": {
+    "modelo_b": "allam-2-7b",
+    "familia_b": "allam",
+    "sin_nota": 1,
+    "n": 24,
+    "kappa_aprueba": 0.5455,
+    "corr_spearman": 0.3199,
+    "acuerdo_exacto": 0.5417,
+    "acuerdo_a_un_punto": 0.75,
+    "adherencia_juez_A": {
+      "n": 25,
+      "concluyente": true,
+      "excluidos_por_abstencion": 0,
+      "que_comprueba": "la rubrica define `nota >= 3` como `mecanismo correcto`. Eso es comprobable contra el gold, asi que el juez se audita contra su propia escala. NO es `kappa_vs_dominio`: aquella mide si el juez coincide con la metrica de dominio --- y no tiene por que ---, esta mide si se contradice, y no puede.",
+      "adherencia": 0.76,
+      "incumple_generoso": 0,
+      "incumple_severo": 6,
+      "casos_generoso": [],
+      "casos_severo": [
+        "E08",
+        "E10",
+        "A03",
+        "E16",
+        "E19",
+        "E20"
+      ],
+      "lectura": "19 de 25 notas respetan el corte de la rubrica. 0 son generosas --- nota >= 3 con el mecanismo equivocado, que es el fallo grave porque infla la dimension 2 --- y 6 severas. Una adherencia baja no significa que el juez sea mal evaluador: significa que sus notas no quieren decir lo que la rubrica dice, y entonces no se pueden leer con esa escala."
+    },
+    "adherencia_juez_cruzado": {
+      "n": 24,
+      "concluyente": true,
+      "excluidos_por_abstencion": 0,
+      "que_comprueba": "la rubrica define `nota >= 3` como `mecanismo correcto`. Eso es comprobable contra el gold, asi que el juez se audita contra su propia escala. NO es `kappa_vs_dominio`: aquella mide si el juez coincide con la metrica de dominio --- y no tiene por que ---, esta mide si se contradice, y no puede.",
+      "adherencia": 0.8333,
+      "incumple_generoso": 1,
+      "incumple_severo": 3,
+      "casos_generoso": [
+        "E05"
+      ],
+      "casos_severo": [
+        "E03",
+        "E15",
+        "E19"
+      ],
+      "lectura": "20 de 24 notas respetan el corte de la rubrica. 1 son generosas --- nota >= 3 con el mecanismo equivocado, que es el fallo grave porque infla la dimension 2 --- y 3 severas. Una adherencia baja no significa que el juez sea mal evaluador: significa que sus notas no quieren decir lo que la rubrica dice, y entonces no se pueden leer con esa escala."
+    },
+    "como_leerlo": "si este acuerdo es MAS BAJO que el de la misma familia, hay dos explicaciones opuestas: que las notas del juez principal sean una propiedad del juez y no de la respuesta, o que este candidato no sostenga la tarea. Compara `adherencia_juez_cruzado.incumple_generoso` con `adherencia_juez_A.incumple_generoso`: el que da nota >= 3 a un mecanismo objetivamente equivocado es el que no sirve como evaluador, y eso no es opinion --- se comprueba contra el gold.",
+    "lo_que_no_dice": "con un solo candidato de otra familia no se puede concluir que el sesgo de familia del juez principal sea pequeno. Se puede concluir si ESTE candidato sirve para medirlo."
+  }
 }

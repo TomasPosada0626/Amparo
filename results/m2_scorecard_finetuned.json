@@ -1,75 +1,75 @@
 {
-  "_corrida": "20261021T124137Z",
+  "_corrida": "20261022T093420Z",
   "_modulo": "m2",
   "_artefacto": "scorecard_finetuned.json",
   "sistema": "M1 fine-tuned LoRA",
   "n": 103,
   "campos": {
     "derecho": {
-      "accuracy": 0.6310679611650486,
-      "macro_f1": 0.6148466949895063,
+      "accuracy": 0.6213592233009708,
+      "macro_f1": 0.6212820561504772,
       "baseline_mayoritaria": 0.14563106796116504,
       "soporte_por_clase": {
-        "libertad_personal": 8,
-        "peticion": 8,
-        "ninguno": 15,
+        "estabilidad_laboral_reforzada": 8,
         "trabajo": 8,
-        "educacion": 8,
-        "minimo_vital": 8,
-        "habeas_data": 8,
-        "salud": 8,
         "colectivos": 8,
+        "libertad_personal": 8,
+        "salud": 8,
+        "habeas_data": 8,
+        "minimo_vital": 8,
         "debido_proceso": 8,
+        "ninguno": 15,
+        "peticion": 8,
         "seguridad_social": 8,
-        "estabilidad_laboral_reforzada": 8
+        "educacion": 8
       },
       "f1_por_clase": {
-        "libertad_personal": 0.9333,
-        "peticion": 0.7368,
-        "ninguno": 0.5854,
+        "estabilidad_laboral_reforzada": 0.8571,
         "trabajo": 0.5714,
-        "educacion": 0.8571,
-        "minimo_vital": 0.0,
-        "habeas_data": 0.0,
-        "salud": 0.875,
         "colectivos": 0.8,
+        "libertad_personal": 0.9333,
+        "salud": 0.8,
+        "habeas_data": 0.2222,
+        "minimo_vital": 0.0,
         "debido_proceso": 0.4,
-        "seguridad_social": 0.7619,
-        "estabilidad_laboral_reforzada": 0.8571
+        "ninguno": 0.55,
+        "peticion": 0.7368,
+        "seguridad_social": 0.7273,
+        "educacion": 0.8571
       },
       "clases_con_soporte_minimo": []
     },
     "mecanismo": {
-      "accuracy": 0.7184466019417476,
-      "macro_f1": 0.7918505229807279,
+      "accuracy": 0.7766990291262136,
+      "macro_f1": 0.8082080200501253,
       "baseline_mayoritaria": 0.44660194174757284,
       "soporte_por_clase": {
-        "tutela": 46,
-        "habeas_corpus": 8,
+        "accion_cumplimiento": 8,
         "accion_popular": 8,
         "via_ordinaria": 33,
-        "accion_cumplimiento": 8
+        "habeas_corpus": 8,
+        "tutela": 46
       },
       "f1_por_clase": {
-        "tutela": 0.7865,
-        "habeas_corpus": 0.8571,
+        "accion_cumplimiento": 0.75,
         "accion_popular": 0.8571,
-        "via_ordinaria": 0.6349,
-        "accion_cumplimiento": 0.8235
+        "via_ordinaria": 0.7018,
+        "habeas_corpus": 0.8571,
+        "tutela": 0.875
       },
       "clases_con_soporte_minimo": []
     },
     "procede": {
-      "accuracy": 0.8155339805825242,
-      "macro_f1": 0.8120618457697111,
+      "accuracy": 0.8737864077669902,
+      "macro_f1": 0.8733566631987137,
       "baseline_mayoritaria": 0.5533980582524272,
       "soporte_por_clase": {
         "False": 57,
         "True": 46
       },
       "f1_por_clase": {
-        "False": 0.8376,
-        "True": 0.7865
+        "False": 0.8807,
+        "True": 0.866
       },
       "clases_con_soporte_minimo": []
     }
@@ -98,11 +98,6 @@
         "mecanismo_gold": "via_ordinaria"
       },
       {
-        "id": "A04",
-        "categoria": "contra_providencia",
-        "mecanismo_gold": "via_ordinaria"
-      },
-      {
         "id": "E34",
         "categoria": "contractual_ordinario",
         "mecanismo_gold": "via_ordinaria"
@@ -111,6 +106,11 @@
         "id": "A12",
         "categoria": "inmediatez",
         "mecanismo_gold": "via_ordinaria"
+      },
+      {
+        "id": "E40",
+        "categoria": "ac_plan_gestion_riesgo",
+        "mecanismo_gold": "accion_cumplimiento"
       },
       {
         "id": "A16",
@@ -142,8 +142,8 @@
   "adherencia_estructural_total": 1.0,
   "adherencia_estructural": 1.0,
   "adherencia_vocabulario": 0.8932038834951457,
-  "coherencia": 1.0,
-  "acierto_juridico": 0.7184466019417476,
+  "coherencia": 0.9893617021276596,
+  "acierto_juridico": 0.7669902912621359,
   "alucinacion_normativa": {
     "jurisprudencia": {
       "en_fundamento": 0,
@@ -155,15 +155,19 @@
       "lectura": "`data/normas.json` declara que la cita jurisprudencial NO entra al chequeo de alucinacion normativa porque es mas volatil. Se cuenta aqui y no en `inventada`: un modelo que cita la C-531 de 2000 --- el fundamento de la estabilidad laboral reforzada, que esta en el corpus --- estaba siendo penalizado por acertar. `sin_verificar` son referencias bien formadas a sentencias que el proyecto no declara: no se aprueban en bloque, porque no hay whitelist completo de la jurisprudencia colombiana y fingir que si seria peor."
     },
     "constitucional_sin_verificar": {
-      "en_fundamento": 10,
-      "en_toda_la_salida": 10,
+      "en_fundamento": 14,
+      "en_toda_la_salida": 14,
       "ejemplos": [
         [
           "art. 47 CP",
-          9
+          12
         ],
         [
-          "art. 16 CP",
+          "art. 45 CP",
+          1
+        ],
+        [
+          "art. 68 CP",
           1
         ]
       ],
@@ -176,7 +180,7 @@
     "citas_incompletas": 0,
     "tasa_incompletas": 0.0,
     "ejemplos_incompletas": [],
-    "citas_totales_salida": 199,
+    "citas_totales_salida": 198,
     "citas_inventadas_salida": 0,
     "tasa_alucinacion_salida": 0.0,
     "citas_incompletas_salida": 0,
@@ -185,81 +189,81 @@
   },
   "pertinencia_citas": {
     "citas_emitidas": 178,
-    "correctas": 98,
-    "impertinentes": 80,
+    "correctas": 90,
+    "impertinentes": 88,
     "inventadas": 0,
     "incompletas": 0,
-    "precision_citas": 0.550561797752809,
-    "recall_citas": 0.41350210970464135,
+    "precision_citas": 0.5056179775280899,
+    "recall_citas": 0.379746835443038,
     "ejemplos_impertinentes": [
       [
         "art. 6.1 Decreto 2591 de 1991",
-        26
+        23
       ],
       [
         "art. 47 CP",
-        9
+        12
       ],
       [
         "Ley 100 de 1993",
         8
       ],
       [
-        "art. 43 CP",
-        7
+        "Ley 1095 de 2006",
+        8
       ],
       [
-        "Ley 1095 de 2006",
-        4
+        "art. 42 CP",
+        6
       ]
     ],
     "por_plano": {
       "disponible": true,
       "cajas": {
-        "derecho_correcto": 50,
-        "derecho_impertinente": 40,
-        "mecanismo_equivocado": 38,
-        "mecanismo_correcto": 50
+        "derecho_correcto": 49,
+        "derecho_impertinente": 44,
+        "mecanismo_equivocado": 42,
+        "mecanismo_correcto": 43
       },
-      "precision_mecanismo": 0.5681818181818182,
-      "precision_derecho": 0.5555555555555556,
-      "recall_mecanismo": 0.3875968992248062,
-      "recall_derecho": 0.3184713375796178,
+      "precision_mecanismo": 0.5058823529411764,
+      "precision_derecho": 0.5268817204301075,
+      "recall_mecanismo": 0.3333333333333333,
+      "recall_derecho": 0.31210191082802546,
       "citas_clasificadas": 178,
       "ejemplos_mecanismo_equivocado": [
         [
           "art. 6.1 Decreto 2591 de 1991",
-          26
+          23
         ],
         [
           "Ley 1095 de 2006",
-          4
+          8
         ],
         [
           "art. 6.3 Decreto 2591 de 1991",
-          2
+          3
         ],
         [
           "Ley 1437 de 2011",
-          2
+          3
         ],
         [
           "art. 87 CP",
-          1
+          3
         ]
       ],
       "ejemplos_derecho_impertinente": [
         [
           "art. 47 CP",
-          9
+          12
         ],
         [
           "Ley 100 de 1993",
           8
         ],
         [
-          "art. 43 CP",
-          7
+          "art. 42 CP",
+          6
         ],
         [
           "art. 23 CP",
@@ -276,10 +280,10 @@
   "ic": {
     "acc_mecanismo": {
       "n": 103,
-      "punto": 0.7184,
-      "ic_bajo": 0.6311,
-      "ic_alto": 0.8058,
-      "amplitud": 0.1748,
+      "punto": 0.7767,
+      "ic_bajo": 0.699,
+      "ic_alto": 0.8544,
+      "amplitud": 0.1553,
       "nivel": 0.95,
       "metodo": "bootstrap_percentil",
       "remuestreos": 2000,
@@ -287,10 +291,10 @@
     },
     "acierto_juridico": {
       "n": 103,
-      "punto": 0.7184,
-      "ic_bajo": 0.6311,
-      "ic_alto": 0.8058,
-      "amplitud": 0.1748,
+      "punto": 0.767,
+      "ic_bajo": 0.6893,
+      "ic_alto": 0.8447,
+      "amplitud": 0.1553,
       "nivel": 0.95,
       "metodo": "bootstrap_percentil",
       "remuestreos": 2000,
@@ -299,10 +303,10 @@
     "por_tipo": {
       "gold": {
         "n": 64,
-        "punto": 0.7812,
-        "ic_bajo": 0.6875,
-        "ic_alto": 0.875,
-        "amplitud": 0.1875,
+        "punto": 0.8594,
+        "ic_bajo": 0.7656,
+        "ic_alto": 0.9375,
+        "amplitud": 0.1719,
         "nivel": 0.95,
         "metodo": "bootstrap_percentil",
         "remuestreos": 2000,
@@ -322,24 +326,137 @@
     },
     "lectura": "si los intervalos de dos brazos se solapan, la tabla no sostiene que uno sea mejor que el otro. `metricas.ic_se_solapan()` lo comprueba. El estrato adversarial es el mas pequeño y por eso el de intervalo mas ancho: es justo donde no hay que sobreleer."
   },
-  "rouge_l": 0.3001805641043097,
-  "similitud_embeddings": 0.8393754959106445,
+  "rouge_l": 0.29803275666259105,
+  "similitud_embeddings": 0.8375995755195618,
   "por_tipo": {
     "gold": {
       "n": 64,
-      "acierto_juridico": 0.78125
+      "acierto_juridico": 0.859375
     },
     "adversarial": {
       "n": 39,
       "acierto_juridico": 0.6153846153846154
     }
   },
+  "recall_clase_critica": {
+    "clases": [
+      "habeas_corpus",
+      "tutela"
+    ],
+    "por_que_estas": "un falso negativo en `habeas_corpus` o `tutela` le niega proteccion a alguien: lo manda a la via ordinaria cuando no tenia otro medio eficaz. El error inverso cuesta un trámite. Las demas clases no entran: su falso negativo manda a otra accion constitucional, no deja sin ninguna.",
+    "por_clase": {
+      "habeas_corpus": {
+        "soporte": 8,
+        "aciertos": 6,
+        "recall": 0.75,
+        "ic": {
+          "n": 8,
+          "punto": 0.75,
+          "ic_bajo": 0.5,
+          "ic_alto": 1.0,
+          "amplitud": 0.5,
+          "nivel": 0.95,
+          "metodo": "bootstrap_percentil",
+          "remuestreos": 2000,
+          "semilla": 42
+        },
+        "fallos": [
+          47,
+          48
+        ],
+        "a_que_fueron": {
+          "via_ordinaria": 1,
+          "tutela": 1
+        }
+      },
+      "tutela": {
+        "soporte": 46,
+        "aciertos": 42,
+        "recall": 0.913,
+        "ic": {
+          "n": 46,
+          "punto": 0.913,
+          "ic_bajo": 0.8261,
+          "ic_alto": 0.9783,
+          "amplitud": 0.1522,
+          "nivel": 0.95,
+          "metodo": "bootstrap_percentil",
+          "remuestreos": 2000,
+          "semilla": 42
+        },
+        "fallos": [
+          4,
+          27,
+          42,
+          81
+        ],
+        "a_que_fueron": {
+          "via_ordinaria": 3,
+          "accion_cumplimiento": 1
+        }
+      }
+    },
+    "soporte_total": 54,
+    "recall_agregado": 0.8889,
+    "ic_agregado": {
+      "n": 54,
+      "punto": 0.8889,
+      "ic_bajo": 0.7963,
+      "ic_alto": 0.963,
+      "amplitud": 0.1667,
+      "nivel": 0.95,
+      "metodo": "bootstrap_percentil",
+      "remuestreos": 2000,
+      "semilla": 42
+    },
+    "lectura": "es la cifra que hay que mirar antes de la accuracy. Con soportes de dos digitos un caso vale varios puntos, asi que se publica con intervalo; y `a_que_fueron` dice a donde se desvio cada fallo, porque mandar un habeas corpus a tutela no es lo mismo que mandarlo a la via ordinaria."
+  },
+  "pertinencia_citas_depurada": {
+    "citas_emitidas": 163,
+    "correctas": 90,
+    "impertinentes": 73,
+    "inventadas": 0,
+    "incompletas": 0,
+    "precision_citas": 0.5521472392638037,
+    "recall_citas": 0.379746835443038,
+    "ejemplos_impertinentes": [
+      [
+        "art. 6.1 Decreto 2591 de 1991",
+        13
+      ],
+      [
+        "art. 47 CP",
+        12
+      ],
+      [
+        "Ley 100 de 1993",
+        8
+      ],
+      [
+        "Ley 1095 de 2006",
+        8
+      ],
+      [
+        "art. 42 CP",
+        6
+      ]
+    ],
+    "citas_quitadas": 15,
+    "quitadas_por_norma": {
+      "art. 6.1 Decreto 2591 de 1991": 10,
+      "art. 6.3 Decreto 2591 de 1991": 3,
+      "Ley 1437 de 2011": 2
+    },
+    "que_se_quito": "normas puramente procesales citadas en el slot del DERECHO de un caso cuyo mecanismo NO es el suyo --- el art. 6.1, que es subsidiariedad, sobre una tutela que procede. No se quita la que si corresponde al mecanismo emitido: el gold tiene un solo slot de fundamento, asi que para un caso de `via_ordinaria` el art. 6.1 es lo que pide.",
+    "no_anade_nada": "la capa solo QUITA. Poner la cita correcta seria que el motor decidiera el fundamento, y eso ya lo hacen los brazos hibrido y agente: seria otro brazo, no una depuracion.",
+    "comprobacion": "`acierto_juridico` tiene que salir IDENTICO con y sin depurar. Si cambia, la capa toco algo mas que las citas."
+  },
   "por_fiabilidad_etiqueta": {
     "motor_de_reglas_plano": {
       "nivel": 2,
       "n": 64,
-      "acc_mecanismo": 0.765625,
-      "acierto_juridico": 0.765625
+      "acc_mecanismo": 0.859375,
+      "acierto_juridico": 0.84375
     },
     "motor_de_reglas_ponderado": {
       "nivel": 3,
@@ -357,26 +474,20 @@
   },
   "errores_por_categoria": {
     "ac_norma_salud_sin_afectado": "1/1",
+    "ac_plan_gestion_riesgo": "1/1",
     "ap_moralidad_sobrecosto": "1/1",
     "colectivo_moralidad": "1/1",
-    "contra_providencia": "1/1",
     "contractual_ordinario": "1/2",
     "dp_desacuerdo_con_la_prueba": "1/1",
     "dp_recursos_sin_agotar": "1/1",
-    "dp_sancion_sin_descargos": "1/1",
-    "educacion_cancelacion_por_embarazo": "1/1",
-    "educacion_cupo": "1/1",
-    "educacion_inclusion": "1/1",
     "educacion_perdida_de_ano_academica": "1/1",
-    "educacion_retencion_diploma": "1/1",
-    "elr_despido_con_restricciones_medicas": "1/1",
+    "elr_despido_con_autorizacion": "1/1",
     "fuero_salud": "1/2",
     "habeas_data_caducidad": "1/1",
     "hc_domiciliaria_no_ejecutada": "1/1",
     "hc_medida_seguridad_vencida": "1/1",
     "hd_rectificacion_en_tramite": "1/1",
     "hd_reporte_veraz_vigente": "1/1",
-    "hd_termino_legal_excedido": "1/1",
     "incumplimiento_norma": "1/3",
     "indemnizatorio": "1/1",
     "inmediatez": "1/1",
@@ -397,56 +508,58 @@
     "modelo": "openai/gpt-oss-120b",
     "nota_media": 3.055045871559633,
     "distribucion": {
-      "1": 11,
-      "2": 38,
+      "1": 9,
+      "2": 39,
       "3": 13,
-      "4": 28,
-      "5": 19
+      "4": 33,
+      "5": 15
     },
     "sin_parsear": 0,
-    "kappa_vs_dominio": 0.4311244662343824,
+    "kappa_vs_dominio": 0.3635789805901847,
     "adherencia_a_la_rubrica": {
       "n": 103,
       "concluyente": true,
       "excluidos_por_abstencion": 6,
       "que_comprueba": "la rubrica define `nota >= 3` como `mecanismo correcto`. Eso es comprobable contra el gold, asi que el juez se audita contra su propia escala. NO es `kappa_vs_dominio`: aquella mide si el juez coincide con la metrica de dominio --- y no tiene por que ---, esta mide si se contradice, y no puede.",
-      "adherencia": 0.8058,
-      "incumple_generoso": 0,
-      "incumple_severo": 20,
-      "casos_generoso": [],
+      "adherencia": 0.7573,
+      "incumple_generoso": 1,
+      "incumple_severo": 24,
+      "casos_generoso": [
+        "A30"
+      ],
       "casos_severo": [
         "E08",
         "E10",
         "A03",
+        "E16",
+        "E19",
         "E20",
-        "E25",
+        "E32",
+        "E33",
         "A05",
-        "A13",
-        "A15",
+        "A06",
+        "E39",
+        "E41",
+        "A19",
         "A21",
         "A22",
         "A23",
-        "A24",
         "A25",
         "A26",
         "A27",
-        "A31",
-        "A32",
-        "E56",
-        "A34",
-        "E58"
+        "A31"
       ],
-      "lectura": "83 de 103 notas respetan el corte de la rubrica. 0 son generosas --- nota >= 3 con el mecanismo equivocado, que es el fallo grave porque infla la dimension 2 --- y 20 severas. Una adherencia baja no significa que el juez sea mal evaluador: significa que sus notas no quieren decir lo que la rubrica dice, y entonces no se pueden leer con esa escala."
+      "lectura": "78 de 103 notas respetan el corte de la rubrica. 1 son generosas --- nota >= 3 con el mecanismo equivocado, que es el fallo grave porque infla la dimension 2 --- y 24 severas. Una adherencia baja no significa que el juez sea mal evaluador: significa que sus notas no quieren decir lo que la rubrica dice, y entonces no se pueden leer con esa escala."
     },
     "notas": [
       {
-        "nota": 4,
-        "justificacion": "Razonamiento sólido y correcto, aunque omite mencionar garantía de suministro continuo.",
+        "nota": 5,
+        "justificacion": "Razonamiento jurídico correcto y fundamentado, sin errores relevantes",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Razonamiento correcto pero omite normas y parte demandada relevante.",
+        "justificacion": "Razonamiento sólido y correcto, pero omite referencias normativas y parte demandada del caso.",
         "reparada": false
       },
       {
@@ -456,202 +569,202 @@
       },
       {
         "nota": 4,
-        "justificacion": "Razonamiento sólido, pero citación normativa menos precisa que la referencia.",
+        "justificacion": "Razonamiento correcto pero incluye pretensión no requerida y citas normativas incompletas.",
         "reparada": false
       },
       {
         "nota": 1,
-        "justificacion": "Mecanismo y fundamento jurídico incorrectos, omite habeas data y acción de tutela aplicable.",
+        "justificacion": "Mecanismo y fundamento jurídico incorrectos; no reconoce el habeas data ni la procedencia de la tutela.",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Cita normativa incorrecta pero razonamiento y conclusión adecuados",
-        "reparada": false
-      },
-      {
-        "nota": 2,
-        "justificacion": "Mecanismo y fundamentos legales incorrectos, razonamiento insuficiente para la tutela",
-        "reparada": false
-      },
-      {
-        "nota": 2,
-        "justificacion": "Identifica tutela pero erróneamente el sujeto responsable y la norma aplicable, razonamiento insuficiente",
+        "justificacion": "Cita normativa incorrecta y omite detalle del decreto, pero el razonamiento es sólido y la conclusión adecuada.",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Cita normativa incorrecta (art.88 en lugar de art.79), aunque el resto del razonamiento es adecuado.",
+        "justificacion": "Mecanismo y razonamiento correctos, pero citación normativa imprecisa y omite a la Secretaría de Educación.",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "Confunde la jurisdicción competente; la defensa del consumidor corresponde a la SIC, no a familia o laboral.",
-        "reparada": false
-      },
-      {
-        "nota": 2,
-        "justificacion": "Falta identificar norma y mecanismo adecuado; razonamiento incompleto y poco preciso.",
+        "justificacion": "Mecanismo correcto pero identifica erróneamente al responsable y normas aplicables.",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Razonamiento correcto y mecanismo adecuado, pero imprecisión al referirse a muestras en lugar de resultados.",
+        "justificacion": "Error en la referencia normativa (artículo equivocado) pero razonamiento esencial correcto",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "Mecanismo y pretensión incorrectos; omite agotamiento administrativo y superintendencia, razonamiento débil.",
+        "justificacion": "Identifica ausencia de derecho fundamental, pero prescribe mecanismo judicial equivocado en lugar de acción ante la SIC.",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "No identifica el derecho ni justifica la procedencia, razonamiento jurídico insuficiente",
-        "reparada": false
-      },
-      {
-        "nota": 5,
-        "justificacion": "Razonamiento jurídico sólido y adecuado, identifica correctamente el mecanismo y la pretensión",
+        "justificacion": "Mecanismo y procedencia incorrectos; confunde tutela con proceso de controversias sanitarias.",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Razonamiento sólido pero omite insumos, limitando la cobertura del derecho a salud.",
+        "justificacion": "Razonamiento correcto pero imprecisión al referirse a muestras en lugar del informe patológico.",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "Omite agotar vía administrativa y justifica erróneamente la competencia ordinaria.",
+        "reparada": false
+      },
+      {
+        "nota": 4,
+        "justificacion": "Razonamiento correcto pero cita normativa imprecisa y explicación algo confusa",
+        "reparada": false
+      },
+      {
+        "nota": 4,
+        "justificacion": "Mecanismo y conclusión correctos, pero norma citada incorrecta (artículo 47 en lugar de 46).",
+        "reparada": false
+      },
+      {
+        "nota": 4,
+        "justificacion": "Omite insumos, pero razonamiento y fundamento esencial son correctos.",
         "reparada": false
       },
       {
         "nota": 5,
-        "justificacion": "Respuesta correcta, razonamiento sólido y fundamentos normativos pertinentes",
+        "justificacion": "Razonamiento jurídico sólido y fundamentado en normas pertinentes, concluye correctamente la procedencia y pretensión.",
         "reparada": false
       },
       {
         "nota": 5,
-        "justificacion": "Razonamiento jurídico correcto y bien fundamentado, sin errores ni imprecisiones.",
+        "justificacion": "Razonamiento jurídico sólido y adecuado al caso, con fundamento normativo pertinente",
         "reparada": false
       },
       {
         "nota": 5,
-        "justificacion": "Razonamiento jurídico sólido y fundamentado correctamente en la acción de tutela y derecho de petición.",
+        "justificacion": "Razonamiento jurídico correcto y bien fundamentado",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "Mecanismo correcto pero norma citada errónea y razonamiento jurídico débil",
         "reparada": false
       },
       {
         "nota": 3,
-        "justificacion": "Mecanismo correcto pero fundamento jurídico inapropiado y menos pertinente al caso",
+        "justificacion": "Reconoce la procedencia pero la argumentación es vaga y carece de fundamento normativo preciso.",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Correcto en mecanismo y conclusión, pero razonamiento incompleto y menos preciso que la referencia.",
+        "justificacion": "Razonamiento sólido y adecuado, aunque la norma citada no es la más precisa.",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "Cita normativa incorrecta y pretensión jurídica inadecuada, razonamiento débil",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "Mecanismo correcto pero omite el derecho aplicable y cita normativa irrelevante.",
+        "reparada": false
+      },
+      {
+        "nota": 4,
+        "justificacion": "Mecanismo y razonamiento correctos, aunque falta referencia normativa completa",
         "reparada": false
       },
       {
         "nota": 3,
-        "justificacion": "Identifica la tutela y la procedencia, pero cita normas poco pertinentes y omite el fundamento del mínimo vital.",
+        "justificacion": "Cita normativa incorrecta y razonamiento menos preciso pese al mecanismo adecuado.",
+        "reparada": false
+      },
+      {
+        "nota": 4,
+        "justificacion": "Razonamiento sólido pero cita normativa incorrecta, lo que merma precisión.",
+        "reparada": false
+      },
+      {
+        "nota": 1,
+        "justificacion": "Mecanismo y razonamiento erróneos respecto a la protección constitucional del trabajador con discapacidad.",
         "reparada": false
       },
       {
         "nota": 3,
-        "justificacion": "Razonamiento adecuado pero norma citada incorrecta para datos de salud sensibles.",
-        "reparada": false
-      },
-      {
-        "nota": 2,
-        "justificacion": "Cita normativa incorrecta y omite el derecho de habeas data, pese a indicar la tutela.",
-        "reparada": false
-      },
-      {
-        "nota": 1,
-        "justificacion": "Mecanismo equivocado y razonamiento incorrecto sobre la procedencia de la tutela.",
-        "reparada": false
-      },
-      {
-        "nota": 1,
-        "justificacion": "Mecanismo y fundamentación jurídica incorrectos, vulnera el derecho a educación de desplazados.",
+        "justificacion": "Mecanismo correcto pero fundamento jurídico inapropiado y confuso",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Razonamiento sólido y pertinente, aunque la referencia normativa es imprecisa.",
-        "reparada": false
-      },
-      {
-        "nota": 2,
-        "justificacion": "Mecanismo y norma incorrectos, razonamiento débil pese a identificar la necesidad de autorización previa.",
-        "reparada": false
-      },
-      {
-        "nota": 2,
-        "justificacion": "Cita derecho incorrecto, aunque reconoce tutela; razonamiento jurídico insuficiente.",
+        "justificacion": "Razonamiento sólido y pertinente, aunque la normativa citada es imprecisa.",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Correcto razonamiento y mecanismo, pero citas normativas imprecisas respecto al caso.",
+        "justificacion": "Cita normativa incorrecta (art.88 en lugar de art.79) aunque el razonamiento general es adecuado.",
         "reparada": false
       },
       {
-        "nota": 4,
-        "justificacion": "Cita normativa incorrecta (art.88 en lugar de art.79) aunque el razonamiento es mayormente correcto.",
-        "reparada": false
-      },
-      {
-        "nota": 1,
-        "justificacion": "Mecanismo y fundamento jurídico incorrectos; la tutela no procede, se requiere acción popular.",
-        "reparada": false
-      },
-      {
-        "nota": 5,
-        "justificacion": "Respuesta replica correctamente el razonamiento jurídico y el mecanismo aplicable.",
-        "reparada": false
-      },
-      {
-        "nota": 5,
-        "justificacion": "Razonamiento jurídico correcto y fundamentado en la normativa aplicable.",
-        "reparada": false
-      },
-      {
-        "nota": 5,
-        "justificacion": "Respuesta correcta, razonamiento jurídico sólido y fundamentado adecuadamente",
+        "nota": 2,
+        "justificacion": "Mecanismo y fundamento jurídico incorrectos, omite derecho colectivo aplicable",
         "reparada": false
       },
       {
         "nota": 3,
-        "justificacion": "Identifica correctamente partes, pero erróneamente indica jurisdicción ordinaria en lugar de proceso ejecutivo",
+        "justificacion": "Cita normativa incorrecta, aunque el razonamiento del mecanismo es similar.",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Mecanismo correcto pero omite restablecimiento del derecho, reduciendo precisión del razonamiento.",
+        "justificacion": "Mecanismo correcto pero cita normativa equivocada, afectando precisión del razonamiento jurídico.",
+        "reparada": false
+      },
+      {
+        "nota": 5,
+        "justificacion": "Respuesta correcta, razonamiento jurídico sólido y adecuado al caso",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "Respuesta incompleta y sin razonamiento jurídico suficiente, aunque reconoce la inaplicabilidad de la tutela.",
+        "justificacion": "Confunde el proceso ejecutivo con la jurisdicción ordinaria, razonamiento jurídico incorrecto",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "Identifica incorrectamente el derecho y la jurisdicción competente, razonamiento jurídico débil",
+        "justificacion": "Mecanismo equivocado; no reconoce la acción de nulidad y restablecimiento del derecho.",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "Respuesta vaga, no identifica correctamente los elementos ni justifica el mecanismo judicial adecuado.",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "Identifica erróneamente el derecho aplicable y omite el proceso ejecutivo pertinente.",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "Cita normativa incorrecta y sugiere vía ordinaria, omitiendo los mecanismos específicos de familia.",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Razonamiento correcto sobre improcedencia de tutela, aunque la pretensión es algo genérica.",
-        "reparada": false
-      },
-      {
-        "nota": 4,
-        "justificacion": "Identifica correctamente la improcedencia, aunque la justificación es menos precisa que la referencia.",
+        "justificacion": "Error en la referencia normativa, aunque el razonamiento es mayormente correcto.",
         "reparada": false
       },
       {
         "nota": 1,
-        "justificacion": "Mecanismo y procedencia incorrectos; la tutela no procede y la respuesta es adecuada.",
+        "justificacion": "Mecanismo y conclusión erróneos; la tutela no procede y la respuesta es adecuada según normativa.",
         "reparada": false
       },
       {
-        "nota": 1,
-        "justificacion": "Mecanismo equivocado y falta de fundamento jurídico adecuado",
+        "nota": 2,
+        "justificacion": "Mecanismo equivocado y omite el derecho fundamental, razonamiento insuficiente",
         "reparada": false
       },
       {
@@ -666,7 +779,7 @@
       },
       {
         "nota": 2,
-        "justificacion": "No identifica correctamente el derecho ni el mecanismo; razonamiento jurídico débil y equivocado.",
+        "justificacion": "No identifica derecho ni mecanismo adecuado; razonamiento jurídico insuficiente y equivocado.",
         "reparada": false
       },
       {
@@ -675,13 +788,13 @@
         "reparada": false
       },
       {
-        "nota": 2,
-        "justificacion": "Mecanismo y derecho incorrectos, vulnera el análisis jurídico requerido",
+        "nota": 1,
+        "justificacion": "Mecanismo y derecho incorrectos, razonamiento jurídico deficiente y sin fundamento normativo pertinente",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "Elige tutela en lugar de habeas corpus, mecanismo jurídico incorrecto pese a identificar el derecho",
+        "justificacion": "Mecanismo equivocado (tutela en lugar de habeas corpus) pese a identificar correctamente el derecho.",
         "reparada": false
       },
       {
@@ -690,28 +803,28 @@
         "reparada": false
       },
       {
-        "nota": 2,
-        "justificacion": "Mecanismo correcto pero razonamiento erróneo sobre procedencia y fundamento legal.",
-        "reparada": false
-      },
-      {
         "nota": 4,
-        "justificacion": "Respuesta correcta en mecanismo y fundamento, pero omite normativa secundaria y detalle menor.",
+        "justificacion": "Razonamiento correcto y mecanismo adecuado, pero omite la opción de traslado al sistema de adolescentes.",
         "reparada": false
       },
       {
         "nota": 5,
-        "justificacion": "Respuesta coincide con referencia, identifica correctamente mecanismo y pretensión sin errores jurídicos",
+        "justificacion": "Identifica correctamente el derecho, mecanismo y procedencia del habeas corpus sin errores sustanciales.",
         "reparada": false
       },
       {
-        "nota": 5,
-        "justificacion": "Razonamiento jurídico correcto y alineado con la respuesta de referencia",
+        "nota": 2,
+        "justificacion": "Cita normativa incorrecta y formula imprecisa la pretensión, debilitando el razonamiento jurídico.",
         "reparada": false
       },
       {
-        "nota": 5,
-        "justificacion": "Razonamiento jurídico correcto y alineado con la referencia",
+        "nota": 2,
+        "justificacion": "No identifica correctamente el derecho, accionado ni el mecanismo de acción de cumplimiento requerido",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "Mecanismo correcto, pero errónea conclusión sobre procedencia de la acción de cumplimiento.",
         "reparada": false
       },
       {
@@ -720,18 +833,18 @@
         "reparada": false
       },
       {
-        "nota": 2,
-        "justificacion": "Cita normativa incorrecta y errores en autoridad, aunque reconoce mecanismo, el razonamiento es parcialmente defendible.",
+        "nota": 3,
+        "justificacion": "Cita normativa incorrecta y accionado equivocado, aunque el mecanismo y la conclusión son similares.",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "No identifica correctamente derecho, accionado y mecanismo; razonamiento incompleto y poco preciso.",
+        "justificacion": "No identifica correctamente el derecho, accionado ni el mecanismo; razonamiento incompleto y poco sólido.",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Razonamiento correcto y coherente, aunque la explicación de procedencia es algo imprecisa.",
+        "justificacion": "Razonamiento correcto pero la explicación de procedencia es menos precisa que la referencia.",
         "reparada": false
       },
       {
@@ -740,68 +853,68 @@
         "reparada": false
       },
       {
-        "nota": 4,
-        "justificacion": "Razonamiento correcto pero menos preciso en la fundamentación normativa.",
+        "nota": 5,
+        "justificacion": "Razonamiento jurídico correcto y fundamentado en normas aplicables",
         "reparada": false
       },
       {
-        "nota": 3,
-        "justificacion": "Razonamiento similar pero impreciso y confuso respecto a la excepción del artículo 6.3",
+        "nota": 4,
+        "justificacion": "Conclusión correcta, razonamiento adecuado aunque menos preciso en la fundamentación normativa.",
         "reparada": false
       },
       {
         "nota": 1,
-        "justificacion": "Mecanismo y fundamento jurídico incorrectos, no justifica la acción popular adecuada.",
+        "justificacion": "Mecanismo y fundamento jurídico incorrectos, no aborda adecuadamente la acción popular correspondiente.",
         "reparada": false
       },
       {
         "nota": 5,
-        "justificacion": "Identifica correctamente la ausencia de materia constitucional y justifica la falta de mecanismo idóneo.",
+        "justificacion": "Identifica correctamente la ausencia de materia constitucional y sugiere derivación adecuada.",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "No ofrece razonamiento jurídico sobre la diferencia solicitada, solo indica ausencia de triaje.",
         "reparada": false
       },
       {
         "nota": 5,
-        "justificacion": "Identifica correctamente que la consulta es académica y no requiere triaje constitucional.",
+        "justificacion": "Identifica correctamente la falta de datos y solicita información mínima para orientar el mecanismo.",
         "reparada": false
       },
       {
-        "nota": 5,
-        "justificacion": "Identifica correctamente la falta de datos y solicita información mínima para determinar el mecanismo.",
-        "reparada": false
-      },
-      {
-        "nota": 4,
-        "justificacion": "Razonamiento adecuado, identifica correctamente la falta de acción constitucional y sugiere vía administrativa apropiada.",
-        "reparada": false
-      },
-      {
-        "nota": 4,
-        "justificacion": "Conclusión correcta, razonamiento sólido aunque omite mencionar la contradicción del relato",
-        "reparada": false
-      },
-      {
-        "nota": 5,
-        "justificacion": "Identifica correctamente la improcedencia y justifica sin errores",
-        "reparada": false
-      },
-      {
-        "nota": 4,
-        "justificacion": "Mecanismo y conclusión correctos, pero derecho citado impreciso y fundamento normativo no totalmente pertinente.",
-        "reparada": false
-      },
-      {
-        "nota": 4,
-        "justificacion": "Mecanismo y conclusión correctos, pero cita normativa y actor equivocados",
-        "reparada": false
-      },
-      {
-        "nota": 4,
-        "justificacion": "Razonamiento sólido pero cita normativa menos pertinente al mínimo vital",
+        "nota": 2,
+        "justificacion": "Mecanismo equivocado y razonamiento insuficiente para la naturaleza aduanera del caso",
         "reparada": false
       },
       {
         "nota": 3,
-        "justificacion": "Mecanismo correcto pero falta fundamento jurídico adecuado y cita errónea.",
+        "justificacion": "Razonamiento débil y genérico, no aborda la contradicción del caso como la referencia.",
+        "reparada": false
+      },
+      {
+        "nota": 4,
+        "justificacion": "Identifica correctamente la falta de procedencia, razonamiento sólido con mínimas imprecisiones",
+        "reparada": false
+      },
+      {
+        "nota": 4,
+        "justificacion": "Mecanismo y conclusión correctos, pero normas citadas imprecisas.",
+        "reparada": false
+      },
+      {
+        "nota": 4,
+        "justificacion": "Identifica correctamente la tutela y la obligación de la EPS, aunque cita normas menos precisas.",
+        "reparada": false
+      },
+      {
+        "nota": 3,
+        "justificacion": "Mecanismo y pretensión correctos, pero norma citada inapropiada y razonamiento jurídico débil.",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "Mecanismo correcto pero identifica erróneamente el derecho aplicable, debilitando el razonamiento jurídico.",
         "reparada": false
       },
       {
@@ -811,37 +924,37 @@
       },
       {
         "nota": 2,
-        "justificacion": "Cita normativa incorrecta y justifica mal la procedencia, pese a mencionar vía judicial ordinaria.",
+        "justificacion": "Cita normativa incorrecta y razonamiento jurídico débil, aunque identifica el mecanismo judicial.",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "Mecanismo y fundamento jurídico incorrectos; no identifica proceso ejecutivo ni derecho aplicable.",
+        "justificacion": "Mecanismo correcto pero identifica erróneamente el derecho y justifica débilmente la procedencia.",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "Identifica la vía pero erróneamente niega el derecho aplicable y confunde la tutela con el proceso laboral.",
+        "justificacion": "Mecanismo acertado pero fundamento jurídico erróneo y razonamiento confuso",
+        "reparada": false
+      },
+      {
+        "nota": 4,
+        "justificacion": "Identifica correctamente la vía y pretensión, pero cita normativa menos pertinente.",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "Cita normas inapropiadas y confunde tutela con acción laboral ordinaria, razonamiento jurídico débil.",
+        "justificacion": "Cita normativa incorrecta y razonamiento débil sobre la procedencia del mecanismo.",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "Cita normativa incorrecta y razonamiento insuficiente sobre la procedencia del reclamo",
+        "justificacion": "Cita normas irrelevantes y propone mecanismo incorrecto, razonamiento jurídico débil.",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "Cita normas incorrectas y mecanismo equivocado, razonamiento jurídico débil",
-        "reparada": false
-      },
-      {
-        "nota": 2,
-        "justificacion": "Mecanismo y fundamento jurídico incorrectos, confunde tutela con jurisdicción laboral.",
+        "justificacion": "Confunde normas y omite el procedimiento interno y ante inspector, razonamiento jurídico débil",
         "reparada": false
       },
       {
@@ -850,108 +963,108 @@
         "reparada": false
       },
       {
-        "nota": 3,
-        "justificacion": "Cita normativa incorrecta y omite al responsable municipal, aunque el razonamiento básico es adecuado.",
+        "nota": 4,
+        "justificacion": "Error en el artículo constitucional citado, pero el resto del razonamiento es correcto.",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Razonamiento sólido y mecanismo correcto; citas menores imprecisas y omite parte del accionado.",
-        "reparada": false
-      },
-      {
-        "nota": 1,
-        "justificacion": "Mecanismo y procedencia incorrectos; no reconoce tutela como vía adecuada para la discriminación por embarazo.",
-        "reparada": false
-      },
-      {
-        "nota": 3,
-        "justificacion": "Identifica mal la norma aplicable, aunque elige la jurisdicción ordinaria correcta.",
-        "reparada": false
-      },
-      {
-        "nota": 2,
-        "justificacion": "Mecanismo y fundamentación jurídica incorrectos, razonamiento insuficiente y no identifica la vía adecuada.",
-        "reparada": false
-      },
-      {
-        "nota": 1,
-        "justificacion": "Mecanismo y fundamento legal incorrectos, razonamiento jurídico débil y contradictorio.",
+        "justificacion": "Mecanismo y conclusión correctos, pero normas citadas imprecisas.",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Cita normativa incorrecta pero razonamiento y mecanismo adecuados",
+        "justificacion": "Razonamiento sólido y correcto, aunque cita normativa ligeramente imprecisa.",
+        "reparada": false
+      },
+      {
+        "nota": 3,
+        "justificacion": "Mecanismo correcto pero cita normativa inapropiada y justificación jurídica débil.",
+        "reparada": false
+      },
+      {
+        "nota": 3,
+        "justificacion": "Identifica improcedencia pero no determina el derecho ni el mecanismo, razonamiento incompleto",
+        "reparada": false
+      },
+      {
+        "nota": 1,
+        "justificacion": "Mecanismo y fundamento legal incorrectos, conclusión errónea sobre procedencia.",
         "reparada": false
       },
       {
         "nota": 4,
-        "justificacion": "Razonamiento adecuado y fundamento normativo pertinente, con leves imprecisiones respecto al estatus de beneficiario.",
+        "justificacion": "Cita normativa incorrecta pero razonamiento y mecanismo adecuados.",
+        "reparada": false
+      },
+      {
+        "nota": 4,
+        "justificacion": "Mecanismo y conclusión correctos, pero razonamiento menos preciso respecto a la condición de discapacidad.",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "Cita normativa incorrecta y justifica erróneamente la improcedencia, razonamiento jurídico débil.",
+        "justificacion": "Identifica normas y autoridad equivocadas, y justifica incorrectamente la vía jurisdiccional.",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "Aplica incorrectamente jurisdicción contencioso‑administrativa, razonamiento jurídico débil y normativo impreciso",
+        "justificacion": "Cita normativa incorrecta y razonamiento jurídico inapropiado respecto al caso.",
+        "reparada": false
+      },
+      {
+        "nota": 3,
+        "justificacion": "Razonamiento básico correcto pero norma citada inapropiada y pretensión incompleta.",
+        "reparada": false
+      },
+      {
+        "nota": 4,
+        "justificacion": "Mecanismo y razonamiento correctos, pero norma citada incorrecta",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "Cita normativa incorrecta y razonamiento jurídico impreciso pese al mecanismo adecuado.",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "Aplica tutela erróneamente; no hay presunción de discriminación y procede vía ordinaria, no tutela.",
+        "reparada": false
+      },
+      {
+        "nota": 4,
+        "justificacion": "Razonamiento correcto pero citas normativas poco precisas",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "Aplica derecho incorrecto (petición en lugar de habeas data) y fundamento jurídico inapropiado.",
+        "reparada": false
+      },
+      {
+        "nota": 2,
+        "justificacion": "Mecanismo correcto pero omite y erróneamente identifica el derecho aplicable y el plazo legal.",
+        "reparada": false
+      },
+      {
+        "nota": 3,
+        "justificacion": "Mecanismo correcto pero norma citada inapropiada y razonamiento impreciso.",
         "reparada": false
       },
       {
         "nota": 1,
-        "justificacion": "Mecanismo y conclusión erróneos, contradice la normativa aplicable.",
+        "justificacion": "Mecanismo y fundamento jurídico incorrectos; la tutela no procede y no hay derecho aplicable citado.",
         "reparada": false
       },
       {
         "nota": 2,
-        "justificacion": "Cita normativa incorrecta y razonamiento confuso, aunque identifica tutela y estabilidad laboral.",
+        "justificacion": "Mecanismo equivocado (tutela) y razonamiento insuficiente respecto a la vía adecuada.",
         "reparada": false
       },
       {
-        "nota": 3,
-        "justificacion": "Mecanismo y conclusión correctos, pero la norma citada es inapropiada y el fundamento jurídico es impreciso.",
-        "reparada": false
-      },
-      {
-        "nota": 3,
-        "justificacion": "Identifica mecanismo pero interpreta pretensión y fundamento de forma imprecisa.",
-        "reparada": false
-      },
-      {
-        "nota": 2,
-        "justificacion": "Cita normativa inapropiada; razonamiento jurídico débil pese a mecanismo correcto.",
-        "reparada": false
-      },
-      {
-        "nota": 2,
-        "justificacion": "Aplica derecho y mecanismo equivocados, confunde habeas data con petición, razonamiento jurídico insuficiente",
-        "reparada": false
-      },
-      {
-        "nota": 1,
-        "justificacion": "Mecanismo y fundamento jurídico erróneos, no reconoce el habeas data ni la tutela adecuada.",
-        "reparada": false
-      },
-      {
-        "nota": 3,
-        "justificacion": "Mecanismo correcto pero norma citada inapropiada y razonamiento jurídico impreciso.",
-        "reparada": false
-      },
-      {
-        "nota": 2,
-        "justificacion": "Aplica tutela erróneamente; no identifica el derecho aplicable y justifica mal la procedencia.",
-        "reparada": false
-      },
-      {
-        "nota": 2,
-        "justificacion": "Mecanismo y procedencia erróneos; la tutela no procede aún por falta de vencimiento del plazo legal.",
-        "reparada": false
-      },
-      {
-        "nota": 2,
-        "justificacion": "Mecanismo y procedencia erróneos; confunde tutela con vía ordinaria y niega su procedencia.",
+        "nota": 5,
+        "justificacion": "Razonamiento sólido, identifica debida proceso y tutela correctamente.",
         "reparada": false
       },
       {
@@ -961,60 +1074,60 @@
       },
       {
         "nota": 2,
-        "justificacion": "No identifica el mecanismo ordinario correcto; razonamiento incompleto y equivocado.",
+        "justificacion": "Falta de fundamento jurídico y diagnóstico incompleto del mecanismo y derecho aplicable.",
         "reparada": false
       },
       {
-        "nota": 2,
-        "justificacion": "Mecanismo y procedencia equivocados; no identifica recursos ordinarios correctos.",
+        "nota": 1,
+        "justificacion": "Respuesta errónea en mecanismo y razonamiento, no identifica el recurso adecuado.",
         "reparada": false
       },
       {
         "nota": 5,
-        "justificacion": "Razonamiento jurídico correcto y fundamentado, sin imprecisiones relevantes.",
+        "justificacion": "Respuesta correcta, razonamiento sólido y fundamento normativo pertinente",
         "reparada": false
       },
       {
         "nota": 3,
-        "justificacion": "Razonamiento incompleto y menos preciso respecto a la obligación de informar la remisión y la respuesta de fondo.",
+        "justificacion": "Mecanismo y procedencia correctos, pero la pretensión es imprecisa y no aborda la información de la remisión.",
         "reparada": false
       },
       {
-        "nota": 2,
-        "justificacion": "Aplica tutela erróneamente; el término legal no ha vencido, razonamiento jurídico incorrecto.",
+        "nota": 1,
+        "justificacion": "Errónea interpretación del término legal y uso indebido de tutela; razonamiento jurídico inválido.",
         "reparada": false
       }
     ],
     "nota_media_por_tipo": {
-      "gold": 3.328125,
-      "adversarial": 2.358974358974359
+      "gold": 3.34375,
+      "adversarial": 2.5128205128205128
     }
   },
   "puente": {
     "disponible": true,
     "subconjunto_v1": {
       "n": 46,
-      "acc_mecanismo": 0.7391,
-      "macroF1_mecanismo": 0.8047,
+      "acc_mecanismo": 0.8261,
+      "macroF1_mecanismo": 0.8466,
       "baseline_mayoritaria": 0.587,
-      "acierto_juridico": 0.7391,
-      "juez_nota_media": 3.196
+      "acierto_juridico": 0.8261,
+      "juez_nota_media": 3.217
     },
     "completo": {
       "n": 103,
-      "acc_mecanismo": 0.7184,
-      "macroF1_mecanismo": 0.7919,
+      "acc_mecanismo": 0.7767,
+      "macroF1_mecanismo": 0.8082,
       "baseline_mayoritaria": 0.4466,
-      "acierto_juridico": 0.7184,
+      "acierto_juridico": 0.767,
       "juez_nota_media": 3.055
     },
     "completo_es_eval_v2": false,
     "delta": {
-      "acc_mecanismo": -0.0207,
-      "macroF1_mecanismo": -0.0128,
+      "acc_mecanismo": -0.0494,
+      "macroF1_mecanismo": -0.0384,
       "baseline_mayoritaria": -0.1404,
-      "acierto_juridico": -0.0207,
-      "juez_nota_media": -0.141
+      "acierto_juridico": -0.0591,
+      "juez_nota_media": -0.162
     },
     "lectura": "las dos columnas salen de las MISMAS predicciones y de las MISMAS notas del juez, asi que la diferencia es atribuible solo a los casos que el conjunto completo tiene de mas, no a variacion del modelo ni del juez entre corridas. `subconjunto_v1` es comparable con las once corridas anteriores. Una caida en la columna completa es la esperada cuando esta es el eval v2: v2 tiene mas casos de las clases minoritarias, que son las dificiles, y su baseline mayoritaria es 0.4286 contra 0.587 de v1."
   }

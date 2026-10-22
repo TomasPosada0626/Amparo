@@ -1,75 +1,75 @@
 {
-  "_corrida": "20261021T115654Z",
+  "_corrida": "20261022T044802Z",
   "_modulo": "m1",
   "_artefacto": "scorecard_finetuned.json",
   "sistema": "fine-tuned LoRA",
   "n": 103,
   "campos": {
     "derecho": {
-      "accuracy": 0.6310679611650486,
-      "macro_f1": 0.6148466949895063,
+      "accuracy": 0.6213592233009708,
+      "macro_f1": 0.6212820561504772,
       "baseline_mayoritaria": 0.14563106796116504,
       "soporte_por_clase": {
-        "peticion": 8,
-        "seguridad_social": 8,
-        "debido_proceso": 8,
-        "colectivos": 8,
         "estabilidad_laboral_reforzada": 8,
-        "trabajo": 8,
+        "peticion": 8,
         "ninguno": 15,
-        "salud": 8,
-        "minimo_vital": 8,
+        "habeas_data": 8,
         "libertad_personal": 8,
+        "minimo_vital": 8,
+        "debido_proceso": 8,
+        "trabajo": 8,
+        "seguridad_social": 8,
         "educacion": 8,
-        "habeas_data": 8
+        "colectivos": 8,
+        "salud": 8
       },
       "f1_por_clase": {
-        "peticion": 0.7368,
-        "seguridad_social": 0.7619,
-        "debido_proceso": 0.4,
-        "colectivos": 0.8,
         "estabilidad_laboral_reforzada": 0.8571,
-        "trabajo": 0.5714,
-        "ninguno": 0.5854,
-        "salud": 0.875,
-        "minimo_vital": 0.0,
+        "peticion": 0.7368,
+        "ninguno": 0.55,
+        "habeas_data": 0.2222,
         "libertad_personal": 0.9333,
+        "minimo_vital": 0.0,
+        "debido_proceso": 0.4,
+        "trabajo": 0.5714,
+        "seguridad_social": 0.7273,
         "educacion": 0.8571,
-        "habeas_data": 0.0
+        "colectivos": 0.8,
+        "salud": 0.8
       },
       "clases_con_soporte_minimo": []
     },
     "mecanismo": {
-      "accuracy": 0.7184466019417476,
-      "macro_f1": 0.7918505229807279,
+      "accuracy": 0.7766990291262136,
+      "macro_f1": 0.8082080200501253,
       "baseline_mayoritaria": 0.44660194174757284,
       "soporte_por_clase": {
-        "accion_popular": 8,
-        "via_ordinaria": 33,
-        "habeas_corpus": 8,
         "accion_cumplimiento": 8,
-        "tutela": 46
+        "habeas_corpus": 8,
+        "accion_popular": 8,
+        "tutela": 46,
+        "via_ordinaria": 33
       },
       "f1_por_clase": {
-        "accion_popular": 0.8571,
-        "via_ordinaria": 0.6349,
+        "accion_cumplimiento": 0.75,
         "habeas_corpus": 0.8571,
-        "accion_cumplimiento": 0.8235,
-        "tutela": 0.7865
+        "accion_popular": 0.8571,
+        "tutela": 0.875,
+        "via_ordinaria": 0.7018
       },
       "clases_con_soporte_minimo": []
     },
     "procede": {
-      "accuracy": 0.8155339805825242,
-      "macro_f1": 0.8120618457697111,
+      "accuracy": 0.8737864077669902,
+      "macro_f1": 0.8733566631987137,
       "baseline_mayoritaria": 0.5533980582524272,
       "soporte_por_clase": {
         "False": 57,
         "True": 46
       },
       "f1_por_clase": {
-        "False": 0.8376,
-        "True": 0.7865
+        "False": 0.8807,
+        "True": 0.866
       },
       "clases_con_soporte_minimo": []
     }
@@ -98,11 +98,6 @@
         "mecanismo_gold": "via_ordinaria"
       },
       {
-        "id": "A04",
-        "categoria": "contra_providencia",
-        "mecanismo_gold": "via_ordinaria"
-      },
-      {
         "id": "E34",
         "categoria": "contractual_ordinario",
         "mecanismo_gold": "via_ordinaria"
@@ -111,6 +106,11 @@
         "id": "A12",
         "categoria": "inmediatez",
         "mecanismo_gold": "via_ordinaria"
+      },
+      {
+        "id": "E40",
+        "categoria": "ac_plan_gestion_riesgo",
+        "mecanismo_gold": "accion_cumplimiento"
       },
       {
         "id": "A16",
@@ -142,8 +142,8 @@
   "adherencia_estructural_total": 1.0,
   "adherencia_estructural": 1.0,
   "adherencia_vocabulario": 0.8932038834951457,
-  "coherencia": 1.0,
-  "acierto_juridico": 0.7184466019417476,
+  "coherencia": 0.9893617021276596,
+  "acierto_juridico": 0.7669902912621359,
   "alucinacion_normativa": {
     "jurisprudencia": {
       "en_fundamento": 0,
@@ -155,15 +155,19 @@
       "lectura": "`data/normas.json` declara que la cita jurisprudencial NO entra al chequeo de alucinacion normativa porque es mas volatil. Se cuenta aqui y no en `inventada`: un modelo que cita la C-531 de 2000 --- el fundamento de la estabilidad laboral reforzada, que esta en el corpus --- estaba siendo penalizado por acertar. `sin_verificar` son referencias bien formadas a sentencias que el proyecto no declara: no se aprueban en bloque, porque no hay whitelist completo de la jurisprudencia colombiana y fingir que si seria peor."
     },
     "constitucional_sin_verificar": {
-      "en_fundamento": 10,
-      "en_toda_la_salida": 10,
+      "en_fundamento": 14,
+      "en_toda_la_salida": 14,
       "ejemplos": [
         [
           "art. 47 CP",
-          9
+          12
         ],
         [
-          "art. 16 CP",
+          "art. 45 CP",
+          1
+        ],
+        [
+          "art. 68 CP",
           1
         ]
       ],
@@ -176,7 +180,7 @@
     "citas_incompletas": 0,
     "tasa_incompletas": 0.0,
     "ejemplos_incompletas": [],
-    "citas_totales_salida": 199,
+    "citas_totales_salida": 198,
     "citas_inventadas_salida": 0,
     "tasa_alucinacion_salida": 0.0,
     "citas_incompletas_salida": 0,
@@ -185,81 +189,81 @@
   },
   "pertinencia_citas": {
     "citas_emitidas": 178,
-    "correctas": 98,
-    "impertinentes": 80,
+    "correctas": 90,
+    "impertinentes": 88,
     "inventadas": 0,
     "incompletas": 0,
-    "precision_citas": 0.550561797752809,
-    "recall_citas": 0.41350210970464135,
+    "precision_citas": 0.5056179775280899,
+    "recall_citas": 0.379746835443038,
     "ejemplos_impertinentes": [
       [
         "art. 6.1 Decreto 2591 de 1991",
-        26
+        23
       ],
       [
         "art. 47 CP",
-        9
+        12
       ],
       [
         "Ley 100 de 1993",
         8
       ],
       [
-        "art. 43 CP",
-        7
+        "Ley 1095 de 2006",
+        8
       ],
       [
-        "Ley 1095 de 2006",
-        4
+        "art. 42 CP",
+        6
       ]
     ],
     "por_plano": {
       "disponible": true,
       "cajas": {
-        "derecho_correcto": 50,
-        "derecho_impertinente": 40,
-        "mecanismo_equivocado": 38,
-        "mecanismo_correcto": 50
+        "derecho_correcto": 49,
+        "derecho_impertinente": 44,
+        "mecanismo_equivocado": 42,
+        "mecanismo_correcto": 43
       },
-      "precision_mecanismo": 0.5681818181818182,
-      "precision_derecho": 0.5555555555555556,
-      "recall_mecanismo": 0.3875968992248062,
-      "recall_derecho": 0.3184713375796178,
+      "precision_mecanismo": 0.5058823529411764,
+      "precision_derecho": 0.5268817204301075,
+      "recall_mecanismo": 0.3333333333333333,
+      "recall_derecho": 0.31210191082802546,
       "citas_clasificadas": 178,
       "ejemplos_mecanismo_equivocado": [
         [
           "art. 6.1 Decreto 2591 de 1991",
-          26
+          23
         ],
         [
           "Ley 1095 de 2006",
-          4
+          8
         ],
         [
           "art. 6.3 Decreto 2591 de 1991",
-          2
+          3
         ],
         [
           "Ley 1437 de 2011",
-          2
+          3
         ],
         [
           "art. 87 CP",
-          1
+          3
         ]
       ],
       "ejemplos_derecho_impertinente": [
         [
           "art. 47 CP",
-          9
+          12
         ],
         [
           "Ley 100 de 1993",
           8
         ],
         [
-          "art. 43 CP",
-          7
+          "art. 42 CP",
+          6
         ],
         [
           "art. 23 CP",
@@ -276,10 +280,10 @@
   "ic": {
     "acc_mecanismo": {
       "n": 103,
-      "punto": 0.7184,
-      "ic_bajo": 0.6311,
-      "ic_alto": 0.8058,
-      "amplitud": 0.1748,
+      "punto": 0.7767,
+      "ic_bajo": 0.699,
+      "ic_alto": 0.8544,
+      "amplitud": 0.1553,
       "nivel": 0.95,
       "metodo": "bootstrap_percentil",
       "remuestreos": 2000,
@@ -287,10 +291,10 @@
     },
     "acierto_juridico": {
       "n": 103,
-      "punto": 0.7184,
-      "ic_bajo": 0.6311,
-      "ic_alto": 0.8058,
-      "amplitud": 0.1748,
+      "punto": 0.767,
+      "ic_bajo": 0.6893,
+      "ic_alto": 0.8447,
+      "amplitud": 0.1553,
       "nivel": 0.95,
       "metodo": "bootstrap_percentil",
       "remuestreos": 2000,
@@ -299,10 +303,10 @@
     "por_tipo": {
       "gold": {
         "n": 64,
-        "punto": 0.7812,
-        "ic_bajo": 0.6875,
-        "ic_alto": 0.875,
-        "amplitud": 0.1875,
+        "punto": 0.8594,
+        "ic_bajo": 0.7656,
+        "ic_alto": 0.9375,
+        "amplitud": 0.1719,
         "nivel": 0.95,
         "metodo": "bootstrap_percentil",
         "remuestreos": 2000,
@@ -322,24 +326,137 @@
     },
     "lectura": "si los intervalos de dos brazos se solapan, la tabla no sostiene que uno sea mejor que el otro. `metricas.ic_se_solapan()` lo comprueba. El estrato adversarial es el mas pequeño y por eso el de intervalo mas ancho: es justo donde no hay que sobreleer."
   },
-  "rouge_l": 0.3001805641043097,
-  "similitud_embeddings": 0.8393754959106445,
+  "rouge_l": 0.29803275666259105,
+  "similitud_embeddings": 0.8375995755195618,
   "por_tipo": {
     "gold": {
       "n": 64,
-      "acierto_juridico": 0.78125
+      "acierto_juridico": 0.859375
     },
     "adversarial": {
       "n": 39,
       "acierto_juridico": 0.6153846153846154
     }
   },
+  "recall_clase_critica": {
+    "clases": [
+      "habeas_corpus",
+      "tutela"
+    ],
+    "por_que_estas": "un falso negativo en `habeas_corpus` o `tutela` le niega proteccion a alguien: lo manda a la via ordinaria cuando no tenia otro medio eficaz. El error inverso cuesta un trámite. Las demas clases no entran: su falso negativo manda a otra accion constitucional, no deja sin ninguna.",
+    "por_clase": {
+      "habeas_corpus": {
+        "soporte": 8,
+        "aciertos": 6,
+        "recall": 0.75,
+        "ic": {
+          "n": 8,
+          "punto": 0.75,
+          "ic_bajo": 0.5,
+          "ic_alto": 1.0,
+          "amplitud": 0.5,
+          "nivel": 0.95,
+          "metodo": "bootstrap_percentil",
+          "remuestreos": 2000,
+          "semilla": 42
+        },
+        "fallos": [
+          47,
+          48
+        ],
+        "a_que_fueron": {
+          "via_ordinaria": 1,
+          "tutela": 1
+        }
+      },
+      "tutela": {
+        "soporte": 46,
+        "aciertos": 42,
+        "recall": 0.913,
+        "ic": {
+          "n": 46,
+          "punto": 0.913,
+          "ic_bajo": 0.8261,
+          "ic_alto": 0.9783,
+          "amplitud": 0.1522,
+          "nivel": 0.95,
+          "metodo": "bootstrap_percentil",
+          "remuestreos": 2000,
+          "semilla": 42
+        },
+        "fallos": [
+          4,
+          27,
+          42,
+          81
+        ],
+        "a_que_fueron": {
+          "via_ordinaria": 3,
+          "accion_cumplimiento": 1
+        }
+      }
+    },
+    "soporte_total": 54,
+    "recall_agregado": 0.8889,
+    "ic_agregado": {
+      "n": 54,
+      "punto": 0.8889,
+      "ic_bajo": 0.7963,
+      "ic_alto": 0.963,
+      "amplitud": 0.1667,
+      "nivel": 0.95,
+      "metodo": "bootstrap_percentil",
+      "remuestreos": 2000,
+      "semilla": 42
+    },
+    "lectura": "es la cifra que hay que mirar antes de la accuracy. Con soportes de dos digitos un caso vale varios puntos, asi que se publica con intervalo; y `a_que_fueron` dice a donde se desvio cada fallo, porque mandar un habeas corpus a tutela no es lo mismo que mandarlo a la via ordinaria."
+  },
+  "pertinencia_citas_depurada": {
+    "citas_emitidas": 163,
+    "correctas": 90,
+    "impertinentes": 73,
+    "inventadas": 0,
+    "incompletas": 0,
+    "precision_citas": 0.5521472392638037,
+    "recall_citas": 0.379746835443038,
+    "ejemplos_impertinentes": [
+      [
+        "art. 6.1 Decreto 2591 de 1991",
+        13
+      ],
+      [
+        "art. 47 CP",
+        12
+      ],
+      [
+        "Ley 100 de 1993",
+        8
+      ],
+      [
+        "Ley 1095 de 2006",
+        8
+      ],
+      [
+        "art. 42 CP",
+        6
+      ]
+    ],
+    "citas_quitadas": 15,
+    "quitadas_por_norma": {
+      "art. 6.1 Decreto 2591 de 1991": 10,
+      "art. 6.3 Decreto 2591 de 1991": 3,
+      "Ley 1437 de 2011": 2
+    },
+    "que_se_quito": "normas puramente procesales citadas en el slot del DERECHO de un caso cuyo mecanismo NO es el suyo --- el art. 6.1, que es subsidiariedad, sobre una tutela que procede. No se quita la que si corresponde al mecanismo emitido: el gold tiene un solo slot de fundamento, asi que para un caso de `via_ordinaria` el art. 6.1 es lo que pide.",
+    "no_anade_nada": "la capa solo QUITA. Poner la cita correcta seria que el motor decidiera el fundamento, y eso ya lo hacen los brazos hibrido y agente: seria otro brazo, no una depuracion.",
+    "comprobacion": "`acierto_juridico` tiene que salir IDENTICO con y sin depurar. Si cambia, la capa toco algo mas que las citas."
+  },
   "por_fiabilidad_etiqueta": {
     "motor_de_reglas_plano": {
       "nivel": 2,
       "n": 64,
-      "acc_mecanismo": 0.765625,
-      "acierto_juridico": 0.765625
+      "acc_mecanismo": 0.859375,
+      "acierto_juridico": 0.84375
     },
     "motor_de_reglas_ponderado": {
       "nivel": 3,
@@ -357,26 +474,20 @@
   },
   "errores_por_categoria": {
     "ac_norma_salud_sin_afectado": "1/1",
+    "ac_plan_gestion_riesgo": "1/1",
     "ap_moralidad_sobrecosto": "1/1",
     "colectivo_moralidad": "1/1",
-    "contra_providencia": "1/1",
     "contractual_ordinario": "1/2",
     "dp_desacuerdo_con_la_prueba": "1/1",
     "dp_recursos_sin_agotar": "1/1",
-    "dp_sancion_sin_descargos": "1/1",
-    "educacion_cancelacion_por_embarazo": "1/1",
-    "educacion_cupo": "1/1",
-    "educacion_inclusion": "1/1",
     "educacion_perdida_de_ano_academica": "1/1",
-    "educacion_retencion_diploma": "1/1",
-    "elr_despido_con_restricciones_medicas": "1/1",
+    "elr_despido_con_autorizacion": "1/1",
     "fuero_salud": "1/2",
     "habeas_data_caducidad": "1/1",
     "hc_domiciliaria_no_ejecutada": "1/1",
     "hc_medida_seguridad_vencida": "1/1",
     "hd_rectificacion_en_tramite": "1/1",
     "hd_reporte_veraz_vigente": "1/1",
-    "hd_termino_legal_excedido": "1/1",
     "incumplimiento_norma": "1/3",
     "indemnizatorio": "1/1",
     "inmediatez": "1/1",

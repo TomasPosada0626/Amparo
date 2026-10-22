@@ -73,6 +73,6 @@ data/inyecciones.json 21555 7b50eedf62875fd1
 data/normas.json 6784 eeb451b814fa25b7
 data/revision_abogado_v3.json 6593 77ddde52b17e46e8
 notebooks/M1_finetuning.ipynb 105803 31b4e0b74b0e3c5a
-notebooks/M2_harness.ipynb 65576 2a61240c93144a70
+notebooks/M2_harness.ipynb 69163 9a7f10c682cf4d94
 notebooks/M3_rag.ipynb 80829 73288ab8b8c0e2b0
-_TOTAL 2549521 8c909fd39bb7faff
+_TOTAL 2553108 0612096fb8b8d8d7

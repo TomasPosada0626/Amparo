@@ -1,13 +1,76 @@
 {
-  "_corrida": "20261021T124137Z",
+  "_corrida": "20261022T093420Z",
   "_modulo": "m2",
   "_artefacto": "determinismo_juez.json",
-  "repeticiones": 3,
-  "notas": [
-    4,
-    5,
-    5
+  "n_casos": 5,
+  "repeticiones": 4,
+  "llamadas_reales": 20,
+  "casos_estables": 4,
+  "tasa_estabilidad": 0.8,
+  "rango_medio": 0.2,
+  "rango_maximo": 1,
+  "por_caso": [
+    {
+      "id": "E01",
+      "notas": [
+        5,
+        4,
+        4,
+        5
+      ],
+      "rango": 1,
+      "estable": false,
+      "ilegibles": 0
+    },
+    {
+      "id": "E02",
+      "notas": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "rango": 0,
+      "estable": true,
+      "ilegibles": 0
+    },
+    {
+      "id": "E03",
+      "notas": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "rango": 0,
+      "estable": true,
+      "ilegibles": 0
+    },
+    {
+      "id": "E04",
+      "notas": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "rango": 0,
+      "estable": true,
+      "ilegibles": 0
+    },
+    {
+      "id": "E05",
+      "notas": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "rango": 0,
+      "estable": true,
+      "ilegibles": 0
+    }
   ],
-  "deterministico": false,
-  "ilegibles": 0
+  "resolucion": "el juez varía hasta 1 punto(s) sobre una entrada idéntica, así que una diferencia de nota media menor que 1 entre dos sistemas es compatible con el ruido del instrumento y no se puede leer como una diferencia entre ellos",
+  "lectura": "`tasa_estabilidad` dice cada cuánto repite; `rango_maximo`, cuánto se mueve cuando no repite. La segunda es la que limita qué se puede afirmar: `kappa_aprueba` y el acuerdo entre jueces se calculan sobre el corte en 4, así que una nota que oscila entre 3 y 4 cambia de lado. La sonda de validez NO queda afectada en la misma medida: su margen de mecanismo fue 3.5 con mínimo 3, muy por encima de este rango."
 }

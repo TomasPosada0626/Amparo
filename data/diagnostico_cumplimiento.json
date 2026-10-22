@@ -159,20 +159,14 @@
     "id": "E30",
     "categoria": "incumplimiento_norma",
     "hechos_extraidos": {
-     "derecho_colectivo": true,
      "titular_pide_lo_suyo": true,
-     "dano_consumado": true,
      "continua_vulneracion": true,
      "incumplimiento_normativo": true,
-     "afectacion_individual": true,
-     "otro_medio_judicial": true,
-     "medio_eficaz": true
+     "afectacion_individual": true
     },
-    "motor_emite": "accion_popular",
+    "motor_emite": "tutela",
     "causas_activadas": [
-     "afectacion_individual",
-     "dano_consumado",
-     "derecho_colectivo"
+     "afectacion_individual"
     ]
    },
    {
@@ -180,7 +174,9 @@
     "categoria": "ac_comisaria_de_familia",
     "hechos_extraidos": {
      "continua_vulneracion": true,
-     "incumplimiento_normativo": true
+     "incumplimiento_normativo": true,
+     "otro_medio_judicial": true,
+     "medio_eficaz": true
     },
     "motor_emite": "accion_cumplimiento",
     "causas_activadas": []
@@ -190,6 +186,7 @@
     "categoria": "ac_plan_gestion_riesgo",
     "hechos_extraidos": {
      "derecho_colectivo": true,
+     "titular_pide_lo_suyo": true,
      "continua_vulneracion": true,
      "incumplimiento_normativo": true
     },
@@ -202,19 +199,16 @@
     "id": "E41",
     "categoria": "ac_cuerpo_de_bomberos",
     "hechos_extraidos": {
-     "derecho_colectivo": true,
      "titular_pide_lo_suyo": true,
      "continua_vulneracion": true,
      "incumplimiento_normativo": true,
      "afectacion_individual": true,
      "otro_medio_judicial": true,
-     "medio_eficaz": true,
-     "perjuicio_irremediable": true
+     "medio_eficaz": true
     },
-    "motor_emite": "tutela",
+    "motor_emite": "via_ordinaria",
     "causas_activadas": [
-     "afectacion_individual",
-     "derecho_colectivo"
+     "afectacion_individual"
     ]
    },
    {
@@ -222,7 +216,8 @@
     "categoria": "ac_acuerdo_sin_reglamentar",
     "hechos_extraidos": {
      "continua_vulneracion": true,
-     "incumplimiento_normativo": true
+     "incumplimiento_normativo": true,
+     "otro_medio_judicial": true
     },
     "motor_emite": "accion_cumplimiento",
     "causas_activadas": []
@@ -232,7 +227,8 @@
     "categoria": "ac_tarifa_adulto_mayor",
     "hechos_extraidos": {
      "continua_vulneracion": true,
-     "incumplimiento_normativo": true
+     "incumplimiento_normativo": true,
+     "otro_medio_judicial": true
     },
     "motor_emite": "accion_cumplimiento",
     "causas_activadas": []
@@ -244,9 +240,7 @@
      "derecho_colectivo": true,
      "dano_consumado": true,
      "continua_vulneracion": true,
-     "incumplimiento_normativo": true,
-     "otro_medio_judicial": true,
-     "medio_eficaz": true
+     "incumplimiento_normativo": true
     },
     "motor_emite": "accion_popular",
     "causas_activadas": [
@@ -255,11 +249,11 @@
     ]
    }
   ],
-  "causa_mas_frecuente": "derecho_colectivo",
+  "causa_mas_frecuente": "afectacion_individual",
   "conteo_por_causa": {
-   "derecho_colectivo": 4,
    "afectacion_individual": 2,
-   "dano_consumado": 2
+   "derecho_colectivo": 2,
+   "dano_consumado": 1
   }
  },
  "conclusion": "El motor emite `accion_cumplimiento` en 8/8 casos con los hechos declarados: NO es el motor. El fallo esta en la extraccion, y solo 6 hechos pueden producirlo."

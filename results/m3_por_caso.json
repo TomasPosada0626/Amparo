@@ -1,0 +1,3617 @@
+{
+  "_corrida": "20261022T105449Z",
+  "_modulo": "m3",
+  "_artefacto": "por_caso.json",
+  "_que_es": "la matriz por caso y brazo de la que salen los agregados. Permite preguntar que casos rescata un brazo que otro falla, que es lo que define el techo de cualquier combinacion.",
+  "techo_union": {
+    "n": 109,
+    "por_brazo": {
+      "1 · fine-tuned solo (M1)": 85,
+      "2 · fine-tuned + RAG ingenuo": 64,
+      "3 · fine-tuned + RAG avanzado": 65,
+      "4 · agente + reglas": 74
+    },
+    "union": 107,
+    "margen_sobre_el_mejor": 0.2018,
+    "lectura": "COTA SUPERIOR, no un resultado: la daria un enrutador perfecto. Si el margen es cero, ninguna combinacion de estos brazos puede superar al mejor suelto."
+  },
+  "casos": [
+    {
+      "id": "E01",
+      "tipo": "gold",
+      "categoria": "salud_no_pbs",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; Ley 1751 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6 Ley 1751 de 2015"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 6 Ley 1751 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E02",
+      "tipo": "gold",
+      "categoria": "salud_urgencias",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; Ley 1751 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 6 Ley 1751 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E03",
+      "tipo": "gold",
+      "categoria": "peticion_respuesta_evasiva",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 23 CP; Ley 1755 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 13 Ley 1266 de 2008"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 13 Ley 1755 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 23 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E04",
+      "tipo": "gold",
+      "categoria": "pension_perjuicio_irremediable",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP; Ley 100 de 1993"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E05",
+      "tipo": "gold",
+      "categoria": "habeas_data_caducidad",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 13 Ley 1266 de 2008"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 13 Ley 1266 de 2008"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 15 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E06",
+      "tipo": "gold",
+      "categoria": "debido_proceso_disciplinario",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 29 CP; art. 43 CP"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 29 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 29 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 29 CP; art. 6.4 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E07",
+      "tipo": "gold",
+      "categoria": "educacion_inclusion",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 42 CP; art. 67 CP"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 44 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 67 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 67 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E08",
+      "tipo": "gold",
+      "categoria": "fuero_salud",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; Ley 1751 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6 Ley 1751 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E09",
+      "tipo": "gold",
+      "categoria": "colectivo_ambiente",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "accion_popular",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 8 Ley 393 de 1997"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 4 Ley 472 de 1998"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 88 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E10",
+      "tipo": "gold",
+      "categoria": "contractual_ordinario",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "Ley 1337 de 2009"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 23 CP; art. 87 CP; Ley 393 de 1997"
+        }
+      }
+    },
+    {
+      "id": "A01",
+      "tipo": "adversarial",
+      "categoria": "indemnizatorio",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 25 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.3 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 49 CP; art. 6.4 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A02",
+      "tipo": "adversarial",
+      "categoria": "relato_mixto",
+      "dificultad": "trampa",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; Ley 1751 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 49 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 6 Ley 1751 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A03",
+      "tipo": "adversarial",
+      "categoria": "salud_estetica",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 6 Ley 1751 de 2015"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 6.3 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 49 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "A04",
+      "tipo": "adversarial",
+      "categoria": "contra_providencia",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 29 CP; art. 43 CP"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 6 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 86 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 29 CP; art. 6.4 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E11",
+      "tipo": "gold",
+      "categoria": "salud_cuidador",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 47 CP; Ley 1751 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 46 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 20 Ley 1755 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E12",
+      "tipo": "gold",
+      "categoria": "salud_insumo",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; Ley 1751 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 46 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6 Ley 1751 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E13",
+      "tipo": "gold",
+      "categoria": "salud_mental",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; Ley 1751 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 14 Ley 1751 de 2015"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 28 CP; Ley 1751 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E14",
+      "tipo": "gold",
+      "categoria": "salud_demora",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; Ley 1751 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6.1 Ley 1751 de 2015"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6 Ley 1751 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E15",
+      "tipo": "gold",
+      "categoria": "peticion_requisitos_indebidos",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 23 CP; Ley 1755 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 8 Ley 393 de 1997"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 6 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 23 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E16",
+      "tipo": "gold",
+      "categoria": "peticion_sin_respuesta",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 47 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 87 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 25 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E17",
+      "tipo": "gold",
+      "categoria": "peticion_sin_respuesta",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 23 CP; Ley 1755 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 13 Ley 1437 de 2011"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 23 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E18",
+      "tipo": "gold",
+      "categoria": "minimo_vital_licencia",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 47 CP; art. 6.3 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": null
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "principio de oportunidad"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E19",
+      "tipo": "gold",
+      "categoria": "habeas_data_publicacion",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 15 CP; Ley 1266 de 2008"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 23 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 15 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 15 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E20",
+      "tipo": "gold",
+      "categoria": "habeas_data_sin_notificacion",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 13 Ley 1266 de 2008"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 1 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 15 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E21",
+      "tipo": "gold",
+      "categoria": "educacion_retencion_diploma",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 42 CP; art. 67 CP"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 44 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 42 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 67 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E22",
+      "tipo": "gold",
+      "categoria": "educacion_cupo",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 42 CP; art. 67 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 87 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 67 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 67 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E23",
+      "tipo": "gold",
+      "categoria": "fuero_maternidad",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 47 CP; art. 6.3 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 138 Ley 1437 de 2011"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 43 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 13 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E24",
+      "tipo": "gold",
+      "categoria": "fuero_salud",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "protección especial a personas en situación de discapacidad"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 53 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 25 CP; art. 6.4 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E25",
+      "tipo": "gold",
+      "categoria": "debido_proceso_administrativo",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 23 CP; Ley 1755 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 30 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 87 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 53 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E26",
+      "tipo": "gold",
+      "categoria": "pension_perjuicio_irremediable",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 47 CP; Ley 100 de 1993"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 86 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E27",
+      "tipo": "gold",
+      "categoria": "colectivo_ambiente",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "accion_popular",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 49 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 49 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 49 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E28",
+      "tipo": "gold",
+      "categoria": "colectivo_moralidad",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "accion_popular",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 8 Ley 393 de 1997"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 4 Ley 472 de 1998"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E29",
+      "tipo": "gold",
+      "categoria": "incumplimiento_norma",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "accion_cumplimiento",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 87 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 87 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.3 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP; art. 87 CP; Ley 393 de 1997"
+        }
+      }
+    },
+    {
+      "id": "E30",
+      "tipo": "gold",
+      "categoria": "incumplimiento_norma",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "accion_cumplimiento",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "Ley 1437 de 2011"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 14 Ley 1755 de 2015"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "Ley 393 de 1997"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 88 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E31",
+      "tipo": "gold",
+      "categoria": "libertad_personal",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "habeas_corpus",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 3 Ley 1095 de 2006"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E32",
+      "tipo": "gold",
+      "categoria": "laboral_ordinario",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991; Ley 100 de 1993"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 8 Ley 393 de 1997"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 86 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 25 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E33",
+      "tipo": "gold",
+      "categoria": "acto_administrativo",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 24 Ley 100 de 1993"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 8 Ley 393 de 1997"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 29 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E34",
+      "tipo": "gold",
+      "categoria": "contractual_ordinario",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 13 Ley 1266 de 2008"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 8 Ley 393 de 1997; art. 86 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 23 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A05",
+      "tipo": "adversarial",
+      "categoria": "honorarios",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 14 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 53 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 25 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A06",
+      "tipo": "adversarial",
+      "categoria": "familia_ordinario",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 87 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "Alimentos"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 86 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 53 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A07",
+      "tipo": "adversarial",
+      "categoria": "dano_consumado",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 87 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 14 Ley 1751 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 49 CP; art. 6.4 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A08",
+      "tipo": "adversarial",
+      "categoria": "peticion_respondida",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 23 CP; Ley 1755 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 14 Ley 1755 de 2015"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 23 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 49 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "A09",
+      "tipo": "adversarial",
+      "categoria": "incumplimiento_norma",
+      "dificultad": "trampa",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 87 CP; Ley 1437 de 2011"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 6 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 6 Ley 1751 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "A10",
+      "tipo": "adversarial",
+      "categoria": "libertad_personal",
+      "dificultad": "trampa",
+      "gold_mecanismo": "habeas_corpus",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": "Ley 1095 de 2006"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A11",
+      "tipo": "adversarial",
+      "categoria": "pension_perjuicio_irremediable",
+      "dificultad": "trampa",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 47 CP; Ley 100 de 1993"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; art. 6 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A12",
+      "tipo": "adversarial",
+      "categoria": "inmediatez",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 8 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 86 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 67 CP; art. 6.4 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E35",
+      "tipo": "gold",
+      "categoria": "hc_traslado_por_proteccion_prolongado",
+      "dificultad": "frontera",
+      "gold_mecanismo": "habeas_corpus",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 28 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E36",
+      "tipo": "gold",
+      "categoria": "hc_medida_seguridad_vencida",
+      "dificultad": "frontera",
+      "gold_mecanismo": "habeas_corpus",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 5 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 86 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E37",
+      "tipo": "gold",
+      "categoria": "hc_domiciliaria_no_ejecutada",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "habeas_corpus",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 28 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 28 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E38",
+      "tipo": "gold",
+      "categoria": "hc_retencion_por_multa",
+      "dificultad": "frontera",
+      "gold_mecanismo": "habeas_corpus",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 28 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A13",
+      "tipo": "adversarial",
+      "categoria": "hc_menor_en_establecimiento_adultos",
+      "dificultad": "trampa",
+      "gold_mecanismo": "habeas_corpus",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A14",
+      "tipo": "adversarial",
+      "categoria": "hc_internamiento_involuntario_particular",
+      "dificultad": "trampa",
+      "gold_mecanismo": "habeas_corpus",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 28 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 30 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "habeas_corpus",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP; art. 30 CP; Ley 1095 de 2006; art. 6.2 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E39",
+      "tipo": "gold",
+      "categoria": "ac_comisaria_de_familia",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "accion_cumplimiento",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 87 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 8 Ley 393 de 1997"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP; art. 87 CP; Ley 393 de 1997"
+        }
+      }
+    },
+    {
+      "id": "E40",
+      "tipo": "gold",
+      "categoria": "ac_plan_gestion_riesgo",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "accion_cumplimiento",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 4 Ley 472 de 1998"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E41",
+      "tipo": "gold",
+      "categoria": "ac_cuerpo_de_bomberos",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "accion_cumplimiento",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 87 CP; Ley 393 de 1997"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 49 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 86 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 49 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E42",
+      "tipo": "gold",
+      "categoria": "ac_acuerdo_sin_reglamentar",
+      "dificultad": "frontera",
+      "gold_mecanismo": "accion_cumplimiento",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 87 CP; Ley 393 de 1997"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 87 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 86 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 67 CP; art. 87 CP; Ley 393 de 1997"
+        }
+      }
+    },
+    {
+      "id": "A15",
+      "tipo": "adversarial",
+      "categoria": "ac_tarifa_adulto_mayor",
+      "dificultad": "trampa",
+      "gold_mecanismo": "accion_cumplimiento",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 49 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 86 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": null
+        }
+      }
+    },
+    {
+      "id": "A16",
+      "tipo": "adversarial",
+      "categoria": "ac_norma_salud_sin_afectado",
+      "dificultad": "trampa",
+      "gold_mecanismo": "accion_cumplimiento",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 48 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 49 CP; art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E43",
+      "tipo": "gold",
+      "categoria": "ap_humedal_rellenado",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "accion_popular",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 79 CP; Ley 393 de 1997"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 4 Ley 472 de 1998"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E44",
+      "tipo": "gold",
+      "categoria": "ap_vertimiento_zona_banio",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "accion_popular",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_popular",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 49 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": null
+        }
+      }
+    },
+    {
+      "id": "E45",
+      "tipo": "gold",
+      "categoria": "ap_predio_publico_cedido",
+      "dificultad": "frontera",
+      "gold_mecanismo": "accion_popular",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 4 Ley 472 de 1998"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 4 Ley 472 de 1998"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A17",
+      "tipo": "adversarial",
+      "categoria": "ap_colectivo_con_afectado_sin_perjuicio",
+      "dificultad": "trampa",
+      "gold_mecanismo": "accion_popular",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 8 Ley 393 de 1997"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 49 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 88 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A18",
+      "tipo": "adversarial",
+      "categoria": "ap_moralidad_sobrecosto",
+      "dificultad": "trampa",
+      "gold_mecanismo": "accion_popular",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 87 CP; Ley 393 de 1997"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 87 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 4 Ley 472 de 1998"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "accion_popular",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "AB51",
+      "tipo": "abstencion",
+      "categoria": "ab_consulta_comercial",
+      "dificultad": "rutinario",
+      "gold_mecanismo": null,
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        },
+        "4 · agente + reglas": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        }
+      }
+    },
+    {
+      "id": "AB52",
+      "tipo": "abstencion",
+      "categoria": "ab_pregunta_academica",
+      "dificultad": "rutinario",
+      "gold_mecanismo": null,
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        },
+        "4 · agente + reglas": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        }
+      }
+    },
+    {
+      "id": "AB53",
+      "tipo": "abstencion",
+      "categoria": "ab_hechos_insuficientes",
+      "dificultad": "frontera",
+      "gold_mecanismo": null,
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        },
+        "4 · agente + reglas": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        }
+      }
+    },
+    {
+      "id": "AB54",
+      "tipo": "abstencion",
+      "categoria": "ab_materia_no_cubierta",
+      "dificultad": "frontera",
+      "gold_mecanismo": null,
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 4 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 23 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        }
+      }
+    },
+    {
+      "id": "AB55",
+      "tipo": "abstencion",
+      "categoria": "ab_relato_contradictorio",
+      "dificultad": "trampa",
+      "gold_mecanismo": null,
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 48 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 48 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 48 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "AB56",
+      "tipo": "abstencion",
+      "categoria": "ab_pide_pronostico",
+      "dificultad": "rutinario",
+      "gold_mecanismo": null,
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": true,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 27 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 86 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 49 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E46",
+      "tipo": "gold",
+      "categoria": "mv_mesada_pensional_suspendida",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 45 CP; Ley 100 de 1993"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E47",
+      "tipo": "gold",
+      "categoria": "mv_licencia_paternidad_no_pagada",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 47 CP; art. 6.3 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 111 Ley 1098 de 2006"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 44 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E48",
+      "tipo": "gold",
+      "categoria": "mv_pension_invalidez_suspendida",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 47 CP; Ley 100 de 1993"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 29 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A19",
+      "tipo": "adversarial",
+      "categoria": "mv_salarios_proceso_laboral",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 10 Ley 100 de 1993"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 25 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 25 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A20",
+      "tipo": "adversarial",
+      "categoria": "mv_cesantias_retenidas",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 14 Ley 1755 de 2015"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 53 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 25 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A21",
+      "tipo": "adversarial",
+      "categoria": "mv_embargo_sobre_salario",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "Ley 100 de 1993"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "Ley 100 de 1993"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 53 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A22",
+      "tipo": "adversarial",
+      "categoria": "mv_factura_contratista",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 8 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 86 CP — Acción de tutela"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 25 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A23",
+      "tipo": "adversarial",
+      "categoria": "tr_despido_sin_justa_causa",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 26 Ley 361 de 1997"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 26 Ley 361 de 1997"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 13 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A24",
+      "tipo": "adversarial",
+      "categoria": "tr_horas_extras_no_pagadas",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 14 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 53 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 25 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A25",
+      "tipo": "adversarial",
+      "categoria": "tr_contrato_realidad",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 48 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 25 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 25 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A26",
+      "tipo": "adversarial",
+      "categoria": "tr_vacaciones_no_concedidas",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991; Ley 100 de 1993"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 14 Ley 1755 de 2015"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 25 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A27",
+      "tipo": "adversarial",
+      "categoria": "tr_acoso_laboral_sin_agotar_comite",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 88 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 8 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 25 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 25 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A28",
+      "tipo": "adversarial",
+      "categoria": "tr_reintegro_tras_renuncia",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 8 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 28 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 13 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E49",
+      "tipo": "gold",
+      "categoria": "educacion_transporte_rural",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 42 CP; art. 67 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 8 Ley 393 de 1997"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 67 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 67 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E50",
+      "tipo": "gold",
+      "categoria": "educacion_matricula_sin_documentos",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 42 CP; art. 68 CP; Ley 1095 de 2006"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 44 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 67 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 67 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E51",
+      "tipo": "gold",
+      "categoria": "educacion_cancelacion_por_embarazo",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 42 CP; art. 67 CP"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 44 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 43 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 67 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "A29",
+      "tipo": "adversarial",
+      "categoria": "educacion_cartera_universidad_privada",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 13 Ley 1266 de 2008"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 42 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 67 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A30",
+      "tipo": "adversarial",
+      "categoria": "educacion_perdida_de_ano_academica",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 67 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E52",
+      "tipo": "gold",
+      "categoria": "ss_incapacidades_no_pagadas",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 47 CP; Ley 100 de 1993"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 48 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 48 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E53",
+      "tipo": "gold",
+      "categoria": "ss_sobrevivientes_menores",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 47 CP; Ley 100 de 1993"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 48 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "E54",
+      "tipo": "gold",
+      "categoria": "ss_afiliacion_negada_discapacidad",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 48 CP; Ley 1751 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6.1. d) Ley 1751 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "A31",
+      "tipo": "adversarial",
+      "categoria": "ss_reliquidacion_pensional",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 47 CP; Ley 100 de 1993"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 48 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 48 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 48 CP; art. 86 CP"
+        }
+      }
+    },
+    {
+      "id": "A32",
+      "tipo": "adversarial",
+      "categoria": "ss_traslado_de_regimen",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 47 CP; Ley 1437 de 2011"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 48 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 48 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 48 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E55",
+      "tipo": "gold",
+      "categoria": "elr_despido_con_restricciones_medicas",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 138 Ley 1437 de 2011"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "principios minimos fundamentales del trabajo"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 25 CP; art. 6.4 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E56",
+      "tipo": "gold",
+      "categoria": "elr_no_reubicacion",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 49 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 13 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E57",
+      "tipo": "gold",
+      "categoria": "elr_despido_en_incapacidad",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 26 Ley 361 de 1997"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 53 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 13 CP; art. 6.4 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A33",
+      "tipo": "adversarial",
+      "categoria": "elr_despido_con_autorizacion",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "protección a la dignidad humana y a la igualdad"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "No discriminación a persona en situación de discapacidad"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 25 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A34",
+      "tipo": "adversarial",
+      "categoria": "elr_prepensionado_sin_condicion_de_salud",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991; Ley 361 de 1997"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 48 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "principios minimos fundamentales del trabajo"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 13 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E58",
+      "tipo": "gold",
+      "categoria": "hd_reporte_tras_pagar",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 23 CP; Ley 1755 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "permanencia de la información"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 13 Ley 1755 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 15 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E59",
+      "tipo": "gold",
+      "categoria": "hd_termino_legal_excedido",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "permanencia de la información"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": null
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 15 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E60",
+      "tipo": "gold",
+      "categoria": "hd_dato_de_salud_compartido",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 15 CP; Ley 1266 de 2008"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "Tratamiento de datos sensibles"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 12 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 15 CP; art. 6.4 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A35",
+      "tipo": "adversarial",
+      "categoria": "hd_reporte_veraz_vigente",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 6.1 Decreto 2591 de 1991"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 13 Ley 1266 de 2008"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 13 Ley 1266 de 2008"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 15 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A36",
+      "tipo": "adversarial",
+      "categoria": "hd_rectificacion_en_tramite",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 23 CP; Ley 1755 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 14 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 86 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 15 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E61",
+      "tipo": "gold",
+      "categoria": "dp_sancion_sin_descargos",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 29 CP; art. 43 CP"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 29 CP"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 29 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 29 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E62",
+      "tipo": "gold",
+      "categoria": "dp_notificacion_por_aviso_indebida",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 23 CP; Ley 1755 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 30 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 29 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 29 CP; art. 86 CP; art. 8 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A37",
+      "tipo": "adversarial",
+      "categoria": "dp_recursos_sin_agotar",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 31 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 86 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 23 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A38",
+      "tipo": "adversarial",
+      "categoria": "dp_desacuerdo_con_la_prueba",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": null,
+          "procede": false,
+          "acierta": false,
+          "fundamento": null
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 29 Decreto 2591 de 1991"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 29 CP"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": true,
+          "fundamento": "art. 29 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "E63",
+      "tipo": "gold",
+      "categoria": "peticion_a_privado_servicio_publico",
+      "dificultad": "rutinario",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 23 CP; Ley 1755 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 14 Ley 1755 de 2015"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 42 Decreto 2591 de 1991"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 23 CP; art. 87 CP; Ley 393 de 1997"
+        }
+      }
+    },
+    {
+      "id": "E64",
+      "tipo": "gold",
+      "categoria": "peticion_remitida_sin_competencia",
+      "dificultad": "frontera",
+      "gold_mecanismo": "tutela",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 23 CP; Ley 1755 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "accion_cumplimiento",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 8 Ley 393 de 1997"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": true,
+          "fundamento": "art. 13 Ley 1755 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "via_ordinaria",
+          "procede": false,
+          "acierta": false,
+          "fundamento": "art. 23 CP; art. 6.1 Decreto 2591 de 1991"
+        }
+      }
+    },
+    {
+      "id": "A39",
+      "tipo": "adversarial",
+      "categoria": "peticion_dentro_del_termino",
+      "dificultad": "trampa",
+      "gold_mecanismo": "via_ordinaria",
+      "brazos": {
+        "1 · fine-tuned solo (M1)": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 23 CP; Ley 1755 de 2015"
+        },
+        "2 · fine-tuned + RAG ingenuo": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 14 Ley 1755 de 2015"
+        },
+        "3 · fine-tuned + RAG avanzado": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 14 Ley 1755 de 2015"
+        },
+        "4 · agente + reglas": {
+          "mecanismo": "tutela",
+          "procede": true,
+          "acierta": false,
+          "fundamento": "art. 23 CP; art. 86 CP"
+        }
+      }
+    }
+  ]
+}

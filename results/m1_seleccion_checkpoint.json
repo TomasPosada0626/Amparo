@@ -1,38 +1,38 @@
 {
-  "_corrida": "20261021T115654Z",
+  "_corrida": "20261022T044802Z",
   "_modulo": "m1",
   "_artefacto": "seleccion_checkpoint.json",
   "epocas_configuradas": 8,
   "curva_eval_loss": [
     {
       "epoca": 1.0,
-      "eval_loss": 1.01857
+      "eval_loss": 1.01876
     },
     {
       "epoca": 2.0,
-      "eval_loss": 0.75555
+      "eval_loss": 0.75523
     },
     {
       "epoca": 3.0,
-      "eval_loss": 0.69265
+      "eval_loss": 0.69065
     },
     {
       "epoca": 4.0,
-      "eval_loss": 0.68949
+      "eval_loss": 0.68814
     },
     {
       "epoca": 5.0,
-      "eval_loss": 0.76635
+      "eval_loss": 0.76796
     },
     {
       "epoca": 6.0,
-      "eval_loss": 0.84895
+      "eval_loss": 0.84092
     }
   ],
   "mejor_epoca": 4.0,
-  "mejor_eval_loss": 0.68949,
+  "mejor_eval_loss": 0.68814,
   "ultima_epoca": 6.0,
-  "ultima_eval_loss": 0.84895,
+  "ultima_eval_loss": 0.84092,
   "las_epocas_sobraban": true,
   "cargado": "el mejor checkpoint (load_best_model_at_end=True)"
 }

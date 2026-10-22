@@ -1,14 +1,25 @@
 {
-  "_corrida": "20261021T115654Z",
+  "_corrida": "20261022T044802Z",
   "_modulo": "m1",
   "_artefacto": "estabilidad.json",
-  "corrida_previa": "20261019T163319Z",
-  "corrida_actual": "20261021T115654Z",
+  "corrida_previa": "20261022T035915Z",
+  "corrida_actual": "20261022T044802Z",
   "mismos_datos": true,
-  "mismo_codigo": false,
-  "codigo_previa": "f46a81cf6aab6793",
-  "codigo_actual": "41ad18abecff8b82",
-  "determinismo_previa": null,
+  "mismo_codigo": true,
+  "codigo_previa": "a76e86cbb80081ed",
+  "codigo_actual": "a76e86cbb80081ed",
+  "determinismo_previa": {
+    "semilla": 42,
+    "determinista_pedido": true,
+    "numpy": true,
+    "torch": "2.11.0+cu130",
+    "cublas_workspace_config": ":4096:8",
+    "cublas_a_tiempo": false,
+    "aviso_cublas": "CUDA ya estaba inicializado al llamar a sembrar(), asi que no se puede AFIRMAR que la variable llegara antes de la primera matmul (cuBLAS la cachea al crear su handle). El import de `corridas` la pone antes que nada, asi que lo normal es que si; esto queda registrado para no afirmar lo que no se comprobo.",
+    "cudnn_deterministic": true,
+    "use_deterministic_algorithms": "True (warn_only)",
+    "lectura": "Determinismo PEDIDO, no garantizado: `warn_only=True` deja pasar las ops sin kernel determinista en vez de tumbar el entrenamiento. Si `estabilidad.identicas` sale False con mismos datos y mismo codigo, mirar el hardware de las dos corridas antes de concluir nada. OJO: CUDA ya estaba inicializado al llamar a sembrar(), asi que no se puede AFIRMAR que la variable llegara antes de la primera matmul (cuBLAS la cachea al crear su handle). El import de `corridas` la pone antes que nada, asi que lo normal es que si; esto queda registrado para no afirmar lo que no se comprobo."
+  },
   "determinismo_actual": {
     "semilla": 42,
     "determinista_pedido": true,
@@ -24,8 +35,8 @@
   "mismo_hardware": true,
   "artefactos": {
     "scorecard_base": {
-      "corrida_1": "20261019T163319Z",
-      "corrida_2": "20261021T115654Z",
+      "corrida_1": "20261022T035915Z",
+      "corrida_2": "20261022T044802Z",
       "artefacto": "scorecard_base",
       "tipo": "json",
       "n_filas": 1,
@@ -33,9 +44,19 @@
       "identicas": true,
       "diferencias": []
     },
+    "scorecard_base_few_shot": {
+      "corrida_1": "20261022T035915Z",
+      "corrida_2": "20261022T044802Z",
+      "artefacto": "scorecard_base_few_shot",
+      "tipo": "json",
+      "n_filas": 1,
+      "columnas": "todas",
+      "identicas": true,
+      "diferencias": []
+    },
     "scorecard_finetuned": {
-      "corrida_1": "20261019T163319Z",
-      "corrida_2": "20261021T115654Z",
+      "corrida_1": "20261022T035915Z",
+      "corrida_2": "20261022T044802Z",
       "artefacto": "scorecard_finetuned",
       "tipo": "json",
       "n_filas": 1,
@@ -46,75 +67,6 @@
           "fila": 0,
           "columna": "abstencion",
           "corrida_1": {
-            "n_sin_respuesta_correcta": 6,
-            "acierto_abstencion": 1.0,
-            "forzo_etiqueta": 0,
-            "n_con_respuesta_correcta": 103,
-            "abstencion_indebida": 0.0970873786407767,
-            "abstenciones_indebidas": 10,
-            "por_familia": {
-              "ab_consulta_comercial": true,
-              "ab_pregunta_academica": true,
-              "ab_hechos_insuficientes": true,
-              "ab_materia_no_cubierta": true,
-              "ab_relato_contradictorio": true,
-              "ab_pide_pronostico": true
-            },
-            "forzo_en": [],
-            "indebidas_en": [
-              {
-                "id": "A01",
-                "categoria": "indemnizatorio",
-                "mecanismo_gold": "via_ordinaria"
-              },
-              {
-                "id": "A04",
-                "categoria": "contra_providencia",
-                "mecanismo_gold": "via_ordinaria"
-              },
-              {
-                "id": "E34",
-                "categoria": "contractual_ordinario",
-                "mecanismo_gold": "via_ordinaria"
-              },
-              {
-                "id": "A12",
-                "categoria": "inmediatez",
-                "mecanismo_gold": "via_ordinaria"
-              },
-              {
-                "id": "E40",
-                "categoria": "ac_plan_gestion_riesgo",
-                "mecanismo_gold": "accion_cumplimiento"
-              },
-              {
-                "id": "A16",
-                "categoria": "ac_norma_salud_sin_afectado",
-                "mecanismo_gold": "accion_cumplimiento"
-              },
-              {
-                "id": "A28",
-                "categoria": "tr_reintegro_tras_renuncia",
-                "mecanismo_gold": "via_ordinaria"
-              },
-              {
-                "id": "A30",
-                "categoria": "educacion_perdida_de_ano_academica",
-                "mecanismo_gold": "via_ordinaria"
-              },
-              {
-                "id": "A37",
-                "categoria": "dp_recursos_sin_agotar",
-                "mecanismo_gold": "via_ordinaria"
-              },
-              {
-                "id": "A38",
-                "categoria": "dp_desacuerdo_con_la_prueba",
-                "mecanismo_gold": "via_ordinaria"
-              }
-            ]
-          },
-          "corrida_2": {
             "n_sin_respuesta_correcta": 6,
             "acierto_abstencion": 1.0,
             "forzo_etiqueta": 0,
@@ -177,13 +129,77 @@
                 "mecanismo_gold": "via_ordinaria"
               }
             ]
+          },
+          "corrida_2": {
+            "n_sin_respuesta_correcta": 6,
+            "acierto_abstencion": 1.0,
+            "forzo_etiqueta": 0,
+            "n_con_respuesta_correcta": 103,
+            "abstencion_indebida": 0.08737864077669903,
+            "abstenciones_indebidas": 9,
+            "por_familia": {
+              "ab_consulta_comercial": true,
+              "ab_pregunta_academica": true,
+              "ab_hechos_insuficientes": true,
+              "ab_materia_no_cubierta": true,
+              "ab_relato_contradictorio": true,
+              "ab_pide_pronostico": true
+            },
+            "forzo_en": [],
+            "indebidas_en": [
+              {
+                "id": "A01",
+                "categoria": "indemnizatorio",
+                "mecanismo_gold": "via_ordinaria"
+              },
+              {
+                "id": "E34",
+                "categoria": "contractual_ordinario",
+                "mecanismo_gold": "via_ordinaria"
+              },
+              {
+                "id": "A12",
+                "categoria": "inmediatez",
+                "mecanismo_gold": "via_ordinaria"
+              },
+              {
+                "id": "E40",
+                "categoria": "ac_plan_gestion_riesgo",
+                "mecanismo_gold": "accion_cumplimiento"
+              },
+              {
+                "id": "A16",
+                "categoria": "ac_norma_salud_sin_afectado",
+                "mecanismo_gold": "accion_cumplimiento"
+              },
+              {
+                "id": "A28",
+                "categoria": "tr_reintegro_tras_renuncia",
+                "mecanismo_gold": "via_ordinaria"
+              },
+              {
+                "id": "A30",
+                "categoria": "educacion_perdida_de_ano_academica",
+                "mecanismo_gold": "via_ordinaria"
+              },
+              {
+                "id": "A37",
+                "categoria": "dp_recursos_sin_agotar",
+                "mecanismo_gold": "via_ordinaria"
+              },
+              {
+                "id": "A38",
+                "categoria": "dp_desacuerdo_con_la_prueba",
+                "mecanismo_gold": "via_ordinaria"
+              }
+            ]
           }
         },
         {
           "fila": 0,
           "columna": "acierto_juridico",
-          "corrida_1": 0.7475728155339806,
-          "corrida_2": 0.7184466019417476
+          "corrida_1": 0.7766990291262136,
+          "corrida_2": 0.7669902912621359
         },
         {
           "fila": 0,
@@ -199,24 +215,28 @@
               "lectura": "`data/normas.json` declara que la cita jurisprudencial NO entra al chequeo de alucinacion normativa porque es mas volatil. Se cuenta aqui y no en `inventada`: un modelo que cita la C-531 de 2000 --- el fundamento de la estabilidad laboral reforzada, que esta en el corpus --- estaba siendo penalizado por acertar. `sin_verificar` son referencias bien formadas a sentencias que el proyecto no declara: no se aprueban en bloque, porque no hay whitelist completo de la jurisprudencia colombiana y fingir que si seria peor."
             },
             "constitucional_sin_verificar": {
-              "en_fundamento": 7,
-              "en_toda_la_salida": 7,
+              "en_fundamento": 10,
+              "en_toda_la_salida": 10,
               "ejemplos": [
                 [
                   "art. 47 CP",
-                  7
+                  8
+                ],
+                [
+                  "art. 17 CP",
+                  2
                 ]
               ],
               "lectura": "Articulos de la Constitucion con numero existente (1-380) que `normas.json` no declara, porque declara los 20 que el proyecto usa. Antes caian en `inventada` y la tasa de alucinacion los contaba: en m1/20261016T174233Z eran 2 de 6. Que el articulo exista NO dice que venga al caso --- eso lo mide `pertinencia_citas`, donde siguen contando como impertinentes si no corresponden. Las tasas de alucinacion de las corridas anteriores a este cambio NO son comparables con las de ahora: median otra cosa."
             },
-            "citas_totales": 177,
+            "citas_totales": 179,
             "citas_inventadas": 0,
             "tasa_alucinacion": 0.0,
             "ejemplos": [],
             "citas_incompletas": 0,
             "tasa_incompletas": 0.0,
             "ejemplos_incompletas": [],
-            "citas_totales_salida": 197,
+            "citas_totales_salida": 199,
             "citas_inventadas_salida": 0,
             "tasa_alucinacion_salida": 0.0,
             "citas_incompletas_salida": 0,
@@ -234,15 +254,19 @@
               "lectura": "`data/normas.json` declara que la cita jurisprudencial NO entra al chequeo de alucinacion normativa porque es mas volatil. Se cuenta aqui y no en `inventada`: un modelo que cita la C-531 de 2000 --- el fundamento de la estabilidad laboral reforzada, que esta en el corpus --- estaba siendo penalizado por acertar. `sin_verificar` son referencias bien formadas a sentencias que el proyecto no declara: no se aprueban en bloque, porque no hay whitelist completo de la jurisprudencia colombiana y fingir que si seria peor."
             },
             "constitucional_sin_verificar": {
-              "en_fundamento": 10,
-              "en_toda_la_salida": 10,
+              "en_fundamento": 14,
+              "en_toda_la_salida": 14,
               "ejemplos": [
                 [
                   "art. 47 CP",
-                  9
+                  12
                 ],
                 [
-                  "art. 16 CP",
+                  "art. 45 CP",
+                  1
+                ],
+                [
+                  "art. 68 CP",
                   1
                 ]
               ],
@@ -255,7 +279,7 @@
             "citas_incompletas": 0,
             "tasa_incompletas": 0.0,
             "ejemplos_incompletas": [],
-            "citas_totales_salida": 199,
+            "citas_totales_salida": 198,
             "citas_inventadas_salida": 0,
             "tasa_alucinacion_salida": 0.0,
             "citas_incompletas_salida": 0,
@@ -268,140 +292,140 @@
           "columna": "campos",
           "corrida_1": {
             "derecho": {
-              "accuracy": 0.6019417475728155,
-              "macro_f1": 0.6123548722232933,
+              "accuracy": 0.6116504854368932,
+              "macro_f1": 0.598109857978279,
               "baseline_mayoritaria": 0.14563106796116504,
               "soporte_por_clase": {
-                "trabajo": 8,
-                "seguridad_social": 8,
+                "peticion": 8,
                 "libertad_personal": 8,
                 "educacion": 8,
-                "habeas_data": 8,
-                "ninguno": 15,
                 "salud": 8,
+                "ninguno": 15,
                 "debido_proceso": 8,
-                "peticion": 8,
-                "estabilidad_laboral_reforzada": 8,
                 "colectivos": 8,
-                "minimo_vital": 8
+                "minimo_vital": 8,
+                "estabilidad_laboral_reforzada": 8,
+                "habeas_data": 8,
+                "trabajo": 8,
+                "seguridad_social": 8
               },
               "f1_por_clase": {
-                "trabajo": 0.6154,
-                "seguridad_social": 0.7,
+                "peticion": 0.7368,
                 "libertad_personal": 0.9333,
                 "educacion": 0.8571,
-                "habeas_data": 0.2222,
-                "ninguno": 0.4762,
-                "salud": 0.8,
+                "salud": 0.75,
+                "ninguno": 0.5714,
                 "debido_proceso": 0.4,
-                "peticion": 0.7368,
+                "colectivos": 0.8,
+                "minimo_vital": 0.0,
                 "estabilidad_laboral_reforzada": 0.8571,
-                "colectivos": 0.75,
-                "minimo_vital": 0.0
+                "habeas_data": 0.0,
+                "trabajo": 0.5714,
+                "seguridad_social": 0.7
               },
               "clases_con_soporte_minimo": []
             },
             "mecanismo": {
-              "accuracy": 0.7572815533980582,
-              "macro_f1": 0.7777443609022556,
+              "accuracy": 0.7766990291262136,
+              "macro_f1": 0.8259718261170166,
               "baseline_mayoritaria": 0.44660194174757284,
               "soporte_por_clase": {
+                "via_ordinaria": 33,
                 "accion_popular": 8,
                 "accion_cumplimiento": 8,
-                "habeas_corpus": 8,
                 "tutela": 46,
-                "via_ordinaria": 33
+                "habeas_corpus": 8
               },
               "f1_por_clase": {
-                "accion_popular": 0.8,
-                "accion_cumplimiento": 0.6667,
-                "habeas_corpus": 0.8571,
-                "tutela": 0.8632,
-                "via_ordinaria": 0.7018
+                "via_ordinaria": 0.6552,
+                "accion_popular": 0.8571,
+                "accion_cumplimiento": 0.8,
+                "tutela": 0.8842,
+                "habeas_corpus": 0.9333
               },
               "clases_con_soporte_minimo": []
             },
             "procede": {
-              "accuracy": 0.8640776699029126,
-              "macro_f1": 0.8634469696969697,
+              "accuracy": 0.8932038834951457,
+              "macro_f1": 0.8925557136083452,
               "baseline_mayoritaria": 0.5533980582524272,
               "soporte_por_clase": {
                 "False": 57,
                 "True": 46
               },
               "f1_por_clase": {
-                "False": 0.8727,
-                "True": 0.8542
+                "False": 0.9009,
+                "True": 0.8842
               },
               "clases_con_soporte_minimo": []
             }
           },
           "corrida_2": {
             "derecho": {
-              "accuracy": 0.6310679611650486,
-              "macro_f1": 0.6148466949895063,
+              "accuracy": 0.6213592233009708,
+              "macro_f1": 0.6212820561504772,
               "baseline_mayoritaria": 0.14563106796116504,
               "soporte_por_clase": {
-                "peticion": 8,
-                "seguridad_social": 8,
-                "debido_proceso": 8,
-                "colectivos": 8,
                 "estabilidad_laboral_reforzada": 8,
-                "trabajo": 8,
+                "peticion": 8,
                 "ninguno": 15,
-                "salud": 8,
-                "minimo_vital": 8,
+                "habeas_data": 8,
                 "libertad_personal": 8,
+                "minimo_vital": 8,
+                "debido_proceso": 8,
+                "trabajo": 8,
+                "seguridad_social": 8,
                 "educacion": 8,
-                "habeas_data": 8
+                "colectivos": 8,
+                "salud": 8
               },
               "f1_por_clase": {
-                "peticion": 0.7368,
-                "seguridad_social": 0.7619,
-                "debido_proceso": 0.4,
-                "colectivos": 0.8,
                 "estabilidad_laboral_reforzada": 0.8571,
-                "trabajo": 0.5714,
-                "ninguno": 0.5854,
-                "salud": 0.875,
-                "minimo_vital": 0.0,
+                "peticion": 0.7368,
+                "ninguno": 0.55,
+                "habeas_data": 0.2222,
                 "libertad_personal": 0.9333,
+                "minimo_vital": 0.0,
+                "debido_proceso": 0.4,
+                "trabajo": 0.5714,
+                "seguridad_social": 0.7273,
                 "educacion": 0.8571,
-                "habeas_data": 0.0
+                "colectivos": 0.8,
+                "salud": 0.8
               },
               "clases_con_soporte_minimo": []
             },
             "mecanismo": {
-              "accuracy": 0.7184466019417476,
-              "macro_f1": 0.7918505229807279,
+              "accuracy": 0.7766990291262136,
+              "macro_f1": 0.8082080200501253,
               "baseline_mayoritaria": 0.44660194174757284,
               "soporte_por_clase": {
-                "accion_popular": 8,
-                "via_ordinaria": 33,
-                "habeas_corpus": 8,
                 "accion_cumplimiento": 8,
-                "tutela": 46
+                "habeas_corpus": 8,
+                "accion_popular": 8,
+                "tutela": 46,
+                "via_ordinaria": 33
               },
               "f1_por_clase": {
-                "accion_popular": 0.8571,
-                "via_ordinaria": 0.6349,
+                "accion_cumplimiento": 0.75,
                 "habeas_corpus": 0.8571,
-                "accion_cumplimiento": 0.8235,
-                "tutela": 0.7865
+                "accion_popular": 0.8571,
+                "tutela": 0.875,
+                "via_ordinaria": 0.7018
               },
               "clases_con_soporte_minimo": []
             },
             "procede": {
-              "accuracy": 0.8155339805825242,
-              "macro_f1": 0.8120618457697111,
+              "accuracy": 0.8737864077669902,
+              "macro_f1": 0.8733566631987137,
               "baseline_mayoritaria": 0.5533980582524272,
               "soporte_por_clase": {
                 "False": 57,
                 "True": 46
               },
               "f1_por_clase": {
-                "False": 0.8376,
-                "True": 0.7865
+                "False": 0.8807,
+                "True": 0.866
               },
               "clases_con_soporte_minimo": []
             }
@@ -410,14 +434,13 @@
         {
           "fila": 0,
           "columna": "coherencia",
-          "corrida_1": 0.989247311827957,
-          "corrida_2": 1.0
+          "corrida_1": 1.0,
+          "corrida_2": 0.9893617021276596
         },
         {
           "fila": 0,
           "columna": "errores_por_categoria",
           "corrida_1": {
-            "ac_comisaria_de_familia": "1/1",
             "ac_norma_salud_sin_afectado": "1/1",
             "ac_plan_gestion_riesgo": "1/1",
             "ap_moralidad_sobrecosto": "1/1",
@@ -430,10 +453,9 @@
             "elr_despido_con_autorizacion": "1/1",
             "fuero_salud": "1/2",
             "habeas_data_caducidad": "1/1",
-            "hc_domiciliaria_no_ejecutada": "1/1",
             "hc_medida_seguridad_vencida": "1/1",
             "hd_rectificacion_en_tramite": "1/1",
-            "hd_termino_legal_excedido": "1/1",
+            "hd_reporte_veraz_vigente": "1/1",
             "incumplimiento_norma": "1/3",
             "indemnizatorio": "1/1",
             "inmediatez": "1/1",
@@ -445,26 +467,20 @@
           },
           "corrida_2": {
             "ac_norma_salud_sin_afectado": "1/1",
+            "ac_plan_gestion_riesgo": "1/1",
             "ap_moralidad_sobrecosto": "1/1",
             "colectivo_moralidad": "1/1",
-            "contra_providencia": "1/1",
             "contractual_ordinario": "1/2",
             "dp_desacuerdo_con_la_prueba": "1/1",
             "dp_recursos_sin_agotar": "1/1",
-            "dp_sancion_sin_descargos": "1/1",
-            "educacion_cancelacion_por_embarazo": "1/1",
-            "educacion_cupo": "1/1",
-            "educacion_inclusion": "1/1",
             "educacion_perdida_de_ano_academica": "1/1",
-            "educacion_retencion_diploma": "1/1",
-            "elr_despido_con_restricciones_medicas": "1/1",
+            "elr_despido_con_autorizacion": "1/1",
             "fuero_salud": "1/2",
             "habeas_data_caducidad": "1/1",
             "hc_domiciliaria_no_ejecutada": "1/1",
             "hc_medida_seguridad_vencida": "1/1",
             "hd_rectificacion_en_tramite": "1/1",
             "hd_reporte_veraz_vigente": "1/1",
-            "hd_termino_legal_excedido": "1/1",
             "incumplimiento_norma": "1/3",
             "indemnizatorio": "1/1",
             "inmediatez": "1/1",
@@ -481,10 +497,10 @@
           "corrida_1": {
             "acc_mecanismo": {
               "n": 103,
-              "punto": 0.7573,
-              "ic_bajo": 0.6699,
-              "ic_alto": 0.835,
-              "amplitud": 0.165,
+              "punto": 0.7767,
+              "ic_bajo": 0.699,
+              "ic_alto": 0.8544,
+              "amplitud": 0.1553,
               "nivel": 0.95,
               "metodo": "bootstrap_percentil",
               "remuestreos": 2000,
@@ -492,10 +508,10 @@
             },
             "acierto_juridico": {
               "n": 103,
-              "punto": 0.7476,
-              "ic_bajo": 0.6602,
-              "ic_alto": 0.8252,
-              "amplitud": 0.165,
+              "punto": 0.7767,
+              "ic_bajo": 0.699,
+              "ic_alto": 0.8544,
+              "amplitud": 0.1553,
               "nivel": 0.95,
               "metodo": "bootstrap_percentil",
               "remuestreos": 2000,
@@ -504,10 +520,10 @@
             "por_tipo": {
               "gold": {
                 "n": 64,
-                "punto": 0.8281,
-                "ic_bajo": 0.7344,
-                "ic_alto": 0.9062,
-                "amplitud": 0.1719,
+                "punto": 0.8906,
+                "ic_bajo": 0.8125,
+                "ic_alto": 0.9531,
+                "amplitud": 0.1406,
                 "nivel": 0.95,
                 "metodo": "bootstrap_percentil",
                 "remuestreos": 2000,
@@ -515,9 +531,9 @@
               },
               "adversarial": {
                 "n": 39,
-                "punto": 0.6154,
-                "ic_bajo": 0.4615,
-                "ic_alto": 0.7692,
+                "punto": 0.5897,
+                "ic_bajo": 0.4359,
+                "ic_alto": 0.7436,
                 "amplitud": 0.3077,
                 "nivel": 0.95,
                 "metodo": "bootstrap_percentil",
@@ -530,10 +546,10 @@
           "corrida_2": {
             "acc_mecanismo": {
               "n": 103,
-              "punto": 0.7184,
-              "ic_bajo": 0.6311,
-              "ic_alto": 0.8058,
-              "amplitud": 0.1748,
+              "punto": 0.7767,
+              "ic_bajo": 0.699,
+              "ic_alto": 0.8544,
+              "amplitud": 0.1553,
               "nivel": 0.95,
               "metodo": "bootstrap_percentil",
               "remuestreos": 2000,
@@ -541,10 +557,10 @@
             },
             "acierto_juridico": {
               "n": 103,
-              "punto": 0.7184,
-              "ic_bajo": 0.6311,
-              "ic_alto": 0.8058,
-              "amplitud": 0.1748,
+              "punto": 0.767,
+              "ic_bajo": 0.6893,
+              "ic_alto": 0.8447,
+              "amplitud": 0.1553,
               "nivel": 0.95,
               "metodo": "bootstrap_percentil",
               "remuestreos": 2000,
@@ -553,10 +569,10 @@
             "por_tipo": {
               "gold": {
                 "n": 64,
-                "punto": 0.7812,
-                "ic_bajo": 0.6875,
-                "ic_alto": 0.875,
-                "amplitud": 0.1875,
+                "punto": 0.8594,
+                "ic_bajo": 0.7656,
+                "ic_alto": 0.9375,
+                "amplitud": 0.1719,
                 "nivel": 0.95,
                 "metodo": "bootstrap_percentil",
                 "remuestreos": 2000,
@@ -581,13 +597,13 @@
           "fila": 0,
           "columna": "pertinencia_citas",
           "corrida_1": {
-            "citas_emitidas": 177,
-            "correctas": 92,
-            "impertinentes": 85,
+            "citas_emitidas": 179,
+            "correctas": 88,
+            "impertinentes": 91,
             "inventadas": 0,
             "incompletas": 0,
-            "precision_citas": 0.519774011299435,
-            "recall_citas": 0.3881856540084388,
+            "precision_citas": 0.49162011173184356,
+            "recall_citas": 0.37130801687763715,
             "ejemplos_impertinentes": [
               [
                 "art. 6.1 Decreto 2591 de 1991",
@@ -595,15 +611,15 @@
               ],
               [
                 "Ley 100 de 1993",
-                7
+                10
               ],
               [
                 "Ley 1095 de 2006",
-                7
+                8
               ],
               [
                 "art. 47 CP",
-                7
+                8
               ],
               [
                 "art. 42 CP",
@@ -613,16 +629,16 @@
             "por_plano": {
               "disponible": true,
               "cajas": {
-                "derecho_correcto": 49,
-                "derecho_impertinente": 37,
-                "mecanismo_equivocado": 46,
+                "derecho_correcto": 45,
+                "derecho_impertinente": 45,
+                "mecanismo_equivocado": 44,
                 "mecanismo_correcto": 45
               },
-              "precision_mecanismo": 0.4945054945054945,
-              "precision_derecho": 0.5697674418604651,
+              "precision_mecanismo": 0.5056179775280899,
+              "precision_derecho": 0.5,
               "recall_mecanismo": 0.3488372093023256,
-              "recall_derecho": 0.31210191082802546,
-              "citas_clasificadas": 177,
+              "recall_derecho": 0.28662420382165604,
+              "citas_clasificadas": 179,
               "ejemplos_mecanismo_equivocado": [
                 [
                   "art. 6.1 Decreto 2591 de 1991",
@@ -630,29 +646,29 @@
                 ],
                 [
                   "Ley 1095 de 2006",
-                  7
-                ],
-                [
-                  "art. 87 CP",
-                  3
+                  8
                 ],
                 [
                   "art. 6.3 Decreto 2591 de 1991",
-                  2
+                  3
                 ],
                 [
                   "Ley 1437 de 2011",
+                  3
+                ],
+                [
+                  "art. 87 CP",
                   2
                 ]
               ],
               "ejemplos_derecho_impertinente": [
                 [
                   "Ley 100 de 1993",
-                  7
+                  10
                 ],
                 [
                   "art. 47 CP",
-                  7
+                  8
                 ],
                 [
                   "art. 42 CP",
@@ -672,81 +688,81 @@
           },
           "corrida_2": {
             "citas_emitidas": 178,
-            "correctas": 98,
-            "impertinentes": 80,
+            "correctas": 90,
+            "impertinentes": 88,
             "inventadas": 0,
             "incompletas": 0,
-            "precision_citas": 0.550561797752809,
-            "recall_citas": 0.41350210970464135,
+            "precision_citas": 0.5056179775280899,
+            "recall_citas": 0.379746835443038,
             "ejemplos_impertinentes": [
               [
                 "art. 6.1 Decreto 2591 de 1991",
-                26
+                23
               ],
               [
                 "art. 47 CP",
-                9
+                12
               ],
               [
                 "Ley 100 de 1993",
                 8
               ],
               [
-                "art. 43 CP",
-                7
+                "Ley 1095 de 2006",
+                8
               ],
               [
-                "Ley 1095 de 2006",
-                4
+                "art. 42 CP",
+                6
               ]
             ],
             "por_plano": {
               "disponible": true,
               "cajas": {
-                "derecho_correcto": 50,
-                "derecho_impertinente": 40,
-                "mecanismo_equivocado": 38,
-                "mecanismo_correcto": 50
+                "derecho_correcto": 49,
+                "derecho_impertinente": 44,
+                "mecanismo_equivocado": 42,
+                "mecanismo_correcto": 43
               },
-              "precision_mecanismo": 0.5681818181818182,
-              "precision_derecho": 0.5555555555555556,
-              "recall_mecanismo": 0.3875968992248062,
-              "recall_derecho": 0.3184713375796178,
+              "precision_mecanismo": 0.5058823529411764,
+              "precision_derecho": 0.5268817204301075,
+              "recall_mecanismo": 0.3333333333333333,
+              "recall_derecho": 0.31210191082802546,
               "citas_clasificadas": 178,
               "ejemplos_mecanismo_equivocado": [
                 [
                   "art. 6.1 Decreto 2591 de 1991",
-                  26
+                  23
                 ],
                 [
                   "Ley 1095 de 2006",
-                  4
+                  8
                 ],
                 [
                   "art. 6.3 Decreto 2591 de 1991",
-                  2
+                  3
                 ],
                 [
                   "Ley 1437 de 2011",
-                  2
+                  3
                 ],
                 [
                   "art. 87 CP",
-                  1
+                  3
                 ]
               ],
               "ejemplos_derecho_impertinente": [
                 [
                   "art. 47 CP",
-                  9
+                  12
                 ],
                 [
                   "Ley 100 de 1993",
                   8
                 ],
                 [
-                  "art. 43 CP",
-                  7
+                  "art. 42 CP",
+                  6
                 ],
                 [
                   "art. 23 CP",
@@ -763,19 +779,103 @@
         },
         {
           "fila": 0,
+          "columna": "pertinencia_citas_depurada",
+          "corrida_1": {
+            "citas_emitidas": 161,
+            "correctas": 88,
+            "impertinentes": 73,
+            "inventadas": 0,
+            "incompletas": 0,
+            "precision_citas": 0.546583850931677,
+            "recall_citas": 0.37130801687763715,
+            "ejemplos_impertinentes": [
+              [
+                "art. 6.1 Decreto 2591 de 1991",
+                14
+              ],
+              [
+                "Ley 100 de 1993",
+                10
+              ],
+              [
+                "Ley 1095 de 2006",
+                8
+              ],
+              [
+                "art. 47 CP",
+                8
+              ],
+              [
+                "art. 42 CP",
+                6
+              ]
+            ],
+            "citas_quitadas": 18,
+            "quitadas_por_norma": {
+              "art. 6.1 Decreto 2591 de 1991": 13,
+              "art. 6.3 Decreto 2591 de 1991": 3,
+              "Ley 1437 de 2011": 2
+            },
+            "que_se_quito": "normas puramente procesales citadas en el slot del DERECHO de un caso cuyo mecanismo NO es el suyo --- el art. 6.1, que es subsidiariedad, sobre una tutela que procede. No se quita la que si corresponde al mecanismo emitido: el gold tiene un solo slot de fundamento, asi que para un caso de `via_ordinaria` el art. 6.1 es lo que pide.",
+            "no_anade_nada": "la capa solo QUITA. Poner la cita correcta seria que el motor decidiera el fundamento, y eso ya lo hacen los brazos hibrido y agente: seria otro brazo, no una depuracion.",
+            "comprobacion": "`acierto_juridico` tiene que salir IDENTICO con y sin depurar. Si cambia, la capa toco algo mas que las citas."
+          },
+          "corrida_2": {
+            "citas_emitidas": 163,
+            "correctas": 90,
+            "impertinentes": 73,
+            "inventadas": 0,
+            "incompletas": 0,
+            "precision_citas": 0.5521472392638037,
+            "recall_citas": 0.379746835443038,
+            "ejemplos_impertinentes": [
+              [
+                "art. 6.1 Decreto 2591 de 1991",
+                13
+              ],
+              [
+                "art. 47 CP",
+                12
+              ],
+              [
+                "Ley 100 de 1993",
+                8
+              ],
+              [
+                "Ley 1095 de 2006",
+                8
+              ],
+              [
+                "art. 42 CP",
+                6
+              ]
+            ],
+            "citas_quitadas": 15,
+            "quitadas_por_norma": {
+              "art. 6.1 Decreto 2591 de 1991": 10,
+              "art. 6.3 Decreto 2591 de 1991": 3,
+              "Ley 1437 de 2011": 2
+            },
+            "que_se_quito": "normas puramente procesales citadas en el slot del DERECHO de un caso cuyo mecanismo NO es el suyo --- el art. 6.1, que es subsidiariedad, sobre una tutela que procede. No se quita la que si corresponde al mecanismo emitido: el gold tiene un solo slot de fundamento, asi que para un caso de `via_ordinaria` el art. 6.1 es lo que pide.",
+            "no_anade_nada": "la capa solo QUITA. Poner la cita correcta seria que el motor decidiera el fundamento, y eso ya lo hacen los brazos hibrido y agente: seria otro brazo, no una depuracion.",
+            "comprobacion": "`acierto_juridico` tiene que salir IDENTICO con y sin depurar. Si cambia, la capa toco algo mas que las citas."
+          }
+        },
+        {
+          "fila": 0,
           "columna": "por_fiabilidad_etiqueta",
           "corrida_1": {
             "motor_de_reglas_plano": {
               "nivel": 2,
               "n": 64,
-              "acc_mecanismo": 0.828125,
-              "acierto_juridico": 0.8125
+              "acc_mecanismo": 0.875,
+              "acierto_juridico": 0.875
             },
             "motor_de_reglas_ponderado": {
               "nivel": 3,
               "n": 36,
-              "acc_mecanismo": 0.6666666666666666,
-              "acierto_juridico": 0.6666666666666666
+              "acc_mecanismo": 0.6388888888888888,
+              "acierto_juridico": 0.6388888888888888
             },
             "equipo_ponderacion_afirmada": {
               "nivel": 4,
@@ -789,8 +889,8 @@
             "motor_de_reglas_plano": {
               "nivel": 2,
               "n": 64,
-              "acc_mecanismo": 0.765625,
-              "acierto_juridico": 0.765625
+              "acc_mecanismo": 0.859375,
+              "acierto_juridico": 0.84375
             },
             "motor_de_reglas_ponderado": {
               "nivel": 3,
@@ -813,17 +913,17 @@
           "corrida_1": {
             "gold": {
               "n": 64,
-              "acierto_juridico": 0.828125
+              "acierto_juridico": 0.890625
             },
             "adversarial": {
               "n": 39,
-              "acierto_juridico": 0.6153846153846154
+              "acierto_juridico": 0.5897435897435898
             }
           },
           "corrida_2": {
             "gold": {
               "n": 64,
-              "acierto_juridico": 0.78125
+              "acierto_juridico": 0.859375
             },
             "adversarial": {
               "n": 39,
@@ -833,21 +933,169 @@
         },
         {
           "fila": 0,
+          "columna": "recall_clase_critica",
+          "corrida_1": {
+            "clases": [
+              "habeas_corpus",
+              "tutela"
+            ],
+            "por_que_estas": "un falso negativo en `habeas_corpus` o `tutela` le niega proteccion a alguien: lo manda a la via ordinaria cuando no tenia otro medio eficaz. El error inverso cuesta un trámite. Las demas clases no entran: su falso negativo manda a otra accion constitucional, no deja sin ninguna.",
+            "por_clase": {
+              "habeas_corpus": {
+                "soporte": 8,
+                "aciertos": 7,
+                "recall": 0.875,
+                "ic": {
+                  "n": 8,
+                  "punto": 0.875,
+                  "ic_bajo": 0.625,
+                  "ic_alto": 1.0,
+                  "amplitud": 0.375,
+                  "nivel": 0.95,
+                  "metodo": "bootstrap_percentil",
+                  "remuestreos": 2000,
+                  "semilla": 42
+                },
+                "fallos": [
+                  47
+                ],
+                "a_que_fueron": {
+                  "via_ordinaria": 1
+                }
+              },
+              "tutela": {
+                "soporte": 46,
+                "aciertos": 42,
+                "recall": 0.913,
+                "ic": {
+                  "n": 46,
+                  "punto": 0.913,
+                  "ic_bajo": 0.8261,
+                  "ic_alto": 0.9783,
+                  "amplitud": 0.1522,
+                  "nivel": 0.95,
+                  "metodo": "bootstrap_percentil",
+                  "remuestreos": 2000,
+                  "semilla": 42
+                },
+                "fallos": [
+                  4,
+                  27,
+                  42,
+                  81
+                ],
+                "a_que_fueron": {
+                  "via_ordinaria": 3,
+                  "accion_cumplimiento": 1
+                }
+              }
+            },
+            "soporte_total": 54,
+            "recall_agregado": 0.9074,
+            "ic_agregado": {
+              "n": 54,
+              "punto": 0.9074,
+              "ic_bajo": 0.8333,
+              "ic_alto": 0.9815,
+              "amplitud": 0.1481,
+              "nivel": 0.95,
+              "metodo": "bootstrap_percentil",
+              "remuestreos": 2000,
+              "semilla": 42
+            },
+            "lectura": "es la cifra que hay que mirar antes de la accuracy. Con soportes de dos digitos un caso vale varios puntos, asi que se publica con intervalo; y `a_que_fueron` dice a donde se desvio cada fallo, porque mandar un habeas corpus a tutela no es lo mismo que mandarlo a la via ordinaria."
+          },
+          "corrida_2": {
+            "clases": [
+              "habeas_corpus",
+              "tutela"
+            ],
+            "por_que_estas": "un falso negativo en `habeas_corpus` o `tutela` le niega proteccion a alguien: lo manda a la via ordinaria cuando no tenia otro medio eficaz. El error inverso cuesta un trámite. Las demas clases no entran: su falso negativo manda a otra accion constitucional, no deja sin ninguna.",
+            "por_clase": {
+              "habeas_corpus": {
+                "soporte": 8,
+                "aciertos": 6,
+                "recall": 0.75,
+                "ic": {
+                  "n": 8,
+                  "punto": 0.75,
+                  "ic_bajo": 0.5,
+                  "ic_alto": 1.0,
+                  "amplitud": 0.5,
+                  "nivel": 0.95,
+                  "metodo": "bootstrap_percentil",
+                  "remuestreos": 2000,
+                  "semilla": 42
+                },
+                "fallos": [
+                  47,
+                  48
+                ],
+                "a_que_fueron": {
+                  "via_ordinaria": 1,
+                  "tutela": 1
+                }
+              },
+              "tutela": {
+                "soporte": 46,
+                "aciertos": 42,
+                "recall": 0.913,
+                "ic": {
+                  "n": 46,
+                  "punto": 0.913,
+                  "ic_bajo": 0.8261,
+                  "ic_alto": 0.9783,
+                  "amplitud": 0.1522,
+                  "nivel": 0.95,
+                  "metodo": "bootstrap_percentil",
+                  "remuestreos": 2000,
+                  "semilla": 42
+                },
+                "fallos": [
+                  4,
+                  27,
+                  42,
+                  81
+                ],
+                "a_que_fueron": {
+                  "via_ordinaria": 3,
+                  "accion_cumplimiento": 1
+                }
+              }
+            },
+            "soporte_total": 54,
+            "recall_agregado": 0.8889,
+            "ic_agregado": {
+              "n": 54,
+              "punto": 0.8889,
+              "ic_bajo": 0.7963,
+              "ic_alto": 0.963,
+              "amplitud": 0.1667,
+              "nivel": 0.95,
+              "metodo": "bootstrap_percentil",
+              "remuestreos": 2000,
+              "semilla": 42
+            },
+            "lectura": "es la cifra que hay que mirar antes de la accuracy. Con soportes de dos digitos un caso vale varios puntos, asi que se publica con intervalo; y `a_que_fueron` dice a donde se desvio cada fallo, porque mandar un habeas corpus a tutela no es lo mismo que mandarlo a la via ordinaria."
+          }
+        },
+        {
+          "fila": 0,
           "columna": "rouge_l",
-          "corrida_1": 0.30065182097298304,
-          "corrida_2": 0.3001805641043097
+          "corrida_1": 0.304396783573984,
+          "corrida_2": 0.29803275666259105
         },
         {
           "fila": 0,
           "columna": "similitud_embeddings",
-          "corrida_1": 0.8382073640823364,
-          "corrida_2": 0.8393754959106445
+          "corrida_1": 0.8432741761207581,
+          "corrida_2": 0.8375995755195618
         }
       ]
     },
     "predicciones": {
-      "corrida_1": "20261019T163319Z",
-      "corrida_2": "20261021T115654Z",
+      "corrida_1": "20261022T035915Z",
+      "corrida_2": "20261022T044802Z",
       "artefacto": "predicciones",
       "tipo": "json",
       "n_filas": 109,
@@ -857,305 +1105,254 @@
         {
           "fila": 0,
           "columna": "finetuned",
-          "corrida_1": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el cambio de tratamiento fue ordenado por el médico tratante y el medicamento está dentro del espectro terapéutico, de modo que la omisión de suministro desconoce la autorización médica\nPretensión: ordenar el suministro del antirretroviral ordenado por el infectólogo",
+          "corrida_1": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el cambio de tratamiento fue ordenado por el médico tratante y el medicamento está dentro del espectro terapéutico, de modo que la omisión de suministro desconoce la autorización médica\nPretensión: ordenar el suministro del antirretroviral ordenado por el médico tratante",
           "corrida_2": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el cambio de tratamiento fue ordenado por el médico tratante y el medicamento está dentro del espectro terapéutico, de modo que el rechazo lo hace de forma arbitraria\nPretensión: autorizar y entregar el antirretroviral ordenado"
         },
         {
           "fila": 1,
           "columna": "finetuned",
           "corrida_1": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: Institución prestadora de salud\nMecanismo: acción de tutela\nProcedencia: sí — el acceso a la salud es un derecho fundamental y la omisión de un procedimiento ordenado por el médico tratante desconoce el principio de oportunidad\nPretensión: ordenar la realización de la cirugía ordenada por el médico tratante",
-          "corrida_2": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: Institución prestadora de salud\nMecanismo: acción de tutela\nProcedencia: sí — el acceso a la salud es indistinto y la omisión de un procedimiento ordenado por el médico tratante desconoce el derecho al sistema de salud\nPretensión: ordenar la realización de la cirugía ordenada por el médico tratante"
-        },
-        {
-          "fila": 2,
-          "columna": "finetuned",
-          "corrida_1": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Empresa prestadora del servicio público de acueducto\nMecanismo: acción de tutela\nProcedencia: sí — la respuesta no atendió los puntos específicos de la petición, de modo que no se agotó el término de respuesta legal\nPretensión: ordenar respuesta que explique los motivos del incremento de la factura",
-          "corrida_2": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Empresa prestadora del servicio público de acueducto\nMecanismo: acción de tutela\nProcedencia: sí — la respuesta no atendió los puntos específicos formulados en la petición, de modo que no se agotó el término de respuesta legal\nPretensión: ordenar respuesta que resuelva los puntos puestos por el usuario"
+          "corrida_2": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: Institución prestadora de salud\nMecanismo: acción de tutela\nProcedencia: sí — el acceso a la salud es indistinto y la omisión de un procedimiento ordenado por el médico tratante desconoce el derecho al tratamiento integral\nPretensión: ordenar la realización de la cirugía ordenada por el médico tratante"
         },
         {
           "fila": 3,
           "columna": "finetuned",
-          "corrida_1": "Derecho: seguridad_social (art. 48 CP; Ley 100 de 1993)\nAccionado: Colpensiones\nMecanismo: acción de tutela\nProcedencia: sí — el derecho a la seguridad social se ejerce con carácter de derecho fundamental y la omisión prolongada de un derecho adquirido a la indemnización sustitutiva compromete la subsistencia del afiliado\nPretensión: ordenar la resolución de la solicitud de indemnización sustitutiva dentro de un término perentorio",
-          "corrida_2": "Derecho: seguridad_social (art. 48 CP; Ley 100 de 1993)\nAccionado: Colpensiones\nMecanismo: acción de tutela\nProcedencia: sí — sin ingresos propios ni familia que asumir la responsabilidad, la demora en la indemnización sustitutiva deja al afiliado en situación de indigencia\nPretensión: ordenar el pago de la indemnización sustitutiva dentro de un término perentorio"
+          "corrida_1": "Derecho: seguridad_social (art. 48 CP; Ley 100 de 1993)\nAccionado: Colpensiones\nMecanismo: acción de tutela\nProcedencia: sí — sin ingresos propios ni familia que asumir la responsabilidad, la indemnización sustitutiva es el mínimo vital para subsistir\nPretensión: ordenar el pago de la indemnización sustitutiva dentro de la quincena",
+          "corrida_2": "Derecho: seguridad_social (art. 48 CP; Ley 100 de 1993)\nAccionado: Colpensiones\nMecanismo: acción de tutela\nProcedencia: sí — el adulto mayor carece de ingresos y la omisión prolongada impide su subsistencia\nPretensión: ordenar el pago de la indemnización sustitutiva y el reconocimiento de la pensión de sobrevivencia"
+        },
+        {
+          "fila": 4,
+          "columna": "finetuned",
+          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Institución financiera\nMecanismo: vía judicial ordinaria\nProcedencia: no — la actualidad del reporte deriva de decisiones sucesivas del acreedor, no de una vulneración del debido proceso\nPretensión: acudir a la jurisdicción competente para discutir la actualidad del reporte",
+          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Institución financiera\nMecanismo: vía judicial ordinaria\nProcedencia: no — la actualidad del reporte deriva de decisiones sucesivas del acreedor, no de la omisión inicial del titular, y la tutela no alcanza a la ejecución de créditos\nPretensión: acudir a la jurisdicción competente para discutir la actualidad del reporte"
         },
         {
           "fila": 5,
           "columna": "finetuned",
-          "corrida_1": "Derecho: debido_proceso (art. 29 CP; art. 43 CP)\nAccionado: Universidad\nMecanismo: acción de tutela\nProcedencia: sí — la sanción se adoptó sin que el estudiante pudiera defenderse, desconociendo el debido proceso que rige en materia académica\nPretensión: dejar sin efecto la sanción y rehacer el proceso con garantías de defensa",
-          "corrida_2": "Derecho: debido_proceso (art. 29 CP; art. 43 CP)\nAccionado: Universidad\nMecanismo: acción de tutela\nProcedencia: sí — la sanción se adoptó sin que el estudiante pudiera defenderse ni conocer los cargos, desconociendo el debido proceso\nPretensión: dejar sin efecto la sanción y rehacer el proceso con garantías de defensa"
+          "corrida_1": "Derecho: debido_proceso (art. 29 CP; art. 43 CP)\nAccionado: Universidad\nMecanismo: acción de tutela\nProcedencia: sí — la sanción se adoptó sin que el estudiante pudiera defenderse ni conocer los cargos, desconociendo el debido proceso\nPretensión: dejar sin efecto la sanción y rehacer el proceso con garantías de defensa",
+          "corrida_2": "Derecho: debido_proceso (art. 29 CP; art. 43 CP)\nAccionado: Universidad\nMecanismo: acción de tutela\nProcedencia: sí — la sanción se adoptó sin oportunidad de defensa y la estudiante estaba en proceso de titulación\nPretensión: dejar sin efecto la sanción y rehacer el proceso con garantías"
         },
         {
           "fila": 6,
           "columna": "finetuned",
-          "corrida_1": "Derecho: educacion (art. 42 CP; art. 67 CP; Ley 1095 de 2006)\nAccionado: Institución educativa\nMecanismo: acción de tutela\nProcedencia: sí — la inclusión de las personas con discapacidad es un deber del sistema educativo y su omisión cuando no hay posibilidad de acudir a la jurisdicción ordinaria configura omisión de la obligación legal\nPretensión: ordenar la matrícula y el acceso de la estudiante con el apoyo educativo que requiere",
-          "corrida_2": "Derecho: educacion (art. 43 CP; art. 67 CP; Ley 1095 de 2006)\nAccionado: Institución educativa\nMecanismo: vía judicial ordinaria\nProcedencia: no — la educación de la niña está en curso y su continuidad la protege la jurisdicción ordinaria competente, no el sistema de tutela\nPretensión: acudir a la jurisdicción ordinaria para que se resuelva la continuidad escolar"
+          "corrida_1": "Derecho: educacion (art. 42 CP; art. 67 CP; Ley 1095 de 2006)\nAccionado: Institución educativa\nMecanismo: acción de tutela\nProcedencia: sí — la inclusión de las personas con discapacidad es un deber del sistema educativo y su omisión cuando no hay posibilidad de acudir a la jurisdicción ordinaria configura omisión de la obligación legal\nPretensión: ordenar la matrícula y el acceso a los servicios de apoyo pedagógico de la cual carece la estudiante",
+          "corrida_2": "Derecho: educacion (art. 42 CP; art. 67 CP)\nAccionado: Institución educativa\nMecanismo: acción de tutela\nProcedencia: sí — la inclusión de la niña en condiciones de igualdad exige la adaptación de las condiciones materiales del aula, y su exclusión indefinida por carecer de recursos familiares no puede aceptarse\nPretensión: ordenar la matrícula y el acceso con las adaptaciones necesarias"
         },
         {
           "fila": 7,
           "columna": "finetuned",
-          "corrida_1": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: Entidad prestadora de salud\nMecanismo: acción de tutela\nProcedencia: sí — el término de prestación terminó durante un proceso de tratamiento oncológico, de modo que la recaída o la interrupción del tratamiento comprometerían la vida del paciente\nPretensión: ordenar la renovación de la prestación hasta finalizar el tratamiento en curso",
-          "corrida_2": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: Entidad prestadora de salud\nMecanismo: acción de tutela\nProcedencia: sí — el término de prestación terminó durante un proceso de tratamiento oncológico, de modo que la cesantía se produjo por razones de salud y no por incumplimiento del empleado\nPretensión: ordenar la renovación de la prestación hasta finalizar el tratamiento"
+          "corrida_1": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: Entidad prestadora de salud\nMecanismo: acción de tutela\nProcedencia: sí — el término de carencia termina con el término del contrato y la paciente no puede acceder a otro servicio mientras dure el proceso\nPretensión: ordenar la renovación del contrato hasta que finalice el tratamiento",
+          "corrida_2": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: Entidad prestadora de salud\nMecanismo: acción de tutela\nProcedencia: sí — el término de prestación terminó durante un proceso de tratamiento oncológico, de modo que la recaída o la interrupción del tratamiento comprometerían la vida del paciente\nPretensión: ordenar la renovación de la prestación hasta finalizar el tratamiento"
         },
         {
           "fila": 8,
           "columna": "finetuned",
-          "corrida_1": "Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)\nAccionado: Empresa de curtiembres y autoridad ambiental\nMecanismo: acción popular (Ley 472 de 1998)\nProcedencia: no — se busca proteger el ambiente y la salud pública de una comunidad indeterminada, derechos colectivos excluidos del ámbito de la tutela\nPretensión: promover acción popular para que se adopten las medidas de control y saneamiento de la fuente contaminante",
-          "corrida_2": "Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)\nAccionado: Empresa de curtiembres y autoridad ambiental\nMecanismo: acción popular (Ley 472 de 1998)\nProcedencia: no — se protege el ambiente sano y la salubridad pública de una comunidad indeterminada, derechos colectivos excluidos del ámbito de la tutela\nPretensión: promover acción popular para que se haga el saneamiento del caudal y se sancione al responsable"
+          "corrida_1": "Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)\nAccionado: Empresa de curtiembres y Corporación ambiental\nMecanismo: acción popular (Ley 472 de 1998)\nProcedencia: no — se busca proteger el ambiente sano y la salubridad pública de una comunidad indeterminada, derechos colectivos excluidos del ámbito de la tutela\nPretensión: promover acción popular para que cesen las emisiones y se restablezca la calidad del agua",
+          "corrida_2": "Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)\nAccionado: Empresa de curtiembres y autoridad ambiental\nMecanismo: acción popular (Ley 472 de 1998)\nProcedencia: no — se busca proteger el ambiente sano y la salubridad pública de una comunidad indeterminada, derechos colectivos excluidos del ámbito de la tutela\nPretensión: promover acción popular para que se adopten las medidas de control y saneamiento de la fuente contaminante"
         },
         {
           "fila": 9,
           "columna": "finetuned",
-          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Almacén de cadena\nMecanismo: vía judicial ordinaria\nProcedencia: no — se reclama la restitución de un bien vendido, que es materia de la jurisdicción de familia y mercantil\nPretensión: acudir a la jurisdicción competente mediante proceso de garantía de la demanda de consumo",
-          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Almacén de cadena\nMecanismo: vía judicial ordinaria\nProcedencia: no — se reclama la defensa del consumidor, que es materia de la jurisdicción de familia y de la jurisdicción laboral, y no de la tutela\nPretensión: acudir a la jurisdicción competente mediante proceso de defensa del consumidor"
+          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Almacén de cadena\nMecanismo: vía judicial ordinaria\nProcedencia: no — se reclama el cumplimiento de un contrato de compraventa, no la protección de un derecho fundamental\nPretensión: acudir a la jurisdicción competente para el saneamiento del contrato",
+          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Almacén de cadena de comercio minorista\nMecanismo: vía judicial ordinaria\nProcedencia: no — se reclama el cumplimiento de un contrato de compraventa, no la protección de un derecho fundamental: no hay mecanismo constitucional idóneo\nPretensión: acudir a la jurisdicción competente para el cumplimiento de la obligación contractual"
         },
         {
           "fila": 10,
           "columna": "finetuned",
-          "corrida_1": "Derecho: no determinable\nAccionado: EPS\nMecanismo: no determinable\nProcedencia: no — se reclama la indemnización por daños y perjuicios derivados de la demora, que es un derecho propio del proceso de controversias sanitarias y no del sistema de tutelas\nPretensión: derivar la tutela a la jurisdicción contenciosa administrativa mediante proceso de controversias sanitarias",
-          "corrida_2": "Derecho: no determinable\nAccionado: EPS\nMecanismo: no determinable\nProcedencia: no — se reclama la indemnización por daños y perjuicios de un proceso ya concluido, no la tutela de un derecho fundamental en situación actual\nPretensión: derivar la demanda a la jurisdicción civil"
+          "corrida_1": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — se pide la indemnización de un perjuicio derivado de la demora, que no es lo que se pretende proteger de forma inmediata: la tutela es el medio de defensa de los derechos fundamentales en situación de vulneración actual\nPretensión: derivar la demanda a la jurisdicción laboral para que se discuta la indemnización por despido",
+          "corrida_2": "Derecho: no determinable\nAccionado: EPS\nMecanismo: no determinable\nProcedencia: no — se reclama la indemnización por daños y perjuicios derivados de la demora, que es un derecho propio del proceso de controversias sanitarias y no del sistema de tutelas\nPretensión: derivar la tutela a la jurisdicción contenciosa administrativa mediante proceso de controversias sanitarias"
         },
         {
           "fila": 11,
           "columna": "finetuned",
           "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la omisión de entrega de material para el diagnóstico y tratamiento es un acto administrativo de que procede tutela y que afecta el derecho a la salud\nPretensión: ordenar la entrega de las muestras para el diagnóstico y tratamiento",
-          "corrida_2": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — sin el resultado de la biopsia no se puede definir el tratamiento, que es un derecho de la paciente\nPretensión: entregar las muestras de patología a la paciente y autorizar el tratamiento"
+          "corrida_2": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — sin el informe no se puede definir el tratamiento, que es el fin de la patología\nPretensión: entregar las muestras de patología y autorizar el tratamiento"
         },
         {
           "fila": 12,
           "columna": "finetuned",
-          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — la decisión de cobertura la toma el médico tratante y la EPS, y su negativa no afecta un derecho fundamental individual\nPretensión: acudir a la jurisdicción competente para discutir la decisión de cobertura",
-          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — la orden fue emitida por un médico particular y la decisión de cobertura recae sobre la relación entre paciente y asegurador, cuya tutela está en la jurisdicción contencioso administrativa\nPretensión: acudir a la jurisdicción contencioso administrativa para que se resuelva la decisión de cobertura"
+          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — la orden fue emitida por un médico particular y la decisión de cobertura recae sobre la relación entre asegurador y afiliado, cuya tutela está en la jurisdicción contencioso administrativa\nPretensión: acudir a la jurisdicción contencioso administrativa para la determinación de la cobertura",
+          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — la orden fue emitida por un médico particular y la decisión de cobertura recae sobre la relación entre paciente y asegurador, cuya controversia se resuelve ante la jurisdicción ordinaria\nPretensión: acudir a la jurisdicción ordinaria para discutir la decisión de cobertura"
+        },
+        {
+          "fila": 13,
+          "columna": "finetuned",
+          "corrida_1": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — se cuestiona una sentencia judicial ya firme, sin que se alegue la vulneración concreta de un derecho fundamental en su pronunciamiento\nPretensión: derivar la solicitud al medio de control de lo decidido por el juez de trabajo",
+          "corrida_2": "Derecho: due_proceso (art. 29 CP; art. 43 CP)\nAccionado: Tribunal de trabajo\nMecanismo: vía judicial ordinaria\nProcedencia: no — la tutela protege la legalidad y vigencia del acto administrativo, y no el resultado de un proceso: el medio propio para controvertir el fallo es la casación\nPretensión: acudir a la casación para controvertir la sentencia"
         },
         {
           "fila": 14,
           "columna": "finetuned",
           "corrida_1": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el paciente es adulto mayor y la condición postderrame lo hace vulnerable, y la prestación fue negada sin que el médico evaluador concluyera que no era indicada\nPretensión: ordenar la autorización y entrega de la enfermería domiciliaria",
-          "corrida_2": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el paciente es adulto mayor y la condición postderrame lo hace vulnerable, y la prestación es intransferible cuando el afiliado está incapacitado para ejercer su autonomía\nPretensión: ordenar la asignación de enfermería domiciliaria"
+          "corrida_2": "Derecho: seguridad_social (art. 47 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el paciente es adulto mayor y la condición postderrame lo hace en situación de debilidad manifiesta, de modo que la asistencia domiciliaria es el medio más apto para su restablecimiento y mantenimiento\nPretensión: ordenar la prestación de la enfermería domiciliaria"
+        },
+        {
+          "fila": 15,
+          "columna": "finetuned",
+          "corrida_1": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el suministro domiciliario de alimentos por vía endovenosa es parte integral del tratamiento ordenado y dejarlo de abastecer deja al paciente sin atención\nPretensión: ordenar el suministro continuo de la fórmula nutricional",
+          "corrida_2": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el suministro de la fórmula nutricional es parte del tratamiento ordenado y dejarlo de proveer deja al paciente en situación de abandono\nPretensión: ordenar el suministro continuo de la fórmula nutricional"
         },
         {
           "fila": 16,
           "columna": "finetuned",
-          "corrida_1": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la condición de menor en situación de crisis psiquiátrica excluye el tratamiento ambulatorio y la tutela es la vía de garantía de acceso a la atención\nPretensión: ordenar la hospitalización en unidad de salud mental y el suministro de medicamentos",
-          "corrida_2": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la condición de menor en situación de crisis psiquiátrica excluye el régimen de consulta externa y la autorización es inmediata\nPretensión: ordenar la hospitalización en unidad de salud mental para el tratamiento integral"
-        },
-        {
-          "fila": 17,
-          "columna": "finetuned",
-          "corrida_1": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la condición de paciente en lista de espera no puede prolongarse indefinidamente cuando la cirugía fue ordenada y el paciente está incapacitado: se protege el goce efectivo del derecho\nPretensión: ordenar la cirugía en un término perentorio",
-          "corrida_2": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la espera indefinida de una cirugía ordenada por el médico tratante deja al paciente sin posibilidad de recuperarse y de reincorporarse a su trabajo\nPretensión: ordenar la programación y ejecución de la cirugía"
-        },
-        {
-          "fila": 18,
-          "columna": "finetuned",
-          "corrida_1": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Secretaría de Tránsito\nMecanismo: acción de tutela\nProcedencia: sí — la respuesta impone requisitos que la ley no establece y que hacen inviable el acceso a la tutela\nPretensión: ordenar la respuesta a la petición sin los requisitos que la administración exige",
-          "corrida_2": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Secretaría de Tránsito\nMecanismo: acción de tutela\nProcedencia: sí — la respuesta impone requisitos que la ley no establece y que hacen inviable el derecho de petición\nPretensión: ordenar respuesta a la petición sin los requisitos que la administración exige"
+          "corrida_1": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la condición de menor en situación de crisis psiquiátrica excluye el tratamiento ambulatorio y la hospitalización es ordenable por la tutela\nPretensión: ordenar la hospitalización en unidad de salud mental hasta que se restablezca la estabilidad clínica",
+          "corrida_2": "Derecho: salud (art. 49 CP; Ley 1751 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la condición de menor en situación de crisis psiquiátrica exige el tratamiento integral en un servicio habilitado, no la consulta externa\nPretensión: ordenar la hospitalización en unidad de salud mental hasta que la condición se estabilice"
         },
         {
           "fila": 19,
           "columna": "finetuned",
           "corrida_1": "Derecho: seguridad_social (art. 48 CP; Ley 1095 de 2006)\nAccionado: Migración Colombia\nMecanismo: acción de tutela\nProcedencia: sí — la autorización de permanencia es un requisito para ejercer la actividad laboral y afiliarse a salud, de modo que la demora indefinida deja al extranjero en situación de indocumentación y carencia de servicios\nPretensión: ordenar la resolución de la solicitud y expedición del permiso de permanencia",
-          "corrida_2": "Derecho: seguridad_social (art. 47 CP; Ley 1095 de 2006)\nAccionado: Migración Colombia\nMecanismo: acción de tutela\nProcedencia: sí — la autorización de permanencia es un requisito para ejercer la actividad laboral y afiliarse a salud, de modo que la demora indefinida en su otorgamiento afecta la seguridad social del solicitante\nPretensión: ordenar el trámite y expedición del permiso de permanencia dentro de un término perentorio"
+          "corrida_2": "Derecho: seguridad_social (art. 47 CP; Ley 1095 de 2006)\nAccionado: Migración Colombia\nMecanismo: acción de tutela\nProcedencia: sí — la autorización de permanencia es un requisito para ejercer la actividad laboral y afiliarse a salud, de modo que la demora indefinida deja al extranjero en situación de indocumentación y carencia de servicios\nPretensión: ordenar el trámite y decisión de la solicitud de permiso de permanencia"
         },
         {
           "fila": 20,
           "columna": "finetuned",
-          "corrida_1": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Administradora de riesgos laborales\nMecanismo: acción de tutela\nProcedencia: sí — la petición de acceso a la información fue formulada con conocimiento del término legal y no se acreditó la reserva legal de la documentación\nPretensión: ordenar el suministro integral de la documentación solicitada dentro del término de tres días",
-          "corrida_2": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Administradora de riesgos laborales\nMecanismo: acción de tutela\nProcedencia: sí — la petición de acceso a la información fue formulada con conocimiento del término legal y no se ha otorgado respuesta alguna\nPretensión: ordenar la respuesta a la petición de acceso a la información"
+          "corrida_1": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Administradora de riesgos laborales\nMecanismo: acción de tutela\nProcedencia: sí — la petición de acceso a la información fue formulada con conocimiento del término legal y no se acreditó la reserva legal de la documentación\nPretensión: ordenar el suministro de la totalidad de la documentación solicitada dentro del término de tres días",
+          "corrida_2": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Administradora de riesgos laborales\nMecanismo: acción de tutela\nProcedencia: sí — la omisión de respuesta a una petición escrita sobre la documentación de una siniestralidad laboral desconoce el término legal y la tutela de los derechos de los afiliados\nPretensión: ordenar respuesta integral y oportunidad a la petición de información"
         },
         {
           "fila": 21,
           "columna": "finetuned",
-          "corrida_1": "Derecho: seguridad_social (art. 47 CP; art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el término de la licencia está computado y no hay ingresos durante ese periodo, de modo que la omisión impide el acceso efectivo al mínimo vital\nPretensión: ordenar el pago de la licencia de maternidad",
-          "corrida_2": "Derecho: seguridad_social (art. 47 CP; art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el derecho a la licencia de maternidad no puede suspenderse por un reporte administrativo y la madre es cabeza de familia\nPretensión: ordenar el pago integral de la licencia de maternidad"
+          "corrida_1": "Derecho: seguridad_social (art. 47 CP; art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el término de la licencia está computado y no hay ingresos durante ese periodo, de modo que la omisión impide la subsistencia de la madre y su hijo recién nacido\nPretensión: ordenar el pago integral de la licencia de maternidad",
+          "corrida_2": "Derecho: seguridad_social (art. 47 CP; art. 6.3 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — el derecho a la licencia de maternidad no puede suspenderse por un reporte administrativo y la madre no tiene ingresos ni garantías para cubrir sus necesidades\nPretensión: ordenar el pago integral de la licencia de maternidad"
         },
         {
           "fila": 22,
           "columna": "finetuned",
-          "corrida_1": "Derecho: habeas_data (art. 15 CP; Ley 1266 de 2008)\nAccionado: Alcaldía municipal\nMecanismo: acción de tutela\nProcedencia: sí — el dato personal está a disposición de quien quiera accederlo y carece de finalidad legítima, de forma que su divulgación supone un perjuicio indultable al derecho a la privacidad\nPretensión: ordenar el retiro de la información personal del sitio web",
-          "corrida_2": "Derecho: privacidad_personal (art. 16 CP; Ley 1266 de 2008)\nAccionado: Alcaldía municipal\nMecanismo: acción de tutela\nProcedencia: sí — la publicación de datos personales sensibles de una persona identificable supone un acceso no autorizado a la información y un tratamiento ilícito de datos de salud\nPretensión: ordenar el retiro de la información y la supresión de los datos personales del usuario"
+          "corrida_1": "Derecho: privacidad_personal (art. 17 CP; Ley 1266 de 2008)\nAccionado: Alcaldía municipal\nMecanismo: acción de tutela\nProcedencia: sí — la publicación en internet de datos personales sensibles de una lista de beneficiarios compromete la intimidad de quienes figuran en ella, sin que exista consentimiento ni interés legítimo que la justifique\nPretensión: ordenar la retención de la información individualizada y la actualización de la página con la medida de proteccióndel dato",
+          "corrida_2": "Derecho: habeas_data (art. 15 CP; Ley 1266 de 2008)\nAccionado: Alcaldía municipal\nMecanismo: acción de tutela\nProcedencia: sí — el dato personal está a disposición del público en general, sin autorización ni encubrimiento que lo haga indiferenciable de la información pública\nPretensión: ordenar el encubrimiento del dato personal y la actualización de la página web"
         },
         {
           "fila": 23,
           "columna": "finetuned",
-          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Central de riesgo\nMecanismo: acción de tutela\nProcedencia: sí — el reporte sobre una deuda ajena al titular del dato compromete su buen nombre y la actualidad del reporte\nPretensión: ordenar la corrección del reporte hasta que refleje la situación actual",
-          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Central de riesgo\nMecanismo: acción de tutela\nProcedencia: sí — el reporte negativo sobre una deuda ajena al titular del dato compromete su buen nombre y libertad personal\nPretensión: ordenar la actualización del reporte de acuerdo con la documentación aportada"
+          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Central de riesgos\nMecanismo: acción de tutela\nProcedencia: sí — el reporte sobre una deuda ajena al titular del dato compromete su buen nombre y la actualidad del reporte\nPretensión: ordenar la corrección del reporte y la actualización de la información",
+          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Central de riesgos\nMecanismo: acción de tutela\nProcedencia: sí — el reporte negativo sobre una deuda ajena al titular del dato compromete su buen nombre y libertad de crédito, derechos individuales protegidos frente a quien los maneja\nPretensión: ordenar la actualización del reporte de acuerdo con la documentación suministrada"
         },
         {
           "fila": 24,
           "columna": "finetuned",
-          "corrida_1": "Derecho: educacion (art. 42 CP; art. 67 CP)\nAccionado: Institución educativa\nMecanismo: acción de tutela\nProcedencia: sí — la carencia de la documentación académica impide el acceso a la educación superior y la tutela de un menor, y la entidad presta un servicio público\nPretensión: entregar el diploma y las notas de finalización",
-          "corrida_2": "Derecho: educacion (art. 43 CP; art. 67 CP)\nAccionado: Institución educativa\nMecanismo: vía judicial ordinaria\nProcedencia: no — la omisión atenta contra el derecho a la educación y la tutela no es medio propio para exigir la entrega de documentos académicos\nPretensión: acudir a la jurisdicción competente para que se ordene la entrega de los documentos"
+          "corrida_1": "Derecho: educacion (art. 42 CP; art. 67 CP)\nAccionado: Institución educativa\nMecanismo: acción de tutela\nProcedencia: sí — la carencia de la documentación compromete el acceso a la educación superior de un adolescente, cuya protección integral es un principio propio del sistema\nPretensión: entregar el diploma y las notas de finalización del ciclo",
+          "corrida_2": "Derecho: educacion (art. 42 CP; art. 67 CP)\nAccionado: Institución educativa\nMecanismo: acción de tutela\nProcedencia: sí — la carencia de título academicamente reconocido impide al estudiante acceder a la educación superior, supuesto de carencia de oportunidad de la cual deriva la procedencia de la tutela\nPretensión: entregar el diploma y las notas de finalización del ciclo"
         },
         {
           "fila": 25,
           "columna": "finetuned",
-          "corrida_1": "Derecho: educacion (art. 42 CP; art. 67 CP)\nAccionado: Secretaría de Educación municipal\nMecanismo: acción de tutela\nProcedencia: sí — la fecha de ingreso no puede ser condicionante de la matrícula cuando el desplazamiento lo hizo imposible, y la tutela procede frente al organismo administrativo encargado de la ejecución del derecho\nPretensión: ordenar la matrícula de los menores sin que suponga retraso en su proceso escolar",
-          "corrida_2": "Derecho: educacion (art. 43 CP; art. 67 CP; Ley 1095 de 2006)\nAccionado: Institución educativa\nMecanismo: vía judicial ordinaria\nProcedencia: no — la omisión de matrícula se alega como consecuencia de un desplazamiento, pero la tutela procede contra el particular que ejerce la omisión, no contra quien la ordenó\nPretensión: acudir a la jurisdicción competente para que se ordene la matrícula"
-        },
-        {
-          "fila": 26,
-          "columna": "finetuned",
-          "corrida_1": "Derecho: estabilidad_laboral_reforzada (art. 47 CP; art. 6.3 Decreto 2591 de 1991)\nAccionado: Entidad pública\nMecanismo: acción de tutela\nProcedencia: sí — la estabilidad reforzada protege a las trabajadoras gestantes hasta el parto, y su término no puede depender de la finalización del contrato\nPretensión: ordenar la renovación del contrato hasta el parto",
-          "corrida_2": "Derecho: estabilidad_laboral_reforzada (art. 47 CP; art. 6.3 Decreto 2591 de 1991)\nAccionado: Entidad pública\nMecanismo: acción de tutela\nProcedencia: sí — la estabilidad reforzada protege a las trabajadoras gestantes hasta el parto, y su término no puede coincidir con el final del contrato\nPretensión: ordenar la renovación del contrato hasta el parto"
+          "corrida_1": "Derecho: educacion (art. 42 CP; art. 67 CP)\nAccionado: Secretaría de Educación municipal\nMecanismo: acción de tutela\nProcedencia: sí — la fecha de ingreso no puede ser un obstáculo para acceder al sistema educativo de niños desplazados, cuya reincorporación es un deber del Estado\nPretensión: ordenar la matrícula de los menores sin que suponga retraso en su proceso de integración",
+          "corrida_2": "Derecho: educacion (art. 42 CP; art. 67 CP; Ley 1095 de 2006)\nAccionado: Institución educativa\nMecanismo: acción de tutela\nProcedencia: sí — la carencia de cupo no puede impedir el acceso de los menores a la educación frente a quienes sí lo tienen, y el sistema educativo debe atender a los desplazados\nPretensión: ordenar la matrícula de los menores sin que les surja deuda"
         },
         {
           "fila": 27,
           "columna": "finetuned",
-          "corrida_1": "Derecho: estabilidad_laboral_reforzada (art. 6.1 Decreto 2591 de 1991)\nAccionado: Empleador\nMecanismo: vía judicial ordinaria\nProcedencia: no — la terminación de contrato de un trabajador con condición de salud requiere autorización previa del inspector de trabajo, y no se alega que ésta fue obtenida\nPretensión: acudir a la jurisdicción laboral ordinaria para discutir la legalidad de la terminación",
-          "corrida_2": "Derecho: estabilidad_laboral_reforzada (art. 6.1 Decreto 2591 de 1991)\nAccionado: Empleador\nMecanismo: vía judicial ordinaria\nProcedencia: no — la terminación de contrato de un trabajador con condición de salud requiere autorización previa del inspector de trabajo, y su omisión hace nula la decisión\nPretensión: acudir a la jurisdicción laboral para que se declare la nulidad de la terminación"
+          "corrida_1": "Derecho: estabilidad_laboral_reforzada (art. 6.1 Decreto 2591 de 1991)\nAccionado: Empleador\nMecanismo: vía judicial ordinaria\nProcedencia: no — la terminación de contrato de un trabajador con condición de salud requiere autorización previa del inspector de trabajo, y no se alega que ésta fue obtenida\nPretensión: acudir a la jurisdicción laboral ordinaria para que se ordene la autorización previa del inspector antes de la terminación",
+          "corrida_2": "Derecho: estabilidad_laboral_reforzada (art. 6.1 Decreto 2591 de 1991)\nAccionado: Empleador\nMecanismo: vía judicial ordinaria\nProcedencia: no — la tutela no protege la sanción disciplinaria sino la reubicación y el mantenimiento del empleo frente al despido de un trabajador en situación de discapacidad\nPretensión: acudir a la jurisdicción laboral ordinaria para discutir la sanción"
         },
         {
           "fila": 28,
           "columna": "finetuned",
-          "corrida_1": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Administrador del programa de subsidio de adulto mayor\nMecanismo: acción de tutela\nProcedencia: sí — la omisión de notificación y motivación de la decisión que produce el despido de un afiliado desconoce el debido proceso administrativo\nPretensión: ordenar la notificación y motivación de la decisión que desligó al accionante del subsidio",
-          "corrida_2": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Administrador del programa de subsidio\nMecanismo: acción de tutela\nProcedencia: sí — la omisión de notificación y motivación de la decisión que produce el despido de un adulto mayor desconoce el debido proceso\nPretensión: ordenar la notificación y motivación de la decisión que desligó al accionante del subsidio"
+          "corrida_1": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Administrador del sistema de pensiones\nMecanismo: acción de tutela\nProcedencia: sí — la omisión de notificación y motivación de la decisión que produce el despido de un afiliado desconoce el debido proceso en materia administrativa\nPretensión: ordenar la notificación y motivación de la decisión que desligó al accionante del subsidio",
+          "corrida_2": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: Administrador del programa de subsidio de adulto mayor\nMecanismo: acción de tutela\nProcedencia: sí — la omisión de notificación y motivación de la decisión que produce el despido de un afiliado desconoce el debido proceso administrativo\nPretensión: ordenar la notificación y motivación de la decisión que desligó al accionante del subsidio"
         },
         {
           "fila": 29,
           "columna": "finetuned",
-          "corrida_1": "Derecho: seguridad_social (art. 47 CP; Ley 100 de 1993)\nAccionado: Fondo de pensiones\nMecanismo: acción de tutela\nProcedencia: sí — el derecho a la seguridad social de la beneficiaria indigente no puede suspenderse por la mora administrativa\nPretensión: ordenar el pago de la pensión de sobrevivientes de inmediato",
-          "corrida_2": "Derecho: seguridad_social (art. 47 CP; Ley 100 de 1993)\nAccionado: Fondo de pensiones\nMecanismo: acción de tutela\nProcedencia: sí — la asignación de la pensión de sobrevivientes es inmediata frente a la muerte del afiliado, y la afectación de la subsistencia de una beneficiaria indisolublemente ligada al afiliado no puede esperar\nPretensión: ordenar la asignación de la pensión de sobrevivientes de forma inmediata"
+          "corrida_1": "Derecho: seguridad_social (art. 47 CP; Ley 100 de 1993)\nAccionado: Fondo de pensiones\nMecanismo: acción de tutela\nProcedencia: sí — la asignación de la pensión de sobrevivientes es inmediata cuando el afiliado deja de cotizar por la muerte\nPretensión: ordenar el reconocimiento y pago de la pensión de sobrevivientes",
+          "corrida_2": "Derecho: seguridad_social (art. 47 CP; Ley 100 de 1993)\nAccionado: Fondo de pensiones\nMecanismo: acción de tutela\nProcedencia: sí — la asignación de la pensión de sobrevivientes es inmediata frente a la muerte del afiliado, y la afectación de la subsistencia de una damnificada excluida de la seguridad social es irremediable\nPretensión: ordenar la asignación de la pensión de sobrevivientes de forma inmediata"
         },
         {
           "fila": 30,
           "columna": "finetuned",
-          "corrida_1": "Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)\nAccionado: Empresa contratista y alcaldía municipal\nMecanismo: acción popular (Ley 472 de 1998)\nProcedencia: no — se reclama la protección de la salubridad pública y el ambiente sano de una comunidad indeterminada, derechos colectivos excluidos del ámbito de la tutela\nPretensión: promover acción popular para la restitución del predio y la reubicación del relleno sanitario",
-          "corrida_2": "Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)\nAccionado: Empresa prestadora del servicio y alcaldía municipal\nMecanismo: acción popular (Ley 472 de 1998)\nProcedencia: no — se protege el ambiente sano y la salubridad pública de una comunidad indeterminada, derechos colectivos\nPretensión: promover acción popular para la recuperación del lugar y la instalación de un sistema de saneamiento"
-        },
-        {
-          "fila": 31,
-          "columna": "finetuned",
-          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Alcaldía municipal\nMecanismo: acción de tutela\nProcedencia: sí — la contratación irregulada atenta contra el principio de probidad administrativa y la eficacia del servicio público\nPretensión: ordenar la restitución del dinero y la ejecución de la obra mediante procedimiento licitatorio",
-          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Alcaldía municipal\nMecanismo: acción de tutela\nProcedencia: sí — se alega acto administrativo ilícito y desviación de fondos públicos, que son supuestos de la tutela\nPretensión: ordenar la restitución del dinero y la ejecución de la obra mediante licitación"
+          "corrida_1": "Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)\nAccionado: Empresa prestadora del servicio y autoridad municipal\nMecanismo: acción popular (Ley 472 de 1998)\nProcedencia: no — se busca proteger la salubridad pública y el ambiente sano de una comunidad indeterminada, derechos colectivos excluidos del ámbito de la tutela\nPretensión: promover acción popular para que se adopten las medidas de saneamiento y control de la zona",
+          "corrida_2": "Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)\nAccionado: Empresa prestadora del servicio y alcaldía municipal\nMecanismo: acción popular (Ley 472 de 1998)\nProcedencia: no — se protege el ambiente sano y la salubridad pública de una comunidad indeterminada, derechos colectivos\nPretensión: promover acción popular para la recuperación del espacio y la instalación de barreras de contención"
         },
         {
           "fila": 32,
           "columna": "finetuned",
-          "corrida_1": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Alcaldía municipal\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — se reclama la ejecución de un deber legal de creación de una oficina, no la protección concreta de un derecho fundamental individual\nPretensión: promover acción de cumplimiento para que se ejecute el deber de crear la oficina",
-          "corrida_2": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Alcaldía municipal\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — se reclama el acatamiento de un deber legal de creación de una oficina, no la protección concreta de un derecho fundamental propio\nPretensión: promover acción de cumplimiento para que se ejecute el decreto"
+          "corrida_1": "Derecho: ninguno (art. 87 CP; Ley 1095 de 2006)\nAccionado: Alcaldía municipal\nMecanismo: acción de cumplimiento (Ley 1095 de 2006)\nProcedencia: no — se reclama la ejecución de un deber legal de creación de una oficina, sin que se alegue la vulneración concreta de un derecho fundamental propio\nPretensión: promover acción de cumplimiento para que se ejecute el deber de crear la oficina",
+          "corrida_2": "Derecho: ninguno (art. 87 CP; Ley 1095 de 2006)\nAccionado: Alcaldía municipal\nMecanismo: acción de cumplimiento (Ley 1095 de 2006)\nProcedencia: no — se reclama la ejecución de un deber legal de creación de una oficina, no la protección concreta de un derecho fundamental individual\nPretensión: promover acción de cumplimiento para que se ejecute el deber de crear la oficina"
+        },
+        {
+          "fila": 33,
+          "columna": "finetuned",
+          "corrida_1": "Derecho: ninguno (Ley 1437 de 2011)\nAccionado: Gobernación departamental\nMecanismo: acción de cumplimiento (Ley 1437 de 2011)\nProcedencia: no — se reclama el acatamiento de un deber legal de transparencia, no la protección de un derecho fundamental propio\nPretensión: promover acción de cumplimiento para que se publiquen los contratos en la plataforma",
+          "corrida_2": "Derecho: ninguno (Ley 1437 de 2011)\nAccionado: Gobernación departamental\nMecanismo: acción de cumplimiento (Ley 1437 de 2011)\nProcedencia: no — se reclama el cumplimiento de una obligación legal de transparencia, no la protección de un derecho fundamental propio\nPretensión: promover acción de cumplimiento para que se publiquen los contratos"
         },
         {
           "fila": 34,
           "columna": "finetuned",
-          "corrida_1": "Derecho: libertad_personal (art. 28 CP; art. 30 CP; Ley 1095 de 2006)\nAccionado: Fiscalía y autoridad capturadora\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — se superó el término de 48 horas sin que se imponga medida de aseguramiento, de modo que se configura un ilegal encarcelamiento\nPretensión: interponer habeas corpus para que se imponga de inmediato la medida de aseguramiento",
-          "corrida_2": "Derecho: libertad_personal (art. 28 CP; art. 30 CP; Ley 1095 de 2006)\nAccionado: Fiscalía y autoridad capturadora\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — se superó el término de 48 horas sin que el capturado fuera puesto ante el juez de control de garantías\nPretensión: interponer habeas corpus para que se resuelva la legalidad de la privación de la libertad"
+          "corrida_1": "Derecho: libertad_personal (art. 28 CP; art. 30 CP; Ley 1095 de 2006)\nAccionado: Fiscalía y Policía Nacional\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — se superó el término de 48 horas sin que se dictara orden de captura ni se llevara al capturado ante el juez de control de garantías\nPretensión: interponer habeas corpus para que se ordene el traslado inmediato ante el juez de control de garantías",
+          "corrida_2": "Derecho: libertad_personal (art. 28 CP; art. 30 CP; Ley 1095 de 2006)\nAccionado: Fiscalía y autoridad capturadora\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — superó el término de 48 horas sin que se dictara orden judicial de captura\nPretensión: interponer habeas corpus para que se resuelva la legalidad de la privación de la libertad"
+        },
+        {
+          "fila": 35,
+          "columna": "finetuned",
+          "corrida_1": "Derecho: trabajo (art. 6.1 Decreto 2591 de 1991; Ley 100 de 1993)\nAccionado: Empleador\nMecanismo: vía judicial ordinaria\nProcedencia: no — la pretensión recae sobre salarios y prestaciones impagadas, cuya defensa está en la jurisdicción laboral\nPretensión: acudir a la jurisdicción laboral para la cobro de salarios y prestaciones impagados",
+          "corrida_2": "Derecho: trabajo (art. 6.1 Decreto 2591 de 1991; Ley 100 de 1993)\nAccionado: Empleador\nMecanismo: vía judicial ordinaria\nProcedencia: no — la pretensión recae sobre salarios y prestaciones impagadas, cuya recuperación se tramita ante la jurisdicción laboral ordinaria\nPretensión: acudir a la jurisdicción laboral ordinaria para la recuperación de salarios y prestaciones impagados"
         },
         {
           "fila": 36,
           "columna": "finetuned",
-          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Secretaría de Hacienda municipal\nMecanismo: vía judicial ordinaria\nProcedencia: no — se controvierte la liquidación de un tributo, que es materia de controversia fiscal y no de tutela\nPretensión: acudir a la jurisdicción contencioso administrativa mediante vía judicial ordinaria",
-          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Secretaría de Hacienda municipal\nMecanismo: vía judicial ordinaria\nProcedencia: no — se controvierte la liquidación de un tributo, que es materia de controversia fiscal ante el juez contencioso administrativo\nPretensión: acudir a la jurisdicción contencioso administrativa mediante proceso de nulidad de acto administrativo"
+          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Secretaría de Hacienda municipal\nMecanismo: vía judicial ordinaria\nProcedencia: no — se controvierte la valoración de la propiedad y la legalidad de la liquidación, materias propias de la jurisdicción contencioso administrativa\nPretensión: acudir a la jurisdicción contencioso administrativa mediante nulidad y reposición",
+          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Secretaría de Hacienda municipal\nMecanismo: vía judicial ordinaria\nProcedencia: no — se controvierte la liquidación de un tributo, que es materia de controversia fiscal y no de tutela\nPretensión: acudir a la jurisdicción competente para discutir la liquidación de la contribución"
         },
         {
           "fila": 37,
           "columna": "finetuned",
           "corrida_1": "Derecho: no determinable\nAccionado: no determinable\nMecanismo: no determinable\nProcedencia: no — se trata de un crédito entre particulares: la tutela no protege derechos de acreedores ni obligaciones contractuales\nPretensión: derivar la demanda a la jurisdicción civil",
-          "corrida_2": "Derecho: no determinable\nAccionado: no determinable\nMecanismo: no determinable\nProcedencia: no — se trata de un crédito entre particulares: la tutela no protege derechos de la esfera privada\nPretensión: derivar la demanda a la jurisdicción civil"
+          "corrida_2": "Derecho: no determinable\nAccionado: no determinable\nMecanismo: no determinable\nProcedencia: no — se trata de un contrato entre particulares y la mora de una deuda, no de la vulneración de un derecho fundamental: no hay mecanismo constitucional idóneo\nPretensión: acudir a la jurisdicción civil mediante proceso de cobro"
         },
         {
           "fila": 38,
           "columna": "finetuned",
-          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Sociedad comercial contratante\nMecanismo: vía judicial ordinaria\nProcedencia: no — se reclama el pago de un servicio profesional prestado, sin que se alegue la vulneración concreta de un derecho fundamental propio\nPretensión: acudir a la jurisdicción competente para el cobro del servicio prestado",
-          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Sociedad comercial contratante\nMecanismo: vía judicial ordinaria\nProcedencia: no — se reclama el pago de un servicio profesional prestado, no la protección de un derecho fundamental individual\nPretensión: acudir a la jurisdicción laboral ordinaria para el cobro del servicio prestado"
+          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Sociedad comercial contratante\nMecanismo: vía judicial ordinaria\nProcedencia: no — se reclama el pago de un servicio profesional prestado, sin que se alegue la vulneración concreta de un derecho fundamental propio\nPretensión: acudir a la jurisdicción competente mediante proceso de cobro",
+          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: Sociedad comercial contratante\nMecanismo: vía judicial ordinaria\nProcedencia: no — se reclama el pago de un servicio profesional prestado, sin que se alegue la vulneración concreta de un derecho fundamental propio del ámbito laboral\nPretensión: acudir a la jurisdicción ordinaria civil para el cobro del servicio prestado"
         },
         {
           "fila": 39,
           "columna": "finetuned",
-          "corrida_1": "Derecho: ninguno (art. 87 CP; Ley 1095 de 2006)\nAccionado: padre de los menores\nMecanismo: vía judicial ordinaria\nProcedencia: no — la tutela protege derechos fundamentales individuales, y el incumplimiento de la cuota alimentaria y de los derechos de visita se controvierte por el proceso de ejecución de sentencia de familia\nPretensión: acudir a la jurisdicción de familia mediante proceso de ejecución de sentencia",
-          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: padre biological\nMecanismo: vía judicial ordinaria\nProcedencia: no — la tutela protege la libertad personal y la seguridad familiar, y no el cumplimiento de un deber legal de alimentación y custodia\nPretensión: acudir a la jurisdicción competente para que se ordene el pago de la cuota de alimentos y la restitución de los derechos de los menores"
+          "corrida_1": "Derecho: ninguno (art. 87 CP; Ley 1095 de 2006)\nAccionado: padre biological\nMecanismo: vía judicial ordinaria\nProcedencia: no — la tutela no protege la ejecución de un deber legal de alimentación y custodia, sino la tutela de derechos fundamentales individuales\nPretensión: acudir a la jurisdicción competente para la ejecución de la sentencia de familia",
+          "corrida_2": "Derecho: ninguno (art. 87 CP; Ley 1095 de 2006)\nAccionado: padre biological\nMecanismo: vía judicial ordinaria\nProcedencia: no — la tutela protege la libertad personal y la seguridad familiar, derechos de terceros, y no el cumplimiento de un deber parental derivado de un acuerdo entre particulares\nPretensión: acudir a la jurisdicción competente para que se ordene el cumplimiento del acuerdo de custodia y visitas"
         },
         {
           "fila": 40,
           "columna": "finetuned",
-          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — se busca responsabilizar a la entidad por un supuesto daño moral derivado de un acto omiso, pero la tutela protege derechos en situación actual y la omisión no se acredita como causante del deceso\nPretensión: acudir a la jurisdicción competente mediante proceso de responsabilidad por omisión",
-          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — se busca responsabilizar a la entidad por omisión que derivó en la muerte, lo cual no es objeto de control de actuación administrativa\nPretensión: acudir a la jurisdicción competente para la responsabilidad por omisión que derivó en la muerte"
+          "corrida_1": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — la omisión se alega como causa de la muerte, pero no hay un derecho fundamental propio que proteger: la tutela no es el medio para discutir la responsabilidad civil de una entidad prestadora\nPretensión: acudir a la jurisdicción competente para discutir la responsabilidad civil de la EPS",
+          "corrida_2": "Derecho: ninguno (art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — se busca responsabilizar por la omisión de un acto de autorización, no la tutela de un derecho fundamental individual en situación de vulneración actual\nPretensión: acudir a la jurisdicción competente para la responsabilidad por omisión"
         },
         {
           "fila": 41,
           "columna": "finetuned",
           "corrida_1": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la respuesta se dio dentro del término legal y la entidad no incurrió en omisión, de modo que no subsiste materialmente el objeto de la petición\nPretensión: ordenar la respuesta que se solicitó en la petición",
-          "corrida_2": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la respuesta se dio dentro del término legal y la omisión de la autorización no fue arbitraria, de modo que no subsiste el perjuicio de fondo que busca la tutela\nPretensión: dejar sin efecto la tutela y ordenar el reintegro del término de respuesta"
-        },
-        {
-          "fila": 42,
-          "columna": "finetuned",
-          "corrida_1": "Derecho: ninguno (art. 87 CP; Ley 1437 de 2011)\nAccionado: Hospital público\nMecanismo: acción de cumplimiento (Ley 1437 de 2011)\nProcedencia: no — se reclama el acatamiento de una norma vigente, no la protección de un derecho fundamental individual\nPretensión: promover acción de cumplimiento para que se preste el intérprete de lengua de señas",
-          "corrida_2": "Derecho: ninguno (art. 87 CP; Ley 393 de 1997)\nAccionado: Hospital público\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — se reclama el acatamiento de una norma vigente, no la protección de un derecho fundamental individual\nPretensión: promover acción de cumplimiento para que se preste el intérprete de lengua de señas"
+          "corrida_2": "Derecho: peticion (art. 23 CP; Ley 1755 de 2015)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — la respuesta se dio dentro del término legal y la entidad no incurrió en omisión, de modo que no subsiste materialmente el objeto de la petición\nPretensión: ordenar la autorización del tratamiento solicitado"
         },
         {
           "fila": 43,
           "columna": "finetuned",
-          "corrida_1": "Derecho: libertad_personal (art. 28 CP; art. 30 CP; Ley 1095 de 2006)\nAccionado: Establecimiento penitenciario\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — se acredita la finalidad ejecutoria y el cumplimiento del encargo, de modo que no subsiste la privación de la libertad: inmediata libertad\nPretensión: interponer habeas corpus para que se ordene la libertad inmediata",
+          "corrida_1": "Derecho: libertad_personal (art. 28 CP; art. 30 CP; Ley 1095 de 2006)\nAccionado: Establecimiento penitenciario\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — se acredita la finalidad ejecutoria y el término perentorio expiró, de modo que no subsiste la carencia de autorización judicial\nPretensión: interponer habeas corpus para que se verifique la legalidad de la privación de la libertad",
           "corrida_2": "Derecho: libertad_personal (art. 28 CP; art. 30 CP; Ley 1095 de 2006)\nAccionado: Establecimiento penitenciario\nMecanismo: habeas corpus (Ley 1095 de 2006)\nProcedencia: no — se acredita la finalidad ejecutoria y el término perentorio expiró, de modo que no subsiste la carencia de autorización judicial\nPretensión: interponer habeas corpus para obtener la libertad inmediata"
         },
         {
           "fila": 44,
           "columna": "finetuned",
-          "corrida_1": "Derecho: seguridad_social (art. 47 CP; Ley 100 de 1993)\nAccionado: Fondo de pensiones\nMecanismo: acción de tutela\nProcedencia: sí — la tutela procede frente al acreedor de la pensión y se busca proteger la subsistencia frente a una enfermedad terminal\nPretensión: ordenar la asignación de la pensión de invalidez sin que prevalezca el término de estructuración",
+          "corrida_1": "Derecho: seguridad_social (art. 47 CP; Ley 100 de 1993)\nAccionado: Fondo de pensiones\nMecanismo: acción de tutela\nProcedencia: sí — la tutela procede frente al empleador y el sistema de pensiones, y el derecho a la seguridad social no puede aguardar tres o cuatro años\nPretensión: ordenar la asignación de la pensión de invalidez",
           "corrida_2": "Derecho: seguridad_social (art. 47 CP; Ley 100 de 1993)\nAccionado: Fondo de pensiones\nMecanismo: acción de tutela\nProcedencia: sí — la entidad rechazó la solicitud de una persona en situación de debilidad manifiesta y el proceso ordinario sería dilatorio\nPretensión: ordenar el reconocimiento y pago de la pensión de invalidez"
+        },
+        {
+          "fila": 45,
+          "columna": "finetuned",
+          "corrida_1": "Derecho: no determinable\nAccionado: no determinable\nMecanismo: no determinable\nProcedencia: no — la tutela protege derechos actuales y no la legalidad de un acto administrativo sobre un menor cuando él ya no está en esa condición\nPretensión: derivar la tutela a la jurisdicción laboral, donde el estudiante ya no es menor",
+          "corrida_2": "Derecho: no determinable\nAccionado: no determinable\nMecanismo: no determinable\nProcedencia: no — se reclama la nulidad de una decisión administrativa sobre un menor, pero no se acredita que la tutela sea el medio idóneo para su control: la tutela nace de la actualidad del perjuicio y de la idoneidad de la tutela frente a otros medios\nPretensión: derivar la solicitud a la jurisdicción contencioso administrativa"
         }
       ]
     },
     "abstencion_validation": {
-      "corrida_1": "20261019T163319Z",
-      "corrida_2": "20261021T115654Z",
+      "corrida_1": "20261022T035915Z",
+      "corrida_2": "20261022T044802Z",
       "artefacto": "abstencion_validation",
       "tipo": "json",
       "n_filas": 1,
       "columnas": "todas",
-      "identicas": false,
-      "diferencias": [
-        {
-          "fila": 0,
-          "columna": "abstencion_indebida",
-          "corrida_1": 0.12903225806451613,
-          "corrida_2": 0.06451612903225806
-        },
-        {
-          "fila": 0,
-          "columna": "abstenciones_indebidas",
-          "corrida_1": 4,
-          "corrida_2": 2
-        },
-        {
-          "fila": 0,
-          "columna": "indebidas_en",
-          "corrida_1": [
-            {
-              "id": "AC08",
-              "categoria": "ac_politica_discapacidad",
-              "mecanismo_gold": "accion_cumplimiento"
-            },
-            {
-              "id": "AC14",
-              "categoria": "ac_consejo_juventud",
-              "mecanismo_gold": "accion_cumplimiento"
-            },
-            {
-              "id": "VO01",
-              "categoria": "vo_restitucion_arrendamiento",
-              "mecanismo_gold": "via_ordinaria"
-            },
-            {
-              "id": "RE03",
-              "categoria": "real_cuidador_faceta_diagnostico",
-              "mecanismo_gold": "tutela"
-            }
-          ],
-          "corrida_2": [
-            {
-              "id": "AC08",
-              "categoria": "ac_politica_discapacidad",
-              "mecanismo_gold": "accion_cumplimiento"
-            },
-            {
-              "id": "VO01",
-              "categoria": "vo_restitucion_arrendamiento",
-              "mecanismo_gold": "via_ordinaria"
-            }
-          ]
-        }
-      ]
+      "identicas": true,
+      "diferencias": []
     }
   },
   "concluyente": true,

@@ -1,5 +1,5 @@
 {
-  "_corrida": "20261021T115654Z",
+  "_corrida": "20261022T044802Z",
   "_modulo": "m1",
   "_artefacto": "redaccion.json",
   "n": 109,
@@ -9,7 +9,7 @@
   "tasa_citas_intrusas": 0.0,
   "dicen_el_mecanismo": 0.9908,
   "dicen_la_procedencia": 1.0,
-  "palabras_media": 124.8,
+  "palabras_media": 126.1,
   "ejemplos_intrusas": [],
   "lectura": "`tasa_citas_intrusas` tiene que ser 0: una norma en el texto que no estaba en el bloque es una invencion de la capa de presentacion, y destruiria la medicion de alucinacion normativa del resto del proyecto. `dicen_el_mecanismo` y `dicen_la_procedencia` tienen que ser 1.0: son lo que permite que un error del triaje --- 1 de cada 8 --- siga siendo detectable por quien lee el texto."
 }

@@ -1,19 +1,18 @@
 {
-  "_corrida": "20261021T124137Z",
+  "_corrida": "20261022T093420Z",
   "_modulo": "m2",
   "_artefacto": "sesgos.json",
   "posicion": {
     "n": 12,
     "preguntas": 24,
     "ilegibles": 0,
-    "inconsistentes": 2,
-    "tasa_inconsistencia": 0.16666666666666666,
-    "preferencia_posicion_A": 0.5833333333333334,
-    "preferencia_posicion_A_lectura": "fraccion de las preguntas en que eligio la respuesta mostrada primero; 0.5 es ausencia de sesgo de posicion",
+    "inconsistentes": 0,
+    "tasa_inconsistencia": 0.0,
+    "preferencia_posicion_A": null,
+    "preferencia_posicion_A_lectura": "indefinida a proposito: con 0 inconsistentes esta fraccion vale 0.5 por construccion y no aporta nada sobre el sesgo. Lo que lo mide es `tasa_inconsistencia`.",
     "veredictos": {
-      "x": 9,
-      "inconsistente": 2,
-      "y": 1
+      "x": 10,
+      "y": 2
     },
     "detalle": [
       {
@@ -57,14 +56,14 @@
         "veredicto": "x"
       },
       {
-        "orden_1": "x",
+        "orden_1": "y",
         "orden_2": "y",
         "eligio_A": [
-          true,
+          false,
           true
         ],
-        "consistente": false,
-        "veredicto": "inconsistente"
+        "consistente": true,
+        "veredicto": "y"
       },
       {
         "orden_1": "x",
@@ -78,13 +77,13 @@
       },
       {
         "orden_1": "x",
-        "orden_2": "y",
+        "orden_2": "x",
         "eligio_A": [
           true,
-          true
+          false
         ],
-        "consistente": false,
-        "veredicto": "inconsistente"
+        "consistente": true,
+        "veredicto": "x"
       },
       {
         "orden_1": "y",

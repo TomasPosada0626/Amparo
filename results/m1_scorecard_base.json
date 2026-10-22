@@ -1,5 +1,5 @@
 {
-  "_corrida": "20261021T115654Z",
+  "_corrida": "20261022T044802Z",
   "_modulo": "m1",
   "_artefacto": "scorecard_base.json",
   "sistema": "base (sin fine-tuning)",
@@ -10,31 +10,31 @@
       "macro_f1": 0.37575700406582757,
       "baseline_mayoritaria": 0.14563106796116504,
       "soporte_por_clase": {
+        "peticion": 8,
+        "libertad_personal": 8,
+        "minimo_vital": 8,
+        "trabajo": 8,
+        "colectivos": 8,
+        "salud": 8,
         "estabilidad_laboral_reforzada": 8,
         "ninguno": 15,
-        "salud": 8,
-        "libertad_personal": 8,
         "habeas_data": 8,
-        "peticion": 8,
-        "seguridad_social": 8,
         "debido_proceso": 8,
-        "colectivos": 8,
-        "trabajo": 8,
-        "minimo_vital": 8,
+        "seguridad_social": 8,
         "educacion": 8
       },
       "f1_por_clase": {
+        "peticion": 0.0,
+        "libertad_personal": 0.9333,
+        "minimo_vital": 0.0,
+        "trabajo": 0.5714,
+        "colectivos": 0.0,
+        "salud": 0.4706,
         "estabilidad_laboral_reforzada": 0.4324,
         "ninguno": 0.125,
-        "salud": 0.4706,
-        "libertad_personal": 0.9333,
         "habeas_data": 0.5,
-        "peticion": 0.0,
-        "seguridad_social": 0.4848,
         "debido_proceso": 0.2222,
-        "colectivos": 0.0,
-        "trabajo": 0.5714,
-        "minimo_vital": 0.0,
+        "seguridad_social": 0.4848,
         "educacion": 0.7692
       },
       "clases_con_soporte_minimo": []
@@ -44,18 +44,18 @@
       "macro_f1": 0.19171171171171172,
       "baseline_mayoritaria": 0.44660194174757284,
       "soporte_por_clase": {
-        "accion_popular": 8,
-        "via_ordinaria": 33,
-        "habeas_corpus": 8,
         "accion_cumplimiento": 8,
-        "tutela": 46
+        "habeas_corpus": 8,
+        "accion_popular": 8,
+        "tutela": 46,
+        "via_ordinaria": 33
       },
       "f1_por_clase": {
-        "accion_popular": 0.0,
-        "via_ordinaria": 0.0,
-        "habeas_corpus": 0.4,
         "accion_cumplimiento": 0.0,
-        "tutela": 0.5586
+        "habeas_corpus": 0.4,
+        "accion_popular": 0.0,
+        "tutela": 0.5586,
+        "via_ordinaria": 0.0
       },
       "clases_con_soporte_minimo": []
     },
@@ -399,6 +399,107 @@
       "n": 39,
       "acierto_juridico": 0.0
     }
+  },
+  "recall_clase_critica": {
+    "clases": [
+      "habeas_corpus",
+      "tutela"
+    ],
+    "por_que_estas": "un falso negativo en `habeas_corpus` o `tutela` le niega proteccion a alguien: lo manda a la via ordinaria cuando no tenia otro medio eficaz. El error inverso cuesta un trámite. Las demas clases no entran: su falso negativo manda a otra accion constitucional, no deja sin ninguna.",
+    "por_clase": {
+      "habeas_corpus": {
+        "soporte": 8,
+        "aciertos": 2,
+        "recall": 0.25,
+        "ic": {
+          "n": 8,
+          "punto": 0.25,
+          "ic_bajo": 0.0,
+          "ic_alto": 0.5,
+          "amplitud": 0.5,
+          "nivel": 0.95,
+          "metodo": "bootstrap_percentil",
+          "remuestreos": 2000,
+          "semilla": 42
+        },
+        "fallos": [
+          34,
+          43,
+          47,
+          48,
+          50,
+          51
+        ],
+        "a_que_fueron": {
+          "None": 6
+        }
+      },
+      "tutela": {
+        "soporte": 46,
+        "aciertos": 31,
+        "recall": 0.6739,
+        "ic": {
+          "n": 46,
+          "punto": 0.6739,
+          "ic_bajo": 0.5435,
+          "ic_alto": 0.8043,
+          "amplitud": 0.2609,
+          "nivel": 0.95,
+          "metodo": "bootstrap_percentil",
+          "remuestreos": 2000,
+          "semilla": 42
+        },
+        "fallos": [
+          1,
+          2,
+          5,
+          11,
+          18,
+          20,
+          22,
+          23,
+          64,
+          78,
+          91,
+          93,
+          96,
+          97,
+          101
+        ],
+        "a_que_fueron": {
+          "None": 15
+        }
+      }
+    },
+    "soporte_total": 54,
+    "recall_agregado": 0.6111,
+    "ic_agregado": {
+      "n": 54,
+      "punto": 0.6111,
+      "ic_bajo": 0.4815,
+      "ic_alto": 0.7407,
+      "amplitud": 0.2593,
+      "nivel": 0.95,
+      "metodo": "bootstrap_percentil",
+      "remuestreos": 2000,
+      "semilla": 42
+    },
+    "lectura": "es la cifra que hay que mirar antes de la accuracy. Con soportes de dos digitos un caso vale varios puntos, asi que se publica con intervalo; y `a_que_fueron` dice a donde se desvio cada fallo, porque mandar un habeas corpus a tutela no es lo mismo que mandarlo a la via ordinaria."
+  },
+  "pertinencia_citas_depurada": {
+    "citas_emitidas": 0,
+    "correctas": 0,
+    "impertinentes": 0,
+    "inventadas": 0,
+    "incompletas": 0,
+    "precision_citas": 0.0,
+    "recall_citas": 0.0,
+    "ejemplos_impertinentes": [],
+    "citas_quitadas": 0,
+    "quitadas_por_norma": {},
+    "que_se_quito": "normas puramente procesales citadas en el slot del DERECHO de un caso cuyo mecanismo NO es el suyo --- el art. 6.1, que es subsidiariedad, sobre una tutela que procede. No se quita la que si corresponde al mecanismo emitido: el gold tiene un solo slot de fundamento, asi que para un caso de `via_ordinaria` el art. 6.1 es lo que pide.",
+    "no_anade_nada": "la capa solo QUITA. Poner la cita correcta seria que el motor decidiera el fundamento, y eso ya lo hacen los brazos hibrido y agente: seria otro brazo, no una depuracion.",
+    "comprobacion": "`acierto_juridico` tiene que salir IDENTICO con y sin depurar. Si cambia, la capa toco algo mas que las citas."
   },
   "por_fiabilidad_etiqueta": {
     "motor_de_reglas_plano": {
