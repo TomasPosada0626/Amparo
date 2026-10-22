@@ -56,7 +56,7 @@ data/preparar_subida.py 14451 8cacdec6ad58dcb7
 data/publicar_rezagados.py 4407 2c291d63ab4fb31f
 data/reparar_corpus.py 11901 1fbcac92d83f066d
 data/reparar_meta.py 5643 4c5894fb4779bc29
-data/reporte.py 85844 0b1250c1acf0c411
+data/reporte.py 86746 cda6a7a445dfc8d4
 data/reverificar_corpus.py 21098 81823de94149f6c7
 data/revision_abogado_v3.py 10681 990b382d9ffa5e24
 data/validacion_juez.py 39827 f396d6735b583b2d
@@ -75,4 +75,4 @@ data/revision_abogado_v3.json 6593 77ddde52b17e46e8
 notebooks/M1_finetuning.ipynb 105803 31b4e0b74b0e3c5a
 notebooks/M2_harness.ipynb 69163 9a7f10c682cf4d94
 notebooks/M3_rag.ipynb 80829 73288ab8b8c0e2b0
-_TOTAL 2553108 0612096fb8b8d8d7
+_TOTAL 2554010 a1866436f97f44e1

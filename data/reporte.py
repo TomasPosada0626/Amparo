@@ -1400,12 +1400,25 @@ def construir() -> list[str]:
       "juez no estuvo servido, el artefacto no existe y esta linea lo dice: "
       "publicar un archivo vacio seria peor que no publicarlo.")
     a("")
-    a("**Determinismo.** `m2_determinismo_juez.json`: "
-      f"`deterministico: {d('m2_determinismo_juez.json', 'deterministico')}` "
-      f"sobre {d('m2_determinismo_juez.json', 'repeticiones')} llamadas "
-      "reales, sin cache. Si el juez no repite su propia nota con "
-      "temperature=0, su nota tiene varianza propia y las comparaciones de "
-      "pocas decimas no son interpretables.")
+    # LA RESOLUCION, NO UN BOOLEANO. Esto leia `deterministico`, una clave
+    # que `determinismo_lote` retiro a proposito: mide 5 casos x 4
+    # repeticiones y un si/no no resume eso. El reporte la marcaba como
+    # ausente --- correcto, no se la invento --- pero dejaba sin publicar la
+    # cifra que si existe y que es la que limita lo que se puede afirmar.
+    a("**Determinismo del juez.** `m2_determinismo_juez.json`: "
+      f"**{d('m2_determinismo_juez.json', 'casos_estables')}** de "
+      f"{d('m2_determinismo_juez.json', 'n_casos')} casos dan la misma nota "
+      f"en {d('m2_determinismo_juez.json', 'repeticiones')} repeticiones sin "
+      f"cache (rango medio {d('m2_determinismo_juez.json', 'rango_medio')}, "
+      f"maximo {d('m2_determinismo_juez.json', 'rango_maximo')}). "
+      f"{d('m2_determinismo_juez.json', 'resolucion')}")
+    a("")
+    a("Eso es la **resolucion del instrumento**, y es lo que limita que se "
+      "puede leer de las notas: una diferencia entre dos sistemas menor que "
+      "ese rango no se distingue del ruido del propio juez. La version "
+      "anterior publicaba un booleano `deterministico`, que decia que el juez "
+      "varia sin decir cuanto --- y sin el cuanto no se puede responder la "
+      "unica pregunta que importa aguas abajo.")
     a("")
     a("**Auto-preferencia.** `m2_sesgo_autopreferencia.json` condiciona en la "
       "verdad de dominio para separar «premia a su familia» de «acierta»: "
