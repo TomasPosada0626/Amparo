@@ -13,7 +13,7 @@ Después de subir, en **cada** notebook, antes de correr nada:
 Tiene que imprimir exactamente:
 
 ```
-_TOTAL  2538795 bytes  e29967cfef8e7e5e
+_TOTAL  2545138 bytes  7b75680429404e9c
 ```
 
 Si no coincide, **no arranques**: la salida del manifiesto nombra el archivo que difiere. Correr con un `src/` distinto del que se reporta no produce un resultado peor, produce un resultado que no se puede atribuir a ningún código.
@@ -22,7 +22,7 @@ Este script no ve Drive y no puede decir que esté al día. Deja la huella esper
 
 ## 2 · Qué archivos tienen que viajar
 
-**13 archivos** cambiaron desde la última subida sellada. Cada uno viaja **completo**, sustituyendo el de Drive — no se pegan celdas sueltas:
+**14 archivos** cambiaron desde la última subida sellada. Cada uno viaja **completo**, sustituyendo el de Drive — no se pegan celdas sueltas:
 
 | archivo | bytes | huella | estado |
 |---|---|---|---|
@@ -30,15 +30,28 @@ Este script no ve Drive y no puede decir que esté al día. Deja la huella esper
 | `data/autoprueba_reporte.py` | 20750 | `8368eb0464704cb9` | cambiado |
 | `data/doble_anotacion.py` | 35350 | `5e083e82e75753f2` | cambiado |
 | `data/manifiesto.py` | 13997 | `975e9652fdbd8321` | cambiado |
-| `data/preparar_subida.py` | 12938 | `064ca4e6ed1ee10a` | cambiado |
+| `data/preparar_subida.py` | 14451 | `8cacdec6ad58dcb7` | cambiado |
 | `data/reporte.py` | 85844 | `0b1250c1acf0c411` | cambiado |
 | `data/validacion_juez.py` | 39827 | `f396d6735b583b2d` | cambiado |
 | `notebooks/M1_finetuning.ipynb` | 105805 | `e59a1198a5ead71d` | cambiado |
-| `src/agente.py` | 50600 | `69233240dfb87e9a` | cambiado |
-| `src/arranque.py` | 16431 | `fc15ac1f0cdac2b2` | cambiado |
+| `notebooks/M3_rag.ipynb` | 80829 | `73288ab8b8c0e2b0` | cambiado |
+| `src/agente.py` | 51307 | `fe95974053601dcc` | cambiado |
+| `src/arranque.py` | 16685 | `a5b48e8b6750bf2a` | cambiado |
 | `src/autoprueba_integracion.py` | 146936 | `8fe5e553a7afe3c3` | cambiado |
 | `src/schema.py` | 37951 | `2e92783ca6bbd1ce` | cambiado |
 | `src/terminos.py` | 13010 | `ab3db24fd44bc4f0` | cambiado |
+
+### Y el sello, que no sale en la tabla
+
+`data/manifiesto.py` cubre `data/*.py` y `data/*.json`, así que `data/subida_sellada.txt` no aparece arriba — y es **el único archivo que la celda 4 de los notebooks lee** para comprobar que Drive está al día. El orden importa:
+
+```
+python -I data/preparar_subida.py --sellar   # 1. sella el estado local
+```
+
+y después sube **los archivos de la tabla más `data/subida_sellada.txt`**. Se sella antes de subir porque el sello describe lo que vas a poner en Drive, no lo que ya estaba.
+
+Si lo olvidas no pasa nada silencioso: la celda 4 para la corrida y nombra como desincronizados los archivos que sí subiste. El síntoma apunta al sitio equivocado, y por eso se avisa aquí.
 
 No subas `__pycache__/`.
 
@@ -62,7 +75,7 @@ No subas `__pycache__/`.
 
 - duracion: ~45 min
 - necesita: results/m1_predicciones.json, GROQ_API_KEY, data/corpus.json
-- produce 13 artefactos en `results/`
+- produce 14 artefactos en `results/`
 - **No depende de M2. Guarda checkpoint entre brazos, asi que un fallo en el brazo 4 no se lleva los anteriores.**
 
 > ### M1 va DOS veces, y las dos en la misma sesion
@@ -91,8 +104,8 @@ python -I data/reporte.py             # escribe REPORTE.md
 
 | archivo | bytes | huella |
 |---|---|---|
-| `src/agente.py` | 50600 | `69233240dfb87e9a` |
-| `src/arranque.py` | 16431 | `fc15ac1f0cdac2b2` |
+| `src/agente.py` | 51307 | `fe95974053601dcc` |
+| `src/arranque.py` | 16685 | `a5b48e8b6750bf2a` |
 | `src/autoprueba_agente.py` | 7608 | `79d55fde59970603` |
 | `src/autoprueba_integracion.py` | 146936 | `8fe5e553a7afe3c3` |
 | `src/corridas.py` | 22726 | `40c91e3784194799` |
@@ -143,7 +156,7 @@ python -I data/reporte.py             # escribe REPORTE.md
 | `data/nuevos_c.py` | 13694 | `3a57e1b91b08a152` |
 | `data/nuevos_d.py` | 9655 | `371017cefe4438ef` |
 | `data/pares_minimos.py` | 35624 | `d65ad8469271c774` |
-| `data/preparar_subida.py` | 12938 | `064ca4e6ed1ee10a` |
+| `data/preparar_subida.py` | 14451 | `8cacdec6ad58dcb7` |
 | `data/publicar_rezagados.py` | 4407 | `2c291d63ab4fb31f` |
 | `data/reparar_corpus.py` | 11901 | `1fbcac92d83f066d` |
 | `data/reparar_meta.py` | 5643 | `4c5894fb4779bc29` |
@@ -165,6 +178,6 @@ python -I data/reporte.py             # escribe REPORTE.md
 | `data/revision_abogado_v3.json` | 6593 | `77ddde52b17e46e8` |
 | `notebooks/M1_finetuning.ipynb` | 105805 | `e59a1198a5ead71d` |
 | `notebooks/M2_harness.ipynb` | 65576 | `2a61240c93144a70` |
-| `notebooks/M3_rag.ipynb` | 76960 | `a4b4f52e65b9e0b3` |
+| `notebooks/M3_rag.ipynb` | 80829 | `73288ab8b8c0e2b0` |
 
-**75 archivos · 2538795 bytes · `e29967cfef8e7e5e`**
+**75 archivos · 2545138 bytes · `7b75680429404e9c`**

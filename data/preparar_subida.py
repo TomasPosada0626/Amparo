@@ -240,6 +240,35 @@ def construir(dif: dict) -> list[str]:
           "existen aquí; si siguen en Drive, bórralos: "
           + ", ".join(f"`{r}`" for r in dif["borrados"]))
         a("")
+    # EL SELLO VIAJA, Y VA EN LA LISTA.
+    #
+    # Es un `.txt`, el manifiesto cubre `.py` y `.json`, asi que nunca entra
+    # en el diff --- y es el unico archivo que la celda 4 de los notebooks
+    # LEE para comprobar que Drive esta al dia. Sin el, se suben los archivos
+    # que la lista nombra, el sello de Drive sigue siendo el viejo, y la celda
+    # 4 denuncia como desincronizados exactamente los que si se subieron.
+    # Una falsa alarma que cuesta una sesion y manda a buscar donde no hay
+    # nada.
+    if dif["a_subir"]:
+        a("### Y el sello, que no sale en la tabla")
+        a("")
+        a("`data/manifiesto.py` cubre `data/*.py` y `data/*.json`, así que "
+          "`data/subida_sellada.txt` no aparece arriba — y es **el único "
+          "archivo que la celda 4 de los notebooks lee** para comprobar que "
+          "Drive está al día. El orden importa:")
+        a("")
+        a("```")
+        a("python -I data/preparar_subida.py --sellar   # 1. sella el estado local")
+        a("```")
+        a("")
+        a("y después sube **los archivos de la tabla más "
+          "`data/subida_sellada.txt`**. Se sella antes de subir porque el "
+          "sello describe lo que vas a poner en Drive, no lo que ya estaba.")
+        a("")
+        a("Si lo olvidas no pasa nada silencioso: la celda 4 para la corrida "
+          "y nombra como desincronizados los archivos que sí subiste. El "
+          "síntoma apunta al sitio equivocado, y por eso se avisa aquí.")
+        a("")
     a("No subas `__pycache__/`.")
     a("")
 
