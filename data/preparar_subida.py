@@ -34,6 +34,7 @@ de listar los 40 archivos como si todos hicieran falta.
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -114,6 +115,69 @@ def _bloque_orden() -> list[str]:
     return L
 
 
+def _m1_dos_veces() -> list[str]:
+    """Si la reproducibilidad de M1 sigue sin poder atribuirse, M1 va 2 veces.
+
+    LA CONDICION SE LEE DEL ARTEFACTO, NO SE ESCRIBE
+
+    `m1_estabilidad.json` compara la corrida con la anterior. Mientras no
+    tenga `mismo_codigo` **y** `mismos_datos` a la vez, un `identicas: False`
+    no se puede atribuir: puede ser no-determinismo o puede ser el cambio de
+    codigo entre las dos. Y un `identicas: True` con el codigo distinto es
+    suerte, no reproducibilidad.
+
+    Dos corridas consecutivas con `src/` intacto resuelven las dos lecturas,
+    porque entonces `identicas` significa algo en los dos sentidos:
+
+        True  -> reproducible
+        False -> no-determinismo REAL, medido, que tambien es un resultado
+
+    Cuando una corrida lo consiga, esta funcion devuelve lista vacia y el
+    bloque desaparece de SUBIR.md. Es lo que impide que una instruccion
+    generada se quede caducada dentro del archivo que alguien sigue al pie de
+    la letra.
+    """
+    p = RAIZ / "results" / "m1_estabilidad.json"
+    if not p.exists():
+        return []
+    try:
+        e = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:                                      # noqa: BLE001
+        return []
+    if e.get("mismo_codigo") is True and e.get("mismos_datos") is True:
+        return []       # ya esta resuelto: una corrida basta
+    return [
+        "> ### M1 va DOS veces, y las dos en la misma sesion",
+        ">",
+        f"> La ultima comparacion de estabilidad "
+        f"(`{e.get('corrida_previa')}` vs `{e.get('corrida_actual')}`) salio "
+        f"con `identicas: {e.get('identicas')}`, "
+        f"`mismo_codigo: {e.get('mismo_codigo')}` y "
+        f"`mismos_datos: {e.get('mismos_datos')}`. Con el codigo distinto "
+        "entre las dos, esa diferencia **no se puede atribuir**: puede ser "
+        "no-determinismo o puede ser el cambio de codigo. Y coincidir con el "
+        "codigo distinto seria suerte, no reproducibilidad.",
+        ">",
+        "> - **corrida A** · re-ancla la huella. Su celda de estabilidad "
+        "volvera a decir `mismo_codigo: false` y eso es lo esperado: compara "
+        "contra una corrida anterior al cambio.",
+        "> - **corrida B** · compara contra A, con el mismo codigo. Esta es "
+        "la que responde, y lo hace en los dos sentidos: identicas significa "
+        "reproducible, y distintas significa no-determinismo medido.",
+        ">",
+        "> **Las dos en la MISMA sesion de Colab, sin reiniciar el entorno.** "
+        "`estabilidad` compara tambien el hardware (`mismo_hardware`, por "
+        "nombre de GPU). Si la sesion se cae en medio y Colab asigna otra "
+        "GPU, la diferencia vuelve a tener dos explicaciones y se pierde la "
+        "corrida.",
+        ">",
+        "> **Y M2 va despues de B, no de A**: lee "
+        "`results/m1_predicciones.json`, que B sobrescribe. Corrido entre las "
+        "dos, el juez puntuaria predicciones que el reporte no va a citar.",
+        "",
+    ]
+
+
 def construir(dif: dict) -> list[str]:
     L: list[str] = []
     a = L.append
@@ -182,7 +246,8 @@ def construir(dif: dict) -> list[str]:
     a("## 3 · El orden, y por qué es ese")
     a("")
     L += _bloque_orden()
-    a("Los tres se corren **seguidos y sin tocar nada en medio**. Cambiar "
+    L += _m1_dos_veces()
+    a("Se corren **seguidos y sin tocar nada en medio**. Cambiar "
       "`src/` entre M1 y M3 cambia la huella de código, y entonces "
       "`verificar_entrega.py` marca —con razón— que las corridas no son del "
       "mismo experimento.")
