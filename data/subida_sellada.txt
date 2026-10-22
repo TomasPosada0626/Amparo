@@ -1,9 +1,9 @@
 # Manifiesto sellado como SUBIDO. Lo genera `preparar_subida.py --sellar`.
 # No se edita a mano: si no refleja lo que esta en Drive, el diff miente.
-src/agente.py 48639 247a067e31f2d97e
-src/arranque.py 15735 c2e1bbffe7b9d13b
+src/agente.py 51307 fe95974053601dcc
+src/arranque.py 16685 a5b48e8b6750bf2a
 src/autoprueba_agente.py 7608 79d55fde59970603
-src/autoprueba_integracion.py 136473 3a5c7c8c1f3a6f5f
+src/autoprueba_integracion.py 150451 652eb1b23d2c267d
 src/corridas.py 22726 40c91e3784194799
 src/costos.py 10456 51c3d67a92871c8f
 src/harness.py 45681 cf5aaa69cb50f921
@@ -13,9 +13,9 @@ src/rag.py 36243 8c1355eee23a502c
 src/ragas_eval.py 11065 1b522e3f52ae02d7
 src/redaccion.py 11009 3d97788aa4b2a345
 src/reglas.py 20577 7fbb779af28f8cb5
-src/schema.py 33352 42263e37f72d59a7
+src/schema.py 37951 2e92783ca6bbd1ce
 src/sistema.py 37455 112650e9a547f6c2
-src/terminos.py 12160 eeb53cf95df80c6e
+src/terminos.py 13010 ab3db24fd44bc4f0
 src/tokenizadores.py 9725 1020d269516503fb
 data/ampliar_categorias.py 19615 e8efa777c6718589
 data/ampliar_corpus.py 17490 763a1863abffa07c
@@ -29,7 +29,8 @@ data/auditar_cobertura.py 8326 97139be7586fbfd5
 data/auditar_corpus.py 8297 e7aa334303268801
 data/auditar_notebooks.py 18311 5a71ea21d021d84c
 data/auditar_proyecto.py 15496 770294249bd3f0e6
-data/autoprueba_reporte.py 16530 49acfb06a9eae06f
+data/auditar_tool_use.py 9850 a2f73d7792e2acbe
+data/autoprueba_reporte.py 20750 8368eb0464704cb9
 data/calibracion_juez.py 18070 1d3e2576517c18ee
 data/casos_reales.py 16822 ac9d1ef1123e9326
 data/codificar_hechos_dataset.py 17101 33f74b1d9ddf6883
@@ -41,9 +42,9 @@ data/construir_eval_m3_terminos.py 14253 b9328467e077f02a
 data/construir_eval_v2.py 37006 bba451dabd7677bd
 data/descomponer_baseline.py 7934 58aa455723ac5b0c
 data/diagnostico_cumplimiento.py 11752 93bb3008c9dc896c
-data/doble_anotacion.py 26049 f1ae4702739b125d
+data/doble_anotacion.py 35350 5e083e82e75753f2
 data/formularios.py 12508 5c997e1d98f28b1b
-data/manifiesto.py 13791 eeff62ecaef3817b
+data/manifiesto.py 14867 12d6817b8e779127
 data/medir_metricas_nuevas.py 6129 b93d8f4c6763b88f
 data/medir_redaccion.py 8397 615e6377a5cf2d5e
 data/nuevos_a.py 30974 3ac26573e786722c
@@ -51,14 +52,14 @@ data/nuevos_b.py 37186 25c29a638a1bfbc5
 data/nuevos_c.py 13694 3a57e1b91b08a152
 data/nuevos_d.py 9655 371017cefe4438ef
 data/pares_minimos.py 35624 d65ad8469271c774
-data/preparar_subida.py 9877 37f79abf7fdeab20
+data/preparar_subida.py 14451 8cacdec6ad58dcb7
 data/publicar_rezagados.py 4407 2c291d63ab4fb31f
 data/reparar_corpus.py 11901 1fbcac92d83f066d
 data/reparar_meta.py 5643 4c5894fb4779bc29
-data/reporte.py 70595 d5b990c1c94e63a8
+data/reporte.py 85844 0b1250c1acf0c411
 data/reverificar_corpus.py 21098 81823de94149f6c7
 data/revision_abogado_v3.py 10681 990b382d9ffa5e24
-data/validacion_juez.py 36408 81e63de887f175e1
+data/validacion_juez.py 39827 f396d6735b583b2d
 data/validar_extractor.py 16624 4c689d526ae16045
 data/verificar_entrega.py 11807 1cfee21fd8aa9f36
 data/corpus.json 125864 391ea7d3c7c61bc5
@@ -71,7 +72,7 @@ data/fixtures_salidas.json 4741 5c84738544707c97
 data/inyecciones.json 21555 7b50eedf62875fd1
 data/normas.json 6784 eeb451b814fa25b7
 data/revision_abogado_v3.json 6593 77ddde52b17e46e8
-notebooks/M1_finetuning.ipynb 99406 5364c0be530a925a
+notebooks/M1_finetuning.ipynb 105803 31b4e0b74b0e3c5a
 notebooks/M2_harness.ipynb 65576 2a61240c93144a70
-notebooks/M3_rag.ipynb 76960 a4b4f52e65b9e0b3
-_TOTAL 2468521 d965e5142f42eeb1
+notebooks/M3_rag.ipynb 80829 73288ab8b8c0e2b0
+_TOTAL 2549521 8c909fd39bb7faff

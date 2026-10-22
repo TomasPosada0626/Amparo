@@ -164,10 +164,25 @@ def _canonico(p: Path) -> bytes:
         # ninguna cifra --- y costo una ronda de subida. Es ruido de la misma
         # clase que las `outputs` y los ids, asi que se normaliza igual: una
         # celda editada sigue moviendo la huella; pegarla, no.
+        # SE NORMALIZA EN BUCLE, y la primera version no lo hacia.
+        #
+        # Quitaba el salto de la ULTIMA linea y, si quedaba vacia, la
+        # eliminaba --- y ahi paraba. Un escritor que deja un elemento vacio
+        # al final (`texto.split("\n")` lo produce siempre que el texto
+        # termine en salto) hacia que al eliminar ese vacio el `\n` de la
+        # linea de verdad ya no se normalizase. Medido: el MISMO notebook daba
+        # 105805 escrito por nosotros y 105803 guardado por Colab, y la celda
+        # 4 paro una corrida por esos dos bytes --- el segundo caso de esta
+        # misma clase, despues del de `M2_harness.ipynb` ---.
+        #
+        # Con el bucle los dos escritores convergen: da igual si el source
+        # acaba en ["x\n"], en ["x\n", ""] o en ["x"].
         if isinstance(celda.get("source"), list) and celda["source"]:
             celda["source"] = [ln for ln in celda["source"]]
-            celda["source"][-1] = celda["source"][-1].rstrip("\r\n")
-            if not celda["source"][-1]:
+            while celda["source"]:
+                celda["source"][-1] = celda["source"][-1].rstrip("\r\n")
+                if celda["source"][-1]:
+                    break
                 celda["source"].pop()
     nb.pop("metadata", None)
     return json.dumps(nb, ensure_ascii=False, sort_keys=True,

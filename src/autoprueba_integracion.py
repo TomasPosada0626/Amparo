@@ -2702,6 +2702,89 @@ def t_sonda_validez_ejecuta():
             "escenarios (margenes variados e iguales), 16 llamadas, sin API")
 
 
+@prueba("la huella de un notebook no depende de quien lo escribio")
+def t_canonico_convergente():
+    """Dos bytes que pararon una corrida, dos veces.
+
+    EL FALLO
+
+    `manifiesto._canonico` quitaba el salto de linea de la ULTIMA linea de
+    cada celda y, si quedaba vacia, la eliminaba --- y ahi paraba. Un escritor
+    que deja un elemento vacio al final deja el `\n` de la linea de verdad sin
+    normalizar, porque el vacio lo escudaba del `rstrip`.
+
+    Y `texto.split("\n")` produce ese vacio SIEMPRE que el texto termine en
+    salto, que es como se escribe un script normal. Asi que el mismo notebook
+    pesaba 105805 escrito por nosotros y 105803 guardado por Colab, y la celda
+    4 de M1 paro la corrida nombrando un archivo que estaba bien subido. Es la
+    segunda vez: la primera fue `M2_harness.ipynb`, 48257 contra 48255.
+
+    QUE SE FIJA
+
+    Para los tres notebooks reales, que las tres formas de escribir el mismo
+    contenido den la MISMA huella:
+
+        ["x\n"]        como lo guarda nbformat/Colab
+        ["x\n", ""]    como lo deja `split("\n")`
+        ["x"]          sin salto final
+
+    Si alguna divergiera, el guardian se dispararia sin que nadie edite nada
+    --- y un guardian que salta solo ensena a ignorarlo, que es peor que no
+    tenerlo.
+    """
+    import copy
+    import json as _json
+    import tempfile
+    sys.path.insert(0, str(DATA))
+    import manifiesto as man
+
+    for nombre in ("M1_finetuning", "M2_harness", "M3_rag"):
+        p = RAIZ / "notebooks" / f"{nombre}.ipynb"
+        base = man._canonico(p)
+        nb = _json.loads(p.read_bytes())
+
+        variantes = {}
+        # a) estilo nbformat: cada linea con su salto, la ultima como venga.
+        v = copy.deepcopy(nb)
+        for c in v["cells"]:
+            if isinstance(c.get("source"), list) and c["source"]:
+                c["source"] = "".join(c["source"]).splitlines(keepends=True)
+        variantes["nbformat"] = v
+        # b) estilo `split("\n")`: elemento vacio al final si termina en salto.
+        v = copy.deepcopy(nb)
+        for c in v["cells"]:
+            if isinstance(c.get("source"), list) and c["source"]:
+                ls = "".join(c["source"]).split("\n")
+                c["source"] = [x + "\n" for x in ls[:-1]] + [ls[-1]]
+        variantes["split"] = v
+        # c) sin ningun salto final.
+        v = copy.deepcopy(nb)
+        for c in v["cells"]:
+            if isinstance(c.get("source"), list) and c["source"]:
+                ls = "".join(c["source"]).splitlines()
+                c["source"] = [x + "\n" for x in ls[:-1]] + ([ls[-1]] if ls else [])
+        variantes["sin_salto"] = v
+
+        tmp = Path(tempfile.mkdtemp(prefix="prueba_canon_"))
+        try:
+            for etiqueta, v in variantes.items():
+                q = tmp / f"{etiqueta}.ipynb"
+                q.write_text(_json.dumps(v, ensure_ascii=False, indent=1) + "\n",
+                             encoding="utf-8")
+                assert man._canonico(q) == base, (
+                    f"{nombre}: la variante `{etiqueta}` da "
+                    f"{len(man._canonico(q))} bytes canonicos y el archivo da "
+                    f"{len(base)}. La huella depende de quien escribio el "
+                    "notebook, asi que el guardian se dispara sin que nadie "
+                    "edite nada.")
+        finally:
+            import shutil
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    return ("3 notebooks x 3 formas de escribir el source -> la misma huella "
+            "canonica")
+
+
 @prueba("el few-shot del baseline no filtra el eval ni ensena una clase")
 def t_few_shot():
     """El brazo que le quita al baseline la excusa del formato.
