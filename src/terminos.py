@@ -285,11 +285,22 @@ ESQUEMA_TOOL = {
     "type": "function",
     "function": {
         "name": "calcular_termino",
+        # LA DESCRIPCION SE LEE ANTES DEL PROMPT, asi que tenia que decir lo
+        # mismo. Decia «Invocala SOLO si...» y pedia «una fecha o una
+        # duracion»: medido, 5 de los 10 casos elegibles no la llamaron y
+        # cuatro de los cinco traian la fecha en relativo ---«hace cuatro
+        # dias», «hace dos meses»---, que `leer_fecha` resuelve sin problema.
+        # El quinto traia dos fechas explicitas y la entidad ya habia
+        # respondido, que es el caso en el que mas falta hace.
         "description": (
             "Calcula si un término legal colombiano ya venció, contando días hábiles "
-            "con los festivos del país. Invócala SOLO si el relato menciona una fecha "
-            "o una duración Y el caso involucra un término legal (petición, fallo de "
-            "tutela, impugnación, cumplimiento). No la uses para estimar nada más."),
+            "con los festivos del país. Invócala cuando el relato diga CUÁNDO pasó "
+            "algo y haya un término legal en juego (petición, fallo de tutela, "
+            "impugnación, cumplimiento). Una duración relativa sirve igual que una "
+            "fecha: «hace cuatro días», «hace dos meses» y «el 3 de marzo de 2026» "
+            "se resuelven las tres. Y el término sigue en juego aunque la entidad ya "
+            "haya respondido: si respondió dentro del plazo o fuera de él es "
+            "precisamente lo que esto decide. No la uses para estimar nada más."),
         "parameters": {
             "type": "object",
             "properties": {

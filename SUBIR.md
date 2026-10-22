@@ -13,7 +13,7 @@ Después de subir, en **cada** notebook, antes de correr nada:
 Tiene que imprimir exactamente:
 
 ```
-_TOTAL  2525928 bytes  3bacddebb7005ccd
+_TOTAL  2538795 bytes  e29967cfef8e7e5e
 ```
 
 Si no coincide, **no arranques**: la salida del manifiesto nombra el archivo que difiere. Correr con un `src/` distinto del que se reporta no produce un resultado peor, produce un resultado que no se puede atribuir a ningún código.
@@ -22,19 +22,23 @@ Este script no ve Drive y no puede decir que esté al día. Deja la huella esper
 
 ## 2 · Qué archivos tienen que viajar
 
-**9 archivos** cambiaron desde la última subida sellada. Cada uno viaja **completo**, sustituyendo el de Drive — no se pegan celdas sueltas:
+**13 archivos** cambiaron desde la última subida sellada. Cada uno viaja **completo**, sustituyendo el de Drive — no se pegan celdas sueltas:
 
 | archivo | bytes | huella | estado |
 |---|---|---|---|
+| `data/auditar_tool_use.py` | 9850 | `a2f73d7792e2acbe` | nuevo |
 | `data/autoprueba_reporte.py` | 20750 | `8368eb0464704cb9` | cambiado |
 | `data/doble_anotacion.py` | 35350 | `5e083e82e75753f2` | cambiado |
+| `data/manifiesto.py` | 13997 | `975e9652fdbd8321` | cambiado |
 | `data/preparar_subida.py` | 12938 | `064ca4e6ed1ee10a` | cambiado |
 | `data/reporte.py` | 85844 | `0b1250c1acf0c411` | cambiado |
 | `data/validacion_juez.py` | 39827 | `f396d6735b583b2d` | cambiado |
 | `notebooks/M1_finetuning.ipynb` | 105805 | `e59a1198a5ead71d` | cambiado |
+| `src/agente.py` | 50600 | `69233240dfb87e9a` | cambiado |
 | `src/arranque.py` | 16431 | `fc15ac1f0cdac2b2` | cambiado |
 | `src/autoprueba_integracion.py` | 146936 | `8fe5e553a7afe3c3` | cambiado |
 | `src/schema.py` | 37951 | `2e92783ca6bbd1ce` | cambiado |
+| `src/terminos.py` | 13010 | `ab3db24fd44bc4f0` | cambiado |
 
 No subas `__pycache__/`.
 
@@ -87,7 +91,7 @@ python -I data/reporte.py             # escribe REPORTE.md
 
 | archivo | bytes | huella |
 |---|---|---|
-| `src/agente.py` | 48639 | `247a067e31f2d97e` |
+| `src/agente.py` | 50600 | `69233240dfb87e9a` |
 | `src/arranque.py` | 16431 | `fc15ac1f0cdac2b2` |
 | `src/autoprueba_agente.py` | 7608 | `79d55fde59970603` |
 | `src/autoprueba_integracion.py` | 146936 | `8fe5e553a7afe3c3` |
@@ -102,7 +106,7 @@ python -I data/reporte.py             # escribe REPORTE.md
 | `src/reglas.py` | 20577 | `7fbb779af28f8cb5` |
 | `src/schema.py` | 37951 | `2e92783ca6bbd1ce` |
 | `src/sistema.py` | 37455 | `112650e9a547f6c2` |
-| `src/terminos.py` | 12160 | `eeb53cf95df80c6e` |
+| `src/terminos.py` | 13010 | `ab3db24fd44bc4f0` |
 | `src/tokenizadores.py` | 9725 | `1020d269516503fb` |
 | `data/ampliar_categorias.py` | 19615 | `e8efa777c6718589` |
 | `data/ampliar_corpus.py` | 17490 | `763a1863abffa07c` |
@@ -116,6 +120,7 @@ python -I data/reporte.py             # escribe REPORTE.md
 | `data/auditar_corpus.py` | 8297 | `e7aa334303268801` |
 | `data/auditar_notebooks.py` | 18311 | `5a71ea21d021d84c` |
 | `data/auditar_proyecto.py` | 15496 | `770294249bd3f0e6` |
+| `data/auditar_tool_use.py` | 9850 | `a2f73d7792e2acbe` |
 | `data/autoprueba_reporte.py` | 20750 | `8368eb0464704cb9` |
 | `data/calibracion_juez.py` | 18070 | `1d3e2576517c18ee` |
 | `data/casos_reales.py` | 16822 | `ac9d1ef1123e9326` |
@@ -130,7 +135,7 @@ python -I data/reporte.py             # escribe REPORTE.md
 | `data/diagnostico_cumplimiento.py` | 11752 | `93bb3008c9dc896c` |
 | `data/doble_anotacion.py` | 35350 | `5e083e82e75753f2` |
 | `data/formularios.py` | 12508 | `5c997e1d98f28b1b` |
-| `data/manifiesto.py` | 13791 | `eeff62ecaef3817b` |
+| `data/manifiesto.py` | 13997 | `975e9652fdbd8321` |
 | `data/medir_metricas_nuevas.py` | 6129 | `b93d8f4c6763b88f` |
 | `data/medir_redaccion.py` | 8397 | `615e6377a5cf2d5e` |
 | `data/nuevos_a.py` | 30974 | `3ac26573e786722c` |
@@ -162,4 +167,4 @@ python -I data/reporte.py             # escribe REPORTE.md
 | `notebooks/M2_harness.ipynb` | 65576 | `2a61240c93144a70` |
 | `notebooks/M3_rag.ipynb` | 76960 | `a4b4f52e65b9e0b3` |
 
-**74 archivos · 2525928 bytes · `3bacddebb7005ccd`**
+**75 archivos · 2538795 bytes · `e29967cfef8e7e5e`**

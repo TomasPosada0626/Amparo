@@ -41,6 +41,10 @@ RAIZ = Path(__file__).resolve().parent.parent
 # legitimas entre una corrida y otra.
 PATRONES = ("src/*.py", "data/*.py", "data/*.json", "notebooks/*.ipynb")
 EXCLUIR = {"reverificacion_corpus.json", "acuerdo_anotadores.json",
+           # Derivado de `m3_agente_trazas.json` por
+           # `auditar_tool_use.py`: no es una fuente, es una lectura de
+           # los artefactos de una corrida.
+           "tool_use_auditado.json",
            "calibracion_juez.json",
            # Auditorias DERIVADAS del corpus y los eval sets. Van en `data/`
            # porque son propiedades de los datos, no de una corrida, pero no

@@ -62,7 +62,31 @@ import schema
 import terminos
 from reglas import HECHOS_EXTRAIBLES, Hechos, decidir
 
-MAX_PASOS = 5
+MAX_PASOS = 8
+"""El techo de pasos PRODUCTIVOS de herramienta.
+
+POR QUE SUBE DE 5 A 8, Y POR QUE ESA NO ES LA RAZON QUE PARECE
+
+Medido en m3/20261021T140413Z: 65 de 130 casos (50%) agotaron los 5 pasos. El
+artefacto ya no podia publicar una media de pasos ---la declara como cota
+inferior, `pasos/caso >= 4.15`--- porque con la mitad de la muestra censurada
+en el techo, la media mide el techo y no el comportamiento.
+
+Lo que NO es la razon: «mas pasos, mejor resultado». Eso no esta medido y
+subir el techo no lo demuestra. Las busquedas improductivas ya son gratis
+---no se cobran del presupuesto, y hubo 158--- y el cierre forzado con resumen
+ya existe, asi que agotar el techo no deja al extractor a oscuras. Un caso que
+se corta en 5 no pierde informacion: pierde la posibilidad de MEDIR cuantos
+pasos habria necesitado.
+
+La razon es esa: con el techo en 8, si la mayoria cierra sola antes, la media
+deja de estar censurada y se puede publicar. Y si siguen agotandolo, entonces
+el hallazgo es que el agente no converge ---que tambien es un resultado, y hoy
+no se puede distinguir de «el techo estaba bajo»---.
+
+El coste es real y acotado: el presupuesto solo cuenta pasos productivos, asi
+que lo que sube es el maximo, no el gasto tipico. `costos` lo mide por corrida.
+"""
 MODELO = "openai/gpt-oss-120b"
 
 # --------------------------------------------------------------------------
@@ -106,10 +130,23 @@ Tienes dos herramientas. CRITERIO DE INVOCACION:
   del relato encaja en un supuesto legal (por ejemplo, si lo que se reclama es un derecho
   colectivo, o si hay privacion de la libertad). Empieza por aqui: es la informacion que
   mas cambia el analisis.
-- `calcular_termino`: usala SOLO si se cumplen las dos condiciones a la vez: (a) el relato
-  menciona una fecha o una duracion, y (b) el caso involucra un plazo legal (derecho de
-  peticion, fallo de tutela, impugnacion, cumplimiento). Si falta cualquiera de las dos,
-  no la llames: no hay nada que contar y un plazo inventado es peor que ningun plazo.
+- `calcular_termino`: dos condiciones, y si se cumplen las dos NO ES OPCIONAL llamarla.
+  (a) el relato dice CUANDO paso algo, y (b) hay un plazo legal en juego (derecho de
+  peticion, fallo de tutela, impugnacion, cumplimiento).
+
+  Sobre (a): «hace cuatro dias», «hace dos meses», «hace seis dias habiles» cuentan
+  IGUAL que «el 3 de marzo de 2026». Una duracion relativa es una fecha de inicio y la
+  herramienta la resuelve; no hace falta que el relato traiga una fecha de calendario.
+
+  Sobre (b): el plazo sigue en juego AUNQUE LA ENTIDAD YA HAYA RESPONDIDO. Si respondio
+  dentro del termino o fuera de el es precisamente lo que la herramienta decide, y es un
+  hecho del caso que el relato no afirma.
+
+  Por que no es opcional: «el plazo vencio» o «respondieron a tiempo» es un HECHO que
+  ningun relato enuncia y que nadie mas en el sistema puede establecer. Si no la llamas,
+  ese hecho se pierde y el componente que decide trabaja sin el.
+
+  Si falta cualquiera de las dos condiciones, no la llames: no hay nada que contar.
 - Si el relato no describe un problema juridico, no fuerces ninguna herramienta.
 
 No llames la misma herramienta con los mismos argumentos dos veces: si ya tienes la
