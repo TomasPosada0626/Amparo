@@ -1,0 +1,7 @@
+id,pregunta,imagen,esperado,criterio,tipo
+ej01,"Me llegó esta respuesta de la EPS negando el medicamento, ¿qué mecanismo me corresponde?",ej01_respuesta_eps.png,tutela,exacto,normal
+ej02,"Me llegó este oficio de la alcaldía, ¿qué me están pidiendo?",ej02_oficio_alcaldia.png,"{""tipo_documento"": ""oficio"", ""plazo_dias"": 15, ""entidad"": ""alcaldia de medellin""}",campos,normal
+ej03,"Adjunto este documento que me llegó, ¿qué mecanismo constitucional me corresponde?",ej03_documento_incompleto.png,no_determinable,exacto,normal
+ej04,"¿Qué dice esta respuesta a mi derecho de petición?",ej04_respuesta_peticion.png,"{""tipo_documento"": ""respuesta_peticion"", ""fecha"": ""3 de marzo de 2026""}",campos,normal
+ej05,"¿Lo que me dice el sistema coincide con el documento?",ej05_notificacion.png,,juez_vlm,normal
+ej06,"Es una foto borrosa de la notificación, ¿cuándo se me vence el plazo?",ej06_notificacion_borrosa.png,fecha|plazo_dias,valvula,adversarial
