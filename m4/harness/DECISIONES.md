@@ -36,3 +36,12 @@ del CSV de casos tiene su propio documento:
 
 - **Tomás/Martín (T7):** qué brazo se enchufa (su `sistema` tal como aparece en `m3_scorecard.csv`) y cómo se sincroniza `m4` con `origin/main`, que trae `results/` y el `src/` vigente.
 - **Lucas (T3/T4):** `casos_m4.csv` e `imagenes/`. Hasta entonces el harness se ensaya con `casos_m4.ejemplo.csv` y funciones falsas.
+
+## T7 · El enchufe real y lo que cambió al conectarlo
+
+| # | Decisión | Por qué | Evidencia |
+|---|---|---|---|
+| 19 | Se enchufa el brazo **`4 · agente + reglas`** (`m4/pipeline/enchufe_m3.py`), armado como en `M3_rag.ipynb`: `estrategia="reranked"`, `k=4`, reescritura simple de consulta y el chunking que eligió M3 (`results/m3_chunking.json`). | Es el mismo patrón que M4 (extraer hechos, que el motor decida), cabe en una T4 junto al VLM porque razona por la API de Groq, y es el que mejor aguanta las trampas en M3 (adversarial 0.7381, alucinación 0). No es el mejor en el agregado: ese es el brazo 1, que necesita el LoRA de 7B en GPU. | `results/m3_scorecard.csv`; `test_enchufe.py`. |
+| 20 | La decisión 17 queda resuelta: `m4` se fusionó con `3.5` en `main` (commit `aaa7a93`), que trae `results/` y el `src/` con el que corrió M3. El notebook clona `main`. | Ya no hay que elegir entre traer `results/` sin su código o esperar. | `git merge-base --is-ancestor origin/m4 origin/main`. |
+| 21 | **Corrige la decisión 15.** `latencia_media` de `m3_costos.json` es por **llamada**, no por caso. Para el brazo 4 son 548 llamadas en 130 casos: 3.24 s por llamada, **13.65 s por caso**. `leer_latencia_m3` ahora divide `latencia_total_s` entre `casos` cuando el artefacto los trae. | Con la lectura anterior, M4 parecía unas cuatro veces más lento que M3 de lo que es. | `test_latencia_m3_es_por_caso_y_no_por_llamada`. |
+| 22 | Se añade **`delta_con_sin_imagen`**: para cada caso `exacto`, la nota con la imagen y la nota con la misma pregunta sin imagen, sobre el mismo M3. | La tabla de delta compara 3 casos de M4 contra 120 de M3: casos distintos, así que no dice si la imagen ayudó. Quitar la imagen y dejar todo lo demás igual sí lo dice, incluido el caso en que no aporta (lo pide la rúbrica). No gasta GPU: la condición con imagen sale de las trazas. | `test_delta_con_sin_imagen_separa_lo_que_aporta_de_lo_que_no`. |

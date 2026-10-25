@@ -346,6 +346,16 @@ def test_leer_fila_m3_sin_results_explica_donde_esta(tmp_path):
         scorecard.leer_fila_m3("4 · agente + reglas", tmp_path / "no_existe.csv")
 
 
+def test_latencia_m3_es_por_caso_y_no_por_llamada(tmp_path):
+    # El brazo 4 hace varias llamadas por caso: m3/20261022T105449Z trae 548
+    # llamadas en 130 casos, 3.238 s por llamada y 1774.3 s en total.
+    ruta = tmp_path / "m3_costos.json"
+    ruta.write_text(json.dumps({"datos": [{
+        "etiqueta": BRAZOS[3], "casos": 130, "llamadas_reales": 548,
+        "latencia_media": 3.238, "latencia_total_s": 1774.3}]}), encoding="utf-8")
+    assert scorecard.leer_latencia_m3(BRAZOS[3], ruta) == round(1774.3 / 130, 3)
+
+
 def test_leer_latencia_m3(tmp_path):
     ruta = escribir_costos(tmp_path, {BRAZOS[0]: None, BRAZOS[3]: 2.834})
     assert scorecard.leer_latencia_m3(BRAZOS[3], ruta) == 2.834
@@ -498,3 +508,33 @@ def test_correr_t6_exige_el_brazo_antes_de_correr(ejemplo, tmp_path, sistema):
         scorecard.correr_t6(p.cargar, p.ver, p.preguntar, p.m3, sistema_m3=sistema,
                             ruta_casos=ruta, carpeta_imagenes=img, **_rutas(tmp_path))
     assert p.eventos == []
+
+
+# --------------------------------------------------------------------------
+# delta_con_sin_imagen: el efecto del componente, caso por caso
+# --------------------------------------------------------------------------
+def test_delta_con_sin_imagen_separa_lo_que_aporta_de_lo_que_no(tmp_path):
+    casos = tmp_path / "casos.csv"
+    casos.write_text(
+        "id,pregunta,imagen,esperado,criterio,tipo\n"
+        "a1,pregunta uno,x.png,tutela,exacto,normal\n"
+        "a2,pregunta dos,x.png,accion_popular,exacto,normal\n"
+        "a3,pregunta tres,x.png,{\"tipo_documento\": \"oficio\"},campos,normal\n",
+        encoding="utf-8")
+
+    def bloque(mec):
+        return (f"Derecho: salud\nAccionado: X\nMecanismo: {mec}\n"
+                "Procedencia: si\nPretension: y")
+    trazas = tmp_path / "trazas.json"
+    trazas.write_text(json.dumps({
+        "a1": {"salida": bloque("accion de tutela"), "js": {}},
+        "a2": {"salida": bloque("accion popular"), "js": {}},
+        "a3": {"salida": "", "js": {}}}), encoding="utf-8")
+    # Sin imagen: a1 acierta igual y a2 falla.
+    sin = {"pregunta uno": bloque("accion de tutela"), "pregunta dos": bloque("accion de tutela")}
+    res = scorecard.delta_con_sin_imagen(lambda p: sin[p], ruta_casos=casos,
+                                         ruta_trazas=trazas, ruta_salida=tmp_path / "d.json")
+    efectos = {f["id"]: f["efecto"] for f in res["casos"]}
+    assert res["n"] == 2                                    # solo los `exacto`
+    assert efectos == {"a1": "no aporta (acierta igual)", "a2": "aporta"}
+    assert (res["acierto_con_imagen"], res["acierto_sin_imagen"]) == (1.0, 0.5)

@@ -220,7 +220,16 @@ def leer_fila_m3(sistema: str | None, ruta: Path = RUTA_M3_SCORECARD) -> dict:
 
 
 def leer_latencia_m3(sistema: str, ruta: Path = RUTA_M3_COSTOS) -> float | None:
-    """`latencia_media` (s por caso) del brazo en m3_costos.json.
+    """Segundos POR CASO del brazo en m3_costos.json.
+
+    `latencia_media` de m3_costos.json es por LLAMADA a la API, no por caso.
+    Para los brazos 2 y 3 coincide (una llamada por caso), pero el brazo 4 —el
+    que se enchufa en T7— hace varias por caso: en m3/20261022T105449Z son 548
+    llamadas en 130 casos, 3.24 s por llamada y 13.6 s por caso. Leer
+    `latencia_media` comparaba los segundos por caso de M4 con los segundos por
+    llamada de M3, y M4 salia unas cuatro veces mas lento de lo que es frente a
+    M3. Por eso, cuando el artefacto trae el total y el numero de casos, se
+    divide; si no, se usa `latencia_media` como antes.
 
     None cuando el brazo no se instrumento (el 1 trae null y la nota "sin
     instrumentar en este modulo"): se reporta como no disponible, nunca como 0.
@@ -231,6 +240,9 @@ def leer_latencia_m3(sistema: str, ruta: Path = RUTA_M3_COSTOS) -> float | None:
     datos = json.loads(ruta.read_text(encoding="utf-8"))["datos"]
     for d in datos:
         if d.get("etiqueta") == sistema:
+            total, casos = d.get("latencia_total_s"), d.get("casos")
+            if total is not None and casos:
+                return round(total / casos, 3)
             return d.get("latencia_media")
     raise KeyError(f"sistema {sistema!r} no esta en {ruta.name}: "
                    + ", ".join(repr(d.get("etiqueta")) for d in datos))
@@ -402,3 +414,54 @@ if __name__ == "__main__":
                     ruta_scorecard=tmp / "scorecard_m4.csv", ruta_trazas=tmp / "trazas_m4.json",
                     ruta_delta=tmp / "delta_m4.json", ruta_m3_scorecard=m3_csv, ruta_m3_costos=m3_costos)
     print("\n(ENSAYO: los numeros de M3 de arriba son inventados; en Colab salen de results/)")
+
+
+# --------------------------------------------------------------------------
+# El delta del COMPONENTE: la misma pregunta con imagen y sin ella
+# --------------------------------------------------------------------------
+RUTA_DELTA_IMAGEN = RAIZ / "m4" / "delta_imagen_m4.json"
+
+
+def delta_con_sin_imagen(responder_m3, *, ruta_casos: Path = RUTA_CASOS,
+                         ruta_trazas: Path = RUTA_TRAZAS,
+                         ruta_salida: Path = RUTA_DELTA_IMAGEN) -> dict:
+    """Para cada caso `exacto`: la nota CON la imagen y la nota SIN ella.
+
+    POR QUE ESTA COMPARACION Y NO SOLO LA TABLA DE DELTA
+
+    La tabla de `construir_tabla_delta` pone los casos `exacto` de M4 junto a
+    `acc_mecanismo` de M3. Son casos distintos —3 de M4 contra 120 de M3—, asi
+    que la diferencia mezcla el componente con la dificultad de cada conjunto y
+    no dice si la imagen ayudo. La pregunta de la rubrica ("mide el delta ...
+    incluido el caso en que el componente no aporto") se responde quitando la
+    imagen y dejando todo lo demas igual: misma pregunta, mismo M3.
+
+    No gasta GPU. La condicion CON imagen sale de la corrida guardada: su
+    `salida` y la lectura de `ver()` estan en las trazas. La condicion SIN
+    imagen es `responder_m3(pregunta)`, que es lo que haria M3 sin ojos.
+
+    Lo que NO es: una prueba de significancia. Con 3 casos `exacto` es una
+    lectura caso por caso, y se publica asi.
+    """
+    casos = [c for c in criterios.cargar_casos(ruta_casos) if c.get("criterio") == "exacto"]
+    trazas = json.loads(Path(ruta_trazas).read_text(encoding="utf-8"))
+    filas = []
+    for c in casos:
+        t = trazas[c["id"]]
+        con = criterios.nota_exacto(c, t)
+        sin_salida = responder_m3(c["pregunta"])
+        sin = criterios.nota_exacto(c, {"salida": sin_salida, "js": None})
+        efecto = ("aporta" if con > sin else "empeora" if con < sin
+                  else "no aporta (acierta igual)" if con else "no aporta (falla igual)")
+        filas.append({"id": c["id"], "esperado": c["esperado"],
+                      "nota_con_imagen": con, "nota_sin_imagen": sin, "efecto": efecto,
+                      "salida_sin_imagen": sin_salida})
+    n = len(filas)
+    res = {"_que_es": ("la misma pregunta con la imagen y sin ella, sobre el mismo M3: "
+                       "lo unico que cambia es el componente visual"),
+           "n": n,
+           "acierto_con_imagen": round(sum(f["nota_con_imagen"] for f in filas) / n, 4) if n else None,
+           "acierto_sin_imagen": round(sum(f["nota_sin_imagen"] for f in filas) / n, 4) if n else None,
+           "casos": filas}
+    Path(ruta_salida).write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
+    return res
