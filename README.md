@@ -64,13 +64,14 @@ sostenían.
 
 ---
 
-## Los tres módulos
+## Los módulos
 
 | | qué hace | entorno |
 |---|---|---|
 | **M1** `notebooks/M1_finetuning.ipynb` | Fine-tuning LoRA de Qwen2.5-7B-Instruct contra un baseline sin ajustar, con intervalos de confianza bootstrap | GPU (A100) |
 | **M2** `notebooks/M2_harness.ipynb` | Harness de evaluación en tres dimensiones, con LLM-as-a-judge y **cinco sondas** sobre el juez: posición, longitud, auto-preferencia, inyección de prompt y **validez** | API |
 | **M3** `notebooks/M3_rag.ipynb` | Cuatro arquitecturas comparadas sobre los mismos casos: solo fine-tuned, RAG ingenuo, RAG avanzado y agente con motor de reglas | API |
+| **M4** `m4/pipeline/M4_pipeline.ipynb` | Componente visual, patrón *input*: Qwen2-VL-2B lee la foto de un documento jurídico, extrae hechos y los entrega al brazo 4 de M3. Entrega en [`m4/README.md`](m4/README.md) | GPU (T4) + API |
 
 Corren **en ese orden**. M2 necesita las predicciones de M1 y M3 necesita los
 artefactos de M2; `src/arranque.py` lo declara y lo comprueba antes de gastar
