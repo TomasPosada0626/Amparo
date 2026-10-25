@@ -143,73 +143,149 @@ contexto que no esté en la respuesta.
 Responde SOLO con JSON: {"preguntas": ["...", "...", "..."]}"""
 
 
+# Revisión docente: protocolo explícito para las nuevas mediciones del main
+# migrado. No cambia las métricas exactas ni los resultados históricos de M3.
+PROTOCOLO_JUEZ = "amparo-juez-validado-v1"
+
+
+def _validar_largos(*listas) -> None:
+    if len({len(xs) for xs in listas}) > 1:
+        raise ValueError("Las entradas de evaluación deben tener igual longitud.")
+
+
 def _json(t: str) -> dict:
-    m = re.search(r"\{.*\}", t or "", re.DOTALL)
-    try:
-        return json.loads(m.group(0)) if m else {}
-    except json.JSONDecodeError:
+    if not isinstance(t, str):
         return {}
+    m = re.search(r"\{.*\}", t, re.DOTALL)
+    try:
+        obj = json.loads(m.group(0)) if m else {}
+    except (json.JSONDecodeError, ValueError):
+        return {}
+    return obj if isinstance(obj, dict) else {}
 
 
-def faithfulness_juez(juez, salidas, contextos) -> float:
+def _cobertura(diagnostico, nombre, estados, denominador, unidad):
+    """Índices de entrada (base cero); no guarda relatos ni datos personales."""
+    if diagnostico is None:
+        return
+    validos = [i for i, e in enumerate(estados) if e in ("valido", "sin_contexto")]
+    no_aplica = [i for i, e in enumerate(estados) if e == "sin_afirmaciones"]
+    invalidos = [i for i, e in enumerate(estados) if e == "veredicto_invalido"]
+    diagnostico[nombre] = {
+        "casos_totales": len(estados), "casos_validos": len(validos),
+        "indices_validos": validos, "indices_invalidos": invalidos,
+        "indices_no_aplicables": no_aplica,
+        "estados_por_caso": estados, "denominador": denominador,
+        "unidad_denominador": unidad,
+    }
+
+
+def faithfulness_juez(juez, salidas, contextos, *, diagnostico=None) -> float | None:
+    """Conserva la razón por afirmaciones; sin medición válida devuelve None.
+
+    Un conteo inválido no se recorta ni se convierte en cero. Las excepciones
+    operativas de _llamar siguen propagándose: no son puntajes del sistema.
+    """
+    _validar_largos(salidas, contextos)
     num = den = 0
+    estados = []
     for s, frags in zip(salidas, contextos):
         ctx = "\n\n".join(f"[{f['articulo']} {f['norma']}] {f['texto']}" for f in frags)
         d = _json(juez._llamar(P_FAITHFULNESS, f"CONTEXTO:\n{ctx}\n\nRESPUESTA:\n{s}"))
         t, ok = d.get("total"), d.get("sostenidas")
-        if isinstance(t, int) and isinstance(ok, int) and t > 0:
+        # bool es subtipo de int en Python, pero no es un conteo del juez.
+        if type(t) is not int or type(ok) is not int or not 0 <= ok <= t:
+            estados.append("veredicto_invalido")
+        elif t == 0:
+            estados.append("sin_afirmaciones")
+        else:
+            estados.append("valido")
+            num += ok
             den += t
-            num += min(ok, t)
     juez.guardar_cache()
-    return num / den if den else 0.0
+    _cobertura(diagnostico, "faithfulness", estados, den, "afirmaciones")
+    return num / den if den else None
 
 
-def context_precision_juez(juez, consultas, contextos) -> float:
-    total = 0.0
+def context_precision_juez(juez, consultas, contextos, *, diagnostico=None) -> float | None:
+    """Average precision por consulta, solo con rankings completamente medidos.
+
+    Se conserva la convención existente: no recuperar fragmentos aporta cero.
+    Un JSON inválido o un string "false" NO es un booleano medido. Si un
+    fragmento falla, se excluye esa consulta, sin comprimir su ranking.
+    """
+    _validar_largos(consultas, contextos)
+    total, n = 0.0, 0
+    estados = []
     for q, frags in zip(consultas, contextos):
         if not frags:
+            estados.append("sin_contexto")
+            n += 1
             continue
         rel = []
         for f in frags:
             d = _json(juez._llamar(
                 P_RELEVANCIA_CTX,
                 f"CONSULTA:\n{q}\n\nFRAGMENTO:\n[{f['articulo']} {f['norma']}] {f['texto']}"))
-            rel.append(bool(d.get("relevante")))
+            rel.append(d.get("relevante"))
+        if any(type(r) is not bool for r in rel):
+            estados.append("veredicto_invalido")
+            continue
         aciertos, suma = 0, 0.0
         for i, r in enumerate(rel, 1):
             if r:
                 aciertos += 1
                 suma += aciertos / i
         total += suma / max(1, sum(rel))
+        n += 1
+        estados.append("valido")
     juez.guardar_cache()
-    return total / len(consultas) if consultas else 0.0
+    _cobertura(diagnostico, "context_precision", estados, n, "consultas")
+    return total / n if n else None
 
 
-def answer_relevancy(juez, relatos, salidas, encoder=None) -> float:
-    """Se generan preguntas a partir de la respuesta y se mide cuánto se parecen
-    al relato original. Si la respuesta contesta otra cosa, las preguntas que
-    genera se alejan del relato."""
+def answer_relevancy(juez, relatos, salidas, encoder=None, *, diagnostico=None) -> float | None:
+    """Preserva el coseno medio; no trata strings como listas de preguntas."""
     import numpy as np
-    if encoder is None:
-        from metricas import _encoder
-        encoder = _encoder()
-
-    sims = []
+    _validar_largos(relatos, salidas)
+    sims, estados = [], []
     for relato, s in zip(relatos, salidas):
         d = _json(juez._llamar(P_PREGUNTAS, s))
-        qs = [q for q in (d.get("preguntas") or []) if isinstance(q, str) and q.strip()]
-        if not qs:
+        qs = d.get("preguntas")
+        if not isinstance(qs, list) or not qs or not all(
+                isinstance(q, str) and q.strip() for q in qs):
+            estados.append("veredicto_invalido")
             continue
-        e = encoder.encode([relato] + qs, normalize_embeddings=True)
-        sims.append(float(np.mean(e[1:] @ e[0])))
+        if encoder is None:
+            from metricas import _encoder
+            encoder = _encoder()
+        e = np.asarray(encoder.encode([relato] + qs, normalize_embeddings=True), dtype=float)
+        if (e.ndim != 2 or e.shape[0] != len(qs) + 1 or e.shape[1] == 0
+                or not np.isfinite(e).all()):
+            raise ValueError("El encoder debe devolver un vector finito por texto.")
+        valor = float(np.mean(e[1:] @ e[0]))
+        if not np.isfinite(valor):
+            raise ValueError("El encoder produjo una similitud no finita.")
+        sims.append(valor)
+        estados.append("valido")
     juez.guardar_cache()
-    return sum(sims) / len(sims) if sims else 0.0
+    _cobertura(diagnostico, "answer_relevancy", estados, len(sims), "respuestas")
+    return sum(sims) / len(sims) if sims else None
 
 
 # --------------------------------------------------------------------------
 def evaluar(nombre: str, salidas, contextos, golds, relatos=None,
             juez=None, consultas=None) -> dict:
-    """Las cuatro métricas. Las exactas siempre; las del juez si se pasa uno."""
+    """Mantiene claves/escala válidas; añade protocolo y cobertura del juez.
+
+    None se serializa como null. Un promedio parcial debe leerse junto con
+    cobertura_juez; no es una medición completa de todos los casos.
+    """
+    _validar_largos(salidas, contextos, golds)
+    if relatos is not None:
+        _validar_largos(salidas, relatos)
+    if consultas is not None:
+        _validar_largos(salidas, consultas)
     out = {
         "sistema": nombre,
         "n": len(golds),
@@ -220,14 +296,23 @@ def evaluar(nombre: str, salidas, contextos, golds, relatos=None,
         },
     }
     if juez is not None:
+        diagnostico = {}
+        textos = relatos if relatos is not None else [g["relato"] for g in golds]
+        preguntas = consultas if consultas is not None else textos
         out["juez"] = {
-            "faithfulness": faithfulness_juez(juez, salidas, contextos),
+            "faithfulness": faithfulness_juez(juez, salidas, contextos, diagnostico=diagnostico),
             "context_precision": context_precision_juez(
-                juez, consultas or relatos or [g["relato"] for g in golds], contextos),
+                juez, preguntas, contextos, diagnostico=diagnostico),
             "answer_relevancy": answer_relevancy(
-                juez, relatos or [g["relato"] for g in golds], salidas),
+                juez, textos, salidas, diagnostico=diagnostico),
         }
+        out["protocolo_juez"] = PROTOCOLO_JUEZ
+        out["cobertura_juez"] = diagnostico
     return out
+
+
+def _porcentaje(valor, ancho):
+    return f"{'N/D':>{ancho}}" if valor is None else f"{valor:>{ancho}.1%}"
 
 
 def imprimir(rs: list[dict]) -> None:
@@ -240,9 +325,14 @@ def imprimir(rs: list[dict]) -> None:
         fila = (f"{r['sistema']:<26}{e['faithfulness']:>8.1%}"
                 f"{e['context_precision']:>10.1%}{e['context_recall']:>9.1%}")
         if j:
-            fila += (f"{j['faithfulness']:>10.1%}{j['context_precision']:>10.1%}"
-                     f"{j['answer_relevancy']:>9.1%}")
+            fila += (_porcentaje(j['faithfulness'], 10)
+                     + _porcentaje(j['context_precision'], 10)
+                     + _porcentaje(j['answer_relevancy'], 9))
         print(fila)
+        for metrica, d in r.get("cobertura_juez", {}).items():
+            print(f"  {metrica}: {d['casos_validos']}/{d['casos_totales']} casos válidos; "
+                  f"denominador={d['denominador']} {d['unidad_denominador']}")
     print("=" * 78)
     print("  exacto = contra el `fundamento` del gold · estimado = lo que juzga el LLM")
     print("  Si divergen mucho, el sospechoso es el juez, no el sistema.")
+    print("  N/D = sin medición válida; no es cero. Revisar cobertura_juez.")
