@@ -1,0 +1,45 @@
+id,criterio,tipo,nota,segundos,salida
+m01,exacto,normal,0.0,4.517,"[SUSTITUTO M3] Relato recibido (500 chars). Primeros 300: Me llegó esta respuesta de mi EPS. Tengo 68 años y el ortopedista me ordenó esa cirugía porque ya casi no puedo caminar. ¿Qué mecanismo constitucional me corresponde?
+
+DATOS DEL DOCUMENTO ADJUNTO:
+{""tipo_documento"": ""respuesta_peticion"", ""entidad"": null, ""fecha"": ""5 de octubre de 2026"", ""plazo_dias"""
+m02,campos,normal,0.5,4.516,"[SUSTITUTO M3] Relato recibido (373 chars). Primeros 300: ¿Qué me respondió la EPS en esta carta?
+
+DATOS DEL DOCUMENTO ADJUNTO:
+{""tipo_documento"": ""respuesta_peticion"", ""entidad"": null, ""fecha"": ""5 de octubre de 2026"", ""plazo_dias"": null, ""pretension_visible"": ""La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con"
+m03,campos,normal,0.6,4.161,"[SUSTITUTO M3] Relato recibido (287 chars). Primeros 300: Me llegó este oficio de la alcaldía, ¿qué me están pidiendo y en cuánto tiempo?
+
+DATOS DEL DOCUMENTO ADJUNTO:
+{""tipo_documento"": ""oficio"", ""entidad"": null, ""fecha"": ""12 de agosto de 2026"", ""plazo_dias"": null, ""pretension_visible"": ""Se le requiere por obra de construcción sin licencia.""}"
+m04,exacto,normal,0.0,5.739,"[SUSTITUTO M3] Relato recibido (620 chars). Primeros 300: Le pedí a la alcaldía que cumpla la ley y publique los contratos del municipio, y esta fue la respuesta. A mí no me afecta en nada personal: es que la ley no se está cumpliendo. ¿Qué mecanismo constitucional me corresponde?
+
+DATOS DEL DOCUMENTO ADJUNTO:
+{""tipo_documento"": ""respuesta_peticion"", ""enti"
+m05,campos,normal,0.75,6.198,"[SUSTITUTO M3] Relato recibido (441 chars). Primeros 300: ¿Qué me contestó la alcaldía a mi solicitud?
+
+DATOS DEL DOCUMENTO ADJUNTO:
+{""tipo_documento"": ""respuesta_peticion"", ""entidad"": null, ""fecha"": ""21 de septiembre de 2026"", ""plazo_dias"": null, ""pretension_visible"": ""La Alcaldía cumplirá lo ordenado en el artículo 10 de la Ley 1712 de 2014 y publicará l"
+m06,exacto,normal,0.0,4.361,"[SUSTITUTO M3] Relato recibido (464 chars). Primeros 300: Somos cuatro veredas que tomamos agua de esa quebrada y la curtiembre sigue vertiendo. Esta es la respuesta que nos dio la corporación ambiental. ¿Qué mecanismo constitucional nos corresponde?
+
+DATOS DEL DOCUMENTO ADJUNTO:
+{""tipo_documento"": ""respuesta_peticion"", ""entidad"": null, ""fecha"": ""30 de sep"
+m07,campos,normal,0.667,4.263,"[SUSTITUTO M3] Relato recibido (327 chars). Primeros 300: ¿Quién nos respondió y qué decidió sobre nuestra queja?
+
+DATOS DEL DOCUMENTO ADJUNTO:
+{""tipo_documento"": ""respuesta_peticion"", ""entidad"": null, ""fecha"": ""30 de septiembre de 2026"", ""plazo_dias"": null, ""pretension_visible"": ""La Corporación NO adoptará medidas preventivas en esta oportunidad y ordenar"
+m08,juez_vlm,normal,1.0,3.749,"[SUSTITUTO M3] Relato recibido (363 chars). Primeros 300: Me llegó esta notificación de la empresa de acueducto. Vivo con mis dos hijos pequeños y no tengo con qué pagar. ¿Qué mecanismo constitucional me corresponde?
+
+DATOS DEL DOCUMENTO ADJUNTO:
+{""tipo_documento"": ""notificacion"", ""entidad"": null, ""fecha"": null, ""plazo_dias"": null, ""pretension_visible"": ""L"
+m09,campos,normal,0.25,3.813,"[SUSTITUTO M3] Relato recibido (257 chars). Primeros 300: ¿Cuánto tiempo tengo antes de que me corten el agua?
+
+DATOS DEL DOCUMENTO ADJUNTO:
+{""tipo_documento"": ""notificacion"", ""entidad"": null, ""fecha"": null, ""plazo_dias"": null, ""pretension_visible"": ""La cuenta presenta saldo vencido por el servicio de acueducto.""}"
+m10,valvula,adversarial,1.0,5.273,"[SUSTITUTO M3] Relato recibido (458 chars). Primeros 300: Es una foto de una notificación que me dejaron debajo de la puerta y se mojó. ¿De qué fecha es y en cuántos días se me vence el plazo?
+
+DATOS DEL DOCUMENTO ADJUNTO:
+{""tipo_documento"": ""notificacion"", ""entidad"": null, ""fecha"": null, ""plazo_dias"": null, ""pretension_visible"": ""Usted cuenta con un plazo"
+m11,juez_vlm,normal,1.0,4.802,"[SUSTITUTO M3] Relato recibido (408 chars). Primeros 300: Esta es la carta de mi EPS. ¿Qué puedo hacer para que me hagan la cirugía?
+
+DATOS DEL DOCUMENTO ADJUNTO:
+{""tipo_documento"": ""respuesta_peticion"", ""entidad"": null, ""fecha"": ""5 de octubre de 2026"", ""plazo_dias"": null, ""pretension_visible"": ""La EPS NIEGA la autorización del procedimiento solicitado, po"
