@@ -1,0 +1,32 @@
+{
+ "_que_es": "la misma pregunta con la imagen y sin ella, sobre el mismo M3: lo unico que cambia es el componente visual",
+ "n": 3,
+ "acierto_con_imagen": 1.0,
+ "acierto_sin_imagen": 0.6667,
+ "casos": [
+  {
+   "id": "m01",
+   "esperado": "tutela",
+   "nota_con_imagen": 1.0,
+   "nota_sin_imagen": 1.0,
+   "efecto": "no aporta (acierta igual)",
+   "salida_sin_imagen": "Derecho: salud (art. 49 CP; art. 86 CP)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — ninguna causal de improcedencia del artículo 6 resulta aplicable, y se trata de un sujeto de especial protección constitucional\nPretensión: Ordenar la cobertura de la cirugía prescrita"
+  },
+  {
+   "id": "m04",
+   "esperado": "accion_cumplimiento",
+   "nota_con_imagen": 1.0,
+   "nota_sin_imagen": 1.0,
+   "efecto": "no aporta (acierta igual)",
+   "salida_sin_imagen": "Derecho: colectivos (art. 88 CP; art. 87 CP; Ley 393 de 1997)\nAccionado: Alcaldía\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — lo pretendido es el cumplimiento de una norma o acto administrativo vigente, sin que se alegue la vulneración concreta de un derecho fundamental individual\nPretensión: Publicar los contratos municipales"
+  },
+  {
+   "id": "m06",
+   "esperado": "accion_popular",
+   "nota_con_imagen": 1.0,
+   "nota_sin_imagen": 0.0,
+   "efecto": "aporta",
+   "salida_sin_imagen": "Derecho: colectivos (art. 88 CP; art. 86 CP; art. 8 Decreto 2591 de 1991)\nAccionado: curtiembre\nMecanismo: acción de tutela\nProcedencia: sí — aunque existe otro medio de defensa judicial, el perjuicio irremediable habilita la tutela como mecanismo transitorio\nPretensión: Ordenar el cese del vertido contaminante"
+  }
+ ]
+}

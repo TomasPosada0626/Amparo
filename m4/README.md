@@ -5,11 +5,15 @@
 
 ## La pregunta que necesita ojos
 
-> *"Me llegó esta respuesta de mi EPS. Tengo 68 años y el ortopedista me ordenó
-> esa cirugía. ¿Qué mecanismo constitucional me corresponde?"*
+> *"Somos cuatro veredas que tomamos agua de esa quebrada y la curtiembre sigue
+> vertiendo. Esta es la respuesta que nos dio la corporación ambiental. ¿Qué
+> mecanismo constitucional nos corresponde?"*
 
-Sin la imagen no se puede triar: la pregunta no dice qué negó la EPS ni por
-qué. El dato está en el papel que la persona tiene en la mano.
+Sin la imagen, Amparo ve una curtiembre contaminando y un perjuicio que corre,
+y responde **tutela contra la curtiembre**. Con la imagen lee que la
+corporación **archivó la queja**, reconoce un interés colectivo y responde
+**acción popular**, que es lo correcto. El dato que cambia la respuesta está en
+el papel, no en lo que la persona escribe.
 
 ## Patrón y modelo
 
@@ -21,8 +25,8 @@ extrae hechos; no decide derecho.** Es el mismo principio de Amparo desde M1.
 Qué se habría perdido con los otros dos patrones:
 
 - **tool (CLIP o un clasificador):** diría el **tipo** de documento, pero el
-  motor de reglas necesita los **hechos**: que se **niega** un procedimiento
-  **ordenado por el médico** a un **sujeto de especial protección**.
+  motor de reglas necesita los **hechos**: que la corporación **archivó** la
+  queja, que la EPS **niega** un procedimiento **ordenado por el médico**.
 - **output (difusión):** generar documentos jurídicos no sirve para el triaje y
   es riesgoso. Documentos, firmas y sellos no se generan como si fueran reales.
 
@@ -61,50 +65,67 @@ scorecard, en `f01bb0e`):
 | `juez_vlm` | 2 | que la respuesta se sostenga en la imagen |
 | `valvula` | 1 **adversarial** | un aviso mojado sin fecha y con el plazo bajo una mancha: no hay dato que leer |
 
+## Resultados — corrida oficial en Colab (T4)
+
+| criterio | n | nota | lo que dice |
+|---|---|---|---|
+| `exacto` | 3 | **1.0** | M3 decide el mecanismo correcto en los 3 (tutela, cumplimiento, popular) |
+| `juez_vlm` | 2 | **1.0** | las dos respuestas se sostienen en la imagen, según el propio VLM |
+| `campos` | 5 | **0.553** | m02 0.50 · m03 0.60 · m05 0.75 · m07 0.67 · m09 0.25 |
+| `valvula` | 1 | **1.0** | pero inventa en otro campo: ver el peor caso |
+
+**Latencia: 10.9 s por caso** (VLM + M3), de 7.1 a 12.2 s; el primero tarda
+30.8 s porque carga los modelos.
+
 ## Delta: la misma pregunta con imagen y sin ella
 
 Lo único que cambia es el componente visual; M3 es el mismo.
 
-| caso | esperado | **con imagen** | sin imagen | efecto |
+| caso | esperado | con imagen | sin imagen | efecto |
 |---|---|---|---|---|
-| m01 · EPS | tutela | **tutela** | se abstiene | aporta |
-| m04 · alcaldía | acción de cumplimiento | **cumplimiento** | cumplimiento | **no aporta** |
-| m06 · corporación ambiental | acción popular | **acción popular** | tutela | aporta |
-| **acierto de mecanismo** | | **3/3** | 1/3 | |
+| m01 · EPS | tutela | tutela | tutela | **no aporta** |
+| m04 · alcaldía | acción de cumplimiento | cumplimiento | cumplimiento | **no aporta** |
+| m06 · corporación ambiental | acción popular | **acción popular** | tutela | **aporta** |
+| **acierto de mecanismo** | | **3/3** | 2/3 | |
+
+**La imagen aporta en 1 de 3 casos.** En m01 y m04 la pregunta ya trae los
+hechos y M3 acierta sin el documento. Con 3 casos no se afirma significancia.
+
+**Y m01 no es estable.** En una verificación anterior, con las mismas lecturas
+del VLM, M3 se abstenía en m01 sin imagen y la imagen sí aportaba. El
+extractor de hechos de M3 no es determinista (ya medido en M3), así que con una
+sola corrida no se puede afirmar si la imagen aporta en m01. En m06 aportó las
+dos veces.
 
 | | métrica | valor | latencia por caso |
 |---|---|---|---|
 | M3 sin imagen | `acierto_juridico`, brazo 4 (n=120) | 0.675 | 13.65 s |
-| M4: lo que leyó el VLM | `campos` (n=5) | 0.553 | 4.67 s de `ver()` |
-| M4: adversarial | `valvula` (n=1) | 1.0 | 5.27 s |
+| M4 con imagen | casos `exacto` (n=3) | 1.0 | 10.9 s |
 
-La primera tabla es la que mide el componente; la segunda compara conjuntos de
-casos distintos y no dice, por sí sola, si la imagen ayuda. Con 3 casos
-`exacto` no se afirma significancia.
-
-**Procedencia.** Lo que leyó el VLM sale de la corrida del 2026-10-25 en una
-RTX 5060 (no una T4). El "con imagen / sin imagen" es el M3 real aplicado a esas
-lecturas grabadas: `ver()` genera con `do_sample=False` y no recibe la
-pregunta, así que su lectura es la misma que daría hoy. **La corrida oficial
-de punta a punta es la de [`pipeline/M4_pipeline.ipynb`](pipeline/M4_pipeline.ipynb)
-en Colab, y es la única que califica `juez_vlm`.** Si sus cifras difieren de
-estas, mandan las suyas.
+Esta segunda tabla compara conjuntos de casos distintos (3 contra 120); se
+publica porque el plan la pide, pero el delta que mide el componente es el de
+arriba.
 
 ## El peor caso
 
 **m10, el adversarial, pasa el criterio y aun así inventa.** `fecha` y
 `plazo_dias` vienen vacíos, así que `valvula` = 1.0. Pero el VLM escribió en
 otro campo *"Usted cuenta con un plazo de **dos semanas** hábiles"*, y debajo
-de la mancha no hay número. El criterio solo mira los campos que nombra y no lo
-ve. No se cambió, porque se fijó antes de correr. M3 se abstuvo y el plazo
-inventado no llegó a una decisión, pero una persona que lea esa lectura se lo
-cree, y en derecho un plazo vencido no se recupera.
+de la mancha no hay número. Lo hizo en las dos corridas. El criterio solo mira
+los campos que nombra y no lo ve; no se cambió, porque se fijó antes de correr.
+M3 se abstuvo y el plazo inventado no llegó a una decisión, pero una persona
+que lea esa lectura se lo cree, y en derecho un plazo vencido no se recupera.
 
-También: en **m04** el VLM leyó el documento al revés ("publicará los
-contratos" cuando dice que **no**) y M3 acertó solo porque la pregunta traía
-los hechos. **`entidad` sale vacía en los 6 documentos** y `plazo_dias` en los
-2 que lo traen; puede ser que la válvula haga abstenerse de más al modelo de
-2B, y eso no está comprobado.
+**Por la nota mínima, el peor es m09** (`campos` 0.25): la foto del acueducto
+es legible y el VLM solo acierta el tipo; pierde la entidad, la fecha y el
+plazo de 5 días.
+
+También: en **m04** el VLM lee el documento al revés (*"La Alcaldía cumplirá
+con el deber de publicar los contratos"*, cuando dice que **no**), y M3 acierta
+solo porque la pregunta trae los hechos. **`entidad` sale vacía en los 6
+documentos**; puede ser que la válvula haga abstenerse de más al modelo de 2B,
+y eso no está comprobado. Y **el VLM no lee igual en todas las GPU**: entre la
+T4 y una RTX 5060, 9 de 11 lecturas coinciden y cambian m04 y m05.
 
 ## Límites y ética
 
@@ -120,10 +141,12 @@ los hechos. **`entidad` sale vacía en los 6 documentos** y `plazo_dias` en los
 
 ## Reproducir
 
-Colab con GPU T4 y el secreto `GROQ_API_KEY`: abrir
-`pipeline/M4_pipeline.ipynb` y **Entorno → Reiniciar y ejecutar todo**. Clona
-`main` y deja `scorecard_m4.csv`, `trazas_m4.json`, `delta_m4.json` y
-`delta_imagen_m4.json`. Sin GPU: `python -m pytest m4/tests` (166 pruebas).
+Abrir en Colab con GPU T4 y el secreto `GROQ_API_KEY`:
+[`pipeline/M4_pipeline.ipynb`](https://colab.research.google.com/github/TomasPosada0626/Amparo/blob/main/m4/pipeline/M4_pipeline.ipynb)
+→ **Entorno → Reiniciar y ejecutar todo** (unos 20 min). Clona `main` y deja
+[`scorecard_m4.csv`](scorecard_m4.csv), [`trazas_m4.json`](trazas_m4.json),
+[`delta_m4.json`](delta_m4.json) y [`delta_imagen_m4.json`](delta_imagen_m4.json),
+que son los de esta entrega. Sin GPU: `python -m pytest m4/tests` (166 pruebas).
 
 **Equipo:** Santiago (pipeline y `ver()`) · Lucas (documentos, eval set y
 corrida del harness) · Nico (harness y tabla de delta) · Tomás y Martín (enchufe

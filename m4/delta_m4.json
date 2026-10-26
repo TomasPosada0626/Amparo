@@ -1,0 +1,62 @@
+{
+  "sistema_m3": "4 · agente + reglas",
+  "tabla": [
+    {
+      "fila": "Casos sin imagen (M3)",
+      "metrica": "acierto_juridico, brazo '4 · agente + reglas' (n=120)",
+      "valor": 0.675,
+      "latencia": 13.648
+    },
+    {
+      "fila": "Casos con imagen (M4)",
+      "metrica": "nota media, criterios mixtos (n=10)",
+      "valor": 0.777,
+      "latencia": 11.109
+    },
+    {
+      "fila": "Adversarial (valvula)",
+      "metrica": "nota_valvula (n=1)",
+      "valor": 1.0,
+      "latencia": 8.719
+    },
+    {
+      "fila": "Latencia media",
+      "metrica": "ver() + M3 por caso, todos los casos de M4 (n=11)",
+      "valor": null,
+      "latencia": 10.892
+    },
+    {
+      "fila": "Peor caso",
+      "metrica": "nota minima (empates: todos)",
+      "valor": "m09 (0.25)",
+      "latencia": null
+    }
+  ],
+  "comparacion_directa": {
+    "metrica": "acierto de mecanismo (misma magnitud en ambos)",
+    "m4_casos_exacto": 1.0,
+    "n_m4": 3,
+    "m3_acc_mecanismo": 0.675,
+    "n_m3": 120
+  },
+  "peores": [
+    {
+      "id": "m09",
+      "criterio": "campos",
+      "nota": 0.25,
+      "etapa": "campos: leyo mal entidad (esperado 'aguas de villa serena', leyo None); fecha (esperado '2 de octubre de 2026', leyo None); plazo_dias (esperado 5, leyo None)",
+      "traza": {
+        "crudo": "```json\n{\n  \"tipo_documento\": \"notificacion\",\n  \"entidad\": null,\n  \"fecha\": null,\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La cuenta presenta saldo vencido por el servicio de acueducto.\"\n}\n```",
+        "js": {
+          "tipo_documento": "notificacion",
+          "entidad": null,
+          "fecha": null,
+          "plazo_dias": null,
+          "pretension_visible": "La cuenta presenta saldo vencido por el servicio de acueducto."
+        },
+        "salida": "Derecho: minimo_vital (art. 53 CP; art. 6.1 Decreto 2591 de 1991)\nAccionado: empresa de acueducto\nMecanismo: vía judicial ordinaria\nProcedencia: no — existe otro medio de defensa judicial idóneo y eficaz en concreto, y no se acredita un perjuicio irremediable que habilite la tutela\nPretensión: Ordenar que se respete el plazo legal antes de cortar el agua",
+        "etapa": "campos: leyo mal entidad (esperado 'aguas de villa serena', leyo None); fecha (esperado '2 de octubre de 2026', leyo None); plazo_dias (esperado 5, leyo None)"
+      }
+    }
+  ]
+}

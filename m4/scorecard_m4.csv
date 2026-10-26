@@ -1,45 +1,56 @@
 id,criterio,tipo,nota,segundos,salida
-m01,exacto,normal,0.0,4.517,"[SUSTITUTO M3] Relato recibido (500 chars). Primeros 300: Me llegó esta respuesta de mi EPS. Tengo 68 años y el ortopedista me ordenó esa cirugía porque ya casi no puedo caminar. ¿Qué mecanismo constitucional me corresponde?
-
-DATOS DEL DOCUMENTO ADJUNTO:
-{""tipo_documento"": ""respuesta_peticion"", ""entidad"": null, ""fecha"": ""5 de octubre de 2026"", ""plazo_dias"""
-m02,campos,normal,0.5,4.516,"[SUSTITUTO M3] Relato recibido (373 chars). Primeros 300: ¿Qué me respondió la EPS en esta carta?
-
-DATOS DEL DOCUMENTO ADJUNTO:
-{""tipo_documento"": ""respuesta_peticion"", ""entidad"": null, ""fecha"": ""5 de octubre de 2026"", ""plazo_dias"": null, ""pretension_visible"": ""La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con"
-m03,campos,normal,0.6,4.161,"[SUSTITUTO M3] Relato recibido (287 chars). Primeros 300: Me llegó este oficio de la alcaldía, ¿qué me están pidiendo y en cuánto tiempo?
-
-DATOS DEL DOCUMENTO ADJUNTO:
-{""tipo_documento"": ""oficio"", ""entidad"": null, ""fecha"": ""12 de agosto de 2026"", ""plazo_dias"": null, ""pretension_visible"": ""Se le requiere por obra de construcción sin licencia.""}"
-m04,exacto,normal,0.0,5.739,"[SUSTITUTO M3] Relato recibido (620 chars). Primeros 300: Le pedí a la alcaldía que cumpla la ley y publique los contratos del municipio, y esta fue la respuesta. A mí no me afecta en nada personal: es que la ley no se está cumpliendo. ¿Qué mecanismo constitucional me corresponde?
-
-DATOS DEL DOCUMENTO ADJUNTO:
-{""tipo_documento"": ""respuesta_peticion"", ""enti"
-m05,campos,normal,0.75,6.198,"[SUSTITUTO M3] Relato recibido (441 chars). Primeros 300: ¿Qué me contestó la alcaldía a mi solicitud?
-
-DATOS DEL DOCUMENTO ADJUNTO:
-{""tipo_documento"": ""respuesta_peticion"", ""entidad"": null, ""fecha"": ""21 de septiembre de 2026"", ""plazo_dias"": null, ""pretension_visible"": ""La Alcaldía cumplirá lo ordenado en el artículo 10 de la Ley 1712 de 2014 y publicará l"
-m06,exacto,normal,0.0,4.361,"[SUSTITUTO M3] Relato recibido (464 chars). Primeros 300: Somos cuatro veredas que tomamos agua de esa quebrada y la curtiembre sigue vertiendo. Esta es la respuesta que nos dio la corporación ambiental. ¿Qué mecanismo constitucional nos corresponde?
-
-DATOS DEL DOCUMENTO ADJUNTO:
-{""tipo_documento"": ""respuesta_peticion"", ""entidad"": null, ""fecha"": ""30 de sep"
-m07,campos,normal,0.667,4.263,"[SUSTITUTO M3] Relato recibido (327 chars). Primeros 300: ¿Quién nos respondió y qué decidió sobre nuestra queja?
-
-DATOS DEL DOCUMENTO ADJUNTO:
-{""tipo_documento"": ""respuesta_peticion"", ""entidad"": null, ""fecha"": ""30 de septiembre de 2026"", ""plazo_dias"": null, ""pretension_visible"": ""La Corporación NO adoptará medidas preventivas en esta oportunidad y ordenar"
-m08,juez_vlm,normal,1.0,3.749,"[SUSTITUTO M3] Relato recibido (363 chars). Primeros 300: Me llegó esta notificación de la empresa de acueducto. Vivo con mis dos hijos pequeños y no tengo con qué pagar. ¿Qué mecanismo constitucional me corresponde?
-
-DATOS DEL DOCUMENTO ADJUNTO:
-{""tipo_documento"": ""notificacion"", ""entidad"": null, ""fecha"": null, ""plazo_dias"": null, ""pretension_visible"": ""L"
-m09,campos,normal,0.25,3.813,"[SUSTITUTO M3] Relato recibido (257 chars). Primeros 300: ¿Cuánto tiempo tengo antes de que me corten el agua?
-
-DATOS DEL DOCUMENTO ADJUNTO:
-{""tipo_documento"": ""notificacion"", ""entidad"": null, ""fecha"": null, ""plazo_dias"": null, ""pretension_visible"": ""La cuenta presenta saldo vencido por el servicio de acueducto.""}"
-m10,valvula,adversarial,1.0,5.273,"[SUSTITUTO M3] Relato recibido (458 chars). Primeros 300: Es una foto de una notificación que me dejaron debajo de la puerta y se mojó. ¿De qué fecha es y en cuántos días se me vence el plazo?
-
-DATOS DEL DOCUMENTO ADJUNTO:
-{""tipo_documento"": ""notificacion"", ""entidad"": null, ""fecha"": null, ""plazo_dias"": null, ""pretension_visible"": ""Usted cuenta con un plazo"
-m11,juez_vlm,normal,1.0,4.802,"[SUSTITUTO M3] Relato recibido (408 chars). Primeros 300: Esta es la carta de mi EPS. ¿Qué puedo hacer para que me hagan la cirugía?
-
-DATOS DEL DOCUMENTO ADJUNTO:
-{""tipo_documento"": ""respuesta_peticion"", ""entidad"": null, ""fecha"": ""5 de octubre de 2026"", ""plazo_dias"": null, ""pretension_visible"": ""La EPS NIEGA la autorización del procedimiento solicitado, po"
+m01,exacto,normal,1.0,7.573,"Derecho: salud (art. 49 CP; art. 86 CP)
+Accionado: EPS
+Mecanismo: acción de tutela
+Procedencia: sí — ninguna causal de improcedencia del artículo 6 resulta aplicable, y se trata de un sujeto de especial protección constitucional
+Pretensión: Autorizar la cirugía"
+m02,campos,normal,0.5,30.797,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. El relato solo solicita información sobre la respuesta de la EPS y no plantea una pretensión concreta ni identifica a quién dirigir una acción.
+Pretensión: no aplica"
+m03,campos,normal,0.6,12.167,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. El relato solo solicita información sobre el contenido y plazo del oficio, no plantea una pretensión concreta contra una autoridad.
+Pretensión: no aplica"
+m04,exacto,normal,1.0,8.164,"Derecho: colectivos (art. 88 CP; art. 87 CP; Ley 393 de 1997)
+Accionado: Alcaldía
+Mecanismo: acción de cumplimiento (Ley 393 de 1997)
+Procedencia: no — lo pretendido es el cumplimiento de una norma o acto administrativo vigente, sin que se alegue la vulneración concreta de un derecho fundamental individual
+Pretensión: Ordenar la publicación de los contratos municipales"
+m05,campos,normal,0.75,9.872,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. A) No es su caso: el relato solo pregunta por la respuesta de la alcaldía y no plantea una pretensión judicial concreta.
+Pretensión: no aplica"
+m06,exacto,normal,1.0,8.887,"Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)
+Accionado: curtiembre que vierte contaminantes
+Mecanismo: acción popular (Ley 472 de 1998)
+Procedencia: no — lo que se busca proteger son derechos e intereses colectivos del artículo 4 de la Ley 472, excluidos del ámbito de la tutela
+Pretensión: Ordenar la adopción de medidas preventivas y la suspensión del vertido de la curtiembre"
+m07,campos,normal,0.667,7.129,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. No hay a quién dirigir la acción ni orden que pedir.
+Pretensión: no aplica"
+m08,juez_vlm,normal,1.0,7.638,"Derecho: minimo_vital (art. 53 CP; art. 86 CP; art. 8 Decreto 2591 de 1991)
+Accionado: empresa de acueducto
+Mecanismo: acción de tutela
+Procedencia: sí — aunque existe otro medio de defensa judicial, el perjuicio irremediable habilita la tutela como mecanismo transitorio
+Pretensión: Garantizar el suministro de agua al solicitante"
+m09,campos,normal,0.25,11.797,"Derecho: minimo_vital (art. 53 CP; art. 6.1 Decreto 2591 de 1991)
+Accionado: empresa de acueducto
+Mecanismo: vía judicial ordinaria
+Procedencia: no — existe otro medio de defensa judicial idóneo y eficaz en concreto, y no se acredita un perjuicio irremediable que habilite la tutela
+Pretensión: Ordenar que se respete el plazo legal antes de cortar el agua"
+m10,valvula,adversarial,1.0,8.719,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. A) no es su caso — es una consulta de información y no hay pretensión judicial concreta
+Pretensión: no aplica"
+m11,juez_vlm,normal,1.0,7.068,"Derecho: salud (art. 49 CP; art. 6.1 Decreto 2591 de 1991)
+Accionado: EPS
+Mecanismo: vía judicial ordinaria
+Procedencia: no — existe otro medio de defensa judicial idóneo y eficaz en concreto, y no se acredita un perjuicio irremediable que habilite la tutela
+Pretensión: Ordenar la autorización de la cirugía"

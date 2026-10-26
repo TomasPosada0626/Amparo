@@ -8,8 +8,8 @@
       "plazo_dias": null,
       "pretension_visible": "La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia."
     },
-    "salida": "[SUSTITUTO M3] Relato recibido (500 chars). Primeros 300: Me llegó esta respuesta de mi EPS. Tengo 68 años y el ortopedista me ordenó esa cirugía porque ya casi no puedo caminar. ¿Qué mecanismo constitucional me corresponde?\n\nDATOS DEL DOCUMENTO ADJUNTO:\n{\"tipo_documento\": \"respuesta_peticion\", \"entidad\": null, \"fecha\": \"5 de octubre de 2026\", \"plazo_dias\"",
-    "etapa": "M3 respondio abstencion (esperado tutela) con JSON valido de ver(): revisar en la traza si los hechos leidos eran correctos o si fallo el motor de reglas"
+    "salida": "Derecho: salud (art. 49 CP; art. 86 CP)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — ninguna causal de improcedencia del artículo 6 resulta aplicable, y se trata de un sujeto de especial protección constitucional\nPretensión: Autorizar la cirugía",
+    "etapa": "ok"
   },
   "m02": {
     "crudo": "```json\n{\n  \"tipo_documento\": \"respuesta_peticion\",\n  \"entidad\": null,\n  \"fecha\": \"5 de octubre de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia.\"\n}\n```",
@@ -20,7 +20,7 @@
       "plazo_dias": null,
       "pretension_visible": "La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia."
     },
-    "salida": "[SUSTITUTO M3] Relato recibido (373 chars). Primeros 300: ¿Qué me respondió la EPS en esta carta?\n\nDATOS DEL DOCUMENTO ADJUNTO:\n{\"tipo_documento\": \"respuesta_peticion\", \"entidad\": null, \"fecha\": \"5 de octubre de 2026\", \"plazo_dias\": null, \"pretension_visible\": \"La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con",
+    "salida": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. El relato solo solicita información sobre la respuesta de la EPS y no plantea una pretensión concreta ni identifica a quién dirigir una acción.\nPretensión: no aplica",
     "etapa": "campos: leyo mal entidad (esperado 'salud serena', leyo None); pretension_visible (esperado 'cadera', leyo 'La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia.')"
   },
   "m03": {
@@ -32,31 +32,31 @@
       "plazo_dias": null,
       "pretension_visible": "Se le requiere por obra de construcción sin licencia."
     },
-    "salida": "[SUSTITUTO M3] Relato recibido (287 chars). Primeros 300: Me llegó este oficio de la alcaldía, ¿qué me están pidiendo y en cuánto tiempo?\n\nDATOS DEL DOCUMENTO ADJUNTO:\n{\"tipo_documento\": \"oficio\", \"entidad\": null, \"fecha\": \"12 de agosto de 2026\", \"plazo_dias\": null, \"pretension_visible\": \"Se le requiere por obra de construcción sin licencia.\"}",
+    "salida": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. El relato solo solicita información sobre el contenido y plazo del oficio, no plantea una pretensión concreta contra una autoridad.\nPretensión: no aplica",
     "etapa": "campos: leyo mal entidad (esperado 'puerto almendro', leyo None); plazo_dias (esperado 15, leyo None)"
   },
   "m04": {
-    "crudo": "```json\n{\n  \"tipo_documento\": \"respuesta_peticion\",\n  \"entidad\": null,\n  \"fecha\": \"21 de septiembre de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La Alcaldía cumplirá lo ordenado en el artículo 10 de la Ley 1712 de 2014 y publicará los contratos celebrados por el municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente.\"\n}\n```",
+    "crudo": "```json\n{\n  \"tipo_documento\": \"respuesta_peticion\",\n  \"entidad\": null,\n  \"fecha\": \"21 de septiembre de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La Alcaldía cumplirá con el deber de publicar los contratos del municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente.\"\n}\n```",
     "js": {
       "tipo_documento": "respuesta_peticion",
       "entidad": null,
       "fecha": "21 de septiembre de 2026",
       "plazo_dias": null,
-      "pretension_visible": "La Alcaldía cumplirá lo ordenado en el artículo 10 de la Ley 1712 de 2014 y publicará los contratos celebrados por el municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente."
+      "pretension_visible": "La Alcaldía cumplirá con el deber de publicar los contratos del municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente."
     },
-    "salida": "[SUSTITUTO M3] Relato recibido (620 chars). Primeros 300: Le pedí a la alcaldía que cumpla la ley y publique los contratos del municipio, y esta fue la respuesta. A mí no me afecta en nada personal: es que la ley no se está cumpliendo. ¿Qué mecanismo constitucional me corresponde?\n\nDATOS DEL DOCUMENTO ADJUNTO:\n{\"tipo_documento\": \"respuesta_peticion\", \"enti",
-    "etapa": "M3 respondio abstencion (esperado accion_cumplimiento) con JSON valido de ver(): revisar en la traza si los hechos leidos eran correctos o si fallo el motor de reglas"
+    "salida": "Derecho: colectivos (art. 88 CP; art. 87 CP; Ley 393 de 1997)\nAccionado: Alcaldía\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — lo pretendido es el cumplimiento de una norma o acto administrativo vigente, sin que se alegue la vulneración concreta de un derecho fundamental individual\nPretensión: Ordenar la publicación de los contratos municipales",
+    "etapa": "ok"
   },
   "m05": {
-    "crudo": "```json\n{\n  \"tipo_documento\": \"respuesta_peticion\",\n  \"entidad\": null,\n  \"fecha\": \"21 de septiembre de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La Alcaldía cumplirá lo ordenado en el artículo 10 de la Ley 1712 de 2014 y publicará los contratos celebrados por el municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente.\"\n}\n```",
+    "crudo": "```json\n{\n  \"tipo_documento\": \"respuesta_peticion\",\n  \"entidad\": null,\n  \"fecha\": \"21 de septiembre de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La Alcaldía cumplirá con el deber de publicar los contratos del municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente.\"\n}\n```",
     "js": {
       "tipo_documento": "respuesta_peticion",
       "entidad": null,
       "fecha": "21 de septiembre de 2026",
       "plazo_dias": null,
-      "pretension_visible": "La Alcaldía cumplirá lo ordenado en el artículo 10 de la Ley 1712 de 2014 y publicará los contratos celebrados por el municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente."
+      "pretension_visible": "La Alcaldía cumplirá con el deber de publicar los contratos del municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente."
     },
-    "salida": "[SUSTITUTO M3] Relato recibido (441 chars). Primeros 300: ¿Qué me contestó la alcaldía a mi solicitud?\n\nDATOS DEL DOCUMENTO ADJUNTO:\n{\"tipo_documento\": \"respuesta_peticion\", \"entidad\": null, \"fecha\": \"21 de septiembre de 2026\", \"plazo_dias\": null, \"pretension_visible\": \"La Alcaldía cumplirá lo ordenado en el artículo 10 de la Ley 1712 de 2014 y publicará l",
+    "salida": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. A) No es su caso: el relato solo pregunta por la respuesta de la alcaldía y no plantea una pretensión judicial concreta.\nPretensión: no aplica",
     "etapa": "campos: leyo mal entidad (esperado 'puerto almendro', leyo None)"
   },
   "m06": {
@@ -68,8 +68,8 @@
       "plazo_dias": null,
       "pretension_visible": "La Corporación NO adoptará medidas preventivas en esta oportunidad y ordenará el ARCHIVO de la queja."
     },
-    "salida": "[SUSTITUTO M3] Relato recibido (464 chars). Primeros 300: Somos cuatro veredas que tomamos agua de esa quebrada y la curtiembre sigue vertiendo. Esta es la respuesta que nos dio la corporación ambiental. ¿Qué mecanismo constitucional nos corresponde?\n\nDATOS DEL DOCUMENTO ADJUNTO:\n{\"tipo_documento\": \"respuesta_peticion\", \"entidad\": null, \"fecha\": \"30 de sep",
-    "etapa": "M3 respondio abstencion (esperado accion_popular) con JSON valido de ver(): revisar en la traza si los hechos leidos eran correctos o si fallo el motor de reglas"
+    "salida": "Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)\nAccionado: curtiembre que vierte contaminantes\nMecanismo: acción popular (Ley 472 de 1998)\nProcedencia: no — lo que se busca proteger son derechos e intereses colectivos del artículo 4 de la Ley 472, excluidos del ámbito de la tutela\nPretensión: Ordenar la adopción de medidas preventivas y la suspensión del vertido de la curtiembre",
+    "etapa": "ok"
   },
   "m07": {
     "crudo": "```json\n{\n  \"tipo_documento\": \"respuesta_peticion\",\n  \"entidad\": null,\n  \"fecha\": \"30 de septiembre de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La Corporación NO adoptará medidas preventivas en esta oportunidad y ordenará el ARCHIVO de la queja.\"\n}\n```",
@@ -80,7 +80,7 @@
       "plazo_dias": null,
       "pretension_visible": "La Corporación NO adoptará medidas preventivas en esta oportunidad y ordenará el ARCHIVO de la queja."
     },
-    "salida": "[SUSTITUTO M3] Relato recibido (327 chars). Primeros 300: ¿Quién nos respondió y qué decidió sobre nuestra queja?\n\nDATOS DEL DOCUMENTO ADJUNTO:\n{\"tipo_documento\": \"respuesta_peticion\", \"entidad\": null, \"fecha\": \"30 de septiembre de 2026\", \"plazo_dias\": null, \"pretension_visible\": \"La Corporación NO adoptará medidas preventivas en esta oportunidad y ordenar",
+    "salida": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. No hay a quién dirigir la acción ni orden que pedir.\nPretensión: no aplica",
     "etapa": "campos: leyo mal entidad (esperado 'claro', leyo None)"
   },
   "m08": {
@@ -92,7 +92,7 @@
       "plazo_dias": null,
       "pretension_visible": "La cuenta presenta saldo vencido por el servicio de acueducto."
     },
-    "salida": "[SUSTITUTO M3] Relato recibido (363 chars). Primeros 300: Me llegó esta notificación de la empresa de acueducto. Vivo con mis dos hijos pequeños y no tengo con qué pagar. ¿Qué mecanismo constitucional me corresponde?\n\nDATOS DEL DOCUMENTO ADJUNTO:\n{\"tipo_documento\": \"notificacion\", \"entidad\": null, \"fecha\": null, \"plazo_dias\": null, \"pretension_visible\": \"L",
+    "salida": "Derecho: minimo_vital (art. 53 CP; art. 86 CP; art. 8 Decreto 2591 de 1991)\nAccionado: empresa de acueducto\nMecanismo: acción de tutela\nProcedencia: sí — aunque existe otro medio de defensa judicial, el perjuicio irremediable habilita la tutela como mecanismo transitorio\nPretensión: Garantizar el suministro de agua al solicitante",
     "respuesta_juez": "SI",
     "etapa": "ok"
   },
@@ -105,7 +105,7 @@
       "plazo_dias": null,
       "pretension_visible": "La cuenta presenta saldo vencido por el servicio de acueducto."
     },
-    "salida": "[SUSTITUTO M3] Relato recibido (257 chars). Primeros 300: ¿Cuánto tiempo tengo antes de que me corten el agua?\n\nDATOS DEL DOCUMENTO ADJUNTO:\n{\"tipo_documento\": \"notificacion\", \"entidad\": null, \"fecha\": null, \"plazo_dias\": null, \"pretension_visible\": \"La cuenta presenta saldo vencido por el servicio de acueducto.\"}",
+    "salida": "Derecho: minimo_vital (art. 53 CP; art. 6.1 Decreto 2591 de 1991)\nAccionado: empresa de acueducto\nMecanismo: vía judicial ordinaria\nProcedencia: no — existe otro medio de defensa judicial idóneo y eficaz en concreto, y no se acredita un perjuicio irremediable que habilite la tutela\nPretensión: Ordenar que se respete el plazo legal antes de cortar el agua",
     "etapa": "campos: leyo mal entidad (esperado 'aguas de villa serena', leyo None); fecha (esperado '2 de octubre de 2026', leyo None); plazo_dias (esperado 5, leyo None)"
   },
   "m10": {
@@ -117,7 +117,7 @@
       "plazo_dias": null,
       "pretension_visible": "Usted cuenta con un plazo de dos semanas hábiles, contados a partir del recibo de este aviso, para presentar sus descargos y las pruebas que pretenda hacer valer ante este despacho."
     },
-    "salida": "[SUSTITUTO M3] Relato recibido (458 chars). Primeros 300: Es una foto de una notificación que me dejaron debajo de la puerta y se mojó. ¿De qué fecha es y en cuántos días se me vence el plazo?\n\nDATOS DEL DOCUMENTO ADJUNTO:\n{\"tipo_documento\": \"notificacion\", \"entidad\": null, \"fecha\": null, \"plazo_dias\": null, \"pretension_visible\": \"Usted cuenta con un plazo",
+    "salida": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. A) no es su caso — es una consulta de información y no hay pretensión judicial concreta\nPretensión: no aplica",
     "etapa": "ok"
   },
   "m11": {
@@ -129,7 +129,7 @@
       "plazo_dias": null,
       "pretension_visible": "La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia."
     },
-    "salida": "[SUSTITUTO M3] Relato recibido (408 chars). Primeros 300: Esta es la carta de mi EPS. ¿Qué puedo hacer para que me hagan la cirugía?\n\nDATOS DEL DOCUMENTO ADJUNTO:\n{\"tipo_documento\": \"respuesta_peticion\", \"entidad\": null, \"fecha\": \"5 de octubre de 2026\", \"plazo_dias\": null, \"pretension_visible\": \"La EPS NIEGA la autorización del procedimiento solicitado, po",
+    "salida": "Derecho: salud (art. 49 CP; art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — existe otro medio de defensa judicial idóneo y eficaz en concreto, y no se acredita un perjuicio irremediable que habilite la tutela\nPretensión: Ordenar la autorización de la cirugía",
     "respuesta_juez": "SI",
     "etapa": "ok"
   }
