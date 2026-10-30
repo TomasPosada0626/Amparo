@@ -424,7 +424,8 @@ RUTA_DELTA_IMAGEN = RAIZ / "m4" / "delta_imagen_m4.json"
 
 def delta_con_sin_imagen(responder_m3, *, ruta_casos: Path = RUTA_CASOS,
                          ruta_trazas: Path = RUTA_TRAZAS,
-                         ruta_salida: Path = RUTA_DELTA_IMAGEN) -> dict:
+                         ruta_salida: Path = RUTA_DELTA_IMAGEN,
+                         ruta_scorecard: Path | None = None) -> dict:
     """Para cada caso `exacto`: la nota CON la imagen y la nota SIN ella.
 
     POR QUE ESTA COMPARACION Y NO SOLO LA TABLA DE DELTA
@@ -445,16 +446,27 @@ def delta_con_sin_imagen(responder_m3, *, ruta_casos: Path = RUTA_CASOS,
     """
     casos = [c for c in criterios.cargar_casos(ruta_casos) if c.get("criterio") == "exacto"]
     trazas = json.loads(Path(ruta_trazas).read_text(encoding="utf-8"))
+    # Los segundos CON imagen salen del scorecard guardado (ver + M3); los SIN
+    # imagen se cronometran aqui (solo M3). Si M3 responde desde su cache, los
+    # segundos sin imagen no son comparables: se declara en `_latencia`.
+    seg_con = {}
+    if ruta_scorecard is not None and Path(ruta_scorecard).exists():
+        filas_sc, _ = cargar_guardado(ruta_scorecard, ruta_trazas)
+        seg_con = {f["id"]: f["segundos"] for f in filas_sc}
     filas = []
     for c in casos:
         t = trazas[c["id"]]
         con = criterios.nota_exacto(c, t)
+        t0 = time.perf_counter()
         sin_salida = responder_m3(c["pregunta"])
+        seg_sin = round(time.perf_counter() - t0, 3)
         sin = criterios.nota_exacto(c, {"salida": sin_salida, "js": None})
         efecto = ("aporta" if con > sin else "empeora" if con < sin
                   else "no aporta (acierta igual)" if con else "no aporta (falla igual)")
         filas.append({"id": c["id"], "esperado": c["esperado"],
                       "nota_con_imagen": con, "nota_sin_imagen": sin, "efecto": efecto,
+                      "segundos_con_imagen": seg_con.get(c["id"]),
+                      "segundos_sin_imagen": seg_sin,
                       "salida_sin_imagen": sin_salida})
     n = len(filas)
     res = {"_que_es": ("la misma pregunta con la imagen y sin ella, sobre el mismo M3: "
@@ -462,6 +474,11 @@ def delta_con_sin_imagen(responder_m3, *, ruta_casos: Path = RUTA_CASOS,
            "n": n,
            "acierto_con_imagen": round(sum(f["nota_con_imagen"] for f in filas) / n, 4) if n else None,
            "acierto_sin_imagen": round(sum(f["nota_sin_imagen"] for f in filas) / n, 4) if n else None,
+           "latencia_con_imagen": _media([f["segundos_con_imagen"] for f in filas
+                                          if f["segundos_con_imagen"] is not None]),
+           "latencia_sin_imagen": _media([f["segundos_sin_imagen"] for f in filas]),
+           "_latencia": ("segundos por caso; con imagen = ver + M3 de la corrida guardada, "
+                         "sin imagen = solo M3 en esta llamada; verificar que M3 no use cache"),
            "casos": filas}
     Path(ruta_salida).write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     return res

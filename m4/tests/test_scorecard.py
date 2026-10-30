@@ -538,3 +538,22 @@ def test_delta_con_sin_imagen_separa_lo_que_aporta_de_lo_que_no(tmp_path):
     assert res["n"] == 2                                    # solo los `exacto`
     assert efectos == {"a1": "no aporta (acierta igual)", "a2": "aporta"}
     assert (res["acierto_con_imagen"], res["acierto_sin_imagen"]) == (1.0, 0.5)
+
+
+def test_delta_con_sin_imagen_registra_latencia_de_las_dos_condiciones(tmp_path):
+    casos = tmp_path / "casos.csv"
+    casos.write_text("id,pregunta,imagen,esperado,criterio,tipo\n"
+                     "a1,pregunta uno,x.png,tutela,exacto,normal\n", encoding="utf-8")
+    salida = ("Derecho: salud\nAccionado: X\nMecanismo: accion de tutela\n"
+              "Procedencia: si\nPretension: y")
+    trazas = tmp_path / "trazas.json"
+    trazas.write_text(json.dumps({"a1": {"salida": salida, "js": {}}}), encoding="utf-8")
+    sc = tmp_path / "sc.csv"
+    sc.write_text("id,criterio,tipo,nota,segundos,salida\na1,exacto,normal,1.0,9.5,x\n",
+                  encoding="utf-8")
+    res = scorecard.delta_con_sin_imagen(lambda p: salida, ruta_casos=casos, ruta_trazas=trazas,
+                                         ruta_salida=tmp_path / "d.json", ruta_scorecard=sc)
+    fila = res["casos"][0]
+    assert fila["segundos_con_imagen"] == 9.5
+    assert fila["segundos_sin_imagen"] >= 0
+    assert res["latencia_con_imagen"] == 9.5 and res["latencia_sin_imagen"] is not None
