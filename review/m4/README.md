@@ -15,7 +15,7 @@ Esta revisión es técnica. La calificación se comunica por canal privado. Las 
 | Componente visual | `ver()` del notebook con su prompt y post-proceso, Qwen2-VL-2B en fp16 sobre Apple MPS (sin 4-bit, que MPS no soporta) | 9 de 11 lecturas idénticas a sus trazas; cambia doc03 (m04/m05), como ustedes ya documentan entre GPUs |
 | Cadena completa | M3 real (`openai/gpt-oss-120b` en Groq), caché vacía, en m10, m04, m01 y m06 | Ver §3 (H2 y H4) |
 
-Las diferencias de hardware (MPS fp16 frente a T4 4-bit) no se consideran defectos de la entrega. Las latencias medidas aquí sirven como orden de magnitud y no reemplazan las suyas.
+Las diferencias de hardware (Apple MPS frente a la T4 de Colab, ambas en fp16) no se consideran defectos de la entrega. Las latencias medidas aquí sirven como orden de magnitud y no reemplazan las suyas.
 
 ## 2. Fortalezas
 
@@ -67,7 +67,13 @@ Las diferencias de hardware (MPS fp16 frente a T4 4-bit) no se consideran defect
 
 ## 4. Prioridades para Demo Day
 
-Ver [`PLAN_DEMO.md`](PLAN_DEMO.md).
+La Demo presenta el sistema completo como producto. [`PLAN_DEMO.md`](PLAN_DEMO.md) muestra dónde está hoy el recorrido M1–M4 y propone tres prioridades sobre el camino que ya existe:
+
+1. **[P1] Experiencia de punta a punta en una sola llamada:** `sistema_multimodal()` como módulo importable y una salida con tres bloques (las cinco líneas, el «Por qué» con la regla y el artículo, y lo leído del documento), más una frase sobre el lugar de M1 en el producto.
+2. **[P1] La confianza como característica:** m10 como caso de seguridad, con la lectura rotulada «no verificado», una advertencia y la abstención de M3 (H2).
+3. **[P1] Tres cifras de valor con denominador, sobre una versión fija y ensayada:** el delta repetido (H4), la latencia sin arranque (H1), un tag/SHA con manifiesto (H3) y un plan B rotulado.
+
+Incluye un guion sugerido y sugerencias para cuando desplieguen en M5.
 
 ## 5. Cómo reproducir lo verificado
 
