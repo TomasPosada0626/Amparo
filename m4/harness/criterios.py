@@ -300,6 +300,29 @@ CRITERIOS = {
 }
 
 
+# --------------------------------------------------------------------------
+# Advertencias de lectura: diagnostico, NO cambia ninguna nota pre-registrada
+# --------------------------------------------------------------------------
+_NUMERALES = ("un|una|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|"
+              "once|doce|quince|veinte|treinta")
+_PLAZO_EN_TEXTO = re.compile(
+    rf"\b(\d+|{_NUMERALES})\s+(dias|semanas|meses)\b")
+
+
+def advertencias_lectura(js) -> list[str]:
+    """Senales de que el texto libre del VLM trae un dato que el campo
+    estructurado no respalda. La valvula solo mira los campos nombrados; esto
+    mira `pretension_visible`. Es una marca para el relato y las trazas, no una
+    nota: un plazo legible en el texto tambien se marca, para verificarlo."""
+    if not isinstance(js, dict):
+        return []
+    avisos = []
+    texto = _norm(js.get("pretension_visible") or "")
+    if _es_nulo(js.get("plazo_dias")) and _PLAZO_EN_TEXTO.search(texto):
+        avisos.append("plazo en texto libre sin plazo_dias: verificar en la imagen")
+    return avisos
+
+
 def calificar(caso: dict, traza: dict, **kwargs) -> float:
     """Enruta por la columna `criterio` del caso. kwargs solo los usa juez_vlm
     (preguntar_fn, imagen); los demas criterios los ignoran, asi el bucle de
