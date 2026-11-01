@@ -430,3 +430,14 @@ def test_validar_tolera_nan_de_pandas_en_esperado_vacio():
     filas = filas_validas()
     filas[3]["esperado"] = float("nan")
     assert criterios.validar_casos(filas) == []
+
+
+@pytest.mark.parametrize("js, avisa", [
+    ({"plazo_dias": None, "pretension_visible": "un plazo de dos semanas habiles"}, True),
+    ({"plazo_dias": None, "pretension_visible": "dentro de 15 dias habiles"}, True),
+    ({"plazo_dias": 15, "pretension_visible": "dentro de 15 dias habiles"}, False),
+    ({"plazo_dias": None, "pretension_visible": "contratos de 2025 y 2026"}, False),
+    (None, False),
+])
+def test_advertencias_lectura_marca_plazo_sin_respaldo(js, avisa):
+    assert bool(criterios.advertencias_lectura(js)) is avisa
