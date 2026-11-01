@@ -144,10 +144,15 @@ def correr_harness(casos, ver_fn, responder_m3, cargar_fn, *, preguntar_fn=None,
 
         t0 = time.perf_counter()
         crudo, js = ver_fn(imagen)
+        t_ver = time.perf_counter()
         salida = responder_m3(armar_relato(caso["pregunta"], js, crudo))
         segundos = time.perf_counter() - t0
 
-        traza = {"crudo": crudo, "js": js, "salida": salida}
+        # `segundos_ver` separa el costo del componente visual del de M3
+        # (revision docente, H1). `segundos`, la columna del scorecard, sigue
+        # siendo ver + M3: sus columnas las fija el plan y no cambian.
+        traza = {"crudo": crudo, "js": js, "salida": salida,
+                 "segundos_ver": round(t_ver - t0, 3)}
         kw = {}
         if caso["criterio"] == "juez_vlm":
             # Se guarda la respuesta cruda del juez: un NO y un "probablemente"
@@ -482,3 +487,135 @@ def delta_con_sin_imagen(responder_m3, *, ruta_casos: Path = RUTA_CASOS,
            "casos": filas}
     Path(ruta_salida).write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     return res
+
+
+# --------------------------------------------------------------------------
+# El delta REPETIDO, con la cache vacia (revision docente, H4 y H1)
+# --------------------------------------------------------------------------
+RUTA_DELTA_REPETIDO = RAIZ / "m4" / "delta_imagen_repetido_m4.json"
+
+
+def _mediana(xs):
+    xs = sorted(x for x in xs if x is not None)
+    if not xs:
+        return None
+    m = len(xs) // 2
+    return round(xs[m] if len(xs) % 2 else (xs[m - 1] + xs[m]) / 2, 3)
+
+
+def delta_repetido(responder_m3, *, repeticiones: int = 3, vaciar_cache=None,
+                   ruta_casos: Path = RUTA_CASOS, ruta_trazas: Path = RUTA_TRAZAS,
+                   ruta_salida: Path = RUTA_DELTA_REPETIDO) -> dict:
+    """La misma pregunta con imagen y sin ella, `repeticiones` veces cada una.
+
+    POR QUE HACE FALTA REPETIR
+
+    Con una sola corrida, la imagen aporto en m06 y no en m01; en una corrida
+    anterior aporto en m01; y en la re-ejecucion de la revision docente, m06
+    acerto tambien sin imagen. El extractor de hechos de M3 no es determinista,
+    asi que "la imagen aporta en el caso X" solo se puede afirmar como una tasa:
+    "en m06 la imagen cambio la via en 2 de 3 corridas".
+
+    QUE SE REPITE Y QUE NO
+
+    Se repite M3, que es la parte que varia. La lectura del VLM sale de las
+    trazas de la corrida (`ruta_trazas`) y es la misma en cada repeticion:
+    `ver()` es voraz y determinista en una misma GPU. Lo que se mide es, por
+    tanto, cuanto cambia la decision de M3 con y sin esa lectura.
+
+    LA CACHE TIENE QUE ESTAR VACIA
+
+    `vaciar_cache()` se llama antes de CADA llamada a M3. Sin eso, la segunda
+    repeticion devuelve la respuesta guardada y la tasa mide la cache. Por eso
+    pedir mas de una repeticion sin `vaciar_cache` es un error, no un aviso.
+
+    LATENCIA
+
+    Por caso y condicion se cronometra M3. La condicion con imagen suma
+    ademas `segundos_ver` de la traza, cuando la corrida lo registro: es el
+    costo del componente visual. Se reportan medianas, que no arrastra un
+    arranque en frio.
+    """
+    if repeticiones < 1:
+        raise ValueError("repeticiones tiene que ser >= 1")
+    if repeticiones > 1 and vaciar_cache is None:
+        raise ValueError("repetir sin vaciar la cache de M3 mide la cache, no el sistema: "
+                         "pasa vaciar_cache (enchufe_m3.vaciar_caches)")
+    vaciar = vaciar_cache or (lambda: None)
+    casos = [c for c in criterios.cargar_casos(ruta_casos) if c.get("criterio") == "exacto"]
+    trazas = json.loads(Path(ruta_trazas).read_text(encoding="utf-8"))
+
+    por_caso = {c["id"]: {"id": c["id"], "esperado": c["esperado"],
+                          "segundos_ver": trazas[c["id"]].get("segundos_ver"),
+                          "repeticiones": []} for c in casos}
+    for r in range(repeticiones):
+        for c in casos:
+            t = trazas[c["id"]]
+            relato_con = armar_relato(c["pregunta"], t.get("js"), t.get("crudo") or "")
+            vaciar()
+            t0 = time.perf_counter()
+            s_con = responder_m3(relato_con)
+            m3_con = time.perf_counter() - t0
+            vaciar()
+            t1 = time.perf_counter()
+            s_sin = responder_m3(c["pregunta"])
+            m3_sin = time.perf_counter() - t1
+            con = criterios.nota_exacto(c, {"salida": s_con, "js": t.get("js")})
+            sin = criterios.nota_exacto(c, {"salida": s_sin, "js": None})
+            por_caso[c["id"]]["repeticiones"].append({
+                "rep": r + 1, "nota_con_imagen": con, "nota_sin_imagen": sin,
+                "efecto": ("aporta" if con > sin else "empeora" if con < sin
+                           else "no aporta (acierta igual)" if con else "no aporta (falla igual)"),
+                "segundos_m3_con_imagen": round(m3_con, 3),
+                "segundos_m3_sin_imagen": round(m3_sin, 3),
+                "mecanismo_con_imagen": _schema_mecanismo(s_con),
+                "mecanismo_sin_imagen": _schema_mecanismo(s_sin)})
+
+    filas = []
+    for f in por_caso.values():
+        reps = f["repeticiones"]
+        ver_s = f["segundos_ver"] or 0.0
+        f["aciertos_con_imagen"] = sum(x["nota_con_imagen"] for x in reps)
+        f["aciertos_sin_imagen"] = sum(x["nota_sin_imagen"] for x in reps)
+        f["aporta_en"] = sum(x["efecto"] == "aporta" for x in reps)
+        f["empeora_en"] = sum(x["efecto"] == "empeora" for x in reps)
+        f["lectura"] = (f"la imagen cambio la via a la correcta en {f['aporta_en']} de "
+                        f"{len(reps)} corridas" + (f" y la empeoro en {f['empeora_en']}"
+                                                   if f["empeora_en"] else ""))
+        f["mediana_segundos_con_imagen"] = _mediana(
+            [x["segundos_m3_con_imagen"] + ver_s for x in reps])
+        f["mediana_segundos_sin_imagen"] = _mediana([x["segundos_m3_sin_imagen"] for x in reps])
+        filas.append(f)
+
+    n_llamadas = len(casos) * repeticiones
+    todas = [x for f in filas for x in f["repeticiones"]]
+    res = {
+        "_que_es": ("la misma pregunta con la imagen y sin ella, repetida sobre el mismo M3 "
+                    "con la cache vacia antes de cada llamada; la lectura del VLM es la de "
+                    "las trazas de la corrida"),
+        "_cache": ("vaciada antes de cada llamada a M3" if vaciar_cache is not None
+                   else "NO se vacio: una sola repeticion, sin garantia de llamada real"),
+        "repeticiones": repeticiones,
+        "n_casos": len(casos),
+        "tasa_acierto_con_imagen": round(sum(x["nota_con_imagen"] for x in todas) / n_llamadas, 4) if n_llamadas else None,
+        "tasa_acierto_sin_imagen": round(sum(x["nota_sin_imagen"] for x in todas) / n_llamadas, 4) if n_llamadas else None,
+        "aciertos_con_imagen": f"{sum(x['nota_con_imagen'] for x in todas):g}/{n_llamadas}",
+        "aciertos_sin_imagen": f"{sum(x['nota_sin_imagen'] for x in todas):g}/{n_llamadas}",
+        "mediana_segundos_con_imagen": _mediana([x["segundos_m3_con_imagen"] + (f["segundos_ver"] or 0.0)
+                                                 for f in filas for x in f["repeticiones"]]),
+        "mediana_segundos_sin_imagen": _mediana([x["segundos_m3_sin_imagen"] for x in todas]),
+        "mediana_segundos_ver": _mediana([f["segundos_ver"] for f in filas]),
+        "_latencia": ("medianas por llamada; con imagen = segundos_ver de la traza + M3 "
+                      "cronometrado aqui; sin imagen = solo M3. Si la traza no registra "
+                      "segundos_ver (corridas anteriores a la revision), la condicion con "
+                      "imagen es solo M3 y mediana_segundos_ver sale null"),
+        "casos": filas,
+    }
+    Path(ruta_salida).parent.mkdir(parents=True, exist_ok=True)
+    Path(ruta_salida).write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
+    return res
+
+
+def _schema_mecanismo(salida: str):
+    """El mecanismo que M3 emitio, con el mismo parser que califica `exacto`."""
+    return criterios._schema().parse_salida(salida).get("mecanismo")

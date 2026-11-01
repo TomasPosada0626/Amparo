@@ -1,0 +1,67 @@
+{
+ "id": "20261025_oficial",
+ "_que_es": "manifiesto RECONSTRUIDO despues de la corrida oficial del 2026-10-25. Esa corrida no registro su commit, su GPU ni su reranker (revision docente, H3), asi que cada campo dice si es un REGISTRO, una INFERENCIA o DESCONOCIDO. Las corridas posteriores escriben su manifiesto desde la propia corrida, en m4/corridas/<id>/corrida_m4.json.",
+ "fecha": "2026-10-25, entre las 20:16 y las 21:17 (hora de Bogota)",
+ "codigo": {
+  "commit": "982a022",
+  "_estado": "INFERIDO",
+  "_por_que": "el notebook clono `main`. `982a022` se subio a las 20:16; los cuatro archivos de la corrida se descargaron a las 21:17; el commit siguiente, d158742 (21:21), es el que los incorpora. Entre medias main no cambio, y `git diff 982a022 d158742` no toca m4/eval_set, m4/pipeline, m4/harness ni src/."
+ },
+ "entorno": {
+  "gpu": "NVIDIA T4 (Colab)",
+  "_estado": "DECLARADO por el equipo, no registrado"
+ },
+ "vlm": {
+  "modelo": "Qwen/Qwen2-VL-2B-Instruct",
+  "dtype": "float16",
+  "generacion": "voraz (do_sample=False)",
+  "_estado": "REGISTRO: es el codigo del commit"
+ },
+ "m3": {
+  "brazo": "4 · agente + reglas",
+  "modelo": "openai/gpt-oss-120b",
+  "estrategia": "reranked",
+  "k": 4,
+  "chunking": "articulo (nuestro)",
+  "denso": "intfloat/multilingual-e5-base",
+  "reranker": null,
+  "_estado_reranker": "DESCONOCIDO: el notebook lo imprime desde 982a022, pero la salida de las celdas no se guardo. Es jina-reranker-v2 si el Colab traia einops; si no, bge-reranker-base.",
+  "_estado": "REGISTRO: es el codigo del commit"
+ },
+ "eval_set": {
+  "casos_m4.csv": "7f3be8083fbbf744",
+  "imagenes/doc01_respuesta_eps.png": "79f812e3154ceeb5",
+  "imagenes/doc02_oficio_planeacion.png": "a6ac635a9ea8af63",
+  "imagenes/doc03_respuesta_cumplimiento.png": "288b82d2b1e76937",
+  "imagenes/doc04_respuesta_car.png": "a2a80338b5bfe91d",
+  "imagenes/doc05_notificacion_acueducto.jpg": "b4637c954abacc11",
+  "imagenes/doc06_notificacion_borrosa.jpg": "05628dd3d09b7cc2"
+ },
+ "_estado_eval_set": "REGISTRO: las huellas son de los archivos actuales, que no cambian desde f01bb0e",
+ "archivos": {
+  "scorecard_m4.csv": "fab887f60a798e5f",
+  "trazas_m4.json": "24f819c7cc8acc10",
+  "delta_m4.json": "557b8b6798cd0c8a",
+  "delta_imagen_m4.json": "290ab4f26c8b214c"
+ },
+ "resumen": {
+  "exacto_aciertos": "3/3",
+  "juez_vlm": 1.0,
+  "campos": 0.553,
+  "valvula": 1.0,
+  "latencia_por_caso_s": {
+   "mediana_11_casos": 8.72,
+   "media_11_casos": 10.89,
+   "mediana_sin_m02": 8.44,
+   "media_sin_m02": 8.9,
+   "max": "30.8 s en m02 (arranque en frio)"
+  },
+  "delta_una_pasada": {
+   "con_imagen": "3/3",
+   "sin_imagen": "2/3",
+   "aporta_en": [
+    "m06"
+   ]
+  }
+ }
+}

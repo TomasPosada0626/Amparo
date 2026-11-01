@@ -184,11 +184,14 @@ def test_cronometro_mide_ver_mas_m3_y_deja_fuera_carga_y_juez(carpeta, monkeypat
     monkeypatch.setattr(scorecard.time, "perf_counter", perf_counter)
     filas, _ = correr(p, carpeta)
     tipos = [e[0] for e in p.eventos]
-    # Por caso: cargar, reloj, ver, m3, reloj (y el juez DESPUES del segundo reloj).
-    assert tipos[:5] == ["cargar", "reloj", "ver", "m3", "reloj"]
+    # Por caso: cargar, reloj, ver, reloj, m3, reloj (y el juez DESPUES del
+    # ultimo reloj). La lectura de en medio separa `segundos_ver` (revision
+    # docente, H1); `segundos` sigue cubriendo ver + M3 y nada mas.
+    assert tipos[:6] == ["cargar", "reloj", "ver", "reloj", "m3", "reloj"]
     i_juez = tipos.index("juez")
     assert tipos[i_juez - 1] == "reloj" and tipos[i_juez - 2] == "m3"
-    assert all(f["segundos"] == 10 for f in filas)
+    assert all(f["segundos"] == 20 for f in filas)          # dos tramos de 10 s
+    assert all(t["segundos_ver"] == 10 for t in _.values())  # solo el tramo de ver
 
 
 def test_csv_invalido_no_corre_nada(carpeta):

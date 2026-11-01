@@ -140,3 +140,25 @@ def construir_responder_m3(cliente=None, *, indice=None, transformador=None,
         return ag(relato)
 
     return responder_m3, ag
+
+
+def vaciar_caches(agente) -> None:
+    """Deja al agente sin memoria de llamadas anteriores, en RAM.
+
+    POR QUE HACE FALTA. El agente guarda cada respuesta de Groq bajo una clave
+    que incluye el prompt completo, y la reescritura de consultas hace lo
+    mismo. Con la cache llena, repetir un caso devuelve la respuesta guardada:
+    las repeticiones salen identicas aunque el extractor de M3 no sea
+    determinista, y la tasa que se publique mediria la cache, no el sistema.
+    Es la condicion "cache vacia" con la que la revision docente re-ejecuto M3
+    (PR #15, H4).
+
+    Solo vacia la memoria del proceso: no borra los archivos de cache en disco.
+    """
+    cache = getattr(agente, "_cache", None)
+    if isinstance(cache, dict):
+        cache.clear()
+    tr = getattr(agente, "transformador", None)
+    cache_tr = getattr(tr, "cache", None)
+    if isinstance(cache_tr, dict):
+        cache_tr.clear()
