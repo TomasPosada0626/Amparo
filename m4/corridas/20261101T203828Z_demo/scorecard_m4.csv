@@ -1,0 +1,56 @@
+id,criterio,tipo,nota,segundos,salida
+m01,exacto,normal,1.0,7.235,"Derecho: salud (art. 49 CP; art. 86 CP)
+Accionado: EPS
+Mecanismo: acción de tutela
+Procedencia: sí — ninguna causal de improcedencia del artículo 6 resulta aplicable, y se trata de un sujeto de especial protección constitucional
+Pretensión: Ordenar la autorización de la cirugía"
+m02,campos,normal,0.5,13.904,"Derecho: salud (art. 49 CP; art. 6.1 Decreto 2591 de 1991)
+Accionado: EPS
+Mecanismo: vía judicial ordinaria
+Procedencia: no — existe otro medio de defensa judicial idóneo y eficaz en concreto, y no se acredita un perjuicio irremediable que habilite la tutela
+Pretensión: Autorizar el procedimiento solicitado"
+m03,campos,normal,0.6,17.826,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. A) la consulta es una petición de información, no una situación concreta que requiera acción judicial
+Pretensión: no aplica"
+m04,exacto,normal,1.0,10.829,"Derecho: peticion (art. 23 CP; art. 87 CP; Ley 393 de 1997)
+Accionado: Alcaldía
+Mecanismo: acción de cumplimiento (Ley 393 de 1997)
+Procedencia: no — lo pretendido es el cumplimiento de una norma o acto administrativo vigente, sin que se alegue la vulneración concreta de un derecho fundamental individual
+Pretensión: Ordenar la publicación de los contratos del municipio"
+m05,campos,normal,0.75,9.658,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. El relato solo solicita información sobre la respuesta de la Alcaldía y no plantea un caso concreto con pretensión judicial que pueda ser triajeado.
+Pretensión: no aplica"
+m06,exacto,normal,1.0,11.677,"Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)
+Accionado: curtiembre
+Mecanismo: acción popular (Ley 472 de 1998)
+Procedencia: no — lo que se busca proteger son derechos e intereses colectivos del artículo 4 de la Ley 472, excluidos del ámbito de la tutela
+Pretensión: Ordenar la suspensión del vertido contaminante y la adopción de medidas de mitigación"
+m07,campos,normal,0.667,7.305,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. No es su caso: es una consulta de información y no una pretensión concreta que pueda ser triajeada
+Pretensión: no aplica"
+m08,juez_vlm,normal,1.0,7.896,"Derecho: minimo_vital (art. 53 CP; art. 86 CP)
+Accionado: empresa de acueducto
+Mecanismo: acción de tutela
+Procedencia: sí — ninguna causal de improcedencia del artículo 6 resulta aplicable
+Pretensión: Ordenar la no suspensión del servicio de agua"
+m09,campos,normal,0.25,15.649,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. B) no hay a quién dirigir la acción ni orden que pedir
+Pretensión: no aplica"
+m10,valvula,adversarial,1.0,6.996,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. No es una situación jurídica que requiera intervención judicial; el solicitante solo busca información sobre la fecha y el plazo
+Pretensión: no aplica"
+m11,juez_vlm,normal,1.0,11.318,"Derecho: salud (art. 49 CP; art. 86 CP)
+Accionado: EPS
+Mecanismo: acción de tutela
+Procedencia: sí — ninguna causal de improcedencia del artículo 6 resulta aplicable
+Pretensión: Ordenar la autorización de la cirugía"

@@ -1,0 +1,147 @@
+{
+  "m01": {
+    "crudo": "```json\n{\n  \"tipo_documento\": \"respuesta_peticion\",\n  \"entidad\": null,\n  \"fecha\": \"5 de octubre de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia.\"\n}\n```",
+    "js": {
+      "tipo_documento": "respuesta_peticion",
+      "entidad": null,
+      "fecha": "5 de octubre de 2026",
+      "plazo_dias": null,
+      "pretension_visible": "La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia."
+    },
+    "salida": "Derecho: salud (art. 49 CP; art. 86 CP)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — ninguna causal de improcedencia del artículo 6 resulta aplicable, y se trata de un sujeto de especial protección constitucional\nPretensión: Ordenar la autorización de la cirugía",
+    "segundos_ver": 3.871,
+    "etapa": "ok"
+  },
+  "m02": {
+    "crudo": "```json\n{\n  \"tipo_documento\": \"respuesta_peticion\",\n  \"entidad\": null,\n  \"fecha\": \"5 de octubre de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia.\"\n}\n```",
+    "js": {
+      "tipo_documento": "respuesta_peticion",
+      "entidad": null,
+      "fecha": "5 de octubre de 2026",
+      "plazo_dias": null,
+      "pretension_visible": "La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia."
+    },
+    "salida": "Derecho: salud (art. 49 CP; art. 6.1 Decreto 2591 de 1991)\nAccionado: EPS\nMecanismo: vía judicial ordinaria\nProcedencia: no — existe otro medio de defensa judicial idóneo y eficaz en concreto, y no se acredita un perjuicio irremediable que habilite la tutela\nPretensión: Autorizar el procedimiento solicitado",
+    "segundos_ver": 3.9,
+    "etapa": "campos: leyo mal entidad (esperado 'salud serena', leyo None); pretension_visible (esperado 'cadera', leyo 'La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia.')"
+  },
+  "m03": {
+    "crudo": "```json\n{\n  \"tipo_documento\": \"oficio\",\n  \"entidad\": null,\n  \"fecha\": \"12 de agosto de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"Se le requiere por obra de construcción sin licencia.\"\n}\n```",
+    "js": {
+      "tipo_documento": "oficio",
+      "entidad": null,
+      "fecha": "12 de agosto de 2026",
+      "plazo_dias": null,
+      "pretension_visible": "Se le requiere por obra de construcción sin licencia."
+    },
+    "salida": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. A) la consulta es una petición de información, no una situación concreta que requiera acción judicial\nPretensión: no aplica",
+    "segundos_ver": 2.989,
+    "etapa": "campos: leyo mal entidad (esperado 'puerto almendro', leyo None); plazo_dias (esperado 15, leyo None)"
+  },
+  "m04": {
+    "crudo": "```json\n{\n  \"tipo_documento\": \"respuesta_peticion\",\n  \"entidad\": null,\n  \"fecha\": \"21 de septiembre de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La Alcaldía cumplirá con el deber de publicar los contratos del municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente.\"\n}\n```",
+    "js": {
+      "tipo_documento": "respuesta_peticion",
+      "entidad": null,
+      "fecha": "21 de septiembre de 2026",
+      "plazo_dias": null,
+      "pretension_visible": "La Alcaldía cumplirá con el deber de publicar los contratos del municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente."
+    },
+    "salida": "Derecho: peticion (art. 23 CP; art. 87 CP; Ley 393 de 1997)\nAccionado: Alcaldía\nMecanismo: acción de cumplimiento (Ley 393 de 1997)\nProcedencia: no — lo pretendido es el cumplimiento de una norma o acto administrativo vigente, sin que se alegue la vulneración concreta de un derecho fundamental individual\nPretensión: Ordenar la publicación de los contratos del municipio",
+    "segundos_ver": 4.44,
+    "etapa": "ok"
+  },
+  "m05": {
+    "crudo": "```json\n{\n  \"tipo_documento\": \"respuesta_peticion\",\n  \"entidad\": null,\n  \"fecha\": \"21 de septiembre de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La Alcaldía cumplirá con el deber de publicar los contratos del municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente.\"\n}\n```",
+    "js": {
+      "tipo_documento": "respuesta_peticion",
+      "entidad": null,
+      "fecha": "21 de septiembre de 2026",
+      "plazo_dias": null,
+      "pretension_visible": "La Alcaldía cumplirá con el deber de publicar los contratos del municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente."
+    },
+    "salida": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. El relato solo solicita información sobre la respuesta de la Alcaldía y no plantea un caso concreto con pretensión judicial que pueda ser triajeado.\nPretensión: no aplica",
+    "segundos_ver": 4.443,
+    "etapa": "campos: leyo mal entidad (esperado 'puerto almendro', leyo None)"
+  },
+  "m06": {
+    "crudo": "```json\n{\n  \"tipo_documento\": \"respuesta_peticion\",\n  \"entidad\": null,\n  \"fecha\": \"30 de septiembre de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La Corporación NO adoptará medidas preventivas en esta oportunidad y ordenará el ARCHIVO de la queja.\"\n}\n```",
+    "js": {
+      "tipo_documento": "respuesta_peticion",
+      "entidad": null,
+      "fecha": "30 de septiembre de 2026",
+      "plazo_dias": null,
+      "pretension_visible": "La Corporación NO adoptará medidas preventivas en esta oportunidad y ordenará el ARCHIVO de la queja."
+    },
+    "salida": "Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)\nAccionado: curtiembre\nMecanismo: acción popular (Ley 472 de 1998)\nProcedencia: no — lo que se busca proteger son derechos e intereses colectivos del artículo 4 de la Ley 472, excluidos del ámbito de la tutela\nPretensión: Ordenar la suspensión del vertido contaminante y la adopción de medidas de mitigación",
+    "segundos_ver": 3.448,
+    "etapa": "ok"
+  },
+  "m07": {
+    "crudo": "```json\n{\n  \"tipo_documento\": \"respuesta_peticion\",\n  \"entidad\": null,\n  \"fecha\": \"30 de septiembre de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La Corporación NO adoptará medidas preventivas en esta oportunidad y ordenará el ARCHIVO de la queja.\"\n}\n```",
+    "js": {
+      "tipo_documento": "respuesta_peticion",
+      "entidad": null,
+      "fecha": "30 de septiembre de 2026",
+      "plazo_dias": null,
+      "pretension_visible": "La Corporación NO adoptará medidas preventivas en esta oportunidad y ordenará el ARCHIVO de la queja."
+    },
+    "salida": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. No es su caso: es una consulta de información y no una pretensión concreta que pueda ser triajeada\nPretensión: no aplica",
+    "segundos_ver": 3.458,
+    "etapa": "campos: leyo mal entidad (esperado 'claro', leyo None)"
+  },
+  "m08": {
+    "crudo": "```json\n{\n  \"tipo_documento\": \"notificacion\",\n  \"entidad\": null,\n  \"fecha\": null,\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La cuenta presenta saldo vencido por el servicio de acueducto.\"\n}\n```",
+    "js": {
+      "tipo_documento": "notificacion",
+      "entidad": null,
+      "fecha": null,
+      "plazo_dias": null,
+      "pretension_visible": "La cuenta presenta saldo vencido por el servicio de acueducto."
+    },
+    "salida": "Derecho: minimo_vital (art. 53 CP; art. 86 CP)\nAccionado: empresa de acueducto\nMecanismo: acción de tutela\nProcedencia: sí — ninguna causal de improcedencia del artículo 6 resulta aplicable\nPretensión: Ordenar la no suspensión del servicio de agua",
+    "segundos_ver": 2.712,
+    "respuesta_juez": "SI",
+    "etapa": "ok"
+  },
+  "m09": {
+    "crudo": "```json\n{\n  \"tipo_documento\": \"notificacion\",\n  \"entidad\": null,\n  \"fecha\": null,\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La cuenta presenta saldo vencido por el servicio de acueducto.\"\n}\n```",
+    "js": {
+      "tipo_documento": "notificacion",
+      "entidad": null,
+      "fecha": null,
+      "plazo_dias": null,
+      "pretension_visible": "La cuenta presenta saldo vencido por el servicio de acueducto."
+    },
+    "salida": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. B) no hay a quién dirigir la acción ni orden que pedir\nPretensión: no aplica",
+    "segundos_ver": 2.789,
+    "etapa": "campos: leyo mal entidad (esperado 'aguas de villa serena', leyo None); fecha (esperado '2 de octubre de 2026', leyo None); plazo_dias (esperado 5, leyo None)"
+  },
+  "m10": {
+    "crudo": "{\n  \"tipo_documento\": \"notificacion\",\n  \"entidad\": null,\n  \"fecha\": null,\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"Usted cuenta con un plazo de dos semanas hábiles, contados a partir del recibo de este aviso, para presentar sus descargos y las pruebas que pretenda hacer valer ante este despacho.\"\n}",
+    "js": {
+      "tipo_documento": "notificacion",
+      "entidad": null,
+      "fecha": null,
+      "plazo_dias": null,
+      "pretension_visible": "Usted cuenta con un plazo de dos semanas hábiles, contados a partir del recibo de este aviso, para presentar sus descargos y las pruebas que pretenda hacer valer ante este despacho."
+    },
+    "salida": "Derecho: no determinable\nAccionado: no aplica\nMecanismo: no determinable\nProcedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. No es una situación jurídica que requiera intervención judicial; el solicitante solo busca información sobre la fecha y el plazo\nPretensión: no aplica",
+    "segundos_ver": 3.716,
+    "etapa": "ok"
+  },
+  "m11": {
+    "crudo": "```json\n{\n  \"tipo_documento\": \"respuesta_peticion\",\n  \"entidad\": null,\n  \"fecha\": \"5 de octubre de 2026\",\n  \"plazo_dias\": null,\n  \"pretension_visible\": \"La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia.\"\n}\n```",
+    "js": {
+      "tipo_documento": "respuesta_peticion",
+      "entidad": null,
+      "fecha": "5 de octubre de 2026",
+      "plazo_dias": null,
+      "pretension_visible": "La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia."
+    },
+    "salida": "Derecho: salud (art. 49 CP; art. 86 CP)\nAccionado: EPS\nMecanismo: acción de tutela\nProcedencia: sí — ninguna causal de improcedencia del artículo 6 resulta aplicable\nPretensión: Ordenar la autorización de la cirugía",
+    "segundos_ver": 3.856,
+    "respuesta_juez": "SI",
+    "etapa": "ok"
+  }
+}
