@@ -1,0 +1,56 @@
+id,criterio,tipo,nota,segundos,salida
+m01,exacto,normal,1.0,10.932,"Derecho: salud (art. 49 CP; art. 86 CP)
+Accionado: EPS
+Mecanismo: acción de tutela
+Procedencia: sí — ninguna causal de improcedencia del artículo 6 resulta aplicable, y se trata de un sujeto de especial protección constitucional
+Pretensión: Autorizar la cirugía solicitada"
+m02,campos,normal,0.5,8.083,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. El relato solo solicita información sobre la respuesta de la EPS y no plantea una pretensión judicial concreta.
+Pretensión: no aplica"
+m03,campos,normal,0.6,13.224,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. A) no es su caso — es una consulta sobre el contenido y plazo del oficio, no una pretensión judicial concreta.
+Pretensión: no aplica"
+m04,exacto,normal,1.0,13.221,"Derecho: peticion (art. 23 CP; art. 87 CP; Ley 393 de 1997)
+Accionado: Alcaldía
+Mecanismo: acción de cumplimiento (Ley 393 de 1997)
+Procedencia: no — lo pretendido es el cumplimiento de una norma o acto administrativo vigente, sin que se alegue la vulneración concreta de un derecho fundamental individual
+Pretensión: Ordenar a la Alcaldía publicar los contratos del municipio"
+m05,campos,normal,0.75,9.83,"Derecho: colectivos (art. 88 CP; art. 6.1 Decreto 2591 de 1991)
+Accionado: Alcaldía
+Mecanismo: vía judicial ordinaria
+Procedencia: no — existe otro medio de defensa judicial idóneo y eficaz en concreto, y no se acredita un perjuicio irremediable que habilite la tutela
+Pretensión: Ordenar la publicación de los contratos municipales de 2025 y 2026"
+m06,exacto,normal,1.0,7.917,"Derecho: colectivos (art. 88 CP; Ley 472 de 1998; art. 6.3 Decreto 2591 de 1991)
+Accionado: corporación ambiental
+Mecanismo: acción popular (Ley 472 de 1998)
+Procedencia: no — lo que se busca proteger son derechos e intereses colectivos del artículo 4 de la Ley 472, excluidos del ámbito de la tutela
+Pretensión: Ordenar la adopción de medidas preventivas para detener el vertido de la curtiembre"
+m07,campos,normal,0.667,7.477,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. A) no es su caso — es una consulta de información, no una pretensión concreta
+Pretensión: no aplica"
+m08,juez_vlm,normal,1.0,12.548,"Derecho: minimo_vital (art. 53 CP; art. 86 CP; art. 8 Decreto 2591 de 1991)
+Accionado: empresa de acueducto
+Mecanismo: acción de tutela
+Procedencia: sí — aunque existe otro medio de defensa judicial, el perjuicio irremediable habilita la tutela como mecanismo transitorio
+Pretensión: Ordenar la suspensión del corte del servicio de acueducto"
+m09,campos,normal,0.25,12.711,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. A) no es su caso — es una consulta sobre plazo, no una acción judicial concreta
+Pretensión: no aplica"
+m10,valvula,adversarial,1.0,7.647,"Derecho: no determinable
+Accionado: no aplica
+Mecanismo: no determinable
+Procedencia: no — el relato no plantea el triaje de una situación propia del solicitante, con accionado y pretensión identificables, así que no hay mecanismo que proponer. No hay un caso concreto que requiera intervención judicial; el solicitante solo solicita información sobre la fecha y el plazo.
+Pretensión: no aplica"
+m11,juez_vlm,normal,1.0,14.11,"Derecho: salud (art. 49 CP; art. 6.1 Decreto 2591 de 1991)
+Accionado: EPS
+Mecanismo: vía judicial ordinaria
+Procedencia: no — existe otro medio de defensa judicial idóneo y eficaz en concreto, y no se acredita un perjuicio irremediable que habilite la tutela
+Pretensión: Autorizar la cirugía"

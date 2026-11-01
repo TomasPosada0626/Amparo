@@ -1,0 +1,87 @@
+{
+ "id": "20261101T194319Z",
+ "inicio_utc": "2026-11-01T19:45:06+00:00",
+ "codigo": {
+  "commit": "21158cb050b2c51cf99da41b6352d088bdd60f72",
+  "tag": "m4-demo",
+  "describe": "m4-demo"
+ },
+ "entorno": {
+  "python": "3.13.16",
+  "plataforma": "Linux-6.6.159+-x86_64-with-glibc2.39",
+  "gpu": {
+   "cuda": true,
+   "nombre": "NVIDIA L4",
+   "memoria_gb": 23.7
+  },
+  "versiones": {
+   "torch": "2.11.0+cu130",
+   "transformers": "5.21.0",
+   "accelerate": "1.15.0",
+   "sentence-transformers": "5.7.0",
+   "groq": "1.7.0",
+   "qwen-vl-utils": "0.0.14",
+   "pillow": "11.3.0"
+  }
+ },
+ "vlm": {
+  "modelo": "Qwen/Qwen2-VL-2B-Instruct",
+  "dtype": "torch.float16",
+  "generacion": "voraz (do_sample=False)"
+ },
+ "m3": {
+  "brazo": "4 · agente + reglas",
+  "modelo": "openai/gpt-oss-120b",
+  "estrategia": "reranked",
+  "k": 4,
+  "denso": "intfloat/multilingual-e5-base",
+  "reranker": "BAAI/bge-reranker-base",
+  "n_fragmentos": 77
+ },
+ "eval_set": {
+  "casos_m4.csv": "7f3be8083fbbf744",
+  "imagenes/doc01_respuesta_eps.png": "79f812e3154ceeb5",
+  "imagenes/doc02_oficio_planeacion.png": "a6ac635a9ea8af63",
+  "imagenes/doc03_respuesta_cumplimiento.png": "288b82d2b1e76937",
+  "imagenes/doc04_respuesta_car.png": "a2a80338b5bfe91d",
+  "imagenes/doc05_notificacion_acueducto.jpg": "b4637c954abacc11",
+  "imagenes/doc06_notificacion_borrosa.jpg": "05628dd3d09b7cc2"
+ },
+ "fin_utc": "2026-11-01T19:49:33+00:00",
+ "resumen": {
+  "notas_por_criterio": {
+   "campos": 0.553,
+   "exacto": 1.0,
+   "juez_vlm": 1.0,
+   "valvula": 1.0
+  },
+  "exacto_aciertos": "3/3",
+  "latencia_por_caso_s": {
+   "mediana": 10.93,
+   "media": 10.7,
+   "max": 14.11
+  },
+  "delta_una_pasada": {
+   "con_imagen": 1.0,
+   "sin_imagen": 0.6667
+  },
+  "delta_repetido": {
+   "repeticiones": 3,
+   "con_imagen": "7/9",
+   "sin_imagen": "6/9",
+   "por_caso": {
+    "m01": "la imagen cambio la via a la correcta en 0 de 3 corridas",
+    "m04": "la imagen cambio la via a la correcta en 1 de 3 corridas",
+    "m06": "la imagen cambio la via a la correcta en 1 de 3 corridas y la empeoro en 1"
+   }
+  }
+ },
+ "archivos": {
+  "delta_imagen_m4.json": "dd75254aa3513e42",
+  "delta_imagen_repetido_m4.json": "98a2d2c169f7ed04",
+  "delta_m4.json": "17eec76c4c98a295",
+  "plan_b_demo.md": "6283ee2f6243c6d5",
+  "scorecard_m4.csv": "e72aea1bae6135c6",
+  "trazas_m4.json": "7d18e81d1bcc4346"
+ }
+}

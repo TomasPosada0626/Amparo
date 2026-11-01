@@ -1,0 +1,148 @@
+{
+ "_que_es": "la misma pregunta con la imagen y sin ella, repetida sobre el mismo M3 con la cache vacia antes de cada llamada; la lectura del VLM es la de las trazas de la corrida",
+ "_cache": "vaciada antes de cada llamada a M3",
+ "repeticiones": 3,
+ "n_casos": 3,
+ "tasa_acierto_con_imagen": 0.7778,
+ "tasa_acierto_sin_imagen": 0.6667,
+ "aciertos_con_imagen": "7/9",
+ "aciertos_sin_imagen": "6/9",
+ "mediana_segundos_con_imagen": 9.649,
+ "mediana_segundos_sin_imagen": 5.733,
+ "mediana_segundos_ver": 3.949,
+ "_latencia": "medianas por llamada; con imagen = segundos_ver de la traza + M3 cronometrado aqui; sin imagen = solo M3. Si la traza no registra segundos_ver (corridas anteriores a la revision), la condicion con imagen es solo M3 y mediana_segundos_ver sale null",
+ "casos": [
+  {
+   "id": "m01",
+   "esperado": "tutela",
+   "segundos_ver": 3.949,
+   "repeticiones": [
+    {
+     "rep": 1,
+     "nota_con_imagen": 1.0,
+     "nota_sin_imagen": 1.0,
+     "efecto": "no aporta (acierta igual)",
+     "segundos_m3_con_imagen": 5.335,
+     "segundos_m3_sin_imagen": 3.513,
+     "mecanismo_con_imagen": "tutela",
+     "mecanismo_sin_imagen": "tutela"
+    },
+    {
+     "rep": 2,
+     "nota_con_imagen": 1.0,
+     "nota_sin_imagen": 1.0,
+     "efecto": "no aporta (acierta igual)",
+     "segundos_m3_con_imagen": 3.061,
+     "segundos_m3_sin_imagen": 5.733,
+     "mecanismo_con_imagen": "tutela",
+     "mecanismo_sin_imagen": "tutela"
+    },
+    {
+     "rep": 3,
+     "nota_con_imagen": 1.0,
+     "nota_sin_imagen": 1.0,
+     "efecto": "no aporta (acierta igual)",
+     "segundos_m3_con_imagen": 5.413,
+     "segundos_m3_sin_imagen": 7.818,
+     "mecanismo_con_imagen": "tutela",
+     "mecanismo_sin_imagen": "tutela"
+    }
+   ],
+   "aciertos_con_imagen": 3.0,
+   "aciertos_sin_imagen": 3.0,
+   "aporta_en": 0,
+   "empeora_en": 0,
+   "lectura": "la imagen cambio la via a la correcta en 0 de 3 corridas",
+   "mediana_segundos_con_imagen": 9.284,
+   "mediana_segundos_sin_imagen": 5.733
+  },
+  {
+   "id": "m04",
+   "esperado": "accion_cumplimiento",
+   "segundos_ver": 4.468,
+   "repeticiones": [
+    {
+     "rep": 1,
+     "nota_con_imagen": 1.0,
+     "nota_sin_imagen": 1.0,
+     "efecto": "no aporta (acierta igual)",
+     "segundos_m3_con_imagen": 5.193,
+     "segundos_m3_sin_imagen": 7.346,
+     "mecanismo_con_imagen": "accion_cumplimiento",
+     "mecanismo_sin_imagen": "accion_cumplimiento"
+    },
+    {
+     "rep": 2,
+     "nota_con_imagen": 1.0,
+     "nota_sin_imagen": 1.0,
+     "efecto": "no aporta (acierta igual)",
+     "segundos_m3_con_imagen": 7.335,
+     "segundos_m3_sin_imagen": 6.628,
+     "mecanismo_con_imagen": "accion_cumplimiento",
+     "mecanismo_sin_imagen": "accion_cumplimiento"
+    },
+    {
+     "rep": 3,
+     "nota_con_imagen": 1.0,
+     "nota_sin_imagen": 0.0,
+     "efecto": "aporta",
+     "segundos_m3_con_imagen": 5.181,
+     "segundos_m3_sin_imagen": 8.823,
+     "mecanismo_con_imagen": "accion_cumplimiento",
+     "mecanismo_sin_imagen": null
+    }
+   ],
+   "aciertos_con_imagen": 3.0,
+   "aciertos_sin_imagen": 2.0,
+   "aporta_en": 1,
+   "empeora_en": 0,
+   "lectura": "la imagen cambio la via a la correcta en 1 de 3 corridas",
+   "mediana_segundos_con_imagen": 9.661,
+   "mediana_segundos_sin_imagen": 7.346
+  },
+  {
+   "id": "m06",
+   "esperado": "accion_popular",
+   "segundos_ver": 3.515,
+   "repeticiones": [
+    {
+     "rep": 1,
+     "nota_con_imagen": 1.0,
+     "nota_sin_imagen": 0.0,
+     "efecto": "aporta",
+     "segundos_m3_con_imagen": 6.451,
+     "segundos_m3_sin_imagen": 4.607,
+     "mecanismo_con_imagen": "accion_popular",
+     "mecanismo_sin_imagen": null
+    },
+    {
+     "rep": 2,
+     "nota_con_imagen": 0.0,
+     "nota_sin_imagen": 0.0,
+     "efecto": "no aporta (falla igual)",
+     "segundos_m3_con_imagen": 5.993,
+     "segundos_m3_sin_imagen": 5.327,
+     "mecanismo_con_imagen": "tutela",
+     "mecanismo_sin_imagen": "tutela"
+    },
+    {
+     "rep": 3,
+     "nota_con_imagen": 0.0,
+     "nota_sin_imagen": 1.0,
+     "efecto": "empeora",
+     "segundos_m3_con_imagen": 6.461,
+     "segundos_m3_sin_imagen": 5.266,
+     "mecanismo_con_imagen": "tutela",
+     "mecanismo_sin_imagen": "accion_popular"
+    }
+   ],
+   "aciertos_con_imagen": 1.0,
+   "aciertos_sin_imagen": 1.0,
+   "aporta_en": 1,
+   "empeora_en": 1,
+   "lectura": "la imagen cambio la via a la correcta en 1 de 3 corridas y la empeoro en 1",
+   "mediana_segundos_con_imagen": 9.966,
+   "mediana_segundos_sin_imagen": 5.266
+  }
+ ]
+}

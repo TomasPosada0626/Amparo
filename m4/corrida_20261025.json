@@ -26,6 +26,7 @@
   "denso": "intfloat/multilingual-e5-base",
   "reranker": null,
   "_estado_reranker": "DESCONOCIDO: el notebook lo imprime desde 982a022, pero la salida de las celdas no se guardo. Es jina-reranker-v2 si el Colab traia einops; si no, bge-reranker-base.",
+  "_evidencia_posterior_reranker": "Indicio, no registro: jina fallo al importarse ('cannot import name create_position_ids_from_input_ids', un error de transformers, no de einops) y entro bge-reranker-base tanto en notebooks/M3_rag.ipynb (2026-10-21) como en la corrida de demo (m4/corridas/20261101T194319Z_demo, 2026-11-01). Es probable que el 25 pasara lo mismo; no se puede comprobar.",
   "_estado": "REGISTRO: es el codigo del commit"
  },
  "eval_set": {

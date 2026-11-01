@@ -28,7 +28,8 @@ LO QUE SE ANADE: LA RESPUESTA EN TRES BLOQUES
   - "Por que": la regla del art. 6 del Decreto 2591 que cerro el caso, los
     hechos que la activaron y las normas que el agente consulto. Sale de la
     traza del agente, no de un texto escrito despues: es lo que de verdad
-    decidio.
+    decidio. Si Amparo se abstiene no hay regla que mostrar: lo dice, y los
+    hechos que anoto el agente se muestran como tales, sin decision.
   - "Leido del documento": lo que extrajo el VLM, rotulado como lectura de un
     modelo NO verificada, con los avisos de `criterios.advertencias_lectura`
     (PR #16). En m10, el plazo de "dos semanas" que no esta en el documento
@@ -180,15 +181,25 @@ def formatear(res: dict) -> str:
     if pq is None:
         lineas += ["_Sin traza del agente: no se puede mostrar el fundamento._", ""]
     else:
+        hechos = ", ".join(f"`{h}`" for h in pq["hechos"])
         if pq["se_abstuvo"]:
+            # El motor de reglas corre igual, pero lo emitido es "no determinable":
+            # su regla no cerro nada. Mostrarla como "la regla que cerro el caso"
+            # contradecia la linea de arriba (m10, corrida 20261101T194319Z).
             lineas.append("- **Amparo prefirió no decidir**: "
                           + (pq["motivo_abstencion"] or "los hechos no alcanzan para triar el caso."))
-        lineas.append(f"- **Regla del art. 6 (Decreto 2591) que cerró el caso:** `{pq['regla']}`")
-        if pq["hechos"]:
-            lineas.append("- **Hechos que la activaron:** " + ", ".join(f"`{h}`" for h in pq["hechos"]))
+            lineas.append("- Ninguna regla del art. 6 (Decreto 2591) cerró el caso: la abstención "
+                          "la decidió el extractor de hechos al leer el relato.")
+            if hechos:
+                lineas.append("- **Hechos que anotó el agente, sin llegar a una decisión:** " + hechos)
+        else:
+            lineas.append(f"- **Regla del art. 6 (Decreto 2591) que cerró el caso:** `{pq['regla']}`")
+            if hechos:
+                lineas.append("- **Hechos que la activaron:** " + hechos)
         if pq["normas_consultadas"]:
             lineas.append("- **Normas que consultó el agente:** " + "; ".join(pq["normas_consultadas"]))
-        lineas.append("- El mecanismo lo decide la regla, no el modelo de lenguaje.")
+        if not pq["se_abstuvo"]:
+            lineas.append("- El mecanismo lo decide la regla, no el modelo de lenguaje.")
         lineas.append("")
 
     leido = res.get("leido")

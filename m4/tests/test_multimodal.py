@@ -150,6 +150,29 @@ def test_por_que_traduce_los_ids_a_normas():
     pq = multimodal.por_que(traza, {"CP-088": "art. 88 · Constitución Política"})
     assert pq["normas_consultadas"] == ["art. 88 · Constitución Política", "X-1"]
     assert pq["hechos"] == ["derecho_colectivo"]
+    md = multimodal.formatear({"respuesta": "Mecanismo: acción popular", "por_que": pq})
+    assert "que cerró el caso:** `derechos_colectivos`" in md
+    assert "Hechos que la activaron:** `derecho_colectivo`" in md
+    assert "El mecanismo lo decide la regla" in md
+
+
+def test_al_abstenerse_no_muestra_una_regla_que_cerro_el_caso():
+    """m10 en la corrida 20261101T194319Z: el extractor marco el caso como no
+    triable, pero el motor igual corrio y su regla (`incumplimiento_normativo`)
+    aparecia como "la regla que cerro el caso", justo debajo de "prefirio no
+    decidir". El hecho lo habia anotado el agente a partir del plazo inventado."""
+    traza = {"regla": "incumplimiento_normativo", "recuperados": [],
+             "hechos": {"incumplimiento_normativo": True, "titular_pide_lo_suyo": True},
+             "mecanismo_del_motor": "accion_cumplimiento", "no_triable": True,
+             "motivo_no_triable": "a) no es su caso — es una consulta sobre la fecha y el plazo"}
+    md = multimodal.formatear({"respuesta": "Mecanismo: no determinable",
+                               "por_que": multimodal.por_que(traza)})
+    assert "prefirió no decidir**: a) no es su caso" in md
+    assert "Ninguna regla del art. 6" in md
+    assert "que cerró el caso:**" not in md and "Hechos que la activaron" not in md
+    assert "El mecanismo lo decide la regla" not in md
+    assert "sin llegar a una decisión:** `incumplimiento_normativo`, `titular_pide_lo_suyo`" in md
+    assert "accion_cumplimiento" not in md
 
 
 # --------------------------------------------------------------------------
