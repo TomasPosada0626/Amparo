@@ -132,7 +132,8 @@ las mismas huellas del 25. Al lado está el notebook ejecutado con sus salidas
   m01 y m10 salen como en el scorecard; **m06 grabó «acción de tutela»**, una
   de las fallas que mide el delta repetido. Se deja como salió: repetirlo
   hasta que acierte sería escoger a mano una grabación que se presenta como
-  real.
+  real. Su m10 se grabó con el «Por qué» anterior al arreglo; el plan B que
+  se usa en la demo es el de la corrida desde `demo-final`.
 
 ## Resultados de la corrida oficial (Colab, T4, 2026-10-25)
 
@@ -269,21 +270,23 @@ m05; entre la T4 y la L4 de la corrida de demo coinciden las 11.
 ## Reproducir
 
 **La corrida de evaluación**, en Colab con GPU (el notebook pide una T4; la
-corrida de demo se hizo en una L4) y el secreto `GROQ_API_KEY`:
-[`pipeline/M4_pipeline.ipynb`](https://colab.research.google.com/github/TomasPosada0626/Amparo/blob/m4-demo/m4/pipeline/M4_pipeline.ipynb)
+del 1 de noviembre se hizo en una L4) y el secreto `GROQ_API_KEY`:
+[`pipeline/M4_pipeline.ipynb`](https://colab.research.google.com/github/TomasPosada0626/Amparo/blob/demo-final/m4/pipeline/M4_pipeline.ipynb)
 → **Entorno → Reiniciar y ejecutar todo** (unos 30 min). Clona el tag
-`m4-demo` y escribe todo en `corridas/<id>/`: manifiesto, scorecard, trazas,
+`demo-final` y escribe todo en `corridas/<id>/`: manifiesto, scorecard, trazas,
 los dos deltas y el plan B de la demo. Al final descarga un `.zip` con esa
 carpeta.
 
 **La demo**:
-[`pipeline/M4_demo.ipynb`](https://colab.research.google.com/github/TomasPosada0626/Amparo/blob/demo-day/m4/pipeline/M4_demo.ipynb),
+[`pipeline/M4_demo.ipynb`](https://colab.research.google.com/github/TomasPosada0626/Amparo/blob/demo-final/m4/pipeline/M4_demo.ipynb),
 mismas condiciones; deja un enlace público mientras la sesión esté abierta.
-Clona el tag **`demo-day`**, que es `m4-demo` más el arreglo del «Por qué» al
-abstenerse. El sistema que decide es el mismo que se evaluó:
-`git diff m4-demo demo-day -- src m4/harness m4/pipeline/*.py` solo toca
-`formatear()` en `multimodal.py`, que no usan el scorecard ni los deltas (solo
-la vista de los tres bloques y el plan B).
+
+Los dos notebooks clonan **el mismo tag, `demo-final`**: lo que ve el público es
+lo que se evaluó, y el manifiesto de la corrida lo prueba con su SHA. `m4-demo`
+es el tag de la corrida del 1 de noviembre. Entre los dos, en código, solo
+cambia `formatear()` en `multimodal.py` (el «Por qué» al abstenerse), que no
+usan el scorecard ni los deltas:
+`git diff m4-demo demo-final -- src m4/harness/*.py m4/pipeline/*.py`.
 
 **Sin GPU**: `python -m pytest m4/tests` (187 pruebas).
 
@@ -295,11 +298,11 @@ Las dos se fusionaron con su autoría. Qué se hizo con cada punto:
 |---|---|---|
 | **H1** · el delta no medía latencia; los 30.8 s eran de m02 | atribución corregida; las trazas registran `segundos_ver` aparte; el delta mide la latencia de las dos condiciones (PR #16 y `delta_repetido`) | hecho · corrida de demo: mediana 10.9 s por caso sin arranque en frío; con imagen 9.6 s frente a 5.7 s sin ella |
 | **H2** · la lectura del VLM entra como un hecho | bloque «Leído del documento · no verificado» con el aviso de plazo (PR #16); el relato de M3 no se toca | hecho · y el plazo inventado de m10 sí entra a M3 como hecho: ver el peor caso |
-| **H3** · la corrida oficial es poco trazable | el notebook clona el tag `m4-demo` y escribe `corrida_m4.json` desde la propia corrida; para la del 25, manifiesto reconstruido y rotulado | hecho · `corridas/20261101T194319Z_demo/`, commit `21158cb`, L4, con el notebook ejecutado |
+| **H3** · la corrida oficial es poco trazable | el notebook clona un tag fijo y escribe `corrida_m4.json` desde la propia corrida; para la del 25, manifiesto reconstruido y rotulado | hecho · `corridas/20261101T194319Z_demo/`, commit `21158cb`, L4, con el notebook ejecutado |
 | **H4** · el aporte en m06 varía entre corridas | `delta_repetido`: 3 repeticiones con la caché vacía antes de cada llamada | hecho · 7/9 con imagen frente a 6/9 sin ella; en m06, 1/3 y 1/3: no se sostiene que la imagen mejore la decisión |
 | **P1** · una sola llamada, con el fundamento a la vista | `multimodal.py` con `Amparo`, la salida en tres bloques y la interfaz `M4_demo.ipynb` | hecho |
-| **P2** · la confianza como característica | m10 muestra el aviso y la abstención; es el caso de seguridad del guion. El «Por qué» ya no muestra una regla cuando Amparo se abstiene | hecho · la interfaz clona `demo-day` |
-| **P3** · tres cifras sobre una versión fija | las tres cifras de arriba; tag `m4-demo` para la evaluación y `demo-day` para la interfaz; plan B grabado de m01, m06 y m10 | hecho · el plan B de m06 grabó una falla y se deja así |
+| **P2** · la confianza como característica | m10 muestra el aviso y la abstención; es el caso de seguridad del guion. El «Por qué» ya no muestra una regla cuando Amparo se abstiene | hecho |
+| **P3** · tres cifras sobre una versión fija | las tres cifras de arriba; un solo tag, `demo-final`, para la evaluación y la interfaz; plan B grabado de m01, m06 y m10 | hecho · falta la corrida desde `demo-final`, que da el manifiesto con el SHA de la demo y el plan B con el «Por qué» corregido |
 
 **Equipo:** Santiago (pipeline y `ver()`) · Lucas (documentos, eval set y
 corrida del harness) · Nico (harness y tabla de delta) · Tomás y Martín (enchufe
