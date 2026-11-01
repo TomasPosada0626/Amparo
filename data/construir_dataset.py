@@ -32,11 +32,11 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 sys.path.insert(0, str(RAIZ / "data"))
 
-import schema                                    # noqa: E402
-from reglas import Hechos, decidir               # noqa: E402
+from amparo.nucleo import schema                                    # noqa: E402
+from amparo.nucleo.reglas import Hechos, decidir               # noqa: E402
 from nuevos_a import bloque_a                    # noqa: E402
 from nuevos_b import bloque_b                    # noqa: E402
 from nuevos_c import bloque_c                    # noqa: E402

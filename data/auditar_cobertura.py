@@ -46,9 +46,9 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 
-from rag import Indice, citas_esperadas, cubre, trocear   # noqa: E402
+from amparo.rag.recuperacion import Indice, citas_esperadas, cubre, trocear   # noqa: E402
 
 RUTA_OUT = RAIZ / "data" / "cobertura_corpus.json"
 FUENTES = ("corpus.json", "eval_set_v3.json", "eval_set_v2.json",

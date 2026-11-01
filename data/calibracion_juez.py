@@ -49,14 +49,14 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 # `-I` no pone el directorio del script en sys.path, asi que el modulo
 # vecino se declara igual que los de `src/`.
 sys.path.insert(0, str(RAIZ / "data"))
 
 import formularios                                # noqa: E402
-import schema                                     # noqa: E402
-from harness import acuerdo_entre_jueces          # noqa: E402
+from amparo.nucleo import schema                                     # noqa: E402
+from amparo.evaluacion.harness import acuerdo_entre_jueces          # noqa: E402
 
 RUTA_CSV = RAIZ / "data" / "calibracion_1.csv"
 RUTA_OUT = RAIZ / "data" / "calibracion_juez.json"

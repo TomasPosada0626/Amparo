@@ -89,7 +89,7 @@ def entorno() -> list[tuple[str, bool, str]]:
 
 
 PASOS = [
-    (["src/autoprueba_integracion.py"], "61 pruebas de fontanería",
+    (["tests/autoprueba_integracion.py"], "pruebas de fontanería",
      "la lógica del motor, las métricas y los contratos de los artefactos",
      True),
     (["data/verificar_entrega.py"], "coherencia de la entrega",

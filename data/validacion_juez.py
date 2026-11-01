@@ -47,14 +47,14 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 sys.path.insert(0, str(RAIZ / "data"))
 
-import corridas                                            # noqa: E402
+from amparo.ejecucion import corridas                                            # noqa: E402
 import formularios                                         # noqa: E402
-import harness                                             # noqa: E402
-import juez                                                # noqa: E402
-import schema                                              # noqa: E402
+from amparo.evaluacion import harness                                             # noqa: E402
+from amparo.evaluacion import juez                                                # noqa: E402
+from amparo.nucleo import schema                                              # noqa: E402
 
 NOTAS = RAIZ / "results" / "m2_scorecard_por_caso.csv"
 PREDS = RAIZ / "results" / "m1_predicciones.json"

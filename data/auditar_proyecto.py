@@ -20,11 +20,11 @@ from collections import Counter
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(RAIZ / "src"))
-import metricas  # noqa: E402
-import schema    # noqa: E402
-import sistema   # noqa: E402
-from reglas import Hechos, decidir, estrato_verificacion  # noqa: E402
+sys.path.insert(0, str(RAIZ))
+from amparo.evaluacion import metricas  # noqa: E402
+from amparo.nucleo import schema    # noqa: E402
+from amparo.sistemas import sistema   # noqa: E402
+from amparo.nucleo.reglas import Hechos, decidir, estrato_verificacion  # noqa: E402
 
 HALLAZGOS: list[tuple[str, str, str]] = []   # (capa, gravedad, texto)
 
@@ -124,7 +124,7 @@ def auditar_normas_y_corpus() -> None:
     #     REFERENCIA y el proyecto la excluye del chequeo de alucinacion a
     #     proposito, porque no hay whitelist completo de la jurisprudencia
     #     colombiana. Exigirle fragmento seria exigir lo que no se promete.
-    from rag import cubre
+    from amparo.rag.recuperacion import cubre
     validas, _s, _l = metricas._vocabulario_normas()
     juris = set(_j("normas.json").get("jurisprudencia_referencia", {}))
     huerfanas = sorted(d for d in validas

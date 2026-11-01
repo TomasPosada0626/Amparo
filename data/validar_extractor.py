@@ -40,11 +40,11 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 
-import agente as ag_mod                                     # noqa: E402
-import rag                                                  # noqa: E402
-from reglas import HECHOS_EXTRAIBLES, Hechos, decidir       # noqa: E402
+from amparo.sistemas import agente as ag_mod                                     # noqa: E402
+from amparo.rag import recuperacion as rag                                                  # noqa: E402
+from amparo.nucleo.reglas import HECHOS_EXTRAIBLES, Hechos, decidir       # noqa: E402
 
 VIA_POR_DEFECTO = "accion_cumplimiento"
 """La via que motivo este script. Dejo de estar fija a proposito.

@@ -52,10 +52,10 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 
-from schema import citas, separar_planos  # noqa: E402
-from src.reglas import Hechos, decidir, estrato_verificacion  # noqa: E402
+from amparo.nucleo.schema import citas, separar_planos  # noqa: E402
+from amparo.nucleo.reglas import Hechos, decidir, estrato_verificacion  # noqa: E402
 
 ARTEFACTOS = ("dataset.json", "eval_set.json", "eval_set_v2.json",
               "eval_set_m3.json")

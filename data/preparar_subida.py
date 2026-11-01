@@ -50,8 +50,8 @@ NL = chr(10)
 # De `arranque.ORDEN`, para que no haya dos listas del orden de ejecución que
 # puedan divergir.
 try:
-    sys.path.insert(0, str(RAIZ / "src"))
-    from arranque import ORDEN
+    sys.path.insert(0, str(RAIZ))
+    from amparo.ejecucion.arranque import ORDEN
 except Exception:                                              # noqa: BLE001
     ORDEN = {}
 

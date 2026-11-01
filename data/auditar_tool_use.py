@@ -31,9 +31,9 @@ from datetime import date
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 
-import terminos                                           # noqa: E402
+from amparo.nucleo import terminos                                           # noqa: E402
 
 RUTA_OUT = RAIZ / "data" / "tool_use_auditado.json"
 TRAZAS = RAIZ / "results" / "m3_agente_trazas.json"

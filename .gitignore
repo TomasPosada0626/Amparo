@@ -11,3 +11,6 @@ models/
 # propio Claude sobre la rama `m3.5` del proyecto ANTERIOR, no sobre este
 # codigo. Se lee como insumo y se queda fuera del repo.
 *.pdf
+
+# Instalacion editable del paquete (pip install -e .)
+*.egg-info/

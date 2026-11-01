@@ -40,8 +40,8 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(RAIZ / "src"))
-import schema  # noqa: E402
+sys.path.insert(0, str(RAIZ))
+from amparo.nucleo import schema  # noqa: E402
 
 PRED = RAIZ / "results" / "m1_predicciones.json"
 RUTA_OUT = RAIZ / "data" / "descomposicion_baseline.json"

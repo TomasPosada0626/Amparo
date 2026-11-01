@@ -52,9 +52,9 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 
-from reglas import Hechos, decidir, estrato_verificacion   # noqa: E402
+from amparo.nucleo.reglas import Hechos, decidir, estrato_verificacion   # noqa: E402
 
 RUTA = RAIZ / "data" / "dataset.json"
 RUTA_OUT = RAIZ / "data" / "pares_minimos_propuestos.json"
@@ -495,7 +495,7 @@ def _completar(c: dict) -> dict:
 
 def ARTICULO_POR_DERECHO_SEGURO(derecho: str) -> list[str]:
     """El artículo del derecho, del mapa cerrado que ya usa el sistema."""
-    from sistema import ARTICULO_POR_DERECHO
+    from amparo.sistemas.sistema import ARTICULO_POR_DERECHO
     a = ARTICULO_POR_DERECHO.get(derecho)
     return [a] if a else []
 

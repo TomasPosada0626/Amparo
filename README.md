@@ -18,7 +18,7 @@ Tres decisiones que vale la pena mirar antes que cualquier resultado.
 El art. 6 del Decreto 2591 de 1991 es un **árbol de decisión escrito en la
 ley**. Así que no se le pide a nadie —ni a una persona ni a un modelo— que
 adivine el mecanismo correcto: se codifican los **hechos** del caso y
-`src/reglas.py` deriva el mecanismo recorriendo el árbol.
+`amparo/nucleo/reglas.py` deriva el mecanismo recorriendo el árbol.
 
 Cada caso del set de evaluación declara además qué mecanismo se esperaba. Si
 el motor no coincide, **el caso se rechaza y no entra**. Unos hechos mal
@@ -74,7 +74,7 @@ sostenían.
 | **M4** `m4/pipeline/M4_pipeline.ipynb` | Componente visual, patrón *input*: Qwen2-VL-2B lee la foto de un documento jurídico, extrae hechos y los entrega al brazo 4 de M3. Entrega en [`m4/README.md`](m4/README.md) | GPU (T4) + API |
 
 Corren **en ese orden**. M2 necesita las predicciones de M1 y M3 necesita los
-artefactos de M2; `src/arranque.py` lo declara y lo comprueba antes de gastar
+artefactos de M2; `amparo/ejecucion/arranque.py` lo declara y lo comprueba antes de gastar
 GPU o llamadas.
 
 La quinta sonda de M2 es la que faltaba, y no mide lo mismo que las otras
@@ -125,7 +125,8 @@ implícito.
 ### Las comprobaciones, por separado
 
 ```bash
-python -I src/autoprueba_integracion.py   # toda la fontanería, sin GPU ni API
+python -I tests/autoprueba_integracion.py # toda la fontanería, sin GPU ni API
+python -m pytest tests                    # pipelines, módulos y M4, con dobles (sin GPU ni API)
 python -I data/auditar_notebooks.py       # orden de celdas, numeración y enganche entre notebooks
 python -I data/auditar_proyecto.py        # coherencia entre capas: corpus, gold, motor, reporte
 python -I data/autoprueba_reporte.py      # que la prosa del reporte siga a sus artefactos
@@ -232,15 +233,32 @@ Esta sección existe porque es la más útil del repositorio.
 ## Estructura
 
 ```
-src/          motor de reglas, métricas, harness, juez, agente, autopruebas
+amparo/        el paquete: toda la lógica, en módulos .py
+  nucleo/        esquema del dominio, motor de reglas, términos procesales
+  rag/           corpus, chunking, índice y métricas RAGAS propias
+  sistemas/      los brazos de M3 (SistemaRAG, SistemaReglas, Agente) y generadores
+  finetuning/    datos, entrenamiento LoRA y generación local (M1)
+  evaluacion/    métricas, juez, harness, acuerdo entre jueces, brazos y costos
+  multimodal/    VLM, enchufe con M3 y criterios del harness de M4
+  ejecucion/     corridas, arranque, entorno de Colab y publicación en results/
+  pipelines/     m1_finetuning, m2_harness, m3_rag, m4_multimodal: una función por etapa
+tests/         autopruebas y pytest
 data/          sets de datos, corpus normativo y los scripts que los auditan
-notebooks/     M1, M2 y M3
+notebooks/     M1, M2 y M3: envoltorios delgados que llaman a amparo.pipelines
+m4/            entrega de M4: eval set, imágenes, notebook y resultados
 results/       artefactos publicados de la corrida vigente, con su sello
 REPORTE.md     el reporte, generado a partir de results/
 reproducir.py  la entrada única
 ```
 
-Cada corrida queda sellada con una **huella del código** (`src/*.py`) y una
+En local: `pip install -e ".[dev]"` (el stack pesado va en extras: `[rag]`,
+`[evaluacion]`, `[entrenamiento]`, `[vlm]`, `[ragas]`). En Colab el notebook
+monta Drive, pone la raíz en `sys.path` y llama a las etapas del pipeline. La
+migración de los notebooks al paquete está explicada en
+[`docs/MIGRACION.md`](docs/MIGRACION.md); el estado entregado de M1–M4, con su
+sello, es el tag `entrega-m4`.
+
+Cada corrida queda sellada con una **huella del código** (`amparo/**/*.py`; hasta el tag `entrega-m4`, `src/*.py`) y una
 **versión de los datos**, y `data/verificar_entrega.py` comprueba que todos
 los artefactos de la entrega vengan del mismo experimento. No es hipotético:
 una corrida comparó contra la anterior con los mismos datos, salió distinta, y

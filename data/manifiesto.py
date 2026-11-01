@@ -39,7 +39,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 # Lo que el proyecto necesita para correr. Se excluyen `runs/` y `results/`,
 # que son SALIDA: sincronizarlos no hace falta y compararlos daria diferencias
 # legitimas entre una corrida y otra.
-PATRONES = ("src/*.py", "data/*.py", "data/*.json", "notebooks/*.ipynb")
+PATRONES = ("amparo/**/*.py", "data/*.py", "data/*.json", "notebooks/*.ipynb")
 EXCLUIR = {"reverificacion_corpus.json", "acuerdo_anotadores.json",
            # Derivado de `m3_agente_trazas.json` por
            # `auditar_tool_use.py`: no es una fuente, es una lectura de

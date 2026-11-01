@@ -44,12 +44,12 @@ return responder_m3(relato)                               # M3 real, sin reescri
 ```
 
 `responder_m3` es el brazo **4 · agente + reglas** de M3
-([`pipeline/enchufe_m3.py`](pipeline/enchufe_m3.py)): busca en el corpus de
+([`amparo/multimodal/enchufe.py`](../amparo/multimodal/enchufe.py)): busca en el corpus de
 normas, extrae hechos y el motor del art. 6 del Decreto 2591 decide. Se eligió
 porque sigue el mismo patrón que M4 y cabe en una T4 junto al VLM (razona por
 la API de Groq). No es el mejor brazo de M3 en el agregado —ese es el 1—, y
-toda comparación es contra la fila del brazo 4. `src/` no se modifica: se
-importa.
+toda comparación es contra la fila del brazo 4. El código de M3 no se modifica:
+se importa.
 
 ## Eval set
 
@@ -146,7 +146,7 @@ Abrir en Colab con GPU T4 y el secreto `GROQ_API_KEY`:
 → **Entorno → Reiniciar y ejecutar todo** (unos 20 min). Clona `main` y deja
 [`scorecard_m4.csv`](scorecard_m4.csv), [`trazas_m4.json`](trazas_m4.json),
 [`delta_m4.json`](delta_m4.json) y [`delta_imagen_m4.json`](delta_imagen_m4.json),
-que son los de esta entrega. Sin GPU: `python -m pytest m4/tests` (166 pruebas).
+que son los de esta entrega. Sin GPU: `python -m pytest tests/m4`.
 
 **Equipo:** Santiago (pipeline y `ver()`) · Lucas (documentos, eval set y
 corrida del harness) · Nico (harness y tabla de delta) · Tomás y Martín (enchufe

@@ -38,14 +38,14 @@ RAIZ = Path(__file__).resolve().parent.parent
 # `src/harness.py` importa `metricas` plano, como lo hacen los notebooks, asi
 # que src/ tiene que estar en el path y no solo la raiz.
 sys.path.insert(0, str(RAIZ))
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 # `-I` no pone el directorio del script en sys.path, asi que el modulo
 # vecino se declara igual que los de `src/`.
 sys.path.insert(0, str(RAIZ / "data"))
 
 import formularios  # noqa: E402
-from harness import cohen_kappa  # noqa: E402
-from reglas import Hechos, estrato_verificacion  # noqa: E402
+from amparo.evaluacion.harness import cohen_kappa  # noqa: E402
+from amparo.nucleo.reglas import Hechos, estrato_verificacion  # noqa: E402
 
 # Se anota sobre v3, no sobre v2: tiene 36 casos `derivado` frente a 15,
 # asi que permite la cuota de 30 sin repetir. v3 CONTIENE a v2 byte a

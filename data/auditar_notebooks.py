@@ -13,10 +13,12 @@ QUE COMPRUEBA, Y POR QUE CADA COSA
    DOS secciones "## 7" y un "### 6.1" despues de un "## 6.2".
 
 3. ORDEN DE ARRANQUE. El secreto tiene que cargarse ANTES de `arranque.celda`,
-   que es quien lo comprueba; el manifiesto, antes de gastar GPU o API.
+   que es quien lo comprueba; el manifiesto, antes de gastar GPU o API. Desde
+   la migracion al paquete ese orden lo fija `entorno.preparar()`, y el
+   notebook solo tiene que montar Drive antes de llamar a `mN.preparar()`.
 
 4. ARTEFACTOS. Que todo lo que `arranque.ORDEN` declara que el modulo produce
-   quede publicado en alguna celda.
+   quede publicado en el pipeline del modulo (`amparo/pipelines/`).
 
 Lo que NO comprueba: si las cifras son correctas. Esto mira la fontaneria.
 """
@@ -29,11 +31,13 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(RAIZ / "src"))
-import arranque  # noqa: E402
+sys.path.insert(0, str(RAIZ))
+from amparo.ejecucion import arranque  # noqa: E402
 
 NOTEBOOKS = {"m1": "M1_finetuning.ipynb", "m2": "M2_harness.ipynb",
              "m3": "M3_rag.ipynb"}
+PIPELINES = {"m1": "m1_finetuning.py", "m2": "m2_harness.py",
+             "m3": "m3_rag.py"}
 BUILTINS = set(dir(builtins)) | {"__name__", "__file__", "get_ipython", "In",
                                  "Out", "exit", "quit", "display"}
 HALLAZGOS: list[tuple[str, str, str]] = []   # (notebook, gravedad, texto)
@@ -385,35 +389,53 @@ def auditar(mod: str, nombre: str) -> None:
             previo = (clave, num, i)
 
     # ---- 3 · orden de arranque -----------------------------------------
+    # DESDE LA MIGRACION AL PAQUETE (docs/MIGRACION.md) el arranque ya no son
+    # cuatro celdas copiadas en cada notebook: el notebook monta Drive y llama a
+    # `mN.preparar()`; el pipeline llama a `entorno.preparar("mN")`, y es ESE
+    # codigo el que fija el orden sello -> secreto -> arranque.celda. Se audita
+    # cada cosa donde vive.
     pos = {}
     for i, c in enumerate(celdas):
         if c["cell_type"] != "code":
             continue
         s = sin_comentarios(limpiar("".join(c["source"])))
-        for nombre_marca, pat in (("secreto", r"userdata\.get"),
-                                  ("arranque", r"arranque\.celda"),
-                                  ("manifiesto", r"manifiesto\.py"),
-                                  ("drive", r"drive\.mount")):
+        for nombre_marca, pat in (("drive", r"drive\.mount"),
+                                  ("preparar", r"\.preparar\(")):
             if re.search(pat, s) and nombre_marca not in pos:
                 pos[nombre_marca] = i
-    for falta in ("manifiesto", "arranque", "drive"):
+    for falta in ("drive", "preparar"):
         if falta not in pos:
             HALLAZGOS.append((mod, "GRAVE", f"no hay celda de '{falta}'"))
-    if "secreto" in pos and "arranque" in pos and pos["secreto"] > pos["arranque"]:
+    if "drive" in pos and "preparar" in pos and pos["preparar"] < pos["drive"]:
         HALLAZGOS.append(
-            (mod, "GRAVE", f"el secreto (c{pos['secreto']}) se carga DESPUES "
-                           f"de arranque.celda (c{pos['arranque']}), que es "
-                           "quien lo comprueba"))
-    if "manifiesto" in pos and "drive" in pos and pos["manifiesto"] < pos["drive"]:
+            (mod, "GRAVE", f"preparar() (c{pos['preparar']}) corre antes de "
+                           f"montar Drive (c{pos['drive']})"))
+
+    fuente = (RAIZ / "amparo" / "pipelines" / PIPELINES[mod]).read_text(encoding="utf-8")
+    if f'entorno.preparar("{mod}"' not in fuente:
+        HALLAZGOS.append((mod, "GRAVE", f"{PIPELINES[mod]} no arranca con "
+                                        f'entorno.preparar("{mod}")'))
+    # El CUERPO de `preparar`, sin su docstring: el docstring menciona
+    # `arranque.celda()` antes de las llamadas, y buscar en el texto crudo
+    # daria el mismo GRAVE falso que ya dio una vez el comentario del
+    # manifiesto (ver `sin_comentarios`).
+    arbol = ast.parse((RAIZ / "amparo" / "ejecucion" / "entorno.py").read_text(encoding="utf-8"))
+    fn = next(n for n in arbol.body if isinstance(n, ast.FunctionDef) and n.name == "preparar")
+    sentencias = fn.body[1:] if ast.get_docstring(fn) else fn.body
+    cuerpo = chr(10).join(ast.unparse(n) for n in sentencias)
+    orden = [cuerpo.find(m) for m in ("verificar_sello()", "cargar_clave_groq(",
+                                      "arranque.celda(")]
+    if -1 in orden or orden != sorted(orden):
         HALLAZGOS.append(
-            (mod, "GRAVE", f"el manifiesto (c{pos['manifiesto']}) corre antes "
-                           f"de montar Drive (c{pos['drive']})"))
+            (mod, "GRAVE", "entorno.preparar no hace sello -> secreto -> "
+                           "arranque.celda en ese orden: el secreto tiene que "
+                           "estar ANTES de arranque.celda, que es quien lo "
+                           "comprueba, y el sello antes de gastar GPU o API"))
 
     # ---- 4 · artefactos declarados vs publicados -----------------------
-    todo = "".join("".join(c["source"]) for c in celdas
-                   if c["cell_type"] == "code")
+    # Se buscan en el pipeline, que es donde ahora se publica.
     declarados = {a.split("/")[-1] for a in arranque.ORDEN[mod]["produce"]}
-    sin_publicar = sorted(a for a in declarados if a not in todo)
+    sin_publicar = sorted(a for a in declarados if a not in fuente)
     if sin_publicar:
         HALLAZGOS.append(
             (mod, "GRAVE", f"declarados en ORDEN y no publicados: "

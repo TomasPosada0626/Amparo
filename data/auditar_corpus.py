@@ -130,8 +130,9 @@ def main() -> int:
     # puede RESPALDARLA. Son cosas distintas y la segunda se nos escapo tres
     # veces: Ley 2157 de 2021, art. 42 CP y Ley 100 de 1993 estaban aceptadas
     # por el validador y no existian en el corpus.
-    sys.path.insert(0, str(RAIZ / "src"))
-    import rag, schema
+    sys.path.insert(0, str(RAIZ))
+    from amparo.rag import recuperacion as rag
+    from amparo.nucleo import schema
     chunks = rag.trocear(docs)
     sin_respaldo = {}
     # `eval_set_v2.json` faltaba en esta lista, asi que los 23 casos que se le
