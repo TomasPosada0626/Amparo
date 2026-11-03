@@ -11,7 +11,8 @@ La Parte A destila un CLASIFICADOR por logits (ViT -> CNN chica). Amparo no
 tiene un clasificador de imagenes: el VLM de M4 lee campos de un documento.
 El scorecard de M4 dice donde se va el tiempo (`latencia_por_componente`):
 la mayor parte de cada respuesta es M3, el brazo `4 · agente + reglas`, que
-llama a gpt-oss-120b por Groq de 3 a 7 veces por caso. Es el "agente ReAct
+llama a gpt-oss-120b por Groq 4.2 veces por caso de media
+(`results/m3_agente.json`). Es el "agente ReAct
 con 3 tools" de la slide 9 ("es lo que mas tarda"). La slide 15 lo dice:
 "B (datos sinteticos + LoRA) si es el generador". Y la slide 12 dice por que
 la A no se puede aqui: el profesor es una API y no da logits; la B "sirve
@@ -240,10 +241,35 @@ class Contexto:
     eval_set: list = field(default_factory=list)
     medidas: dict = field(default_factory=dict)
     entrenamiento: dict = field(default_factory=dict)
+    corrida: dict = field(default_factory=dict)
 
     def ruta(self, nombre: str) -> Path:
         self.carpeta.mkdir(parents=True, exist_ok=True)
         return self.carpeta / nombre
+
+
+def manifiesto(ctx: "Contexto", **extra) -> dict:
+    """Que codigo, que GPU y que versiones produjeron las cifras.
+
+    Es la observacion H3 de la profe en M4: el notebook clona una rama que se
+    mueve, asi que si la corrida no deja escrito su commit no se puede decir
+    QUE sistema la produjo. Reutiliza las piezas de `multimodal.corrida_m4`.
+    """
+    from datetime import datetime, timezone
+    from amparo.multimodal import corrida_m4 as c4
+    return {
+        "inicio_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "codigo": {"commit": c4._git("rev-parse", "HEAD"),
+                   "rama": c4._git("rev-parse", "--abbrev-ref", "HEAD"),
+                   "describe": c4._git("describe", "--tags", "--always", "--dirty")},
+        "entorno": {"gpu": c4.gpu(),
+                    "versiones": {m: c4._version(m) for m in (
+                        "torch", "transformers", "peft", "accelerate", "datasets",
+                        "groq", "sentence-transformers", "scikit-learn")}},
+        "profesor": PROFESOR, "estudiante": ESTUDIANTE,
+        "carpeta_de_trabajo": str(ctx.carpeta),
+        **extra,
+    }
 
 
 def _leer(ruta: Path, defecto):
@@ -287,6 +313,10 @@ def preparar(carpeta: str | Path | None = None, *, exigir_clave: bool = True) ->
     except ImportError:
         print("torch no esta instalado")
     print("CONTRATO:", json.dumps(ctx.contrato, ensure_ascii=False, indent=1))
+    ctx.corrida = manifiesto(ctx)
+    _escribir(ctx.ruta("corrida_m5.json"), ctx.corrida)
+    print("corrida:", ctx.corrida["codigo"]["describe"], "·",
+          ctx.corrida["entorno"]["gpu"].get("nombre"))
     return ctx
 
 
@@ -610,12 +640,14 @@ def entrenar_estudiante(ctx: Contexto, modelo: str = ESTUDIANTE, epocas: int = E
     ds_va = Dataset.from_list([_construir(p, tok, max_len) for p in va])
     print(f"train {len(ds_tr)} · validation {len(ds_va)} · max_len {max_len}")
 
+    # Lote, acumulacion y gradient checkpointing son los de M1 (lote 2 x
+    # acumulacion 4 = 8 efectivo). Con lote 8 sin acumulacion la T4 se quedaba
+    # sin memoria: la perdida materializa `lote x secuencia x vocabulario`
+    # (~152 k en Qwen) en fp32. Solo se cambia la tasa y las epocas (S04), y
+    # bf16 -> fp16 porque la T4 no tiene bf16.
     hp = entrenamiento.hiperparametros(SEMILLA, salida=str(ctx.carpeta / "entrenamiento"))
-    hp.update(learning_rate=LR, num_train_epochs=epocas, per_device_train_batch_size=8,
-              gradient_accumulation_steps=1, per_device_eval_batch_size=8,
-              logging_steps=5, gradient_checkpointing=False,
+    hp.update(learning_rate=LR, num_train_epochs=epocas, logging_steps=5,
               bf16=False, fp16=torch.cuda.is_available())
-    hp.pop("gradient_checkpointing_kwargs", None)
     trainer, hp, omitidos, _trad, _parada = entrenamiento.crear_trainer(
         model, ds_tr, ds_va, datos.collate_para(tok), hp)
     t0 = time.perf_counter()
@@ -728,7 +760,8 @@ def correr_con_reloj(sistema, casos: list[dict], ruta: Path, nombre: str,
     return hecho
 
 
-def medir(ctx: Contexto, n: int | None = None, juez=None) -> dict:
+def medir(ctx: Contexto, n: int | None = None, juez=None,
+          rehacer_estudiante: bool = False) -> dict:
     """B3 del lab: `harness(eval_set, sistema)` para el profesor y para el
     estudiante, mas latencia p50/p95 por caso.
 
@@ -737,6 +770,13 @@ def medir(ctx: Contexto, n: int | None = None, juez=None) -> dict:
     cache, no el sistema (la misma trampa que encontro la revision de M4).
     `n` recorta el eval set para una prueba rapida; la tabla del README va
     con los 130.
+
+    Al ESTUDIANTE tambien se le vacia la cache: `Agente._hechos` guarda cada
+    extraccion en memoria aunque no tenga archivo, asi que tras `medir(n=10)`
+    los primeros 10 casos de `medir()` saldrian de la cache en ~0 s y la
+    velocidad y el p95 favorecerian al estudiante. `rehacer_estudiante=True`
+    borra lo ya medido del estudiante (cuesta ~3 min y nada de Groq) por si
+    una corrida anterior quedo con ese sesgo.
     """
     from amparo.evaluacion import harness
     from amparo.multimodal import enchufe
@@ -748,7 +788,10 @@ def medir(ctx: Contexto, n: int | None = None, juez=None) -> dict:
         indice=getattr(ctx.agente_profesor, "indice", None),
         cache_dir=ctx.carpeta / "cache_eval_sin_usar")
     enchufe.vaciar_caches(ag_eval)
+    enchufe.vaciar_caches(ctx.sistema_estudiante)
     sufijo = f"_{n}" if n else ""
+    if rehacer_estudiante:
+        ctx.ruta(f"eval_estudiante{sufijo}.json").unlink(missing_ok=True)
     n_mal = ctx.sistema_estudiante.contadores.get("hechos_no_parseados", 0)
     medidos = {
         "profesor": correr_con_reloj(profesor_eval, casos,
@@ -772,6 +815,13 @@ def medir(ctx: Contexto, n: int | None = None, juez=None) -> dict:
     ctx.medidas["estudiante"]["json_invalido"] = (
         ctx.sistema_estudiante.contadores.get("hechos_no_parseados", 0) - n_mal)
     ctx.medidas["profesor"]["json_invalido"] = ag_eval.contadores.get("hechos_no_parseados", 0)
+    # Llamadas a Groq por caso, MEDIDAS en esta corrida y no escritas a mano.
+    # Si los casos se retomaron de una sesion anterior, aqui solo cuentan los
+    # de esta sesion: se publica el numero de casos sobre el que se midio.
+    r = ag_eval.costos.resumen()
+    ctx.medidas["profesor"]["llamadas_por_caso"] = (
+        r["llamadas_por_caso"] if r.get("casos") else None)
+    ctx.medidas["profesor"]["casos_con_llamadas_medidas"] = r.get("casos", 0)
     return ctx.medidas
 
 
@@ -800,12 +850,22 @@ def tabla(ctx: Contexto):
     est = _fila(m["estudiante"]["scorecard"], m["estudiante"]["segundos"])
     prof["json_invalido"] = m["profesor"].get("json_invalido", 0)
     est["json_invalido"] = m["estudiante"].get("json_invalido", 0)
+    gpu = ((ctx.corrida or {}).get("entorno", {}).get("gpu", {}) or {}).get("nombre")
+    if gpu is None:
+        from amparo.multimodal import corrida_m4 as c4
+        gpu = c4.gpu().get("nombre")
     prof.update(modelo=f"profesor · {PROFESOR} (agente + reglas)",
                 parametros=f"{PARAMETROS_PROFESOR / 1e9:.0f} B (5.1 B activos)",
-                donde_corre="API de Groq", llamadas_por_caso="3-7")
+                donde_corre="API de Groq (medido desde " + (gpu or "CPU") + ")",
+                llamadas_por_caso=m["profesor"].get("llamadas_por_caso"))
     est.update(modelo=f"estudiante · {ESTUDIANTE} + LoRA (+ reglas)",
                parametros=f"{ctx.n_parametros_estudiante / 1e6:.0f} M",
-               donde_corre="la GPU del sistema (T4)", llamadas_por_caso="1")
+               donde_corre=gpu or "CPU", llamadas_por_caso=1)
+    # Una latencia de casi cero es la firma de una cache, no de un modelo.
+    sospechosos = sum(1 for x in m["estudiante"]["segundos"] if x < 0.05)
+    if sospechosos:
+        print(f"ATENCION · {sospechosos} casos del estudiante tardaron < 0.05 s: "
+              "huele a cache. Repite con medir(ctx, rehacer_estudiante=True).")
     df = pd.DataFrame([prof, est]).set_index("modelo")
 
     c = ctx.contrato
@@ -887,17 +947,29 @@ def casos_perdidos(ctx: Contexto, mostrar: int = 5) -> list[dict]:
 # Lo que va al repo
 # ---------------------------------------------------------------------------
 def guardar(ctx: Contexto, carpeta: Path = CARPETA_REPO) -> list[str]:
-    """`m5/destilacion.json` (contrato, entrenamiento, tabla, casos perdidos
-    y el resumen de M4) y `m5/pares_profesor.json` (los datos con los que se
+    """`m5/destilacion.json` (manifiesto, contrato, entrenamiento, tabla y
+    casos perdidos) y `m5/pares_profesor.json` (los datos con los que se
     entreno, para que la destilacion sea reproducible sin volver a pagar
     Groq). El adaptador NO va a git (`models/` y `runs/` estan ignorados):
-    en S15 se sube al Hub."""
-    rutas = []
+    en S15 se sube al Hub.
+
+    En Colab la copia del repo se borra al cerrar la sesion, asi que tambien
+    se escribe en `<carpeta de trabajo>/entrega/` (Drive). Para traerlos al
+    repo: `descargar(ctx)`, o copiarlos de Drive.
+    """
+    from datetime import datetime, timezone
+    from amparo.multimodal import corrida_m4 as c4
     t = ctx.medidas.get("tabla", {})
+    corrida = dict(ctx.corrida or manifiesto(ctx))
+    corrida["fin_utc"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    corrida["archivos_de_trabajo"] = {
+        p.name: c4._sha(p) for p in sorted(ctx.carpeta.glob("*.json")) if p.is_file()}
     resumen = {
+        "corrida": corrida,
         "contrato": ctx.contrato,
         "profesor": {"modelo": PROFESOR, "licencia": LICENCIA_PROFESOR,
-                     "temperatura_relatos": T_RELATOS, "temperatura_respuesta": T_RESPUESTA},
+                     "temperatura_relatos": T_RELATOS, "temperatura_respuesta": T_RESPUESTA,
+                     "llamadas_por_caso": ctx.medidas.get("profesor", {}).get("llamadas_por_caso")},
         "estudiante": ctx.entrenamiento,
         "eval": {"archivos": ["eval_set_v3.json", "eval_set_m3.json"],
                  "n": len(ctx.medidas.get("profesor", {}).get("salidas", []))},
@@ -906,13 +978,31 @@ def guardar(ctx: Contexto, carpeta: Path = CARPETA_REPO) -> list[str]:
         "latencias": {q: ctx.medidas[q]["segundos"] for q in ("profesor", "estudiante")
                       if q in ctx.medidas},
     }
-    _escribir(carpeta / "destilacion.json", resumen); rutas.append(str(carpeta / "destilacion.json"))
     pares = ctx.pares or _leer(ctx.ruta("pares_profesor.json"), [])
-    if pares:
-        _escribir(carpeta / "pares_profesor.json", pares)
-        rutas.append(str(carpeta / "pares_profesor.json"))
+    rutas = []
+    for destino in (Path(carpeta), ctx.carpeta / "entrega"):
+        _escribir(destino / "destilacion.json", resumen)
+        rutas.append(str(destino / "destilacion.json"))
+        if pares:
+            _escribir(destino / "pares_profesor.json", pares)
+            rutas.append(str(destino / "pares_profesor.json"))
     print("guardado:", *rutas, sep="\n  ")
     return rutas
+
+
+def descargar(ctx: Contexto) -> list[str]:
+    """Baja a tu computador lo que va al repo (en Colab). Fuera de Colab no
+    hace falta: `guardar` ya escribio en `m5/`."""
+    archivos = [ctx.carpeta / "entrega" / n for n in ("destilacion.json", "pares_profesor.json")]
+    archivos = [a for a in archivos if a.exists()]
+    try:
+        from google.colab import files
+    except ImportError:
+        print("no es Colab: los archivos ya estan en m5/")
+        return [str(a) for a in archivos]
+    for a in archivos:
+        files.download(str(a))
+    return [str(a) for a in archivos]
 
 
 def correr(carpeta=None, n_por_tema: int = N_POR_TEMA) -> Contexto:

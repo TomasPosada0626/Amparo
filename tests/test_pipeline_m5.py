@@ -257,7 +257,10 @@ def test_guardar_escribe_lo_que_va_al_repo(tmp_path):
     rutas = m5.guardar(ctx, carpeta=tmp_path / "m5")
     d = json.loads((tmp_path / "m5" / "destilacion.json").read_text(encoding="utf-8"))
     assert d["veredicto"]["cumple"] and d["profesor"]["licencia"].startswith("Apache")
-    assert len(rutas) == 2
+    assert len(rutas) == 4                               # en m5/ y en la carpeta de trabajo
+    assert (tmp_path / "entrega" / "destilacion.json").exists()
+    assert {"commit", "rama", "describe"} <= set(d["corrida"]["codigo"])
+    assert "fin_utc" in d["corrida"]
 
 
 def test_acuerdo_profesor_gold_con_un_profesor_perfecto(tmp_path):
@@ -342,3 +345,67 @@ def test_medir_marca_vacio_si_la_extraccion_falla_por_otra_cosa(tmp_path):
     out = m5.correr_con_reloj(ag, casos, tmp_path / "e.json", "profesor", agente=ag)
     assert out["a"]["salida"] and out["a"]["error"] is None
     assert out["b"]["salida"] == "" and "extraccion" in out["b"]["error"]
+
+
+# --------------------------------------------------------------------------
+# lo que encontro Tomas
+# --------------------------------------------------------------------------
+def test_el_manifiesto_registra_codigo_gpu_y_versiones(tmp_path):
+    man = m5.manifiesto(m5.Contexto(carpeta=tmp_path))
+    assert man["codigo"]["commit"]                        # el commit de este checkout
+    assert {"torch", "transformers", "peft"} <= set(man["entorno"]["versiones"])
+    assert "gpu" in man["entorno"]
+
+
+class _CostosFalsos:
+    def __init__(self):
+        self.n = 0
+
+    def resumen(self):
+        return {"casos": 2, "llamadas_por_caso": 4.5}
+
+
+def test_medir_vacia_la_cache_del_estudiante_y_mide_las_llamadas(tmp_path, monkeypatch):
+    """Tras una corrida previa, el estudiante NO puede responder desde su cache."""
+    from amparo.multimodal import enchufe
+    llamadas = []
+    est = m5.agente_estudiante(lambda r: llamadas.append(r) or '{"derecho":"salud"}')
+    casos = m5.cargar_eval()[:2]
+    for e in casos:                                       # como si ya hubiera corrido medir(n=2)
+        est(e["relato"])
+    assert len(llamadas) == 2
+
+    prof = type("P", (), {"fallos_extraccion": [], "contadores": {}, "costos": _CostosFalsos(),
+                          "indice": None, "_cache": {}})()
+    monkeypatch.setattr(enchufe, "construir_responder_m3",
+                        lambda **kw: (lambda r: "Mecanismo: acción de tutela", prof))
+    ctx = m5.Contexto(carpeta=tmp_path, eval_set=casos, sistema_estudiante=est)
+    m5.medir(ctx)
+    assert len(llamadas) == 4                             # los 2 casos se generan de nuevo
+    assert ctx.medidas["profesor"]["llamadas_por_caso"] == 4.5
+
+
+def test_rehacer_estudiante_borra_lo_ya_medido(tmp_path, monkeypatch):
+    from amparo.multimodal import enchufe
+    casos = m5.cargar_eval()[:2]
+    (tmp_path / "eval_estudiante.json").write_text(json.dumps(
+        {e["id"]: {"salida": "x", "segundos": 0.001, "error": None} for e in casos}),
+        encoding="utf-8")
+    llamadas = []
+    est = m5.agente_estudiante(lambda r: llamadas.append(r) or '{"derecho":"salud"}')
+    prof = type("P", (), {"fallos_extraccion": [], "contadores": {}, "costos": _CostosFalsos(),
+                          "indice": None, "_cache": {}})()
+    monkeypatch.setattr(enchufe, "construir_responder_m3",
+                        lambda **kw: (lambda r: "Mecanismo: acción de tutela", prof))
+    ctx = m5.Contexto(carpeta=tmp_path, eval_set=casos, sistema_estudiante=est)
+    m5.medir(ctx)
+    assert llamadas == []                                 # sin rehacer: reusa lo medido
+    m5.medir(ctx, rehacer_estudiante=True)
+    assert len(llamadas) == 2
+
+
+def test_la_tabla_avisa_si_una_latencia_huele_a_cache(tmp_path, capsys):
+    ctx = _ctx_medido(tmp_path, 6.0, 1.0)
+    ctx.medidas["estudiante"]["segundos"][0] = 0.001
+    m5.tabla(ctx)
+    assert "huele a cache" in capsys.readouterr().out

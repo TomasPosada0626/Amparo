@@ -16,7 +16,7 @@ Scorecard de M4, corrida de demo `20261101T203828Z_demo` (L4, 11 casos):
 | **M3 brazo 4 (agente gpt-oss-120b + reglas)** | **6.4 s** | **14.8 s** | **3.3–14.8 s** | **59 %** |
 | total por caso | 10.8 s | 17.8 s | 7.0–17.8 s | 100 % |
 
-M3 es lo más lento y lo que más varía. Llama de 3 a 7 veces a un modelo de 117 B para
+M3 es lo más lento y lo que más varía. Llama de media 4.2 veces por caso (`results/m3_agente.json`) a un modelo de 117 B para
 extraer **13 booleanos y tres frases**, porque el mecanismo lo decide el motor de reglas.
 Esa pieza no necesita ser grande.
 
@@ -40,19 +40,28 @@ siguen siendo los de M3, así que el estudiante no puede inventar normas.
 
 ### Contrato (escrito antes de entrenar)
 
-Se mide contra el profesor medido de nuevo en la misma corrida y la misma GPU, sobre los
-130 casos de M3 (`eval_set_v3` + `eval_set_m3`). Las cifras de referencia son las del
-brazo 4 en `results/m3_scorecard.csv`.
+**Se mide contra el profesor medido de nuevo en la misma corrida y la misma GPU**, sobre los
+130 casos de M3 (`eval_set_v3` + `eval_set_m3`). Los umbrales son diferencias frente a ese
+profesor, no cifras fijas. Así lo verifica `tabla()`.
 
-| cláusula | se cumple si | referencia del profesor (M3) |
-|---|---|---|
-| acierto jurídico | baja **como máximo 5 puntos** | 67.5 % (81/120) → ≥ 62.5 % |
-| alucinación normativa | **0 %** | 0 % |
-| adversariales | bajan **como máximo 8 puntos** (con 42 casos, perder 4 ya incumple) | 73.8 % (31/42) → ≥ 65.8 % |
-| velocidad de M3 | mediana **≥ 3×** más rápida | 6.4 s → ≤ ~2.1 s |
-| estabilidad de M3 | **p95 ≤ 5 s** | hoy 14.8 s |
+| cláusula | se cumple si |
+|---|---|
+| acierto jurídico | el estudiante baja **como máximo 5 puntos** frente al profesor |
+| alucinación normativa | **0 %** |
+| adversariales | el estudiante baja **como máximo 8 puntos** frente al profesor |
+| velocidad de M3 | mediana del estudiante **≥ 3×** más rápida que la del profesor |
+| estabilidad de M3 | p95 del estudiante **≤ 5 s** |
 
-- **Puntos y no porcentaje relativo:** de 67.5 % a 62.5 % se pierden 5 puntos.
+**Como referencia** (no es el umbral), el brazo 4 en `results/m3_scorecard.csv` tiene:
+
+- acierto jurídico de 67.5 % (81/120);
+- 73.8 % en adversariales (31/42);
+- mediana de M3 de 6.4 s en la demo de M4, con p95 de 14.8 s.
+
+Si el profesor repitiera esas cifras, los umbrales serían ≥ 62.5 %, ≥ 65.8 % y ≤ ~2.1 s.
+
+- **Puntos y no porcentaje relativo:** de 67.5 % a 62.5 % se pierden 5 puntos. Con 42
+  adversariales, perder 4 casos (9.5 puntos) ya incumple.
 - **Por qué 5 y no 2:** el propio profesor varía entre repeticiones (13/18 en el delta de
   M4). Un contrato más estrecho que ese ruido no se puede verificar.
 - **El tiempo es solo de M3.** El VLM (~3.7 s) no se destila: se ataca en S15, cuando se
@@ -60,8 +69,9 @@ brazo 4 en `results/m3_scorecard.csv`.
 
 ### Resultado
 
-*Pendiente de la corrida.* La tabla antes/después, el veredicto del contrato y los casos
-que el estudiante pierde salen en `m5/destilacion.json`.
+*Pendiente de la corrida.* La tabla antes/después, el veredicto del contrato, los casos que
+el estudiante pierde y el manifiesto de la corrida salen en `m5/destilacion.json`. El
+manifiesto registra commit, rama, GPU y versiones.
 
 ### Qué cede el estudiante (para *limitaciones y ética*)
 
