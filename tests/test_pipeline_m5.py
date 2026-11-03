@@ -268,3 +268,77 @@ def test_acuerdo_profesor_gold_con_un_profesor_perfecto(tmp_path):
     malos = [e["id"] for e in CON_HECHOS if decidir(_hechos(e)).mecanismo != e["mecanismo"]]
     assert out["n"] == len(CON_HECHOS)
     assert out["acierto"] == round((len(CON_HECHOS) - len(malos)) / len(CON_HECHOS), 3)
+
+
+# --------------------------------------------------------------------------
+# el contrato: las cinco clausulas
+# --------------------------------------------------------------------------
+def test_el_contrato_tiene_las_cinco_clausulas(tmp_path):
+    ctx = _ctx_medido(tmp_path, 6.0, 1.0)
+    m5.tabla(ctx)
+    cl = ctx.medidas["tabla"]["veredicto"]["clausulas"]
+    assert set(cl) == {"acierto juridico", "alucinacion normativa", "adversariales",
+                       "velocidad (mediana)", "estabilidad (p95)"}
+    assert all(v["cumple"] for v in cl.values())
+
+
+def test_no_cumple_si_pierde_mas_de_8_puntos_en_adversariales(tmp_path):
+    """4 adversariales perdidos de 42 son 9.5 puntos: incumple aunque el
+    acierto juridico total solo baje 3.3 puntos (4 de 120)."""
+    ctx = _ctx_medido(tmp_path, 6.0, 1.0)
+    from amparo.evaluacion import harness
+    ev = ctx.eval_set
+    est = list(ctx.medidas["estudiante"]["salidas"])
+    adv = [i for i, e in enumerate(ev) if e.get("tipo") == "adversarial"][:4]
+    for i in adv:
+        est[i] = ""
+    ctx.medidas["estudiante"].update(salidas=est, scorecard=harness.harness(ev, est, "est"),
+                                     aciertos=harness.acierto_por_item(est, ev))
+    m5.tabla(ctx)
+    cl = ctx.medidas["tabla"]["veredicto"]["clausulas"]
+    assert cl["acierto juridico"]["cumple"]
+    assert not cl["adversariales"]["cumple"]
+    assert not ctx.medidas["tabla"]["veredicto"]["cumple"]
+
+
+def test_no_cumple_si_el_p95_pasa_de_5_segundos(tmp_path):
+    ctx = _ctx_medido(tmp_path, 30.0, 1.0)
+    seg = [1.0] * len(ctx.eval_set)
+    for i in range(len(seg) // 10):                     # 10 % de los casos en 9 s
+        seg[i] = 9.0
+    ctx.medidas["estudiante"]["segundos"] = seg
+    m5.tabla(ctx)
+    cl = ctx.medidas["tabla"]["veredicto"]["clausulas"]
+    assert cl["velocidad (mediana)"]["cumple"]             # la mediana sigue en 1 s
+    assert not cl["estabilidad (p95)"]["cumple"]
+
+
+# --------------------------------------------------------------------------
+# el hueco: la extraccion del profesor falla por dentro
+# --------------------------------------------------------------------------
+class _AgenteQueTragaErrores:
+    """Como `Agente`: si la extraccion falla, NO lanza; lo anota y responde tutela."""
+    def __init__(self, falla_en: dict):
+        self.fallos_extraccion, self.falla_en = [], falla_en
+
+    def __call__(self, relato):
+        if relato in self.falla_en:
+            self.fallos_extraccion.append({"error": self.falla_en[relato], "detalle": ""})
+        return "Mecanismo: acción de tutela"
+
+
+def test_medir_para_y_no_guarda_si_el_cupo_se_acaba_en_la_extraccion(tmp_path):
+    ag = _AgenteQueTragaErrores({"y": "RateLimitError"})
+    casos = [{"id": "a", "relato": "x"}, {"id": "b", "relato": "y"}]
+    with pytest.raises(m5.CupoAgotado):
+        m5.correr_con_reloj(ag, casos, tmp_path / "e.json", "profesor", agente=ag)
+    guardado = json.loads((tmp_path / "e.json").read_text(encoding="utf-8"))
+    assert set(guardado) == {"a"}                           # b se reintenta, no queda tutela
+
+
+def test_medir_marca_vacio_si_la_extraccion_falla_por_otra_cosa(tmp_path):
+    ag = _AgenteQueTragaErrores({"y": "BadRequestError"})
+    casos = [{"id": "a", "relato": "x"}, {"id": "b", "relato": "y"}]
+    out = m5.correr_con_reloj(ag, casos, tmp_path / "e.json", "profesor", agente=ag)
+    assert out["a"]["salida"] and out["a"]["error"] is None
+    assert out["b"]["salida"] == "" and "extraccion" in out["b"]["error"]

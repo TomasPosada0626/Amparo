@@ -40,12 +40,23 @@ siguen siendo los de M3, así que el estudiante no puede inventar normas.
 
 ### Contrato (escrito antes de entrenar)
 
-- **Acepto perder hasta 5 puntos** de acierto jurídico en el harness de M2.
-  - Se mide sobre los 130 casos de M3 (`eval_set_v3` + `eval_set_m3`).
-  - Son 5 puntos y no 2 porque el propio profesor varía entre repeticiones (13/18 en el delta de M4).
-- **Alucinación normativa: 0.** No es negociable.
-- **Quiero ganar** latencia de M3 ≥ 3× menor en la mediana, y no depender de la API: que el
-  estudiante quepa en la misma T4 que el VLM.
+Se mide contra el profesor medido de nuevo en la misma corrida y la misma GPU, sobre los
+130 casos de M3 (`eval_set_v3` + `eval_set_m3`). Las cifras de referencia son las del
+brazo 4 en `results/m3_scorecard.csv`.
+
+| cláusula | se cumple si | referencia del profesor (M3) |
+|---|---|---|
+| acierto jurídico | baja **como máximo 5 puntos** | 67.5 % (81/120) → ≥ 62.5 % |
+| alucinación normativa | **0 %** | 0 % |
+| adversariales | bajan **como máximo 8 puntos** (con 42 casos, perder 4 ya incumple) | 73.8 % (31/42) → ≥ 65.8 % |
+| velocidad de M3 | mediana **≥ 3×** más rápida | 6.4 s → ≤ ~2.1 s |
+| estabilidad de M3 | **p95 ≤ 5 s** | hoy 14.8 s |
+
+- **Puntos y no porcentaje relativo:** de 67.5 % a 62.5 % se pierden 5 puntos.
+- **Por qué 5 y no 2:** el propio profesor varía entre repeticiones (13/18 en el delta de
+  M4). Un contrato más estrecho que ese ruido no se puede verificar.
+- **El tiempo es solo de M3.** El VLM (~3.7 s) no se destila: se ataca en S15, cuando se
+  cuantice.
 
 ### Resultado
 

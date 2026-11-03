@@ -72,12 +72,19 @@ CONTRATO = {
     # en 2 porque el profesor mismo no es determinista: en M4 el mismo caso
     # cambio de via entre repeticiones (13/18 en las dos condiciones). Un
     # contrato mas estrecho que el ruido del profesor no se puede verificar.
+    # PUNTOS, no porcentaje relativo: 67.5 % -> 62.5 % es perder 5.
     "acepto_perder_puntos": 5,
     # Innegociable y verificable: la norma la pone el motor, no el modelo.
     "alucinacion_maxima": 0.0,
-    "quiero_ganar": "latencia de M3 >= 3x menor (mediana por caso) y sin "
-                    "depender de la API: que quepa en la misma T4 que el VLM",
+    # Los adversariales son la fortaleza del brazo 4 (73.8 % en M3) y lo
+    # primero que un estudiante pierde o hereda mal (slide 19). Con 42 casos,
+    # 8 puntos son 3 casos: perder 4 ya incumple.
+    "acepto_perder_puntos_adversarial": 8,
+    "quiero_ganar": "M3 al menos 3x mas rapido (mediana por caso) y el 95 % de "
+                    "los casos en 5 s o menos, sin depender de la API",
     "quiero_ganar_x": 3.0,
+    # Solo M3: el VLM (~3.7 s) no se destila; se ataca en S15 (cuantizar).
+    "p95_maximo_s": 5.0,
 }
 
 PROFESOR = "openai/gpt-oss-120b"          # el del brazo 4 (agente.MODELO)
@@ -461,7 +468,7 @@ def escribir_relatos(ctx: Contexto, n_por_tema: int = N_POR_TEMA, cliente=None,
 
 
 def etiquetar_con_profesor(ctx: Contexto, incluir_dataset: bool = True,
-                           guardar_cada: int = 5) -> list[dict]:
+                           guardar_cada: int = 1) -> list[dict]:
     """El profesor responde cada relato: su JSON de hechos.
 
     Los relatos son los sinteticos de `escribir_relatos` mas, si
@@ -679,14 +686,25 @@ def generador(model, tokenizer, max_nuevos: int = MAX_NUEVOS):
 # ---------------------------------------------------------------------------
 # B3 · Medir con el harness de M2, en la misma maquina
 # ---------------------------------------------------------------------------
-def correr_con_reloj(sistema, casos: list[dict], ruta: Path, nombre: str) -> dict:
+def correr_con_reloj(sistema, casos: list[dict], ruta: Path, nombre: str,
+                     agente=None) -> dict:
     """Corre `sistema(relato)` caso a caso, con su latencia, y guarda tras
     cada caso para poder retomar. Un caso que falla queda con salida vacia
-    (como `brazos.correr_brazo`): no se le inventa una respuesta."""
+    (como `brazos.correr_brazo`): no se le inventa una respuesta.
+
+    `agente`: el `Agente` detras de `sistema`, si lo hay. Hace falta porque
+    `Agente._hechos` NO lanza el error cuando Groq falla en la extraccion: lo
+    cuenta en `fallos_extraccion` y sigue con los hechos por defecto, que el
+    motor convierte en tutela. Sin mirar ese contador, un caso sin cupo se
+    guardaria como si el profesor hubiera respondido tutela. Si fue el cupo,
+    el caso NO se guarda y se para; si fue otro error, el caso queda vacio y
+    marcado, como cualquier fallo.
+    """
     hecho = _leer(ruta, {})
     pend = [e for e in casos if e["id"] not in hecho]
     print(f"{nombre}: {len(casos) - len(pend)} ya medidos · faltan {len(pend)}")
     for k, e in enumerate(pend, 1):
+        n_fallos = len(getattr(agente, "fallos_extraccion", []) or [])
         t0 = time.perf_counter()
         try:
             salida, error = sistema(e["relato"]), None
@@ -695,24 +713,19 @@ def correr_con_reloj(sistema, casos: list[dict], ruta: Path, nombre: str) -> dic
                 _escribir(ruta, hecho)
                 raise CupoAgotado(f"Groq sin cupo midiendo {nombre}. Vuelve a correr.") from ex
             salida, error = "", f"{type(ex).__name__}: {str(ex)[:120]}"
+        nuevos = (getattr(agente, "fallos_extraccion", []) or [])[n_fallos:]
+        if any(_es_cupo(f.get("error", "") + " " + f.get("detalle", "")) for f in nuevos):
+            _escribir(ruta, hecho)
+            raise CupoAgotado(f"Groq sin cupo midiendo {nombre} (en la extraccion de "
+                              f"{e['id']}, que no se guarda). Vuelve a correr.")
+        if nuevos and error is None:
+            salida, error = "", "la extraccion fallo: " + nuevos[-1].get("error", "")
         hecho[e["id"]] = {"salida": salida, "segundos": round(time.perf_counter() - t0, 3),
                           "error": error}
         _escribir(ruta, hecho)
         print(f"  {nombre}: {k}/{len(pend)}", end="\r", flush=True)
     print()
     return hecho
-
-
-def _vaciar_caches(agente) -> None:
-    """El agente sin memoria de llamadas anteriores (en RAM, no en disco).
-
-    Es `enchufe.vaciar_caches` de `main` (revision docente de M4, H4), que
-    esta rama todavia no trae: con la cache llena la latencia mide la cache.
-    """
-    for obj, attr in ((agente, "_cache"), (getattr(agente, "transformador", None), "cache")):
-        c = getattr(obj, attr, None)
-        if isinstance(c, dict):
-            c.clear()
 
 
 def medir(ctx: Contexto, n: int | None = None, juez=None) -> dict:
@@ -734,12 +747,13 @@ def medir(ctx: Contexto, n: int | None = None, juez=None) -> dict:
     profesor_eval, ag_eval = enchufe.construir_responder_m3(
         indice=getattr(ctx.agente_profesor, "indice", None),
         cache_dir=ctx.carpeta / "cache_eval_sin_usar")
-    _vaciar_caches(ag_eval)
+    enchufe.vaciar_caches(ag_eval)
     sufijo = f"_{n}" if n else ""
     n_mal = ctx.sistema_estudiante.contadores.get("hechos_no_parseados", 0)
     medidos = {
         "profesor": correr_con_reloj(profesor_eval, casos,
-                                     ctx.ruta(f"eval_profesor{sufijo}.json"), "profesor"),
+                                     ctx.ruta(f"eval_profesor{sufijo}.json"), "profesor",
+                                     agente=ag_eval),
         "estudiante": correr_con_reloj(ctx.sistema_estudiante, casos,
                                        ctx.ruta(f"eval_estudiante{sufijo}.json"), "estudiante"),
     }
@@ -794,16 +808,40 @@ def tabla(ctx: Contexto):
                donde_corre="la GPU del sistema (T4)", llamadas_por_caso="1")
     df = pd.DataFrame([prof, est]).set_index("modelo")
 
-    perdio = (prof["acierto_juridico"] - est["acierto_juridico"]) * 100
-    gano = prof["s_p50"] / est["s_p50"] if est["s_p50"] else float("inf")
     c = ctx.contrato
-    cumple_calidad = perdio <= c["acepto_perder_puntos"]
-    cumple_alucinacion = est["tasa_alucinacion"] <= c["alucinacion_maxima"]
-    cumple_latencia = gano >= c["quiero_ganar_x"]
-    ok = cumple_calidad and cumple_alucinacion and cumple_latencia
+    perdio = (prof["acierto_juridico"] - est["acierto_juridico"]) * 100
+    perdio_adv = (prof["acierto_adversarial"] - est["acierto_adversarial"]) * 100
+    gano = prof["s_p50"] / est["s_p50"] if est["s_p50"] else float("inf")
+    # Las cinco clausulas, cada una con lo pedido, lo medido y si se cumple.
+    clausulas = {
+        "acierto juridico": {
+            "pedido": f"baja <= {c['acepto_perder_puntos']} puntos",
+            "medido": f"{prof['acierto_juridico']:.1%} -> {est['acierto_juridico']:.1%} "
+                      f"({perdio:+.1f} puntos perdidos)",
+            "cumple": perdio <= c["acepto_perder_puntos"]},
+        "alucinacion normativa": {
+            "pedido": f"<= {c['alucinacion_maxima']}",
+            "medido": f"{est['tasa_alucinacion']}",
+            "cumple": est["tasa_alucinacion"] <= c["alucinacion_maxima"]},
+        "adversariales": {
+            "pedido": f"baja <= {c['acepto_perder_puntos_adversarial']} puntos",
+            "medido": f"{prof['acierto_adversarial']:.1%} -> {est['acierto_adversarial']:.1%} "
+                      f"({perdio_adv:+.1f} puntos perdidos)",
+            "cumple": perdio_adv <= c["acepto_perder_puntos_adversarial"]},
+        "velocidad (mediana)": {
+            "pedido": f">= {c['quiero_ganar_x']:.0f}x mas rapido",
+            "medido": f"{prof['s_p50']} s -> {est['s_p50']} s ({gano:.1f}x)",
+            "cumple": gano >= c["quiero_ganar_x"]},
+        "estabilidad (p95)": {
+            "pedido": f"p95 <= {c['p95_maximo_s']} s",
+            "medido": f"{est['s_p95']} s (profesor {prof['s_p95']} s)",
+            "cumple": est["s_p95"] <= c["p95_maximo_s"]},
+    }
+    ok = all(v["cumple"] for v in clausulas.values())
     veredicto = {
-        "perdio_puntos": round(perdio, 1), "acepto_perder": c["acepto_perder_puntos"],
-        "gano_latencia_x": round(gano, 1), "quiero_ganar_x": c["quiero_ganar_x"],
+        "clausulas": clausulas,
+        "perdio_puntos": round(perdio, 1), "perdio_puntos_adversarial": round(perdio_adv, 1),
+        "gano_latencia_x": round(gano, 1), "p95_estudiante_s": est["s_p95"],
         "gano_tamano_x": round(PARAMETROS_PROFESOR / max(ctx.n_parametros_estudiante, 1)),
         "alucinacion_estudiante": est["tasa_alucinacion"],
         "cumple": ok,
@@ -811,9 +849,11 @@ def tabla(ctx: Contexto):
                          "lab: suban T (aqui: mas variedad de relatos), mas datos "
                          "(N_POR_TEMA), o un estudiante mas grande (Qwen2.5-1.5B-Instruct)"),
     }
-    print(f"Contrato: aceptaban perder {c['acepto_perder_puntos']} puntos · perdieron "
-          f"{perdio:.1f} · ganaron {gano:.1f}x en latencia (mediana) y "
-          f"{veredicto['gano_tamano_x']}x en tamaño · alucinacion {est['tasa_alucinacion']} -> "
+    print("CONTRATO")
+    for nombre, v in clausulas.items():
+        print(f"  {'OK ' if v['cumple'] else 'NO '} {nombre:22s} pedido: {v['pedido']:24s} "
+              f"medido: {v['medido']}")
+    print(f"  tamaño: {veredicto['gano_tamano_x']}x menos parametros -> "
           + ("CUMPLIDO" if ok else "NO cumplido: " + veredicto["si_no_cumple"]))
     ctx.medidas["tabla"] = {"filas": [prof, est], "veredicto": veredicto}
     return df
