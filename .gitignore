@@ -14,3 +14,10 @@ models/
 
 # Instalacion editable del paquete (pip install -e .)
 *.egg-info/
+
+# graphify: se versiona solo el grafo (graph.json, GRAPH_REPORT.md, etc.),
+# no la cache ni el estado local de cada maquina.
+graphify-out/cache/
+graphify-out/.graphify_*
+graphify-out/cost.json
+graphify-out/.cloud-cta-shown
