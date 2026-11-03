@@ -39,9 +39,9 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 
-import schema                                              # noqa: E402
+from amparo.nucleo import schema                                              # noqa: E402
 
 # El v1 va fuera a proposito: otro esquema y, sobre todo, el puente de
 # comparacion que una prueba exige intacto byte a byte.

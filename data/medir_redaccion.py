@@ -40,11 +40,11 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 
-import redaccion                                           # noqa: E402
-import schema                                              # noqa: E402
-import sistema                                             # noqa: E402
+from amparo.finetuning import redaccion                                           # noqa: E402
+from amparo.nucleo import schema                                              # noqa: E402
+from amparo.sistemas import sistema                                             # noqa: E402
 
 RUTA_PREDS = RAIZ / "results" / "m1_predicciones.json"
 RUTA_OUT = RAIZ / "results" / "m1_redaccion.json"

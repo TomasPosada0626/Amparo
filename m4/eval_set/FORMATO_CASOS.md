@@ -1,6 +1,6 @@
 # Formato de `casos_m4.csv` (contrato entre T4 y T5)
 
-El harness de M4 (`m4/harness/criterios.py`, T5) lee `m4/eval_set/casos_m4.csv`
+El harness de M4 (`amparo/multimodal/criterios.py`, T5) lee `m4/eval_set/casos_m4.csv`
 tal cual. Este documento fija qué tiene que traer cada fila para que el harness
 la califique. Lo define T5 (Nico) y lo usa T4 (Lucas) para escribir los casos.
 Un ejemplo válido está en [`casos_m4.ejemplo.csv`](casos_m4.ejemplo.csv): pasa

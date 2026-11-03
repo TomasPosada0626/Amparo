@@ -23,10 +23,10 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 
-import metricas                                            # noqa: E402
-import schema                                              # noqa: E402
+from amparo.evaluacion import metricas                                            # noqa: E402
+from amparo.nucleo import schema                                              # noqa: E402
 
 RUTA_OUT = RAIZ / "data" / "metricas_posteriores.json"
 PREDS = RAIZ / "results" / "m1_predicciones.json"

@@ -46,9 +46,9 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 
-from reglas import HECHOS_EXTRAIBLES, Hechos, decidir          # noqa: E402
+from amparo.nucleo.reglas import HECHOS_EXTRAIBLES, Hechos, decidir          # noqa: E402
 
 RUTA_OUT = RAIZ / "data" / "diagnostico_cumplimiento.json"
 VIA = "accion_cumplimiento"

@@ -45,7 +45,7 @@ ahí.
 ## Dónde se enchufa, y dónde queda M1
 
 ```python
-from multimodal import Amparo                 # m4/pipeline/multimodal.py
+from amparo.multimodal.sistema_visual import Amparo   # amparo/multimodal/sistema_visual.py
 amparo = Amparo()                             # carga el VLM y enchufa M3
 amparo.responder(pregunta, imagen)            # -> respuesta, por qué y lo leído
 ```
@@ -53,9 +53,9 @@ amparo.responder(pregunta, imagen)            # -> respuesta, por qué y lo leí
 Por dentro: `ver(imagen)` lee el documento, la lectura se suma a la pregunta
 como *"DATOS DEL DOCUMENTO ADJUNTO"* y el relato entra a `responder_m3`, que es
 el brazo **4 · agente + reglas** de M3
-([`pipeline/enchufe_m3.py`](pipeline/enchufe_m3.py)): busca en el corpus de
-normas, extrae hechos y el motor del art. 6 del Decreto 2591 decide. `src/` no
-se modifica: se importa.
+([`amparo/multimodal/enchufe.py`](../amparo/multimodal/enchufe.py)): busca en el corpus de
+normas, extrae hechos y el motor del art. 6 del Decreto 2591 decide. El código
+de M3 no se modifica: se importa.
 
 **Dónde queda M1.** El modelo ajustado de M1 fue el mejor clasificador de M3 en
 el agregado. Para el producto con imagen se eligió el agente con reglas por dos
@@ -207,7 +207,7 @@ sin ella, con aporte en m04 y en m06. Al repetir, esa ventaja desaparece.
 tienen la misma lectura y casi los mismos hechos; solo cambia
 `perjuicio_irremediable`. Con él, el art. 6.3 abre su excepción y la regla cierra
 en tutela (corrida anterior); sin él, cierra en acción popular (corrida de demo).
-Es uno de los hechos que `src/reglas.py` declara de juicio (`HECHOS_DE_JUICIO`):
+Es uno de los hechos que `amparo/nucleo/reglas.py` declara de juicio (`HECHOS_DE_JUICIO`):
 no se lee del relato, se pondera. Son dos ejemplos, no una medición, pero apuntan
 a M3 y no al VLM. Corregirlo sería cambiar M3, y con ello sus cifras sobre 120
 casos: no se hace antes de la demo, y el criterio del caso, fijado antes de
@@ -301,7 +301,15 @@ cambia `formatear()` en `multimodal.py` (el «Por qué» al abstenerse), que no
 usan el scorecard ni los deltas:
 `git diff m4-demo demo-final -- src m4/harness/*.py m4/pipeline/*.py`.
 
-**Sin GPU**: `python -m pytest m4/tests` (187 pruebas).
+**Sin GPU**: `python -m pytest tests/m4`.
+
+**Dónde vive el código.** En `main` el código de M4 está en el paquete
+`amparo/` (`amparo/multimodal/`: `sistema_visual.py`, `corrida_m4.py`,
+`criterios.py`, `scorecard.py`, `enchufe.py`; la orquestación por etapas en
+`amparo/pipelines/m4_multimodal.py`), tras la migración de los notebooks a
+`.py` ([`docs/MIGRACION.md`](../docs/MIGRACION.md)). Los dos notebooks clonan
+`demo-final`, donde ese mismo código vivía en `m4/pipeline/` y `m4/harness/`:
+reproducen lo evaluado, no la estructura nueva.
 
 ## Revisión docente (PR #15 y #16)
 

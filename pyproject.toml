@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "amparo"
+version = "0.5.0"
+description = "Triaje de acciones constitucionales colombianas: el LLM extrae hechos y el motor de reglas decide."
+readme = "README.md"
+requires-python = ">=3.11"
+# El nucleo (esquema, reglas, terminos) es solo biblioteca estandar. El stack
+# pesado va en extras: instalarlo desde aqui podria reemplazar el torch con
+# CUDA que ya trae Colab. Las versiones exactas de las corridas de M1-M3 estan
+# en requirements.txt, que es el registro de esas corridas y no cambia.
+dependencies = []
+
+[project.optional-dependencies]
+rag = ["sentence-transformers", "numpy", "groq"]
+evaluacion = ["groq", "numpy", "pandas", "scikit-learn"]
+entrenamiento = ["torch", "transformers", "peft", "accelerate", "datasets", "matplotlib"]
+vlm = ["torch", "transformers", "accelerate", "pillow", "qwen-vl-utils"]
+ragas = ["ragas", "langchain-community", "langchain-openai"]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+include = ["amparo*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

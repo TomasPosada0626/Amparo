@@ -1,5 +1,9 @@
 # Harness de M4: decisiones de T5 y T6
 
+> Registro de la entrega de M4 y de la revisión docente (tags `entrega-m4` y
+> `demo-final`): las rutas y la evidencia son las de ese momento. Desde la migración al paquete el código vive en
+> `amparo/multimodal/` y los tests en `tests/m4/` (ver `docs/MIGRACION.md`).
+
 Cada decisión va con su razón y con la evidencia que la sostiene. El formato
 del CSV de casos tiene su propio documento:
 [`../eval_set/FORMATO_CASOS.md`](../eval_set/FORMATO_CASOS.md).

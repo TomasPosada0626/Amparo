@@ -39,14 +39,14 @@ from collections import defaultdict
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 
 RESULTS = RAIZ / "results"
 
 # Lo que cada modulo declara producir. La fuente es `arranque.ORDEN`, para que
 # no haya dos listas de artefactos esperados que puedan divergir.
 try:
-    from arranque import ORDEN
+    from amparo.ejecucion.arranque import ORDEN
     ESPERADOS = {m: [Path(x).name for x in c["produce"]]
                  for m, c in ORDEN.items()}
 except Exception:                                      # noqa: BLE001

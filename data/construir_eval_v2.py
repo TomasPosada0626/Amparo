@@ -33,7 +33,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
 
-from src.reglas import Hechos, decidir, estrato_verificacion  # noqa: E402
+from amparo.nucleo.reglas import Hechos, decidir, estrato_verificacion  # noqa: E402
 
 FUND_HC = ("art. 28 CP; art. 30 CP; Ley 1095 de 2006; "
            "art. 6.2 Decreto 2591 de 1991")

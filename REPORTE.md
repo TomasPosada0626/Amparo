@@ -378,4 +378,4 @@ El valor va **sin redondear**: es lo que trae el artefacto, no lo que el reporte
 
 ---
 
-Reproducir: `python -I src/autoprueba_integracion.py` (fontaneria, sin GPU), luego M1 → M2 → M3 en Colab, luego `python -I data/verificar_entrega.py` y `python -I data/reporte.py`.
+Reproducir: `python -I tests/autoprueba_integracion.py` (fontaneria, sin GPU), luego M1 → M2 → M3 en Colab, luego `python -I data/verificar_entrega.py` y `python -I data/reporte.py`.

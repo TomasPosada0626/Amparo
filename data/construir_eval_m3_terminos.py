@@ -41,9 +41,9 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 
-import terminos  # noqa: E402
+from amparo.nucleo import terminos  # noqa: E402
 
 # --------------------------------------------------------------------------
 # Los casos. Cada uno lleva `termino_esperado`, que es el tipo que el agente

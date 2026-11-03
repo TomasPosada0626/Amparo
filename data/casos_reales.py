@@ -57,7 +57,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
 
-from src.reglas import Hechos, decidir, estrato_verificacion  # noqa: E402
+from amparo.nucleo.reglas import Hechos, decidir, estrato_verificacion  # noqa: E402
 
 BASE = "https://www.corteconstitucional.gov.co/relatoria/2024"
 

@@ -37,9 +37,9 @@ from collections import Counter
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 
-import schema                                        # noqa: E402
+from amparo.nucleo import schema                                        # noqa: E402
 
 # --------------------------------------------------------------------------
 # 10 gold, cada uno estresando un fragmento distinto del corpus

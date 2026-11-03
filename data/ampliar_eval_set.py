@@ -38,8 +38,8 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(RAIZ / "src"))
-import reglas  # noqa: E402
+sys.path.insert(0, str(RAIZ))
+from amparo.nucleo import reglas  # noqa: E402
 
 V2 = RAIZ / "data" / "eval_set_v2.json"
 V3 = RAIZ / "data" / "eval_set_v3.json"

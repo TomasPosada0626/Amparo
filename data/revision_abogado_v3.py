@@ -43,7 +43,7 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ / "data"))
-sys.path.insert(0, str(RAIZ / "src"))
+sys.path.insert(0, str(RAIZ))
 import formularios  # noqa: E402
 
 V2 = RAIZ / "data" / "eval_set_v2.json"

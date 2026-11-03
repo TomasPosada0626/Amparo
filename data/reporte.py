@@ -279,8 +279,8 @@ def separacion() -> dict:
                          "`m3_scorecards_comunes.json` no esta en `results/`.",
                 "concluyente": False}
     try:
-        sys.path.insert(0, str(RAIZ / "src"))
-        from metricas import ic_se_solapan
+        sys.path.insert(0, str(RAIZ))
+        from amparo.evaluacion.metricas import ic_se_solapan
     except ImportError:
         return {"frase": "se comparo con las demas arquitecturas; la "
                          "separacion de intervalos no se pudo evaluar aqui.",
@@ -1621,7 +1621,7 @@ def construir() -> list[str]:
     a("")
     a("---")
     a("")
-    a("Reproducir: `python -I src/autoprueba_integracion.py` (fontaneria, sin "
+    a("Reproducir: `python -I tests/autoprueba_integracion.py` (fontaneria, sin "
       "GPU), luego M1 → M2 → M3 en Colab, luego "
       "`python -I data/verificar_entrega.py` y "
       "`python -I data/reporte.py`.")
