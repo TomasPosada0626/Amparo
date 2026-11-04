@@ -122,13 +122,13 @@ with gr.Blocks(title="Amparo · vista previa") as demo:
     gr.HTML(dsp.AVISO_HTML)
     gr.Markdown("<sub>**VISTA PREVIA** del frontend · respuestas de ejemplo, sin modelos "
                 "ni Groq.</sub>")
-    with gr.Row():
-        with gr.Column():
+    with gr.Row(equal_height=False):
+        with gr.Column(scale=2, min_width=300):
             caso = gr.Radio(list(EJEMPLOS), value=list(EJEMPLOS)[0],
                             label="Caso de ejemplo")
-            boton = gr.Button("Ver respuesta", variant="primary")
-        with gr.Column():
-            out = gr.Markdown()
+            boton = gr.Button("Ver respuesta", variant="primary", size="lg")
+        with gr.Column(scale=3, min_width=360):
+            out = gr.Markdown(elem_id="amparo-respuesta")
     boton.click(responder, caso, out)
     demo.load(responder, caso, out)
 

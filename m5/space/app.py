@@ -147,17 +147,21 @@ with gr.Blocks(title="Amparo") as demo:
     gr.HTML(dsp.encabezado_html(VERSION, CFG, ESTADO))
     gr.HTML(dsp.AVISO_HTML)
     with gr.Tab("Consulta"):
-        with gr.Row():
-            with gr.Column():
-                q = gr.Textbox(label="Tu pregunta", lines=4,
-                               placeholder="Cuéntanos qué pasó y qué quieres lograr.")
-                im = gr.Image(type="pil", label="Foto del documento (opcional)")
-                boton = gr.Button("Responder", variant="primary")
-            with gr.Column():
-                out = gr.Markdown()
-        gr.Examples(EJEMPLOS, [q, im], label="Casos de la demo")
+        with gr.Row(equal_height=False):
+            with gr.Column(scale=2, min_width=320):
+                q = gr.Textbox(
+                    label="Tu caso", lines=5,
+                    placeholder="Cuéntanos qué pasó, quién lo hizo, desde cuándo y qué quieres lograr.")
+                im = gr.Image(type="pil", label="Foto del documento (opcional)", height=200)
+                boton = gr.Button("Responder", variant="primary", size="lg")
+                gr.Examples(EJEMPLOS, [q, im], label="Casos de la demo")
+            with gr.Column(scale=3, min_width=360):
+                out = gr.Markdown(
+                    "_Escribe tu caso y pulsa **Responder**. La respuesta aparecerá aquí._",
+                    elem_id="amparo-respuesta")
         boton.click(responder, [q, im], out)
     with gr.Tab("Estado"):
+        gr.Markdown("Estado del servicio (se actualiza cada 10 s).")
         gr.JSON(value=estado, every=10)                   # el health check, visible
 
 if __name__ == "__main__":
