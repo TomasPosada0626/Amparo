@@ -1,0 +1,15 @@
+# Space de Hugging Face de Amparo (M5). Versiones fijas: las del Colab donde
+# corrieron S14 y S15 (manifiestos en m5/destilacion.json y m5/cuantizacion.json)
+# y las vigentes en PyPI el 2026-11-03 para lo que solo usa la app.
+# NO reemplaza al requirements.txt de la raiz, que es el registro de M1-M3.
+torch==2.11.0
+transformers==5.22.0
+accelerate==1.15.0
+bitsandbytes==0.50.2
+qwen-vl-utils==0.0.14
+sentence-transformers==5.7.0
+groq==1.7.0
+numpy==2.5.4
+pillow==13.0.0
+gradio==6.31.0
+wandb==0.31.0

@@ -164,3 +164,61 @@ marketing"*.
 - **La consulta al corpus de normas:** el estudiante no la hace. El fundamento lo sigue
   poniendo el motor, así que no inventa normas.
 - **Los errores del profesor:** los hereda. Su acuerdo con el gold es 70 %.
+
+## S15 · Parte A · Cuantizar el VLM
+
+Código: [`amparo/pipelines/m5_cuantizacion.py`](../amparo/pipelines/m5_cuantizacion.py).
+Notebook: [`S15_cuantizacion.ipynb`](S15_cuantizacion.ipynb). Sigue la Parte A del lab de S15:
+Qwen2-VL-2B en fp16 contra int4 (bitsandbytes nf4), en la misma GPU, con temperatura 0.
+
+### Cómo se aísla el efecto de cuantizar
+
+- **Calidad:** el harness de M4 (11 casos).
+- **El juez es siempre el VLM en fp16.** En M4 el VLM se juzga a sí mismo: si el juez también
+  se cuantizara, no se sabría si cambió la lectura o el juez.
+- **M3 comparte caché entre las dos cargas.** M3 no es determinista, pero si int4 lee
+  exactamente lo mismo, el relato es idéntico y M3 responde lo mismo. Un cambio en `exacto`
+  solo puede venir de una lectura distinta.
+- **La latencia es la de la lectura** (`ver`). M3 corre en Groq y no depende de los bits del VLM.
+
+### Contrato (escrito antes de medir)
+
+| cláusula | se cumple si |
+|---|---|
+| memoria | int4 usa **≥ 2.5×** menos memoria de GPU que fp16 |
+| lectura (`campos`) | baja **como máximo 0.05** |
+| válvula (m10) | sigue en **1.0**: no inventa la fecha ni el plazo que no se ven |
+| mecanismo (`exacto`) | **no peor** que fp16 |
+| latencia de la lectura | p50 **no más de 30 % peor** |
+
+Lo de la latencia es a propósito: en GPU, int4 con bitsandbytes suele ir igual o más lento,
+porque descomprime los pesos en cada paso. Lo que se gana es memoria.
+
+### Resultado
+
+*Pendiente de la corrida.* Sale en `m5/cuantizacion.json`, con su manifiesto (commit, GPU y
+versiones).
+
+## S15 · Parte B · La app
+
+[`space/app.py`](space/app.py) es el `app.py` del lab con Amparo dentro. La lógica está en
+[`amparo/despliegue.py`](../amparo/despliegue.py), con pruebas en `tests/test_despliegue.py`.
+La misma app corre en el Space de Hugging Face (CPU) y en Kaggle (T4), como recomienda la
+tabla de despliegue de la profe. Cómo configurarla: [`space/README.md`](space/README.md).
+
+| lo que pide la tabla de despliegue | dónde está |
+|---|---|
+| modelos cargados una sola vez al iniciar | `armar_amparo`, arriba de `app.py` |
+| índice precalculado, no al arrancar | `precalcular_indice` (notebook de S15) y `m5/space/indice_m3.npz` |
+| `max_pixels` en CPU y aviso "leyendo el documento…" | `config_desde_entorno` y `responder` en `app.py` |
+| caché de Groq de los casos ensayados | la caché en disco del agente, que se guarda tras cada consulta |
+| mensaje claro si la API no responde | `consultar` |
+| health check y un log JSON por consulta | pestaña Estado (`health`) y `peticiones.jsonl` (`registrar`) |
+| versión con tag visible | encabezado y pestaña Estado (`git describe`) |
+| W&B | `wandb.init` si hay `WANDB_API_KEY`; registra latencia, ok, ruta, mecanismo y abstención |
+| claves en Secrets | solo se leen de las variables de entorno |
+
+**Una protección que la tabla no pide, pero que el código de M3 obliga.** Cuando Groq falla
+dentro de la extracción de hechos, el agente no lanza el error: sigue con los hechos por
+defecto, y el motor responde tutela. `consultar` lo detecta y muestra el aviso de error en vez
+de esa tutela.
