@@ -1,9 +1,9 @@
 # Graph Report - Amparo  (2026-11-03)
 
 ## Corpus Check
-- 98 files · ~220,713 words
+- 99 files · ~222,578 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 14 file(s) not represented in the graph (top: .ipynb 6, .csv 5, (none) 3)
+- Unclassified: 15 file(s) not represented in the graph (top: .ipynb 6, .csv 5, (none) 3)
 
 ## Summary
 - 2029 nodes · 4525 edges · 106 communities (97 shown, 9 thin omitted)
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `013eb192`
+- Built from commit: `6ee98fa9`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -551,7 +551,7 @@ Cohesion: 0.40
 Nodes (3): graficar_perdida(), curva_de_perdida(), test_graficar_perdida_guarda_la_imagen()
 
 ## Knowledge Gaps
-- **32 isolated node(s):** `amparo`, `casos_m4.ejemplo.csv`, `Checklist de anonimizacion (sin caras, nombres, cedulas, firmas ni sellos)`, `Entidades ficticias (EPS Salud Serena, Alcaldia de Puerto Almendro, CORPORIOCLARO, Aguas de Villa Serena)`, `INSTRUCCION_DOMINIO (5 campos JSON)` (+27 more)
+- **32 isolated node(s):** `amparo`, `Checklist de anonimizacion (sin caras, nombres, cedulas, firmas ni sellos)`, `Entidades ficticias (EPS Salud Serena, Alcaldia de Puerto Almendro, CORPORIOCLARO, Aguas de Villa Serena)`, `INSTRUCCION_DOMINIO (5 campos JSON)`, `casos_m4.ejemplo.csv` (+27 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 749 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -560,7 +560,7 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Harness de M4: decisiones de T5 y T6 (y T7)` connect `Harness de M4: decisiones de T5 y T6 (y T7)` to `test_criterios.py`, `delta_con_sin_imagen`, `pathlib`, `csv`, `parse_salida`, `casos_m4.csv: 11 casos sobre 6 imagenes`, `scorecard.py`, `arranque.py`, `test_scorecard.py`, `Migracion de notebooks a paquete Python amparo/`?**
   _High betweenness centrality (0.061) - this node is a cross-community bridge._
-- **What connects `amparo`, `casos_m4.ejemplo.csv`, `Checklist de anonimizacion (sin caras, nombres, cedulas, firmas ni sellos)` to the rest of the system?**
+- **What connects `amparo`, `Checklist de anonimizacion (sin caras, nombres, cedulas, firmas ni sellos)`, `Entidades ficticias (EPS Salud Serena, Alcaldia de Puerto Almendro, CORPORIOCLARO, Aguas de Villa Serena)` to the rest of the system?**
   _32 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `test_criterios.py` be split into smaller, more focused modules?**
   _Cohesion score 0.05339105339105339 - nodes in this community are weakly interconnected._
