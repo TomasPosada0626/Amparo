@@ -54,85 +54,107 @@ MENSAJE_API = ("**Amparo no pudo consultar su modelo de lenguaje (Groq) en este 
 # juridica. `gradio` se importa dentro, para que este modulo siga cargando sin
 # el (como lo prueba `tests/test_despliegue.py`).
 
-# Acento sobrio y neutro. Nada saturado: el color solo marca jerarquia.
-COLOR_ACENTO = "#334155"      # slate 700
-COLOR_INDIGO = "#1e293b"      # slate 800 (el "oscuro" del header)
+# Acentos del tema calido (estilo Claude): terracota + crema.
+COLOR_ACENTO = "#c2552b"      # terracota
+COLOR_INDIGO = "#f4f1ea"      # crema del lienzo (nombre historico)
 
 
 def tema():
-    """El `gr.Theme` base: sobrio, neutro, mucho gris y poco color."""
+    """El `gr.Theme` base: calido y sobrio, estilo Claude (crema + grafito)."""
     import gradio as gr
     return gr.themes.Soft(
-        primary_hue=gr.themes.colors.slate,
-        secondary_hue=gr.themes.colors.slate,
-        neutral_hue=gr.themes.colors.slate,
+        primary_hue=gr.themes.colors.stone,
+        secondary_hue=gr.themes.colors.stone,
+        neutral_hue=gr.themes.colors.stone,
         font=(gr.themes.GoogleFont("Inter"), "ui-sans-serif", "system-ui", "sans-serif"),
     ).set(
-        body_background_fill="#fafafa",
-        block_background_fill="white",
+        body_background_fill="#f4f1ea",          # crema, como el fondo de Claude
+        body_text_color="#2b2a28",
+        block_background_fill="#ffffff",
         block_border_width="1px",
-        block_border_color="#e7e7e9",
+        block_border_color="#e7e2d6",
         block_shadow="none",
-        block_radius="10px",
-        button_primary_background_fill="#1e293b",
-        button_primary_background_fill_hover="#0f172a",
-        button_primary_text_color="white",
+        block_radius="14px",
+        button_primary_background_fill="#c2552b",   # terracota calido (acento Claude)
+        button_primary_background_fill_hover="#a8441f",
+        button_primary_text_color="#ffffff",
         button_primary_shadow="none",
+        button_secondary_background_fill="#efeae0",
+        button_secondary_border_color="#e7e2d6",
+        button_secondary_text_color="#4b473f",
     )
 
 
-# CSS de la app. Vive aqui, con el tema, para que app.py y preview.py no
-# dupliquen estilo ni diverjan. Solo estetica, sobria.
+# CSS de la app, estilo chat (ChatGPT/Claude): una columna centrada y angosta,
+# burbujas, barra de entrada abajo. Vive aqui con el tema para que app.py y
+# preview.py no dupliquen estilo ni diverjan. Solo estetica.
 CSS = """
+/* La conversacion en una columna centrada y angosta, como Claude. */
+#amparo-chat-wrap { max-width: 760px; margin: 0 auto; padding: 8px 4px 0; }
+
 #amparo-header {
-  background: #1e293b; color: #f1f5f9;
-  border-radius: 12px; padding: 22px 26px; margin-bottom: 4px;
-  border: 1px solid #0f172a;
+  background: transparent; color: #2b2a28; border: none;
+  padding: 10px 4px 14px; margin-bottom: 0;
 }
 #amparo-header h1 {
-  margin: 0 0 6px; font-size: 1.5rem; font-weight: 650; letter-spacing: -0.01em;
-  display: flex; align-items: center; gap: 9px;
+  margin: 0 0 4px; font-size: 1.55rem; font-weight: 600; letter-spacing: -0.015em;
+  display: flex; align-items: center; gap: 9px; color: #1f1e1c;
 }
-#amparo-header .sub { font-size: 0.97rem; color: #cbd5e1; line-height: 1.55; max-width: 64ch; }
-#amparo-header .badges { margin-top: 15px; display: flex; gap: 7px; flex-wrap: wrap; }
+#amparo-header .sub { font-size: 0.95rem; color: #6b665c; line-height: 1.55; max-width: 60ch; }
+#amparo-header .badges { margin-top: 12px; display: flex; gap: 7px; flex-wrap: wrap; }
 #amparo-header .badge {
-  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14);
-  color: #e2e8f0; border-radius: 6px; padding: 3px 10px; font-size: 0.76rem; font-weight: 500;
+  background: #efeae0; border: 1px solid #e7e2d6; color: #6b665c;
+  border-radius: 6px; padding: 3px 10px; font-size: 0.74rem; font-weight: 500;
 }
-#amparo-aviso {
-  border: 1px solid #e7e7e9; border-left: 3px solid #94a3b8; background: #f8fafc;
-  color: #475569; border-radius: 8px; padding: 12px 15px; margin: 12px 0 4px;
-  font-size: 0.88rem; line-height: 1.5;
-}
-#amparo-aviso b { color: #334155; font-weight: 600; }
 
-/* La respuesta: cada seccion (### ...) se ve como una tarjeta sobria. */
-#amparo-respuesta { min-height: 120px; }
-#amparo-respuesta h3 {
-  font-size: 0.78rem; font-weight: 650; text-transform: uppercase; letter-spacing: 0.05em;
-  color: #64748b; margin: 0 0 8px; padding-bottom: 6px; border-bottom: 1px solid #eef0f2;
+#amparo-aviso {
+  border: 1px solid #e7e2d6; background: #faf7f0; color: #6b665c;
+  border-radius: 10px; padding: 11px 15px; margin: 2px 0 14px;
+  font-size: 0.85rem; line-height: 1.5;
 }
-#amparo-respuesta h3 + p, #amparo-respuesta h3 + ul { margin-top: 0; }
-#amparo-respuesta > h3:first-child + p {   /* el parrafo principal, un poco mas presente */
-  font-size: 1.04rem; line-height: 1.6; color: #0f172a;
+#amparo-aviso b { color: #4b473f; font-weight: 600; }
+
+/* El Chatbot: sin caja dura, fondo del lienzo, aire entre mensajes. */
+#amparo-chat { border: none !important; background: transparent !important; }
+#amparo-chat .message-row { padding: 2px 0; }
+/* Burbuja del usuario: a la derecha, pildora clara. */
+#amparo-chat .message.user, #amparo-chat [data-testid="user"] {
+  background: #ece4d6 !important; color: #2b2a28 !important;
+  border: 1px solid #e2dac9 !important; border-radius: 16px 16px 4px 16px !important;
 }
-/* Agrupa cada "### titulo + contenido" como tarjeta usando el borde del bloque. */
-#amparo-respuesta blockquote {
-  border-left: 3px solid #94a3b8; background: #f8fafc; color: #475569;
-  margin: 10px 0; padding: 8px 14px; border-radius: 0 6px 6px 0; font-size: 0.9rem;
+/* Respuesta de Amparo: a la izquierda, sin burbuja, como Claude. */
+#amparo-chat .message.bot, #amparo-chat [data-testid="bot"] {
+  background: #ffffff !important; color: #2b2a28 !important;
+  border: 1px solid #e7e2d6 !important; border-radius: 4px 16px 16px 16px !important;
 }
-#amparo-respuesta em { color: #64748b; }
-#amparo-respuesta details {
-  margin-top: 14px; border: 1px solid #e7e7e9; border-radius: 8px;
-  background: #fcfcfd; padding: 4px 14px;
+#amparo-chat .message h3 {
+  font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  color: #9a9484; margin: 14px 0 6px; padding-bottom: 5px; border-bottom: 1px solid #f0ebe1;
 }
-#amparo-respuesta details summary {
-  cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #475569; padding: 8px 0;
+#amparo-chat .message h3:first-child { margin-top: 2px; }
+#amparo-chat .message h3:first-child + p { font-size: 1.05rem; line-height: 1.6; color: #1f1e1c; }
+#amparo-chat .message blockquote {
+  border-left: 3px solid #c9a37f; background: #faf6ef; color: #6b665c;
+  margin: 10px 0; padding: 7px 13px; border-radius: 0 6px 6px 0; font-size: 0.9rem;
 }
-#amparo-respuesta details[open] summary { border-bottom: 1px solid #eef0f2; margin-bottom: 8px; }
-#amparo-respuesta details code {
-  background: #f1f5f9; color: #334155; padding: 1px 5px; border-radius: 4px; font-size: 0.82em;
+#amparo-chat .message details {
+  margin-top: 14px; border: 1px solid #ece6da; border-radius: 10px;
+  background: #faf7f0; padding: 2px 14px;
 }
+#amparo-chat .message details summary {
+  cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6b665c; padding: 9px 0;
+}
+#amparo-chat .message details code {
+  background: #efeae0; color: #4b473f; padding: 1px 5px; border-radius: 4px; font-size: 0.82em;
+}
+
+/* La barra de entrada, abajo, redondeada, como el input de un chat. */
+#amparo-barra {
+  background: #ffffff; border: 1px solid #e2dac9; border-radius: 16px;
+  padding: 7px 7px 7px 14px; margin-top: 10px; align-items: center;
+  box-shadow: 0 2px 10px rgba(43,42,40,0.05);
+}
+#amparo-barra .wrap { border: none !important; box-shadow: none !important; }
 """
 
 

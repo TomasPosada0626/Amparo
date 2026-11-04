@@ -106,31 +106,55 @@ EJEMPLOS = {
     "📄  Vía ordinaria (cobro)": _VIA_ORDINARIA,
 }
 
+# El "mensaje del usuario" que acompaña a cada caso, para la burbuja de chat.
+PREGUNTAS = {
+    "⚖️  Tutela (salud, con documento)":
+        "Tengo 68 años y mi EPS me negó la cirugía de cadera que ordenó el ortopedista. "
+        "Adjunto la respuesta de la EPS. ¿Qué mecanismo me corresponde?",
+    "🤔  Abstención (no es un caso)":
+        "¿En qué debería invertir mis ahorros este año?",
+    "📄  Vía ordinaria (cobro)":
+        "Un arrendatario me debe varios meses de arriendo y no me quiere pagar. "
+        "¿Puedo poner una tutela?",
+}
 
-def responder(etiqueta):
-    """Arma el markdown con la capa de presentacion REAL de `despliegue.py`,
-    sin generador de Groq (usa la plantilla fija, como cuando no hay clave)."""
+
+def responder(etiqueta, historial):
+    """Simula enviar el caso: agrega la burbuja del usuario y la respuesta de
+    Amparo al chat. El markdown de la respuesta lo arma la capa de presentacion
+    REAL de `despliegue.py`, sin generador de Groq (plantilla fija)."""
     res = EJEMPLOS[etiqueta]
     reg = {"ts": time.time(), "ok": True, "latencia_ms": 0}
-    return dsp.presentar(res, None, reg, generar=None)
+    md = dsp.presentar(res, None, reg, generar=None)
+    historial = (historial or []) + [
+        {"role": "user", "content": PREGUNTAS[etiqueta]},
+        {"role": "assistant", "content": md},
+    ]
+    return historial
+
+
+def limpiar():
+    return []
 
 
 VERSION = dsp.version(RAIZ)
+AVATAR = str(AQUI / "avatar.svg") if (AQUI / "avatar.svg").exists() else None
 
 with gr.Blocks(title="Amparo · vista previa") as demo:
-    gr.HTML(dsp.encabezado_html(VERSION))
-    gr.HTML(dsp.AVISO_HTML)
-    gr.Markdown("<sub>**VISTA PREVIA** del frontend · respuestas de ejemplo, sin modelos "
-                "ni Groq.</sub>")
-    with gr.Row(equal_height=False):
-        with gr.Column(scale=2, min_width=300):
-            caso = gr.Radio(list(EJEMPLOS), value=list(EJEMPLOS)[0],
-                            label="Caso de ejemplo")
-            boton = gr.Button("Ver respuesta", variant="primary", size="lg")
-        with gr.Column(scale=3, min_width=360):
-            out = gr.Markdown(elem_id="amparo-respuesta")
-    boton.click(responder, caso, out)
-    demo.load(responder, caso, out)
+    with gr.Column(elem_id="amparo-chat-wrap"):
+        gr.HTML(dsp.encabezado_html(VERSION))
+        gr.HTML(dsp.AVISO_HTML)
+        chat = gr.Chatbot(
+            elem_id="amparo-chat", label="", show_label=False, height=520,
+            avatar_images=(None, AVATAR), watermark="VISTA PREVIA · respuestas de ejemplo")
+        with gr.Row(elem_id="amparo-barra"):
+            caso = gr.Dropdown(list(EJEMPLOS), value=list(EJEMPLOS)[0],
+                               label="", show_label=False, container=False, scale=5)
+            enviar = gr.Button("Enviar ↑", variant="primary", scale=0, min_width=110)
+        with gr.Row():
+            nuevo = gr.Button("🗑 Limpiar conversación", variant="secondary", size="sm")
+    enviar.click(responder, [caso, chat], chat)
+    nuevo.click(limpiar, None, chat)
 
 if __name__ == "__main__":
     demo.launch(theme=dsp.tema(), css=dsp.CSS, server_name="127.0.0.1")
