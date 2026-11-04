@@ -77,6 +77,62 @@ def tema():
     )
 
 
+# CSS de la app. Vive aqui, con el tema, para que app.py y preview.py no
+# dupliquen estilo ni diverjan. Solo estetica.
+CSS = """
+#amparo-header {
+  background: linear-gradient(135deg, #4338ca 0%, #3730a3 55%, #1e3a8a 100%);
+  color: #fff; border-radius: 16px; padding: 26px 30px; margin-bottom: 4px;
+  box-shadow: 0 6px 20px rgba(49,46,129,0.28);
+}
+#amparo-header h1 { margin: 0 0 6px; font-size: 1.7rem; font-weight: 700; letter-spacing: -0.01em; }
+#amparo-header .sub { font-size: 1.02rem; opacity: 0.93; line-height: 1.5; max-width: 60ch; }
+#amparo-header .badges { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+#amparo-header .badge {
+  background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 999px; padding: 3px 11px; font-size: 0.78rem; font-weight: 500;
+}
+#amparo-aviso {
+  border-left: 4px solid #b45309; background: #fffbeb; color: #5b3a06;
+  border-radius: 10px; padding: 13px 16px; margin: 12px 0 4px; font-size: 0.92rem; line-height: 1.5;
+}
+#amparo-aviso b { color: #92400e; }
+"""
+
+
+def encabezado_html(version: dict, cfg: dict | None = None, estado: dict | None = None) -> str:
+    """El header de la app: titulo, subtitulo y badges (version, vision,
+    hardware). Es solo presentacion; los datos vienen de `version`/`estado`."""
+    ver = (version or {}).get("describe") or "local"
+    badges = [f"versión {ver}"]
+    vlm = (cfg or {}).get("vlm")
+    if vlm:
+        badges.append(f"visión: {vlm}")
+    hw = (estado or {}).get("hardware")
+    if hw:
+        badges.append(hw)
+    chips = "".join(f'<span class="badge">{b}</span>' for b in badges)
+    return (
+        '<div id="amparo-header">'
+        "<h1>⚖️ Amparo</h1>"
+        '<div class="sub">Triaje de acciones constitucionales en Colombia. '
+        "Cuéntanos tu caso y te decimos qué mecanismo te corresponde —tutela, acción "
+        "popular, de cumplimiento, hábeas corpus o vía ordinaria— con la norma que lo sostiene.</div>"
+        f'<div class="badges">{chips}</div>'
+        "</div>"
+    )
+
+
+AVISO_HTML = (
+    '<div id="amparo-aviso">'
+    "<b>Amparo orienta, no reemplaza a un abogado.</b> Propone el mecanismo con la regla del "
+    "art. 6 del Decreto 2591, que es quien decide. Lo leído de una foto es una lectura "
+    "automática <b>no verificada</b>: revisa el documento original. Los documentos de ejemplo "
+    "son sintéticos."
+    "</div>"
+)
+
+
 # ---------------------------------------------------------------------------
 # Version y configuracion
 # ---------------------------------------------------------------------------

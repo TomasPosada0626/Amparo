@@ -116,14 +116,12 @@ def responder(etiqueta):
 
 
 VERSION = dsp.version(RAIZ)
-AVISO = ("Amparo **orienta**, no reemplaza a un abogado: propone el mecanismo constitucional "
-         "(tutela, acción popular, de cumplimiento, hábeas corpus o vía ordinaria) con la regla "
-         "del art. 6 del Decreto 2591 que lo decide. Los documentos de ejemplo son sintéticos.")
 
 with gr.Blocks(title="Amparo · vista previa") as demo:
-    gr.Markdown(f"# Amparo · triaje de acciones constitucionales\n{AVISO}\n\n"
-                f"<sub>VISTA PREVIA del frontend · versión `{VERSION['describe']}` · "
-                "respuestas de ejemplo, sin modelos</sub>")
+    gr.HTML(dsp.encabezado_html(VERSION))
+    gr.HTML(dsp.AVISO_HTML)
+    gr.Markdown("<sub>**VISTA PREVIA** del frontend · respuestas de ejemplo, sin modelos "
+                "ni Groq.</sub>")
     with gr.Row():
         with gr.Column():
             caso = gr.Radio(list(EJEMPLOS), value=list(EJEMPLOS)[0],
@@ -135,4 +133,4 @@ with gr.Blocks(title="Amparo · vista previa") as demo:
     demo.load(responder, caso, out)
 
 if __name__ == "__main__":
-    demo.launch(theme=dsp.tema(), server_name="127.0.0.1")
+    demo.launch(theme=dsp.tema(), css=dsp.CSS, server_name="127.0.0.1")

@@ -143,16 +143,9 @@ def estado():
     return dsp.health(ESTADO, T0, RUTA_LOG, VERSION)
 
 
-AVISO = ("Amparo **orienta**, no reemplaza a un abogado: propone el mecanismo constitucional "
-         "(tutela, acción popular, de cumplimiento, hábeas corpus o vía ordinaria) con la regla "
-         "del art. 6 del Decreto 2591 que lo decide. Lo leído de la foto es una lectura "
-         "automática **no verificada**: revisa el documento original. Los documentos de "
-         "ejemplo son sintéticos.")
-
 with gr.Blocks(title="Amparo") as demo:
-    gr.Markdown(f"# Amparo · triaje de acciones constitucionales\n{AVISO}\n\n"
-                f"<sub>versión `{VERSION['describe']}` · visión `{CFG['vlm']}` · "
-                f"{ESTADO.get('hardware', '')}</sub>")
+    gr.HTML(dsp.encabezado_html(VERSION, CFG, ESTADO))
+    gr.HTML(dsp.AVISO_HTML)
     with gr.Tab("Consulta"):
         with gr.Row():
             with gr.Column():
@@ -168,4 +161,4 @@ with gr.Blocks(title="Amparo") as demo:
         gr.JSON(value=estado, every=10)                   # el health check, visible
 
 if __name__ == "__main__":
-    demo.launch(theme=dsp.tema(), share=CFG["share"], server_name="0.0.0.0")
+    demo.launch(theme=dsp.tema(), css=dsp.CSS, share=CFG["share"], server_name="0.0.0.0")
