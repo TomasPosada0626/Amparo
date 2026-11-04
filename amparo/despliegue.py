@@ -156,7 +156,15 @@ CSS = """
   padding: 7px 7px 7px 14px; margin-top: 10px; align-items: center;
   box-shadow: 0 2px 10px rgba(43,42,40,0.05);
 }
-#amparo-barra .wrap { border: none !important; box-shadow: none !important; }
+/* El input interno no debe traer su propio borde/caja: solo lo muestra la
+   barra de afuera. Cubre textarea, input, dropdown y sus contenedores. */
+#amparo-barra .wrap, #amparo-barra .container, #amparo-barra .block,
+#amparo-barra textarea, #amparo-barra input, #amparo-barra .gr-box,
+#amparo-barra [data-testid="textbox"], #amparo-barra .secondary-wrap {
+  border: none !important; box-shadow: none !important; background: transparent !important;
+  outline: none !important;
+}
+#amparo-barra textarea, #amparo-barra input { padding: 6px 4px !important; }
 """
 
 # JS que fuerza el modo claro: sin esto, Gradio respeta el modo oscuro del
