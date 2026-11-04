@@ -126,8 +126,8 @@ CSS = """
 }
 #amparo-chat .bot, #amparo-chat .bot-row, #amparo-chat [data-testid="bot"],
 #amparo-chat .message.bot {
-  background: #ffffff !important; color: #2b2a28 !important;
-  border: 1px solid #e7e2d6 !important; border-radius: 4px 16px 16px 16px !important;
+  background: transparent !important; color: #2b2a28 !important;
+  border: none !important; box-shadow: none !important; border-radius: 0 !important;
 }
 #amparo-chat h3 {
   font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
