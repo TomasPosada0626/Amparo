@@ -54,49 +54,85 @@ MENSAJE_API = ("**Amparo no pudo consultar su modelo de lenguaje (Groq) en este 
 # juridica. `gradio` se importa dentro, para que este modulo siga cargando sin
 # el (como lo prueba `tests/test_despliegue.py`).
 
-# Acento calido para los avisos y los titulos de seccion.
-COLOR_ACENTO = "#b45309"      # ambar 700
-COLOR_INDIGO = "#4338ca"      # indigo 700
+# Acento sobrio y neutro. Nada saturado: el color solo marca jerarquia.
+COLOR_ACENTO = "#334155"      # slate 700
+COLOR_INDIGO = "#1e293b"      # slate 800 (el "oscuro" del header)
 
 
 def tema():
-    """El `gr.Theme` base de la app: paleta indigo + tipografia legible."""
+    """El `gr.Theme` base: sobrio, neutro, mucho gris y poco color."""
     import gradio as gr
     return gr.themes.Soft(
-        primary_hue=gr.themes.colors.indigo,
-        secondary_hue=gr.themes.colors.blue,
+        primary_hue=gr.themes.colors.slate,
+        secondary_hue=gr.themes.colors.slate,
         neutral_hue=gr.themes.colors.slate,
         font=(gr.themes.GoogleFont("Inter"), "ui-sans-serif", "system-ui", "sans-serif"),
     ).set(
-        body_background_fill="#f6f7fb",
+        body_background_fill="#fafafa",
         block_background_fill="white",
         block_border_width="1px",
-        block_shadow="0 1px 3px rgba(17,24,39,0.06)",
-        block_radius="14px",
-        button_primary_shadow="0 1px 2px rgba(67,56,202,0.25)",
+        block_border_color="#e7e7e9",
+        block_shadow="none",
+        block_radius="10px",
+        button_primary_background_fill="#1e293b",
+        button_primary_background_fill_hover="#0f172a",
+        button_primary_text_color="white",
+        button_primary_shadow="none",
     )
 
 
 # CSS de la app. Vive aqui, con el tema, para que app.py y preview.py no
-# dupliquen estilo ni diverjan. Solo estetica.
+# dupliquen estilo ni diverjan. Solo estetica, sobria.
 CSS = """
 #amparo-header {
-  background: linear-gradient(135deg, #4338ca 0%, #3730a3 55%, #1e3a8a 100%);
-  color: #fff; border-radius: 16px; padding: 26px 30px; margin-bottom: 4px;
-  box-shadow: 0 6px 20px rgba(49,46,129,0.28);
+  background: #1e293b; color: #f1f5f9;
+  border-radius: 12px; padding: 22px 26px; margin-bottom: 4px;
+  border: 1px solid #0f172a;
 }
-#amparo-header h1 { margin: 0 0 6px; font-size: 1.7rem; font-weight: 700; letter-spacing: -0.01em; }
-#amparo-header .sub { font-size: 1.02rem; opacity: 0.93; line-height: 1.5; max-width: 60ch; }
-#amparo-header .badges { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+#amparo-header h1 {
+  margin: 0 0 6px; font-size: 1.5rem; font-weight: 650; letter-spacing: -0.01em;
+  display: flex; align-items: center; gap: 9px;
+}
+#amparo-header .sub { font-size: 0.97rem; color: #cbd5e1; line-height: 1.55; max-width: 64ch; }
+#amparo-header .badges { margin-top: 15px; display: flex; gap: 7px; flex-wrap: wrap; }
 #amparo-header .badge {
-  background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 999px; padding: 3px 11px; font-size: 0.78rem; font-weight: 500;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14);
+  color: #e2e8f0; border-radius: 6px; padding: 3px 10px; font-size: 0.76rem; font-weight: 500;
 }
 #amparo-aviso {
-  border-left: 4px solid #b45309; background: #fffbeb; color: #5b3a06;
-  border-radius: 10px; padding: 13px 16px; margin: 12px 0 4px; font-size: 0.92rem; line-height: 1.5;
+  border: 1px solid #e7e7e9; border-left: 3px solid #94a3b8; background: #f8fafc;
+  color: #475569; border-radius: 8px; padding: 12px 15px; margin: 12px 0 4px;
+  font-size: 0.88rem; line-height: 1.5;
 }
-#amparo-aviso b { color: #92400e; }
+#amparo-aviso b { color: #334155; font-weight: 600; }
+
+/* La respuesta: cada seccion (### ...) se ve como una tarjeta sobria. */
+#amparo-respuesta { min-height: 120px; }
+#amparo-respuesta h3 {
+  font-size: 0.78rem; font-weight: 650; text-transform: uppercase; letter-spacing: 0.05em;
+  color: #64748b; margin: 0 0 8px; padding-bottom: 6px; border-bottom: 1px solid #eef0f2;
+}
+#amparo-respuesta h3 + p, #amparo-respuesta h3 + ul { margin-top: 0; }
+#amparo-respuesta > h3:first-child + p {   /* el parrafo principal, un poco mas presente */
+  font-size: 1.04rem; line-height: 1.6; color: #0f172a;
+}
+/* Agrupa cada "### titulo + contenido" como tarjeta usando el borde del bloque. */
+#amparo-respuesta blockquote {
+  border-left: 3px solid #94a3b8; background: #f8fafc; color: #475569;
+  margin: 10px 0; padding: 8px 14px; border-radius: 0 6px 6px 0; font-size: 0.9rem;
+}
+#amparo-respuesta em { color: #64748b; }
+#amparo-respuesta details {
+  margin-top: 14px; border: 1px solid #e7e7e9; border-radius: 8px;
+  background: #fcfcfd; padding: 4px 14px;
+}
+#amparo-respuesta details summary {
+  cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #475569; padding: 8px 0;
+}
+#amparo-respuesta details[open] summary { border-bottom: 1px solid #eef0f2; margin-bottom: 8px; }
+#amparo-respuesta details code {
+  background: #f1f5f9; color: #334155; padding: 1px 5px; border-radius: 4px; font-size: 0.82em;
+}
 """
 
 
@@ -114,7 +150,7 @@ def encabezado_html(version: dict, cfg: dict | None = None, estado: dict | None 
     chips = "".join(f'<span class="badge">{b}</span>' for b in badges)
     return (
         '<div id="amparo-header">'
-        "<h1>⚖️ Amparo</h1>"
+        "<h1><span>⚖️</span> Amparo</h1>"
         '<div class="sub">Triaje de acciones constitucionales en Colombia. '
         "Cuéntanos tu caso y te decimos qué mecanismo te corresponde —tutela, acción "
         "popular, de cumplimiento, hábeas corpus o vía ordinaria— con la norma que lo sostiene.</div>"
