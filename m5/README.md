@@ -276,7 +276,22 @@ tabla de despliegue de la profe. Cómo configurarla: [`space/README.md`](space/R
 | health check y un log JSON por consulta | pestaña Estado (`health`) y `peticiones.jsonl` (`registrar`) |
 | versión con tag visible | encabezado y pestaña Estado (`git describe`) |
 | W&B | `wandb.init` si hay `WANDB_API_KEY`; registra latencia, ok, ruta, mecanismo y abstención |
+| Space | **ZeroGPU** en vez de CPU Basic (abajo) |
 | claves en Secrets | solo se leen de las variables de entorno |
+
+**Por qué el Space es ZeroGPU y no CPU Basic.** Desde julio de 2026, Hugging Face no deja
+crear Spaces con CPU Basic a las cuentas gratis nuevas: solo ofrece ZeroGPU
+([hilo del foro de Hugging Face](https://discuss.huggingface.co/t/new-free-accounts-cannot-create-cpu-basic-gradio-spaces-only-zerogpu-available/177629)).
+La tabla de despliegue se escribió antes de ese cambio. ZeroGPU es gratis y da GPU, así que
+la foto se lee rápido también en la vitrina. Lo que cambia en la app:
+- la consulta va decorada con `@spaces.GPU`, porque la GPU existe solo ahí;
+- los modelos se cargan al arrancar: el VLM con `.to("cuda")` y sin `device_map`, el
+  codificador y el reranker de M3 precargados;
+- la caché de M3 se recarga de disco en cada consulta, porque la función con GPU corre en
+  otro proceso.
+
+La cuota diaria de GPU es de 2 minutos para visitantes sin sesión y 5 para cuentas gratis.
+La demo en vivo sigue en Kaggle (T4).
 
 **Una protección que la tabla no pide, pero que el código de M3 obliga.** Cuando Groq falla
 dentro de la extracción de hechos, el agente no lanza el error: sigue con los hechos por

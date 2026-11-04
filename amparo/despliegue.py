@@ -68,8 +68,16 @@ def config_desde_entorno(env=None, cuda: bool | None = None) -> dict:
                        3/5 clausulas). int4 sigue disponible pidiendolo.
     AMPARO_MAX_PIXELS  tope de resolucion; en CPU vale MAX_PIXELS_CPU por defecto.
     AMPARO_SHARE       '1' para el enlace publico de Gradio (Kaggle).
+    AMPARO_ZEROGPU     '1' en un Space con hardware ZeroGPU (tambien se detecta
+                       por `SPACES_ZERO_GPU`, que pone Hugging Face). Ahi la GPU
+                       existe solo dentro de `@spaces.GPU`, asi que el VLM se
+                       carga sin `device_map` y en fp16.
     """
     env = os.environ if env is None else env
+    zerogpu = (env.get("AMPARO_ZEROGPU", "0") == "1"
+               or str(env.get("SPACES_ZERO_GPU", "")).lower() in ("1", "true"))
+    if zerogpu:
+        cuda = True                          # fuera de @spaces.GPU, CUDA emulada
     if cuda is None:
         try:
             import torch
@@ -86,7 +94,7 @@ def config_desde_entorno(env=None, cuda: bool | None = None) -> dict:
     mp = env.get("AMPARO_MAX_PIXELS")
     max_pixels = int(mp) if mp else (MAX_PIXELS_CPU if vlm == "cpu" else None)
     return {"vlm": vlm, "max_pixels": max_pixels, "cuda": bool(cuda),
-            "share": env.get("AMPARO_SHARE", "0") == "1"}
+            "share": env.get("AMPARO_SHARE", "0") == "1", "zerogpu": zerogpu}
 
 
 # ---------------------------------------------------------------------------
@@ -153,15 +161,23 @@ def armar_amparo(cfg: dict, *, cache_dir: Path = CARPETA_CACHE, ruta_indice: Pat
     from amparo.multimodal.sistema_visual import Amparo, LectorVisual
     t0 = time.perf_counter()
     indice, origen_indice = cargar_indice(ruta_indice)
+    if cfg.get("zerogpu"):
+        # En ZeroGPU los modelos se cargan AL ARRANCAR, a nivel de modulo: el
+        # codificador de consultas y el reranker de M3 se crean perezosamente
+        # en la primera busqueda, que ya estaria dentro de @spaces.GPU.
+        indice._encoder()
+        indice._reranker()
     responder_m3, agente = enchufe.construir_responder_m3(indice=indice, cache_dir=cache_dir)
     lector = None
     if cfg["vlm"] != "off":
         lector = LectorVisual(
             device="cuda" if cfg["vlm"] in ("int4", "fp16") else "cpu",
             cuantizacion="int4" if cfg["vlm"] == "int4" else None,
-            max_pixels=cfg["max_pixels"])
+            max_pixels=cfg["max_pixels"],
+            device_map=None if cfg.get("zerogpu") else "auto")
     amparo = Amparo(lector=lector or _SinVision(), responder_m3=responder_m3, agente=agente)
     estado = {"vlm": cfg["vlm"], "max_pixels": cfg["max_pixels"], "indice": origen_indice,
+              "hardware": "ZeroGPU" if cfg.get("zerogpu") else ("GPU" if cfg["cuda"] else "CPU"),
               "m3": enchufe.SISTEMA_M3, "modelo_m3": getattr(agente, "modelo", None),
               "carga_s": round(time.perf_counter() - t0, 1)}
     return amparo, estado
@@ -213,8 +229,7 @@ def consultar(amparo, pregunta: str, imagen=None, *, ver_version: str = "") -> t
         for k, campo in (("lectura del documento", "lectura_ms"), ("decisión (M3)", "m3_ms")):
             if seg.get(k) is not None:
                 reg[campo] = int(seg[k] * 1000)
-        if agente is not None and hasattr(agente, "guardar_cache"):
-            agente.guardar_cache()         # el caso ensayado ya no gasta Groq
+        guardar_caches(agente)             # el caso ensayado ya no gasta Groq
     except SinVision as ex:
         md, reg["ok"], reg["error"] = f"**{ex}**", False, "sin_vision"
     except ErrorAPI as ex:
@@ -232,6 +247,38 @@ def consultar(amparo, pregunta: str, imagen=None, *, ver_version: str = "") -> t
 
 class ErrorAPI(RuntimeError):
     pass
+
+
+def guardar_caches(agente) -> None:
+    """Las dos caches de M3 a disco: la del agente y la de la reescritura de
+    consultas (que tambien llama a Groq)."""
+    if agente is None:
+        return
+    if hasattr(agente, "guardar_cache"):
+        agente.guardar_cache()
+    tr = getattr(agente, "transformador", None)
+    if tr is not None and hasattr(tr, "guardar"):
+        tr.guardar()
+
+
+def recargar_caches(agente) -> None:
+    """Las caches de M3 desde disco, encima de lo que haya en memoria.
+
+    En ZeroGPU la funcion `@spaces.GPU` corre en otro proceso: lo que guarda
+    en la cache en memoria no vuelve al proceso principal, pero lo que escribe
+    a disco si. Sin recargar, un caso ensayado volveria a gastar Groq.
+    """
+    if agente is None:
+        return
+    for obj, attr, ruta in ((agente, "_cache", getattr(agente, "_ruta_cache", None)),
+                            (getattr(agente, "transformador", None), "cache",
+                             getattr(getattr(agente, "transformador", None), "ruta", None))):
+        cache = getattr(obj, attr, None)
+        if isinstance(cache, dict) and ruta is not None and Path(ruta).exists():
+            try:
+                cache.update(json.loads(Path(ruta).read_text(encoding="utf-8")))
+            except (OSError, json.JSONDecodeError):
+                pass
 
 
 def registrar(reg: dict, log=None, wandb_mod=None) -> str:

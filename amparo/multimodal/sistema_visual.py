@@ -104,7 +104,8 @@ class LectorVisual:
     """
 
     def __init__(self, modelo_id: str = VLM_ID, device: str | None = None, *,
-                 cuantizacion: str | None = None, max_pixels: int | None = None):
+                 cuantizacion: str | None = None, max_pixels: int | None = None,
+                 device_map: str | None = "auto"):
         """`cuantizacion` y `max_pixels` son de M5 y por defecto no cambian nada.
 
         - `cuantizacion="int4"`: la linea del lab de S15 (bitsandbytes, nf4,
@@ -113,6 +114,9 @@ class LectorVisual:
         - `max_pixels`: tope de resolucion del procesador de Qwen2-VL. En CPU
           (el Space gratis) una foto grande tarda decenas de segundos; la
           tabla de despliegue de la profe pide limitarlo.
+        - `device_map=None`: carga sin accelerate y mueve el modelo a `device`
+          con `.to()`. Es lo que pide ZeroGPU (Spaces de HF): los modelos se
+          ponen en `cuda` al nivel del modulo, fuera de `@spaces.GPU`.
         """
         import torch
         from transformers import AutoProcessor, Qwen2VLForConditionalGeneration
@@ -122,7 +126,9 @@ class LectorVisual:
         self.dtype = torch.float16 if self.device == "cuda" else torch.float32
         self.cuantizacion = cuantizacion
         self.max_pixels = max_pixels
-        kw = {"torch_dtype": self.dtype, "device_map": "auto"}
+        kw = {"torch_dtype": self.dtype}
+        if device_map is not None:
+            kw["device_map"] = device_map
         if cuantizacion is not None:
             if cuantizacion not in ("int4", "int8"):
                 raise ValueError(f"cuantizacion {cuantizacion!r}: solo 'int4' o 'int8'")
@@ -134,6 +140,8 @@ class LectorVisual:
                                    bnb_4bit_quant_type="nf4")
                 if cuantizacion == "int4" else BitsAndBytesConfig(load_in_8bit=True))
         self.vlm = Qwen2VLForConditionalGeneration.from_pretrained(modelo_id, **kw)
+        if device_map is None:
+            self.vlm = self.vlm.to(self.device)
         self.vproc = (AutoProcessor.from_pretrained(modelo_id, max_pixels=max_pixels)
                       if max_pixels else AutoProcessor.from_pretrained(modelo_id))
 

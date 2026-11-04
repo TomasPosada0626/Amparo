@@ -186,3 +186,88 @@ def test_la_app_arma_la_interfaz_y_responde(tmp_path, monkeypatch):
     assert pasos[0].startswith("⏳") and "acción de tutela" in pasos[-1]
     assert app.estado()["vlm"] == "off"
     assert all(p.exists() for _q, p in [(e[0], __import__("pathlib").Path(e[1])) for e in app.EJEMPLOS])
+
+
+# --------------------------------------------------------------------------
+# ZeroGPU (el Space)
+# --------------------------------------------------------------------------
+@pytest.mark.parametrize("env", [{"AMPARO_ZEROGPU": "1"}, {"SPACES_ZERO_GPU": "true"}])
+def test_zerogpu_usa_fp16_aunque_torch_no_vea_gpu(env):
+    c = dsp.config_desde_entorno(env, cuda=False)
+    assert c["zerogpu"] and c["vlm"] == "fp16" and c["max_pixels"] is None
+
+
+def test_sin_zerogpu_no_se_activa():
+    assert not dsp.config_desde_entorno({}, cuda=True)["zerogpu"]
+
+
+def test_armar_en_zerogpu_precarga_m3_y_carga_el_vlm_sin_device_map(monkeypatch):
+    from amparo.multimodal import enchufe
+    from amparo.multimodal import sistema_visual
+    llamadas = []
+
+    class _Ind:
+        def _encoder(self):
+            llamadas.append("encoder")
+
+        def _reranker(self):
+            llamadas.append("reranker")
+
+    class _Lector:
+        def __init__(self, **kw):
+            llamadas.append(("lector", kw))
+
+    monkeypatch.setattr(dsp, "cargar_indice", lambda ruta: (_Ind(), "precalculado"))
+    monkeypatch.setattr(enchufe, "construir_responder_m3",
+                        lambda **kw: (lambda r: "x", type("A", (), {"modelo": "m"})()))
+    monkeypatch.setattr(sistema_visual, "LectorVisual", _Lector)
+    _amp, estado = dsp.armar_amparo(dsp.config_desde_entorno({"AMPARO_ZEROGPU": "1"}, cuda=False))
+    assert llamadas[:2] == ["encoder", "reranker"]
+    kw = llamadas[2][1]
+    assert kw["device"] == "cuda" and kw["device_map"] is None and kw["cuantizacion"] is None
+    assert estado["hardware"] == "ZeroGPU"
+
+
+def test_recargar_caches_trae_lo_que_otro_proceso_escribio(tmp_path):
+    (tmp_path / "agente.json").write_text('{"k1": "v1"}', encoding="utf-8")
+    (tmp_path / "consultas.json").write_text('{"r": "q"}', encoding="utf-8")
+    tr = type("T", (), {})()
+    tr.cache, tr.ruta = {}, tmp_path / "consultas.json"
+    ag = type("A", (), {})()
+    ag._cache, ag._ruta_cache, ag.transformador = {"k0": "v0"}, tmp_path / "agente.json", tr
+    dsp.recargar_caches(ag)
+    assert ag._cache == {"k0": "v0", "k1": "v1"} and tr.cache == {"r": "q"}
+
+
+def test_guardar_caches_guarda_las_dos():
+    hecho = []
+    tr = type("T", (), {"guardar": lambda self: hecho.append("tr")})()
+    ag = type("A", (), {"guardar_cache": lambda self: hecho.append("ag"), "transformador": tr})()
+    dsp.guardar_caches(ag)
+    assert hecho == ["ag", "tr"]
+
+
+def test_la_app_en_zerogpu_decora_la_consulta(tmp_path, monkeypatch):
+    pytest.importorskip("gradio")
+    import sys
+    import types
+    decorados = []
+    falso = types.ModuleType("spaces")
+
+    def GPU(duration=60):
+        def deco(f):
+            decorados.append((f.__name__, duration))
+            return f
+        return deco
+    falso.GPU = GPU
+    monkeypatch.setitem(sys.modules, "spaces", falso)
+    monkeypatch.setenv("AMPARO_LOG", str(tmp_path / "p.jsonl"))
+    monkeypatch.setenv("AMPARO_ZEROGPU", "1")
+    monkeypatch.delenv("WANDB_API_KEY", raising=False)
+    monkeypatch.setattr(dsp, "armar_amparo",
+                        lambda cfg, **kw: (_Amparo(), {"vlm": cfg["vlm"], "hardware": "ZeroGPU"}))
+    spec = importlib.util.spec_from_file_location("app_zerogpu", RAIZ / "m5" / "space" / "app.py")
+    app = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(app)
+    assert decorados == [("_consultar", 90)]
+    assert "acción de tutela" in list(app.responder("Mi EPS no me autoriza", None))[-1]

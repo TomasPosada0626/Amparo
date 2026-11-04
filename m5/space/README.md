@@ -31,6 +31,18 @@ versión que muestra la pestaña Estado.
 | `AMPARO_VLM` | `auto` | `auto`: fp16 con GPU y CPU sin ella · `fp16` · `int4` · `off` (solo texto) |
 | `AMPARO_MAX_PIXELS` | 200704 en CPU | tope de resolución de la foto |
 | `AMPARO_SHARE` | `0` | `1` para el enlace público de Gradio (Kaggle) |
+| `AMPARO_ZEROGPU` | `0` | `1` en un Space con hardware **ZeroGPU** |
+| `AMPARO_GPU_S` | `90` | segundos de GPU que pide cada consulta en ZeroGPU |
+
+**Hardware del Space: ZeroGPU.** La tabla de despliegue de la profe sugería CPU Basic, pero
+desde julio de 2026 Hugging Face solo ofrece **ZeroGPU** a las cuentas gratis nuevas.
+- **Requisitos de Hugging Face:** el correo verificado y la cuenta con más de 30 días.
+- **Cómo lo maneja la app:**
+  - la GPU existe solo dentro de la consulta, que va decorada con `@spaces.GPU`;
+  - los modelos se cargan al arrancar;
+  - el VLM va en fp16.
+- **Cuota diaria de GPU:** 2 minutos para visitantes sin sesión y 5 para cuentas gratis.
+  Cada consulta con foto gasta del orden de 10 segundos.
 
 **En Kaggle (T4):** se clona el repo y se corre
 `AMPARO_SHARE=1 python m5/space/app.py`. Con la GPU, el VLM va en **fp16**: la

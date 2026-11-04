@@ -4,18 +4,29 @@ Es el `app.py` del lab de la profe con nuestro sistema dentro: la logica vive
 en `amparo/despliegue.py` y `amparo/multimodal/sistema_visual.py` (el mismo
 codigo que se evaluo en M4). Aqui solo esta la interfaz.
 
-La misma app corre en los dos lugares que recomienda la tabla de despliegue:
+La misma app corre en los lugares de la tabla de despliegue de la profe:
 
-  - **Hugging Face Space en CPU** (vitrina permanente): `AMPARO_VLM` en 'auto'
-    lee fotos en CPU con la resolucion limitada; 'off' la deja solo con texto.
+  - **Hugging Face Space** (vitrina permanente). La tabla sugeria CPU Basic,
+    pero desde julio de 2026 las cuentas gratis nuevas solo pueden crear
+    Spaces con **ZeroGPU** (ver m5/README.md). En ZeroGPU la GPU existe solo
+    dentro de las funciones con `@spaces.GPU`: por eso la consulta va
+    decorada, los modelos se cargan al arrancar y el VLM va en fp16.
   - **Kaggle T4** (demo en vivo): `AMPARO_SHARE=1` da el enlace publico de
     Gradio y, con GPU, el VLM corre en fp16 (int4 no cumplio su contrato).
+  - En CPU tambien funciona (`AMPARO_VLM` 'auto' limita la resolucion; 'off'
+    la deja solo con texto).
 
 Secretos (en *Settings -> Variables and secrets* del Space, nunca aqui):
 `GROQ_API_KEY` (obligatoria) y `WANDB_API_KEY` (opcional).
 Variables: `AMPARO_REF` (rama o tag del repo, defecto `m5`), `AMPARO_VLM`,
-`AMPARO_MAX_PIXELS`, `AMPARO_SHARE`.
+`AMPARO_MAX_PIXELS`, `AMPARO_SHARE`, `AMPARO_ZEROGPU` (1 en un Space ZeroGPU),
+`AMPARO_GPU_S` (segundos de GPU por consulta en ZeroGPU, defecto 90).
 """
+# `spaces` va primero: en ZeroGPU tiene que importarse antes que torch.
+try:
+    import spaces
+except ImportError:                    # fuera de Hugging Face no existe
+    spaces = None
 import json
 import logging
 import os
@@ -86,15 +97,27 @@ EJEMPLOS = [
 ]
 
 
+def _consultar(pregunta, imagen):
+    """La consulta completa (VLM + M3). En ZeroGPU es la que pide la GPU, y
+    corre en otro proceso: por eso recarga de disco la cache de M3, y el
+    registro (log y W&B) se hace afuera, en el proceso principal."""
+    dsp.recargar_caches(getattr(AMPARO, "agente", None))
+    return dsp.consultar(AMPARO, pregunta, imagen, ver_version=VERSION["describe"] or "")
+
+
+if spaces is not None and CFG.get("zerogpu"):
+    _consultar = spaces.GPU(duration=int(os.environ.get("AMPARO_GPU_S", "90")))(_consultar)
+
+
 def responder(pregunta, imagen):
     if not (pregunta or "").strip():
         yield "_Escribe tu pregunta._"
         return
     if imagen is not None and CFG["vlm"] != "off":
-        yield "⏳ **Leyendo el documento…** (en CPU puede tardar un poco)"
+        yield "⏳ **Leyendo el documento…**" + ("" if CFG["cuda"] else " (en CPU puede tardar un poco)")
     else:
         yield "⏳ **Analizando tu caso…**"
-    md, reg = dsp.consultar(AMPARO, pregunta, imagen, ver_version=VERSION["describe"] or "")
+    md, reg = _consultar(pregunta, imagen)
     dsp.registrar(reg, log=log, wandb_mod=wandb)
     yield md
 
@@ -111,7 +134,8 @@ AVISO = ("Amparo **orienta**, no reemplaza a un abogado: propone el mecanismo co
 
 with gr.Blocks(title="Amparo") as demo:
     gr.Markdown(f"# Amparo · triaje de acciones constitucionales\n{AVISO}\n\n"
-                f"<sub>versión `{VERSION['describe']}` · visión `{CFG['vlm']}`</sub>")
+                f"<sub>versión `{VERSION['describe']}` · visión `{CFG['vlm']}` · "
+                f"{ESTADO.get('hardware', '')}</sub>")
     with gr.Tab("Consulta"):
         with gr.Row():
             with gr.Column():

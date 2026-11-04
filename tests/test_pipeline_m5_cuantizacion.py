@@ -29,6 +29,10 @@ class _Capturador:
         cls.llamadas.append((modelo_id, kw))
         return cls()
 
+    def to(self, device):
+        _Capturador.llamadas.append(("to", device))
+        return self
+
 
 class _BnB:
     def __init__(self, **kw):
@@ -200,3 +204,11 @@ def test_guardar_escribe_en_m5_y_en_la_carpeta_de_trabajo(tmp_path, monkeypatch)
     assert len(rutas) == 2 and "fin_utc" in d["corrida"]
     assert d["vlm"]["licencia"].startswith("Apache")
     assert {"fp16", "int4"} == set(d["por_caso"])
+
+
+def test_lector_sin_device_map_se_mueve_con_to(transformers_falso):
+    """ZeroGPU: sin accelerate, el modelo va a cuda con .to() al cargar."""
+    from amparo.multimodal.sistema_visual import LectorVisual
+    LectorVisual(device="cuda", device_map=None)
+    (_, kw_vlm), movido, _proc = transformers_falso.llamadas
+    assert "device_map" not in kw_vlm and movido == ("to", "cuda")
