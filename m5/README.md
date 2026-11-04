@@ -194,10 +194,51 @@ Qwen2-VL-2B en fp16 contra int4 (bitsandbytes nf4), en la misma GPU, con tempera
 Lo de la latencia es a propósito: en GPU, int4 con bitsandbytes suele ir igual o más lento,
 porque descomprime los pesos en cada paso. Lo que se gana es memoria.
 
-### Resultado
+### Resultado: el contrato NO se cumple (3 de 5)
 
-*Pendiente de la corrida.* Sale en `m5/cuantizacion.json`, con su manifiesto (commit, GPU y
-versiones).
+Corrida del 2026-11-03 (20:12–20:20, hora de Colombia), commit `6ee98fa` (rama `m5`), en
+una **NVIDIA L4** de Colab. Los datos completos están en [`cuantizacion.json`](cuantizacion.json),
+que incluye el manifiesto, y el notebook con sus salidas en
+[`S15_cuantizacion.ipynb`](S15_cuantizacion.ipynb).
+
+| cláusula | pedido | fp16 | int4 | ¿cumple? |
+|---|---|---|---|---|
+| memoria | ≥ 2.5× menos | 4.42 GB | 1.63 GB (2.7×) | sí |
+| lectura (`campos`) | baja ≤ 0.05 | 0.553 | 0.543 (−0.010) | sí |
+| válvula (m10) | ≥ 1.0 | 1.0 | 1.0 | sí |
+| mecanismo (`exacto`) | no peor | 3/3 | 2/3 | **NO** |
+| latencia de la lectura (p50) | ≤ +30 % | 3.98 s | 5.58 s (+40 %) | **NO** |
+
+`juez_vlm` quedó en 1.0 en los dos, con el juez en fp16. El p95 de la lectura fue de 3.99 s
+contra 5.65 s.
+
+**Lectura:**
+- **La memoria es la ganancia real:** 2.7× menos (1.63 GB). El VLM cabría en GPUs más chicas
+  o junto a otro modelo.
+- **int4 es más lento (+40 %), como se esperaba en GPU.** bitsandbytes descomprime los pesos
+  en cada paso. Por eso la cláusula ya era permisiva, y aun así no se cumplió.
+- **El NO de `exacto` viene del ruido de M3, no de la lectura, y es un fallo de nuestra
+  medición.** Falló m06 (corporación ambiental). Pero int4 leyó su documento (doc04) con
+  exactamente el mismo contenido que fp16: solo cambió el **orden** de los campos del JSON.
+  Ese orden cambia el texto que recibe M3, así que la caché compartida no lo reconoció y M3
+  decidió de nuevo. m06 es el caso que en el delta de M4 acertó 2 de 6 veces por el ruido de
+  M3. La caché debía aislar ese ruido y no lo hizo.
+  - El contrato no se reinterpreta después de ver el resultado: cuenta como NO.
+  - La forma de cerrarlo sería normalizar el orden y repetir `exacto` 3 veces por versión,
+    como en el delta de M4. No se hizo antes de la demo.
+- **int4 leyó distinto 5 de 6 documentos,** sin quedar mejor ni peor en conjunto:
+  - **mejor:** encontró la entidad de doc02 ("Alcaldía de Puerto Almendro"); en doc03 leyó
+    la negativa real (fp16 decía que la Alcaldía *sí* cumpliría); en doc05 captó el plazo de
+    5 días en el texto;
+  - **peor:** perdió la fecha de doc03;
+  - **igual de mal:** en el documento borroso (doc06), fp16 escribe "dos semanas" y int4
+    "dos días", y ninguno está en la imagen. En los dos `plazo_dias` queda vacío, por eso la
+    válvula pasa, y la app muestra el aviso de plazo sin respaldo de M4.
+
+**Decisión:** la demo usa el VLM en **fp16**, porque el contrato no se cumplió.
+`AMPARO_VLM=auto` usa fp16 con GPU, e int4 queda disponible pidiéndolo (`AMPARO_VLM=int4`).
+Con S14 y S15, M5 tiene dos técnicas de eficiencia medidas con contrato y tabla
+antes/después, y ninguna se adopta. Lo que cede cada una está medido arriba.
 
 ## S15 · Parte B · La app
 
@@ -209,7 +250,7 @@ tabla de despliegue de la profe. Cómo configurarla: [`space/README.md`](space/R
 | lo que pide la tabla de despliegue | dónde está |
 |---|---|
 | modelos cargados una sola vez al iniciar | `armar_amparo`, arriba de `app.py` |
-| índice precalculado, no al arrancar | `precalcular_indice` (notebook de S15) y `m5/space/indice_m3.npz` |
+| índice precalculado, no al arrancar | `precalcular_indice` (notebook de S15) y `m5/space/indice_m3.npz` (77 fragmentos, e5-base) |
 | `max_pixels` en CPU y aviso "leyendo el documento…" | `config_desde_entorno` y `responder` en `app.py` |
 | caché de Groq de los casos ensayados | la caché en disco del agente, que se guarda tras cada consulta |
 | mensaje claro si la API no responde | `consultar` |
