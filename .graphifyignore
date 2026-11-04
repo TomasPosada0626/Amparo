@@ -1,0 +1,6 @@
+data/
+results/
+notebooks/
+graphify-out/
+runs/
+models/
