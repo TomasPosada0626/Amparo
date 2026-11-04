@@ -157,4 +157,4 @@ with gr.Blocks(title="Amparo · vista previa") as demo:
     nuevo.click(limpiar, None, chat)
 
 if __name__ == "__main__":
-    demo.launch(theme=dsp.tema(), css=dsp.CSS, server_name="127.0.0.1")
+    demo.launch(theme=dsp.tema(), css=dsp.CSS, js=dsp.FORZAR_CLARO, server_name="127.0.0.1")

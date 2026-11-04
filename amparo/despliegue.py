@@ -114,37 +114,39 @@ CSS = """
 }
 #amparo-aviso b { color: #4b473f; font-weight: 600; }
 
-/* El Chatbot: sin caja dura, fondo del lienzo, aire entre mensajes. */
-#amparo-chat { border: none !important; background: transparent !important; }
-#amparo-chat .message-row { padding: 2px 0; }
-/* Burbuja del usuario: a la derecha, pildora clara. */
-#amparo-chat .message.user, #amparo-chat [data-testid="user"] {
+/* El Chatbot: fondo del lienzo, sin caja dura, aire entre mensajes. */
+#amparo-chat, #amparo-chat > div, #amparo-chat .bubble-wrap, #amparo-chat .wrapper {
+  border: none !important; background: transparent !important; box-shadow: none !important;
+}
+/* Burbujas: Gradio marca el rol en la fila/mensaje; cubrimos varias clases. */
+#amparo-chat .user, #amparo-chat .user-row, #amparo-chat [data-testid="user"],
+#amparo-chat .message.user {
   background: #ece4d6 !important; color: #2b2a28 !important;
   border: 1px solid #e2dac9 !important; border-radius: 16px 16px 4px 16px !important;
 }
-/* Respuesta de Amparo: a la izquierda, sin burbuja, como Claude. */
-#amparo-chat .message.bot, #amparo-chat [data-testid="bot"] {
+#amparo-chat .bot, #amparo-chat .bot-row, #amparo-chat [data-testid="bot"],
+#amparo-chat .message.bot {
   background: #ffffff !important; color: #2b2a28 !important;
   border: 1px solid #e7e2d6 !important; border-radius: 4px 16px 16px 16px !important;
 }
-#amparo-chat .message h3 {
+#amparo-chat h3 {
   font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
   color: #9a9484; margin: 14px 0 6px; padding-bottom: 5px; border-bottom: 1px solid #f0ebe1;
 }
-#amparo-chat .message h3:first-child { margin-top: 2px; }
-#amparo-chat .message h3:first-child + p { font-size: 1.05rem; line-height: 1.6; color: #1f1e1c; }
-#amparo-chat .message blockquote {
+#amparo-chat h3:first-child { margin-top: 2px; }
+#amparo-chat h3:first-child + p { font-size: 1.05rem; line-height: 1.6; color: #1f1e1c; }
+#amparo-chat blockquote {
   border-left: 3px solid #c9a37f; background: #faf6ef; color: #6b665c;
   margin: 10px 0; padding: 7px 13px; border-radius: 0 6px 6px 0; font-size: 0.9rem;
 }
-#amparo-chat .message details {
+#amparo-chat details {
   margin-top: 14px; border: 1px solid #ece6da; border-radius: 10px;
   background: #faf7f0; padding: 2px 14px;
 }
-#amparo-chat .message details summary {
+#amparo-chat details summary {
   cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6b665c; padding: 9px 0;
 }
-#amparo-chat .message details code {
+#amparo-chat details code {
   background: #efeae0; color: #4b473f; padding: 1px 5px; border-radius: 4px; font-size: 0.82em;
 }
 
@@ -155,6 +157,19 @@ CSS = """
   box-shadow: 0 2px 10px rgba(43,42,40,0.05);
 }
 #amparo-barra .wrap { border: none !important; box-shadow: none !important; }
+"""
+
+# JS que fuerza el modo claro: sin esto, Gradio respeta el modo oscuro del
+# sistema y el fondo crema del tema nunca gana (se ve todo negro). Reescribe
+# la URL a ?__theme=light si no lo esta ya.
+FORZAR_CLARO = """
+function() {
+  const url = new URL(window.location.href);
+  if (url.searchParams.get('__theme') !== 'light') {
+    url.searchParams.set('__theme', 'light');
+    window.location.replace(url.href);
+  }
+}
 """
 
 

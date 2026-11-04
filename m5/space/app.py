@@ -197,4 +197,5 @@ with gr.Blocks(title="Amparo") as demo:
             gr.JSON(value=estado, every=10)               # el health check, visible
 
 if __name__ == "__main__":
-    demo.launch(theme=dsp.tema(), css=dsp.CSS, share=CFG["share"], server_name="0.0.0.0")
+    demo.launch(theme=dsp.tema(), css=dsp.CSS, js=dsp.FORZAR_CLARO,
+                share=CFG["share"], server_name="0.0.0.0")
