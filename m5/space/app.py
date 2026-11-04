@@ -9,7 +9,7 @@ La misma app corre en los dos lugares que recomienda la tabla de despliegue:
   - **Hugging Face Space en CPU** (vitrina permanente): `AMPARO_VLM` en 'auto'
     lee fotos en CPU con la resolucion limitada; 'off' la deja solo con texto.
   - **Kaggle T4** (demo en vivo): `AMPARO_SHARE=1` da el enlace publico de
-    Gradio y, con GPU, el VLM corre en int4.
+    Gradio y, con GPU, el VLM corre en fp16 (int4 no cumplio su contrato).
 
 Secretos (en *Settings -> Variables and secrets* del Space, nunca aqui):
 `GROQ_API_KEY` (obligatoria) y `WANDB_API_KEY` (opcional).

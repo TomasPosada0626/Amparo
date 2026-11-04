@@ -24,7 +24,8 @@ SALIDA = ("Derecho: salud (art. 49 CP)\nAccionado: EPS\nMecanismo: acción de tu
 # configuracion
 # --------------------------------------------------------------------------
 @pytest.mark.parametrize("env, cuda, esperado", [
-    ({}, True, ("int4", None)),
+    ({}, True, ("fp16", None)),            # int4 no cumplio el contrato de S15
+    ({"AMPARO_VLM": "int4"}, True, ("int4", None)),
     ({}, False, ("cpu", dsp.MAX_PIXELS_CPU)),
     ({"AMPARO_VLM": "int4"}, False, ("cpu", dsp.MAX_PIXELS_CPU)),   # sin GPU no hay int4
     ({"AMPARO_VLM": "off"}, False, ("off", None)),

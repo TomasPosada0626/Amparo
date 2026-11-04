@@ -28,10 +28,10 @@ versión que muestra la pestaña Estado.
 | variable | defecto | qué hace |
 |---|---|---|
 | `AMPARO_REF` | `m5` | rama o tag del repo que se clona (para la demo: un tag fijo) |
-| `AMPARO_VLM` | `auto` | `auto`: int4 con GPU y CPU sin ella · `fp16` · `int4` · `off` (solo texto) |
+| `AMPARO_VLM` | `auto` | `auto`: fp16 con GPU y CPU sin ella · `fp16` · `int4` · `off` (solo texto) |
 | `AMPARO_MAX_PIXELS` | 200704 en CPU | tope de resolución de la foto |
 | `AMPARO_SHARE` | `0` | `1` para el enlace público de Gradio (Kaggle) |
 
 **En Kaggle (T4):** se clona el repo y se corre
-`AMPARO_SHARE=1 python m5/space/app.py`. Con la GPU, el VLM va en int4 si
-`m5/cuantizacion.json` cumplió el contrato; si no, se usa `AMPARO_VLM=fp16`.
+`AMPARO_SHARE=1 python m5/space/app.py`. Con la GPU, el VLM va en **fp16**: la
+cuantización int4 no cumplió su contrato (`m5/cuantizacion.json`, ver el README de M5).

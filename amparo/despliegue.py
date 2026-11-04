@@ -63,7 +63,9 @@ def config_desde_entorno(env=None, cuda: bool | None = None) -> dict:
     """La misma app para el Space (CPU) y para Kaggle (T4), segun variables:
 
     AMPARO_VLM         'auto' (defecto), 'fp16', 'int4' o 'off' (solo texto).
-                       'auto' = 'int4' con GPU y 'cpu' sin ella.
+                       'auto' = 'fp16' con GPU y 'cpu' sin ella. NO es int4: la
+                       cuantizacion no cumplio su contrato (m5/cuantizacion.json:
+                       3/5 clausulas). int4 sigue disponible pidiendolo.
     AMPARO_MAX_PIXELS  tope de resolucion; en CPU vale MAX_PIXELS_CPU por defecto.
     AMPARO_SHARE       '1' para el enlace publico de Gradio (Kaggle).
     """
@@ -76,7 +78,7 @@ def config_desde_entorno(env=None, cuda: bool | None = None) -> dict:
             cuda = False
     vlm = env.get("AMPARO_VLM", "auto").lower()
     if vlm == "auto":
-        vlm = "int4" if cuda else "cpu"
+        vlm = "fp16" if cuda else "cpu"
     if vlm in ("int4", "fp16") and not cuda:
         vlm = "cpu"                                         # bitsandbytes y fp16 piden GPU
     if vlm not in ("int4", "fp16", "cpu", "off"):
