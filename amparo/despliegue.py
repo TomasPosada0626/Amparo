@@ -45,6 +45,39 @@ MENSAJE_API = ("**Amparo no pudo consultar su modelo de lenguaje (Groq) en este 
 
 
 # ---------------------------------------------------------------------------
+# Tema e interfaz (solo presentacion)
+# ---------------------------------------------------------------------------
+# El look lo definen la app (`m5/space/app.py`) y la vista previa
+# (`m5/space/preview.py`), pero el TEMA se define aqui, una sola vez, para que
+# las dos se vean igual y no diverjan. Azul indigo institucional con acentos
+# calidos y fondo claro: serio pero legible para una persona sin formacion
+# juridica. `gradio` se importa dentro, para que este modulo siga cargando sin
+# el (como lo prueba `tests/test_despliegue.py`).
+
+# Acento calido para los avisos y los titulos de seccion.
+COLOR_ACENTO = "#b45309"      # ambar 700
+COLOR_INDIGO = "#4338ca"      # indigo 700
+
+
+def tema():
+    """El `gr.Theme` base de la app: paleta indigo + tipografia legible."""
+    import gradio as gr
+    return gr.themes.Soft(
+        primary_hue=gr.themes.colors.indigo,
+        secondary_hue=gr.themes.colors.blue,
+        neutral_hue=gr.themes.colors.slate,
+        font=(gr.themes.GoogleFont("Inter"), "ui-sans-serif", "system-ui", "sans-serif"),
+    ).set(
+        body_background_fill="#f6f7fb",
+        block_background_fill="white",
+        block_border_width="1px",
+        block_shadow="0 1px 3px rgba(17,24,39,0.06)",
+        block_radius="14px",
+        button_primary_shadow="0 1px 2px rgba(67,56,202,0.25)",
+    )
+
+
+# ---------------------------------------------------------------------------
 # Version y configuracion
 # ---------------------------------------------------------------------------
 def version(raiz: Path = RAIZ) -> dict:

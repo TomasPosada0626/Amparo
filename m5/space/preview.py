@@ -135,4 +135,4 @@ with gr.Blocks(title="Amparo · vista previa") as demo:
     demo.load(responder, caso, out)
 
 if __name__ == "__main__":
-    demo.launch(server_name="127.0.0.1")
+    demo.launch(theme=dsp.tema(), server_name="127.0.0.1")
