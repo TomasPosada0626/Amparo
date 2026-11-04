@@ -18,11 +18,14 @@ Como se aisla el efecto de cuantizar
 - **El juez es siempre el VLM en fp16.** En M4 el VLM se juzga a si mismo
   (`juez_vlm`); si el juez tambien se cuantizara, un cambio en la nota no
   diria si cambio la lectura o el juez.
-- **M3 comparte cache entre las dos cargas.** M3 no es determinista: el mismo
-  relato puede cambiar de via entre corridas (13/18 en el delta de M4). Si el
-  VLM int4 lee EXACTAMENTE lo mismo que el fp16, el relato es identico y M3
-  responde desde la cache lo mismo; asi un cambio en `exacto` solo puede
-  venir de una lectura distinta, no del ruido de M3.
+- **M3 comparte cache entre las dos cargas, y eso aisla su ruido solo en
+  parte.** M3 no es determinista: el mismo relato puede cambiar de via entre
+  corridas (13/18 en el delta de M4). La cache devuelve lo mismo solo si el
+  relato llega IDENTICO, incluido el orden de las claves del JSON
+  (`armar_relato` usa `json.dumps`, que respeta el orden). En la corrida del
+  2026-11-03 int4 leyo doc04 con el mismo contenido pero otro orden, M3
+  decidio de nuevo y m06 fallo: esa clausula no midio la cuantizacion (ver
+  m5/README.md). Cerrarlo pide normalizar el orden y repetir `exacto`.
 - **Latencia: solo la lectura** (`ver`), que es lo que cambia. M3 corre en
   Groq y no depende de los bits del VLM.
 

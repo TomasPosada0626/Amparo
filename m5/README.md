@@ -176,9 +176,11 @@ Qwen2-VL-2B en fp16 contra int4 (bitsandbytes nf4), en la misma GPU, con tempera
 - **Calidad:** el harness de M4 (11 casos).
 - **El juez es siempre el VLM en fp16.** En M4 el VLM se juzga a sí mismo: si el juez también
   se cuantizara, no se sabría si cambió la lectura o el juez.
-- **M3 comparte caché entre las dos cargas.** M3 no es determinista, pero si int4 lee
-  exactamente lo mismo, el relato es idéntico y M3 responde lo mismo. Un cambio en `exacto`
-  solo puede venir de una lectura distinta.
+- **M3 comparte caché entre las dos cargas, y eso aísla su ruido solo en parte.** M3 no es
+  determinista. La caché devuelve la misma respuesta solo si el relato llega idéntico,
+  **incluido el orden de las claves del JSON** (`armar_relato` usa `json.dumps`, que respeta
+  el orden). En esta corrida eso falló en doc04, y por eso `exacto` no mide la cuantización:
+  ver "Lectura".
 - **La latencia es la de la lectura** (`ver`). M3 corre en Groq y no depende de los bits del VLM.
 
 ### Contrato (escrito antes de medir)
@@ -216,7 +218,8 @@ contra 5.65 s.
 - **La memoria es la ganancia real:** 2.7× menos (1.63 GB). El VLM cabría en GPUs más chicas
   o junto a otro modelo.
 - **int4 es más lento (+40 %), como se esperaba en GPU.** bitsandbytes descomprime los pesos
-  en cada paso. Por eso la cláusula ya era permisiva, y aun así no se cumplió.
+  en cada paso. Por eso la cláusula ya era permisiva, y aun así no se cumplió. **Esta es la
+  cláusula que decide:** el contrato falla aunque se descarte `exacto`.
 - **El NO de `exacto` viene del ruido de M3, no de la lectura, y es un fallo de nuestra
   medición.** Falló m06 (corporación ambiental). Pero int4 leyó su documento (doc04) con
   exactamente el mismo contenido que fp16: solo cambió el **orden** de los campos del JSON.
@@ -234,8 +237,24 @@ contra 5.65 s.
   - **igual de mal:** en el documento borroso (doc06), fp16 escribe "dos semanas" y int4
     "dos días", y ninguno está en la imagen. En los dos `plazo_dias` queda vacío, por eso la
     válvula pasa, y la app muestra el aviso de plazo sin respaldo de M4.
+  - Tomás verificó cada lectura "mejor" contra el texto real de los documentos: la negativa de
+    doc03, el plazo de 5 días y la suspensión de doc05, la entidad de doc02 y la frase extra de
+    doc01 están ahí. Lo de doc06 es inventado en los dos.
 
-**Decisión:** la demo usa el VLM en **fp16**, porque el contrato no se cumplió.
+**Notas de método** (revisión de Tomás):
+- La latencia de la tabla es la de `latencias()`: la lectura de m01 repetida 5 veces, con
+  calentamiento. La columna `segundos` de `por_caso` no sirve para comparar fp16 con int4: el
+  m01 de fp16 tarda 28.2 s porque incluye la carga del reranker de M3.
+- La memoria es la de los **pesos** (`memory_allocated` antes y después de cargar), no el
+  pico durante la lectura.
+- En doc01, int4 omite la clave `plazo_dias` en vez de ponerla en `null`. Para el sistema es
+  lo mismo: un campo ausente se lee como vacío.
+- El notebook deja dos avisos que no rompen nada y son los mismos de M3 y M4: falta
+  `HF_TOKEN`, y el reranker jina descarga código remoto antes de caer a bge.
+
+**Decisión:** la demo usa el VLM en **fp16**, porque int4 no cumple la cláusula de **latencia**
+(+40 %, con un máximo de +30 %). `exacto` también sale NO, pero esa cláusula no midió la
+cuantización. Aunque se descarte, el contrato falla igual.
 `AMPARO_VLM=auto` usa fp16 con GPU, e int4 queda disponible pidiéndolo (`AMPARO_VLM=int4`).
 Con S14 y S15, M5 tiene dos técnicas de eficiencia medidas con contrato y tabla
 antes/después, y ninguna se adopta. Lo que cede cada una está medido arriba.
