@@ -114,10 +114,6 @@ que incluye el manifiesto. Los pares con los que se entrenó están en
 - **La velocidad no llega a 3×.** Con un modelo tan chico, `generate` de Hugging Face paga
   un costo fijo por token. Servirlo con vLLM o llama.cpp es la palanca de S15.
 
-**Decisión:** el sistema desplegado se queda con el profesor (brazo 4). La técnica de
-eficiencia de M5 es la cuantización de S15. Esta destilación queda documentada como
-intento medido, con su columna de "qué cedió".
-
 **Por qué no alcanzó, y qué probaríamos** (es lo que el lab sugiere cuando el contrato no
 se cumple):
 - **El profesor es ruidoso.** Con sus propios hechos, el motor llega al mecanismo gold en
@@ -126,6 +122,37 @@ se cumple):
   (0.648 → 0.585 → 0.577) y el mínimo está en la última.
 - **Siguiente intento:** más épocas, más relatos (`N_POR_TEMA`) o un estudiante más grande
   (Qwen2.5-1.5B-Instruct).
+
+### Decisión (2026-11-03): el sistema se queda con el profesor, y M5 cuantiza el VLM
+
+**Por qué el sistema desplegado se queda con el profesor (brazo 4) y no con el estudiante:**
+- **El contrato se escribió antes de entrenar y no se cumple en 3 de las 5 cláusulas.** La
+  regla del lab es que el contrato no se mueve después de ver el resultado: *"si no lo
+  escriben antes, después cualquier resultado parece bueno"*. No se cumplió, así que no se
+  usa.
+- **Lo que pierde el estudiante es justo lo que el usuario no puede revisar solo.** Cae de
+  88 % a 12 % en adversariales y de 6/10 a 0/10 en abstención. Si alguien pregunta algo que
+  no es un caso (dónde invertir, una duda académica), el estudiante le propone una tutela
+  en vez de decirle que Amparo no aplica. En triaje jurídico, recomendar tutela por defecto
+  es el error caro: manda a la persona a una acción improcedente.
+- **Lo que gana no compensa.** El p95 baja de 12 s a 3 s y deja de depender de la API.
+  Pero la mediana mejora solo 2.2×, y la seguridad (0 normas inventadas) ya la tenía el
+  profesor, porque la pone el motor en los dos.
+
+**Por qué la técnica de eficiencia de M5 es cuantizar el VLM.** Se evaluaron dos caminos:
+
+| | 1 · destilación como limitación + cuantizar el VLM (**elegida**) | 2 · destilar imágenes + cuantizar M1 (7B) |
+|---|---|---|
+| ¿mejora lo que se despliega? | **sí**: el VLM (Qwen2-VL-2B) es el único modelo local del sistema de M4 | **no**: la demo usa el brazo 4 por Groq, no M1; cuantizar M1 no cambia lo que ve el usuario |
+| ¿encaja con el lab? | la Parte A de S15 es justo "su generador o modelo en int4 con bitsandbytes" | la Parte A de S14 destila un **clasificador** por logits; el VLM **lee campos** (fechas, plazos, entidad) y una CNN chica no puede leer texto, así que habría que inventar una tarea que Amparo no tiene |
+| trabajo antes de la demo (jue 5 nov) | una pieza nueva | dos piezas nuevas |
+| qué se mide | memoria, p50/p95 y el harness de M4, sobre todo `campos` y `valvula`: fechas y números son la debilidad conocida del VLM | |
+
+La rúbrica de M5 pide **una** técnica de eficiencia medida, *"destilado o cuantizado, con
+contrato y tabla antes/después"* (README de S15). Con la cuantización del VLM se cumple, y
+esta destilación queda como intento medido, con su columna de "qué cedió". La slide 14 de
+S14 lo dice: *"un modelo destilado sin la columna 'qué cedió' no es ingeniería, es
+marketing"*.
 
 ### Qué cede el estudiante (para *limitaciones y ética*)
 
