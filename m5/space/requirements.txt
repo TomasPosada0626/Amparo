@@ -6,6 +6,9 @@
 # Resuelto completo para Python 3.12 con lo que agrega el Space (gradio[oauth,mcp],
 # spaces 0.51.3, uvicorn, websockets) con `uv pip compile`, sin conflictos.
 torch==2.11.0
+# torchvision: transformers 5.22 la exige para el procesador de Qwen2-VL (Colab ya la trae;
+# el Space no). 0.26.0 es la pareja de torch 2.11.0.
+torchvision==0.26.0
 transformers==5.22.0
 accelerate==1.15.0
 bitsandbytes==0.50.2

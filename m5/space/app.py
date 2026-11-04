@@ -73,7 +73,8 @@ if os.environ.get("WANDB_API_KEY"):
     try:
         import wandb as _wandb
         _wandb.init(project=os.environ.get("WANDB_PROJECT", "amparo-m5"),
-                    name=f"{'kaggle' if CFG['cuda'] else 'space'}-{VERSION['describe']}",
+                    name=("zerogpu" if CFG.get("zerogpu") else "gpu" if CFG["cuda"] else "cpu")
+                    + f"-{VERSION['describe']}",
                     config={**CFG, **VERSION})
         wandb = _wandb
     except Exception as ex:                                # noqa: BLE001
