@@ -85,6 +85,18 @@ print("cargando Amparo:", json.dumps(CFG))
 AMPARO, ESTADO = dsp.armar_amparo(CFG)
 print("Amparo listo:", json.dumps(ESTADO))
 
+# La capa de redaccion de M1 (medida en M1), con el mismo generador de Groq
+# que se midio. Sin clave o si falla, la respuesta usa la plantilla fija.
+GENERAR = None
+if os.environ.get("GROQ_API_KEY"):
+    try:
+        import groq
+        from amparo.sistemas import sistema as _sistema
+        GENERAR = _sistema.generador_groq(groq.Groq(api_key=os.environ["GROQ_API_KEY"]),
+                                          cache_path=str(dsp.CARPETA_CACHE / "redaccion.json"))
+    except Exception as ex:                                # noqa: BLE001
+        print("sin capa de redaccion (se usa la plantilla):", ex)
+
 IMG = RAIZ / "m4" / "eval_set" / "imagenes"
 EJEMPLOS = [
     ["Me llegó esta respuesta de mi EPS. Tengo 68 años y el ortopedista me ordenó esa cirugía "
@@ -99,11 +111,12 @@ EJEMPLOS = [
 
 
 def _consultar(pregunta, imagen):
-    """La consulta completa (VLM + M3). En ZeroGPU es la que pide la GPU, y
-    corre en otro proceso: por eso recarga de disco la cache de M3, y el
-    registro (log y W&B) se hace afuera, en el proceso principal."""
+    """La decision (VLM + M3). En ZeroGPU es la que pide la GPU, y corre en
+    otro proceso: por eso recarga de disco la cache de M3. La redaccion y el
+    registro (log y W&B) van afuera, en el proceso principal: la redaccion es
+    una llamada a Groq y no necesita GPU."""
     dsp.recargar_caches(getattr(AMPARO, "agente", None))
-    return dsp.consultar(AMPARO, pregunta, imagen, ver_version=VERSION["describe"] or "")
+    return dsp.consultar_res(AMPARO, pregunta, imagen, ver_version=VERSION["describe"] or "")
 
 
 if spaces is not None and CFG.get("zerogpu"):
@@ -118,7 +131,10 @@ def responder(pregunta, imagen):
         yield "⏳ **Leyendo el documento…**" + ("" if CFG["cuda"] else " (en CPU puede tardar un poco)")
     else:
         yield "⏳ **Analizando tu caso…**"
-    md, reg = _consultar(pregunta, imagen)
+    res, md_error, reg = _consultar(pregunta, imagen)
+    if res is not None:
+        yield "⏳ **Redactando la respuesta…**"
+    md = dsp.presentar(res, md_error, reg, GENERAR)
     dsp.registrar(reg, log=log, wandb_mod=wandb)
     yield md
 

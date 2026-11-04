@@ -203,10 +203,13 @@ def anonimizar(texto: str) -> str:
     return re.sub(r"\d{6,}", "[num]", texto or "")[:120]
 
 
-def consultar(amparo, pregunta: str, imagen=None, *, ver_version: str = "") -> tuple[str, dict]:
-    """`(markdown, registro)`. Nunca lanza: un fallo se convierte en un
-    mensaje claro y en un registro con `ok=False`."""
-    from amparo.multimodal.sistema_visual import formatear
+def consultar_res(amparo, pregunta: str, imagen=None, *, ver_version: str = ""):
+    """`(res, mensaje_error, registro)`: la decision, sin presentarla.
+
+    Es lo que corre dentro de `@spaces.GPU` en ZeroGPU. La redaccion va
+    afuera (`presentar`): es una llamada a la API y no necesita GPU.
+    Nunca lanza: un fallo deja `res=None`, un mensaje claro y `ok=False`.
+    """
     t0 = time.perf_counter()
     agente = getattr(amparo, "agente", None)
     n_fallos = len(getattr(agente, "fallos_extraccion", []) or [])
@@ -214,13 +217,14 @@ def consultar(amparo, pregunta: str, imagen=None, *, ver_version: str = "") -> t
            "ruta": "con_imagen" if imagen is not None else "sin_imagen",
            "version": ver_version, "ok": True, "error": None,
            "mecanismo": None, "regla": None, "se_abstuvo": None,
-           "lectura_ms": None, "m3_ms": None}
+           "lectura_ms": None, "m3_ms": None,
+           "redaccion": None, "redaccion_valida": None, "redaccion_ms": None}
+    res, md = None, None
     try:
         res = amparo.responder(pregunta, imagen)
         nuevos = (getattr(agente, "fallos_extraccion", []) or [])[n_fallos:]
         if nuevos:                         # Groq fallo por dentro: el motor diria tutela
             raise ErrorAPI(nuevos[-1].get("error", "fallo de extraccion"))
-        md = formatear(res)
         pq = res.get("por_que") or {}
         from amparo.nucleo import schema
         reg.update(mecanismo=schema.parse_salida(res["respuesta"]).get("mecanismo"),
@@ -231,18 +235,38 @@ def consultar(amparo, pregunta: str, imagen=None, *, ver_version: str = "") -> t
                 reg[campo] = int(seg[k] * 1000)
         guardar_caches(agente)             # el caso ensayado ya no gasta Groq
     except SinVision as ex:
-        md, reg["ok"], reg["error"] = f"**{ex}**", False, "sin_vision"
+        res, md, reg["ok"], reg["error"] = None, f"**{ex}**", False, "sin_vision"
     except ErrorAPI as ex:
-        md, reg["ok"], reg["error"] = MENSAJE_API, False, f"api: {ex}"
+        res, md, reg["ok"], reg["error"] = None, MENSAJE_API, False, f"api: {ex}"
     except Exception as ex:                                 # noqa: BLE001
         texto = f"{type(ex).__name__}: {ex}"
         es_api = any(s in texto.lower() for s in ("groq", "rate", "429", "connection", "timeout",
                                                    "api"))
         md = MENSAJE_API if es_api else ("**Algo falló al responder.** Intenta de nuevo; "
                                          "si se repite, avísale al equipo.")
-        reg["ok"], reg["error"] = False, texto[:200]
+        res, reg["ok"], reg["error"] = None, False, texto[:200]
     reg["latencia_ms"] = int((time.perf_counter() - t0) * 1000)
-    return md, reg
+    return res, md, reg
+
+
+def presentar(res, md_error, reg: dict, generar=None) -> str:
+    """El markdown para la persona, y el registro con como se redacto."""
+    if res is None:
+        return md_error
+    t0 = time.perf_counter()
+    red = redactar_respuesta(res, generar)
+    reg.update(redaccion=red["fuente"], redaccion_valida=red["valido"], redaccion_ms=red["ms"])
+    md = formatear_para_usuario(res, red)
+    reg["latencia_ms"] = (reg.get("latencia_ms") or 0) + int((time.perf_counter() - t0) * 1000)
+    return md
+
+
+def consultar(amparo, pregunta: str, imagen=None, *, ver_version: str = "",
+              generar=None) -> tuple[str, dict]:
+    """`(markdown, registro)`: decidir y presentar en una llamada (fuera de
+    ZeroGPU). Nunca lanza."""
+    res, md, reg = consultar_res(amparo, pregunta, imagen, ver_version=ver_version)
+    return presentar(res, md, reg, generar), reg
 
 
 class ErrorAPI(RuntimeError):
@@ -293,7 +317,9 @@ def registrar(reg: dict, log=None, wandb_mod=None) -> str:
             m[f"mecanismo_{reg['mecanismo']}"] = 1
         if reg.get("se_abstuvo"):
             m["abstencion"] = 1
-        for k in ("lectura_ms", "m3_ms"):
+        if reg.get("redaccion"):
+            m[f"redaccion_{reg['redaccion']}"] = 1
+        for k in ("lectura_ms", "m3_ms", "redaccion_ms"):
             if reg.get(k) is not None:
                 m[k] = reg[k]
         wandb_mod.log(m)
@@ -315,3 +341,195 @@ def health(estado: dict, t0: float, ruta_log: Path, ver: dict) -> dict:
             **estado, "uptime_s": int(time.time() - t0), "consultas": n,
             "consultas_ok": ok, "groq_clave": bool(os.environ.get("GROQ_API_KEY")),
             "wandb": bool(os.environ.get("WANDB_API_KEY"))}
+
+
+# ---------------------------------------------------------------------------
+# La respuesta en lenguaje natural (solo presentacion)
+# ---------------------------------------------------------------------------
+# La decision es el bloque de cinco lineas de M3 y no se toca. Encima se pone
+# un parrafo legible:
+#
+#   - con mecanismo: la capa de redaccion de M1 (`finetuning/redaccion.py`),
+#     medida en M1 sobre 109 casos (0 normas inventadas; dice el mecanismo en
+#     el 99 % y la procedencia en el 100 %; results/m1_redaccion.json), con el
+#     MISMO prompt y el mismo generador que se midieron. Si falla Groq, si el
+#     candado encuentra una norma intrusa o si `verificacion["valido"]` es
+#     False (por ejemplo, el texto no dice el mecanismo), se usa la plantilla.
+#   - sin mecanismo (Amparo se abstiene): plantilla fija, sin llamar al
+#     redactor. Su prompt obliga a nombrar un mecanismo, y con un "hola"
+#     escribiria 100 palabras sobre un caso que no existe.
+#
+# Lo medido en M1 no es exactamente lo que corre aqui: alla los bloques venian
+# del modelo de M1 y la condicion que cambiaria el mecanismo salia del gold;
+# aqui vienen del agente de M3 y esa condicion va en None. El candado de normas
+# protege igual venga de donde venga el bloque. Se presenta como "medida en M1".
+
+NOMBRES_DERECHO = {
+    "salud": "la salud", "peticion": "petición", "seguridad_social": "la seguridad social",
+    "habeas_data": "habeas data (tus datos personales)", "debido_proceso": "el debido proceso",
+    "educacion": "la educación", "estabilidad_laboral_reforzada": "la estabilidad laboral reforzada",
+    "trabajo": "el trabajo", "minimo_vital": "el mínimo vital",
+    "libertad_personal": "la libertad personal", "colectivos": "derechos colectivos",
+}
+
+HECHOS_LEGIBLES = {
+    "privacion_libertad": "hay una persona privada de la libertad",
+    "derecho_colectivo": "se afecta un bien colectivo",
+    "titular_pide_lo_suyo": "pides la protección de tu propio derecho",
+    "acto_general": "se ataca una norma general",
+    "dano_consumado": "el daño ya ocurrió",
+    "continua_vulneracion": "la vulneración sigue",
+    "incumplimiento_normativo": "una autoridad no cumple una norma",
+    "afectacion_individual": "hay un derecho tuyo afectado en concreto",
+    "otro_medio_judicial": "existe otro proceso judicial para esto",
+    "medio_eficaz": "ese otro proceso sirve en tu caso",
+    "perjuicio_irremediable": "esperar haría inútil la protección",
+    "sujeto_especial_proteccion": "eres sujeto de especial protección",
+}
+
+CAMPOS_LEIDOS = {"tipo_documento": "Tipo de documento", "entidad": "Quién lo emite",
+                 "fecha": "Fecha", "plazo_dias": "Plazo (días)",
+                 "pretension_visible": "Lo que dice el documento"}
+
+AVISO_ABOGADO = "_Orientación automática: no reemplaza la asesoría de un abogado o de un consultorio jurídico._"
+
+
+def bloque_para_redaccion(bloque: dict) -> dict:
+    """El bloque que ve el redactor. En via ordinaria el derecho llega como
+    no determinado y sin su articulo: el extractor a veces lo etiqueta mal (el
+    "peticion" de un cobro de arriendos), y en prosa fluida ese error convence
+    mas que en la ficha. El art. 6.1 del Decreto 2591 se queda."""
+    from amparo.sistemas.sistema import ARTICULO_POR_DERECHO
+    b = dict(bloque)
+    if b.get("mecanismo") == "via_ordinaria":
+        art = ARTICULO_POR_DERECHO.get(b.get("derecho") or "")
+        b["derecho"] = None
+        if art and b.get("fundamento"):
+            citas = [c.strip() for c in b["fundamento"].split(";") if c.strip() != art]
+            b["fundamento"] = "; ".join(citas) or None
+    return b
+
+
+def plantilla(bloque: dict) -> str:
+    """El parrafo fijo, por mecanismo (plan de Tomas). Solo usa los campos del
+    bloque. El derecho se nombra solo en tutela."""
+    mec = bloque.get("mecanismo")
+    acc = bloque.get("accionado") or "quien vulnera tu derecho"
+    pret = bloque.get("pretension")
+    if mec is None:
+        motivo = (bloque.get("razon") or "").split(". ", 1)
+        motivo = motivo[1] if len(motivo) > 1 else ""
+        texto = ("Con lo que me cuentas no puedo orientarte todavía"
+                 + (f": {motivo[0].lower() + motivo[1:]}" if motivo else ".")
+                 + ("" if motivo.endswith(".") or not motivo else ".")
+                 + " Si tienes un problema concreto con alguien que vulnera un derecho tuyo, "
+                   "cuéntame qué pasó, quién lo hizo, desde cuándo y qué quieres lograr.")
+        return texto
+    if mec == "tutela":
+        der = NOMBRES_DERECHO.get(bloque.get("derecho") or "")
+        texto = (f"Por lo que cuentas, puedes presentar una **acción de tutela** contra {acc}"
+                 + (f" para proteger tu derecho a {der}." if der else "."))
+    elif mec == "via_ordinaria":
+        razon = bloque.get("razon") or ""
+        texto = ("Por lo que cuentas, esto **no se resuelve con una tutela**"
+                 + (f": {razon}." if razon else ".")
+                 + " El camino es un proceso ante el juez que corresponda (**vía judicial ordinaria**).")
+    elif mec == "accion_popular":
+        texto = ("Lo que describes afecta un derecho colectivo; el camino es la **acción popular** "
+                 f"contra {acc}.")
+    elif mec == "accion_cumplimiento":
+        texto = ("Lo que pides es que se cumpla una norma; el camino es la **acción de cumplimiento** "
+                 f"contra {acc}.")
+    elif mec == "habeas_corpus":
+        texto = ("Si alguien está privado de la libertad ilegalmente, el camino urgente es el "
+                 "**hábeas corpus**: se presenta ante cualquier juez y debe resolverse en 36 horas.")
+    else:
+        texto = f"El mecanismo que corresponde es: {mec}."
+    if pret and pret != "no aplica":
+        texto += f" Lo que pedirías: {pret[0].lower() + pret[1:]}."
+    return texto
+
+
+def redactar_respuesta(res: dict, generar=None) -> dict:
+    """`{"texto", "fuente", "valido", "ms"}`. Nunca lanza.
+
+    fuente: "modelo" (capa de redaccion de M1, verificada), "plantilla"
+    (respaldo) o "plantilla_abstencion" (Amparo no propone mecanismo).
+    """
+    from amparo.nucleo import schema
+    t0 = time.perf_counter()
+    bloque = schema.parse_salida(res.get("respuesta") or "")
+    if not bloque.get("mecanismo"):
+        return {"texto": plantilla(bloque), "fuente": "plantilla_abstencion",
+                "valido": None, "ms": 0}
+    b = bloque_para_redaccion(bloque)
+    if generar is not None:
+        try:
+            from amparo.finetuning import redaccion as red
+            r = red.redactar(generar, b, None, registro="ciudadano", estricto=False)
+            if r["verificacion"]["valido"] and r["texto"]:
+                return {"texto": r["texto"], "fuente": "modelo", "valido": True,
+                        "ms": int((time.perf_counter() - t0) * 1000)}
+            valido = False
+        except Exception:                                   # noqa: BLE001
+            valido = None                                   # Groq no respondio
+    else:
+        valido = None
+    return {"texto": plantilla(b), "fuente": "plantilla", "valido": valido,
+            "ms": int((time.perf_counter() - t0) * 1000)}
+
+
+def formatear_para_usuario(res: dict, redaccion: dict) -> str:
+    """Lo que ve la persona: el parrafo, el porque, lo leido del documento y,
+    plegada, la ficha tecnica (las cinco lineas evaluadas). `formatear()` de
+    M4 no se toca: es la que usan el notebook y el plan B de M4."""
+    lineas = ["### Respuesta", "", redaccion["texto"].strip(), "", AVISO_ABOGADO, ""]
+
+    pq = res.get("por_que")
+    if pq is not None:
+        lineas += ["### Por qué", ""]
+        if pq.get("se_abstuvo"):
+            lineas.append("- Amparo prefirió **no proponer un mecanismo**: no encontró una situación "
+                          "concreta, con alguien a quien dirigir la acción y algo que un juez pudiera ordenar.")
+        else:
+            hechos = [HECHOS_LEGIBLES.get(h, h) for h in pq.get("hechos") or []]
+            if hechos:
+                lineas.append("- **Lo que Amparo entendió de tu caso:** " + "; ".join(hechos) + ".")
+            lineas.append("- El mecanismo lo decide una regla fija (art. 6 del Decreto 2591 de 1991), "
+                          "no el modelo de lenguaje.")
+        lineas.append("")
+
+    leido = res.get("leido")
+    if leido is not None:
+        lineas += [f"### {leido['rotulo']}", ""]
+        for aviso in leido["advertencias"]:
+            lineas.append(f"> ⚠️ **{aviso}**")
+        if leido["advertencias"]:
+            lineas.append("")
+        if leido["campos"] is not None:
+            for k, v in leido["campos"].items():
+                lineas.append(f"- **{CAMPOS_LEIDOS.get(k, k)}:** "
+                              + (str(v) if v is not None else "_no se aprecia_"))
+        else:
+            lineas.append(f"_No se pudo leer el documento como datos; el modelo escribió:_ {leido['crudo']}")
+        lineas.append("")
+
+    ficha = [f"- {linea.strip()}" for linea in (res.get("respuesta") or "").splitlines() if linea.strip()]
+    if pq is not None and not pq.get("se_abstuvo"):
+        ficha.append(f"- Regla que cerró el caso: `{pq.get('regla')}`")
+        if pq.get("hechos"):
+            ficha.append("- Hechos: " + ", ".join(f"`{h}`" for h in pq["hechos"]))
+        if pq.get("normas_consultadas"):
+            ficha.append("- Normas que consultó el agente: " + "; ".join(pq["normas_consultadas"]))
+    fuente = {"modelo": "capa de redacción de M1 (gpt-oss-120b), verificada",
+              "plantilla": "plantilla fija", "plantilla_abstencion": "plantilla fija"}
+    ficha.append(f"- Texto de arriba: {fuente.get(redaccion['fuente'], redaccion['fuente'])}")
+    seg = res.get("segundos") or {}
+    tiempos = [f"{k}: {v:.1f} s" for k, v in seg.items() if v is not None]
+    if redaccion.get("fuente") == "modelo" and redaccion.get("ms"):
+        tiempos.append(f"redacción: {redaccion['ms'] / 1000:.1f} s")
+    if tiempos:
+        ficha.append("- Tiempos: " + " · ".join(tiempos))
+    lineas += ["<details><summary><b>Ficha técnica</b> (la decisión evaluada, tal cual)</summary>", "",
+               *ficha, "", "</details>"]
+    return "\n".join(lineas)

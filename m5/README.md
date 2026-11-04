@@ -277,6 +277,7 @@ tabla de despliegue de la profe. Cómo configurarla: [`space/README.md`](space/R
 | versión con tag visible | encabezado y pestaña Estado (`git describe`) |
 | W&B | `wandb.init` si hay `WANDB_API_KEY`; registra latencia, ok, ruta, mecanismo y abstención |
 | Space | **ZeroGPU** en vez de CPU Basic (abajo) |
+| respuesta en lenguaje natural | `redactar_respuesta` y `formatear_para_usuario` (abajo) |
 | claves en Secrets | solo se leen de las variables de entorno |
 
 **Por qué el Space es ZeroGPU y no CPU Basic.** Desde julio de 2026, Hugging Face no deja
@@ -292,6 +293,32 @@ la foto se lee rápido también en la vitrina. Lo que cambia en la app:
 
 La cuota diaria de GPU es de 2 minutos para visitantes sin sesión y 5 para cuentas gratis.
 La demo en vivo sigue en Kaggle (T4).
+
+**La respuesta en lenguaje natural** (revisión con Tomás). El bloque de cinco líneas es la
+decisión evaluada, pero leído tal cual parece un formulario. Por eso, arriba va un párrafo:
+
+- **Con mecanismo:** lo escribe la capa de redacción de M1 (`finetuning/redaccion.py`), con el
+  mismo prompt y el mismo generador de Groq que se midieron en M1: 109 casos, 0 normas
+  inventadas, dice el mecanismo en el 99 % y la procedencia en el 100 %
+  (`results/m1_redaccion.json`).
+  - Se usa solo si su verificación da `valido`: sin normas que no estén en el bloque, dice el
+    mecanismo y dice la procedencia. Si no, o si Groq falla, va una **plantilla fija** por
+    mecanismo.
+  - Lo medido en M1 no es exactamente lo que corre aquí: allá los bloques venían del modelo
+    de M1; aquí vienen del agente de M3, y no hay condición de cambio de mecanismo. Se
+    presenta como "medida en M1".
+- **Cuando Amparo se abstiene:** plantilla fija que da el motivo y pide los hechos (qué pasó,
+  quién, desde cuándo y qué se quiere lograr). No llama al redactor, porque su prompt lo
+  obliga a nombrar un mecanismo.
+- **En vía ordinaria, el redactor no recibe el derecho ni su artículo.** El extractor a veces
+  lo etiqueta mal (el "petición" de un cobro de arriendos), y en prosa ese error convencería.
+- **La ficha técnica** (las cinco líneas tal cual, la regla, los hechos y las normas) va
+  plegada al final, junto con un aviso de que no reemplaza a un abogado.
+- **Nada de esto cambia la decisión ni lo evaluado.** `formatear()` de M4 queda intacta para
+  el notebook y el plan B de M4.
+- **En ZeroGPU, la redacción va fuera de `@spaces.GPU`,** porque no necesita GPU. El log y
+  W&B registran `redaccion` ("modelo", "plantilla" o "plantilla_abstencion") y si fue
+  válida.
 
 **Una protección que la tabla no pide, pero que el código de M3 obliga.** Cuando Groq falla
 dentro de la extracción de hechos, el agente no lanza el error: sigue con los hechos por

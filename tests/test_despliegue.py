@@ -271,3 +271,109 @@ def test_la_app_en_zerogpu_decora_la_consulta(tmp_path, monkeypatch):
     spec.loader.exec_module(app)
     assert decorados == [("_consultar", 90)]
     assert "acción de tutela" in list(app.responder("Mi EPS no me autoriza", None))[-1]
+
+
+# --------------------------------------------------------------------------
+# la respuesta en lenguaje natural
+# --------------------------------------------------------------------------
+from amparo.nucleo import schema  # noqa: E402
+
+VO = ("Derecho: peticion (art. 23 CP; art. 6.1 Decreto 2591 de 1991)\nAccionado: inquilino\n"
+      "Mecanismo: vía judicial ordinaria\nProcedencia: no — existe otro medio de defensa judicial "
+      "idóneo y eficaz en concreto\nPretensión: exigir el pago de los alquileres adeudados")
+ABST = schema.render_salida(schema.abstenerse(
+    {"derecho": "x", "fundamento": "", "accionado": "a", "mecanismo": "tutela", "procede": True,
+     "razon": "r", "pretension": "p"}, "es una consulta comercial"))
+
+
+def _res(salida, abstuvo=False, leido=None):
+    return {"respuesta": salida, "leido": leido, "segundos": {"decisión (M3)": 3.2},
+            "por_que": {"regla": None if abstuvo else "subsidiariedad", "se_abstuvo": abstuvo,
+                        "hechos": [] if abstuvo else ["otro_medio_judicial", "medio_eficaz"],
+                        "normas_consultadas": [], "mecanismo_del_motor": "via_ordinaria",
+                        "motivo_abstencion": "", "herramientas": []}}
+
+
+@pytest.mark.parametrize("salida, debe", [
+    (SALIDA, "acción de tutela"),
+    (VO, "vía judicial ordinaria"),
+    (SALIDA.replace("acción de tutela", "acción popular (Ley 472 de 1998)")
+     .replace("Procedencia: sí — r", "Procedencia: no — r"), "acción popular"),
+    (SALIDA.replace("acción de tutela", "acción de cumplimiento (Ley 393 de 1997)")
+     .replace("Procedencia: sí — r", "Procedencia: no — r"), "acción de cumplimiento"),
+    (SALIDA.replace("acción de tutela", "habeas corpus (Ley 1095 de 2006)")
+     .replace("Procedencia: sí — r", "Procedencia: no — r"), "hábeas corpus"),
+])
+def test_plantilla_por_mecanismo(salida, debe):
+    assert debe in dsp.plantilla(schema.parse_salida(salida))
+
+
+def test_plantilla_de_via_ordinaria_no_nombra_el_derecho():
+    t = dsp.plantilla(dsp.bloque_para_redaccion(schema.parse_salida(VO)))
+    assert "petici" not in t.lower() and "tutela" in t
+
+
+def test_plantilla_de_abstencion_pide_los_hechos_y_da_el_motivo():
+    t = dsp.plantilla(schema.parse_salida(ABST))
+    assert "qué pasó" in t and "consulta comercial" in t
+
+
+def test_bloque_para_redaccion_quita_el_derecho_y_su_articulo_en_via_ordinaria():
+    b = dsp.bloque_para_redaccion(schema.parse_salida(VO))
+    assert b["derecho"] is None and b["fundamento"] == "art. 6.1 Decreto 2591 de 1991"
+    t = dsp.bloque_para_redaccion(schema.parse_salida(SALIDA))
+    assert t["derecho"] == "salud"                       # en tutela no se toca
+
+
+def test_la_abstencion_no_llama_al_redactor():
+    llamadas = []
+    r = dsp.redactar_respuesta(_res(ABST, abstuvo=True), lambda s, u: llamadas.append(1) or "x")
+    assert llamadas == [] and r["fuente"] == "plantilla_abstencion"
+
+
+def test_redaccion_valida_se_usa_y_al_redactor_no_le_llega_el_derecho_en_via_ordinaria():
+    vistos = []
+
+    def generar(sistema, usuario):
+        vistos.append(usuario)
+        return ("Entiendo tu situación. Esto no procede por tutela: el camino es la vía judicial "
+                "ordinaria (art. 6.1 Decreto 2591 de 1991). Esto es un triaje automático, "
+                "no un concepto jurídico.")
+    r = dsp.redactar_respuesta(_res(VO), generar)
+    assert r["fuente"] == "modelo" and r["valido"] is True
+    assert "peticion" not in vistos[0] and "art. 23 CP" not in vistos[0]
+
+
+def test_redaccion_que_no_dice_el_mecanismo_cae_a_la_plantilla():
+    r = dsp.redactar_respuesta(_res(VO), lambda s, u: "Te recomiendo buscar ayuda pronto.")
+    assert r["fuente"] == "plantilla" and r["valido"] is False
+
+
+def test_redaccion_con_norma_intrusa_cae_a_la_plantilla():
+    r = dsp.redactar_respuesta(_res(VO), lambda s, u: (
+        "No procede la tutela; vía ordinaria según el art. 29 CP."))
+    assert r["fuente"] == "plantilla" and r["valido"] is False
+
+
+def test_si_groq_falla_en_la_redaccion_queda_la_plantilla():
+    def generar(s, u):
+        raise ConnectionError("groq caido")
+    r = dsp.redactar_respuesta(_res(VO), generar)
+    assert r["fuente"] == "plantilla" and r["valido"] is None
+
+
+def test_formatear_para_usuario_pone_el_parrafo_arriba_y_la_ficha_plegada():
+    leido = {"rotulo": "Leído del documento · no verificado", "advertencias": [],
+             "campos": {"fecha": None, "plazo_dias": 15}, "crudo": "{}"}
+    md = dsp.formatear_para_usuario(_res(VO, leido=leido),
+                                    {"texto": "Párrafo.", "fuente": "plantilla", "valido": None, "ms": 0})
+    assert md.index("Párrafo.") < md.index("Por qué") < md.index("<details>")
+    assert "Mecanismo: vía judicial ordinaria" in md.split("<details>")[1]   # la ficha evaluada
+    assert "**Fecha:** _no se aprecia_" in md and "**Plazo (días):** 15" in md
+    assert dsp.AVISO_ABOGADO in md
+
+
+def test_presentar_registra_como_se_redacto():
+    res, md, reg = dsp.consultar_res(_Amparo(), "p")
+    out = dsp.presentar(res, md, reg, generar=None)
+    assert reg["redaccion"] == "plantilla" and "acción de tutela" in out
