@@ -1,17 +1,17 @@
 # Graph Report - Amparo  (2026-11-03)
 
 ## Corpus Check
-- 99 files · ~222,578 words
+- 99 files · ~222,854 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 15 file(s) not represented in the graph (top: .ipynb 6, .csv 5, (none) 3)
 
 ## Summary
-- 2029 nodes · 4525 edges · 106 communities (97 shown, 9 thin omitted)
-- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 258 edges (avg confidence: 0.87)
+- 2029 nodes · 4526 edges · 106 communities (96 shown, 10 thin omitted)
+- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 259 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6ee98fa9`
+- Built from commit: `8229b04b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -75,7 +75,7 @@
 - citas
 - test_pipeline_m5.py
 - m2_harness.py
-- time
+- parsear_json
 - M3: cuatro arquitecturas sobre 103 casos comunes
 - REPORTE: Triaje de acciones constitucionales colombianas
 - Contexto
@@ -139,11 +139,11 @@
   review/m4/PLAN_DEMO.md → amparo/multimodal/enchufe.py
 - `H1 · El delta con/sin imagen no mide latencia` --references--> `delta_con_sin_imagen()`  [INFERRED]
   review/m4/README.md → amparo/multimodal/scorecard.py
-- `Qué cede el estudiante (para *limitaciones y ética*)` --references--> `calcular_termino()`  [INFERRED]
-  m5/README.md → amparo/nucleo/terminos.py
-- `S15 · Parte B · La app` --references--> `precalcular_indice()`  [INFERRED]
-  m5/README.md → amparo/despliegue.py
+- `Resultado: el contrato NO se cumple (3 de 5)` --references--> `latencias()`  [INFERRED]
+  m5/README.md → amparo/pipelines/m5_cuantizacion.py
 - `S15 · Parte B · La app` --references--> `armar_amparo()`  [INFERRED]
+  m5/README.md → amparo/despliegue.py
+- `S15 · Parte B · La app` --references--> `health()`  [INFERRED]
   m5/README.md → amparo/despliegue.py
 
 ## Import Cycles
@@ -160,7 +160,7 @@
 - **Sellado y trazabilidad de corridas (huella, manifiesto, sello, tag)** — readme_huella_codigo, subir_huella_manifiesto, subir_sello_subida, docs_migracion_tag_entrega_m4, docs_migracion_huella_amparo, reporte_origen_cifras [INFERRED 0.85]
 - **Invencion del plazo en m10 que la valvula no detecta** — m4_eval_set_casos_m4_m10, m4_eval_set_imagenes_anonimizacion_doc06_notificacion_borrosa, m4_notas_t6_lucas_hallazgo_invento_plazo_m10, m4_readme_peor_caso_m10, m4_eval_set_formato_casos_criterio_valvula [INFERRED 0.95]
 
-## Communities (106 total, 9 thin omitted)
+## Communities (106 total, 10 thin omitted)
 
 ### Community 0 - "generar_imagenes.py"
 Cohesion: 0.19
@@ -175,12 +175,12 @@ Cohesion: 0.09
 Nodes (22): auditar_corpus(), chunking(), cierre(), _ck_guardar(), comparar(), comprobar_ragas(), consultas_fallidas(), Contexto (+14 more)
 
 ### Community 3 - "test_pipeline_m4.py"
-Cohesion: 0.08
-Nodes (14): ClienteGuionado, _correr(), _Fn, IndiceFalso, main(), _Msg, _Resp, _TC (+6 more)
+Cohesion: 0.09
+Nodes (9): ClienteGuionado, _correr(), _Fn, IndiceFalso, main(), _Msg, _Resp, _TC (+1 more)
 
 ### Community 4 - "Pipeline"
-Cohesion: 0.14
-Nodes (17): guardar(), casos_validos(), correr(), Pipeline, test_cada_imagen_se_carga_una_vez(), test_cargar_guardado_devuelve_lo_mismo_que_se_guardo(), test_cronometro_mide_ver_mas_m3_y_deja_fuera_carga_y_juez(), test_csv_invalido_no_corre_nada() (+9 more)
+Cohesion: 0.15
+Nodes (15): casos_validos(), correr(), Pipeline, test_cada_imagen_se_carga_una_vez(), test_cronometro_mide_ver_mas_m3_y_deja_fuera_carga_y_juez(), test_csv_invalido_no_corre_nada(), test_excepcion_del_sistema_detiene_la_corrida(), test_guardar_escribe_scorecard_y_trazas() (+7 more)
 
 ### Community 5 - "TransformadorFalso"
 Cohesion: 0.16
@@ -191,12 +191,12 @@ Cohesion: 0.15
 Nodes (7): sesgo_longitud(), sesgo_posicion(), acuerdo_entre_jueces(), Contexto, sesgo_longitud(), sesgo_posicion(), validez()
 
 ### Community 7 - "csv"
-Cohesion: 0.16
-Nodes (11): cargar_guardado(), correr_t6(), tabla_desde_disco(), 5. Cómo reproducir lo verificado, escribir_costos(), _rutas(), test_correr_t6_de_punta_a_punta(), test_correr_t6_sin_results_guarda_el_scorecard_antes_de_fallar() (+3 more)
+Cohesion: 0.18
+Nodes (9): cargar_guardado(), correr_t6(), guardar(), leer_fila_m3(), tabla_desde_disco(), 5. Cómo reproducir lo verificado, test_cargar_guardado_devuelve_lo_mismo_que_se_guardo(), test_leer_fila_m3_sin_results_explica_donde_esta() (+1 more)
 
 ### Community 8 - "despliegue.py"
-Cohesion: 0.10
-Nodes (16): armar_amparo(), cargar_indice(), _chunks_de_m3(), ErrorAPI, health(), _huella(), precalcular_indice(), registrar() (+8 more)
+Cohesion: 0.09
+Nodes (14): armar_amparo(), ErrorAPI, health(), _huella(), registrar(), SinVision, _SinVision, estado() (+6 more)
 
 ### Community 9 - "medir"
 Cohesion: 0.23
@@ -227,12 +227,12 @@ Cohesion: 0.11
 Nodes (28): casos_m4.csv: 11 casos sobre 6 imagenes, m01 - exacto: tutela (EPS niega cirugia), m02 - campos sobre doc01 (cadera), m03 - campos sobre doc02 (plazo_dias 15), m04 - exacto: accion_cumplimiento (Ley 1712), m05 - campos sobre doc03 (contratos), m06 - exacto: accion_popular (cuatro veredas), m07 - campos sobre doc04 (entidad 'claro') (+20 more)
 
 ### Community 16 - "pathlib"
-Cohesion: 0.12
-Nodes (5): _raiz(), nueva(), version_datos(), preparar(), verificar_sello()
+Cohesion: 0.13
+Nodes (6): _raiz(), nueva(), version_datos(), versiones(), preparar(), verificar_sello()
 
 ### Community 17 - "terminos.py"
-Cohesion: 0.15
-Nodes (8): calcular_termino(), contar_habiles(), es_habil(), festivos(), leer_fecha(), _lunes_siguiente(), pascua(), sumar_habiles()
+Cohesion: 0.10
+Nodes (15): calcular_termino(), contar_habiles(), es_habil(), festivos(), leer_fecha(), _lunes_siguiente(), pascua(), sumar_habiles() (+7 more)
 
 ### Community 19 - "redaccion"
 Cohesion: 0.12
@@ -260,7 +260,7 @@ Nodes (11): M4 - Amparo ya ve (README de entrega), Tabla M3 (n=120, 0.675) vs M4
 
 ### Community 26 - "test_multimodal.py"
 Cohesion: 0.09
-Nodes (25): Amparo, armar_relato(), formatear(), normas_por_id(), etiqueta(), parsear_json(), por_que(), _bloque() (+17 more)
+Nodes (22): Amparo, armar_relato(), formatear(), normas_por_id(), etiqueta(), por_que(), _bloque(), _eval_repetido() (+14 more)
 
 ### Community 27 - "arranque.py"
 Cohesion: 0.21
@@ -268,7 +268,7 @@ Nodes (5): celda(), _en_colab(), humo(), _procedencia(), version_codigo()
 
 ### Community 28 - "test_scorecard.py"
 Cohesion: 0.13
-Nodes (17): leer_fila_m3(), carpeta(), _diag(), ejemplo(), escribir_m3(), test_armar_relato_sin_json_usa_el_texto_crudo(), test_correr_t6_exige_el_brazo_antes_de_correr(), test_diagnostico_campos_nombra_lo_que_leyo_mal() (+9 more)
+Nodes (21): carpeta(), _diag(), ejemplo(), escribir_costos(), escribir_m3(), _rutas(), test_armar_relato_sin_json_usa_el_texto_crudo(), test_correr_t6_de_punta_a_punta() (+13 more)
 
 ### Community 29 - "re"
 Cohesion: 0.18
@@ -287,7 +287,7 @@ Cohesion: 0.16
 Nodes (12): Amparo: triaje de acciones constitucionales en Colombia, M1: fine-tuning LoRA de Qwen2.5-7B-Instruct, M2: harness con LLM-as-a-judge y cinco sondas, M3: cuatro arquitecturas (fine-tuned, RAG basico, RAG avanzado, agente + reglas), M4: componente visual Qwen2-VL-2B (patron input), reproducir.py: entrada unica de reproduccion, Estabilidad entre corridas (m1_estabilidad.json), groq (juez y agente via API) (+4 more)
 
 ### Community 33 - "Harness de M4: decisiones de T5 y T6 (y T7)"
-Cohesion: 0.14
+Cohesion: 0.13
 Nodes (7): armar_relato(), correr_harness(), leer_latencia_m3(), Harness de M4: decisiones de T5 y T6 (y T7), test_armar_relato_con_json_es_la_formula_del_notebook(), test_latencia_m3_es_por_caso_y_no_por_llamada(), test_m3_recibe_el_relato_armado_con_el_json_de_ver()
 
 ### Community 34 - "m5_destilacion.py"
@@ -295,8 +295,8 @@ Cohesion: 0.11
 Nodes (18): armar_profesor(), cargar_estudiante(), _cliente_groq(), correr(), correr_con_reloj(), CupoAgotado, entrenar_estudiante(), _es_cupo() (+10 more)
 
 ### Community 35 - "pathlib"
-Cohesion: 0.16
-Nodes (8): chunking_de_m3(), comprobar_brazo(), construir_responder_m3(), cargar_corpus(), Brazo 4 - agente + reglas (M3), test_el_brazo_enchufado_existe_en_el_scorecard_de_m3(), test_el_chunking_es_el_que_eligio_m3(), test_un_brazo_mal_escrito_falla_antes_de_la_gpu()
+Cohesion: 0.12
+Nodes (14): _chunks_de_m3(), chunking_de_m3(), comprobar_brazo(), construir_responder_m3(), cargar_corpus(), Brazo 4 - agente + reglas (M3), _responder(), test_el_brazo_enchufado_existe_en_el_scorecard_de_m3() (+6 more)
 
 ### Community 36 - "datos.py"
 Cohesion: 0.22
@@ -327,8 +327,8 @@ Cohesion: 0.11
 Nodes (18): sistema_multimodal(), Al desplegar (M5), conviene…, Backlog (después de la Demo), Dónde está hoy el recorrido completo, Guion sugerido (bloques, sin minutos obligatorios), Plan para Demo Day — Amparo, Prioridad 1 · [P1] La experiencia de punta a punta en una sola llamada, con el fundamento a la vista, Prioridad 2 · [P1] La confianza como característica: «cuando no está seguro, lo dice» (+10 more)
 
 ### Community 43 - "corrida_m4.py"
-Cohesion: 0.14
-Nodes (11): version(), versiones(), cerrar(), _git(), gpu(), guardar(), huella_eval_set(), manifiesto() (+3 more)
+Cohesion: 0.15
+Nodes (13): version(), cerrar(), _git(), gpu(), guardar(), huella_eval_set(), manifiesto(), nueva() (+5 more)
 
 ### Community 44 - "schema.py"
 Cohesion: 0.13
@@ -386,10 +386,6 @@ Nodes (15): a_texto(), agente_estudiante(), objetivo(), _AgenteQueTragaErrores, 
 Cohesion: 0.07
 Nodes (17): acuerdo_entre_jueces(), cohen_kappa(), guardar(), ids_eval_v1(), _lectura_familias(), _spearman(), experimento_inyeccion(), misma_familia() (+9 more)
 
-### Community 59 - "time"
-Cohesion: 0.39
-Nodes (4): _correr(), entorno(), _linea(), main()
-
 ### Community 60 - "M3: cuatro arquitecturas sobre 103 casos comunes"
 Cohesion: 0.22
 Nodes (7): Bug heredado latencia_s_por_caso = 0.0 (conservado), Desviaciones respecto a los notebooks, Art. 6 Decreto 2591 de 1991 (arbol de decision), Agente: pasos censurados y veredicto_presupuesto, Coste: GPU local vs llamadas API (m3_costos.json), M3: cuatro arquitecturas sobre 103 casos comunes, Tesis: modelo pequeno afinado sobre art. 6 supera a la recuperacion
@@ -411,8 +407,8 @@ Cohesion: 0.24
 Nodes (6): cargar_eval(), medir(), _CostosFalsos, test_escribir_relatos_retoma_y_filtra_la_fuga(), test_medir_vacia_la_cache_del_estudiante_y_mide_las_llamadas(), test_rehacer_estudiante_borra_lo_ya_medido()
 
 ### Community 65 - "delta_con_sin_imagen"
-Cohesion: 0.25
-Nodes (6): delta_con_sin_imagen(), _media(), Delta: misma pregunta con imagen y sin ella, m01 no es estable (extractor de hechos de M3 no determinista), test_delta_con_sin_imagen_registra_latencia_de_las_dos_condiciones(), test_delta_con_sin_imagen_separa_lo_que_aporta_de_lo_que_no()
+Cohesion: 0.29
+Nodes (5): delta_con_sin_imagen(), Delta: misma pregunta con imagen y sin ella, m01 no es estable (extractor de hechos de M3 no determinista), test_delta_con_sin_imagen_registra_latencia_de_las_dos_condiciones(), test_delta_con_sin_imagen_separa_lo_que_aporta_de_lo_que_no()
 
 ### Community 66 - "Oficio No. SPM-0412 (12 de agosto de 2026)"
 Cohesion: 0.29
@@ -480,7 +476,7 @@ Nodes (6): corrida_m4_con_tiempos(), _fila(), latencia_por_componente(), _pct(),
 
 ### Community 82 - "test_despliegue.py"
 Cohesion: 0.05
-Nodes (32): anonimizar(), config_desde_entorno(), consultar(), Contrato (escrito antes de entrenar), Contrato (escrito antes de medir), Cómo se aísla el efecto de cuantizar, Decisión (2026-11-03): el sistema se queda con el profesor, y M5 cuantiza el VLM, M5 · Amparo cabe y corre rápido (+24 more)
+Nodes (30): anonimizar(), cargar_indice(), config_desde_entorno(), consultar(), precalcular_indice(), Contrato (escrito antes de medir), Cómo se aísla el efecto de cuantizar, M5 · Amparo cabe y corre rápido (+22 more)
 
 ### Community 83 - "autoprueba_integracion.py"
 Cohesion: 0.05
@@ -499,12 +495,12 @@ Cohesion: 0.40
 Nodes (3): autopreferencia(), respuestas_familia(), test_respuestas_familia_usa_el_cache_en_la_segunda_pasada()
 
 ### Community 89 - "scorecard.py"
-Cohesion: 0.13
-Nodes (10): construir_tabla_delta(), delta_repetido(), _mediana(), _schema_mecanismo(), tabla_markdown(), _tabla_y_guardar(), test_peor_caso_lista_todos_los_empatados_con_su_etapa(), test_tabla_delta_tiene_las_5_filas_con_metrica_nombrada() (+2 more)
+Cohesion: 0.14
+Nodes (11): construir_tabla_delta(), delta_repetido(), _media(), _mediana(), _schema_mecanismo(), tabla_markdown(), _tabla_y_guardar(), test_peor_caso_lista_todos_los_empatados_con_su_etapa() (+3 more)
 
 ### Community 90 - "m5_cuantizacion.py"
-Cohesion: 0.06
-Nodes (33): LectorVisual, armar_m3(), cargar(), Contexto, descargar(), _escribir(), guardar(), latencias() (+25 more)
+Cohesion: 0.07
+Nodes (31): LectorVisual, armar_m3(), cargar(), Contexto, descargar(), _escribir(), guardar(), latencias() (+23 more)
 
 ### Community 91 - "render_salida"
 Cohesion: 0.11
@@ -552,13 +548,13 @@ Nodes (3): graficar_perdida(), curva_de_perdida(), test_graficar_perdida_guarda_
 
 ## Knowledge Gaps
 - **32 isolated node(s):** `amparo`, `Checklist de anonimizacion (sin caras, nombres, cedulas, firmas ni sellos)`, `Entidades ficticias (EPS Salud Serena, Alcaldia de Puerto Almendro, CORPORIOCLARO, Aguas de Villa Serena)`, `INSTRUCCION_DOMINIO (5 campos JSON)`, `casos_m4.ejemplo.csv` (+27 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 749 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 748 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Harness de M4: decisiones de T5 y T6 (y T7)` connect `Harness de M4: decisiones de T5 y T6 (y T7)` to `test_criterios.py`, `delta_con_sin_imagen`, `pathlib`, `csv`, `parse_salida`, `casos_m4.csv: 11 casos sobre 6 imagenes`, `scorecard.py`, `arranque.py`, `test_scorecard.py`, `Migracion de notebooks a paquete Python amparo/`?**
+- **Why does `Harness de M4: decisiones de T5 y T6 (y T7)` connect `Harness de M4: decisiones de T5 y T6 (y T7)` to `test_criterios.py`, `delta_con_sin_imagen`, `pathlib`, `csv`, `parse_salida`, `casos_m4.csv: 11 casos sobre 6 imagenes`, `arranque.py`, `Migracion de notebooks a paquete Python amparo/`?**
   _High betweenness centrality (0.061) - this node is a cross-community bridge._
 - **What connects `amparo`, `Checklist de anonimizacion (sin caras, nombres, cedulas, firmas ni sellos)`, `Entidades ficticias (EPS Salud Serena, Alcaldia de Puerto Almendro, CORPORIOCLARO, Aguas de Villa Serena)` to the rest of the system?**
   _32 weakly-connected nodes found - possible documentation gaps or missing edges._
@@ -571,4 +567,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `Amparo: triaje de acciones constitucionales en Colombia` connect `Amparo: triaje de acciones constitucionales en Colombia` to `M1: el sistema afinado (base, hibrido, afinado)`, `Limitaciones: lo que este trabajo no puede concluir`, `M3: cuatro arquitecturas sobre 103 casos comunes`, `REPORTE: Triaje de acciones constitucionales colombianas`, `Migracion de notebooks a paquete Python amparo/`?**
   _High betweenness centrality (0.046) - this node is a cross-community bridge._
 - **Should `test_pipeline_m4.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.07823613086770982 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09113300492610837 - nodes in this community are weakly interconnected._
