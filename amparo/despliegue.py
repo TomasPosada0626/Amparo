@@ -130,21 +130,21 @@ CSS = """
   border: 1px solid #e7e2d6 !important; border-radius: 4px 16px 16px 16px !important;
 }
 #amparo-chat h3 {
-  font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
-  color: #9a9484; margin: 14px 0 6px; padding-bottom: 5px; border-bottom: 1px solid #f0ebe1;
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  color: #a39d8e; margin: 16px 0 4px; padding: 0; border: none;
 }
-#amparo-chat h3:first-child { margin-top: 2px; }
+#amparo-chat h3:first-child { margin-top: 0; }
 #amparo-chat h3:first-child + p { font-size: 1.05rem; line-height: 1.6; color: #1f1e1c; }
 #amparo-chat blockquote {
-  border-left: 3px solid #c9a37f; background: #faf6ef; color: #6b665c;
-  margin: 10px 0; padding: 7px 13px; border-radius: 0 6px 6px 0; font-size: 0.9rem;
+  border: none; border-left: 2px solid #d8cdbb; background: transparent; color: #6b665c;
+  margin: 8px 0; padding: 2px 0 2px 13px; font-size: 0.9rem; font-style: italic;
 }
 #amparo-chat details {
-  margin-top: 14px; border: 1px solid #ece6da; border-radius: 10px;
-  background: #faf7f0; padding: 2px 14px;
+  margin-top: 14px; border: none; border-top: 1px solid #ece6da; border-radius: 0;
+  background: transparent; padding: 8px 0 0;
 }
 #amparo-chat details summary {
-  cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6b665c; padding: 9px 0;
+  cursor: pointer; font-size: 0.82rem; font-weight: 600; color: #6b665c; padding: 4px 0;
 }
 #amparo-chat details code {
   background: #efeae0; color: #4b473f; padding: 1px 5px; border-radius: 4px; font-size: 0.82em;
