@@ -182,8 +182,13 @@ def test_la_app_arma_la_interfaz_y_responde(tmp_path, monkeypatch):
     spec = importlib.util.spec_from_file_location("app_amparo", RAIZ / "m5" / "space" / "app.py")
     app = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(app)
-    pasos = list(app.responder("Mi EPS no me autoriza la cirugía", None))
-    assert pasos[0].startswith("⏳") and "acción de tutela" in pasos[-1]
+    # responder trabaja sobre el historial del chat (formato messages) y va
+    # emitiendo (historial, caja, imagen). El primer paso es el progreso; el
+    # ultimo, la respuesta final en el ultimo mensaje del asistente.
+    pasos = list(app.responder("Mi EPS no me autoriza la cirugía", None, []))
+    primer_md = pasos[0][0][-1]["content"]
+    ultimo_md = pasos[-1][0][-1]["content"]
+    assert primer_md.startswith("⏳") and "acción de tutela" in ultimo_md
     assert app.estado()["vlm"] == "off"
     assert all(p.exists() for _q, p in [(e[0], __import__("pathlib").Path(e[1])) for e in app.EJEMPLOS])
 
@@ -270,7 +275,8 @@ def test_la_app_en_zerogpu_decora_la_consulta(tmp_path, monkeypatch):
     app = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(app)
     assert decorados == [("_consultar", 90)]
-    assert "acción de tutela" in list(app.responder("Mi EPS no me autoriza", None))[-1]
+    ultimo = list(app.responder("Mi EPS no me autoriza", None, []))[-1][0][-1]["content"]
+    assert "acción de tutela" in ultimo
 
 
 # --------------------------------------------------------------------------

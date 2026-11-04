@@ -123,46 +123,78 @@ if spaces is not None and CFG.get("zerogpu"):
     _consultar = spaces.GPU(duration=int(os.environ.get("AMPARO_GPU_S", "90")))(_consultar)
 
 
-def responder(pregunta, imagen):
+def responder(pregunta, imagen, historial):
+    """Agrega la burbuja del usuario y va mostrando el progreso en la del
+    asistente hasta la respuesta final. `historial` es el formato `messages`
+    del `gr.Chatbot`. La decision la toma `_consultar` (M3); aqui solo se
+    presenta."""
+    historial = historial or []
     if not (pregunta or "").strip():
-        yield "_Escribe tu pregunta._"
+        historial = historial + [{"role": "assistant",
+                                  "content": "_Escribe tu caso para empezar._"}]
+        yield historial, None, None
         return
+    etiqueta = pregunta.strip()
+    if imagen is not None:
+        etiqueta += "\n\n_📎 con foto del documento_"
+    historial = historial + [{"role": "user", "content": etiqueta},
+                             {"role": "assistant", "content": ""}]
+
+    def paso(texto):
+        historial[-1]["content"] = texto
+        return [dict(m) for m in historial], None, None
+
     if imagen is not None and CFG["vlm"] != "off":
-        yield "⏳ **Leyendo el documento…**" + ("" if CFG["cuda"] else " (en CPU puede tardar un poco)")
+        yield paso("⏳ _Leyendo el documento…_"
+                   + ("" if CFG["cuda"] else " (en CPU puede tardar un poco)"))
     else:
-        yield "⏳ **Analizando tu caso…**"
+        yield paso("⏳ _Analizando tu caso…_")
     res, md_error, reg = _consultar(pregunta, imagen)
     if res is not None:
-        yield "⏳ **Redactando la respuesta…**"
+        yield paso("⏳ _Redactando la respuesta…_")
     md = dsp.presentar(res, md_error, reg, GENERAR)
     dsp.registrar(reg, log=log, wandb_mod=wandb)
-    yield md
+    historial[-1]["content"] = md
+    yield [dict(m) for m in historial], "", None     # limpia el input y la imagen
 
 
 def estado():
     return dsp.health(ESTADO, T0, RUTA_LOG, VERSION)
 
 
+SALUDO = {"role": "assistant",
+          "content": ("¡Hola! Cuéntame tu caso —qué pasó, quién lo hizo, desde cuándo y qué "
+                      "quieres lograr— y te diré qué **mecanismo constitucional** te "
+                      "corresponde. Si tienes la foto de un documento, adjúntala.")}
+
+
+def limpiar():
+    return [dict(SALUDO)], "", None
+
+
 with gr.Blocks(title="Amparo") as demo:
-    gr.HTML(dsp.encabezado_html(VERSION, CFG, ESTADO))
-    gr.HTML(dsp.AVISO_HTML)
-    with gr.Tab("Consulta"):
-        with gr.Row(equal_height=False):
-            with gr.Column(scale=2, min_width=320):
+    with gr.Column(elem_id="amparo-chat-wrap"):
+        gr.HTML(dsp.encabezado_html(VERSION, CFG, ESTADO))
+        gr.HTML(dsp.AVISO_HTML)
+        with gr.Tab("Consulta"):
+            chat = gr.Chatbot(value=[dict(SALUDO)], elem_id="amparo-chat", label="",
+                              show_label=False, height=500)
+            im = gr.Image(type="pil", label="Foto del documento (opcional)",
+                          height=140, elem_id="amparo-imagen")
+            with gr.Row(elem_id="amparo-barra"):
                 q = gr.Textbox(
-                    label="Tu caso", lines=5,
-                    placeholder="Cuéntanos qué pasó, quién lo hizo, desde cuándo y qué quieres lograr.")
-                im = gr.Image(type="pil", label="Foto del documento (opcional)", height=200)
-                boton = gr.Button("Responder", variant="primary", size="lg")
+                    label="", show_label=False, container=False, scale=5, lines=1, max_lines=6,
+                    placeholder="Escribe tu caso y pulsa Enviar…")
+                boton = gr.Button("Enviar ↑", variant="primary", scale=0, min_width=110)
+            with gr.Row():
+                nuevo = gr.Button("🗑 Nueva consulta", variant="secondary", size="sm")
                 gr.Examples(EJEMPLOS, [q, im], label="Casos de la demo")
-            with gr.Column(scale=3, min_width=360):
-                out = gr.Markdown(
-                    "_Escribe tu caso y pulsa **Responder**. La respuesta aparecerá aquí._",
-                    elem_id="amparo-respuesta")
-        boton.click(responder, [q, im], out)
-    with gr.Tab("Estado"):
-        gr.Markdown("Estado del servicio (se actualiza cada 10 s).")
-        gr.JSON(value=estado, every=10)                   # el health check, visible
+            boton.click(responder, [q, im, chat], [chat, q, im])
+            q.submit(responder, [q, im, chat], [chat, q, im])
+            nuevo.click(limpiar, None, [chat, q, im])
+        with gr.Tab("Estado"):
+            gr.Markdown("Estado del servicio (se actualiza cada 10 s).")
+            gr.JSON(value=estado, every=10)               # el health check, visible
 
 if __name__ == "__main__":
     demo.launch(theme=dsp.tema(), css=dsp.CSS, share=CFG["share"], server_name="0.0.0.0")
