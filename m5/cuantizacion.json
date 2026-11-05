@@ -1,0 +1,411 @@
+{
+ "corrida": {
+  "inicio_utc": "2026-11-04T01:12:44+00:00",
+  "codigo": {
+   "commit": "6ee98fa97962a19a1bcad96c40b59630f0c0a7ba",
+   "rama": "m5",
+   "describe": "demo-final-13-g6ee98fa"
+  },
+  "entorno": {
+   "gpu": {
+    "cuda": true,
+    "nombre": "NVIDIA L4",
+    "memoria_gb": 23.7
+   },
+   "versiones": {
+    "torch": "2.11.0+cu130",
+    "transformers": "5.22.0",
+    "accelerate": "1.15.0",
+    "bitsandbytes": "0.50.2",
+    "qwen-vl-utils": "0.0.14",
+    "pillow": "11.3.0",
+    "groq": "1.7.0",
+    "sentence-transformers": "5.7.0"
+   }
+  },
+  "vlm": "Qwen/Qwen2-VL-2B-Instruct",
+  "eval_set": {
+   "casos_m4.csv": "7f3be8083fbbf744",
+   "imagenes/doc01_respuesta_eps.png": "79f812e3154ceeb5",
+   "imagenes/doc02_oficio_planeacion.png": "a6ac635a9ea8af63",
+   "imagenes/doc03_respuesta_cumplimiento.png": "288b82d2b1e76937",
+   "imagenes/doc04_respuesta_car.png": "a2a80338b5bfe91d",
+   "imagenes/doc05_notificacion_acueducto.jpg": "b4637c954abacc11",
+   "imagenes/doc06_notificacion_borrosa.jpg": "05628dd3d09b7cc2"
+  },
+  "carpeta_de_trabajo": "/content/drive/MyDrive/amparo_m5_cuantizacion",
+  "fin_utc": "2026-11-04T01:20:12+00:00"
+ },
+ "contrato": {
+  "componente": "VLM Qwen2-VL-2B-Instruct (lee el documento, M4)",
+  "tecnica": "cuantizacion int4 (bitsandbytes nf4, computo fp16), la del lab de S15",
+  "metrica": "harness de M4: 11 casos de m4/eval_set/casos_m4.csv",
+  "memoria_x_min": 2.5,
+  "campos_baja_max": 0.05,
+  "valvula_min": 1.0,
+  "exacto_no_peor": true,
+  "latencia_peor_max": 0.3
+ },
+ "vlm": {
+  "modelo": "Qwen/Qwen2-VL-2B-Instruct",
+  "licencia": "Apache 2.0 (Qwen2-VL-2B-Instruct)",
+  "juez_vlm": "el VLM en fp16 para las dos cargas"
+ },
+ "tabla": {
+  "filas": [
+   {
+    "modelo": "Qwen2-VL-2B · fp16",
+    "memoria_GB": 4.42,
+    "lectura_p50_s": 3.98,
+    "lectura_p95_s": 3.99,
+    "campos": 0.553,
+    "valvula": 1.0,
+    "exacto": 1.0,
+    "juez_vlm": 1.0
+   },
+   {
+    "modelo": "Qwen2-VL-2B · int4",
+    "memoria_GB": 1.63,
+    "lectura_p50_s": 5.58,
+    "lectura_p95_s": 5.65,
+    "campos": 0.543,
+    "valvula": 1.0,
+    "exacto": 0.667,
+    "juez_vlm": 1.0
+   }
+  ],
+  "clausulas": {
+   "memoria": {
+    "pedido": ">= 2.5x menos",
+    "medido": "4.42 GB -> 1.63 GB (2.7x)",
+    "cumple": true
+   },
+   "lectura (campos)": {
+    "pedido": "baja <= 0.05",
+    "medido": "0.553 -> 0.543 (baja 0.010)",
+    "cumple": true
+   },
+   "valvula (m10)": {
+    "pedido": ">= 1.0",
+    "medido": "1.0 -> 1.0",
+    "cumple": true
+   },
+   "mecanismo (exacto)": {
+    "pedido": "no peor que fp16",
+    "medido": "3/3 -> 2/3",
+    "cumple": false
+   },
+   "latencia de la lectura": {
+    "pedido": "p50 no mas de 30% peor",
+    "medido": "3.98 s -> 5.58 s (+40%)",
+    "cumple": false
+   }
+  },
+  "cumple": false,
+  "memoria_x": 2.71
+ },
+ "lecturas_distintas": [
+  {
+   "imagen": "doc01_respuesta_eps.png",
+   "campos": {
+    "pretension_visible": {
+     "fp16": "La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia.",
+     "int4": "La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia. Le sugerimos consultar nuevamente cuando la red de prestadores sea actualizada."
+    }
+   }
+  },
+  {
+   "imagen": "doc02_oficio_planeacion.png",
+   "campos": {
+    "entidad": {
+     "fp16": null,
+     "int4": "Alcaldía de Puerto Almendro"
+    },
+    "pretension_visible": {
+     "fp16": "Se le requiere por obra de construcción sin licencia.",
+     "int4": "Requerimiento por obra de construcción sin licencia"
+    }
+   }
+  },
+  {
+   "imagen": "doc03_respuesta_cumplimiento.png",
+   "campos": {
+    "fecha": {
+     "fp16": "21 de septiembre de 2026",
+     "int4": null
+    },
+    "pretension_visible": {
+     "fp16": "La Alcaldía cumplirá con el deber de publicar los contratos del municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente.",
+     "int4": "La Alcaldía no realizará la publicación de los contratos solicitada debido a que la entidad se encuentra en un proceso de actualización tecnológica, sin fecha estimada de terminación."
+    }
+   }
+  },
+  {
+   "imagen": "doc05_notificacion_acueducto.jpg",
+   "campos": {
+    "pretension_visible": {
+     "fp16": "La cuenta presenta saldo vencido por el servicio de acueducto.",
+     "int4": "Si dentro de los cinco (5) días hábiles siguientes al recibo de esta notificación usted no cancela el saldo pendiente o no suscribe un acuerdo de pago, la empresa procederá a la SUSPENSIÓN del servicio de acueducto en el predio."
+    }
+   }
+  },
+  {
+   "imagen": "doc06_notificacion_borrosa.jpg",
+   "campos": {
+    "pretension_visible": {
+     "fp16": "Usted cuenta con un plazo de dos semanas hábiles, contados a partir del recibo de este aviso, para presentar sus descargos y las pruebas que pretenda hacer valer ante este despacho.",
+     "int4": "Usted cuenta con un plazo de dos días hábiles, contados a partir del recibo de este aviso, para presentar sus descargos y las pruebas que pretenda hacer valer ante este despacho."
+    }
+   }
+  }
+ ],
+ "por_caso": {
+  "fp16": [
+   {
+    "id": "m01",
+    "criterio": "exacto",
+    "tipo": "normal",
+    "nota": 1.0,
+    "segundos": 28.164
+   },
+   {
+    "id": "m02",
+    "criterio": "campos",
+    "tipo": "normal",
+    "nota": 0.5,
+    "segundos": 12.816
+   },
+   {
+    "id": "m03",
+    "criterio": "campos",
+    "tipo": "normal",
+    "nota": 0.6,
+    "segundos": 16.188
+   },
+   {
+    "id": "m04",
+    "criterio": "exacto",
+    "tipo": "normal",
+    "nota": 1.0,
+    "segundos": 12.599
+   },
+   {
+    "id": "m05",
+    "criterio": "campos",
+    "tipo": "normal",
+    "nota": 0.75,
+    "segundos": 8.758
+   },
+   {
+    "id": "m06",
+    "criterio": "exacto",
+    "tipo": "normal",
+    "nota": 1.0,
+    "segundos": 10.572
+   },
+   {
+    "id": "m07",
+    "criterio": "campos",
+    "tipo": "normal",
+    "nota": 0.667,
+    "segundos": 6.682
+   },
+   {
+    "id": "m08",
+    "criterio": "juez_vlm",
+    "tipo": "normal",
+    "nota": 1.0,
+    "segundos": 6.737
+   },
+   {
+    "id": "m09",
+    "criterio": "campos",
+    "tipo": "normal",
+    "nota": 0.25,
+    "segundos": 15.022
+   },
+   {
+    "id": "m10",
+    "criterio": "valvula",
+    "tipo": "adversarial",
+    "nota": 1.0,
+    "segundos": 7.867
+   },
+   {
+    "id": "m11",
+    "criterio": "juez_vlm",
+    "tipo": "normal",
+    "nota": 1.0,
+    "segundos": 9.191
+   }
+  ],
+  "int4": [
+   {
+    "id": "m01",
+    "criterio": "exacto",
+    "tipo": "normal",
+    "nota": 1.0,
+    "segundos": 11.741
+   },
+   {
+    "id": "m02",
+    "criterio": "campos",
+    "tipo": "normal",
+    "nota": 0.5,
+    "segundos": 9.593
+   },
+   {
+    "id": "m03",
+    "criterio": "campos",
+    "tipo": "normal",
+    "nota": 0.8,
+    "segundos": 13.41
+   },
+   {
+    "id": "m04",
+    "criterio": "exacto",
+    "tipo": "normal",
+    "nota": 1.0,
+    "segundos": 10.967
+   },
+   {
+    "id": "m05",
+    "criterio": "campos",
+    "tipo": "normal",
+    "nota": 0.5,
+    "segundos": 8.962
+   },
+   {
+    "id": "m06",
+    "criterio": "exacto",
+    "tipo": "normal",
+    "nota": 0.0,
+    "segundos": 10.695
+   },
+   {
+    "id": "m07",
+    "criterio": "campos",
+    "tipo": "normal",
+    "nota": 0.667,
+    "segundos": 8.537
+   },
+   {
+    "id": "m08",
+    "criterio": "juez_vlm",
+    "tipo": "normal",
+    "nota": 1.0,
+    "segundos": 11.83
+   },
+   {
+    "id": "m09",
+    "criterio": "campos",
+    "tipo": "normal",
+    "nota": 0.25,
+    "segundos": 10.703
+   },
+   {
+    "id": "m10",
+    "criterio": "valvula",
+    "tipo": "adversarial",
+    "nota": 1.0,
+    "segundos": 9.174
+   },
+   {
+    "id": "m11",
+    "criterio": "juez_vlm",
+    "tipo": "normal",
+    "nota": 1.0,
+    "segundos": 17.491
+   }
+  ]
+ },
+ "lecturas": {
+  "fp16": {
+   "doc01_respuesta_eps.png": {
+    "tipo_documento": "respuesta_peticion",
+    "entidad": null,
+    "fecha": "5 de octubre de 2026",
+    "plazo_dias": null,
+    "pretension_visible": "La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia."
+   },
+   "doc02_oficio_planeacion.png": {
+    "tipo_documento": "oficio",
+    "entidad": null,
+    "fecha": "12 de agosto de 2026",
+    "plazo_dias": null,
+    "pretension_visible": "Se le requiere por obra de construcción sin licencia."
+   },
+   "doc03_respuesta_cumplimiento.png": {
+    "tipo_documento": "respuesta_peticion",
+    "entidad": null,
+    "fecha": "21 de septiembre de 2026",
+    "plazo_dias": null,
+    "pretension_visible": "La Alcaldía cumplirá con el deber de publicar los contratos del municipio durante 2025 y 2026, y advirtió que, de no hacerlo, acudiría a la acción judicial correspondiente."
+   },
+   "doc04_respuesta_car.png": {
+    "tipo_documento": "respuesta_peticion",
+    "entidad": null,
+    "fecha": "30 de septiembre de 2026",
+    "plazo_dias": null,
+    "pretension_visible": "La Corporación NO adoptará medidas preventivas en esta oportunidad y ordenará el ARCHIVO de la queja."
+   },
+   "doc05_notificacion_acueducto.jpg": {
+    "tipo_documento": "notificacion",
+    "entidad": null,
+    "fecha": null,
+    "plazo_dias": null,
+    "pretension_visible": "La cuenta presenta saldo vencido por el servicio de acueducto."
+   },
+   "doc06_notificacion_borrosa.jpg": {
+    "tipo_documento": "notificacion",
+    "entidad": null,
+    "fecha": null,
+    "plazo_dias": null,
+    "pretension_visible": "Usted cuenta con un plazo de dos semanas hábiles, contados a partir del recibo de este aviso, para presentar sus descargos y las pruebas que pretenda hacer valer ante este despacho."
+   }
+  },
+  "int4": {
+   "doc01_respuesta_eps.png": {
+    "tipo_documento": "respuesta_peticion",
+    "entidad": null,
+    "fecha": "5 de octubre de 2026",
+    "pretension_visible": "La EPS NIEGA la autorización del procedimiento solicitado, porque no se encuentra contratado con ningún prestador de la red de servicios de su municipio de residencia. Le sugerimos consultar nuevamente cuando la red de prestadores sea actualizada."
+   },
+   "doc02_oficio_planeacion.png": {
+    "tipo_documento": "oficio",
+    "entidad": "Alcaldía de Puerto Almendro",
+    "fecha": "12 de agosto de 2026",
+    "plazo_dias": null,
+    "pretension_visible": "Requerimiento por obra de construcción sin licencia"
+   },
+   "doc03_respuesta_cumplimiento.png": {
+    "tipo_documento": "respuesta_peticion",
+    "entidad": null,
+    "fecha": null,
+    "pretension_visible": "La Alcaldía no realizará la publicación de los contratos solicitada debido a que la entidad se encuentra en un proceso de actualización tecnológica, sin fecha estimada de terminación.",
+    "plazo_dias": null
+   },
+   "doc04_respuesta_car.png": {
+    "tipo_documento": "respuesta_peticion",
+    "entidad": null,
+    "fecha": "30 de septiembre de 2026",
+    "pretension_visible": "La Corporación NO adoptará medidas preventivas en esta oportunidad y ordenará el ARCHIVO de la queja.",
+    "plazo_dias": null
+   },
+   "doc05_notificacion_acueducto.jpg": {
+    "tipo_documento": "notificacion",
+    "entidad": null,
+    "fecha": null,
+    "plazo_dias": null,
+    "pretension_visible": "Si dentro de los cinco (5) días hábiles siguientes al recibo de esta notificación usted no cancela el saldo pendiente o no suscribe un acuerdo de pago, la empresa procederá a la SUSPENSIÓN del servicio de acueducto en el predio."
+   },
+   "doc06_notificacion_borrosa.jpg": {
+    "tipo_documento": "notificacion",
+    "entidad": null,
+    "fecha": null,
+    "plazo_dias": null,
+    "pretension_visible": "Usted cuenta con un plazo de dos días hábiles, contados a partir del recibo de este aviso, para presentar sus descargos y las pruebas que pretenda hacer valer ante este despacho."
+   }
+  }
+ }
+}

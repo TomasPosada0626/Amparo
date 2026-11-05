@@ -1,0 +1,326 @@
+# M5 · Amparo cabe y corre rápido
+
+## S14 · Destilación de un componente
+
+Código: [`amparo/pipelines/m5_destilacion.py`](../amparo/pipelines/m5_destilacion.py).
+Notebook: [`S14_destilacion.ipynb`](S14_destilacion.ipynb), que solo llama al código. La versión
+del repo es la que se ejecutó, con sus salidas.
+Sigue la **Parte B** del lab de la profe (datos sintéticos + LoRA).
+
+### Qué componente y por qué
+
+Scorecard de M4, corrida de demo `20261101T203828Z_demo` (L4, 11 casos):
+
+| componente | mediana | p95 | mín–máx | parte de la mediana |
+|---|---|---|---|---|
+| VLM Qwen2-VL-2B (leer el documento) | 3.7 s | 4.4 s | 2.7–4.4 s | 34 % |
+| **M3 brazo 4 (agente gpt-oss-120b + reglas)** | **6.4 s** | **14.8 s** | **3.3–14.8 s** | **59 %** |
+| total por caso | 10.8 s | 17.8 s | 7.0–17.8 s | 100 % |
+
+M3 es lo más lento y lo que más varía. Llama de media 4.2 veces por caso (`results/m3_agente.json`) a un modelo de 117 B para
+extraer **13 booleanos y tres frases**, porque el mecanismo lo decide el motor de reglas.
+Esa pieza no necesita ser grande.
+
+Usamos la forma B porque es el generador. La forma A no aplica: el profesor es una API y
+no da logits.
+
+### Profesor y estudiante
+
+**Profesor:** el brazo 4 de M3, con gpt-oss-120b por Groq.
+- Licencia Apache 2.0, que permite entrenar con sus salidas.
+- Escribe los relatos nuevos a `T = 0.7`, como en el lab.
+- Responde a `T = 0` y `seed = 42`, así que la etiqueta es reproducible.
+
+**Estudiante:** Qwen2.5-0.5B-Instruct + LoRA, con la receta de S04.
+- `r = 8`, `q_proj`/`v_proj`, `lr = 2e-4`, 3 épocas.
+- Licencia Apache 2.0.
+- Hace una sola llamada, sin herramientas.
+
+**Qué aprende el estudiante:** solo el JSON de hechos. `decidir()` y `render_salida()`
+siguen siendo los de M3, así que el estudiante no puede inventar normas.
+
+### Contrato (escrito antes de entrenar)
+
+**Se mide contra el profesor medido de nuevo en la misma corrida y la misma GPU**, sobre los
+130 casos de M3 (`eval_set_v3` + `eval_set_m3`). Los umbrales son diferencias frente a ese
+profesor, no cifras fijas. Así lo verifica `tabla()`.
+
+| cláusula | se cumple si |
+|---|---|
+| acierto jurídico | el estudiante baja **como máximo 5 puntos** frente al profesor |
+| alucinación normativa | **0 %** |
+| adversariales | el estudiante baja **como máximo 8 puntos** frente al profesor |
+| velocidad de M3 | mediana del estudiante **≥ 3×** más rápida que la del profesor |
+| estabilidad de M3 | p95 del estudiante **≤ 5 s** |
+
+**Como referencia** (no es el umbral), el brazo 4 en `results/m3_scorecard.csv` tiene:
+
+- acierto jurídico de 67.5 % (81/120);
+- 73.8 % en adversariales (31/42);
+- mediana de M3 de 6.4 s en la demo de M4, con p95 de 14.8 s.
+
+Si el profesor repitiera esas cifras, los umbrales serían ≥ 62.5 %, ≥ 65.8 % y ≤ ~2.1 s.
+
+- **Puntos y no porcentaje relativo:** de 67.5 % a 62.5 % se pierden 5 puntos. Con 42
+  adversariales, perder 4 casos (9.5 puntos) ya incumple.
+- **Por qué 5 y no 2:** el propio profesor varía entre repeticiones (13/18 en el delta de
+  M4). Un contrato más estrecho que ese ruido no se puede verificar.
+- **El tiempo es solo de M3.** El VLM (~3.7 s) no se destila: se ataca en S15, cuando se
+  cuantice.
+
+### Resultado: el contrato NO se cumple
+
+Corrida del 2026-11-03 (21:52–23:09 UTC), commit `f8c0e6c` (rama `m5`), en una NVIDIA
+A100-SXM4-40GB de Colab. Los datos completos están en [`destilacion.json`](destilacion.json),
+que incluye el manifiesto. Los pares con los que se entrenó están en
+[`pares_profesor.json`](pares_profesor.json), y el notebook con sus salidas en
+[`S14_destilacion.ipynb`](S14_destilacion.ipynb).
+
+**Las cinco cláusulas:**
+
+| cláusula | pedido | profesor | estudiante | ¿cumple? |
+|---|---|---|---|---|
+| acierto jurídico | baja ≤ 5 puntos | 74.2 % | 45.0 % (−29.2) | **NO** |
+| alucinación normativa | 0 % | 0 % | 0 % | sí |
+| adversariales | baja ≤ 8 puntos | 88.1 % | 11.9 % (−76.2) | **NO** |
+| velocidad de M3 (mediana) | ≥ 3× | 6.09 s | 2.71 s (2.2×) | **NO** |
+| estabilidad de M3 (p95) | ≤ 5 s | 12.35 s | 2.96 s | sí |
+
+**La tabla antes/después completa:**
+
+| | profesor · gpt-oss-120b (agente + reglas) | estudiante · Qwen2.5-0.5B + LoRA (+ reglas) |
+|---|---|---|
+| acierto en casos gold | 66.7 % | 62.8 % |
+| acierto en adversariales | 88.1 % | 11.9 % |
+| acierto en abstención (válvula) | 60 % | **0 %** |
+| JSON inválidos | 0 | 0 |
+| latencia p50 / p95 | 6.09 s / 12.35 s | 2.71 s / 2.96 s |
+| llamadas por caso | 3.93 (medidas) | 1 |
+| parámetros | 117 B (5.1 B activos) | 494 M (237× menos) |
+| dónde corre | API de Groq | la GPU del sistema |
+
+**Lectura:**
+- **El estudiante colapsa a tutela.** En 59 de los 60 casos donde el profesor acierta y él
+  no, responde tutela. De esos 60 casos, 32 son adversariales, 22 gold y 6 de abstención.
+  El caso contrario ocurre 19 veces.
+- **En los casos gold casi empata** (62.8 % contra 66.7 %). Lo que pierde es lo que la
+  slide 19 de S14 predice que se pierde primero:
+  - **lo raro:** vía ordinaria disfrazada de tutela, hábeas corpus, acción popular y de
+    cumplimiento;
+  - **la válvula de escape:** no se abstiene en ninguno de los 10 casos de abstención.
+- **Lo que sí gana es estabilidad:** el p95 baja de 12.35 s a 2.96 s, porque hace una sola
+  llamada en vez de un agente que da vueltas. Y no puede inventar normas, porque las sigue
+  poniendo el motor.
+- **La velocidad no llega a 3×.** Con un modelo tan chico, `generate` de Hugging Face paga
+  un costo fijo por token. Servirlo con vLLM o llama.cpp es la palanca de S15.
+
+**Por qué no alcanzó, y qué probaríamos** (es lo que el lab sugiere cuando el contrato no
+se cumple):
+- **El profesor es ruidoso.** Con sus propios hechos, el motor llega al mecanismo gold en
+  100 de 142 relatos de M1 (70 %). El estudiante aprende de esas etiquetas.
+- **El estudiante no terminó de aprender.** `eval_loss` siguió bajando en las tres épocas
+  (0.648 → 0.585 → 0.577) y el mínimo está en la última.
+- **Siguiente intento:** más épocas, más relatos (`N_POR_TEMA`) o un estudiante más grande
+  (Qwen2.5-1.5B-Instruct).
+
+### Decisión (2026-11-03): el sistema se queda con el profesor, y M5 cuantiza el VLM
+
+**Por qué el sistema desplegado se queda con el profesor (brazo 4) y no con el estudiante:**
+- **El contrato se escribió antes de entrenar y no se cumple en 3 de las 5 cláusulas.** La
+  regla del lab es que el contrato no se mueve después de ver el resultado: *"si no lo
+  escriben antes, después cualquier resultado parece bueno"*. No se cumplió, así que no se
+  usa.
+- **Lo que pierde el estudiante es justo lo que el usuario no puede revisar solo.** Cae de
+  88 % a 12 % en adversariales y de 6/10 a 0/10 en abstención. Si alguien pregunta algo que
+  no es un caso (dónde invertir, una duda académica), el estudiante le propone una tutela
+  en vez de decirle que Amparo no aplica. En triaje jurídico, recomendar tutela por defecto
+  es el error caro: manda a la persona a una acción improcedente.
+- **Lo que gana no compensa.** El p95 baja de 12 s a 3 s y deja de depender de la API.
+  Pero la mediana mejora solo 2.2×, y la seguridad (0 normas inventadas) ya la tenía el
+  profesor, porque la pone el motor en los dos.
+
+**Por qué la técnica de eficiencia de M5 es cuantizar el VLM.** Se evaluaron dos caminos:
+
+| | 1 · destilación como limitación + cuantizar el VLM (**elegida**) | 2 · destilar imágenes + cuantizar M1 (7B) |
+|---|---|---|
+| ¿mejora lo que se despliega? | **sí**: el VLM (Qwen2-VL-2B) es el único modelo local del sistema de M4 | **no**: la demo usa el brazo 4 por Groq, no M1; cuantizar M1 no cambia lo que ve el usuario |
+| ¿encaja con el lab? | la Parte A de S15 es justo "su generador o modelo en int4 con bitsandbytes" | la Parte A de S14 destila un **clasificador** por logits; el VLM **lee campos** (fechas, plazos, entidad) y una CNN chica no puede leer texto, así que habría que inventar una tarea que Amparo no tiene |
+| trabajo antes de la demo (jue 5 nov) | una pieza nueva | dos piezas nuevas |
+| qué se mide | memoria, p50/p95 y el harness de M4, sobre todo `campos` y `valvula`: fechas y números son la debilidad conocida del VLM | |
+
+La rúbrica de M5 pide **una** técnica de eficiencia medida, *"destilado o cuantizado, con
+contrato y tabla antes/después"* (README de S15). Con la cuantización del VLM se cumple, y
+esta destilación queda como intento medido, con su columna de "qué cedió". La slide 14 de
+S14 lo dice: *"un modelo destilado sin la columna 'qué cedió' no es ingeniería, es
+marketing"*.
+
+### Qué cede el estudiante (para *limitaciones y ética*)
+
+- **La válvula de abstención:** 0 de 10, frente a 6 de 10 del profesor. Un usuario con una
+  consulta fuera del dominio recibiría una tutela en vez de un "esto no es para mí".
+- **Los casos raros y las trampas:** −76 puntos en adversariales. El detalle está en
+  `destilacion.json → casos_perdidos`.
+- **La herramienta de términos** (`calcular_termino`): el estudiante no la tiene.
+- **La consulta al corpus de normas:** el estudiante no la hace. El fundamento lo sigue
+  poniendo el motor, así que no inventa normas.
+- **Los errores del profesor:** los hereda. Su acuerdo con el gold es 70 %.
+
+## S15 · Parte A · Cuantizar el VLM
+
+Código: [`amparo/pipelines/m5_cuantizacion.py`](../amparo/pipelines/m5_cuantizacion.py).
+Notebook: [`S15_cuantizacion.ipynb`](S15_cuantizacion.ipynb). Sigue la Parte A del lab de S15:
+Qwen2-VL-2B en fp16 contra int4 (bitsandbytes nf4), en la misma GPU, con temperatura 0.
+
+### Cómo se aísla el efecto de cuantizar
+
+- **Calidad:** el harness de M4 (11 casos).
+- **El juez es siempre el VLM en fp16.** En M4 el VLM se juzga a sí mismo: si el juez también
+  se cuantizara, no se sabría si cambió la lectura o el juez.
+- **M3 comparte caché entre las dos cargas, y eso aísla su ruido solo en parte.** M3 no es
+  determinista. La caché devuelve la misma respuesta solo si el relato llega idéntico,
+  **incluido el orden de las claves del JSON** (`armar_relato` usa `json.dumps`, que respeta
+  el orden). En esta corrida eso falló en doc04, y por eso `exacto` no mide la cuantización:
+  ver "Lectura".
+- **La latencia es la de la lectura** (`ver`). M3 corre en Groq y no depende de los bits del VLM.
+
+### Contrato (escrito antes de medir)
+
+| cláusula | se cumple si |
+|---|---|
+| memoria | int4 usa **≥ 2.5×** menos memoria de GPU que fp16 |
+| lectura (`campos`) | baja **como máximo 0.05** |
+| válvula (m10) | sigue en **1.0**: no inventa la fecha ni el plazo que no se ven |
+| mecanismo (`exacto`) | **no peor** que fp16 |
+| latencia de la lectura | p50 **no más de 30 % peor** |
+
+Lo de la latencia es a propósito: en GPU, int4 con bitsandbytes suele ir igual o más lento,
+porque descomprime los pesos en cada paso. Lo que se gana es memoria.
+
+### Resultado: el contrato NO se cumple (3 de 5)
+
+Corrida del 2026-11-03 (20:12–20:20, hora de Colombia), commit `6ee98fa` (rama `m5`), en
+una **NVIDIA L4** de Colab. Los datos completos están en [`cuantizacion.json`](cuantizacion.json),
+que incluye el manifiesto, y el notebook con sus salidas en
+[`S15_cuantizacion.ipynb`](S15_cuantizacion.ipynb).
+
+| cláusula | pedido | fp16 | int4 | ¿cumple? |
+|---|---|---|---|---|
+| memoria | ≥ 2.5× menos | 4.42 GB | 1.63 GB (2.7×) | sí |
+| lectura (`campos`) | baja ≤ 0.05 | 0.553 | 0.543 (−0.010) | sí |
+| válvula (m10) | ≥ 1.0 | 1.0 | 1.0 | sí |
+| mecanismo (`exacto`) | no peor | 3/3 | 2/3 | **NO** |
+| latencia de la lectura (p50) | ≤ +30 % | 3.98 s | 5.58 s (+40 %) | **NO** |
+
+`juez_vlm` quedó en 1.0 en los dos, con el juez en fp16. El p95 de la lectura fue de 3.99 s
+contra 5.65 s.
+
+**Lectura:**
+- **La memoria es la ganancia real:** 2.7× menos (1.63 GB). El VLM cabría en GPUs más chicas
+  o junto a otro modelo.
+- **int4 es más lento (+40 %), como se esperaba en GPU.** bitsandbytes descomprime los pesos
+  en cada paso. Por eso la cláusula ya era permisiva, y aun así no se cumplió. **Esta es la
+  cláusula que decide:** el contrato falla aunque se descarte `exacto`.
+- **El NO de `exacto` viene del ruido de M3, no de la lectura, y es un fallo de nuestra
+  medición.** Falló m06 (corporación ambiental). Pero int4 leyó su documento (doc04) con
+  exactamente el mismo contenido que fp16: solo cambió el **orden** de los campos del JSON.
+  Ese orden cambia el texto que recibe M3, así que la caché compartida no lo reconoció y M3
+  decidió de nuevo. m06 es el caso que en el delta de M4 acertó 2 de 6 veces por el ruido de
+  M3. La caché debía aislar ese ruido y no lo hizo.
+  - El contrato no se reinterpreta después de ver el resultado: cuenta como NO.
+  - La forma de cerrarlo sería normalizar el orden y repetir `exacto` 3 veces por versión,
+    como en el delta de M4. No se hizo antes de la demo.
+- **int4 leyó distinto 5 de 6 documentos,** sin quedar mejor ni peor en conjunto:
+  - **mejor:** encontró la entidad de doc02 ("Alcaldía de Puerto Almendro"); en doc03 leyó
+    la negativa real (fp16 decía que la Alcaldía *sí* cumpliría); en doc05 captó el plazo de
+    5 días en el texto;
+  - **peor:** perdió la fecha de doc03;
+  - **igual de mal:** en el documento borroso (doc06), fp16 escribe "dos semanas" y int4
+    "dos días", y ninguno está en la imagen. En los dos `plazo_dias` queda vacío, por eso la
+    válvula pasa, y la app muestra el aviso de plazo sin respaldo de M4.
+  - Tomás verificó cada lectura "mejor" contra el texto real de los documentos: la negativa de
+    doc03, el plazo de 5 días y la suspensión de doc05, la entidad de doc02 y la frase extra de
+    doc01 están ahí. Lo de doc06 es inventado en los dos.
+
+**Notas de método** (revisión de Tomás):
+- La latencia de la tabla es la de `latencias()`: la lectura de m01 repetida 5 veces, con
+  calentamiento. La columna `segundos` de `por_caso` no sirve para comparar fp16 con int4: el
+  m01 de fp16 tarda 28.2 s porque incluye la carga del reranker de M3.
+- La memoria es la de los **pesos** (`memory_allocated` antes y después de cargar), no el
+  pico durante la lectura.
+- En doc01, int4 omite la clave `plazo_dias` en vez de ponerla en `null`. Para el sistema es
+  lo mismo: un campo ausente se lee como vacío.
+- El notebook deja dos avisos que no rompen nada y son los mismos de M3 y M4: falta
+  `HF_TOKEN`, y el reranker jina descarga código remoto antes de caer a bge.
+
+**Decisión:** la demo usa el VLM en **fp16**, porque int4 no cumple la cláusula de **latencia**
+(+40 %, con un máximo de +30 %). `exacto` también sale NO, pero esa cláusula no midió la
+cuantización. Aunque se descarte, el contrato falla igual.
+`AMPARO_VLM=auto` usa fp16 con GPU, e int4 queda disponible pidiéndolo (`AMPARO_VLM=int4`).
+Con S14 y S15, M5 tiene dos técnicas de eficiencia medidas con contrato y tabla
+antes/después, y ninguna se adopta. Lo que cede cada una está medido arriba.
+
+## S15 · Parte B · La app
+
+[`space/app.py`](space/app.py) es el `app.py` del lab con Amparo dentro. La lógica está en
+[`amparo/despliegue.py`](../amparo/despliegue.py), con pruebas en `tests/test_despliegue.py`.
+La misma app corre en el Space de Hugging Face (CPU) y en Kaggle (T4), como recomienda la
+tabla de despliegue de la profe. Cómo configurarla: [`space/README.md`](space/README.md).
+
+| lo que pide la tabla de despliegue | dónde está |
+|---|---|
+| modelos cargados una sola vez al iniciar | `armar_amparo`, arriba de `app.py` |
+| índice precalculado, no al arrancar | `precalcular_indice` (notebook de S15) y `m5/space/indice_m3.npz` (77 fragmentos, e5-base) |
+| `max_pixels` en CPU y aviso "leyendo el documento…" | `config_desde_entorno` y `responder` en `app.py` |
+| caché de Groq de los casos ensayados | la caché en disco del agente, que se guarda tras cada consulta |
+| mensaje claro si la API no responde | `consultar` |
+| health check y un log JSON por consulta | pestaña Estado (`health`) y `peticiones.jsonl` (`registrar`) |
+| versión con tag visible | encabezado y pestaña Estado (`git describe`) |
+| W&B | `wandb.init` si hay `WANDB_API_KEY`; registra latencia, ok, ruta, mecanismo y abstención |
+| Space | **ZeroGPU** en vez de CPU Basic (abajo) |
+| respuesta en lenguaje natural | `redactar_respuesta` y `formatear_para_usuario` (abajo) |
+| claves en Secrets | solo se leen de las variables de entorno |
+
+**Por qué el Space es ZeroGPU y no CPU Basic.** Desde julio de 2026, Hugging Face no deja
+crear Spaces con CPU Basic a las cuentas gratis nuevas: solo ofrece ZeroGPU
+([hilo del foro de Hugging Face](https://discuss.huggingface.co/t/new-free-accounts-cannot-create-cpu-basic-gradio-spaces-only-zerogpu-available/177629)).
+La tabla de despliegue se escribió antes de ese cambio. ZeroGPU es gratis y da GPU, así que
+la foto se lee rápido también en la vitrina. Lo que cambia en la app:
+- la consulta va decorada con `@spaces.GPU`, porque la GPU existe solo ahí;
+- los modelos se cargan al arrancar: el VLM con `.to("cuda")` y sin `device_map`, el
+  codificador y el reranker de M3 precargados;
+- la caché de M3 se recarga de disco en cada consulta, porque la función con GPU corre en
+  otro proceso.
+
+La cuota diaria de GPU es de 2 minutos para visitantes sin sesión y 5 para cuentas gratis.
+La demo en vivo sigue en Kaggle (T4).
+
+**La respuesta en lenguaje natural** (revisión con Tomás). El bloque de cinco líneas es la
+decisión evaluada, pero leído tal cual parece un formulario. Por eso, arriba va un párrafo:
+
+- **Con mecanismo:** lo escribe la capa de redacción de M1 (`finetuning/redaccion.py`), con el
+  mismo prompt y el mismo generador de Groq que se midieron en M1: 109 casos, 0 normas
+  inventadas, dice el mecanismo en el 99 % y la procedencia en el 100 %
+  (`results/m1_redaccion.json`).
+  - Se usa solo si su verificación da `valido`: sin normas que no estén en el bloque, dice el
+    mecanismo y dice la procedencia. Si no, o si Groq falla, va una **plantilla fija** por
+    mecanismo.
+  - Lo medido en M1 no es exactamente lo que corre aquí: allá los bloques venían del modelo
+    de M1; aquí vienen del agente de M3, y no hay condición de cambio de mecanismo. Se
+    presenta como "medida en M1".
+- **Cuando Amparo se abstiene:** plantilla fija que da el motivo y pide los hechos (qué pasó,
+  quién, desde cuándo y qué se quiere lograr). No llama al redactor, porque su prompt lo
+  obliga a nombrar un mecanismo.
+- **En vía ordinaria, el redactor no recibe el derecho ni su artículo.** El extractor a veces
+  lo etiqueta mal (el "petición" de un cobro de arriendos), y en prosa ese error convencería.
+- **La ficha técnica** (las cinco líneas tal cual, la regla, los hechos y las normas) va
+  plegada al final, junto con un aviso de que no reemplaza a un abogado.
+- **Nada de esto cambia la decisión ni lo evaluado.** `formatear()` de M4 queda intacta para
+  el notebook y el plan B de M4.
+- **En ZeroGPU, la redacción va fuera de `@spaces.GPU`,** porque no necesita GPU. El log y
+  W&B registran `redaccion` ("modelo", "plantilla" o "plantilla_abstencion") y si fue
+  válida.
+
+**Una protección que la tabla no pide, pero que el código de M3 obliga.** Cuando Groq falla
+dentro de la extracción de hechos, el agente no lanza el error: sigue con los hechos por
+defecto, y el motor responde tutela. `consultar` lo detecta y muestra el aviso de error en vez
+de esa tutela.

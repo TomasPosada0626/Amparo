@@ -1,0 +1,929 @@
+{
+ "corrida": {
+  "inicio_utc": "2026-11-03T21:52:33+00:00",
+  "codigo": {
+   "commit": "f8c0e6c043bddb8cc2a3858c2f26d7d888cf5c08",
+   "rama": "m5",
+   "describe": "demo-final-7-gf8c0e6c"
+  },
+  "entorno": {
+   "gpu": {
+    "cuda": true,
+    "nombre": "NVIDIA A100-SXM4-40GB",
+    "memoria_gb": 42.4
+   },
+   "versiones": {
+    "torch": "2.11.0+cu130",
+    "transformers": "5.22.0",
+    "peft": "0.21.2",
+    "accelerate": "1.15.0",
+    "datasets": "4.8.5",
+    "groq": "1.7.0",
+    "sentence-transformers": "5.7.0",
+    "scikit-learn": "1.6.1"
+   }
+  },
+  "profesor": "openai/gpt-oss-120b",
+  "estudiante": "Qwen/Qwen2.5-0.5B-Instruct",
+  "carpeta_de_trabajo": "/content/drive/MyDrive/amparo_m5",
+  "fin_utc": "2026-11-03T23:09:38+00:00",
+  "archivos_de_trabajo": {
+   "corrida_m5.json": "97036b23abad4783",
+   "entrenamiento.json": "f87b755f6e4e8d08",
+   "eval_estudiante.json": "5ab72006bd40965c",
+   "eval_estudiante_10.json": "598a8ef13065c8dd",
+   "eval_profesor.json": "cfa792f042c7cfef",
+   "eval_profesor_10.json": "a3577cc6cdfef9be",
+   "pares_profesor.json": "e2f1ad0e02a68964",
+   "relatos_sinteticos.json": "761adf2872931926"
+  }
+ },
+ "contrato": {
+  "componente": "extractor de hechos de M3 (brazo 4: agente gpt-oss-120b por Groq)",
+  "metrica": "acierto juridico del harness de M2 sobre los 130 casos de M3 (eval_set_v3 + eval_set_m3)",
+  "acepto_perder_puntos": 5,
+  "alucinacion_maxima": 0.0,
+  "acepto_perder_puntos_adversarial": 8,
+  "quiero_ganar": "M3 al menos 3x mas rapido (mediana por caso) y el 95 % de los casos en 5 s o menos, sin depender de la API",
+  "quiero_ganar_x": 3.0,
+  "p95_maximo_s": 5.0
+ },
+ "profesor": {
+  "modelo": "openai/gpt-oss-120b",
+  "licencia": "Apache 2.0 (gpt-oss-120b)",
+  "temperatura_relatos": 0.7,
+  "temperatura_respuesta": 0.0,
+  "llamadas_por_caso": 3.93
+ },
+ "estudiante": {
+  "modelo_base": "Qwen/Qwen2.5-0.5B-Instruct",
+  "licencia": "Apache 2.0 (Qwen2.5-0.5B-Instruct)",
+  "lora": {
+   "r": 8,
+   "lora_alpha": 16,
+   "target_modules": [
+    "q_proj",
+    "v_proj"
+   ],
+   "lora_dropout": 0.05,
+   "task_type": "CAUSAL_LM"
+  },
+  "epocas": 3,
+  "lr": 0.0002,
+  "max_len": 727,
+  "n_train": 385,
+  "n_validation": 37,
+  "segundos_entrenamiento": 146.5,
+  "seleccion": {
+   "epocas_configuradas": 3,
+   "curva_eval_loss": [
+    {
+     "epoca": 1.0,
+     "eval_loss": 0.6481
+    },
+    {
+     "epoca": 2.0,
+     "eval_loss": 0.58499
+    },
+    {
+     "epoca": 3.0,
+     "eval_loss": 0.57717
+    }
+   ],
+   "mejor_epoca": 3.0,
+   "mejor_eval_loss": 0.57717,
+   "ultima_epoca": 3.0,
+   "ultima_eval_loss": 0.57717,
+   "las_epocas_sobraban": false,
+   "cargado": "el mejor checkpoint (load_best_model_at_end=True)"
+  },
+  "omitidos": [],
+  "adaptador": "/content/drive/MyDrive/amparo_m5/estudiante_lora"
+ },
+ "eval": {
+  "archivos": [
+   "eval_set_v3.json",
+   "eval_set_m3.json"
+  ],
+  "n": 130
+ },
+ "tabla": [
+  {
+   "acierto_juridico": 0.742,
+   "acc_mecanismo": 0.742,
+   "acierto_gold": 0.667,
+   "acierto_adversarial": 0.881,
+   "acierto_abstencion": 0.6,
+   "abstencion_indebida": 0.008333333333333333,
+   "tasa_alucinacion": 0.0,
+   "s_p50": 6.09,
+   "s_p95": 12.35,
+   "json_invalido": 0,
+   "modelo": "profesor · openai/gpt-oss-120b (agente + reglas)",
+   "parametros": "117 B (5.1 B activos)",
+   "donde_corre": "API de Groq (medido desde NVIDIA A100-SXM4-40GB)",
+   "llamadas_por_caso": 3.93
+  },
+  {
+   "acierto_juridico": 0.45,
+   "acc_mecanismo": 0.45,
+   "acierto_gold": 0.628,
+   "acierto_adversarial": 0.119,
+   "acierto_abstencion": 0.0,
+   "abstencion_indebida": 0.0,
+   "tasa_alucinacion": 0.0,
+   "s_p50": 2.71,
+   "s_p95": 2.96,
+   "json_invalido": 0,
+   "modelo": "estudiante · Qwen/Qwen2.5-0.5B-Instruct + LoRA (+ reglas)",
+   "parametros": "494 M",
+   "donde_corre": "NVIDIA A100-SXM4-40GB",
+   "llamadas_por_caso": 1
+  }
+ ],
+ "veredicto": {
+  "clausulas": {
+   "acierto juridico": {
+    "pedido": "baja <= 5 puntos",
+    "medido": "74.2% -> 45.0% (+29.2 puntos perdidos)",
+    "cumple": false
+   },
+   "alucinacion normativa": {
+    "pedido": "<= 0.0",
+    "medido": "0.0",
+    "cumple": true
+   },
+   "adversariales": {
+    "pedido": "baja <= 8 puntos",
+    "medido": "88.1% -> 11.9% (+76.2 puntos perdidos)",
+    "cumple": false
+   },
+   "velocidad (mediana)": {
+    "pedido": ">= 3x mas rapido",
+    "medido": "6.09 s -> 2.71 s (2.2x)",
+    "cumple": false
+   },
+   "estabilidad (p95)": {
+    "pedido": "p95 <= 5.0 s",
+    "medido": "2.96 s (profesor 12.35 s)",
+    "cumple": true
+   }
+  },
+  "perdio_puntos": 29.2,
+  "perdio_puntos_adversarial": 76.2,
+  "gano_latencia_x": 2.2,
+  "p95_estudiante_s": 2.96,
+  "gano_tamano_x": 237,
+  "alucinacion_estudiante": 0.0,
+  "cumple": false,
+  "si_no_cumple": "lab: suban T (aqui: mas variedad de relatos), mas datos (N_POR_TEMA), o un estudiante mas grande (Qwen2.5-1.5B-Instruct)"
+ },
+ "casos_perdidos": [
+  {
+   "id": "E10",
+   "tipo": "gold",
+   "categoria": "contractual_ordinario",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Compré una nevera en un almacén de cadena y me llegó golpeada. Ya van tres meses de reclamos, me dicen que el proveedor tiene que revisar el caso y nadie me dev"
+  },
+  {
+   "id": "A01",
+   "tipo": "adversarial",
+   "categoria": "indemnizatorio",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "La EPS me tuvo ocho meses esperando una cirugía de rodilla. Ya me la hicieron el mes pasado y salió bien, pero yo perdí el trabajo por las incapacidades y pasé "
+  },
+  {
+   "id": "A03",
+   "tipo": "adversarial",
+   "categoria": "salud_estetica",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Fui a un cirujano plástico particular y me dio una orden para una abdominoplastia porque después de dos embarazos quedé con piel de más y eso me tiene con la au"
+  },
+  {
+   "id": "A04",
+   "tipo": "adversarial",
+   "categoria": "contra_providencia",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "El juez laboral falló en contra mía y le creyó a los testigos de la empresa que claramente estaban mintiendo. Yo apelé y el tribunal confirmó. Esa sentencia es "
+  },
+  {
+   "id": "E16",
+   "tipo": "gold",
+   "categoria": "peticion_sin_respuesta",
+   "gold": "tutela",
+   "estudiante": "via_ordinaria",
+   "relato": "Soy venezolano y radiqué la solicitud del permiso de permanencia en Migración hace once meses. En la página aparece en estudio desde entonces. Sin ese documento"
+  },
+  {
+   "id": "E28",
+   "tipo": "gold",
+   "categoria": "colectivo_moralidad",
+   "gold": "accion_popular",
+   "estudiante": "tutela",
+   "relato": "El municipio contrató la remodelación del parque con una empresa del cuñado del alcalde, sin licitación y por el triple de lo que vale. La obra lleva año y medi"
+  },
+  {
+   "id": "E29",
+   "tipo": "gold",
+   "categoria": "incumplimiento_norma",
+   "gold": "accion_cumplimiento",
+   "estudiante": "tutela",
+   "relato": "Hay un decreto nacional que obliga a todas las alcaldías a tener una oficina de atención a personas con discapacidad. En mi municipio nunca la crearon. No es qu"
+  },
+  {
+   "id": "E31",
+   "tipo": "gold",
+   "categoria": "libertad_personal",
+   "gold": "habeas_corpus",
+   "estudiante": "tutela",
+   "relato": "A mi sobrino lo cogieron el viernes en la tarde en un operativo. Ya es domingo en la noche, van más de 48 horas y no lo han llevado ante ningún juez de control "
+  },
+  {
+   "id": "E32",
+   "tipo": "gold",
+   "categoria": "laboral_ordinario",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "La empresa me debe las primas de dos semestres y las cesantías de tres años. Ya les mandé carta, fui al ministerio de trabajo y nada. Son como quince millones y"
+  },
+  {
+   "id": "E33",
+   "tipo": "gold",
+   "categoria": "acto_administrativo",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "La secretaría de hacienda me liquidó el impuesto predial sobre un avalúo que está inflado, el lote mío no vale ni la mitad de eso. Metí el recurso de reconsider"
+  },
+  {
+   "id": "E34",
+   "tipo": "gold",
+   "categoria": "contractual_ordinario",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Le presté ocho millones a un socio para un negocio y firmamos un pagaré. Se venció hace un año y no me ha pagado un peso. Me cambió el número y se mudó. Yo nece"
+  },
+  {
+   "id": "A05",
+   "tipo": "adversarial",
+   "categoria": "honorarios",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "En mi calidad de apoderado judicial suscribí contrato de prestación de servicios profesionales con una sociedad comercial, pacté honorarios por cuarenta millone"
+  },
+  {
+   "id": "A07",
+   "tipo": "adversarial",
+   "categoria": "dano_consumado",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Mi mamá murió en septiembre esperando una autorización de la EPS que nunca llegó. El médico había dicho que era urgente. Nosotros tenemos todos los papeles y qu"
+  },
+  {
+   "id": "A08",
+   "tipo": "adversarial",
+   "categoria": "peticion_respondida",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Puse un derecho de petición en la EPS pidiendo que me autorizaran un tratamiento en una clínica específica de otra ciudad. Me contestaron a los diez días, con f"
+  },
+  {
+   "id": "A10",
+   "tipo": "adversarial",
+   "categoria": "libertad_personal",
+   "gold": "habeas_corpus",
+   "estudiante": "tutela",
+   "relato": "Mi esposo terminó de pagar la condena el 3 de este mes, nosotros tenemos la boleta y todo. Ya llevamos doce días y no lo sueltan. En la cárcel dicen que falta u"
+  },
+  {
+   "id": "A12",
+   "tipo": "adversarial",
+   "categoria": "inmediatez",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "En 2019 a mi hijo lo echaron del colegio sin ningún proceso, injustamente. Él ya terminó el bachillerato en otro lado y está en la universidad, pero yo quiero p"
+  },
+  {
+   "id": "E35",
+   "tipo": "gold",
+   "categoria": "hc_traslado_por_proteccion_prolongado",
+   "gold": "habeas_corpus",
+   "estudiante": "tutela",
+   "relato": "A mi hijo lo subieron a una patrulla el sábado en la noche a la salida de un bar, dijeron que era un traslado por protección porque estaba tomado. Ya es lunes e"
+  },
+  {
+   "id": "E36",
+   "tipo": "gold",
+   "categoria": "hc_medida_seguridad_vencida",
+   "gold": "habeas_corpus",
+   "estudiante": "tutela",
+   "relato": "A mi hermano el juez le impuso una medida de seguridad en un hospital psiquiátrico por dos años, en un proceso en el que lo declararon inimputable. Los dos años"
+  },
+  {
+   "id": "E38",
+   "tipo": "gold",
+   "categoria": "hc_retencion_por_multa",
+   "gold": "habeas_corpus",
+   "estudiante": "tutela",
+   "relato": "Mi primo cumplió los catorce meses de la condena el 28 del mes pasado. No lo sueltan porque dicen que debe la multa que le pusieron en la sentencia y que hasta "
+  },
+  {
+   "id": "A13",
+   "tipo": "adversarial",
+   "categoria": "hc_menor_en_establecimiento_adultos",
+   "gold": "habeas_corpus",
+   "estudiante": "tutela",
+   "relato": "Mi hijo tiene 17 años y lo tienen en el patio de adultos de la cárcel del municipio desde hace nueve días, por un proceso que debería ir al sistema de responsab"
+  },
+  {
+   "id": "A14",
+   "tipo": "adversarial",
+   "categoria": "hc_internamiento_involuntario_particular",
+   "gold": "habeas_corpus",
+   "estudiante": "tutela",
+   "relato": "Mi hermana mayor internó a mi mamá en una clínica de reposo y no la deja salir ni recibir visitas. Mi mamá está lúcida, nos llamó a escondidas pidiendo que la s"
+  },
+  {
+   "id": "E39",
+   "tipo": "gold",
+   "categoria": "ac_comisaria_de_familia",
+   "gold": "accion_cumplimiento",
+   "estudiante": "tutela",
+   "relato": "La ley dice que todo municipio debe tener comisaría de familia. El mío no tiene y a la gente le toca irse hasta la cabecera, a dos horas. No es que a mí me haya"
+  },
+  {
+   "id": "E40",
+   "tipo": "gold",
+   "categoria": "ac_plan_gestion_riesgo",
+   "gold": "accion_cumplimiento",
+   "estudiante": "tutela",
+   "relato": "Hay una ley que obliga a cada municipio a adoptar su plan de gestión del riesgo de desastres y a tener el consejo municipal funcionando. En el mío nunca se adop"
+  },
+  {
+   "id": "E42",
+   "tipo": "gold",
+   "categoria": "ac_acuerdo_sin_reglamentar",
+   "gold": "accion_cumplimiento",
+   "estudiante": "tutela",
+   "relato": "El concejo aprobó hace dos años un acuerdo que creó el programa de apoyo a la primera infancia y le dio a la alcaldía seis meses para reglamentarlo por decreto."
+  },
+  {
+   "id": "A15",
+   "tipo": "adversarial",
+   "categoria": "ac_tarifa_adulto_mayor",
+   "gold": "accion_cumplimiento",
+   "estudiante": "tutela",
+   "relato": "Una ordenanza del departamento ordena que el transporte intermunicipal dé tarifa preferencial a los adultos mayores. Ninguna empresa la aplica y la secretaría d"
+  },
+  {
+   "id": "E43",
+   "tipo": "gold",
+   "categoria": "ap_humedal_rellenado",
+   "gold": "accion_popular",
+   "estudiante": "tutela",
+   "relato": "Están metiendo volquetadas de tierra al humedal que queda al borde del barrio para urbanizarlo. Ese humedal es área protegida, ahí anidan los patos y es lo que "
+  },
+  {
+   "id": "E44",
+   "tipo": "gold",
+   "categoria": "ap_vertimiento_zona_banio",
+   "gold": "accion_popular",
+   "estudiante": "tutela",
+   "relato": "El emisario del alcantarillado descarga a doscientos metros de la playa donde se baña todo el mundo, incluidos los niños. El agua sale con espuma y ya hubo dos "
+  },
+  {
+   "id": "E45",
+   "tipo": "gold",
+   "categoria": "ap_predio_publico_cedido",
+   "gold": "accion_popular",
+   "estudiante": "tutela",
+   "relato": "El municipio le entregó a una fundación privada, por cuarenta años y sin ningún proceso, el lote donde estaba la cancha del barrio. Ya la cerraron con reja y co"
+  },
+  {
+   "id": "A17",
+   "tipo": "adversarial",
+   "categoria": "ap_colectivo_con_afectado_sin_perjuicio",
+   "gold": "accion_popular",
+   "estudiante": "tutela",
+   "relato": "La tubería madre del acueducto está rota debajo de la calle y lleva ocho meses botando agua. Toda la cuadra está sin presión y a mí además se me humedeció la pa"
+  },
+  {
+   "id": "A18",
+   "tipo": "adversarial",
+   "categoria": "ap_moralidad_sobrecosto",
+   "gold": "accion_popular",
+   "estudiante": "tutela",
+   "relato": "La empresa de servicios del municipio compró los medidores a cuatro veces el precio del mercado, está en la factura publicada. Eso lo vamos a pagar todos en la "
+  },
+  {
+   "id": "AB51",
+   "tipo": "abstencion",
+   "categoria": "ab_consulta_comercial",
+   "gold": null,
+   "estudiante": "tutela",
+   "relato": "Tengo ahorrados veinte millones y estoy entre meterlos a un CDT o comprar dólares. ¿Qué me rinde más este año?"
+  },
+  {
+   "id": "AB52",
+   "tipo": "abstencion",
+   "categoria": "ab_pregunta_academica",
+   "gold": null,
+   "estudiante": "tutela",
+   "relato": "Estoy preparando el examen de judicatura y necesito que me explique cuál es la diferencia entre el control de constitucionalidad abstracto y el concreto, con ej"
+  },
+  {
+   "id": "AB53",
+   "tipo": "abstencion",
+   "categoria": "ab_hechos_insuficientes",
+   "gold": null,
+   "estudiante": "tutela",
+   "relato": "Me pasó algo con una entidad del Estado y quiero poner una acción. Todavía no tengo los papeles a mano y no me acuerdo bien de las fechas, pero quiero ir adelan"
+  },
+  {
+   "id": "AB54",
+   "tipo": "abstencion",
+   "categoria": "ab_materia_no_cubierta",
+   "gold": null,
+   "estudiante": "tutela",
+   "relato": "Mi empresa importa repuestos y la DIAN nos abrió una investigación por la clasificación arancelaria de unas partidas. Queremos saber cómo se discute eso y qué t"
+  },
+  {
+   "id": "A19",
+   "tipo": "adversarial",
+   "categoria": "mv_salarios_proceso_laboral",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "La empresa donde trabajé me quedó debiendo tres meses de sueldo. Ya conseguí otro empleo y estoy al día con mis cosas, pero quiero que me paguen lo que me deben"
+  },
+  {
+   "id": "A20",
+   "tipo": "adversarial",
+   "categoria": "mv_cesantias_retenidas",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Renuncié hace cinco meses y el empleador no ha consignado mis cesantías en el fondo. Las quiero para terminar el estudio de mi hija el año entrante. Tengo traba"
+  },
+  {
+   "id": "A22",
+   "tipo": "adversarial",
+   "categoria": "mv_factura_contratista",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Soy contratista independiente y le hice una obra a una constructora. Me firmaron el acta pero no me han pagado la última factura, que son ocho millones. Vivo de"
+  },
+  {
+   "id": "A23",
+   "tipo": "adversarial",
+   "categoria": "tr_despido_sin_justa_causa",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Me despidieron de un día para otro después de seis años en la empresa. Me dieron la liquidación pero no me dijeron ninguna razón. Quiero que me reintegren porqu"
+  },
+  {
+   "id": "A24",
+   "tipo": "adversarial",
+   "categoria": "tr_horas_extras_no_pagadas",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Llevo dos años trabajando turnos de doce horas y nunca me han pagado las extras ni los dominicales. Tengo las planillas de entrada y salida firmadas por el supe"
+  },
+  {
+   "id": "A25",
+   "tipo": "adversarial",
+   "categoria": "tr_contrato_realidad",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Durante cuatro años me hicieron firmar contratos de prestación de servicios pero yo cumplía horario, tenía jefe y usaba el uniforme de la entidad. Quiero que re"
+  },
+  {
+   "id": "A26",
+   "tipo": "adversarial",
+   "categoria": "tr_vacaciones_no_concedidas",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Tengo acumuladas las vacaciones de tres años y cada vez que las pido me dicen que no hay quién me reemplace. Nunca me las han negado por escrito, simplemente la"
+  },
+  {
+   "id": "A27",
+   "tipo": "adversarial",
+   "categoria": "tr_acoso_laboral_sin_agotar_comite",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Mi jefe me grita delante de los compañeros y me cambió de puesto a uno sin funciones claras. En la empresa hay comité de convivencia pero no he puesto la queja "
+  },
+  {
+   "id": "A28",
+   "tipo": "adversarial",
+   "categoria": "tr_reintegro_tras_renuncia",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Renuncié porque el ambiente estaba muy pesado, pero firmé la carta el mismo día que me la pidieron y no me dejaron pensarlo. Ahora quiero volver a mi puesto por"
+  },
+  {
+   "id": "A29",
+   "tipo": "adversarial",
+   "categoria": "educacion_cartera_universidad_privada",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Estudio en una universidad privada y quedé debiendo media matrícula del semestre pasado. No me dejan inscribir materias hasta que pague. Yo firmé un acuerdo de "
+  },
+  {
+   "id": "A31",
+   "tipo": "adversarial",
+   "categoria": "ss_reliquidacion_pensional",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Me pensionaron hace tres años pero creo que me liquidaron mal la mesada porque no tuvieron en cuenta unas primas. Cobro cumplidamente todos los meses. Quiero qu"
+  },
+  {
+   "id": "A32",
+   "tipo": "adversarial",
+   "categoria": "ss_traslado_de_regimen",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Quiero devolverme del fondo privado a Colpensiones porque me conviene más, pero me dicen que ya no puedo porque me faltan menos de diez años para la edad de pen"
+  },
+  {
+   "id": "A33",
+   "tipo": "adversarial",
+   "categoria": "elr_despido_con_autorizacion",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Me despidieron y yo tengo una discapacidad auditiva certificada. Pero la empresa pidió permiso al inspector de trabajo, el inspector lo autorizó porque hubo cie"
+  },
+  {
+   "id": "A34",
+   "tipo": "adversarial",
+   "categoria": "elr_prepensionado_sin_condicion_de_salud",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Me faltan dos años para pensionarme y me despidieron sin justa causa. Estoy sano, nunca he tenido incapacidades. Dicen que me pagan la indemnización completa, p"
+  },
+  {
+   "id": "A35",
+   "tipo": "adversarial",
+   "categoria": "hd_reporte_veraz_vigente",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Aparezco reportado en las centrales por un crédito que efectivamente no he pagado. Sí me notificaron antes de reportarme. Pero el reporte me está cerrando puert"
+  },
+  {
+   "id": "A36",
+   "tipo": "adversarial",
+   "categoria": "hd_rectificacion_en_tramite",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Radiqué hace cuatro días un reclamo en la central de riesgo para que corrijan mi segundo apellido, que está mal escrito. Todavía no me contestan. Quiero que un "
+  },
+  {
+   "id": "A37",
+   "tipo": "adversarial",
+   "categoria": "dp_recursos_sin_agotar",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Una entidad me negó un permiso. Me notificaron bien, en mi casa, y me dijeron que tenía diez días para el recurso de reposición. No lo puse porque me pareció qu"
+  },
+  {
+   "id": "A38",
+   "tipo": "adversarial",
+   "categoria": "dp_desacuerdo_con_la_prueba",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "En un proceso civil el juez le creyó al testigo de la otra parte y no al mío. A mí me citaron, fui, presenté mis pruebas y me dejaron alegar. Pero la sentencia "
+  },
+  {
+   "id": "A39",
+   "tipo": "adversarial",
+   "categoria": "peticion_dentro_del_termino",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Radiqué una petición hace seis días hábiles pidiendo copias de un expediente. Todavía no me responden y necesito esas copias. Quiero que un juez les ordene cont"
+  },
+  {
+   "id": "M04",
+   "tipo": "gold",
+   "categoria": "acto_particular_nyr",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "La entidad me negó por resolución el reconocimiento de una prima que creo que me corresponde. Metí los recursos y me los negaron todos. Tengo mi sueldo y puedo "
+  },
+  {
+   "id": "M05",
+   "tipo": "gold",
+   "categoria": "alimentos_via_propia",
+   "gold": "via_ordinaria",
+   "estudiante": "tutela",
+   "relato": "Necesito que le fijen una cuota de alimentos al papá de mis hijos, de 4 y 7 años. Él trabaja y tiene con qué, pero nunca hemos tenido nada por escrito y no quie"
+  },
+  {
+   "id": "M07",
+   "tipo": "gold",
+   "categoria": "colectivo_servicios_publicos",
+   "gold": "accion_popular",
+   "estudiante": "tutela",
+   "relato": "En mi barrio el agua llega dos horas al día y hay días que no llega. Somos como trescientas casas en la misma situación y la empresa dice que es por la presión "
+  },
+  {
+   "id": "M08",
+   "tipo": "gold",
+   "categoria": "libertad_prolongacion",
+   "gold": "habeas_corpus",
+   "estudiante": "tutela",
+   "relato": "A mi hijo le dieron casa por cárcel el mes pasado por decisión del juez, pero el INPEC no lo ha trasladado y sigue en el pabellón. Ya van treinta y un días desd"
+  },
+  {
+   "id": "M11",
+   "tipo": "abstencion",
+   "categoria": "fuera_de_dominio",
+   "gold": null,
+   "estudiante": "tutela",
+   "relato": "Quiero saber si me conviene vender el carro ahora que subió el dólar o esperar a que baje el precio de los usados el año entrante. Es un Renault de 2018 con set"
+  },
+  {
+   "id": "M12",
+   "tipo": "abstencion",
+   "categoria": "hechos_insuficientes",
+   "gold": null,
+   "estudiante": "tutela",
+   "relato": "Tengo un problema con una entidad desde hace rato y no sé qué hacer. Ya fui varias veces y no me resuelven nada. Dígame usted qué me conviene hacer para que me "
+  },
+  {
+   "id": "MT04",
+   "tipo": "gold",
+   "categoria": "termino_renuencia_cumplimiento",
+   "gold": "accion_cumplimiento",
+   "estudiante": "tutela",
+   "relato": "El 5 de septiembre de 2026 le pedí por escrito al municipio que cumpliera el acuerdo del concejo que ordena publicar el inventario de bienes públicos. No es que"
+  }
+ ],
+ "latencias": {
+  "profesor": [
+   8.434,
+   4.448,
+   9.435,
+   8.447,
+   5.677,
+   5.178,
+   4.117,
+   5.263,
+   9.214,
+   7.208,
+   8.233,
+   10.335,
+   5.39,
+   3.88,
+   6.016,
+   4.885,
+   5.698,
+   6.379,
+   8.828,
+   9.318,
+   6.251,
+   7.092,
+   4.119,
+   6.036,
+   10.297,
+   10.184,
+   4.793,
+   7.86,
+   9.109,
+   12.984,
+   6.086,
+   5.82,
+   10.033,
+   10.566,
+   7.512,
+   12.536,
+   3.959,
+   4.499,
+   4.948,
+   7.216,
+   4.472,
+   5.341,
+   7.501,
+   4.56,
+   6.609,
+   7.377,
+   4.922,
+   12.265,
+   6.224,
+   5.491,
+   12.351,
+   4.739,
+   4.294,
+   11.163,
+   5.729,
+   6.053,
+   4.597,
+   4.108,
+   9.633,
+   5.247,
+   10.691,
+   9.168,
+   8.142,
+   1.948,
+   3.923,
+   3.107,
+   5.688,
+   13.172,
+   3.414,
+   6.639,
+   6.089,
+   4.978,
+   5.577,
+   6.82,
+   7.706,
+   7.194,
+   6.579,
+   7.321,
+   3.341,
+   12.868,
+   3.222,
+   5.099,
+   9.037,
+   5.393,
+   4.766,
+   3.862,
+   2.961,
+   8.28,
+   5.814,
+   8.972,
+   4.024,
+   3.786,
+   6.445,
+   7.702,
+   12.932,
+   6.532,
+   5.694,
+   7.952,
+   8.786,
+   5.961,
+   5.771,
+   8.497,
+   8.195,
+   11.27,
+   4.616,
+   3.581,
+   8.347,
+   7.062,
+   8.405,
+   5.098,
+   6.088,
+   7.541,
+   3.888,
+   2.974,
+   5.66,
+   4.699,
+   6.796,
+   4.087,
+   10.546,
+   1.789,
+   3.323,
+   13.112,
+   4.307,
+   6.852,
+   6.147,
+   6.69,
+   5.118,
+   6.728,
+   5.35,
+   6.904
+  ],
+  "estudiante": [
+   2.758,
+   2.727,
+   2.941,
+   2.43,
+   2.993,
+   2.836,
+   2.725,
+   2.83,
+   2.714,
+   2.586,
+   2.304,
+   2.428,
+   2.681,
+   2.926,
+   2.681,
+   2.72,
+   2.751,
+   2.565,
+   2.766,
+   1.964,
+   2.341,
+   2.715,
+   2.738,
+   2.766,
+   2.693,
+   2.694,
+   2.638,
+   2.585,
+   2.629,
+   2.644,
+   2.745,
+   2.629,
+   2.958,
+   2.733,
+   2.616,
+   2.711,
+   2.724,
+   2.674,
+   2.738,
+   2.872,
+   2.797,
+   2.718,
+   2.953,
+   2.532,
+   2.519,
+   2.759,
+   2.51,
+   2.749,
+   2.742,
+   2.709,
+   2.652,
+   2.74,
+   2.748,
+   2.861,
+   2.737,
+   2.574,
+   2.91,
+   2.766,
+   2.857,
+   2.924,
+   2.659,
+   2.742,
+   2.775,
+   2.446,
+   3.11,
+   2.429,
+   2.999,
+   2.707,
+   2.475,
+   2.331,
+   2.418,
+   2.916,
+   2.61,
+   2.748,
+   2.77,
+   3.015,
+   2.459,
+   2.629,
+   2.899,
+   2.965,
+   2.716,
+   2.371,
+   2.717,
+   2.813,
+   2.56,
+   3.068,
+   2.731,
+   2.499,
+   2.736,
+   2.647,
+   2.7,
+   2.792,
+   2.516,
+   2.552,
+   2.38,
+   2.611,
+   2.747,
+   2.68,
+   2.662,
+   2.744,
+   2.78,
+   2.817,
+   2.634,
+   2.612,
+   2.664,
+   2.625,
+   2.746,
+   2.543,
+   2.667,
+   2.577,
+   2.817,
+   2.865,
+   2.688,
+   2.566,
+   3.002,
+   2.752,
+   2.671,
+   2.793,
+   2.807,
+   2.514,
+   2.285,
+   2.934,
+   2.503,
+   2.918,
+   2.651,
+   2.608,
+   2.673,
+   2.704,
+   2.528,
+   2.404
+  ]
+ }
+}
